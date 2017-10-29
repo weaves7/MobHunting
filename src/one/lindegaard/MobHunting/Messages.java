@@ -38,6 +38,7 @@ import one.lindegaard.MobHunting.compatibility.TitleAPICompat;
 import one.lindegaard.MobHunting.compatibility.TitleManagerCompat;
 import one.lindegaard.MobHunting.mobs.ExtendedMob;
 import one.lindegaard.MobHunting.mobs.MobPlugin;
+import one.lindegaard.MobHunting.util.Misc;
 
 public class Messages {
 
@@ -419,7 +420,7 @@ public class Messages {
 	public void broadcast(String message, Player except) {
 		if (isEmpty(message))
 			return;
-		Iterator<Player> players = MobHunting.getMobHuntingManager().getOnlinePlayers().iterator();
+		Iterator<Player> players = Misc.getOnlinePlayers().iterator();
 		while (players.hasNext()) {
 			Player player = players.next();
 			if (player.equals(except) || plugin.getPlayerSettingsmanager().getPlayerSettings(player).isMuted())

@@ -26,11 +26,11 @@ public class PlayerSettings {
 
 	}
 
-	public PlayerSettings(OfflinePlayer player) {
+	public PlayerSettings(OfflinePlayer player, double balance) {
 		this.player = player;
 		this.setLearningMode(MobHunting.getConfigManager().learningMode);
 		this.setMuteMode(false);
-		this.setBalance(MobHunting.getConfigManager().startingBalance);
+		this.setBalance(balance);
 		this.setBalanceChanges(0);
 		this.setBankBalance(0);
 		this.setBankBalanceChanges(0);

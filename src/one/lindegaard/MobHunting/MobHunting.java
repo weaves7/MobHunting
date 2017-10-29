@@ -295,10 +295,10 @@ public class MobHunting extends JavaPlugin {
 		}, 20 * 5);
 
 		// Handle online players when server admin do a /reload or /mh reload
-		if (mMobHuntingManager.getOnlinePlayersAmount() > 0) {
+		if (Misc.getOnlinePlayersAmount() > 0) {
 			Messages.debug("Reloading %s player settings from the database",
-					mMobHuntingManager.getOnlinePlayersAmount());
-			for (Player player : mMobHuntingManager.getOnlinePlayers()) {
+					Misc.getOnlinePlayersAmount());
+			for (Player player : Misc.getOnlinePlayers()) {
 				mPlayerSettingsManager.load(player);
 				mAchievementManager.load(player);
 				if (!mConfig.disablePlayerBounties)

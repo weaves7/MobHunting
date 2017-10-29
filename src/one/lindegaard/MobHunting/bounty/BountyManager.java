@@ -456,9 +456,9 @@ public class BountyManager implements Listener {
 		boolean createBounty = MobHunting.getMobHuntingManager().mRand
 				.nextDouble() <= MobHunting.getConfigManager().chanceToCreateBounty;
 		if (createBounty) {
-			int noOfPlayers = MobHunting.getMobHuntingManager().getOnlinePlayersAmount();
+			int noOfPlayers = Misc.getOnlinePlayersAmount();
 			int noOfPlayersNotVanished = noOfPlayers;
-			for (Player player : MobHunting.getMobHuntingManager().getOnlinePlayers()) {
+			for (Player player : Misc.getOnlinePlayers()) {
 				if (EssentialsCompat.isVanishedModeEnabled(player) || VanishNoPacketCompat.isVanishedModeEnabled(player)
 						|| player.hasPermission("mobhunting.bounty.randombounty.exempt"))
 					noOfPlayersNotVanished--;
@@ -468,7 +468,7 @@ public class BountyManager implements Listener {
 
 				int random = MobHunting.getMobHuntingManager().mRand.nextInt(noOfPlayersNotVanished);
 				int n = 0;
-				for (Player player : MobHunting.getMobHuntingManager().getOnlinePlayers()) {
+				for (Player player : Misc.getOnlinePlayers()) {
 					if (n == random && !EssentialsCompat.isVanishedModeEnabled(player)
 							&& !VanishNoPacketCompat.isVanishedModeEnabled(player)
 							&& !player.hasPermission("mobhunting.bounty.randombounty.exempt")) {
@@ -483,7 +483,7 @@ public class BountyManager implements Listener {
 							plugin.getRewardManager().getRandomPrice(MobHunting.getConfigManager().randomBounty)),
 							"Random Bounty");
 					save(randomBounty);
-					for (Player player : MobHunting.getMobHuntingManager().getOnlinePlayers()) {
+					for (Player player : Misc.getOnlinePlayers()) {
 						if (player.getName().equals(randomPlayer.getName()))
 							plugin.getMessages().playerSendMessage(player,
 									Messages.getString("mobhunting.bounty.randombounty.self", "prize",

@@ -157,7 +157,7 @@ public class MoneyCommand implements ICommand {
 					}
 				}
 
-				double balance = plugin.getPlayerSettingsmanager().getBalance(offlinePlayer);
+				double balance = plugin.getRewardManager().getBalance(offlinePlayer);
 
 				if (other)
 					plugin.getMessages().senderSendMessage(sender,

@@ -2231,6 +2231,10 @@ public class ConfigManager extends AutoConfig {
 	// #####################################################################################
 	// Economy settings
 	// #####################################################################################
+	@ConfigField(name = "enable-bagofgold-as-economy-plugin", category = "economy", 
+			comment = "Set this to true if you want to use BagOfGold as an Economy plugin like Essentials.\n"
+					+ "If Essentials is installed on your server BagOfGold will take precedence.")
+	public boolean enableBagOfGoldAsEconomyPlugin = false;
 	@ConfigField(name = "starting_balance", category = "economy", comment = "Set initial balance for new players.")
 	public double startingBalance = 3000;
 

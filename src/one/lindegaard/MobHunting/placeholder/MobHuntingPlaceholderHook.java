@@ -20,7 +20,7 @@ public class MobHuntingPlaceholderHook extends EZPlaceholderHook implements List
 
 		// Remember to update the documentation when adding new placeholders
 		// https://www.spigotmc.org/wiki/mobhunting-placeholders/
-		
+
 		// placeholder: %mobhunting_ping%
 		if (identifier.equals("ping")) {
 			return "pong";
@@ -63,7 +63,7 @@ public class MobHuntingPlaceholderHook extends EZPlaceholderHook implements List
 
 		// placeholder: %mobhunting_balance%
 		if (identifier.equals("balance")) {
-			return String.valueOf(MobHunting.getInstance().getPlayerSettingsmanager().getBalance(player));
+			return String.valueOf(MobHunting.getInstance().getRewardManager().getBalance(player));
 		}
 
 		// anything else someone types is invalid because we never defined

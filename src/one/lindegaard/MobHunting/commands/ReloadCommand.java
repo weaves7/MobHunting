@@ -13,6 +13,7 @@ import one.lindegaard.MobHunting.compatibility.CustomMobsCompat;
 import one.lindegaard.MobHunting.compatibility.MysteriousHalloweenCompat;
 import one.lindegaard.MobHunting.compatibility.MythicMobsCompat;
 import one.lindegaard.MobHunting.compatibility.TARDISWeepingAngelsCompat;
+import one.lindegaard.MobHunting.util.Misc;
 
 public class ReloadCommand implements ICommand {
 
@@ -72,18 +73,18 @@ public class ReloadCommand implements ICommand {
 		}
 
 		if (MobHunting.getConfigManager().loadConfig()) {
-			int n = MobHunting.getMobHuntingManager().getOnlinePlayersAmount();
+			int n = Misc.getOnlinePlayersAmount();
 			if (n > 0) {
 				Messages.debug("Reloading %s online playerSettings from the database", n);
 				// reload player settings
-				for (Player player : MobHunting.getMobHuntingManager().getOnlinePlayers())
+				for (Player player : Misc.getOnlinePlayers())
 					plugin.getPlayerSettingsmanager().load(player);
 				// reload bounties
 				if (!MobHunting.getConfigManager().disablePlayerBounties)
-					for (Player player : MobHunting.getMobHuntingManager().getOnlinePlayers())
+					for (Player player : Misc.getOnlinePlayers())
 						plugin.getBountyManager().load(player);
 				// reload achievements
-				for (Player player : MobHunting.getMobHuntingManager().getOnlinePlayers())
+				for (Player player : Misc.getOnlinePlayers())
 					MobHunting.getAchievementManager().load(player);
 			}
 

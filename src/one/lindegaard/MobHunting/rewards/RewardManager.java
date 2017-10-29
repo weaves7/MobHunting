@@ -97,6 +97,7 @@ import one.lindegaard.MobHunting.compatibility.SmartGiantsCompat;
 import one.lindegaard.MobHunting.compatibility.TARDISWeepingAngelsCompat;
 import one.lindegaard.MobHunting.mobs.ExtendedMobManager;
 import one.lindegaard.MobHunting.mobs.MinecraftMob;
+import one.lindegaard.MobHunting.storage.PlayerSettings;
 import one.lindegaard.MobHunting.util.Misc;
 
 @SuppressWarnings("deprecation")
@@ -198,7 +199,53 @@ public class RewardManager implements Listener {
 	}
 
 	public double getBalance(OfflinePlayer offlinePlayer) {
-		return mEconomy.getBalance(offlinePlayer);
+
+		PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(offlinePlayer);
+
+		if (plugin.getConfigManager().enableBagOfGoldAsEconomyPlugin) {
+
+			if (offlinePlayer.isOnline()) {
+				Player player = (Player) offlinePlayer;
+				double sum = 0;
+				for (int slot = 0; slot < player.getInventory().getSize(); slot++) {
+					ItemStack is = player.getInventory().getItem(slot);
+					if (Reward.isReward(is)) {
+						Reward reward = Reward.getReward(is);
+						if (reward.isBagOfGoldReward())
+							sum = sum + reward.getMoney();
+					}
+				}
+				if (ps.getBalance() + ps.getBalanceChanges() != sum) {
+					if (ps.getBalanceChanges() == 0) {
+						Messages.debug("Warning %s has a player balance problem (%s,%s). Adjusting balance to %s",
+								offlinePlayer.getName(), ps.getBalance(), sum, sum);
+						ps.setBalance(sum);
+						ps.setBankBalanceChanges(0);
+						plugin.getPlayerSettingsmanager().setPlayerSettings(player, ps);
+						MobHunting.getDataStoreManager().updatePlayerSettings(player, ps.isLearningMode(), ps.isMuted(),
+								ps.getBalance(), ps.getBalanceChanges(), ps.getBankBalance(),
+								ps.getBankBalanceChanges());
+					} else {
+						Messages.debug(
+								"Warning %s has a player balance changes while offline (%s+%s). Adjusting balance to %s",
+								offlinePlayer.getName(), ps.getBalance(), ps.getBalanceChanges(),
+								ps.getBalance() + ps.getBalanceChanges());
+						double taken = plugin.getRewardManager().adjustBagOfGoldInPlayerInventory(player,
+								ps.getBalanceChanges());
+						ps.setBalanceChanges(ps.getBalanceChanges() + taken);
+						ps.setBalance(ps.getBalance() + ps.getBalanceChanges());
+						plugin.getPlayerSettingsmanager().setPlayerSettings(player, ps);
+						MobHunting.getDataStoreManager().updatePlayerSettings(player, ps.isLearningMode(), ps.isMuted(),
+								ps.getBalance(), ps.getBalanceChanges(), ps.getBankBalance(),
+								ps.getBankBalanceChanges());
+					}
+				}
+			}
+			return ps.getBalance() + ps.getBalanceChanges();
+
+		} else {
+			return mEconomy.getBalance(offlinePlayer);
+		}
 	}
 
 	public boolean has(OfflinePlayer offlinePlayer, double amount) {

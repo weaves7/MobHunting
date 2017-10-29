@@ -1,5 +1,9 @@
 package one.lindegaard.MobHunting.util;
 
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -8,11 +12,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.Server;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.BlockIterator;
 
+import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 public class Misc {
@@ -155,7 +161,7 @@ public class Misc {
 	}
 
 	public static Player getOnlinePlayer(OfflinePlayer offlinePlayer) {
-		for (Player player : MobHunting.getMobHuntingManager().getOnlinePlayers()) {
+		for (Player player : getOnlinePlayers()) {
 			if (player.getName().equals(offlinePlayer.getName()))
 				return player;
 		}
@@ -193,5 +199,51 @@ public class Misc {
 		}
 		return lastBlock;
 	}
+	
+	/**
+	 * Gets the online player (backwards compatibility)
+	 *
+	 * @return number of players online
+	 */
+	public static int getOnlinePlayersAmount() {
+		try {
+			Method method = Server.class.getMethod("getOnlinePlayers");
+			if (method.getReturnType().equals(Collection.class)) {
+				return ((Collection<?>) method.invoke(Bukkit.getServer())).size();
+			} else {
+				return ((Player[]) method.invoke(Bukkit.getServer())).length;
+			}
+		} catch (Exception ex) {
+			Messages.debug(ex.getMessage());
+		}
+		return 0;
+	}
+
+	/**
+	 * Gets the online player (for backwards compatibility)
+	 *
+	 * @return all online players as a Java Collection, if return type of
+	 *         Bukkit.getOnlinePlayers() is Player[] it will be converted to a
+	 *         Collection.
+	 */
+	@SuppressWarnings({ "unchecked" })
+	public static Collection<Player> getOnlinePlayers() {
+		Method method;
+		try {
+			method = Bukkit.class.getDeclaredMethod("getOnlinePlayers");
+			Object players = method.invoke(null);
+			Collection<Player> newPlayers;
+			if (players instanceof Player[])
+				newPlayers = Arrays.asList((Player[]) players);
+			else
+				newPlayers = (Collection<Player>) players;
+			return newPlayers;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return Collections.emptyList();
+	}
+
+	
 
 }

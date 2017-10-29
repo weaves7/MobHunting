@@ -2,6 +2,7 @@ package one.lindegaard.MobHunting.economy;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -12,6 +13,7 @@ import org.bukkit.entity.Player;
 
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
+import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.storage.PlayerSettings;
 import one.lindegaard.MobHunting.util.Misc;
@@ -25,88 +27,114 @@ public class BagOfGoldEconomy implements Economy {
 	}
 
 	/**
-	 * Returns the amount the bank has
+	 * Checks if economy method is enabled.
 	 * 
-	 * @param name
-	 *            of the account
-	 * @return EconomyResponse Object
+	 * @return Success or Failure
 	 */
 	@Override
-	public EconomyResponse bankBalance(String name) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean isEnabled() {
+		return MobHunting.getConfigManager().enableBagOfGoldAsEconomyPlugin;
 	}
 
 	/**
-	 * Deposit an amount into a bank account - DO NOT USE NEGATIVE AMOUNTS
+	 * Gets name of economy method
 	 * 
-	 * @param name
-	 *            of the account
-	 * @param amount
-	 *            to deposit
-	 * @return EconomyResponse Object
+	 * @return Name of Economy Method
 	 */
 	@Override
-	public EconomyResponse bankDeposit(String arg0, double arg1) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getName() {
+		return "BagOfGold";
 	}
 
 	/**
-	 * Returns true or false whether the bank has the amount specified - DO NOT
-	 * USE NEGATIVE AMOUNTS
+	 * Some economy plugins round off after a certain number of digits. This
+	 * function returns the number of digits the plugin keeps or -1 if no
+	 * rounding occurs.
 	 * 
-	 * @param name
-	 *            of the account
-	 * @param amount
-	 *            to check for
-	 * @return EconomyResponse Object
+	 * @return number of digits after the decimal point kept
 	 */
 	@Override
-	public EconomyResponse bankHas(String name, double amount) {
-		// TODO Auto-generated method stub
-		return null;
+	public int fractionalDigits() {
+		return 5;
 	}
 
 	/**
-	 * Withdraw an amount from a bank account - DO NOT USE NEGATIVE AMOUNTS
-	 * 
-	 * @param name
-	 *            of the account
+	 * Format amount into a human readable String This provides translation into
+	 * economy specific formatting to improve consistency between plugins.
+	 *
 	 * @param amount
-	 *            to withdraw
-	 * @return EconomyResponse Object
+	 *            to format
+	 * @return Human readable string describing amount
 	 */
 	@Override
-	public EconomyResponse bankWithdraw(String name, double amount) {
-		// TODO Auto-generated method stub
-		return null;
+	public String format(double money) {
+		Locale locale = new Locale("en", "UK");
+		String pattern = "#.#####";
+		DecimalFormat decimalFormat = (DecimalFormat) NumberFormat.getNumberInstance(locale);
+		decimalFormat.applyPattern(pattern);
+		return ChatColor.valueOf(MobHunting.getConfigManager().dropMoneyOnGroundTextColor)
+				+ (MobHunting.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
+						? decimalFormat.format(money)
+						: MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName + " ("
+								+ decimalFormat.format(money) + ")");
+	}
+
+	/**
+	 * @deprecated As of VaultAPI 1.4 use {@link #getBalance(OfflinePlayer)}
+	 *             instead.
+	 */
+	@Override
+	public double getBalance(String playername) {
+		return getBalance(Bukkit.getOfflinePlayer(playername));
+	}
+
+	/**
+	 * Gets balance of a player
+	 * 
+	 * @param player
+	 *            of the player
+	 * @return Amount currently held in players account
+	 */
+	@Override
+	public double getBalance(OfflinePlayer offlinePlayer) {
+		if (offlinePlayer != null)
+			return plugin.getRewardManager().getBalance(offlinePlayer);
+		return 0;
 	}
 
 	/**
 	 * @deprecated As of VaultAPI 1.4 use
-	 *             {{@link #createBank(String, OfflinePlayer)} instead.
+	 *             {@link #getBalance(OfflinePlayer, String)} instead.
 	 */
 	@Override
-	public EconomyResponse createBank(String arg0, String arg1) {
-		// TODO Auto-generated method stub
-		return null;
+	public double getBalance(String playername, String world) {
+		return getBalance(playername);
 	}
 
 	/**
-	 * Creates a bank account with the specified name and the player as the
-	 * owner
+	 * Gets balance of a player on the specified world. IMPLEMENTATION SPECIFIC
+	 * - if an economy plugin does not support this the global balance will be
+	 * returned.
 	 * 
-	 * @param name
-	 *            of account
 	 * @param player
-	 *            the account should be linked to
-	 * @return EconomyResponse Object
+	 *            to check
+	 * @param world
+	 *            name of the world
+	 * @return Amount currently held in players account
 	 */
 	@Override
-	public EconomyResponse createBank(String name, OfflinePlayer player) {
-		// TODO Auto-generated method stub
-		return null;
+	public double getBalance(OfflinePlayer offlinePlayer, String world) {
+		return getBalance(offlinePlayer);
+	}
+
+	/**
+	 * Gets the list of banks
+	 * 
+	 * @return the List of Banks
+	 */
+	@Override
+	public List<String> getBanks() {
+		return new ArrayList<String>();
 	}
 
 	/**
@@ -114,13 +142,13 @@ public class BagOfGoldEconomy implements Economy {
 	 *             {{@link #createPlayerAccount(OfflinePlayer)} instead.
 	 */
 	@Override
-	public boolean createPlayerAccount(String name) {
-		createPlayerAccount(Bukkit.getServer().getOfflinePlayer(name));
-		return true;
+	public boolean createPlayerAccount(String playername) {
+		return createPlayerAccount(Bukkit.getServer().getOfflinePlayer(playername));
 	}
 
 	/**
-	 * Attempts to create a player account for the given player
+	 * Attempts to create a player account for the given player. The player is
+	 * auto-created when the player logon to the server.
 	 * 
 	 * @param player
 	 *            OfflinePlayer
@@ -136,9 +164,8 @@ public class BagOfGoldEconomy implements Economy {
 	 *             {{@link #createPlayerAccount(OfflinePlayer, String)} instead.
 	 */
 	@Override
-	public boolean createPlayerAccount(String name, String playername) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean createPlayerAccount(String playername, String world) {
+		return createPlayerAccount(Bukkit.getServer().getOfflinePlayer(playername), world);
 	}
 
 	/**
@@ -153,9 +180,8 @@ public class BagOfGoldEconomy implements Economy {
 	 * @return if the account creation was successful
 	 */
 	@Override
-	public boolean createPlayerAccount(OfflinePlayer arg0, String arg1) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean createPlayerAccount(OfflinePlayer offlinePlayer, String world) {
+		return true;
 	}
 
 	/**
@@ -183,25 +209,12 @@ public class BagOfGoldEconomy implements Economy {
 	}
 
 	/**
-	 * Deletes a bank account with the specified name.
-	 * 
-	 * @param name
-	 *            of the back to delete
-	 * @return if the operation completed successfully
-	 */
-	@Override
-	public EconomyResponse deleteBank(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
 	 * @deprecated As of VaultAPI 1.4 use
 	 *             {@link #depositPlayer(OfflinePlayer, double)} instead.
 	 */
 	@Override
-	public EconomyResponse depositPlayer(String name, double amount) {
-		return depositPlayer(Bukkit.getOfflinePlayer(name), amount);
+	public EconomyResponse depositPlayer(String playername, double amount) {
+		return depositPlayer(Bukkit.getOfflinePlayer(playername), amount);
 	}
 
 	/**
@@ -234,9 +247,8 @@ public class BagOfGoldEconomy implements Economy {
 	 *             instead.
 	 */
 	@Override
-	public EconomyResponse depositPlayer(String arg0, String arg1, double arg2) {
-		// TODO Auto-generated method stub
-		return null;
+	public EconomyResponse depositPlayer(String playername, String world, double amount) {
+		return depositPlayer(playername, amount);
 	}
 
 	/**
@@ -253,115 +265,8 @@ public class BagOfGoldEconomy implements Economy {
 	 * @return Detailed response of transaction
 	 */
 	@Override
-	public EconomyResponse depositPlayer(OfflinePlayer arg0, String arg1, double arg2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * Format amount into a human readable String This provides translation into
-	 * economy specific formatting to improve consistency between plugins.
-	 *
-	 * @param amount
-	 *            to format
-	 * @return Human readable string describing amount
-	 */
-	@Override
-	public String format(double money) {
-		Locale locale = new Locale("en", "UK");
-		String pattern = "#.#####";
-		DecimalFormat decimalFormat = (DecimalFormat) NumberFormat.getNumberInstance(locale);
-		decimalFormat.applyPattern(pattern);
-		return ChatColor.valueOf(MobHunting.getConfigManager().dropMoneyOnGroundTextColor)
-				+ (MobHunting.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
-						? decimalFormat.format(money)
-						: MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName + " ("
-								+ decimalFormat.format(money) + ")");
-	}
-
-	/**
-	 * Some economy plugins round off after a certain number of digits. This
-	 * function returns the number of digits the plugin keeps or -1 if no
-	 * rounding occurs.
-	 * 
-	 * @return number of digits after the decimal point kept
-	 */
-	@Override
-	public int fractionalDigits() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	/**
-	 * @deprecated As of VaultAPI 1.4 use {@link #getBalance(OfflinePlayer)}
-	 *             instead.
-	 */
-	@Override
-	public double getBalance(String playername) {
-		return getBalance(Bukkit.getOfflinePlayer(playername));
-	}
-
-	/**
-	 * Gets balance of a player
-	 * 
-	 * @param player
-	 *            of the player
-	 * @return Amount currently held in players account
-	 */
-	@Override
-	public double getBalance(OfflinePlayer offlinePlayer) {
-		if (offlinePlayer != null)
-			return plugin.getPlayerSettingsmanager().getBalance(offlinePlayer);
-		return 0;
-	}
-
-	/**
-	 * @deprecated As of VaultAPI 1.4 use
-	 *             {@link #getBalance(OfflinePlayer, String)} instead.
-	 */
-	@Override
-	public double getBalance(String playername, String world) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	/**
-	 * Gets balance of a player on the specified world. IMPLEMENTATION SPECIFIC
-	 * - if an economy plugin does not support this the global balance will be
-	 * returned.
-	 * 
-	 * @param player
-	 *            to check
-	 * @param world
-	 *            name of the world
-	 * @return Amount currently held in players account
-	 */
-	@Override
-	public double getBalance(OfflinePlayer arg0, String world) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	/**
-	 * Gets the list of banks
-	 * 
-	 * @return the List of Banks
-	 */
-	@Override
-	public List<String> getBanks() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * Gets name of economy method
-	 * 
-	 * @return Name of Economy Method
-	 */
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+	public EconomyResponse depositPlayer(OfflinePlayer offlinePlayer, String world, double amount) {
+		return depositPlayer(offlinePlayer, amount);
 	}
 
 	/**
@@ -369,8 +274,8 @@ public class BagOfGoldEconomy implements Economy {
 	 *             instead.
 	 */
 	@Override
-	public boolean has(String name, double amount) {
-		return has(Bukkit.getOfflinePlayer(name), amount);
+	public boolean has(String playername, double amount) {
+		return has(Bukkit.getOfflinePlayer(playername), amount);
 	}
 
 	/**
@@ -386,7 +291,7 @@ public class BagOfGoldEconomy implements Economy {
 	public boolean has(OfflinePlayer offlinePlayer, double amount) {
 		if (offlinePlayer == null)
 			return false;
-		return plugin.getPlayerSettingsmanager().getBalance(offlinePlayer) >= amount;
+		return plugin.getRewardManager().getBalance(offlinePlayer) >= amount;
 	}
 
 	/**
@@ -395,8 +300,7 @@ public class BagOfGoldEconomy implements Economy {
 	 */
 	@Override
 	public boolean has(String playername, String world, double amount) {
-		// TODO Auto-generated method stub
-		return false;
+		return has(playername, amount);
 	}
 
 	/**
@@ -413,9 +317,8 @@ public class BagOfGoldEconomy implements Economy {
 	 * @return True if <b>player</b> has <b>amount</b>, False else wise
 	 */
 	@Override
-	public boolean has(OfflinePlayer player, String world, double amount) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean has(OfflinePlayer offlinePlayer, String world, double amount) {
+		return has(offlinePlayer, amount);
 	}
 
 	/**
@@ -430,13 +333,15 @@ public class BagOfGoldEconomy implements Economy {
 	}
 
 	/**
-     * Checks if this player has an account on the server yet
-     * This will always return true if the player has joined the server at least once
-     * as all major economy plugins auto-generate a player account when the player joins the server
-     * 
-     * @param player to check
-     * @return if the player has an account
-     */
+	 * Checks if this player has an account on the server yet This will always
+	 * return true if the player has joined the server at least once as all
+	 * major economy plugins auto-generate a player account when the player
+	 * joins the server
+	 * 
+	 * @param player
+	 *            to check
+	 * @return if the player has an account
+	 */
 	@Override
 	public boolean hasAccount(OfflinePlayer player) {
 		// TODO Auto-generated method stub
@@ -462,9 +367,78 @@ public class BagOfGoldEconomy implements Economy {
 	}
 
 	@Override
-	public boolean hasAccount(OfflinePlayer arg0, String arg1) {
+	public boolean hasAccount(OfflinePlayer offlinePlayer, String world) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	/**
+	 * Withdraw an amount from a player - DO NOT USE NEGATIVE AMOUNTS
+	 * 
+	 * @param player
+	 *            to withdraw from
+	 * @param amount
+	 *            Amount to withdraw
+	 * @return Detailed response of transaction
+	 */
+	@Override
+	public EconomyResponse withdrawPlayer(OfflinePlayer offlinePlayer, double amount) {
+		if (amount < 0)
+			return new EconomyResponse(0, 0, ResponseType.FAILURE, "Cannot withdraw negative funds");
+
+		double balance = 0;
+		if (offlinePlayer != null) {
+			PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(offlinePlayer);
+			balance = plugin.getRewardManager().getBalance(offlinePlayer);
+			if (balance >= amount) {
+				ps.setBalance(ps.getBalance() - amount);
+				if (offlinePlayer.isOnline())
+					plugin.getRewardManager().adjustBagOfGoldInPlayerInventory((Player) offlinePlayer, -amount);
+				else
+					ps.setBalanceChanges(ps.getBalanceChanges() - amount);
+				plugin.getPlayerSettingsmanager().save(offlinePlayer);
+				return new EconomyResponse(0, ps.getBalance(), ResponseType.SUCCESS, null);
+			} else
+				return new EconomyResponse(0, ps.getBalance(), ResponseType.FAILURE, "Insufficient funds");
+		}
+		return new EconomyResponse(0, 0, ResponseType.FAILURE, "unknown player");
+	}
+
+	/**
+	 * @deprecated As of VaultAPI 1.4 use
+	 *             {@link #withdrawPlayer(OfflinePlayer, double)} instead.
+	 */
+	@Override
+	public EconomyResponse withdrawPlayer(String playername, double amount) {
+		return withdrawPlayer(Bukkit.getOfflinePlayer(playername), amount);
+	}
+
+	/**
+	 * @deprecated As of VaultAPI 1.4 use
+	 *             {@link #withdrawPlayer(OfflinePlayer, String, double)}
+	 *             instead.
+	 */
+	@Override
+	public EconomyResponse withdrawPlayer(String playername, String world, double amount) {
+		return withdrawPlayer(playername, amount);
+	}
+
+	/**
+	 * Withdraw an amount from a player on a given world - DO NOT USE NEGATIVE
+	 * AMOUNTS IMPLEMENTATION SPECIFIC - if an economy plugin does not support
+	 * this the global balance will be returned.
+	 * 
+	 * @param player
+	 *            to withdraw from
+	 * @param worldName
+	 *            - name of the world
+	 * @param amount
+	 *            Amount to withdraw
+	 * @return Detailed response of transaction
+	 */
+	@Override
+	public EconomyResponse withdrawPlayer(OfflinePlayer offlinePlayer, String world, double amount) {
+		return withdrawPlayer(offlinePlayer, amount);
 	}
 
 	/**
@@ -482,9 +456,8 @@ public class BagOfGoldEconomy implements Economy {
 	 *             {{@link #isBankMember(String, OfflinePlayer)} instead.
 	 */
 	@Override
-	public EconomyResponse isBankMember(String arg0, String arg1) {
-		// TODO Auto-generated method stub
-		return null;
+	public EconomyResponse isBankMember(String account, String playername) {
+		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, "BagOfGold does not support bank accounts!");
 	}
 
 	/**
@@ -497,9 +470,8 @@ public class BagOfGoldEconomy implements Economy {
 	 * @return EconomyResponse Object
 	 */
 	@Override
-	public EconomyResponse isBankMember(String name, OfflinePlayer player) {
-		// TODO Auto-generated method stub
-		return null;
+	public EconomyResponse isBankMember(String account, OfflinePlayer player) {
+		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, "BagOfGold does not support bank accounts!");
 	}
 
 	/**
@@ -507,9 +479,8 @@ public class BagOfGoldEconomy implements Economy {
 	 *             {{@link #isBankOwner(String, OfflinePlayer)} instead.
 	 */
 	@Override
-	public EconomyResponse isBankOwner(String name, String playername) {
-		// TODO Auto-generated method stub
-		return null;
+	public EconomyResponse isBankOwner(String account, String playername) {
+		return isBankMember(account, Bukkit.getOfflinePlayer(playername));
 	}
 
 	/**
@@ -522,89 +493,99 @@ public class BagOfGoldEconomy implements Economy {
 	 * @return EconomyResponse Object
 	 */
 	@Override
-	public EconomyResponse isBankOwner(String name, OfflinePlayer player) {
-		// TODO Auto-generated method stub
-		return null;
+	public EconomyResponse isBankOwner(String account, OfflinePlayer player) {
+		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, "BagOfGold does not support bank accounts!");
 	}
 
 	/**
-	 * Checks if economy method is enabled.
+	 * Returns the amount the bank has
 	 * 
-	 * @return Success or Failure
+	 * @param name
+	 *            of the account
+	 * @return EconomyResponse Object
 	 */
 	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+	public EconomyResponse bankBalance(String account) {
+		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, "BagOfGold does not support bank accounts!");
+	}
+
+	/**
+	 * Deposit an amount into a bank account - DO NOT USE NEGATIVE AMOUNTS
+	 * 
+	 * @param name
+	 *            of the account
+	 * @param amount
+	 *            to deposit
+	 * @return EconomyResponse Object
+	 */
+	@Override
+	public EconomyResponse bankDeposit(String account, double amount) {
+		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, "BagOfGold does not support bank accounts!");
+	}
+
+	/**
+	 * Returns true or false whether the bank has the amount specified - DO NOT
+	 * USE NEGATIVE AMOUNTS
+	 * 
+	 * @param name
+	 *            of the account
+	 * @param amount
+	 *            to check for
+	 * @return EconomyResponse Object
+	 */
+	@Override
+	public EconomyResponse bankHas(String account, double amount) {
+		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, "BagOfGold does not support bank accounts!");
+	}
+
+	/**
+	 * Withdraw an amount from a bank account - DO NOT USE NEGATIVE AMOUNTS
+	 * 
+	 * @param name
+	 *            of the account
+	 * @param amount
+	 *            to withdraw
+	 * @return EconomyResponse Object
+	 */
+	@Override
+	public EconomyResponse bankWithdraw(String account, double amount) {
+		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, "BagOfGold does not support bank accounts!");
 	}
 
 	/**
 	 * @deprecated As of VaultAPI 1.4 use
-	 *             {@link #withdrawPlayer(OfflinePlayer, double)} instead.
+	 *             {{@link #createBank(String, OfflinePlayer)} instead.
 	 */
 	@Override
-	public EconomyResponse withdrawPlayer(String name, double amount) {
-		return withdrawPlayer(Bukkit.getOfflinePlayer(name), amount);
+	public EconomyResponse createBank(String account, String playername) {
+		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, "BagOfGold does not support bank accounts!");
 	}
 
 	/**
-	 * Withdraw an amount from a player - DO NOT USE NEGATIVE AMOUNTS
+	 * Creates a bank account with the specified name and the player as the
+	 * owner
 	 * 
+	 * @param name
+	 *            of account
 	 * @param player
-	 *            to withdraw from
-	 * @param amount
-	 *            Amount to withdraw
-	 * @return Detailed response of transaction
+	 *            the account should be linked to
+	 * @return EconomyResponse Object
 	 */
 	@Override
-	public EconomyResponse withdrawPlayer(OfflinePlayer offlinePlayer, double amount) {
-		if (offlinePlayer != null) {
-			PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(offlinePlayer);
-			if (offlinePlayer.isOnline()) {
-				double balance = plugin.getPlayerSettingsmanager().getBalance(offlinePlayer);
-				if (balance >= amount) {
-					ps.setBalance(ps.getBalance() - amount);
-					plugin.getRewardManager().adjustBagOfGoldInPlayerInventory((Player) offlinePlayer, -amount);
-				} else {
-					ps.setBalance(0);
-					plugin.getRewardManager().adjustBagOfGoldInPlayerInventory((Player) offlinePlayer, -balance);
-				}
-			} else {
-				ps.setBalanceChanges(ps.getBalanceChanges() - amount);
-			}
-			plugin.getPlayerSettingsmanager().save(offlinePlayer);
-		}
-		return null;
+	public EconomyResponse createBank(String account, OfflinePlayer player) {
+		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, "BagOfGold does not support bank accounts!");
 	}
 
 	/**
-	 * @deprecated As of VaultAPI 1.4 use
-	 *             {@link #withdrawPlayer(OfflinePlayer, String, double)}
-	 *             instead.
-	 */
-	@Override
-	public EconomyResponse withdrawPlayer(String arg0, String arg1, double arg2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * Withdraw an amount from a player on a given world - DO NOT USE NEGATIVE
-	 * AMOUNTS IMPLEMENTATION SPECIFIC - if an economy plugin does not support
-	 * this the global balance will be returned.
+	 * Deletes a bank account with the specified name.
 	 * 
-	 * @param player
-	 *            to withdraw from
-	 * @param worldName
-	 *            - name of the world
-	 * @param amount
-	 *            Amount to withdraw
-	 * @return Detailed response of transaction
+	 * @param name
+	 *            of the bank to delete
+	 * @return if the operation completed successfully
 	 */
 	@Override
-	public EconomyResponse withdrawPlayer(OfflinePlayer arg0, String arg1, double arg2) {
-		// TODO Auto-generated method stub
-		return null;
+	public EconomyResponse deleteBank(String account) {
+		return new EconomyResponse(0, 0, ResponseType.NOT_IMPLEMENTED, "BagOfGold does not support bank accounts!");
 	}
 
 }
