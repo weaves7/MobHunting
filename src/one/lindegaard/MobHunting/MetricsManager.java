@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
+import org.bstats.bukkit.*;
 import org.mcstats_mh.Metrics;
 import org.mcstats_mh.Metrics.Graph;
 
@@ -58,56 +59,44 @@ public class MetricsManager {
 			mobPluginIntegrationsGraph, protectionPluginsGraph, minigamesGraph, disguiseGraph;
 	private MobHunting plugin;
 
-	private org.bstats.Metrics bStatsMetrics;
+	private org.bstats.bukkit.Metrics bStatsMetrics;
 
 	public MetricsManager(MobHunting plugin) {
 		this.plugin = plugin;
 	}
 
 	public void startBStatsMetrics() {
-		bStatsMetrics = new org.bstats.Metrics(plugin);
+		bStatsMetrics = new org.bstats.bukkit.Metrics(plugin);
 
-		bStatsMetrics.addCustomChart(new org.bstats.Metrics.SimplePie("database_used_for_mobhunting") {
-			@Override
-			public String getValue() {
-				return MobHunting.getConfigManager().databaseType;
-			}
-		});
-
-		bStatsMetrics.addCustomChart(new org.bstats.Metrics.SimplePie("language") {
-			@Override
-			public String getValue() {
-				return MobHunting.getConfigManager().language;
-			}
-		});
-
-		bStatsMetrics.addCustomChart(new org.bstats.Metrics.SimpleBarChart("protection_plugin_integrations") {
-			@Override
-			public HashMap<String, Integer> getValues(HashMap<String, Integer> valueMap) {
+		bStatsMetrics.addCustomChart(new org.bstats.bukkit.Metrics.SimplePie("database_used_for_mobhunting", () -> MobHunting.getConfigManager().databaseType));
+		bStatsMetrics.addCustomChart(new org.bstats.bukkit.Metrics.SimplePie("language", () -> MobHunting.getConfigManager().language));
+		/**		
+		bStatsMetrics.addCustomChart(new org.bstats.bukkit.Metrics.SimpleBarChart("protection_plugin_integrations", new Callable <Map<String, Integer>>() {
+			@Override	
+			public Map<String, Integer> call() throws Exception {
+				Map valueMap = new Map();
 				valueMap.put("WorldGuard", WorldGuardCompat.isSupported() ? 1 : 0);
 				valueMap.put("Factions", FactionsCompat.isSupported() ? 1 : 0);
 				valueMap.put("Towny", TownyCompat.isSupported() ? 1 : 0);
 				valueMap.put("Residence", ResidenceCompat.isSupported() ? 1 : 0);
 				valueMap.put("PreciousStones", PreciousStonesCompat.isSupported() ? 1 : 0);
 				return valueMap;
-			}
-		});
+			}}));
 
-		bStatsMetrics.addCustomChart(new org.bstats.Metrics.SimpleBarChart("minigame_integrations") {
+		bStatsMetrics.addCustomChart(new org.bstats.bukkit.Metrics.SimpleBarChart("minigame_integrations",new Callable<?>() {
 			@Override
-			public HashMap<String, Integer> getValues(HashMap<String, Integer> valueMap) {
+			public HashMap<String, Integer> call() throws Exception  {
 				valueMap.put("MobArena", MobArenaCompat.isSupported() ? 1 : 0);
 				valueMap.put("Minigames", MinigamesCompat.isSupported() ? 1 : 0);
 				valueMap.put("MinigamesLib", MinigamesLibCompat.isSupported() ? 1 : 0);
 				valueMap.put("PVPArena", PVPArenaCompat.isSupported() ? 1 : 0);
 				valueMap.put("BattleArena", BattleArenaCompat.isSupported() ? 1 : 0);
 				return valueMap;
-			}
-		});
+			}}));
 
-		bStatsMetrics.addCustomChart(new org.bstats.Metrics.SimpleBarChart("disguise_plugin_integrations") {
+		bStatsMetrics.addCustomChart(new org.bstats.bukkit.Metrics.SimpleBarChart("disguise_plugin_integrations",new Callable<?>() {
 			@Override
-			public HashMap<String, Integer> getValues(HashMap<String, Integer> valueMap) {
+			public HashMap<String, Integer> call() throws Exception  {
 				try {
 					@SuppressWarnings({ "rawtypes", "unused" })
 					Class cls = Class.forName("pgDev.bukkit.DisguiseCraft.disguise.DisguiseType");
@@ -130,11 +119,11 @@ public class MetricsManager {
 				valueMap.put("Essentials", EssentialsCompat.isSupported() ? 1 : 0);
 				return valueMap;
 			}
-		});
+		}));
 
-		bStatsMetrics.addCustomChart(new org.bstats.Metrics.SimpleBarChart("other_integrations") {
+		bStatsMetrics.addCustomChart(new org.bstats.bukkit.Metrics.SimpleBarChart("other_integrations",new Callable<?>() {
 			@Override
-			public HashMap<String, Integer> getValues(HashMap<String, Integer> valueMap) {
+			public HashMap<String, Integer> call() throws Exception  {
 				valueMap.put("Citizens", CitizensCompat.isSupported() ? 1 : 0);
 				valueMap.put("Gringotts", GringottsCompat.isSupported() ? 1 : 0);
 				valueMap.put("MyPet", MyPetCompat.isSupported() ? 1 : 0);
@@ -144,11 +133,11 @@ public class MetricsManager {
 				valueMap.put("CrackShot", CrackShotCompat.isSupported() ? 1 : 0);
 				return valueMap;
 			}
-		});
+		}));
 
-		bStatsMetrics.addCustomChart(new org.bstats.Metrics.SimpleBarChart("special_mobs") {
+		bStatsMetrics.addCustomChart(new org.bstats.bukkit.Metrics.SimpleBarChart("special_mobs",new Callable<?>() {
 			@Override
-			public HashMap<String, Integer> getValues(HashMap<String, Integer> valueMap) {
+			public HashMap<String, Integer> call() throws Exception  {
 				valueMap.put("MythicMobs", MythicMobsCompat.isSupported() ? 1 : 0);
 				valueMap.put("TARDISWeepingAngels", TARDISWeepingAngelsCompat.isSupported() ? 1 : 0);
 				valueMap.put("MobStacker", MobStackerCompat.isSupported() ? 1 : 0);
@@ -161,11 +150,11 @@ public class MetricsManager {
 				valueMap.put("Herobrine", HerobrineCompat.isSupported() ? 1 : 0);
 				return valueMap;
 			}
-		});
+		}));
 
-		bStatsMetrics.addCustomChart(new org.bstats.Metrics.SimpleBarChart("titlemanagers") {
+		bStatsMetrics.addCustomChart(new org.bstats.bukkit.Metrics.SimpleBarChart("titlemanagers",new Callable<?>() {
 			@Override
-			public HashMap<String, Integer> getValues(HashMap<String, Integer> valueMap) {
+			public HashMap<String, Integer> call() throws Exception  {
 				valueMap.put("BossBarAPI", BossBarAPICompat.isSupported() ? 1 : 0);
 				valueMap.put("TitleAPI", TitleAPICompat.isSupported() ? 1 : 0);
 				valueMap.put("BarAPI", BarAPICompat.isSupported() ? 1 : 0);
@@ -177,11 +166,11 @@ public class MetricsManager {
 				valueMap.put("Holographic Display", HolographicDisplaysCompat.isSupported() ? 1 : 0);
 				return valueMap;
 			}
-		});
+		}));
 
-		bStatsMetrics.addCustomChart(new org.bstats.Metrics.SimpleBarChart("mobhunting_usage") {
+		bStatsMetrics.addCustomChart(new org.bstats.bukkit.Metrics.SimpleBarChart("mobhunting_usage",new Callable<?>() {
 			@Override
-			public HashMap<String, Integer> getValues(HashMap<String, Integer> valueMap) {
+			public HashMap<String, Integer> call() throws Exception  {
 				valueMap.put("Leaderboards", MobHunting.getLeaderboardManager().getWorldLeaderBoards().size());
 				valueMap.put("Holographic Leaderboards",
 						MobHunting.getLeaderboardManager().getHologramManager().getHolograms().size());
@@ -190,7 +179,8 @@ public class MetricsManager {
 						: plugin.getBountyManager().getAllBounties().size());
 				return valueMap;
 			}
-		});
+		}));
+		**/
 	}
 
 	public void startMetrics() {

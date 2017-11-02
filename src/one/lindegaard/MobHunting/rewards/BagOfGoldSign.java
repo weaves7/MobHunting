@@ -58,7 +58,22 @@ public class BagOfGoldSign implements Listener {
 					if (player.getItemInHand().getType().equals(Material.SKULL_ITEM)
 							&& Reward.isReward(player.getItemInHand())) {
 						Reward reward = Reward.getReward(player.getItemInHand());
+						
+						if (MobHunting.getConfigManager().enableBagOfGoldAsEconomyPlugin
+								&& reward.isBagOfGoldReward()) {
+							plugin.getMessages().playerSendMessage(player,
+									Messages.getString("mobhunting.money.you_cant_sell_and_buy_bagofgold", "itemname",
+											reward.getDisplayname()));
+							return;
+						}
+
 						moneyInHand = reward.getMoney();
+						if (moneyInHand == 0) {
+							plugin.getMessages().playerSendMessage(player, Messages.getString(
+									"mobhunting.bagofgoldsign.item_has_no_value", "itemname", reward.getDisplayname()));
+							return;
+						} 
+						
 						if (sign.getLine(2).isEmpty() || sign.getLine(2)
 								.equalsIgnoreCase(Messages.getString("mobhunting.bagofgoldsign.line3.everything"))) {
 							money = moneyInHand;
@@ -115,6 +130,12 @@ public class BagOfGoldSign implements Listener {
 
 					// BUY BagOfGold Sign
 				} else if (signType.equalsIgnoreCase(Messages.getString("mobhunting.bagofgoldsign.line2.buy"))) {
+					if (MobHunting.getConfigManager().enableBagOfGoldAsEconomyPlugin) {
+						plugin.getMessages().playerSendMessage(player,
+								Messages.getString("mobhunting.money.you_cant_sell_and_buy_bagofgold", "itemname",
+										MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim()));
+						return;
+					}
 					try {
 						moneyOnSign = Double.valueOf(sign.getLine(2));
 					} catch (NumberFormatException e) {

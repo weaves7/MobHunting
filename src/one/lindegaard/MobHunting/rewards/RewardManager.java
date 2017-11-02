@@ -4,10 +4,15 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -84,6 +89,7 @@ import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.npc.NPCRegistry;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
+import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
 import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.CitizensCompat;
@@ -136,6 +142,7 @@ public class RewardManager implements Listener {
 		}
 
 		mEconomy = economyProvider.getProvider();
+
 		pickupRewards = new PickupRewards(plugin);
 
 		Bukkit.getPluginManager().registerEvents(new RewardListeners(plugin), plugin);
@@ -181,28 +188,74 @@ public class RewardManager implements Listener {
 	}
 
 	public EconomyResponse withdrawPlayer(OfflinePlayer offlinePlayer, double amount) {
-		EconomyResponse result = mEconomy.withdrawPlayer(offlinePlayer, amount);
-		if (!result.transactionSuccess() && offlinePlayer.isOnline())
-			((Player) offlinePlayer).sendMessage(ChatColor.RED + "Unable to remove money: " + result.errorMessage);
-		return result;
+		if (MobHunting.getConfigManager().enableBagOfGoldAsEconomyPlugin) {
+			PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(offlinePlayer);
+			if (has(offlinePlayer, amount)) {
+				if (offlinePlayer.isOnline()) {
+					plugin.getRewardManager().adjustBagOfGoldInPlayerInventory((Player) offlinePlayer,
+							ps.getBalanceChanges() - amount);
+				} else {
+
+					ps.setBalanceChanges(ps.getBalanceChanges() - amount);
+				}
+				ps.setBalance(ps.getBalance() - amount);
+				plugin.getPlayerSettingsmanager().setPlayerSettings(offlinePlayer, ps);
+				MobHunting.getDataStoreManager().updatePlayerSettings(offlinePlayer, ps);
+				return new EconomyResponse(amount, ps.getBalance(), ResponseType.SUCCESS, null);
+			} else
+				return new EconomyResponse(0, ps.getBalance(), ResponseType.FAILURE,
+						Messages.getString("mobhunting.commands.money.not-enough-money", "money", ps.getBalance()));
+		} else {
+			EconomyResponse result = mEconomy.withdrawPlayer(offlinePlayer, amount);
+			if (!result.transactionSuccess() && offlinePlayer.isOnline())
+				((Player) offlinePlayer).sendMessage(ChatColor.RED + "Unable to remove money: " + result.errorMessage);
+			return result;
+		}
 	}
 
 	public EconomyResponse depositPlayer(OfflinePlayer offlinePlayer, double amount) {
-		EconomyResponse result = mEconomy.depositPlayer(offlinePlayer, amount);
-		if (!result.transactionSuccess() && offlinePlayer.isOnline())
-			((Player) offlinePlayer).sendMessage(ChatColor.RED + "Unable to add money: " + result.errorMessage);
-		return result;
+		if (MobHunting.getConfigManager().enableBagOfGoldAsEconomyPlugin) {
+			PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(offlinePlayer);
+			if (offlinePlayer.isOnline()) {
+				plugin.getRewardManager().adjustBagOfGoldInPlayerInventory((Player) offlinePlayer,
+						ps.getBalanceChanges() + amount);
+				ps.setBalanceChanges(0);
+			} else {
+				ps.setBalanceChanges(ps.getBalanceChanges() + amount);
+			}
+			ps.setBalance(ps.getBalance() + amount);
+			plugin.getPlayerSettingsmanager().setPlayerSettings(offlinePlayer, ps);
+			MobHunting.getDataStoreManager().updatePlayerSettings(offlinePlayer, ps);
+			return new EconomyResponse(amount, ps.getBalance(), ResponseType.SUCCESS, null);
+		} else {
+			EconomyResponse result = mEconomy.depositPlayer(offlinePlayer, amount);
+			if (!result.transactionSuccess() && offlinePlayer.isOnline())
+				((Player) offlinePlayer).sendMessage(ChatColor.RED + "Unable to add money: " + result.errorMessage);
+			return result;
+		}
 	}
 
 	public String format(double amount) {
-		return mEconomy.format(Misc.round(amount));
+		if (MobHunting.getConfigManager().enableBagOfGoldAsEconomyPlugin) {
+			return mEconomy.format(Misc.round(amount));
+		} else {
+			Locale locale = new Locale("en", "UK");
+			String pattern = "#.#####";
+			DecimalFormat decimalFormat = (DecimalFormat) NumberFormat.getNumberInstance(locale);
+			decimalFormat.applyPattern(pattern);
+			return ChatColor.valueOf(MobHunting.getConfigManager().dropMoneyOnGroundTextColor)
+					+ (MobHunting.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
+							? decimalFormat.format(amount)
+							: MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim() + " ("
+									+ decimalFormat.format(amount) + ")");
+		}
 	}
 
 	public double getBalance(OfflinePlayer offlinePlayer) {
 
 		PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(offlinePlayer);
 
-		if (plugin.getConfigManager().enableBagOfGoldAsEconomyPlugin) {
+		if (MobHunting.getConfigManager().enableBagOfGoldAsEconomyPlugin) {
 
 			if (offlinePlayer.isOnline()) {
 				Player player = (Player) offlinePlayer;
@@ -249,7 +302,10 @@ public class RewardManager implements Listener {
 	}
 
 	public boolean has(OfflinePlayer offlinePlayer, double amount) {
-		return mEconomy.has(offlinePlayer, amount);
+		if (MobHunting.getConfigManager().enableBagOfGoldAsEconomyPlugin) {
+			return plugin.getPlayerSettingsmanager().getPlayerSettings(offlinePlayer).getBalance() >= amount;
+		} else
+			return mEconomy.has(offlinePlayer, amount);
 	}
 
 	public void dropMoneyOnGround(Player player, Entity killedEntity, Location location, double money) {
@@ -426,7 +482,7 @@ public class RewardManager implements Listener {
 					player.getInventory().setItem(slot, is);
 					taken = taken + toBeTaken;
 					toBeTaken = 0;
-					break;
+					return taken;
 				} else {
 					is.setItemMeta(null);
 					is.setType(Material.AIR);
@@ -434,10 +490,42 @@ public class RewardManager implements Listener {
 					player.getInventory().setItem(slot, is);
 					taken = taken + saldo;
 					toBeTaken = toBeTaken - saldo;
+					return taken;
 				}
 			}
 		}
-		return taken;
+
+		if (amount > 0) {
+			givePlayerGoldOfBag(player, amount);
+		}
+
+		return amount;
+
+	}
+
+	public void givePlayerGoldOfBag(OfflinePlayer offlinePlayer, double amount) {
+		CustomItems customItems = new CustomItems(plugin);
+		Player player = ((Player) Bukkit.getServer().getOfflinePlayer(offlinePlayer.getUniqueId()));
+		if (player.getInventory().firstEmpty() == -1)
+			plugin.getRewardManager().dropMoneyOnGround(player, null, player.getLocation(), Misc.floor(amount));
+		else {
+			ItemStack is = customItems.getCustomtexture(UUID.fromString(RewardManager.MH_REWARD_BAG_OF_GOLD_UUID),
+					MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
+					MobHunting.getConfigManager().dropMoneyOnGroundSkullTextureValue,
+					MobHunting.getConfigManager().dropMoneyOnGroundSkullTextureSignature, Misc.floor(amount),
+					UUID.randomUUID(), UUID.fromString(RewardManager.MH_REWARD_BAG_OF_GOLD_UUID));
+			player.getInventory().addItem(is);
+		}
+		plugin.getMessages().playerActionBarMessage(player,
+				Messages.getString("mobhunting.commands.money.give", "rewardname",
+						MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(), "money",
+						plugin.getRewardManager().getEconomy().format(Misc.floor(amount))));
+		// plugin.getMessages().senderSendMessage(sender, Messages.getString(
+		// "mobhunting.commands.money.give-sender", "rewardname",
+		// MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
+		// "money",
+		// plugin.getRewardManager().getEconomy().format(Misc.floor(Double.valueOf(args[2]))),
+		// "player", player.getName()));
 	}
 
 	public double getPlayerKilledByMobPenalty(Player playerToBeRobbed) {

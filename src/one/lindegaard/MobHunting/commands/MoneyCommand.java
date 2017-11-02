@@ -7,7 +7,6 @@ import one.lindegaard.MobHunting.compatibility.BossShopHelper;
 import one.lindegaard.MobHunting.rewards.CustomItems;
 import one.lindegaard.MobHunting.rewards.Reward;
 import one.lindegaard.MobHunting.rewards.RewardManager;
-import one.lindegaard.MobHunting.storage.PlayerSettings;
 import one.lindegaard.MobHunting.util.Misc;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -17,8 +16,6 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-import me.clip.placeholderapi.PlaceholderAPI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -364,16 +361,23 @@ public class MoneyCommand implements ICommand {
 				if (args.length == 1) {
 					ItemStack is = player.getItemInHand();
 					if (Reward.isReward(is)) {
-						Reward hiddenRewardData = Reward.getReward(is);
-						plugin.getRewardManager().getEconomy().depositPlayer(player, hiddenRewardData.getMoney());
+						Reward reward = Reward.getReward(is);
+						if (reward.isBagOfGoldReward()
+								&& MobHunting.getConfigManager().enableBagOfGoldAsEconomyPlugin) {
+							plugin.getMessages().playerSendMessage(player,
+									Messages.getString("mobhunting.money.you_cant_sell_and_buy_bagofgold", "itemname",
+											reward.getDisplayname()));
+							return true;
+						}
+						plugin.getRewardManager().getEconomy().depositPlayer(player, reward.getMoney());
 						is.setType(Material.AIR);
 						is.setAmount(0);
 						is.setItemMeta(null);
 						player.setItemInHand(is);
 						plugin.getMessages().playerActionBarMessage(player,
 								Messages.getString("mobhunting.commands.money.sell", "rewardname",
-										MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(), "money",
-										plugin.getRewardManager().getEconomy().format(hiddenRewardData.getMoney())));
+										reward.getDisplayname(), "money",
+										plugin.getRewardManager().getEconomy().format(reward.getMoney())));
 					}
 				} else if ((args[0].equalsIgnoreCase("sell") && (args[1].matches("\\d+(\\.\\d+)?")))) {
 					double sold = 0;

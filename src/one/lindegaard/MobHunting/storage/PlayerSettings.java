@@ -14,6 +14,16 @@ public class PlayerSettings {
 	private double bankBalance = 0;
 	private double bankBalanceChanges = 0;
 
+	public PlayerSettings(OfflinePlayer player, double balance) {
+		this.player = player;
+		this.setLearningMode(MobHunting.getConfigManager().learningMode);
+		this.setMuteMode(false);
+		this.setBalance(balance);
+		this.setBalanceChanges(0);
+		this.setBankBalance(0);
+		this.setBankBalanceChanges(0);
+	}
+
 	public PlayerSettings(OfflinePlayer player, boolean learning_mode, boolean mute, double balance,
 			double balanceChanges, double bankBalance, double bankBalanceChanges) {
 		this.player = player;
@@ -23,17 +33,16 @@ public class PlayerSettings {
 		this.setBalanceChanges(balanceChanges);
 		this.setBankBalance(bankBalance);
 		this.setBankBalanceChanges(bankBalanceChanges);
-
 	}
-
-	public PlayerSettings(OfflinePlayer player, double balance) {
-		this.player = player;
-		this.setLearningMode(MobHunting.getConfigManager().learningMode);
-		this.setMuteMode(false);
-		this.setBalance(balance);
-		this.setBalanceChanges(0);
-		this.setBankBalance(0);
-		this.setBankBalanceChanges(0);
+	
+	public PlayerSettings(OfflinePlayer player, PlayerSettings ps) {
+		this.player = ps.getPlayer();
+		this.setLearningMode(ps.isLearningMode());
+		this.setMuteMode(ps.isMuted());
+		this.setBalance(ps.getBalance());
+		this.setBalanceChanges(ps.getBalanceChanges());
+		this.setBankBalance(ps.getBankBalance());
+		this.setBankBalanceChanges(ps.getBankBalanceChanges());
 	}
 
 	/**
