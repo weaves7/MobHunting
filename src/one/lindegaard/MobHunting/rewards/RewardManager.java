@@ -8,9 +8,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -92,6 +90,7 @@ import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
 import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
+import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
 import one.lindegaard.MobHunting.compatibility.CitizensCompat;
 import one.lindegaard.MobHunting.compatibility.CustomMobsCompat;
 import one.lindegaard.MobHunting.compatibility.GringottsCompat;
@@ -188,11 +187,11 @@ public class RewardManager implements Listener {
 	}
 
 	public EconomyResponse withdrawPlayer(OfflinePlayer offlinePlayer, double amount) {
-		if (MobHunting.getConfigManager().enableBagOfGoldAsEconomyPlugin) {
+		if (BagOfGoldCompat.isSupported()) {
 			PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(offlinePlayer);
 			if (has(offlinePlayer, amount)) {
 				if (offlinePlayer.isOnline()) {
-					plugin.getRewardManager().adjustBagOfGoldInPlayerInventory((Player) offlinePlayer,
+					plugin.getRewardManager().withdrawBagOfGoldPlayer((Player) offlinePlayer,
 							ps.getBalanceChanges() - amount);
 				} else {
 
@@ -214,10 +213,10 @@ public class RewardManager implements Listener {
 	}
 
 	public EconomyResponse depositPlayer(OfflinePlayer offlinePlayer, double amount) {
-		if (MobHunting.getConfigManager().enableBagOfGoldAsEconomyPlugin) {
+		if (BagOfGoldCompat.isSupported()) {
 			PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(offlinePlayer);
 			if (offlinePlayer.isOnline()) {
-				plugin.getRewardManager().adjustBagOfGoldInPlayerInventory((Player) offlinePlayer,
+				plugin.getRewardManager().depositBagOfGoldPlayer((Player) offlinePlayer,
 						ps.getBalanceChanges() + amount);
 				ps.setBalanceChanges(0);
 			} else {
@@ -236,27 +235,14 @@ public class RewardManager implements Listener {
 	}
 
 	public String format(double amount) {
-		if (MobHunting.getConfigManager().enableBagOfGoldAsEconomyPlugin) {
-			return mEconomy.format(Misc.round(amount));
-		} else {
-			Locale locale = new Locale("en", "UK");
-			String pattern = "#.#####";
-			DecimalFormat decimalFormat = (DecimalFormat) NumberFormat.getNumberInstance(locale);
-			decimalFormat.applyPattern(pattern);
-			return ChatColor.valueOf(MobHunting.getConfigManager().dropMoneyOnGroundTextColor)
-					+ (MobHunting.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
-							? decimalFormat.format(amount)
-							: MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim() + " ("
-									+ decimalFormat.format(amount) + ")");
-		}
+		return mEconomy.format(Misc.round(amount));
 	}
 
 	public double getBalance(OfflinePlayer offlinePlayer) {
 
 		PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(offlinePlayer);
 
-		if (MobHunting.getConfigManager().enableBagOfGoldAsEconomyPlugin) {
-
+		if (BagOfGoldCompat.isSupported()) {
 			if (offlinePlayer.isOnline()) {
 				Player player = (Player) offlinePlayer;
 				double sum = 0;
@@ -283,8 +269,11 @@ public class RewardManager implements Listener {
 								"Warning %s has a player balance changes while offline (%s+%s). Adjusting balance to %s",
 								offlinePlayer.getName(), ps.getBalance(), ps.getBalanceChanges(),
 								ps.getBalance() + ps.getBalanceChanges());
-						double taken = plugin.getRewardManager().adjustBagOfGoldInPlayerInventory(player,
-								ps.getBalanceChanges());
+						double taken = 0;
+						if (ps.getBalanceChanges() > 0)
+							plugin.getRewardManager().depositBagOfGoldPlayer(player, ps.getBalanceChanges());
+						else
+							taken = plugin.getRewardManager().withdrawBagOfGoldPlayer(player, ps.getBalanceChanges());
 						ps.setBalanceChanges(ps.getBalanceChanges() + taken);
 						ps.setBalance(ps.getBalance() + ps.getBalanceChanges());
 						plugin.getPlayerSettingsmanager().setPlayerSettings(player, ps);
@@ -295,14 +284,12 @@ public class RewardManager implements Listener {
 				}
 			}
 			return ps.getBalance() + ps.getBalanceChanges();
-
-		} else {
+		} else
 			return mEconomy.getBalance(offlinePlayer);
-		}
 	}
 
 	public boolean has(OfflinePlayer offlinePlayer, double amount) {
-		if (MobHunting.getConfigManager().enableBagOfGoldAsEconomyPlugin) {
+		if (BagOfGoldCompat.isSupported()) {
 			return plugin.getPlayerSettingsmanager().getPlayerSettings(offlinePlayer).getBalance() >= amount;
 		} else
 			return mEconomy.has(offlinePlayer, amount);
@@ -463,47 +450,45 @@ public class RewardManager implements Listener {
 		return skull;
 	}
 
-	public double adjustBagOfGoldInPlayerInventory(Player player, double amount) {
+	public double withdrawBagOfGoldPlayer(Player player, double amount) {
 		double taken = 0;
-		double toBeTaken = -Misc.floor(amount);
+		double toBeTaken = Misc.floor(amount);
 		CustomItems customItems = new CustomItems(plugin);
 		for (int slot = 0; slot < player.getInventory().getSize(); slot++) {
 			ItemStack is = player.getInventory().getItem(slot);
 			if (Reward.isReward(is)) {
 				Reward reward = Reward.getReward(is);
-				double saldo = Misc.floor(reward.getMoney());
-				if (saldo > toBeTaken) {
-					reward.setMoney(saldo - toBeTaken);
-					is = customItems.getCustomtexture(reward.getRewardUUID(),
-							MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
-							MobHunting.getConfigManager().dropMoneyOnGroundSkullTextureValue,
-							MobHunting.getConfigManager().dropMoneyOnGroundSkullTextureSignature, saldo - toBeTaken,
-							UUID.randomUUID(), reward.getSkinUUID());
-					player.getInventory().setItem(slot, is);
-					taken = taken + toBeTaken;
-					toBeTaken = 0;
-					return taken;
-				} else {
-					is.setItemMeta(null);
-					is.setType(Material.AIR);
-					is.setAmount(0);
-					player.getInventory().setItem(slot, is);
-					taken = taken + saldo;
-					toBeTaken = toBeTaken - saldo;
-					return taken;
+				if (reward.isBagOfGoldReward()) {
+					double saldo = Misc.floor(reward.getMoney());
+					if (saldo > toBeTaken) {
+						reward.setMoney(saldo - toBeTaken);
+						is = customItems.getCustomtexture(reward.getRewardUUID(),
+								MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
+								MobHunting.getConfigManager().dropMoneyOnGroundSkullTextureValue,
+								MobHunting.getConfigManager().dropMoneyOnGroundSkullTextureSignature, saldo - toBeTaken,
+								UUID.randomUUID(), reward.getSkinUUID());
+						player.getInventory().setItem(slot, is);
+						taken = taken + toBeTaken;
+						toBeTaken = 0;
+						return taken;
+					} else {
+						is.setItemMeta(null);
+						is.setType(Material.AIR);
+						is.setAmount(0);
+						player.getInventory().setItem(slot, is);
+						taken = taken + saldo;
+						toBeTaken = toBeTaken - saldo;
+						return taken;
+					}
 				}
 			}
-		}
-
-		if (amount > 0) {
-			givePlayerGoldOfBag(player, amount);
 		}
 
 		return amount;
 
 	}
 
-	public void givePlayerGoldOfBag(OfflinePlayer offlinePlayer, double amount) {
+	public void depositBagOfGoldPlayer(OfflinePlayer offlinePlayer, double amount) {
 		CustomItems customItems = new CustomItems(plugin);
 		Player player = ((Player) Bukkit.getServer().getOfflinePlayer(offlinePlayer.getUniqueId()));
 		if (player.getInventory().firstEmpty() == -1)
@@ -520,12 +505,6 @@ public class RewardManager implements Listener {
 				Messages.getString("mobhunting.commands.money.give", "rewardname",
 						MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(), "money",
 						plugin.getRewardManager().getEconomy().format(Misc.floor(amount))));
-		// plugin.getMessages().senderSendMessage(sender, Messages.getString(
-		// "mobhunting.commands.money.give-sender", "rewardname",
-		// MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
-		// "money",
-		// plugin.getRewardManager().getEconomy().format(Misc.floor(Double.valueOf(args[2]))),
-		// "player", player.getName()));
 	}
 
 	public double getPlayerKilledByMobPenalty(Player playerToBeRobbed) {

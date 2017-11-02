@@ -14,6 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
 import one.lindegaard.MobHunting.storage.DataStoreException;
 import one.lindegaard.MobHunting.storage.IDataCallback;
 import one.lindegaard.MobHunting.storage.PlayerSettings;
@@ -126,8 +127,8 @@ public class PlayerSettingsManager implements Listener {
 			public void onError(Throwable error) {
 				Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[MobHunting][ERROR] " + player.getName()
 						+ " is new, creating user in database.");
-				mPlayerSettings.put(player.getUniqueId(),
-						new PlayerSettings(player, MobHunting.getConfigManager().startingBalance));
+				mPlayerSettings.put(player.getUniqueId(), new PlayerSettings(player,
+						BagOfGoldCompat.isSupported() ? BagOfGoldCompat.getStartingBalance() : 0));
 			}
 		});
 	}

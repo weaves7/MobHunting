@@ -234,9 +234,6 @@ public class ConfigManager extends AutoConfig {
 		setCategoryComment("updates", "########################################################################"
 				+ "\nUpdate settings" + "\n########################################################################");
 
-		setCategoryComment("economy", "########################################################################"
-				+ "\nEconomy Settings" + "\n########################################################################");
-
 		setCategoryComment("general", "########################################################################"
 				+ "\nGeneral Settings" + "\n########################################################################");
 
@@ -2227,16 +2224,6 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "autoupdate", category = "updates", comment = "Set 'autoupdate: true' if you want new updates downloaded and installed."
 			+ "\nYou will still have to reboot the server manually.")
 	public boolean autoupdate = false;
-
-	// #####################################################################################
-	// Economy settings
-	// #####################################################################################
-	@ConfigField(name = "enable-bagofgold-as-economy-plugin", category = "economy", 
-			comment = "Set this to true if you want to use BagOfGold as an Economy plugin like Essentials.\n"
-					+ "If Essentials is installed on your server BagOfGold will take precedence.")
-	public boolean enableBagOfGoldAsEconomyPlugin = false;
-	@ConfigField(name = "starting_balance", category = "economy", comment = "Set initial balance for new players.")
-	public double startingBalance = 3000;
 
 	// #####################################################################################
 	// Generel settings

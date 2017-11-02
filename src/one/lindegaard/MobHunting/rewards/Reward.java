@@ -92,9 +92,11 @@ public class Reward {
 
 	public ArrayList<String> getHiddenLore() {
 		return new ArrayList<String>(
-				Arrays.asList("Hidden:" + displayname, "Hidden:" + String.format(Locale.ENGLISH, "%.5f", money),
-						"Hidden:" + uuid.toString(), money == 0 ? "Hidden:" : "Hidden:" + uniqueId.toString(),
-						"Hidden:" + (skinUUID == null ? "" : skinUUID.toString())));
+				Arrays.asList("Hidden:" + displayname, //displayname
+						"Hidden:" + String.format(Locale.ENGLISH, "%.5f", money), //value
+						"Hidden:" + uuid.toString(), //type
+						money == 0 ? "Hidden:" : "Hidden:" + uniqueId.toString(), //unique id
+						"Hidden:" + (skinUUID == null ? "" : skinUUID.toString()))); //skin
 	}
 
 	/**

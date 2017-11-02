@@ -2,6 +2,7 @@ package one.lindegaard.MobHunting.commands;
 
 import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
+import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
 import one.lindegaard.MobHunting.compatibility.BossShopCompat;
 import one.lindegaard.MobHunting.compatibility.BossShopHelper;
 import one.lindegaard.MobHunting.rewards.CustomItems;
@@ -320,7 +321,7 @@ public class MoneyCommand implements ICommand {
 						if (args[2].matches("\\d+(\\.\\d+)?")) {
 							Player player = ((Player) Bukkit.getServer().getOfflinePlayer(args[1]));
 							double rest = Misc.floor(Double.valueOf(args[2]));
-							double taken = plugin.getRewardManager().adjustBagOfGoldInPlayerInventory(player, rest);
+							double taken = plugin.getRewardManager().withdrawBagOfGoldPlayer(player, rest);
 							plugin.getMessages().playerActionBarMessage(player,
 									Messages.getString("mobhunting.commands.money.take", "rewardname",
 											MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
@@ -362,8 +363,7 @@ public class MoneyCommand implements ICommand {
 					ItemStack is = player.getItemInHand();
 					if (Reward.isReward(is)) {
 						Reward reward = Reward.getReward(is);
-						if (reward.isBagOfGoldReward()
-								&& MobHunting.getConfigManager().enableBagOfGoldAsEconomyPlugin) {
+						if (reward.isBagOfGoldReward() && BagOfGoldCompat.isSupported()) {
 							plugin.getMessages().playerSendMessage(player,
 									Messages.getString("mobhunting.money.you_cant_sell_and_buy_bagofgold", "itemname",
 											reward.getDisplayname()));

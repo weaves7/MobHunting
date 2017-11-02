@@ -173,6 +173,7 @@ public class MobHunting extends JavaPlugin {
 
 		// Handle compatibility stuff
 		registerPlugin(EssentialsCompat.class, CompatPlugin.Essentials);
+		registerPlugin(BagOfGoldCompat.class, CompatPlugin.BagOfGold);
 		registerPlugin(GringottsCompat.class, CompatPlugin.Gringotts);
 
 		// Protection plugins

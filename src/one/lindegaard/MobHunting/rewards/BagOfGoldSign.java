@@ -1,7 +1,9 @@
 package one.lindegaard.MobHunting.rewards;
 
+import one.lindegaard.BagOfGold.BagOfGold;
 import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
+import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
 import one.lindegaard.MobHunting.util.Misc;
 
 import java.util.UUID;
@@ -58,9 +60,8 @@ public class BagOfGoldSign implements Listener {
 					if (player.getItemInHand().getType().equals(Material.SKULL_ITEM)
 							&& Reward.isReward(player.getItemInHand())) {
 						Reward reward = Reward.getReward(player.getItemInHand());
-						
-						if (MobHunting.getConfigManager().enableBagOfGoldAsEconomyPlugin
-								&& reward.isBagOfGoldReward()) {
+
+						if (BagOfGoldCompat.isSupported() && reward.isBagOfGoldReward()) {
 							plugin.getMessages().playerSendMessage(player,
 									Messages.getString("mobhunting.money.you_cant_sell_and_buy_bagofgold", "itemname",
 											reward.getDisplayname()));
@@ -72,8 +73,8 @@ public class BagOfGoldSign implements Listener {
 							plugin.getMessages().playerSendMessage(player, Messages.getString(
 									"mobhunting.bagofgoldsign.item_has_no_value", "itemname", reward.getDisplayname()));
 							return;
-						} 
-						
+						}
+
 						if (sign.getLine(2).isEmpty() || sign.getLine(2)
 								.equalsIgnoreCase(Messages.getString("mobhunting.bagofgoldsign.line3.everything"))) {
 							money = moneyInHand;
@@ -103,7 +104,9 @@ public class BagOfGoldSign implements Listener {
 						} else {
 							reward.setMoney(moneyInHand - moneyOnSign);
 							ItemMeta im = event.getItem().getItemMeta();
+							Messages.debug("reward=%s", reward.getDisplayname());
 							im.setLore(reward.getHiddenLore());
+							Messages.debug("lore=%s", im.getDisplayName());
 							String displayName = MobHunting.getConfigManager().dropMoneyOnGroundItemtype
 									.equalsIgnoreCase("ITEM") ? plugin.getRewardManager().format(reward.getMoney())
 											: reward.getDisplayname() + " ("
@@ -130,7 +133,7 @@ public class BagOfGoldSign implements Listener {
 
 					// BUY BagOfGold Sign
 				} else if (signType.equalsIgnoreCase(Messages.getString("mobhunting.bagofgoldsign.line2.buy"))) {
-					if (MobHunting.getConfigManager().enableBagOfGoldAsEconomyPlugin) {
+					if (BagOfGoldCompat.isSupported()) {
 						plugin.getMessages().playerSendMessage(player,
 								Messages.getString("mobhunting.money.you_cant_sell_and_buy_bagofgold", "itemname",
 										MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim()));
@@ -147,7 +150,7 @@ public class BagOfGoldSign implements Listener {
 						return;
 					}
 					if (plugin.getRewardManager().getEconomy().getBalance(player) >= moneyOnSign) {
-
+						
 						boolean found = false;
 						for (int slot = 0; slot < player.getInventory().getSize(); slot++) {
 							ItemStack is = player.getInventory().getItem(slot);

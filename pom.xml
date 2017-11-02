@@ -41,8 +41,8 @@
 		<mavenShadePlugin.version>3.0.2</mavenShadePlugin.version>
 
 		<mcstats.pluginname>${project.groupId}.${project.artifactId}</mcstats.pluginname>
-		<!-- <metrics.version>R7</metrics.version> -->
 		<vault.version>1.6.6</vault.version>
+		<bagofgold.version>0.5.0</bagofgold.version>
 		<bstats.version>1.2</bstats.version>
 		<protocollib.version>4.4.0-SNAPSHOT</protocollib.version>
 		<minigames.version>1.9.0-SNAPSHOT</minigames.version>
@@ -358,6 +358,14 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- BagOfGold / -->
+		<dependency>
+			<groupId>one.lindegaard</groupId>
+			<artifactId>BagOfGold</artifactId>
+			<version>${bagofgold.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
 		<!-- WorldEdit -->
 		<dependency>
 			<groupId>com.sk89q.worldedit</groupId>
@@ -365,10 +373,6 @@
 			<version>${worldedit.version}</version>
 			<scope>provided</scope>
 		</dependency>
-
-		<!-- MCStats / Plugin Metrics -->
-		<!-- <dependency> <groupId>org.mcstats.bukkit</groupId> <artifactId>metrics</artifactId> 
-			<version>${metrics.version}</version> <scope>compile</scope> </dependency> -->
 
 		<!-- ProtocolLib -->
 		<dependency>
