@@ -25,6 +25,7 @@ public class BagOfGoldCompat {
 			console.sendMessage(ChatColor.RED + "[MobHunting/BagOfGold] Your current version of Vault ("
 					+ mPlugin.getDescription().getVersion()
 					+ ") is outdated. Please upgrade to 1.6.7 or newer if you want to use BagOfGold or uninstall BagOfGold");
+			Bukkit.getPluginManager().disablePlugin(mPlugin);
 		}
 
 	}

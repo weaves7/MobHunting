@@ -1,6 +1,5 @@
 package one.lindegaard.MobHunting.rewards;
 
-import one.lindegaard.BagOfGold.BagOfGold;
 import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
@@ -104,9 +103,7 @@ public class BagOfGoldSign implements Listener {
 						} else {
 							reward.setMoney(moneyInHand - moneyOnSign);
 							ItemMeta im = event.getItem().getItemMeta();
-							Messages.debug("reward=%s", reward.getDisplayname());
 							im.setLore(reward.getHiddenLore());
-							Messages.debug("lore=%s", im.getDisplayName());
 							String displayName = MobHunting.getConfigManager().dropMoneyOnGroundItemtype
 									.equalsIgnoreCase("ITEM") ? plugin.getRewardManager().format(reward.getMoney())
 											: reward.getDisplayname() + " ("
@@ -150,7 +147,7 @@ public class BagOfGoldSign implements Listener {
 						return;
 					}
 					if (plugin.getRewardManager().getEconomy().getBalance(player) >= moneyOnSign) {
-						
+
 						boolean found = false;
 						for (int slot = 0; slot < player.getInventory().getSize(); slot++) {
 							ItemStack is = player.getInventory().getItem(slot);

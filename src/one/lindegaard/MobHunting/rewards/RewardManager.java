@@ -4,13 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -186,6 +183,28 @@ public class RewardManager implements Listener {
 		return placedMoney_Location;
 	}
 
+	public EconomyResponse depositPlayer(OfflinePlayer offlinePlayer, double amount) {
+		if (BagOfGoldCompat.isSupported()) {
+			PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(offlinePlayer);
+			if (offlinePlayer.isOnline()) {
+				plugin.getRewardManager().depositBagOfGoldPlayer((Player) offlinePlayer,
+						ps.getBalanceChanges() + amount);
+				ps.setBalanceChanges(0);
+			} else {
+				ps.setBalanceChanges(ps.getBalanceChanges() + amount);
+			}
+			ps.setBalance(ps.getBalance() + amount);
+			plugin.getPlayerSettingsmanager().setPlayerSettings(offlinePlayer, ps);
+			MobHunting.getDataStoreManager().updatePlayerSettings(offlinePlayer, ps);
+			return new EconomyResponse(amount, ps.getBalance(), ResponseType.SUCCESS, null);
+		} else {
+			EconomyResponse result = mEconomy.depositPlayer(offlinePlayer, amount);
+			if (!result.transactionSuccess() && offlinePlayer.isOnline())
+				((Player) offlinePlayer).sendMessage(ChatColor.RED + "Unable to add money: " + result.errorMessage);
+			return result;
+		}
+	}
+
 	public EconomyResponse withdrawPlayer(OfflinePlayer offlinePlayer, double amount) {
 		if (BagOfGoldCompat.isSupported()) {
 			PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(offlinePlayer);
@@ -208,28 +227,6 @@ public class RewardManager implements Listener {
 			EconomyResponse result = mEconomy.withdrawPlayer(offlinePlayer, amount);
 			if (!result.transactionSuccess() && offlinePlayer.isOnline())
 				((Player) offlinePlayer).sendMessage(ChatColor.RED + "Unable to remove money: " + result.errorMessage);
-			return result;
-		}
-	}
-
-	public EconomyResponse depositPlayer(OfflinePlayer offlinePlayer, double amount) {
-		if (BagOfGoldCompat.isSupported()) {
-			PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(offlinePlayer);
-			if (offlinePlayer.isOnline()) {
-				plugin.getRewardManager().depositBagOfGoldPlayer((Player) offlinePlayer,
-						ps.getBalanceChanges() + amount);
-				ps.setBalanceChanges(0);
-			} else {
-				ps.setBalanceChanges(ps.getBalanceChanges() + amount);
-			}
-			ps.setBalance(ps.getBalance() + amount);
-			plugin.getPlayerSettingsmanager().setPlayerSettings(offlinePlayer, ps);
-			MobHunting.getDataStoreManager().updatePlayerSettings(offlinePlayer, ps);
-			return new EconomyResponse(amount, ps.getBalance(), ResponseType.SUCCESS, null);
-		} else {
-			EconomyResponse result = mEconomy.depositPlayer(offlinePlayer, amount);
-			if (!result.transactionSuccess() && offlinePlayer.isOnline())
-				((Player) offlinePlayer).sendMessage(ChatColor.RED + "Unable to add money: " + result.errorMessage);
 			return result;
 		}
 	}
@@ -450,6 +447,52 @@ public class RewardManager implements Listener {
 		return skull;
 	}
 
+	public void depositBagOfGoldPlayer(OfflinePlayer offlinePlayer, double amount) {
+		CustomItems customItems = new CustomItems(plugin);
+		Player player = ((Player) Bukkit.getServer().getOfflinePlayer(offlinePlayer.getUniqueId()));
+		boolean found = false;
+		if (player.getInventory().firstEmpty() == -1)
+			plugin.getRewardManager().dropMoneyOnGround(player, null, player.getLocation(), Misc.floor(amount));
+		else {
+			for (int slot = 0; slot < player.getInventory().getSize(); slot++) {
+				ItemStack is = player.getInventory().getItem(slot);
+				if (Reward.isReward(is)) {
+					Reward rewardInSlot = Reward.getReward(is);
+					if ((rewardInSlot.isBagOfGoldReward() || rewardInSlot.isItemReward())) {
+						rewardInSlot.setMoney(rewardInSlot.getMoney() + amount);
+						ItemMeta im = is.getItemMeta();
+						im.setLore(rewardInSlot.getHiddenLore());
+						String displayName = MobHunting.getConfigManager().dropMoneyOnGroundItemtype
+								.equalsIgnoreCase("ITEM") ? plugin.getRewardManager().format(rewardInSlot.getMoney())
+										: rewardInSlot.getDisplayname() + " ("
+												+ plugin.getRewardManager().format(rewardInSlot.getMoney()) + ")";
+						im.setDisplayName(ChatColor.valueOf(MobHunting.getConfigManager().dropMoneyOnGroundTextColor)
+								+ displayName);
+						is.setItemMeta(im);
+						is.setAmount(1);
+						Messages.debug("Added %s to item in slot %s, new value is %s",
+								plugin.getRewardManager().format(amount), slot,
+								plugin.getRewardManager().format(rewardInSlot.getMoney()));
+						found = true;
+						break;
+					}
+				}
+			}
+			if (!found) {
+				ItemStack is = customItems.getCustomtexture(UUID.fromString(RewardManager.MH_REWARD_BAG_OF_GOLD_UUID),
+						MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
+						MobHunting.getConfigManager().dropMoneyOnGroundSkullTextureValue,
+						MobHunting.getConfigManager().dropMoneyOnGroundSkullTextureSignature, Misc.floor(amount),
+						UUID.randomUUID(), UUID.fromString(RewardManager.MH_REWARD_BAG_OF_GOLD_UUID));
+				player.getInventory().addItem(is);
+			}
+		}
+		plugin.getMessages().playerActionBarMessage(player,
+				Messages.getString("mobhunting.commands.money.give", "rewardname",
+						MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(), "money",
+						plugin.getRewardManager().getEconomy().format(Misc.floor(amount))));
+	}
+
 	public double withdrawBagOfGoldPlayer(Player player, double amount) {
 		double taken = 0;
 		double toBeTaken = Misc.floor(amount);
@@ -486,25 +529,6 @@ public class RewardManager implements Listener {
 
 		return amount;
 
-	}
-
-	public void depositBagOfGoldPlayer(OfflinePlayer offlinePlayer, double amount) {
-		CustomItems customItems = new CustomItems(plugin);
-		Player player = ((Player) Bukkit.getServer().getOfflinePlayer(offlinePlayer.getUniqueId()));
-		if (player.getInventory().firstEmpty() == -1)
-			plugin.getRewardManager().dropMoneyOnGround(player, null, player.getLocation(), Misc.floor(amount));
-		else {
-			ItemStack is = customItems.getCustomtexture(UUID.fromString(RewardManager.MH_REWARD_BAG_OF_GOLD_UUID),
-					MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
-					MobHunting.getConfigManager().dropMoneyOnGroundSkullTextureValue,
-					MobHunting.getConfigManager().dropMoneyOnGroundSkullTextureSignature, Misc.floor(amount),
-					UUID.randomUUID(), UUID.fromString(RewardManager.MH_REWARD_BAG_OF_GOLD_UUID));
-			player.getInventory().addItem(is);
-		}
-		plugin.getMessages().playerActionBarMessage(player,
-				Messages.getString("mobhunting.commands.money.give", "rewardname",
-						MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(), "money",
-						plugin.getRewardManager().getEconomy().format(Misc.floor(amount))));
 	}
 
 	public double getPlayerKilledByMobPenalty(Player playerToBeRobbed) {

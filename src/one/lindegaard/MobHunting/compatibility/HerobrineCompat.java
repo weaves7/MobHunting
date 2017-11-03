@@ -75,7 +75,7 @@ public class HerobrineCompat implements Listener {
 	public static boolean isHerobrineMob(String key) {
 		if (isSupported()) {
 			for (int i : mobList.keySet()) {
-				if (mobList.get(i).name() == key)
+				if (mobList.get(i).name().equalsIgnoreCase(key))
 					return true;
 			}
 		}
