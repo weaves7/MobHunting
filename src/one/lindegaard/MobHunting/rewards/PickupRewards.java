@@ -85,7 +85,7 @@ public class PickupRewards {
 						im.setLore(reward.getHiddenLore());
 						is.setItemMeta(im);
 						item.setItemStack(is);
-						item.setMetadata(RewardManager.MH_REWARD_DATA,
+						item.setMetadata(Reward.MH_REWARD_DATA,
 								new FixedMetadataValue(MobHunting.getInstance(), new Reward(reward)));
 					}
 				}

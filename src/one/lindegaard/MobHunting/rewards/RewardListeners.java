@@ -104,7 +104,7 @@ public class RewardListeners implements Listener {
 			return;
 
 		Item item = event.getItem();
-		if (!item.hasMetadata(RewardManager.MH_REWARD_DATA))
+		if (!item.hasMetadata(Reward.MH_REWARD_DATA))
 			return;
 
 		if (MobHunting.getConfigManager().denyHoppersToPickUpMoney
@@ -210,7 +210,7 @@ public class RewardListeners implements Listener {
 								im.setLore(rewardOnGround.getHiddenLore());
 								is.setItemMeta(im);
 								item.setItemStack(is);
-								item.setMetadata(RewardManager.MH_REWARD_DATA,
+								item.setMetadata(Reward.MH_REWARD_DATA,
 										new FixedMetadataValue(plugin, new Reward(rewardOnGround)));
 							}
 
@@ -254,7 +254,7 @@ public class RewardListeners implements Listener {
 			if (reward.getMoney() == 0)
 				reward.setUniqueId(UUID.randomUUID());
 			Messages.debug("Placed Reward Block:%s", reward.toString());
-			block.setMetadata(RewardManager.MH_REWARD_DATA, new FixedMetadataValue(plugin, reward));
+			block.setMetadata(Reward.MH_REWARD_DATA, new FixedMetadataValue(plugin, reward));
 			plugin.getRewardManager().getLocations().put(reward.getUniqueUUID(), reward);
 			plugin.getRewardManager().getReward().put(reward.getUniqueUUID(), block.getLocation());
 			plugin.getRewardManager().saveReward(reward.getUniqueUUID());
@@ -273,7 +273,7 @@ public class RewardListeners implements Listener {
 			Reward reward = Reward.getReward(block);
 			block.getDrops().clear();
 			block.setType(Material.AIR);
-			block.removeMetadata(RewardManager.MH_REWARD_DATA, plugin);
+			block.removeMetadata(Reward.MH_REWARD_DATA, plugin);
 			ItemStack is;
 			if (reward.isBagOfGoldReward()) {
 				is = customItems.getCustomtexture(reward.getRewardUUID(), reward.getDisplayname(),
@@ -308,7 +308,7 @@ public class RewardListeners implements Listener {
 			item.setCustomName(
 					ChatColor.valueOf(MobHunting.getConfigManager().dropMoneyOnGroundTextColor) + displayName);
 			item.setCustomNameVisible(true);
-			item.setMetadata(RewardManager.MH_REWARD_DATA,
+			item.setMetadata(Reward.MH_REWARD_DATA,
 					new FixedMetadataValue(plugin, new Reward(reward.getHiddenLore())));
 
 			if (plugin.getRewardManager().getLocations().containsKey(reward.getUniqueUUID()))

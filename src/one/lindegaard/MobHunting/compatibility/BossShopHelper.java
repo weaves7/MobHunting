@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.rewards.CustomItems;
-import one.lindegaard.MobHunting.rewards.RewardManager;
+import one.lindegaard.MobHunting.rewards.Reward;
 
 public class BossShopHelper {
 
@@ -33,7 +33,7 @@ public class BossShopHelper {
 		
 		BossShopCompat.getBossShop().getAPI().openShop(p, shop);
 
-		UUID uuid = UUID.fromString(RewardManager.MH_REWARD_BAG_OF_GOLD_UUID);
+		UUID uuid = UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID);
 		
 		ItemStack is = new CustomItems(plugin).getCustomtexture(uuid,
 				MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),

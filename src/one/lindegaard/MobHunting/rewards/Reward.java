@@ -17,10 +17,19 @@ import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.MetadataValue;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.mobs.MinecraftMob;
 
 public class Reward {
+
+	public final static String MH_REWARD_DATA = "MH:HiddenRewardData";
+	// Unique random generated UUID for "Bag of gold" rewards
+	public final static String MH_REWARD_BAG_OF_GOLD_UUID = "b3f74fad-429f-4801-9e31-b8879cbae96f";
+	// Unique random generated UUID for MobHead/Playerhead rewards
+	public final static String MH_REWARD_KILLED_UUID = "2351844f-f400-4fa4-9642-35169c5b048a";
+	// Unique random generated UUID for ITEM rewards
+	public final static String MH_REWARD_ITEM_UUID = "3ffe9c3b-0445-4c35-a952-c2aaf5aeac76";
+	// Unique random generated UUID for KILLER head rewards
+	public final static String MH_REWARD_KILLER_UUID = "d81f1076-c91c-44c0-98c3-02a2ee88aa97";
 
 	private String displayname = "";;
 	private double money = 0;
@@ -28,14 +37,14 @@ public class Reward {
 	private UUID uniqueId;
 	private UUID skinUUID;
 
-	Reward() {
+	public Reward() {
 		this.displayname = "Skull";
 		this.money = 0;
 		this.uuid = UUID.randomUUID();
 		this.uniqueId = UUID.randomUUID();
 	}
 
-	Reward(Reward reward) {
+	public Reward(Reward reward) {
 		this.displayname = reward.getDisplayname();
 		this.money = reward.getMoney();
 		this.uuid = reward.getRewardUUID();
@@ -43,7 +52,7 @@ public class Reward {
 		this.uniqueId = reward.getUniqueUUID();
 	}
 
-	Reward(String displayName, double money, UUID uuid, UUID uniqueId, UUID skinUUID) {
+	public Reward(String displayName, double money, UUID uuid, UUID uniqueId, UUID skinUUID) {
 		this.displayname = displayName.startsWith("Hidden:") ? displayName.substring(7) : displayName;
 		this.money = money;
 		this.uuid = uuid;
@@ -51,7 +60,7 @@ public class Reward {
 		this.skinUUID = skinUUID;
 	}
 
-	Reward(List<String> lore) {
+	public Reward(List<String> lore) {
 		this.displayname = lore.get(0).startsWith("Hidden:") ? lore.get(0).substring(7) : lore.get(0);
 		this.money = Double.valueOf(lore.get(1).startsWith("Hidden:") ? lore.get(1).substring(7) : lore.get(1));
 		this.uuid = (lore.get(2).startsWith("Hidden:")) ? UUID.fromString(lore.get(2).substring(7))
@@ -66,8 +75,8 @@ public class Reward {
 			this.skinUUID = (lore.get(4).startsWith("Hidden:")) ? UUID.fromString(lore.get(4).substring(7))
 					: UUID.fromString(lore.get(4));
 		else {
-			if (uuid.equals(UUID.fromString(RewardManager.MH_REWARD_BAG_OF_GOLD_UUID)))
-				this.skinUUID = UUID.fromString(RewardManager.MH_REWARD_BAG_OF_GOLD_UUID);
+			if (uuid.equals(UUID.fromString(MH_REWARD_BAG_OF_GOLD_UUID)))
+				this.skinUUID = UUID.fromString(MH_REWARD_BAG_OF_GOLD_UUID);
 		}
 	}
 
@@ -85,8 +94,8 @@ public class Reward {
 			this.skinUUID = (lore.get(4).startsWith("Hidden:")) ? UUID.fromString(lore.get(4).substring(7))
 					: UUID.fromString(lore.get(4));
 		else {
-			if (uuid.equals(UUID.fromString(RewardManager.MH_REWARD_BAG_OF_GOLD_UUID)))
-				this.skinUUID = UUID.fromString(RewardManager.MH_REWARD_BAG_OF_GOLD_UUID);
+			if (uuid.equals(UUID.fromString(MH_REWARD_BAG_OF_GOLD_UUID)))
+				this.skinUUID = UUID.fromString(MH_REWARD_BAG_OF_GOLD_UUID);
 		}
 	}
 
@@ -197,13 +206,13 @@ public class Reward {
 		uniqueId = UUID.fromString(section.getString("uniqueid"));
 		String str = section.getString("skinuuid", "");
 		if (str.equalsIgnoreCase("")) {
-			if (uuid.equals(UUID.fromString(RewardManager.MH_REWARD_BAG_OF_GOLD_UUID)))
-				this.skinUUID = UUID.fromString(RewardManager.MH_REWARD_BAG_OF_GOLD_UUID);
-			else if (uuid.equals(UUID.fromString(RewardManager.MH_REWARD_KILLER_UUID))) {
+			if (uuid.equals(UUID.fromString(MH_REWARD_BAG_OF_GOLD_UUID)))
+				this.skinUUID = UUID.fromString(MH_REWARD_BAG_OF_GOLD_UUID);
+			else if (uuid.equals(UUID.fromString(MH_REWARD_KILLER_UUID))) {
 				OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(displayname);
 				if (offlinePlayer != null)
 					skinUUID = offlinePlayer.getUniqueId();
-			} else if (uuid.equals(UUID.fromString(RewardManager.MH_REWARD_KILLED_UUID))) {
+			} else if (uuid.equals(UUID.fromString(MH_REWARD_KILLED_UUID))) {
 				MinecraftMob mob = MinecraftMob.getMinecraftMobType(displayname);
 				if (mob != null) {
 					skinUUID = mob.getPlayerUUID();
@@ -216,30 +225,30 @@ public class Reward {
 	}
 
 	public boolean isBagOfGoldReward() {
-		return uuid.toString().equalsIgnoreCase(RewardManager.MH_REWARD_BAG_OF_GOLD_UUID);
+		return uuid.toString().equalsIgnoreCase(MH_REWARD_BAG_OF_GOLD_UUID);
 	}
 
 	public boolean isKilledHeadReward() {
-		return uuid.toString().equalsIgnoreCase(RewardManager.MH_REWARD_KILLED_UUID);
+		return uuid.toString().equalsIgnoreCase(MH_REWARD_KILLED_UUID);
 	}
 
 	public boolean isKillerHeadReward() {
-		return uuid.toString().equalsIgnoreCase(RewardManager.MH_REWARD_KILLER_UUID);
+		return uuid.toString().equalsIgnoreCase(MH_REWARD_KILLER_UUID);
 	}
 
 	public boolean isItemReward() {
-		return uuid.toString().equalsIgnoreCase(RewardManager.MH_REWARD_ITEM_UUID);
+		return uuid.toString().equalsIgnoreCase(MH_REWARD_ITEM_UUID);
 	}
 
 	public static boolean isReward(Item item) {
-		return item.hasMetadata(RewardManager.MH_REWARD_DATA) || isReward(item.getItemStack());
+		return item.hasMetadata(MH_REWARD_DATA) || isReward(item.getItemStack());
 	}
 
 	public static Reward getReward(Item item) {
-		if (item.hasMetadata(RewardManager.MH_REWARD_DATA))
-			for (MetadataValue mv : item.getMetadata(RewardManager.MH_REWARD_DATA)) {
+		if (item.hasMetadata(MH_REWARD_DATA))
+			for (MetadataValue mv : item.getMetadata(MH_REWARD_DATA)) {
 				if (mv.value() instanceof Reward)
-					return (Reward) item.getMetadata(RewardManager.MH_REWARD_DATA).get(0).value();
+					return (Reward) item.getMetadata(MH_REWARD_DATA).get(0).value();
 			}
 		return getReward(item.getItemStack());
 	}
@@ -248,13 +257,13 @@ public class Reward {
 		if (itemStack != null && itemStack.hasItemMeta() && itemStack.getItemMeta().hasLore()) {
 			for (int i = 0; i < itemStack.getItemMeta().getLore().size(); i++) {
 				if (itemStack.getItemMeta().getLore().get(i)
-						.equals("Hidden:" + RewardManager.MH_REWARD_BAG_OF_GOLD_UUID)
+						.equals("Hidden:" + MH_REWARD_BAG_OF_GOLD_UUID)
 						|| itemStack.getItemMeta().getLore().get(i)
-								.equals("Hidden:" + RewardManager.MH_REWARD_KILLED_UUID)
+								.equals("Hidden:" + MH_REWARD_KILLED_UUID)
 						|| itemStack.getItemMeta().getLore().get(i)
-								.equals("Hidden:" + RewardManager.MH_REWARD_KILLER_UUID)
+								.equals("Hidden:" + MH_REWARD_KILLER_UUID)
 						|| itemStack.getItemMeta().getLore().get(i)
-								.equals("Hidden:" + RewardManager.MH_REWARD_ITEM_UUID)) {
+								.equals("Hidden:" + MH_REWARD_ITEM_UUID)) {
 					return true;
 				}
 			}
@@ -267,19 +276,19 @@ public class Reward {
 	}
 
 	public static boolean hasReward(Block block) {
-		return block.getType() == Material.SKULL && block.hasMetadata(RewardManager.MH_REWARD_DATA);
+		return block.getType() == Material.SKULL && block.hasMetadata(MH_REWARD_DATA);
 	}
 
 	public static Reward getReward(Block block) {
-		return (Reward) block.getMetadata(RewardManager.MH_REWARD_DATA).get(0).value();
+		return (Reward) block.getMetadata(MH_REWARD_DATA).get(0).value();
 	}
 
 	public static boolean isReward(Entity entity) {
-		return entity.hasMetadata(RewardManager.MH_REWARD_DATA);
+		return entity.hasMetadata(MH_REWARD_DATA);
 	}
 
 	public static Reward getReward(Entity entity) {
-		return (Reward) entity.getMetadata(RewardManager.MH_REWARD_DATA).get(0).value();
+		return (Reward) entity.getMetadata(MH_REWARD_DATA).get(0).value();
 	}
 
 }

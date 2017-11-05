@@ -6,8 +6,8 @@
 	<groupId>one.lindegaard</groupId>
 	<artifactId>MobHunting</artifactId>
 	<packaging>jar</packaging>
-	<version>5.1.7</version>
-	<!-- <version>5.1.7-SNAPSHOT-B${build.number}</version> -->
+	<!-- <version>5.1.8</version> -->
+	<version>5.1.8-SNAPSHOT-B${build.number}</version>
 	<name>MobHunting</name>
 	<url>http://dev.bukkit.org/server-mods/mobhunting/</url>
 	<description>MobHunting adds a new level of fun to hunting monsters. Now you can get money from kills, get bonuses for skilled and creative kills, and get special achievements!</description>
@@ -31,9 +31,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<mainClass>${project.groupId}.${project.artifactId}</mainClass>
-		<bukkit.version>1.12.2-R0.1-SNAPSHOT</bukkit.version>
-		<craftbukkit.version>1.12.2-R0.1-SNAPSHOT</craftbukkit.version>
 		<spigotmc.version>1.12.2-R0.1-SNAPSHOT</spigotmc.version>
+		<bukkit.version>1.12.2-R0.1-SNAPSHOT</bukkit.version>
 		<spongeapi.version>5.1.0-SNAPSHOT</spongeapi.version>
 		<javacompiler.version>1.8</javacompiler.version>
 		<mavenCompilerPlugin.version>3.6.1</mavenCompilerPlugin.version>
@@ -176,15 +175,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- Shade mcstats.org -->
-			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-shade-plugin</artifactId> 
-				<version>${mavenShadePlugin.version}</version> <configuration> <finalName>${project.name}</finalName> 
-				<minimizeJar>true</minimizeJar> <createDependencyReducedPom>false</createDependencyReducedPom> 
-				<artifactSet> <includes> <include>org.mcstats.bukkit:metrics</include> </includes> 
-				</artifactSet> <relocations> <relocation> <pattern>org.mcstats</pattern> 
-				<shadedPattern>one.lindegaard.MobHunting</shadedPattern> </relocation> </relocations> 
-				</configuration> <executions> <execution> <phase>clean package</phase> <goals> 
-				<goal>shade</goal> </goals> </execution> </executions> </plugin> -->
 		</plugins>
 	</build>
 
@@ -316,17 +306,6 @@
 			<id>placeholderapi</id>
 			<url>http://repo.extendedclip.com/content/repositories/placeholderapi/</url>
 		</repository>
-
-		<!-- Holograms API -->
-		<!-- <repository> <id>maven.sainttx.com</id> <url>http://maven.sainttx.com/nexus/content/groups/public/</url> 
-			</repository> -->
-
-
-
-
-		<!-- BossShop <repository> <id>confuser-repo</id> <url>http://ci.frostcast.net/plugin/repository/everything/</url> 
-			</repository> -->
-
 	</repositories>
 
 
@@ -339,6 +318,12 @@
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
 			<version>${spigotmc.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.bukkit</groupId>
+			<artifactId>bukkit</artifactId>
+			<version>${bukkit.version}</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -538,7 +523,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-
 		<!-- TitleAPI -->
 		<dependency>
 			<groupId>com.connorlinfoot</groupId>
@@ -567,6 +551,7 @@
 			<version>${MobStacker.version}</version>
 		</dependency>
 
+		<!-- Gringotts -->
 		<dependency>
 			<groupId>org.gestern.gringotts</groupId>
 			<artifactId>Gringotts</artifactId>
@@ -581,20 +566,17 @@
 			<artifactId>MythicMobs</artifactId>
 			<version>${mythicmobsold.version}</version>
 		</dependency>
-
 		<!-- MythicMobs -->
 		<dependency>
 			<groupId>io.lumine.xikage</groupId>
 			<artifactId>MythicMobs</artifactId>
 			<version>${mythicmobs.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>MythicLib</groupId>
 			<artifactId>MythicLib</artifactId>
 			<version>${mythiclib.version}</version>
 		</dependency>
-
 
 		<!-- CustomMobs -->
 		<dependency>
@@ -632,8 +614,6 @@
 		</dependency>
 
 		<!-- Holograms -->
-		<!-- <dependency> <groupId>com.sainttx.holograms</groupId> <artifactId>holograms-api</artifactId> 
-			<version>${holograms.version}</version> <scope>provided</scope> </dependency> -->
 		<dependency>
 			<groupId>com.sainttx.holograms</groupId>
 			<artifactId>holograms</artifactId>
@@ -723,7 +703,6 @@
 			<version>${crackshot.version}</version>
 		</dependency>
 
-
 		<!-- ExtraHardMode -->
 		<dependency>
 			<groupId>com.extrahardmode.ExtraHardMode</groupId>
@@ -732,17 +711,6 @@
 			<scope>system</scope>
 			<systemPath>${project.basedir}/lib/${extrahardmode.jar.version}</systemPath>
 		</dependency>
-		<!-- <dependency> <groupId>com.extrahardmode</groupId> <artifactId>ExtraHardMode</artifactId> 
-			<version>3.12.1</version> <scope>provided</scope> </dependency> -->
-
-
-
-
-		<!-- <dependency> <groupId>org.jfrog.buildinfo</groupId> <artifactId>artifactory-maven-plugin</artifactId> 
-			<version>2.6.1</version> <type>pom</type> </dependency> -->
-
-
-
 	</dependencies>
 
 

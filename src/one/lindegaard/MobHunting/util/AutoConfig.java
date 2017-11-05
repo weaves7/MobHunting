@@ -351,10 +351,6 @@ public abstract class AutoConfig {
 			for (String line : lines)
 				output += line + "\n";
 
-			//FileWriter writer = new FileWriter(mFile);
-			//writer.write(output);
-			//writer.close();
-			
 			OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(mFile), StandardCharsets.UTF_8);
 			writer.write(output);
 			writer.close();

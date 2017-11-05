@@ -17,7 +17,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.rewards.CustomItems;
-import one.lindegaard.MobHunting.rewards.RewardManager;
+import one.lindegaard.MobHunting.rewards.Reward;
 import one.lindegaard.MobHunting.util.Misc;
 
 import org.bukkit.entity.Skeleton.SkeletonType;
@@ -846,19 +846,19 @@ public enum MinecraftMob {
 		case Skeleton:
 			skull = new ItemStack(Material.SKULL_ITEM, amount, (short) 0);
 			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, getFriendlyName(), money,
-					UUID.fromString(RewardManager.MH_REWARD_KILLED_UUID), getPlayerUUID());
+					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), getPlayerUUID());
 			break;
 
 		case WitherSkeleton:
 			skull = new ItemStack(Material.SKULL_ITEM, amount, (short) 1);
 			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, getFriendlyName(), money,
-					UUID.fromString(RewardManager.MH_REWARD_KILLED_UUID), getPlayerUUID());
+					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), getPlayerUUID());
 			break;
 
 		case Zombie:
 			skull = new ItemStack(Material.SKULL_ITEM, amount, (short) 2);
 			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, getFriendlyName(), money,
-					UUID.fromString(RewardManager.MH_REWARD_KILLED_UUID), getPlayerUUID());
+					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), getPlayerUUID());
 			break;
 
 		case PvpPlayer:
@@ -871,18 +871,18 @@ public enum MinecraftMob {
 		case Creeper:
 			skull = new ItemStack(Material.SKULL_ITEM, amount, (short) 4);
 			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, getFriendlyName(), money,
-					UUID.fromString(RewardManager.MH_REWARD_KILLED_UUID), getPlayerUUID());
+					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), getPlayerUUID());
 			break;
 
 		case EnderDragon:
 			skull = new ItemStack(Material.SKULL_ITEM, amount, (short) 5);
 			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, getFriendlyName(), money,
-					UUID.fromString(RewardManager.MH_REWARD_KILLED_UUID), getPlayerUUID());
+					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), getPlayerUUID());
 			break;
 
 		default:
 			ItemStack is = new ItemStack(new CustomItems(plugin).getCustomtexture(
-					UUID.fromString(RewardManager.MH_REWARD_KILLED_UUID), getFriendlyName(), mTextureValue,
+					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), getFriendlyName(), mTextureValue,
 					mTextureSignature, money, UUID.randomUUID(), getPlayerUUID()));
 			is.setAmount(amount);
 			return is;

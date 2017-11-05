@@ -49,7 +49,7 @@ public class MoneyMergeEventListener implements Listener {
 					item2.setCustomName(
 							ChatColor.valueOf(MobHunting.getConfigManager().dropMoneyOnGroundTextColor) + displayName);
 					item2.setCustomNameVisible(true);
-					item2.setMetadata(RewardManager.MH_REWARD_DATA,
+					item2.setMetadata(Reward.MH_REWARD_DATA,
 							new FixedMetadataValue(MobHunting.getInstance(), new Reward(reward2)));
 					Messages.debug("Rewards merged - new value=%s",
 							plugin.getRewardManager().format(reward2.getMoney()));

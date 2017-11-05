@@ -7,7 +7,6 @@ import one.lindegaard.MobHunting.compatibility.BossShopCompat;
 import one.lindegaard.MobHunting.compatibility.BossShopHelper;
 import one.lindegaard.MobHunting.rewards.CustomItems;
 import one.lindegaard.MobHunting.rewards.Reward;
-import one.lindegaard.MobHunting.rewards.RewardManager;
 import one.lindegaard.MobHunting.util.Misc;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -275,12 +274,12 @@ public class MoneyCommand implements ICommand {
 										Misc.floor(Double.valueOf(args[2])));
 							else {
 								ItemStack is = customItems.getCustomtexture(
-										UUID.fromString(RewardManager.MH_REWARD_BAG_OF_GOLD_UUID),
+										UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID),
 										MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
 										MobHunting.getConfigManager().dropMoneyOnGroundSkullTextureValue,
 										MobHunting.getConfigManager().dropMoneyOnGroundSkullTextureSignature,
 										Misc.floor(Double.valueOf(args[2])), UUID.randomUUID(),
-										UUID.fromString(RewardManager.MH_REWARD_BAG_OF_GOLD_UUID));
+										UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID));
 								player.getInventory().addItem(is);
 							}
 							plugin.getMessages().playerActionBarMessage(player,
@@ -321,7 +320,8 @@ public class MoneyCommand implements ICommand {
 						if (args[2].matches("\\d+(\\.\\d+)?")) {
 							Player player = ((Player) Bukkit.getServer().getOfflinePlayer(args[1]));
 							double rest = Misc.floor(Double.valueOf(args[2]));
-							double taken = plugin.getRewardManager().withdrawBagOfGoldPlayer(player, rest);
+							double taken=0;
+							  taken = plugin.getRewardManager().withdrawBagOfGoldPlayer(player, rest);
 							plugin.getMessages().playerActionBarMessage(player,
 									Messages.getString("mobhunting.commands.money.take", "rewardname",
 											MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
@@ -385,7 +385,7 @@ public class MoneyCommand implements ICommand {
 					for (int slot = 0; slot < player.getInventory().getSize(); slot++) {
 						ItemStack is = player.getInventory().getItem(slot);
 						if (Reward.isReward(is) && Reward.getReward(is).getRewardUUID()
-								.equals(UUID.fromString(RewardManager.MH_REWARD_BAG_OF_GOLD_UUID))) {
+								.equals(UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID))) {
 							Reward reward = Reward.getReward(is);
 							double saldo = Misc.floor(reward.getMoney());
 							if (saldo > toBeSold) {
@@ -434,12 +434,12 @@ public class MoneyCommand implements ICommand {
 									Misc.floor(Double.valueOf(args[1])));
 						else {
 							ItemStack is = customItems.getCustomtexture(
-									UUID.fromString(RewardManager.MH_REWARD_BAG_OF_GOLD_UUID),
+									UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID),
 									MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
 									MobHunting.getConfigManager().dropMoneyOnGroundSkullTextureValue,
 									MobHunting.getConfigManager().dropMoneyOnGroundSkullTextureSignature,
 									Misc.floor(Double.valueOf(args[1])), UUID.randomUUID(),
-									UUID.fromString(RewardManager.MH_REWARD_BAG_OF_GOLD_UUID));
+									UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID));
 							player.getInventory().addItem(is);
 						}
 						plugin.getRewardManager().getEconomy().withdrawPlayer(player,

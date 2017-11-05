@@ -1648,7 +1648,10 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "drop-money-use-item-as-currency", category = "dropmoneyonground", comment = "Use the reward as a currency (bag of gold) which can be sold, bought, stored in a"
 			+ "\nprotected chest or a protected area (a Bank?). Check the command /mh money sell."
 			+ "\nIf false the bag of gold will be picked up as money, if true the bag of gold "
-			+ "\nwill be picked up as an item.")
+			+ "\nwill be picked up as an item."
+			+ "\n\nOBS: If you want to use the bags as an Economy replacing Essentials/CraftConomy/... and more, "
+			+ "\nthen you have to install my the BagOfGold addin plugin as well."
+			+ "https://dev.bukkit.org/projects/bagofgold")
 	public boolean dropMoneyOnGroundUseAsCurrency = true;
 
 	@ConfigField(name = "drop-money-command-alias", category = "dropmoneyonground", comment = "Here you can change the command /mh money ... to /mh <alias> ..."

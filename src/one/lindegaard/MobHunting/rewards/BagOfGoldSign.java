@@ -187,12 +187,12 @@ public class BagOfGoldSign implements Listener {
 										Misc.ceil(moneyOnSign));
 							else {
 								ItemStack is = new CustomItems(plugin).getCustomtexture(
-										UUID.fromString(RewardManager.MH_REWARD_BAG_OF_GOLD_UUID),
+										UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID),
 										MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
 										MobHunting.getConfigManager().dropMoneyOnGroundSkullTextureValue,
 										MobHunting.getConfigManager().dropMoneyOnGroundSkullTextureSignature,
 										Misc.ceil(moneyOnSign), UUID.randomUUID(),
-										UUID.fromString(RewardManager.MH_REWARD_BAG_OF_GOLD_UUID));
+										UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID));
 								player.getInventory().addItem(is);
 								found = true;
 							}
