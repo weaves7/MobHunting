@@ -96,16 +96,12 @@ public class MuteCommand implements ICommand {
 		PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(player);
 		boolean lm = ps.isLearningMode();
 		if (ps.isMuted()) {
-			ds.updatePlayerSettings(player, lm, false, ps.getBalance(), ps.getBalanceChanges(), ps.getBankBalance(),
-					ps.getBankBalanceChanges());
-			plugin.getPlayerSettingsmanager().setPlayerSettings(player, new PlayerSettings(player, lm, false,
-					ps.getBalance(), ps.getBalanceChanges(), ps.getBankBalance(), ps.getBankBalanceChanges()));
+			ds.updatePlayerSettings(player, lm, false);
+			plugin.getPlayerSettingsmanager().setPlayerSettings(player, new PlayerSettings(player, lm, false));
 			player.sendMessage(Messages.getString("mobhunting.commands.mute.unmuted", "player", player.getName()));
 		} else {
-			ds.updatePlayerSettings(player, lm, true, ps.getBalance(), ps.getBalanceChanges(), ps.getBankBalance(),
-					ps.getBankBalanceChanges());
-			plugin.getPlayerSettingsmanager().setPlayerSettings(player, new PlayerSettings(player, lm, true,
-					ps.getBalance(), ps.getBalanceChanges(), ps.getBankBalance(), ps.getBankBalanceChanges()));
+			ds.updatePlayerSettings(player, lm, true);
+			plugin.getPlayerSettingsmanager().setPlayerSettings(player, new PlayerSettings(player, lm, true));
 			player.sendMessage(Messages.getString("mobhunting.commands.mute.muted", "player", player.getName()));
 		}
 	}

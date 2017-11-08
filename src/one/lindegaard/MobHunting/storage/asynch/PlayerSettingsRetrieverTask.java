@@ -7,7 +7,6 @@ import org.bukkit.OfflinePlayer;
 
 import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
-import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
 import one.lindegaard.MobHunting.storage.DataStoreException;
 import one.lindegaard.MobHunting.storage.IDataStore;
 import one.lindegaard.MobHunting.storage.PlayerSettings;
@@ -29,8 +28,7 @@ public class PlayerSettingsRetrieverTask implements IDataStoreTask<PlayerSetting
 				return store.loadPlayerSettings(mPlayer);
 			} catch (UserNotFoundException e) {
 				Messages.debug("Saving new PlayerSettings for %s to database.", mPlayer.getName());
-				PlayerSettings ps = new PlayerSettings(mPlayer, MobHunting.getConfigManager().learningMode, false,
-						BagOfGoldCompat.isSupported()?BagOfGoldCompat.getStartingBalance():0, 0, 0, 0);
+				PlayerSettings ps = new PlayerSettings(mPlayer, MobHunting.getConfigManager().learningMode, false);
 				try {
 					store.insertPlayerSettings(ps);
 				} catch (DataStoreException e1) {

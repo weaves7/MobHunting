@@ -8,9 +8,11 @@ import org.bukkit.configuration.InvalidConfigurationException;
 
 public class ConfigManager extends AutoConfig {
 
-	public ConfigManager(File file) {
+	private MobHunting plugin;
+	public ConfigManager(MobHunting plugin, File file) {
 
 		super(file);
+		this.plugin=plugin;
 
 		setCategoryComment("mobs", "########################################################################"
 				+ "\nRewards for killing mobs."
@@ -1645,13 +1647,13 @@ public class ConfigManager extends AutoConfig {
 			+ "\n\nChoose between \"ITEM\",\"KILLED\",\"SKULL\",\"KILLER\"")
 	public String dropMoneyOnGroundItemtype = "SKULL";
 
-	@ConfigField(name = "drop-money-use-item-as-currency", category = "dropmoneyonground", comment = "Use the reward as a currency (bag of gold) which can be sold, bought, stored in a"
+	@ConfigField(name = "drop-money-use-item-as-currency", category = "dropmoneyonground", comment = 
+			  "Use the reward as a currency (bag of gold) which can be sold, bought, stored in a"
 			+ "\nprotected chest or a protected area (a Bank?). Check the command /mh money sell."
 			+ "\nIf false the bag of gold will be picked up as money, if true the bag of gold "
-			+ "\nwill be picked up as an item."
-			+ "\n\nOBS: If you want to use the bags as an Economy replacing Essentials/CraftConomy/... and more, "
-			+ "\nthen you have to install my the BagOfGold addin plugin as well."
-			+ "https://dev.bukkit.org/projects/bagofgold")
+			+ "\nwill be picked up as an item. OBS: If you want to use the bags as an Economy "
+			+ "\nreplacing Essentials/CraftConomy/... and more, then you have to install the"
+			+ "\nBagOfGold plugin as well. (https://dev.bukkit.org/projects/bagofgold)")
 	public boolean dropMoneyOnGroundUseAsCurrency = true;
 
 	@ConfigField(name = "drop-money-command-alias", category = "dropmoneyonground", comment = "Here you can change the command /mh money ... to /mh <alias> ..."
@@ -2323,7 +2325,7 @@ public class ConfigManager extends AutoConfig {
 
 	@Override
 	protected void onPostLoad() throws InvalidConfigurationException {
-		Messages.setLanguage(language + ".lang");
+		plugin.getMessages().setLanguage(language + ".lang");
 	}
 
 }

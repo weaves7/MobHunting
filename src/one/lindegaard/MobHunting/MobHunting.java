@@ -56,6 +56,7 @@ public class MobHunting extends JavaPlugin {
 	private static MobHunting instance;
 
 	private Messages mMessages;
+	private ConfigManager mConfig;
 	private RewardManager mRewardManager;
 	private static MobHuntingManager mMobHuntingManager;
 	private FishingManager mFishingManager;
@@ -70,7 +71,6 @@ public class MobHunting extends JavaPlugin {
 	private static ExtendedMobManager mExtendedMobManager;
 	private static IDataStore mStore;
 	private static DataStoreManager mStoreManager;
-	private static ConfigManager mConfig;
 	private AdvancementManager mAdvancementManager;
 	private CommandDispatcher mCommandDispatcher;
 	// private HologramManager mHologramManager;
@@ -89,7 +89,7 @@ public class MobHunting extends JavaPlugin {
 		mMessages = new Messages(this);
 		mMessages.exportDefaultLanguages(this);
 
-		mConfig = new ConfigManager(new File(getDataFolder(), "config.yml"));
+		mConfig = new ConfigManager(this, new File(getDataFolder(), "config.yml"));
 
 		if (mConfig.loadConfig()) {
 			if (mConfig.dropMoneyOnGroundTextColor.equals("&0"))
@@ -381,7 +381,7 @@ public class MobHunting extends JavaPlugin {
 	}
 
 	public static ConfigManager getConfigManager() {
-		return mConfig;
+		return instance.mConfig;
 	}
 
 	/**

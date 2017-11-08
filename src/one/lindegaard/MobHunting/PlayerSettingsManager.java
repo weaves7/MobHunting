@@ -14,6 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import one.lindegaard.BagOfGold.BagOfGold;
 import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
 import one.lindegaard.MobHunting.storage.DataStoreException;
 import one.lindegaard.MobHunting.storage.IDataCallback;
@@ -45,7 +46,7 @@ public class PlayerSettingsManager implements Listener {
 		else {
 			try {
 				PlayerSettings ps = MobHunting.getStoreManager().loadPlayerSettings(offlinePlayer);
-				Messages.debug("%s is offline, fetching PlayerData from database", offlinePlayer.getName());
+				Messages.debug("%s is not in the database. (Has played before=%s)", offlinePlayer.getName(), offlinePlayer.hasPlayedBefore());
 				return ps;
 			} catch (DataStoreException | SQLException e) {
 				Messages.debug("%s is not known on this server", offlinePlayer.getName());
@@ -128,7 +129,7 @@ public class PlayerSettingsManager implements Listener {
 				Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[MobHunting][ERROR] " + player.getName()
 						+ " is new, creating user in database.");
 				mPlayerSettings.put(player.getUniqueId(), new PlayerSettings(player,
-						BagOfGoldCompat.isSupported() ? BagOfGoldCompat.getStartingBalance() : 0));
+						BagOfGoldCompat.isSupported() ? BagOfGold.getInstance().getConfigManager().startingBalance : 0));
 			}
 		});
 	}
@@ -140,9 +141,7 @@ public class PlayerSettingsManager implements Listener {
 	 */
 	public void save(final OfflinePlayer player) {
 		MobHunting.getDataStoreManager().updatePlayerSettings(player, getPlayerSettings(player).isLearningMode(),
-				getPlayerSettings(player).isMuted(), getPlayerSettings(player).getBalance(),
-				getPlayerSettings(player).getBalanceChanges(), getPlayerSettings(player).getBankBalance(),
-				getPlayerSettings(player).getBankBalanceChanges());
+				getPlayerSettings(player).isMuted());
 	}
 
 	/**

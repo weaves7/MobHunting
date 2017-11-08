@@ -1,3 +1,5 @@
+V5.1.8
+* MobHunting & BagOfGold Released. BagOfGold is now a real Economy, which can be used like any other Economy (Essentials, CraftConomy, Gringotts,...)
 V5.1.7
 * New command "/mh money", "/mh money balance", "/mh money balance playername" to get the amount of BagOfGold in the players inventory
 * Added new placeholder '%mobhunting_balance%'

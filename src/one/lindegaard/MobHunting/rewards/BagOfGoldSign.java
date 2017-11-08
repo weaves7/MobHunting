@@ -183,7 +183,7 @@ public class BagOfGoldSign implements Listener {
 						if (!found) {
 
 							if (player.getInventory().firstEmpty() == -1)
-								plugin.getRewardManager().dropMoneyOnGround(player, null, player.getLocation(),
+								plugin.getRewardManager().dropMoneyOnGround_RewardManager(player, null, player.getLocation(),
 										Misc.ceil(moneyOnSign));
 							else {
 								ItemStack is = new CustomItems(plugin).getCustomtexture(

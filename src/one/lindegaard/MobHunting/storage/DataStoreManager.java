@@ -159,16 +159,10 @@ public class DataStoreManager {
 	 * @param offlinePlayer
 	 * @param learning_mode
 	 * @param muted
-	 * @param balance
-	 * @param balanceChanges
-	 * @param bankBalance
-	 * @param bankBalanceChanges
 	 */
-	public void updatePlayerSettings(OfflinePlayer offlinePlayer, boolean learning_mode, boolean muted, double balance,
-			double balanceChanges, double bankBalance, double bankBalanceChanges) {
+	public void updatePlayerSettings(OfflinePlayer offlinePlayer, boolean learning_mode, boolean muted) {
 		synchronized (mWaiting) {
-			mWaiting.add(new PlayerSettings(offlinePlayer, learning_mode, muted, balance, balanceChanges, bankBalance,
-					bankBalanceChanges));
+			mWaiting.add(new PlayerSettings(offlinePlayer, learning_mode, muted));
 		}
 	}
 

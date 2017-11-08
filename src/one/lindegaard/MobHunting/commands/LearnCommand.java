@@ -95,14 +95,11 @@ public class LearnCommand implements ICommand {
 		boolean mm = plugin.getPlayerSettingsmanager().getPlayerSettings(player).isMuted();
 		PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(player);
 		if (ps.isLearningMode()) {
-			ds.updatePlayerSettings(player, false, mm, ps.getBalance(), ps.getBalanceChanges(), ps.getBankBalance(),
-					ps.getBankBalanceChanges());
-			plugin.getPlayerSettingsmanager().setPlayerSettings(player, new PlayerSettings(player, false, mm,
-					ps.getBalance(), ps.getBalanceChanges(), ps.getBankBalance(), ps.getBankBalanceChanges()));
+			ds.updatePlayerSettings(player, false, mm);
+			plugin.getPlayerSettingsmanager().setPlayerSettings(player, new PlayerSettings(player, false, mm));
 			player.sendMessage(Messages.getString("mobhunting.commands.learn.disabled", "player", player.getName()));
 		} else {
-			plugin.getPlayerSettingsmanager().setPlayerSettings(player, new PlayerSettings(player, true, mm,
-					ps.getBalance(), ps.getBalanceChanges(), ps.getBankBalance(), ps.getBankBalanceChanges()));
+			plugin.getPlayerSettingsmanager().setPlayerSettings(player, new PlayerSettings(player, true, mm));
 			player.sendMessage(Messages.getString("mobhunting.commands.learn.enabled", "player", player.getName()));
 		}
 	}

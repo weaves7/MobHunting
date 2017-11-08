@@ -80,12 +80,12 @@ public class SQLiteDataStore extends DatabaseDataStore {
 			break;
 		case INSERT_PLAYER_DATA:
 			mInsertPlayerData = connection.prepareStatement(
-					"INSERT INTO mh_Players (UUID,NAME,PLAYER_ID,LEARNING_MODE,MUTE_MODE,BALANCE,BALANCE_CHANGES,BANK_BALANCE,BANK_BALANCE_CHNAGES) "
-							+ "VALUES(?,?,(SELECT IFNULL(MAX(PLAYER_ID),0)+1 FROM mh_Players),?,?,?,?,?,?);");
+					"INSERT INTO mh_Players (UUID,NAME,PLAYER_ID,LEARNING_MODE,MUTE_MODE) "
+							+ "VALUES(?,?,(SELECT IFNULL(MAX(PLAYER_ID),0)+1 FROM mh_Players),?,?);");
 			break;
 		case UPDATE_PLAYER_SETTINGS:
 			mUpdatePlayerSettings = connection
-					.prepareStatement("UPDATE mh_Players SET LEARNING_MODE=?,MUTE_MODE=?,BALANCE=?,BALANCE_CHANGES=?,BANK_BALANCE=?,BANK_BALANCE_CHANGES=? WHERE UUID=?;");
+					.prepareStatement("UPDATE mh_Players SET LEARNING_MODE=?,MUTE_MODE=? WHERE UUID=?;");
 			break;
 		case GET_BOUNTIES:
 			mGetBounties = connection.prepareStatement(

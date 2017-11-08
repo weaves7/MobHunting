@@ -1,10 +1,13 @@
 package one.lindegaard.MobHunting.util;
 
 import java.lang.reflect.Method;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -244,6 +247,13 @@ public class Misc {
 		return Collections.emptyList();
 	}
 
-	
+	public static String format(double money) {
+		Locale locale = new Locale("en", "UK");
+		String pattern = "#.#####";
+		DecimalFormat decimalFormat = (DecimalFormat) NumberFormat.getNumberInstance(locale);
+		decimalFormat.applyPattern(pattern);
+		return decimalFormat.format(money);
+	}
+
 
 }

@@ -5,10 +5,13 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 
 import one.lindegaard.BagOfGold.BagOfGold;
+import one.lindegaard.BagOfGold.EconomyManager;
+import one.lindegaard.BagOfGold.PlayerSettingsManager;
+import one.lindegaard.BagOfGold.storage.DataStoreManager;
 
 public class BagOfGoldCompat {
 
-	private static BagOfGold mPlugin;
+	private BagOfGold mPlugin;
 	private static boolean supported = false;
 
 	public BagOfGoldCompat() {
@@ -32,7 +35,7 @@ public class BagOfGoldCompat {
 	// OTHER
 	// **************************************************************************
 
-	public static BagOfGold getBagOfGoldAPI() {
+	public BagOfGold getBagOfGoldAPI() {
 		return mPlugin;
 	}
 
@@ -40,16 +43,24 @@ public class BagOfGoldCompat {
 		return supported;
 	}
 
-	public static double getStartingBalance() {
-		return BagOfGold.getConfigManager().startingBalance;
+	public double getStartingBalance() {
+		return BagOfGold.getInstance().getConfigManager().startingBalance;
 	}
 
-	public static String getBagOfGoldFormat() {
-		return BagOfGold.getConfigManager().numberFormat;
+	public String getBagOfGoldFormat() {
+		return BagOfGold.getInstance().getConfigManager().numberFormat;
 	}
 	
-	//public static EconomyManager(){
-	//	return BagOfGold.getEconomyManger();
-	//}
+	public EconomyManager getEconomyManager(){
+		return BagOfGold.getInstance().getEconomyManager();
+	}
+	
+	public PlayerSettingsManager getPlayerSettingsManager(){
+		return BagOfGold.getInstance().getPlayerSettingsManager();
+	}
+
+	public DataStoreManager getDataStoreManager() {
+		return BagOfGold.getInstance().getDataStoreManager();
+	}
 
 }

@@ -250,7 +250,6 @@ public abstract class DatabaseDataStore implements IDataStore {
 				setupV4Tables(mConnection);
 				migrateDatabaseLayoutFromV3ToV4(mConnection);
 				setupTriggerV4andV5(mConnection);
-				addPlayerBalancesToV4(mConnection);
 				MobHunting.getConfigManager().databaseVersion = 5;
 				MobHunting.getConfigManager().saveConfig();
 			case 5:
@@ -1031,8 +1030,7 @@ public abstract class DatabaseDataStore implements IDataStore {
 		ResultSet result = mGetPlayerData.executeQuery();
 		if (result.next()) {
 			PlayerSettings ps = new PlayerSettings(offlinePlayer, result.getBoolean("LEARNING_MODE"),
-					result.getBoolean("MUTE_MODE"), result.getDouble("BALANCE"), result.getDouble("BALANCE_CHANGES"),
-					result.getDouble("BANK_BALANCE"), result.getDouble("BANK_BALANCE_CHANGES"));
+					result.getBoolean("MUTE_MODE"));
 			int id = result.getInt("PLAYER_ID");
 			if (id != 0)
 				ps.setPlayerId(id);
@@ -1061,10 +1059,6 @@ public abstract class DatabaseDataStore implements IDataStore {
 				mInsertPlayerData.setString(2, playerSettings.getPlayer().getName());
 				mInsertPlayerData.setInt(3, playerSettings.isLearningMode() ? 1 : 0);
 				mInsertPlayerData.setInt(4, playerSettings.isMuted() ? 1 : 0);
-				mInsertPlayerData.setDouble(5, playerSettings.getBalance());
-				mInsertPlayerData.setDouble(6, playerSettings.getBalanceChanges());
-				mInsertPlayerData.setDouble(7, playerSettings.getBankBalance());
-				mInsertPlayerData.setDouble(8, playerSettings.getBankBalanceChanges());
 				mInsertPlayerData.addBatch();
 				mInsertPlayerData.executeBatch();
 				mInsertPlayerData.close();
@@ -1091,11 +1085,7 @@ public abstract class DatabaseDataStore implements IDataStore {
 				for (PlayerSettings playerData : playerDataSet) {
 					mUpdatePlayerSettings.setInt(1, playerData.isLearningMode() ? 1 : 0);
 					mUpdatePlayerSettings.setInt(2, playerData.isMuted() ? 1 : 0);
-					mUpdatePlayerSettings.setDouble(3, playerData.getBalance());
-					mUpdatePlayerSettings.setDouble(4, playerData.getBalanceChanges());
-					mUpdatePlayerSettings.setDouble(5, playerData.getBankBalance());
-					mUpdatePlayerSettings.setDouble(6, playerData.getBankBalanceChanges());
-					mUpdatePlayerSettings.setString(7, playerData.getPlayer().getUniqueId().toString());
+					mUpdatePlayerSettings.setString(3, playerData.getPlayer().getUniqueId().toString());
 					mUpdatePlayerSettings.addBatch();
 				}
 				mUpdatePlayerSettings.executeBatch();
@@ -1610,28 +1600,6 @@ public abstract class DatabaseDataStore implements IDataStore {
 
 		}
 
-		statement.close();
-		connection.commit();
-	}
-
-	private void addPlayerBalancesToV4(Connection connection) throws SQLException {
-		Statement statement = connection.createStatement();
-
-		try {
-			ResultSet rs = statement.executeQuery("SELECT BALANCE from `mh_Players` LIMIT 0");
-			rs.close();
-		} catch (SQLException e) {
-			try {
-				System.out.println("[MobHunting] Adding Player balances to MobHunting Database V4.");
-				statement.executeUpdate("alter table `mh_Players` add column `BALANCE` REAL NOT NULL DEFAULT 0");
-				statement.executeUpdate("alter table `mh_Players` add column `BALANCE_CHANGES` REAL NOT NULL DEFAULT 0");
-				statement.executeUpdate("alter table `mh_Players` add column `BANK_BALANCE` REAL NOT NULL DEFAULT 0");
-				statement.executeUpdate("alter table `mh_Players` add column `BANK_BALANCE_CHANGES` REAL NOT NULL DEFAULT 0");
-				System.out.println("[MobHunting] MobHunting Database upgraded to V5.");
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
 		statement.close();
 		connection.commit();
 	}

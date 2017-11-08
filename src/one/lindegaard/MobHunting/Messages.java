@@ -52,10 +52,8 @@ public class Messages {
 	private static String[] mValidEncodings = new String[] { "UTF-16", "UTF-16BE", "UTF-16LE", "UTF-8", "ISO646-US" };
 	private static final String PREFIX = "[MobHunting]";
 	private static String[] sources = new String[] { "en_US.lang", "zh_CN.lang" };
-	private static MobHunting mPlugin;
 
 	public void exportDefaultLanguages(MobHunting plugin) {
-		mPlugin = plugin;
 		File folder = new File(plugin.getDataFolder(), "lang");
 		if (!folder.exists())
 			folder.mkdirs();
@@ -314,7 +312,7 @@ public class Messages {
 		return map;
 	}
 
-	public static void setLanguage(String lang) {
+	public void setLanguage(String lang) {
 		File file = new File(MobHunting.getInstance().getDataFolder(), "lang/" + lang);
 		if (!file.exists()) {
 			Bukkit.getLogger().severe(PREFIX
@@ -328,7 +326,7 @@ public class Messages {
 		}
 
 		if (file.exists()) {
-			InputStream resource = mPlugin.getResource("lang/en_US.lang");
+			InputStream resource = plugin.getResource("lang/en_US.lang");
 			injectChanges(resource, file);
 			mTranslationTable = loadLang(file);
 			injectMissingPluginNamesToLangFile(file);

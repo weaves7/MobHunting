@@ -1379,7 +1379,7 @@ public class MobHuntingManager implements Listener {
 			if (info.getAssister() == null || MobHunting.getConfigManager().enableAssists == false) {
 				if (cash >= MobHunting.getConfigManager().minimumReward) {
 					if (MobHunting.getConfigManager().dropMoneyOnGroup) {
-						plugin.getRewardManager().dropMoneyOnGround(killer, killed, killed.getLocation(), cash);
+						plugin.getRewardManager().dropMoneyOnGround_RewardManager(killer, killed, killed.getLocation(), cash);
 					} else {
 						plugin.getRewardManager().depositPlayer(killer, cash);
 						// Messages.debug("RecordCash: %s killed a %s (%s)
@@ -1415,7 +1415,7 @@ public class MobHuntingManager implements Listener {
 							Messages.debug("3)%s was assisted by %s. Reward/Penalty is only ½ (%s)",
 									getPlayer(killer, killed).getName(), getKillerName(killer, killed),
 									plugin.getRewardManager().format(cash));
-						plugin.getRewardManager().dropMoneyOnGround(getPlayer(killer, killed), killed,
+						plugin.getRewardManager().dropMoneyOnGround_RewardManager(getPlayer(killer, killed), killed,
 								killed.getLocation(), cash);
 					} else {
 						plugin.getRewardManager().depositPlayer(info.getAssister(), cash);

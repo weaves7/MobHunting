@@ -44,13 +44,6 @@ public class MySQLDataStore extends DatabaseDataStore {
 		try {
 			Locale.setDefault(new Locale("us", "US"));
 			Class.forName("com.mysql.jdbc.Driver");
-			// return DriverManager.getConnection(
-			// "jdbc:mysql://" + MobHunting.getConfigManager().databaseHost +
-			// "/"
-			// + MobHunting.getConfigManager().databaseName +
-			// "?autoReconnect=true",
-			// MobHunting.getConfigManager().databaseUsername,
-			// MobHunting.getConfigManager().databasePassword);
 			MysqlDataSource dataSource = new MysqlDataSource();
 			dataSource.setUser(MobHunting.getConfigManager().databaseUsername);
 			dataSource.setPassword(MobHunting.getConfigManager().databasePassword);
@@ -102,12 +95,12 @@ public class MySQLDataStore extends DatabaseDataStore {
 			break;
 		case UPDATE_PLAYER_SETTINGS:
 			mUpdatePlayerSettings = connection.prepareStatement(
-					"UPDATE mh_Players SET LEARNING_MODE=?,MUTE_MODE=?,BALANCE=?,BALANCE_CHANGES=?,BANK_BALANCE=?, BANK_BALANCE_CHANGES=? WHERE UUID=?;");
+					"UPDATE mh_Players SET LEARNING_MODE=?,MUTE_MODE=? WHERE UUID=?;");
 			break;
 		case INSERT_PLAYER_DATA:
 			mInsertPlayerData = connection.prepareStatement(
-					"INSERT INTO mh_Players (UUID,NAME,LEARNING_MODE,MUTE_MODE,BALANCE,BALANCE_CHANGES,BANK_BALANCE,BANK_BALANCE_CHANGES) "
-							+ "VALUES(?,?,?,?,?,?);");
+					"INSERT INTO mh_Players (UUID,NAME,LEARNING_MODE,MUTE_MODE) "
+							+ "VALUES(?,?,?,?);");
 			break;
 		case GET_BOUNTIES:
 			mGetBounties = connection.prepareStatement(
