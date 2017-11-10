@@ -40,11 +40,11 @@ public class VanishNoPacketCompat implements Listener {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationVanishNoPacket;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationVanishNoPacket;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationVanishNoPacket;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationVanishNoPacket;
 	}
 
 	public static boolean isVanishedModeEnabled(Player player) {

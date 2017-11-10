@@ -73,7 +73,7 @@ public class MuteCommand implements ICommand {
 			return true;
 		} else if (args.length == 1) {
 			MobHunting.getInstance();
-			DataStoreManager ds = MobHunting.getDataStoreManager();
+			DataStoreManager ds = plugin.getDataStoreManager();
 			Player player = (Player) ds.getPlayerByName(args[0]);
 			if (player != null) {
 				if (sender.hasPermission("mobhunting.mute.other") || sender instanceof ConsoleCommandSender) {
@@ -92,7 +92,7 @@ public class MuteCommand implements ICommand {
 	}
 
 	private void togglePlayerMuteMode(Player player) {
-		DataStoreManager ds = MobHunting.getDataStoreManager();
+		DataStoreManager ds = plugin.getDataStoreManager();
 		PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(player);
 		boolean lm = ps.isLearningMode();
 		if (ps.isMuted()) {

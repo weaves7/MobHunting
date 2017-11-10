@@ -35,7 +35,7 @@ public class TheHuntBegins implements Achievement, Listener {
 
 	@Override
 	public double getPrize() {
-		return MobHunting.getConfigManager().specialHuntBegins;
+		return plugin.getConfigManager().specialHuntBegins;
 	}
 
 	@EventHandler
@@ -43,18 +43,18 @@ public class TheHuntBegins implements Achievement, Listener {
 		Entity killedEntity = event.getKilledEntity();
 		if (plugin.getRewardManager().getBaseKillPrize(killedEntity) != 0
 				|| !plugin.getRewardManager().getKillConsoleCmd(killedEntity).isEmpty())
-			MobHunting.getAchievementManager().awardAchievement(this, event.getPlayer(),
-					MobHunting.getExtendedMobManager().getExtendedMobFromEntity(killedEntity));
+			plugin.getAchievementManager().awardAchievement(this, event.getPlayer(),
+					plugin.getExtendedMobManager().getExtendedMobFromEntity(killedEntity));
 	}
 
 	@Override
 	public String getPrizeCmd() {
-		return MobHunting.getConfigManager().specialHuntBeginsCmd;
+		return plugin.getConfigManager().specialHuntBeginsCmd;
 	}
 
 	@Override
 	public String getPrizeCmdDescription() {
-		return MobHunting.getConfigManager().specialHuntBeginsCmdDesc;
+		return plugin.getConfigManager().specialHuntBeginsCmdDesc;
 	}
 
 	@Override

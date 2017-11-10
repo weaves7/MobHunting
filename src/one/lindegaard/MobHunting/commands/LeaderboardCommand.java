@@ -102,7 +102,7 @@ public class LeaderboardCommand implements ICommand, Listener {
 		String id = args[1];
 
 		try {
-			MobHunting.getLeaderboardManager().deleteLegacyLeaderboard(id);
+			plugin.getLeaderboardManager().deleteLegacyLeaderboard(id);
 			plugin.getMessages().senderSendMessage(sender,
 					ChatColor.GREEN + Messages.getString("mobhunting.commands.leaderboard.delete", "leaderboard", id));
 		} catch (IllegalArgumentException e) {
@@ -334,7 +334,7 @@ public class LeaderboardCommand implements ICommand, Listener {
 				// MobHunting.debug("leaderBoardCommand:
 				// parm=%s,%s,%s,%s,%s,%s", face,state.type[0],
 				// state.period[0],state.horizontal,state.width,state.height);
-				MobHunting.getLeaderboardManager().createLeaderboard(event.getClickedBlock().getLocation(), face,
+				plugin.getLeaderboardManager().createLeaderboard(event.getClickedBlock().getLocation(), face,
 						state.type, state.period, state.horizontal, state.width, state.height);
 				// TODO: Create new strings in Message
 				event.getPlayer().sendMessage(ChatColor.GREEN + "Leaderboard created");
@@ -343,7 +343,7 @@ public class LeaderboardCommand implements ICommand, Listener {
 			}
 
 		} else {
-			WorldLeaderboard board = MobHunting.getLeaderboardManager()
+			WorldLeaderboard board = plugin.getLeaderboardManager()
 					.getLeaderboardAt(event.getClickedBlock().getLocation());
 			if (board != null) {
 				if (state.type != null)
@@ -375,7 +375,7 @@ public class LeaderboardCommand implements ICommand, Listener {
 				// TODO: Create new strings in Message
 				event.getPlayer().sendMessage(ChatColor.GREEN + "Leaderboard edited");
 
-				MobHunting.getLeaderboardManager().saveWorld(board.getWorld());
+				plugin.getLeaderboardManager().saveWorld(board.getWorld());
 			} else
 				event.getPlayer().sendMessage(ChatColor.RED + "That is not a leaderboard. Edit cancelled.");
 		}

@@ -30,7 +30,7 @@ public class InfernalMobBonus implements IModifier {
 				ArrayList<String> list = new ArrayList<>();
 				if (entity.getMetadata(InfernalMobsCompat.MH_INFERNALMOBS).get(0).value() instanceof ArrayList<?>)
 					list = (ArrayList<String>) entity.getMetadata(InfernalMobsCompat.MH_INFERNALMOBS).get(0).value();
-				mul = Math.pow(MobHunting.getConfigManager().multiplierPerInfernalLevel, list.size());
+				mul = Math.pow(MobHunting.getInstance().getConfigManager().multiplierPerInfernalLevel, list.size());
 			}
 		}
 		return mul;

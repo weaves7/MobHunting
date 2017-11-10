@@ -34,16 +34,16 @@ public class BountyManager implements Listener {
 
 	public BountyManager(MobHunting plugin) {
 		this.plugin = plugin;
-		if (MobHunting.getConfigManager().enableRandomBounty) {
+		if (plugin.getConfigManager().enableRandomBounty) {
 			Bukkit.getPluginManager().registerEvents(this, plugin);
 			Bukkit.getScheduler().runTaskTimer(plugin, this::createRandomBounty,
-					MobHunting.getConfigManager().timeBetweenRandomBounties * 20 * 60,
-					MobHunting.getConfigManager().timeBetweenRandomBounties * 20 * 60);
+					plugin.getConfigManager().timeBetweenRandomBounties * 20 * 60,
+					plugin.getConfigManager().timeBetweenRandomBounties * 20 * 60);
 			Bukkit.getScheduler().runTaskTimer(MobHunting.getInstance(), () -> {
 				for (Bounty bounty : mOpenBounties) {
 					if (bounty.getEndDate() < System.currentTimeMillis() && bounty.isOpen()) {
 						bounty.setStatus(BountyStatus.expired);
-						MobHunting.getDataStoreManager().updateBounty(bounty);
+						plugin.getDataStoreManager().updateBounty(bounty);
 						Messages.debug("BountyManager: Expired Bounty %s", bounty.toString());
 						mOpenBounties.remove(bounty);
 					}
@@ -178,7 +178,7 @@ public class BountyManager implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onPlayerJoin(final PlayerJoinEvent event) {
-		if (MobHunting.getConfigManager().disablePlayerBounties)
+		if (plugin.getConfigManager().disablePlayerBounties)
 			return;
 
 		Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
@@ -221,7 +221,7 @@ public class BountyManager implements Listener {
 	// Save & Load
 	// ****************************************************************************
 	public void load(final Player player) {
-		MobHunting.getDataStoreManager().requestBounties(BountyStatus.open, player, new IDataCallback<Set<Bounty>>() {
+		plugin.getDataStoreManager().requestBounties(BountyStatus.open, player, new IDataCallback<Set<Bounty>>() {
 
 			@Override
 			public void onCompleted(Set<Bounty> data) {
@@ -239,7 +239,7 @@ public class BountyManager implements Listener {
 							Messages.debug("BountyManager: Expired onLoad Bounty %s", bounty.toString());
 							bounty.setStatus(BountyStatus.expired);
 							bounty.setPrize(0);
-							MobHunting.getDataStoreManager().updateBounty(bounty);
+							plugin.getDataStoreManager().updateBounty(bounty);
 							delete(bounty);
 						}
 						sort = true;
@@ -287,10 +287,10 @@ public class BountyManager implements Listener {
 			Messages.debug("adding bounty %s+%s", getOpenBounty(bounty).getPrize(), bounty.getPrize());
 			getOpenBounty(bounty).setPrize(getOpenBounty(bounty).getPrize() + bounty.getPrize());
 			getOpenBounty(bounty).setMessage(bounty.getMessage());
-			MobHunting.getDataStoreManager().updateBounty(getOpenBounty(bounty));
+			plugin.getDataStoreManager().updateBounty(getOpenBounty(bounty));
 		} else {
 			mOpenBounties.add(bounty);
-			MobHunting.getDataStoreManager().updateBounty(bounty);
+			plugin.getDataStoreManager().updateBounty(bounty);
 			Messages.debug("adding bounty %s", getOpenBounty(bounty).getPrize());
 		}
 	}
@@ -300,7 +300,7 @@ public class BountyManager implements Listener {
 		if (b1 != null) {
 			b1.setStatus(BountyStatus.canceled);
 			b1.setPrize(0);
-			MobHunting.getDataStoreManager().updateBounty(b1);
+			plugin.getDataStoreManager().updateBounty(b1);
 			mOpenBounties.removeIf(b -> b.equals(bounty));
 		}
 	}
@@ -310,7 +310,7 @@ public class BountyManager implements Listener {
 		if (b1 != null) {
 			b1.setStatus(BountyStatus.deleted);
 			b1.setPrize(0);
-			MobHunting.getDataStoreManager().updateBounty(b1);
+			plugin.getDataStoreManager().updateBounty(b1);
 			mOpenBounties.removeIf(b -> b.equals(bounty));
 		}
 	}
@@ -453,8 +453,8 @@ public class BountyManager implements Listener {
 	// ***********************************************************
 
 	public void createRandomBounty() {
-		boolean createBounty = MobHunting.getMobHuntingManager().mRand
-				.nextDouble() <= MobHunting.getConfigManager().chanceToCreateBounty;
+		boolean createBounty = plugin.getMobHuntingManager().mRand
+				.nextDouble() <= plugin.getConfigManager().chanceToCreateBounty;
 		if (createBounty) {
 			int noOfPlayers = Misc.getOnlinePlayersAmount();
 			int noOfPlayersNotVanished = noOfPlayers;
@@ -464,9 +464,9 @@ public class BountyManager implements Listener {
 					noOfPlayersNotVanished--;
 			}
 			Player randomPlayer = null;
-			if (MobHunting.getConfigManager().minimumNumberOfOnlinePlayers <= noOfPlayersNotVanished) {
+			if (plugin.getConfigManager().minimumNumberOfOnlinePlayers <= noOfPlayersNotVanished) {
 
-				int random = MobHunting.getMobHuntingManager().mRand.nextInt(noOfPlayersNotVanished);
+				int random = plugin.getMobHuntingManager().mRand.nextInt(noOfPlayersNotVanished);
 				int n = 0;
 				for (Player player : Misc.getOnlinePlayers()) {
 					if (n == random && !EssentialsCompat.isVanishedModeEnabled(player)
@@ -478,9 +478,9 @@ public class BountyManager implements Listener {
 						n++;
 				}
 				if (randomPlayer != null) {
-					String worldGroup = MobHunting.getWorldGroupManager().getCurrentWorldGroup(randomPlayer);
+					String worldGroup = plugin.getWorldGroupManager().getCurrentWorldGroup(randomPlayer);
 					Bounty randomBounty = new Bounty(plugin, worldGroup, randomPlayer, Misc.round(
-							plugin.getRewardManager().getRandomPrice(MobHunting.getConfigManager().randomBounty)),
+							plugin.getRewardManager().getRandomPrice(plugin.getConfigManager().randomBounty)),
 							"Random Bounty");
 					save(randomBounty);
 					for (Player player : Misc.getOnlinePlayers()) {

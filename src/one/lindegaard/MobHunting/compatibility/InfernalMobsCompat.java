@@ -42,8 +42,8 @@ public class InfernalMobsCompat implements Listener {
 
 			loadInfernalMobsData();
 
-			MobHunting.getStoreManager().insertInfernalMobs();
-			Messages.injectMissingMobNamesToLangFiles();
+			MobHunting.getInstance().getStoreManager().insertInfernalMobs();
+			MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
 
 			supported = true;
 		}
@@ -71,11 +71,11 @@ public class InfernalMobsCompat implements Listener {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationInfernalMobs;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationInfernalMobs;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationInfernalMobs;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationInfernalMobs;
 	}
 
 	// **************************************************************************

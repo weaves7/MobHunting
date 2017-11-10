@@ -28,7 +28,7 @@ public class HuntData{
 	public HuntData() {
 		killStreak = 0;
 		dampenedKills = 0;
-		cDampnerRange = MobHunting.getConfigManager().grindingDetectionRange;
+		cDampnerRange = MobHunting.getInstance().getConfigManager().grindingDetectionRange;
 		lastKillAreaCenter = null;
 		lastGridingAreas = new ArrayList<Area>();
 		reward = 0;
@@ -39,7 +39,7 @@ public class HuntData{
 	public HuntData(Player player) {
 		killStreak = 0;
 		dampenedKills = 0;
-		cDampnerRange = MobHunting.getConfigManager().grindingDetectionRange;
+		cDampnerRange = MobHunting.getInstance().getConfigManager().grindingDetectionRange;
 		lastKillAreaCenter = null;
 		lastGridingAreas = new ArrayList<Area>();
 		reward = 0;
@@ -201,13 +201,13 @@ public class HuntData{
 	}
 
 	public int getKillstreakLevel() {
-		if (killStreak < MobHunting.getConfigManager().killstreakLevel1)
+		if (killStreak < MobHunting.getInstance().getConfigManager().killstreakLevel1)
 			return 0;
-		else if (killStreak < MobHunting.getConfigManager().killstreakLevel2)
+		else if (killStreak < MobHunting.getInstance().getConfigManager().killstreakLevel2)
 			return 1;
-		else if (killStreak < MobHunting.getConfigManager().killstreakLevel3)
+		else if (killStreak < MobHunting.getInstance().getConfigManager().killstreakLevel3)
 			return 2;
-		else if (killStreak < MobHunting.getConfigManager().killstreakLevel4)
+		else if (killStreak < MobHunting.getInstance().getConfigManager().killstreakLevel4)
 			return 3;
 		else
 			return 4;
@@ -225,13 +225,13 @@ public class HuntData{
 		case 0:
 			return 1.0;
 		case 1:
-			return MobHunting.getConfigManager().killstreakLevel1Mult;
+			return MobHunting.getInstance().getConfigManager().killstreakLevel1Mult;
 		case 2:
-			return MobHunting.getConfigManager().killstreakLevel2Mult;
+			return MobHunting.getInstance().getConfigManager().killstreakLevel2Mult;
 		case 3:
-			return MobHunting.getConfigManager().killstreakLevel3Mult;
+			return MobHunting.getInstance().getConfigManager().killstreakLevel3Mult;
 		default:
-			return MobHunting.getConfigManager().killstreakLevel4Mult;
+			return MobHunting.getInstance().getConfigManager().killstreakLevel4Mult;
 		}
 	}
 

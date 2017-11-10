@@ -39,7 +39,7 @@ public class FifthHuntAchievement implements ProgressAchievement {
 
 	@Override
 	public double getPrize() {
-		return MobHunting.getConfigManager().specialHunter5;
+		return plugin.getConfigManager().specialHunter5;
 	}
 
 	@Override
@@ -65,12 +65,12 @@ public class FifthHuntAchievement implements ProgressAchievement {
 
 	@Override
 	public String getPrizeCmd() {
-		return MobHunting.getConfigManager().specialHunter5Cmd;
+		return plugin.getConfigManager().specialHunter5Cmd;
 	}
 
 	@Override
 	public String getPrizeCmdDescription() {
-		return MobHunting.getConfigManager().specialHunter5CmdDesc;
+		return plugin.getConfigManager().specialHunter5CmdDesc;
 	}
 
 	@Override

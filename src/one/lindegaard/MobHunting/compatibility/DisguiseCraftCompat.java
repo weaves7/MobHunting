@@ -27,7 +27,7 @@ public class DisguiseCraftCompat implements Listener {
 	private static boolean supported = false;
 
 	public DisguiseCraftCompat() {
-		if (MobHunting.getConfigManager().disableIntegrationDisguiseCraft) {
+		if (MobHunting.getInstance().getConfigManager().disableIntegrationDisguiseCraft) {
 			Bukkit.getConsoleSender()
 					.sendMessage("[MobHunting] Compatibility with DisguiseCraft is disabled in config.yml");
 		} else {

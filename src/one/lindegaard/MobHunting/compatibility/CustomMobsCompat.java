@@ -82,10 +82,10 @@ public class CustomMobsCompat implements Listener {
 								"minecraft:give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02);
 
 					mMobRewardData.put(key, mob);
-					MobHunting.getStoreManager().insertCustomMobs(key);
+					MobHunting.getInstance().getStoreManager().insertCustomMobs(key);
 				}
 			}
-			Messages.injectMissingMobNamesToLangFiles();
+			MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
 			Messages.debug("Loaded %s CustomMobs", mMobRewardData.size());
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -108,7 +108,7 @@ public class CustomMobsCompat implements Listener {
 				if (mob.getMobName() == null)
 					mob.setMobName(mob.getMobType());
 				mMobRewardData.put(key, mob);
-				MobHunting.getStoreManager().insertCustomMobs(key);
+				MobHunting.getInstance().getStoreManager().insertCustomMobs(key);
 			} else {
 				Messages.debug("The mob=%s cant be found in CustomMobs configuration file", key);
 			}
@@ -194,11 +194,11 @@ public class CustomMobsCompat implements Listener {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationCustomMobs;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationCustomMobs;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationCustomMobs;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationCustomMobs;
 	}
 
 	// **************************************************************************
@@ -223,7 +223,7 @@ public class CustomMobsCompat implements Listener {
 
 		// Specific reason why the mob was spawned
 		CustomMobSpawnEvent.SpawnReason reason = event.getReason();
-		if (reason.equals(SpawnReason.SPAWNER) && !MobHunting.getConfigManager().allowCustomMobsSpawners) {
+		if (reason.equals(SpawnReason.SPAWNER) && !MobHunting.getInstance().getConfigManager().allowCustomMobsSpawners) {
 			entity.setMetadata("MH:blocked", new FixedMetadataValue(MobHunting.getInstance(), true));
 			// Block spawner = event.getSpawner();
 			// Is only defined when the spawnReason is SPAWNER.
@@ -235,10 +235,10 @@ public class CustomMobsCompat implements Listener {
 			mMobRewardData.put(mob.getName(), new RewardData(MobPlugin.CustomMobs, mob.getName(), name, "10",
 					"minecraft:give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02));
 			saveCustomMobsData(mob.getName());
-			MobHunting.getStoreManager().insertCustomMobs(mob.getName());
+			MobHunting.getInstance().getStoreManager().insertCustomMobs(mob.getName());
 			// Update mob loaded into memory
-			MobHunting.getExtendedMobManager().updateExtendedMobs();
-			Messages.injectMissingMobNamesToLangFiles();
+			MobHunting.getInstance().getExtendedMobManager().updateExtendedMobs();
+			MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
 		}
 
 		entity.setMetadata(MH_CUSTOMMOBS,

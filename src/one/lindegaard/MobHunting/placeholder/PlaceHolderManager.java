@@ -29,7 +29,7 @@ public class PlaceHolderManager implements Listener, IDataCallback<List<StatStor
 		this.plugin = plugin;
 		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
 		mUpdater = Bukkit.getScheduler().runTaskTimer(plugin, new Updater(), 120L,
-				MobHunting.getConfigManager().leaderboardUpdatePeriod);
+				plugin.getConfigManager().leaderboardUpdatePeriod);
 		Messages.debug("PlaceHolderManager started");
 	}
 
@@ -38,7 +38,7 @@ public class PlaceHolderManager implements Listener, IDataCallback<List<StatStor
 	}
 
 	public void updateRanks() {
-		MobHunting.getDataStoreManager().requestStats(StatType.KillsTotal, TimePeriod.AllTime, 2000, this);
+		plugin.getDataStoreManager().requestStats(StatType.KillsTotal, TimePeriod.AllTime, 2000, this);
 	}
 
 	private class Updater implements Runnable {
@@ -55,7 +55,7 @@ public class PlaceHolderManager implements Listener, IDataCallback<List<StatStor
 	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
 	private void onPlayerJoin(PlayerJoinEvent event) {
 		placeHolders.put(event.getPlayer().getUniqueId(), new PlaceHolderData());
-		MobHunting.getDataStoreManager().requestStats(StatType.KillsTotal, TimePeriod.AllTime, 2000, this);
+		plugin.getDataStoreManager().requestStats(StatType.KillsTotal, TimePeriod.AllTime, 2000, this);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

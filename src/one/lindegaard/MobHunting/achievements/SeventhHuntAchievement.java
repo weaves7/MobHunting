@@ -40,7 +40,7 @@ public class SeventhHuntAchievement implements ProgressAchievement {
 
 	@Override
 	public double getPrize() {
-		return MobHunting.getConfigManager().specialHunter7;
+		return plugin.getConfigManager().specialHunter7;
 	}
 
 	@Override
@@ -68,12 +68,12 @@ public class SeventhHuntAchievement implements ProgressAchievement {
 
 	@Override
 	public String getPrizeCmd() {
-		return MobHunting.getConfigManager().specialHunter7Cmd;
+		return plugin.getConfigManager().specialHunter7Cmd;
 	}
 
 	@Override
 	public String getPrizeCmdDescription() {
-		return MobHunting.getConfigManager().specialHunter7CmdDesc;
+		return plugin.getConfigManager().specialHunter7CmdDesc;
 	}
 
 	@Override

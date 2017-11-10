@@ -80,7 +80,7 @@ public class DatabaseCommand implements ICommand, Listener {
 			return false;
 		if (args.length == 1 && (args[0].equalsIgnoreCase("fixleaderboard"))) {
 			try {
-				MobHunting.getStoreManager().databaseFixLeaderboard();
+				plugin.getStoreManager().databaseFixLeaderboard();
 			} catch (DataStoreException e) {
 				e.printStackTrace();
 			}
@@ -88,7 +88,7 @@ public class DatabaseCommand implements ICommand, Listener {
 		} else if (args.length == 2 && (args[0].equalsIgnoreCase("convert-to-utf8"))) {
 			String database_name = args[1];
 			try {
-				MobHunting.getStoreManager().databaseConvertToUtf8(database_name);
+				plugin.getStoreManager().databaseConvertToUtf8(database_name);
 			} catch (DataStoreException e) {
 				e.printStackTrace();
 			}

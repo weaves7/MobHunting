@@ -78,11 +78,11 @@ public class SmartGiantsCompat implements Listener {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationSmartGiants;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationSmartGiants;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationSmartGiants;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationSmartGiants;
 	}
 
 	public static boolean isSmartGiants(Entity entity) {
@@ -137,9 +137,9 @@ public class SmartGiantsCompat implements Listener {
 				mob.read(section);
 				mob.setMobType(key);
 				mMobRewardData.put(key, mob);
-				MobHunting.getStoreManager().insertSmartGiants(key);
+				MobHunting.getInstance().getStoreManager().insertSmartGiants(key);
 			}
-			Messages.injectMissingMobNamesToLangFiles();
+			MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
 			Messages.debug("Loaded %s SmartGiants", mMobRewardData.size());
 		} catch (IOException | InvalidConfigurationException e) {
 			e.printStackTrace();
@@ -159,7 +159,7 @@ public class SmartGiantsCompat implements Listener {
 			mob.read(section);
 			mob.setMobType(key);
 			mMobRewardData.put(key, mob);
-			MobHunting.getStoreManager().insertSmartGiants(key);
+			MobHunting.getInstance().getStoreManager().insertSmartGiants(key);
 		} catch (IOException | InvalidConfigurationException e) {
 			e.printStackTrace();
 		}
@@ -223,10 +223,10 @@ public class SmartGiantsCompat implements Listener {
 				mMobRewardData.put(mobtype, new RewardData(MobPlugin.SmartGiants, mobtype, mobtype, "100:200",
 						"minecraft:give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02));
 				saveSmartGiantsData(mobtype);
-				MobHunting.getStoreManager().insertSmartGiants(mobtype);
+				MobHunting.getInstance().getStoreManager().insertSmartGiants(mobtype);
 				// Update mob loaded into memory
-				MobHunting.getExtendedMobManager().updateExtendedMobs();
-				Messages.injectMissingMobNamesToLangFiles();
+				MobHunting.getInstance().getExtendedMobManager().updateExtendedMobs();
+				MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
 			}
 			event.getEntity().setMetadata(MH_SMARTGIANTS, new FixedMetadataValue(mPlugin, mMobRewardData.get(mobtype)));
 		}

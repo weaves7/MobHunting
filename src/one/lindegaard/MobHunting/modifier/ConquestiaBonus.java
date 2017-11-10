@@ -21,8 +21,8 @@ public class ConquestiaBonus implements IModifier {
 	public double getMultiplier(Entity deadEntity, Player killer, HuntData data, DamageInformation extraInfo,
 			EntityDamageByEntityEvent lastDamageCause) {
 		Messages.debug("ConquestiaMob total multiplier = %s", Math.pow(
-				MobHunting.getConfigManager().mulitiplierPerLevel, ConquestiaMobsCompat.getCqLevel(deadEntity)-1));
-		return Math.pow(MobHunting.getConfigManager().mulitiplierPerLevel,
+				MobHunting.getInstance().getConfigManager().mulitiplierPerLevel, ConquestiaMobsCompat.getCqLevel(deadEntity)-1));
+		return Math.pow(MobHunting.getInstance().getConfigManager().mulitiplierPerLevel,
 				ConquestiaMobsCompat.getCqLevel(deadEntity)-1);
 	}
 

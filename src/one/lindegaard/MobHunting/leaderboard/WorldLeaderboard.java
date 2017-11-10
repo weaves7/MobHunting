@@ -172,7 +172,7 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 				if (mPeriodIndex >= mPeriod.length)
 					mPeriodIndex = 0;
 			}
-			MobHunting.getDataStoreManager().requestStats(getStatType(), getPeriod(), mWidth * mHeight * 2, this);
+			plugin.getDataStoreManager().requestStats(getStatType(), getPeriod(), mWidth * mHeight * 2, this);
 		} else {
 			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[MobHunting][WARNING] The leaderboard at "
 					+ mLocation.toString() + " has no StatType");

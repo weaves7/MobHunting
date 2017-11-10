@@ -78,7 +78,7 @@ public class CitizensCompat implements Listener {
 					RewardData rewardData = new RewardData();
 					rewardData.read(section);
 					mMobRewardData.put(key, rewardData);
-					MobHunting.getStoreManager().insertCitizensMobs(key);
+					MobHunting.getInstance().getStoreManager().insertCitizensMobs(key);
 					n++;
 				} else {
 					Messages.debug("The mob=%s can't be found in Citizens saves.yml file", key);
@@ -206,11 +206,11 @@ public class CitizensCompat implements Listener {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationCitizens;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationCitizens;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationCitizens;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationCitizens;
 	}
 
 	public static int getProgressAchievementLevel1(String mobtype) {
@@ -263,14 +263,14 @@ public class CitizensCompat implements Listener {
 					CitizensCompat.getMobRewardData().put(String.valueOf(npc.getId()), rewardData);
 					npc.getEntity().setMetadata(CitizensCompat.MH_CITIZENS,
 							new FixedMetadataValue(MobHunting.getInstance(), rewardData));
-					MobHunting.getStoreManager().insertCitizensMobs(String.valueOf(npc.getId()));
+					MobHunting.getInstance().getStoreManager().insertCitizensMobs(String.valueOf(npc.getId()));
 					counter++;
 				}
 			}
 		}
 		if (counter > 0) {
-			MobHunting.getExtendedMobManager().updateExtendedMobs();
-			Messages.injectMissingMobNamesToLangFiles();
+			MobHunting.getInstance().getExtendedMobManager().updateExtendedMobs();
+			MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
 		}
 
 		Bukkit.getPluginManager().registerEvents(new MasterMobHunterSign(MobHunting.getInstance()),

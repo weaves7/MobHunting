@@ -58,21 +58,22 @@ public class MobHunting extends JavaPlugin {
 	private Messages mMessages;
 	private ConfigManager mConfig;
 	private RewardManager mRewardManager;
-	private static MobHuntingManager mMobHuntingManager;
+	private MobHuntingManager mMobHuntingManager;
 	private FishingManager mFishingManager;
-	private static GrindingManager mAreaManager;
-	private static LeaderboardManager mLeaderboardManager;
-	private static AchievementManager mAchievementManager;
+	private GrindingManager mAreaManager;
+	private LeaderboardManager mLeaderboardManager;
+	private AchievementManager mAchievementManager;
 	private BountyManager mBountyManager;
 	private ParticleManager mParticleManager = new ParticleManager();
 	private MetricsManager mMetricsManager;
 	private PlayerSettingsManager mPlayerSettingsManager;
-	private static WorldGroup mWorldGroupManager;
-	private static ExtendedMobManager mExtendedMobManager;
-	private static IDataStore mStore;
-	private static DataStoreManager mStoreManager;
+	private WorldGroup mWorldGroupManager;
+	private ExtendedMobManager mExtendedMobManager;
+	private IDataStore mStore;
+	private DataStoreManager mStoreManager;
 	private AdvancementManager mAdvancementManager;
 	private CommandDispatcher mCommandDispatcher;
+	private CompatibilityManager mCompatibilityManager;
 	// private HologramManager mHologramManager;
 
 	private boolean mInitialized = false;
@@ -171,68 +172,70 @@ public class MobHunting extends JavaPlugin {
 
 		mPlayerSettingsManager = new PlayerSettingsManager(this);
 
+		mCompatibilityManager = new CompatibilityManager(this);
+
 		// Handle compatibility stuff
-		registerPlugin(EssentialsCompat.class, CompatPlugin.Essentials);
-		registerPlugin(BagOfGoldCompat.class, CompatPlugin.BagOfGold);
-		registerPlugin(GringottsCompat.class, CompatPlugin.Gringotts);
+		mCompatibilityManager.registerPlugin(EssentialsCompat.class, CompatPlugin.Essentials);
+		mCompatibilityManager.registerPlugin(BagOfGoldCompat.class, CompatPlugin.BagOfGold);
+		mCompatibilityManager.registerPlugin(GringottsCompat.class, CompatPlugin.Gringotts);
 
 		// Protection plugins
-		registerPlugin(WorldEditCompat.class, CompatPlugin.WorldEdit);
-		registerPlugin(WorldGuardCompat.class, CompatPlugin.WorldGuard);
-		registerPlugin(HologramsCompat.class, CompatPlugin.Holograms);
-		registerPlugin(HolographicDisplaysCompat.class, CompatPlugin.HolographicDisplays);
-		registerPlugin(FactionsCompat.class, CompatPlugin.Factions);
-		registerPlugin(TownyCompat.class, CompatPlugin.Towny);
-		registerPlugin(ResidenceCompat.class, CompatPlugin.Residence);
-		registerPlugin(PreciousStonesCompat.class, CompatPlugin.PreciousStones);
+		mCompatibilityManager.registerPlugin(WorldEditCompat.class, CompatPlugin.WorldEdit);
+		mCompatibilityManager.registerPlugin(WorldGuardCompat.class, CompatPlugin.WorldGuard);
+		mCompatibilityManager.registerPlugin(HologramsCompat.class, CompatPlugin.Holograms);
+		mCompatibilityManager.registerPlugin(HolographicDisplaysCompat.class, CompatPlugin.HolographicDisplays);
+		mCompatibilityManager.registerPlugin(FactionsCompat.class, CompatPlugin.Factions);
+		mCompatibilityManager.registerPlugin(TownyCompat.class, CompatPlugin.Towny);
+		mCompatibilityManager.registerPlugin(ResidenceCompat.class, CompatPlugin.Residence);
+		mCompatibilityManager.registerPlugin(PreciousStonesCompat.class, CompatPlugin.PreciousStones);
 
 		// Other plugins
-		registerPlugin(McMMOCompat.class, CompatPlugin.mcMMO);
-		registerPlugin(ProtocolLibCompat.class, CompatPlugin.ProtocolLib);
-		registerPlugin(MyPetCompat.class, CompatPlugin.MyPet);
-		registerPlugin(BossShopCompat.class, CompatPlugin.BossShop);
+		mCompatibilityManager.registerPlugin(McMMOCompat.class, CompatPlugin.mcMMO);
+		mCompatibilityManager.registerPlugin(ProtocolLibCompat.class, CompatPlugin.ProtocolLib);
+		mCompatibilityManager.registerPlugin(MyPetCompat.class, CompatPlugin.MyPet);
+		mCompatibilityManager.registerPlugin(BossShopCompat.class, CompatPlugin.BossShop);
 
 		// Minigame plugins
-		registerPlugin(MinigamesCompat.class, CompatPlugin.Minigames);
-		registerPlugin(MinigamesLibCompat.class, CompatPlugin.MinigamesLib);
-		registerPlugin(MobArenaCompat.class, CompatPlugin.MobArena);
-		registerPlugin(PVPArenaCompat.class, CompatPlugin.PVPArena);
-		registerPlugin(BattleArenaCompat.class, CompatPlugin.BattleArena);
+		mCompatibilityManager.registerPlugin(MinigamesCompat.class, CompatPlugin.Minigames);
+		mCompatibilityManager.registerPlugin(MinigamesLibCompat.class, CompatPlugin.MinigamesLib);
+		mCompatibilityManager.registerPlugin(MobArenaCompat.class, CompatPlugin.MobArena);
+		mCompatibilityManager.registerPlugin(PVPArenaCompat.class, CompatPlugin.PVPArena);
+		mCompatibilityManager.registerPlugin(BattleArenaCompat.class, CompatPlugin.BattleArena);
 
 		// Disguise and Vanish plugins
-		registerPlugin(LibsDisguisesCompat.class, CompatPlugin.LibsDisguises);
-		registerPlugin(DisguiseCraftCompat.class, CompatPlugin.DisguiseCraft);
-		registerPlugin(IDisguiseCompat.class, CompatPlugin.iDisguise);
-		registerPlugin(VanishNoPacketCompat.class, CompatPlugin.VanishNoPacket);
+		mCompatibilityManager.registerPlugin(LibsDisguisesCompat.class, CompatPlugin.LibsDisguises);
+		mCompatibilityManager.registerPlugin(DisguiseCraftCompat.class, CompatPlugin.DisguiseCraft);
+		mCompatibilityManager.registerPlugin(IDisguiseCompat.class, CompatPlugin.iDisguise);
+		mCompatibilityManager.registerPlugin(VanishNoPacketCompat.class, CompatPlugin.VanishNoPacket);
 
 		// Plugins used for presentation information in the BossBar, ActionBar,
 		// Title or Subtitle
-		registerPlugin(BossBarAPICompat.class, CompatPlugin.BossBarApi);
-		registerPlugin(TitleAPICompat.class, CompatPlugin.TitleAPI);
-		registerPlugin(BarAPICompat.class, CompatPlugin.BarApi);
-		registerPlugin(TitleManagerCompat.class, CompatPlugin.TitleManager);
-		registerPlugin(ActionbarCompat.class, CompatPlugin.Actionbar);
-		registerPlugin(ActionBarAPICompat.class, CompatPlugin.ActionBarApi);
-		registerPlugin(ActionAnnouncerCompat.class, CompatPlugin.ActionAnnouncer);
-		registerPlugin(PlaceholderAPICompat.class, CompatPlugin.PlaceholderAPI);
+		mCompatibilityManager.registerPlugin(BossBarAPICompat.class, CompatPlugin.BossBarApi);
+		mCompatibilityManager.registerPlugin(TitleAPICompat.class, CompatPlugin.TitleAPI);
+		mCompatibilityManager.registerPlugin(BarAPICompat.class, CompatPlugin.BarApi);
+		mCompatibilityManager.registerPlugin(TitleManagerCompat.class, CompatPlugin.TitleManager);
+		mCompatibilityManager.registerPlugin(ActionbarCompat.class, CompatPlugin.Actionbar);
+		mCompatibilityManager.registerPlugin(ActionBarAPICompat.class, CompatPlugin.ActionBarApi);
+		mCompatibilityManager.registerPlugin(ActionAnnouncerCompat.class, CompatPlugin.ActionAnnouncer);
+		mCompatibilityManager.registerPlugin(PlaceholderAPICompat.class, CompatPlugin.PlaceholderAPI);
 
 		// Plugins where the reward is a multiplier
-		registerPlugin(StackMobCompat.class, CompatPlugin.StackMob);
-		registerPlugin(MobStackerCompat.class, CompatPlugin.MobStacker);
-		registerPlugin(ConquestiaMobsCompat.class, CompatPlugin.ConquestiaMobs);
+		mCompatibilityManager.registerPlugin(StackMobCompat.class, CompatPlugin.StackMob);
+		mCompatibilityManager.registerPlugin(MobStackerCompat.class, CompatPlugin.MobStacker);
+		mCompatibilityManager.registerPlugin(ConquestiaMobsCompat.class, CompatPlugin.ConquestiaMobs);
 
 		// ExtendedMob Plugins where special mobs are created
-		registerPlugin(MythicMobsCompat.class, CompatPlugin.MythicMobs);
-		registerPlugin(TARDISWeepingAngelsCompat.class, CompatPlugin.TARDISWeepingAngels);
-		registerPlugin(CustomMobsCompat.class, CompatPlugin.CustomMobs);
-		registerPlugin(MysteriousHalloweenCompat.class, CompatPlugin.MysteriousHalloween);
-		registerPlugin(CitizensCompat.class, CompatPlugin.Citizens);
-		registerPlugin(SmartGiantsCompat.class, CompatPlugin.SmartGiants);
-		registerPlugin(InfernalMobsCompat.class, CompatPlugin.InfernalMobs);
-		registerPlugin(HerobrineCompat.class, CompatPlugin.Herobrine);
+		mCompatibilityManager.registerPlugin(MythicMobsCompat.class, CompatPlugin.MythicMobs);
+		mCompatibilityManager.registerPlugin(TARDISWeepingAngelsCompat.class, CompatPlugin.TARDISWeepingAngels);
+		mCompatibilityManager.registerPlugin(CustomMobsCompat.class, CompatPlugin.CustomMobs);
+		mCompatibilityManager.registerPlugin(MysteriousHalloweenCompat.class, CompatPlugin.MysteriousHalloween);
+		mCompatibilityManager.registerPlugin(CitizensCompat.class, CompatPlugin.Citizens);
+		mCompatibilityManager.registerPlugin(SmartGiantsCompat.class, CompatPlugin.SmartGiants);
+		mCompatibilityManager.registerPlugin(InfernalMobsCompat.class, CompatPlugin.InfernalMobs);
+		mCompatibilityManager.registerPlugin(HerobrineCompat.class, CompatPlugin.Herobrine);
 
-		registerPlugin(ExtraHardModeCompat.class, CompatPlugin.ExtraHardMode);
-		registerPlugin(CrackShotCompat.class, CompatPlugin.CrackShot);
+		mCompatibilityManager.registerPlugin(ExtraHardModeCompat.class, CompatPlugin.ExtraHardMode);
+		mCompatibilityManager.registerPlugin(CrackShotCompat.class, CompatPlugin.CrackShot);
 
 		mExtendedMobManager = new ExtendedMobManager(this);
 
@@ -291,14 +294,13 @@ public class MobHunting extends JavaPlugin {
 
 		Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
 			public void run() {
-				Messages.injectMissingMobNamesToLangFiles();
+				instance.getMessages().injectMissingMobNamesToLangFiles();
 			}
 		}, 20 * 5);
 
 		// Handle online players when server admin do a /reload or /mh reload
 		if (Misc.getOnlinePlayersAmount() > 0) {
-			Messages.debug("Reloading %s player settings from the database",
-					Misc.getOnlinePlayersAmount());
+			Messages.debug("Reloading %s player settings from the database", Misc.getOnlinePlayersAmount());
 			for (Player player : Misc.getOnlinePlayers()) {
 				mPlayerSettingsManager.load(player);
 				mAchievementManager.load(player);
@@ -319,19 +321,6 @@ public class MobHunting extends JavaPlugin {
 
 		mInitialized = true;
 
-	}
-
-	public void registerPlugin(@SuppressWarnings("rawtypes") Class c, CompatPlugin pluginName) {
-		try {
-			CompatibilityManager.register(c, pluginName);
-		} catch (Exception e) {
-			Bukkit.getServer().getConsoleSender()
-					.sendMessage(ChatColor.RED + "[MobHunting][ERROR] MobHunting could not register with [" + pluginName
-							+ "] please check if [" + pluginName + "] is compatible with the server ["
-							+ Bukkit.getServer().getBukkitVersion() + "]");
-			if (getConfigManager().killDebug)
-				e.printStackTrace();
-		}
 	}
 
 	@Override
@@ -380,8 +369,8 @@ public class MobHunting extends JavaPlugin {
 		return instance;
 	}
 
-	public static ConfigManager getConfigManager() {
-		return instance.mConfig;
+	public ConfigManager getConfigManager() {
+		return mConfig;
 	}
 
 	/**
@@ -389,7 +378,7 @@ public class MobHunting extends JavaPlugin {
 	 * 
 	 * @return MobHuntingManager
 	 */
-	public static MobHuntingManager getMobHuntingManager() {
+	public MobHuntingManager getMobHuntingManager() {
 		return mMobHuntingManager;
 	}
 
@@ -398,7 +387,7 @@ public class MobHunting extends JavaPlugin {
 	 * 
 	 * @return
 	 */
-	public static AchievementManager getAchievementManager() {
+	public AchievementManager getAchievementManager() {
 		return mAchievementManager;
 	}
 
@@ -407,7 +396,7 @@ public class MobHunting extends JavaPlugin {
 	 * 
 	 * @return
 	 */
-	public static IDataStore getStoreManager() {
+	public IDataStore getStoreManager() {
 		return mStore;
 	}
 
@@ -416,7 +405,7 @@ public class MobHunting extends JavaPlugin {
 	 * 
 	 * @return
 	 */
-	public static DataStoreManager getDataStoreManager() {
+	public DataStoreManager getDataStoreManager() {
 		return mStoreManager;
 	}
 
@@ -425,7 +414,7 @@ public class MobHunting extends JavaPlugin {
 	 * 
 	 * @return
 	 */
-	public static LeaderboardManager getLeaderboardManager() {
+	public LeaderboardManager getLeaderboardManager() {
 		return mLeaderboardManager;
 	}
 
@@ -443,7 +432,7 @@ public class MobHunting extends JavaPlugin {
 	 * 
 	 * @return
 	 */
-	public static GrindingManager getGrindingManager() {
+	public GrindingManager getGrindingManager() {
 		return mAreaManager;
 	}
 
@@ -452,7 +441,7 @@ public class MobHunting extends JavaPlugin {
 	 * 
 	 * @return
 	 */
-	public static WorldGroup getWorldGroupManager() {
+	public WorldGroup getWorldGroupManager() {
 		return mWorldGroupManager;
 	}
 
@@ -488,7 +477,7 @@ public class MobHunting extends JavaPlugin {
 	 * 
 	 * @return
 	 */
-	public static ExtendedMobManager getExtendedMobManager() {
+	public ExtendedMobManager getExtendedMobManager() {
 		return mExtendedMobManager;
 	}
 
@@ -521,6 +510,10 @@ public class MobHunting extends JavaPlugin {
 
 	public CommandDispatcher getCommandDispatcher() {
 		return mCommandDispatcher;
+	}
+
+	public CompatibilityManager getCompatibilityManager() {
+		return mCompatibilityManager;
 	}
 
 }

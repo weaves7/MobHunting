@@ -51,7 +51,7 @@ public class Messages {
 	private static Map<String, String> mTranslationTable;
 	private static String[] mValidEncodings = new String[] { "UTF-16", "UTF-16BE", "UTF-16LE", "UTF-8", "ISO646-US" };
 	private static final String PREFIX = "[MobHunting]";
-	private static String[] sources = new String[] { "en_US.lang", "zh_CN.lang" };
+	private static String[] sources = new String[] { "en_US.lang", "hu_HU.lang", "zh_CN.lang" };
 
 	public void exportDefaultLanguages(MobHunting plugin) {
 		File folder = new File(plugin.getDataFolder(), "lang");
@@ -125,28 +125,28 @@ public class Messages {
 		}
 	}
 
-	public static void injectMissingMobNamesToLangFiles() {
+	public void injectMissingMobNamesToLangFiles() {
 		File folder = new File(MobHunting.getInstance().getDataFolder(), "lang");
 		if (!folder.exists())
 			folder.mkdirs();
 
 		boolean customLanguage = true;
 		for (String source : sources) {
-			if (source.equalsIgnoreCase(MobHunting.getConfigManager().language))
+			if (source.equalsIgnoreCase(plugin.getConfigManager().language))
 				customLanguage = false;
 			File dest = new File(folder, source);
 			injectMissingMobNamesToLangFile(dest);
 		}
 
 		if (customLanguage) {
-			File dest = new File(folder, MobHunting.getConfigManager().language + ".lang");
+			File dest = new File(folder, plugin.getConfigManager().language + ".lang");
 			injectMissingMobNamesToLangFile(dest);
 			sortFileOnDisk(dest);
 		}
 
 	}
 
-	private static boolean injectMissingMobNamesToLangFile(File onDisk) {
+	private boolean injectMissingMobNamesToLangFile(File onDisk) {
 		try {
 			Map<String, String> dest = loadLang(onDisk);
 
@@ -154,8 +154,8 @@ public class Messages {
 				return false;
 
 			HashMap<String, String> newEntries = new HashMap<String, String>();
-			if (MobHunting.getExtendedMobManager() != null)
-				for (Entry<Integer, ExtendedMob> key : MobHunting.getExtendedMobManager().getAllMobs().entrySet()) {
+			if (plugin.getExtendedMobManager() != null)
+				for (Entry<Integer, ExtendedMob> key : plugin.getExtendedMobManager().getAllMobs().entrySet()) {
 					String k;
 					if (key.getValue().getMobPlugin() == MobPlugin.Minecraft)
 						k = "mobs." + key.getValue().getMobtype() + ".name";
@@ -424,7 +424,7 @@ public class Messages {
 			if (player.equals(except) || plugin.getPlayerSettingsmanager().getPlayerSettings(player).isMuted())
 				continue;
 
-			if (MobHunting.getConfigManager().useActionBarforBroadcasts)
+			if (plugin.getConfigManager().useActionBarforBroadcasts)
 				playerActionBarMessage(player, message);
 			else if (isEmpty(message)) {
 				player.sendMessage(PlaceholderAPICompat.setPlaceholders(player, message));
@@ -439,7 +439,7 @@ public class Messages {
 	 * @param args
 	 */
 	public static void debug(String message, Object... args) {
-		if (MobHunting.getConfigManager().killDebug) {
+		if (MobHunting.getInstance().getConfigManager().killDebug) {
 			if (PlaceholderAPICompat.isSupported())
 				Bukkit.getServer().getConsoleSender().sendMessage(
 						PREFIX + "[Debug] " + PlaceholderAPI.setPlaceholders(null, String.format(message, args)));

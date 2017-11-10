@@ -62,7 +62,7 @@ private MobHunting plugin;
 			return false;
 
 		Location loc = ((Player) sender).getLocation();
-		MobHunting.getGrindingManager().clearGrindingArea(loc);
+		plugin.getGrindingManager().clearGrindingArea(loc);
 
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			HuntData data = new HuntData(player);

@@ -22,7 +22,7 @@ public class SneakyBonus implements IModifier {
 	@Override
 	public double getMultiplier(Entity deadEntity, Player killer, HuntData data, DamageInformation extraInfo,
 			EntityDamageByEntityEvent lastDamageCause) {
-		return MobHunting.getConfigManager().bonusSneaky;
+		return MobHunting.getInstance().getConfigManager().bonusSneaky;
 	}
 
 	@Override

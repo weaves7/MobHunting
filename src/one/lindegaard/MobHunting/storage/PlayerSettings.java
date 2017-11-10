@@ -12,7 +12,7 @@ public class PlayerSettings {
 
 	public PlayerSettings(OfflinePlayer player, double balance) {
 		this.player = player;
-		this.setLearningMode(MobHunting.getConfigManager().learningMode);
+		this.setLearningMode(MobHunting.getInstance().getConfigManager().learningMode);
 		this.setMuteMode(false);
 	}
 

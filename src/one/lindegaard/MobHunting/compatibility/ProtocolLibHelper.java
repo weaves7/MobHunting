@@ -141,11 +141,11 @@ public class ProtocolLibHelper {
 						wpwp.setY((float) (grindingArea.getCenter().getBlockY() + 0.2));
 						wpwp.setOffsetY(0);
 						for (int n = 0; n < 360; n = n
-								+ (int) (45 / MobHunting.getConfigManager().grindingDetectionRange)) {
+								+ (int) (45 / MobHunting.getInstance().getConfigManager().grindingDetectionRange)) {
 							wpwp.setX((float) (grindingArea.getCenter().getBlockX() + 0.5
-									+ Math.cos(n) * MobHunting.getConfigManager().grindingDetectionRange));
+									+ Math.cos(n) * MobHunting.getInstance().getConfigManager().grindingDetectionRange));
 							wpwp.setZ((float) (grindingArea.getCenter().getBlockZ() + 0.5
-									+ Math.sin(n) * MobHunting.getConfigManager().grindingDetectionRange));
+									+ Math.sin(n) * MobHunting.getInstance().getConfigManager().grindingDetectionRange));
 							wpwp.sendPacket(player);
 						}
 						if (System.currentTimeMillis() > now + (20000L))

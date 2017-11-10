@@ -35,7 +35,7 @@ public class JustInTime implements Achievement, Listener {
 
 	@Override
 	public double getPrize() {
-		return MobHunting.getConfigManager().specialJustInTime;
+		return plugin.getConfigManager().specialJustInTime;
 	}
 
 	@EventHandler
@@ -48,18 +48,18 @@ public class JustInTime implements Achievement, Listener {
 				&& (event.getKilledEntity().getWorld().getTime() >= 23500
 						&& event.getKilledEntity().getWorld().getTime() <= 24000)
 				&& event.getKilledEntity().getFireTicks() > 0)
-			MobHunting.getAchievementManager().awardAchievement(this, event.getPlayer(),
-					MobHunting.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()));
+			plugin.getAchievementManager().awardAchievement(this, event.getPlayer(),
+					plugin.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()));
 	}
 
 	@Override
 	public String getPrizeCmd() {
-		return MobHunting.getConfigManager().specialJustInTimeCmd;
+		return plugin.getConfigManager().specialJustInTimeCmd;
 	}
 
 	@Override
 	public String getPrizeCmdDescription() {
-		return MobHunting.getConfigManager().specialJustInTimeCmdDesc;
+		return plugin.getConfigManager().specialJustInTimeCmdDesc;
 	}
 
 	@Override

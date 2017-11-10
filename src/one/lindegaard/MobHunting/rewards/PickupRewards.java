@@ -39,7 +39,7 @@ public class PickupRewards {
 			} else {
 				// If not Gringotts
 				if (reward.getMoney() != 0)
-					if (!MobHunting.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
+					if (!plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
 						plugin.getRewardManager().depositPlayer(player, reward.getMoney());
 						if (ProtocolLibCompat.isSupported())
 							ProtocolLibHelper.pickupMoney(player, item);
@@ -63,13 +63,13 @@ public class PickupRewards {
 									Reward newReward = Reward.getReward(is);
 									newReward.setMoney(Misc.round(newReward.getMoney() + reward.getMoney()));
 									im.setLore(newReward.getHiddenLore());
-									String displayName = MobHunting.getConfigManager().dropMoneyOnGroundItemtype
+									String displayName = plugin.getConfigManager().dropMoneyOnGroundItemtype
 											.equalsIgnoreCase("ITEM")
 													? plugin.getRewardManager().format(Misc.round(newReward.getMoney()))
 													: newReward.getDisplayname() + " (" + plugin.getRewardManager()
 															.format(Misc.round(newReward.getMoney())) + ")";
 									im.setDisplayName(
-											ChatColor.valueOf(MobHunting.getConfigManager().dropMoneyOnGroundTextColor)
+											ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 													+ displayName);
 									is.setItemMeta(im);
 									is.setAmount(1);
@@ -89,14 +89,14 @@ public class PickupRewards {
 						if (!found) {
 							ItemStack is = item.getItemStack();
 							ItemMeta im = is.getItemMeta();
-							String displayName = MobHunting.getConfigManager().dropMoneyOnGroundItemtype
+							String displayName = plugin.getConfigManager().dropMoneyOnGroundItemtype
 									.equalsIgnoreCase("ITEM")
 											? plugin.getRewardManager().format(Misc.round(reward.getMoney()))
 											: reward.getDisplayname() + " ("
 													+ plugin.getRewardManager().format(Misc.round(reward.getMoney()))
 													+ ")";
 							im.setDisplayName(
-									ChatColor.valueOf(MobHunting.getConfigManager().dropMoneyOnGroundTextColor)
+									ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 											+ displayName);
 							im.setLore(reward.getHiddenLore());
 							is.setItemMeta(im);

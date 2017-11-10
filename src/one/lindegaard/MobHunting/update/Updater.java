@@ -51,7 +51,7 @@ public class Updater {
 	}
 
 	public static void hourlyUpdateCheck(final CommandSender sender, boolean updateCheck, final boolean silent) {
-		long seconds = MobHunting.getConfigManager().checkEvery;
+		long seconds = MobHunting.getInstance().getConfigManager().checkEvery;
 		if (seconds < 900) {
 			Bukkit.getConsoleSender().sendMessage(ChatColor.RED
 					+ "[MobHunting][Warning] check_every in your config.yml is too low. A low number can cause server crashes. The number is raised to 900 seconds = 15 minutes.");
@@ -114,7 +114,7 @@ public class Updater {
 									if (updateAvailable == UpdateStatus.AVAILABLE) {
 										sender.sendMessage(ChatColor.GREEN + "[MobHunting] "
 												+ Messages.getString("mobhunting.commands.update.version-found"));
-										if (MobHunting.getConfigManager().autoupdate) {
+										if (MobHunting.getInstance().getConfigManager().autoupdate) {
 											downloadAndUpdateJar();
 											sender.sendMessage(ChatColor.GREEN + "[MobHunting] "
 													+ Messages.getString("mobhunting.commands.update.complete"));

@@ -91,7 +91,7 @@ public class NpcCommand implements ICommand, Listener {
 
 		String[] subcmds = { "create", "remove", "select", "spawn", "despawn", "update", "tphere", "sethome" };
 		ArrayList<String> items = new ArrayList<String>();
-		if (CompatibilityManager.isPluginLoaded(CitizensCompat.class)) {
+		if (plugin.getCompatibilityManager().isPluginLoaded(CitizensCompat.class)) {
 			if (args.length == 1) {
 				for (String cmd : subcmds)
 					items.add(cmd);
@@ -130,7 +130,7 @@ public class NpcCommand implements ICommand, Listener {
 			return false;
 		Player p = (Player) sender;
 		NPC npc;
-		if (CompatibilityManager.isPluginLoaded(CitizensCompat.class)) {
+		if (plugin.getCompatibilityManager().isPluginLoaded(CitizensCompat.class)) {
 			// MasterMobHunterManager masterMobHunterManager =
 			// CitizensCompat.getManager();
 			npc = CitizensAPI.getDefaultNPCSelector().getSelected(sender);

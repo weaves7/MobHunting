@@ -45,7 +45,7 @@ public class EighthHuntAchievement implements ProgressAchievement, Listener {
 
 	@Override
 	public double getPrize() {
-		return MobHunting.getConfigManager().specialHunter8;
+		return plugin.getConfigManager().specialHunter8;
 	}
 
 	@Override
@@ -69,12 +69,12 @@ public class EighthHuntAchievement implements ProgressAchievement, Listener {
 
 	@Override
 	public String getPrizeCmd() {
-		return MobHunting.getConfigManager().specialHunter8Cmd;
+		return plugin.getConfigManager().specialHunter8Cmd;
 	}
 
 	@Override
 	public String getPrizeCmdDescription() {
-		return MobHunting.getConfigManager().specialHunter8CmdDesc;
+		return plugin.getConfigManager().specialHunter8CmdDesc;
 	}
 
 	@Override
@@ -90,15 +90,15 @@ public class EighthHuntAchievement implements ProgressAchievement, Listener {
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onKillCompleted(MobHuntKillEvent event) {
 		if (mExtendedMob.matches(event.getKilledEntity()))
-			MobHunting.getAchievementManager().awardAchievementProgress(this, event.getPlayer(),
-					MobHunting.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()), 1);
+			plugin.getAchievementManager().awardAchievementProgress(this, event.getPlayer(),
+					plugin.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()), 1);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onFishingCompleted(MobHuntFishingEvent event) {
 		if (mExtendedMob.matches(event.getFish())) {
-			MobHunting.getAchievementManager().awardAchievementProgress(this, event.getPlayer(),
-					MobHunting.getExtendedMobManager().getExtendedMobFromEntity(event.getFish()), 1);
+			plugin.getAchievementManager().awardAchievementProgress(this, event.getPlayer(),
+					plugin.getExtendedMobManager().getExtendedMobFromEntity(event.getFish()), 1);
 		}
 	}
 }

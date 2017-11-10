@@ -35,7 +35,7 @@ public class MobHuntingAPI {
 	 * @return MobHuntingManger
 	 */
 	public static MobHuntingManager getMobHuntingManager() {
-		return MobHunting.getMobHuntingManager();
+		return MobHunting.getInstance().getMobHuntingManager();
 	}
 
 	/**

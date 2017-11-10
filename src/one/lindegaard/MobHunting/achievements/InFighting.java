@@ -40,13 +40,13 @@ public class InFighting implements Achievement, Listener {
 
 	@Override
 	public double getPrize() {
-		return MobHunting.getConfigManager().specialInfighting;
+		return plugin.getConfigManager().specialInfighting;
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onKill(MobHuntKillEvent event) {
 		if (!(event.getKilledEntity() instanceof Skeleton)
-				|| !MobHunting.getMobHuntingManager().isHuntEnabledInWorld(event.getKilledEntity().getWorld())
+				|| !plugin.getMobHuntingManager().isHuntEnabledInWorld(event.getKilledEntity().getWorld())
 				|| plugin.getRewardManager().getBaseKillPrize(event.getKilledEntity()) <= 0)
 			return;
 
@@ -63,8 +63,8 @@ public class InFighting implements Achievement, Listener {
 
 			if (killed.getTarget() == skele && skele.getTarget() == killed) {
 				DamageInformation a, b;
-				a = MobHunting.getMobHuntingManager().getDamageInformation(killed);
-				b = MobHunting.getMobHuntingManager().getDamageInformation(skele);
+				a = plugin.getMobHuntingManager().getDamageInformation(killed);
+				b = plugin.getMobHuntingManager().getDamageInformation(skele);
 
 				Player initiator = null;
 				if (a != null)
@@ -73,21 +73,21 @@ public class InFighting implements Achievement, Listener {
 				if (b != null && initiator == null)
 					initiator = b.getAttacker();
 
-				if (initiator != null && MobHunting.getMobHuntingManager().isHuntEnabled(initiator))
-					MobHunting.getAchievementManager().awardAchievement(this, initiator,
-							MobHunting.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()));
+				if (initiator != null && plugin.getMobHuntingManager().isHuntEnabled(initiator))
+					plugin.getAchievementManager().awardAchievement(this, initiator,
+							plugin.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()));
 			}
 		}
 	}
 
 	@Override
 	public String getPrizeCmd() {
-		return MobHunting.getConfigManager().specialInfightingCmd;
+		return plugin.getConfigManager().specialInfightingCmd;
 	}
 
 	@Override
 	public String getPrizeCmdDescription() {
-		return MobHunting.getConfigManager().specialInfightingCmdDesc;
+		return plugin.getConfigManager().specialInfightingCmdDesc;
 	}
 
 	@Override

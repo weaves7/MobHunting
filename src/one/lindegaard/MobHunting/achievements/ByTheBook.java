@@ -34,7 +34,7 @@ public class ByTheBook implements Achievement, Listener {
 
 	@Override
 	public double getPrize() {
-		return MobHunting.getConfigManager().specialByTheBook;
+		return plugin.getConfigManager().specialByTheBook;
 	}
 
 	@EventHandler
@@ -43,18 +43,18 @@ public class ByTheBook implements Achievement, Listener {
 				|| event.getDamageInfo().getWeapon().getType() == Material.WRITTEN_BOOK
 				|| event.getDamageInfo().getWeapon().getType() == Material.BOOK_AND_QUILL)
 				&& (plugin.getRewardManager().getBaseKillPrize(event.getKilledEntity()) > 0))
-			MobHunting.getAchievementManager().awardAchievement(this, event.getPlayer(),
-					MobHunting.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()));
+			plugin.getAchievementManager().awardAchievement(this, event.getPlayer(),
+					plugin.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()));
 	}
 
 	@Override
 	public String getPrizeCmd() {
-		return MobHunting.getConfigManager().specialByTheBookCmd;
+		return plugin.getConfigManager().specialByTheBookCmd;
 	}
 
 	@Override
 	public String getPrizeCmdDescription() {
-		return MobHunting.getConfigManager().specialByTheBookCmdDesc;
+		return plugin.getConfigManager().specialByTheBookCmdDesc;
 	}
 
 	@Override

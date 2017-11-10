@@ -23,10 +23,10 @@ public class AdvancementManager {
 	public void getAdvancementsFromAchivements() {
 
 		ArrayList<Achievement> achivements = new ArrayList<>();
-		achivements.addAll(MobHunting.getAchievementManager().getAllAchievements());
+		achivements.addAll(plugin.getAchievementManager().getAllAchievements());
 
 		AdvancementAPI huntbegins;
-		Achievement ach = MobHunting.getAchievementManager().getAchievement("huntbegins");
+		Achievement ach = plugin.getAchievementManager().getAchievement("huntbegins");
 		huntbegins = AdvancementAPI.builder(new NamespacedKey(MobHunting.getInstance(), "hunter/" + ach.getID()))
 				.title(ach.getName()).description(ach.getDescription()).icon("minecraft:bow")
 				.trigger(Trigger.builder(Trigger.TriggerType.IMPOSSIBLE, "default")
@@ -79,7 +79,7 @@ public class AdvancementManager {
 
 				if ((achievement instanceof ProgressAchievement)
 						&& ((ProgressAchievement) achievement).nextLevelId() != null)
-					addNext(MobHunting.getAchievementManager()
+					addNext(plugin.getAchievementManager()
 							.getAchievement(((ProgressAchievement) achievement).nextLevelId()));
 			}
 		}
@@ -98,7 +98,7 @@ public class AdvancementManager {
 				child.add();
 				knowAdvancements.add(child);
 
-				addNext(MobHunting.getAchievementManager()
+				addNext(plugin.getAchievementManager()
 						.getAchievement(((ProgressAchievement) achievement).nextLevelId()));
 
 			} else {
@@ -124,9 +124,9 @@ public class AdvancementManager {
 	 */
 	public void updatePlayerAdvancements(Player player) {
 		for (AdvancementAPI api : knowAdvancements) {
-			Achievement achievement = MobHunting.getAchievementManager()
+			Achievement achievement = plugin.getAchievementManager()
 					.getAchievement(api.getId().getKey().split("/")[1]);
-			if (MobHunting.getAchievementManager().hasAchievement(achievement, player)) {
+			if (plugin.getAchievementManager().hasAchievement(achievement, player)) {
 				Messages.debug("AdvancementManager: granting %s to player:%s", achievement.getID(), player.getName());
 				api.grant(player);
 			}

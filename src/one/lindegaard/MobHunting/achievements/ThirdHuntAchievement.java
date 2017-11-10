@@ -42,7 +42,7 @@ public class ThirdHuntAchievement implements ProgressAchievement {
 
 	@Override
 	public double getPrize() {
-		return MobHunting.getConfigManager().specialHunter3;
+		return plugin.getConfigManager().specialHunter3;
 	}
 
 	@Override
@@ -70,12 +70,12 @@ public class ThirdHuntAchievement implements ProgressAchievement {
 
 	@Override
 	public String getPrizeCmd() {
-		return MobHunting.getConfigManager().specialHunter3Cmd;
+		return plugin.getConfigManager().specialHunter3Cmd;
 	}
 
 	@Override
 	public String getPrizeCmdDescription() {
-		return MobHunting.getConfigManager().specialHunter3CmdDesc;
+		return plugin.getConfigManager().specialHunter3CmdDesc;
 	}
 
 	@Override

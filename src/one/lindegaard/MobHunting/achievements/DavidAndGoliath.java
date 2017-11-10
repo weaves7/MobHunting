@@ -35,7 +35,7 @@ public class DavidAndGoliath implements Achievement, Listener {
 
 	@Override
 	public double getPrize() {
-		return MobHunting.getConfigManager().davidAndGoliat;
+		return plugin.getConfigManager().davidAndGoliat;
 	}
 
 	@EventHandler
@@ -44,18 +44,18 @@ public class DavidAndGoliath implements Achievement, Listener {
 				&& event.getDamageInfo().getWeapon().getType() == Material.STONE_BUTTON
 				&& !(plugin.getRewardManager().getBaseKillPrize(event.getKilledEntity()) == 0
 						&& plugin.getRewardManager().getKillConsoleCmd(event.getKilledEntity()).isEmpty()))
-			MobHunting.getAchievementManager().awardAchievement(this, event.getPlayer(),
-					MobHunting.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()));
+			plugin.getAchievementManager().awardAchievement(this, event.getPlayer(),
+					plugin.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()));
 	}
 
 	@Override
 	public String getPrizeCmd() {
-		return MobHunting.getConfigManager().davidAndGoliatCmd;
+		return plugin.getConfigManager().davidAndGoliatCmd;
 	}
 
 	@Override
 	public String getPrizeCmdDescription() {
-		return MobHunting.getConfigManager().davidAndGoliatCmdDesc;
+		return plugin.getConfigManager().davidAndGoliatCmdDesc;
 	}
 
 	@Override

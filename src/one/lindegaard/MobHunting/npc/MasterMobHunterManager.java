@@ -56,7 +56,7 @@ public class MasterMobHunterManager implements Listener {
 		loadData();
 
 		mUpdater = Bukkit.getScheduler().runTaskTimer(MobHunting.getInstance(), new Updater(), 120L,
-				MobHunting.getConfigManager().masterMobHuntercheckEvery * 20);
+				plugin.getConfigManager().masterMobHuntercheckEvery * 20);
 
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
@@ -342,9 +342,9 @@ public class MasterMobHunterManager implements Listener {
 						npc.getEntity().setMetadata(CitizensCompat.MH_CITIZENS,
 								new FixedMetadataValue(plugin, rewardData));
 						CitizensCompat.saveCitizensData();
-						MobHunting.getStoreManager().insertCitizensMobs(String.valueOf(npc.getId()));
-						MobHunting.getExtendedMobManager().updateExtendedMobs();
-						Messages.injectMissingMobNamesToLangFiles();
+						plugin.getStoreManager().insertCitizensMobs(String.valueOf(npc.getId()));
+						MobHunting.getInstance().getExtendedMobManager().updateExtendedMobs();
+						MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
 					}
 				}
 			}

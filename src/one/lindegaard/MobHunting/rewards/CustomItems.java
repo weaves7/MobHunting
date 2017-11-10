@@ -121,9 +121,9 @@ public class CustomItems {
 						"Hidden:" + mPlayerUUID, money == 0 ? "Hidden:" : "Hidden:" + uniqueRewardUuid, "Hidden:"+skinUuid)));
 		if (money == 0)
 			skullMeta.setDisplayName(
-					ChatColor.valueOf(MobHunting.getConfigManager().dropMoneyOnGroundTextColor) + mDisplayName);
+					ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + mDisplayName);
 		else
-			skullMeta.setDisplayName(ChatColor.valueOf(MobHunting.getConfigManager().dropMoneyOnGroundTextColor)
+			skullMeta.setDisplayName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 					+ mDisplayName + " (" + plugin.getRewardManager().format(money) + ")");
 
 		skull.setItemMeta(skullMeta);

@@ -65,13 +65,13 @@ private MobHunting plugin;
 
 		Location loc = ((Player) sender).getLocation();
 
-		if (MobHunting.getGrindingManager().isWhitelisted(loc)) {
+		if (plugin.getGrindingManager().isWhitelisted(loc)) {
 			plugin.getMessages().senderSendMessage(sender,ChatColor.RED + Messages.getString("mobhunting.commands.grinding.whitelisted"));
-			Area area = MobHunting.getGrindingManager().getWhitelistArea(loc);
+			Area area = plugin.getGrindingManager().getWhitelistArea(loc);
 			ProtocolLibHelper.showGrindingArea((Player) sender, area, loc);
-		} else if (MobHunting.getGrindingManager().isGrindingArea(loc)) {
+		} else if (plugin.getGrindingManager().isGrindingArea(loc)) {
 			plugin.getMessages().senderSendMessage(sender,ChatColor.RED + Messages.getString("mobhunting.commands.grinding.blacklisted"));
-			Area area = MobHunting.getGrindingManager().getGrindingArea(loc);
+			Area area = plugin.getGrindingManager().getGrindingArea(loc);
 			ProtocolLibHelper.showGrindingArea((Player) sender, area, loc);
 		} else {
 			Area area = null;

@@ -23,6 +23,9 @@ import one.lindegaard.MobHunting.storage.StatStore;
 import one.lindegaard.MobHunting.storage.TimePeriod;
 
 public class LegacyLeaderboard implements IDataCallback<List<StatStore>> {
+	
+	private MobHunting plugin;
+	
 	private String mId;
 	private World mWorld;
 	private BlockVector mMinCorner;
@@ -33,7 +36,7 @@ public class LegacyLeaderboard implements IDataCallback<List<StatStore>> {
 	private TimePeriod mPeriod;
 	private StatType mType;
 
-	public LegacyLeaderboard(String id, StatType type, TimePeriod period,
+	public LegacyLeaderboard(MobHunting plugin, String id, StatType type, TimePeriod period,
 			Location pointA, Location pointB, boolean horizontal)
 			throws IllegalArgumentException {
 		mId = id;
@@ -114,7 +117,7 @@ public class LegacyLeaderboard implements IDataCallback<List<StatStore>> {
 	}
 
 	public void updateBoard() {
-		MobHunting.getDataStoreManager().requestStats(mType, mPeriod,
+		plugin.getDataStoreManager().requestStats(mType, mPeriod,
 				countSigns() * 4, this);
 	}
 

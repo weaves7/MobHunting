@@ -61,11 +61,11 @@ public class FactionsCompat {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationFactions;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationFactions;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationFactions;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationFactions;
 	}
 
 	// PERMANENT: A permanent faction will never be deleted. (no)

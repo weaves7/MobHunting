@@ -51,11 +51,11 @@ public class TitleManagerCompat {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationTitleManager;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationTitleManager;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationTitleManager;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationTitleManager;
 	}
 
 	public static void setActionBar(Player player, String message) {

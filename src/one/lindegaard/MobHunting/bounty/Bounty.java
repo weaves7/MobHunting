@@ -45,7 +45,7 @@ public class Bounty {
 		this.mobtype = "Player";
 		this.wantedPlayer = wantedPlayer;
 		this.createdDate = System.currentTimeMillis();
-		this.endDate = this.createdDate + Long.valueOf(MobHunting.getConfigManager().bountyDaysToLive) * 86400000L;
+		this.endDate = this.createdDate + Long.valueOf(plugin.getConfigManager().bountyDaysToLive) * 86400000L;
 		this.prize = prize;
 		this.message = message;
 		this.status = BountyStatus.open;
@@ -59,7 +59,7 @@ public class Bounty {
 		this.mobtype = "Random";
 		this.wantedPlayer = randomPlayer;
 		this.createdDate = System.currentTimeMillis();
-		this.endDate = this.createdDate + Long.valueOf(MobHunting.getConfigManager().bountyDaysToLive) * 86400000L;
+		this.endDate = this.createdDate + Long.valueOf(plugin.getConfigManager().bountyDaysToLive) * 86400000L;
 		this.prize = prize;
 		this.message = message;
 		this.status = BountyStatus.open;
@@ -73,7 +73,7 @@ public class Bounty {
 		this.mobtype = "NPC";
 		this.npcId = npcId;
 		this.createdDate = System.currentTimeMillis();
-		this.endDate = this.createdDate + Long.valueOf(MobHunting.getConfigManager().bountyDaysToLive) * 86400000L;
+		this.endDate = this.createdDate + Long.valueOf(plugin.getConfigManager().bountyDaysToLive) * 86400000L;
 		this.prize = prize;
 		this.message = message;
 		this.status = BountyStatus.open;
@@ -87,7 +87,7 @@ public class Bounty {
 		this.mobtype = "Mob";
 		this.mobId = mobId;
 		this.createdDate = System.currentTimeMillis();
-		this.endDate = this.createdDate + Long.valueOf(MobHunting.getConfigManager().bountyDaysToLive) * 86400000L;
+		this.endDate = this.createdDate + Long.valueOf(plugin.getConfigManager().bountyDaysToLive) * 86400000L;
 		this.prize = prize;
 		this.message = message;
 		this.status = BountyStatus.open;
@@ -105,7 +105,7 @@ public class Bounty {
 		mobId = bounty.mobId;
 		worldGroup = bounty.getWorldGroup();
 		this.createdDate = System.currentTimeMillis();
-		this.endDate = this.createdDate + Long.valueOf(MobHunting.getConfigManager().bountyDaysToLive) * 86400000L;
+		this.endDate = this.createdDate + Long.valueOf(plugin.getConfigManager().bountyDaysToLive) * 86400000L;
 		prize = bounty.getPrize();
 		message = bounty.getMessage();
 		status = bounty.getStatus();

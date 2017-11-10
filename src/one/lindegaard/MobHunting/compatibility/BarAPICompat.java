@@ -46,11 +46,11 @@ public class BarAPICompat {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationBarAPI;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationBarAPI;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationBarAPI;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationBarAPI;
 	}
 
 	@SuppressWarnings("deprecation")

@@ -20,7 +20,7 @@ public class FactionWarZoneBonus implements IModifier {
 	@Override
 	public double getMultiplier(Entity deadEntity, Player killer, HuntData data, DamageInformation extraInfo,
 			EntityDamageByEntityEvent lastDamageCause) {
-		return MobHunting.getConfigManager().factionWarZoneBonusMultiplier;
+		return MobHunting.getInstance().getConfigManager().factionWarZoneBonusMultiplier;
 	}
 
 	@Override

@@ -60,11 +60,11 @@ public class CrackShotCompat implements Listener {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationCrackShot;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationCrackShot;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationCrackShot;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationCrackShot;
 	}
 
 	public static boolean isCrackShotWeapon(ItemStack itemStack) {
@@ -100,9 +100,9 @@ public class CrackShotCompat implements Listener {
 	}
 
 	public static boolean isCrackShotUsed(Entity entity) {
-		if (MobHunting.getMobHuntingManager().getDamageHistory().containsKey(entity))
-			return MobHunting.getMobHuntingManager().getDamageHistory().get(entity).getCrackShotWeaponUsed() != null 
-					&& !MobHunting.getMobHuntingManager().getDamageHistory().get(entity).getCrackShotWeaponUsed()
+		if (MobHunting.getInstance().getMobHuntingManager().getDamageHistory().containsKey(entity))
+			return MobHunting.getInstance().getMobHuntingManager().getDamageHistory().get(entity).getCrackShotWeaponUsed() != null 
+					&& !MobHunting.getInstance().getMobHuntingManager().getDamageHistory().get(entity).getCrackShotWeaponUsed()
 							.isEmpty();
 		return false;
 	}
@@ -114,24 +114,16 @@ public class CrackShotCompat implements Listener {
 	@EventHandler(priority = EventPriority.LOW)
 	public void onWeaponDamageEntityEvent(WeaponDamageEntityEvent event) {
 		if (event.getVictim() instanceof LivingEntity) {
-			DamageInformation info = MobHunting.getMobHuntingManager().getDamageHistory().get(event.getVictim());
+			DamageInformation info = MobHunting.getInstance().getMobHuntingManager().getDamageHistory().get(event.getVictim());
 			if (info == null)
 				info = new DamageInformation();
-			// Messages.debug("onWeaponDamageEntityEvent: Victim=%s damaged with
-			// a %s", event.getVictim().getType(),
-			// getCrackShotWeapon(event.getPlayer().getItemInHand()));
 			info.setTime(System.currentTimeMillis());
 			info.setAttacker(event.getPlayer());
 			info.setAttackerPosition(event.getPlayer().getLocation().clone());
 			info.setCrackShotWeapon(getCrackShotWeapon(event.getPlayer().getItemInHand()));
 			info.setCrackShotPlayer(event.getPlayer());
-			MobHunting.getMobHuntingManager().getDamageHistory().put((LivingEntity) event.getVictim(), info);
+			MobHunting.getInstance().getMobHuntingManager().getDamageHistory().put((LivingEntity) event.getVictim(), info);
 		}
 	}
-
-	// @EventHandler(priority = EventPriority.NORMAL)
-	// public void onWeaponDamageEntityEvent(WeaponExplodeEvent event) {
-	// Messages.debug("WeaponExplodeEvent: Weapon=%s", event.getWeaponTitle());
-	// }
 
 }

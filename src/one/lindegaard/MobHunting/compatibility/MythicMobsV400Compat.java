@@ -44,11 +44,11 @@ public class MythicMobsV400Compat implements Listener {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationMythicmobs;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationMythicmobs;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationMythicmobs;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationMythicmobs;
 	}
 
 	// **************************************************************************
@@ -66,10 +66,10 @@ public class MythicMobsV400Compat implements Listener {
 					new RewardData(MobPlugin.MythicMobs, mobtype, event.getMobType().getDisplayName(), "10",
 							"minecraft:give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02));
 			MythicMobsCompat.saveMythicMobsData(mobtype);
-			MobHunting.getStoreManager().insertMissingMythicMobs(mobtype);
+			MobHunting.getInstance().getStoreManager().insertMissingMythicMobs(mobtype);
 			// Update mob loaded into memory
-			MobHunting.getExtendedMobManager().updateExtendedMobs();
-			Messages.injectMissingMobNamesToLangFiles();
+			MobHunting.getInstance().getExtendedMobManager().updateExtendedMobs();
+			MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
 		}
 
 		event.getEntity().setMetadata(MythicMobsCompat.MH_MYTHICMOBS, new FixedMetadataValue(mPlugin,

@@ -44,7 +44,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 			Class.forName("org.sqlite.JDBC");
 			Connection c = DriverManager
 					.getConnection("jdbc:sqlite:" + MobHunting.getInstance().getDataFolder().getPath() + "/"
-							+ MobHunting.getConfigManager().databaseName + ".db");
+							+ plugin.getConfigManager().databaseName + ".db");
 			c.setAutoCommit(false);
 			return c;
 		} catch (ClassNotFoundException classNotFoundEx) {
@@ -202,9 +202,9 @@ public class SQLiteDataStore extends DatabaseDataStore {
 		} else {
 			wherepart = (id != null
 					? " AND ID=" + id + " and mh_Mobs.MOB_ID="
-							+ MobHunting.getExtendedMobManager().getMobIdFromMobTypeAndPluginID(mobType, mobPlugin)
+							+ plugin.getExtendedMobManager().getMobIdFromMobTypeAndPluginID(mobType, mobPlugin)
 					: " AND mh_Mobs.MOB_ID="
-							+ MobHunting.getExtendedMobManager().getMobIdFromMobTypeAndPluginID(mobType, mobPlugin));
+							+ plugin.getExtendedMobManager().getMobIdFromMobTypeAndPluginID(mobType, mobPlugin));
 		}
 
 		try {
@@ -375,7 +375,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 		}
 
 		// Create new empty tables if they do not exist
-		String lm = MobHunting.getConfigManager().learningMode ? "1" : "0";
+		String lm = plugin.getConfigManager().learningMode ? "1" : "0";
 		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Players (UUID TEXT PRIMARY KEY, NAME TEXT, "
 				+ "PLAYER_ID INTEGER NOT NULL, LEARNING_MODE INTEGER NOT NULL DEFAULT " + lm
 				+ ", MUTE_MODE INTEGER NOT NULL DEFAULT 0 )");
@@ -400,7 +400,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 				+ "(PLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, ACHIEVEMENT TEXT NOT NULL, "
 				+ "DATE INTEGER NOT NULL, PROGRESS INTEGER NOT NULL, PRIMARY KEY(PLAYER_ID, ACHIEVEMENT), "
 				+ "FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID))");
-		if (!MobHunting.getConfigManager().disablePlayerBounties)
+		if (!plugin.getConfigManager().disablePlayerBounties)
 			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("
 					+ "BOUNTYOWNER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, " + "MOBTYPE TEXT, "
 					+ "WANTEDPLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID), " + "NPC_ID INTEGER, "
@@ -1032,7 +1032,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 			rs.close();
 		} catch (SQLException e) {
 			System.out.println("[MobHunting] Adding new Player leaning mode to MobHunting Database.");
-			String lm = MobHunting.getConfigManager().learningMode ? "1" : "0";
+			String lm = plugin.getConfigManager().learningMode ? "1" : "0";
 			statement.executeUpdate(
 					"alter table `mh_Players` add column `LEARNING_MODE` INTEGER NOT NULL DEFAULT " + lm);
 		}
@@ -1065,7 +1065,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 		Statement create = connection.createStatement();
 
 		// Create new empty tables if they do not exist
-		String lm = MobHunting.getConfigManager().learningMode ? "1" : "0";
+		String lm = plugin.getConfigManager().learningMode ? "1" : "0";
 		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Players" + "(UUID TEXT," + " NAME TEXT, "
 				+ " PLAYER_ID INTEGER NOT NULL DEFAULT 1," + " LEARNING_MODE INTEGER NOT NULL DEFAULT " + lm + ","
 				+ " MUTE_MODE INTEGER NOT NULL DEFAULT 0," + " PRIMARY KEY(PLAYER_ID))");
@@ -1117,7 +1117,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 				+ " PRIMARY KEY(PLAYER_ID, ACHIEVEMENT), "
 				+ " FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID))");
 
-		if (!MobHunting.getConfigManager().disablePlayerBounties) {
+		if (!plugin.getConfigManager().disablePlayerBounties) {
 			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("
 					+ "BOUNTYOWNER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, " + "MOBTYPE TEXT, "
 					+ "WANTEDPLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID), " + "NPC_ID INTEGER, "
@@ -1216,7 +1216,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 		Statement create = connection.createStatement();
 
 		// Create new empty tables if they do not exist
-		String lm = MobHunting.getConfigManager().learningMode ? "1" : "0";
+		String lm = plugin.getConfigManager().learningMode ? "1" : "0";
 		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Players" + "(UUID TEXT," + " NAME TEXT, "
 				+ " PLAYER_ID INTEGER NOT NULL DEFAULT 1," + " LEARNING_MODE INTEGER NOT NULL DEFAULT " + lm + ","
 				+ " MUTE_MODE INTEGER NOT NULL DEFAULT 0," + " PRIMARY KEY(PLAYER_ID))");
@@ -1291,7 +1291,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 				+ " PROGRESS INTEGER NOT NULL," + " PRIMARY KEY(PLAYER_ID, ACHIEVEMENT), "
 				+ " FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID))");
 
-		if (!MobHunting.getConfigManager().disablePlayerBounties) {
+		if (!plugin.getConfigManager().disablePlayerBounties) {
 			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("
 					+ "BOUNTYOWNER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, " + "MOBTYPE TEXT, "
 					+ "WANTEDPLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID), " + "NPC_ID INTEGER, "
@@ -1387,7 +1387,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 		Statement create = connection.createStatement();
 
 		// Create new empty tables if they do not exist
-		String lm = MobHunting.getConfigManager().learningMode ? "1" : "0";
+		String lm = plugin.getConfigManager().learningMode ? "1" : "0";
 		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Players" //
 				+ "(UUID TEXT," //
 				+ " NAME TEXT, " //
@@ -1470,7 +1470,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 				+ " PROGRESS INTEGER NOT NULL," + " PRIMARY KEY(PLAYER_ID, ACHIEVEMENT), "
 				+ " FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID))");
 
-		if (!MobHunting.getConfigManager().disablePlayerBounties) {
+		if (!plugin.getConfigManager().disablePlayerBounties) {
 			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("
 					+ "BOUNTYOWNER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, " + "MOBTYPE TEXT, "
 					+ "WANTEDPLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID), " + "NPC_ID INTEGER, "

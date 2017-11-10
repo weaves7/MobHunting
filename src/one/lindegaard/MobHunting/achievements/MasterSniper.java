@@ -35,7 +35,7 @@ public class MasterSniper implements Achievement, Listener {
 
 	@Override
 	public double getPrize() {
-		return MobHunting.getConfigManager().specialMasterSniper;
+		return plugin.getConfigManager().specialMasterSniper;
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR)
@@ -46,20 +46,20 @@ public class MasterSniper implements Achievement, Listener {
 				&& plugin.getRewardManager().getBaseKillPrize(event.getKilledEntity()) > 0) {
 			double dist = event.getDamageInfo().getAttackerPosition().distance(event.getKilledEntity().getLocation());
 			if (dist >= 40) {
-				MobHunting.getAchievementManager().awardAchievement(this, event.getPlayer(),
-						MobHunting.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()));
+				plugin.getAchievementManager().awardAchievement(this, event.getPlayer(),
+						plugin.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()));
 			}
 		}
 	}
 
 	@Override
 	public String getPrizeCmd() {
-		return MobHunting.getConfigManager().specialMasterSniperCmd;
+		return plugin.getConfigManager().specialMasterSniperCmd;
 	}
 
 	@Override
 	public String getPrizeCmdDescription() {
-		return MobHunting.getConfigManager().specialMasterSniperCmdDesc;
+		return plugin.getConfigManager().specialMasterSniperCmdDesc;
 	}
 
 	@Override

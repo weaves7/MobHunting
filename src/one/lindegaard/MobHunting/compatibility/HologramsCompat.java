@@ -42,11 +42,11 @@ public class HologramsCompat {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationHolograms;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationHolograms;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationHolograms;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationHolograms;
 	}
 
 	public static HologramManager getHologramManager() {

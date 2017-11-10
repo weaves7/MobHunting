@@ -51,11 +51,11 @@ public class BattleArenaCompat implements Listener {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationBattleArena;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationBattleArena;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationBattleArena;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationBattleArena;
 	}
 
 	/**

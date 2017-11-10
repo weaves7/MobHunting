@@ -21,7 +21,7 @@ public class SniperBonus implements IModifier {
 	@Override
 	public double getMultiplier(Entity deadEntity, Player killer, HuntData data, DamageInformation extraInfo,
 			EntityDamageByEntityEvent lastDamageCause) {
-		return 1 + ((MobHunting.getConfigManager().bonusFarShot - 1) / 2);
+		return 1 + ((MobHunting.getInstance().getConfigManager().bonusFarShot - 1) / 2);
 	}
 
 	@Override

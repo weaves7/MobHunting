@@ -38,7 +38,7 @@ public class SecondHuntAchievement implements ProgressAchievement {
 
 	@Override
 	public double getPrize() {
-		return MobHunting.getConfigManager().specialHunter2;
+		return plugin.getConfigManager().specialHunter2;
 	}
 
 	@Override
@@ -64,12 +64,12 @@ public class SecondHuntAchievement implements ProgressAchievement {
 
 	@Override
 	public String getPrizeCmd() {
-		return MobHunting.getConfigManager().specialHunter2Cmd;
+		return plugin.getConfigManager().specialHunter2Cmd;
 	}
 
 	@Override
 	public String getPrizeCmdDescription() {
-		return MobHunting.getConfigManager().specialHunter2CmdDesc;
+		return plugin.getConfigManager().specialHunter2CmdDesc;
 	}
 
 	@Override

@@ -80,11 +80,11 @@ public class MythicMobsCompat {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationMythicmobs;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationMythicmobs;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationMythicmobs;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationMythicmobs;
 	}
 
 	public static HashMap<String, RewardData> getMobRewardData() {
@@ -142,13 +142,13 @@ public class MythicMobsCompat {
 					mob.read(section);
 					mob.setMobType(key);
 					mMobRewardData.put(key, mob);
-					MobHunting.getStoreManager().insertMissingMythicMobs(key);
+					MobHunting.getInstance().getStoreManager().insertMissingMythicMobs(key);
 					n++;
 				} else {
 					Messages.debug("The mob=%s can't be found in MythicMobs configuration files", key);
 				}
 			}
-			Messages.injectMissingMobNamesToLangFiles();
+			MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
 			Messages.debug("Loaded %s MythicMobs", n);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -173,7 +173,7 @@ public class MythicMobsCompat {
 				int n = StatType.values().length;
 				StatType.values()[n + 1] = new StatType(mob.getMobType() + "_kill", mob.getMobName());
 				StatType.values()[n + 2] = new StatType(mob.getMobType() + "_assist", mob.getMobName());
-				MobHunting.getStoreManager().insertMissingMythicMobs(key);
+				MobHunting.getInstance().getStoreManager().insertMissingMythicMobs(key);
 			} else {
 				Messages.debug("The mob=%s can't be found in MythicMobs configuration files", key);
 			}

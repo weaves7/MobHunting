@@ -47,11 +47,11 @@ public class WorldGuardCompat {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationWorldGuard;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationWorldGuard;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationWorldGuard;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationWorldGuard;
 	}
 
 }

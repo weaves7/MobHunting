@@ -57,12 +57,12 @@ public class MobArenaCompat implements Listener {
 	}
 
 	private static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationMobArena;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationMobArena;
 	}
 
 	@SuppressWarnings("unused")
 	private static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationMobArena;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationMobArena;
 	}
 	
 	/**

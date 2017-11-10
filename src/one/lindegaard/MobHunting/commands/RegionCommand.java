@@ -22,10 +22,10 @@ import one.lindegaard.MobHunting.compatibility.WorldGuardHelper;
 
 public class RegionCommand implements ICommand {
 
-private MobHunting plugin;
-	
+	private MobHunting plugin;
+
 	public RegionCommand(MobHunting plugin) {
-		this.plugin=plugin;
+		this.plugin = plugin;
 	}
 
 	public RegionCommand() {
@@ -84,7 +84,7 @@ private MobHunting plugin;
 	public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
 
 		ArrayList<String> items = new ArrayList<String>();
-		if (CompatibilityManager.isPluginLoaded(WorldGuardCompat.class)) {
+		if (plugin.getCompatibilityManager().isPluginLoaded(WorldGuardCompat.class)) {
 			if (args.length == 1) {
 				if (sender instanceof Player) {
 
@@ -134,7 +134,7 @@ private MobHunting plugin;
 		if (args.length == 0)
 			return false;
 
-		if (CompatibilityManager.isPluginLoaded(WorldGuardCompat.class)) {
+		if (plugin.getCompatibilityManager().isPluginLoaded(WorldGuardCompat.class)) {
 			if (sender instanceof Player) {
 				RegionQuery query = WorldGuardHelper.getRegionContainer().createQuery();
 				ApplicableRegionSet set = query.getApplicableRegions(((Player) sender).getLocation());
@@ -159,7 +159,7 @@ private MobHunting plugin;
 										WorldGuardHelper.getMobHuntingFlag());
 							}
 						}
-						plugin.getMessages().senderSendMessage(sender,ChatColor.RED + Messages
+						plugin.getMessages().senderSendMessage(sender, ChatColor.RED + Messages
 								.getString("mobhunting.commands.region.unknownRegionId", "regionid", args[0]));
 					} else if ((args.length >= 3) && args[1].equalsIgnoreCase("mobhunting")) {
 						RegionManager rm = WorldGuardHelper.getRegionContainer().get(((Player) sender).getWorld());
@@ -174,7 +174,7 @@ private MobHunting plugin;
 												WorldGuardHelper.getMobHuntingFlag(), args[2]);
 							}
 						}
-						plugin.getMessages().senderSendMessage(sender,ChatColor.RED + Messages
+						plugin.getMessages().senderSendMessage(sender, ChatColor.RED + Messages
 								.getString("mobhunting.commands.region.unknownRegionId", "regionid", args[0]));
 					} else {
 						plugin.getMessages().senderSendMessage(sender,

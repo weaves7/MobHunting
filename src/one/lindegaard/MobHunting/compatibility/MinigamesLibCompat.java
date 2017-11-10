@@ -43,11 +43,11 @@ public class MinigamesLibCompat implements Listener {
 	// OTHER
 	// **************************************************************************
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationMinigamesLib;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationMinigamesLib;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationMinigamesLib;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationMinigamesLib;
 	}
 
 	public static boolean isSupported() {

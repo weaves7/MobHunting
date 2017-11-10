@@ -110,7 +110,7 @@ public class HologramLeaderboard implements IDataCallback<List<StatStore>> {
 				if (mPeriodIndex >= mPeriod.length)
 					mPeriodIndex = 0;
 			}
-			MobHunting.getDataStoreManager().requestStats(getStatType(), getPeriod(), mHeight * 2, this);
+			plugin.getDataStoreManager().requestStats(getStatType(), getPeriod(), mHeight * 2, this);
 		} else {
 			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[MobHunting][WARNING] The leaderboard at "
 					+ mLocation.toString() + " has no StatType");
@@ -150,7 +150,7 @@ public class HologramLeaderboard implements IDataCallback<List<StatStore>> {
 			}
 		} else if (HolographicDisplaysCompat.isSupported()) {
 			for (com.gmail.filoghost.holographicdisplays.api.Hologram hologram : HologramsAPI.getHolograms(plugin)) {
-				if (hologram.getLocation().equals(MobHunting.getLeaderboardManager().getHologramManager().getHolograms()
+				if (hologram.getLocation().equals(plugin.getLeaderboardManager().getHologramManager().getHolograms()
 						.get(mHologramName).getLocation())) {
 					hologram.clearLines();
 					if (hologram.getHeight() == 0)

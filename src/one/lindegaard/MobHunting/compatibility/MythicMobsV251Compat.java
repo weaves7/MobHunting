@@ -63,10 +63,10 @@ public class MythicMobsV251Compat implements Listener {
 					new RewardData(MobPlugin.MythicMobs, mobtype, event.getMobType().getDisplayName(), "10",
 							"minecraft:give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02));
 			MythicMobsCompat.saveMythicMobsData(mobtype);
-			MobHunting.getStoreManager().insertMissingMythicMobs(mobtype);
+			MobHunting.getInstance().getStoreManager().insertMissingMythicMobs(mobtype);
 			// Update mob loaded into memory
-			MobHunting.getExtendedMobManager().updateExtendedMobs();
-			Messages.injectMissingMobNamesToLangFiles();
+			MobHunting.getInstance().getExtendedMobManager().updateExtendedMobs();
+			MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
 		}
 
 		event.getLivingEntity().setMetadata(MythicMobsCompat.MH_MYTHICMOBS, new FixedMetadataValue(mPlugin,

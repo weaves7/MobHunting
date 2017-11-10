@@ -40,11 +40,11 @@ public class PreciousStonesCompat {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationPreciousStones;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationPreciousStones;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationPreciousStones;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationPreciousStones;
 	}
 
 	// Flag references

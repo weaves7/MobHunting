@@ -37,11 +37,11 @@ public class TitleAPICompat {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationTitleAPI;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationTitleAPI;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationTitleAPI;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationTitleAPI;
 	}
 
 	public static void sendTitles(Player player, String title, String subtitle, int fadeIn, int stay, int fadeOut) {

@@ -49,7 +49,7 @@ public class DataStoreManager {
 		this.plugin = plugin;
 		mStore = store;
 		mTaskThread = new TaskThread();
-		int savePeriod = MobHunting.getConfigManager().savePeriod;
+		int savePeriod = plugin.getConfigManager().savePeriod;
 		if (savePeriod < 1200) {
 			savePeriod = 1200;
 			Bukkit.getConsoleSender().sendMessage(ChatColor.RED
@@ -204,7 +204,7 @@ public class DataStoreManager {
 		try {
 			return mStore.getPlayerId(offlinePlayer);
 		} catch (DataStoreException e) {
-			if (MobHunting.getConfigManager().killDebug)
+			if (plugin.getConfigManager().killDebug)
 				e.printStackTrace();
 		}
 		throw new UserNotFoundException(
@@ -300,7 +300,7 @@ public class DataStoreManager {
 					Bukkit.getScheduler().runTask(MobHunting.getInstance(), new Runnable() {
 						@Override
 						public void run() {
-							MobHunting.getGrindingManager().saveData();
+							plugin.getGrindingManager().saveData();
 						}
 					});
 

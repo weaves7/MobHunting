@@ -94,7 +94,7 @@ public class TopCommand implements ICommand {
 			}
 		}
 
-		MobHunting.getDataStoreManager().requestStats(selectedType, selectedPeriod, count,
+		plugin.getDataStoreManager().requestStats(selectedType, selectedPeriod, count,
 				new LeaderboardDisplay(sender, count, selectedPeriod));
 
 		return true;

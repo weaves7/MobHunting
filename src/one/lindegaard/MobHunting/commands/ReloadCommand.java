@@ -61,18 +61,18 @@ public class ReloadCommand implements ICommand {
 	@Override
 	public boolean onCommand(CommandSender sender, String label, String[] args) {
 
-		MobHunting.getGrindingManager().saveData();
+		plugin.getGrindingManager().saveData();
 
 		long starttime = System.currentTimeMillis();
 		int i = 1;
-		while (MobHunting.getDataStoreManager().isRunning() && (starttime + 10000 > System.currentTimeMillis())) {
+		while (plugin.getDataStoreManager().isRunning() && (starttime + 10000 > System.currentTimeMillis())) {
 			if (((int) (System.currentTimeMillis() - starttime)) / 1000 == i) {
 				Messages.debug("saving data (%s)");
 				i++;
 			}
 		}
 
-		if (MobHunting.getConfigManager().loadConfig()) {
+		if (plugin.getConfigManager().loadConfig()) {
 			int n = Misc.getOnlinePlayersAmount();
 			if (n > 0) {
 				Messages.debug("Reloading %s online playerSettings from the database", n);
@@ -80,12 +80,12 @@ public class ReloadCommand implements ICommand {
 				for (Player player : Misc.getOnlinePlayers())
 					plugin.getPlayerSettingsmanager().load(player);
 				// reload bounties
-				if (!MobHunting.getConfigManager().disablePlayerBounties)
+				if (!plugin.getConfigManager().disablePlayerBounties)
 					for (Player player : Misc.getOnlinePlayers())
 						plugin.getBountyManager().load(player);
 				// reload achievements
 				for (Player player : Misc.getOnlinePlayers())
-					MobHunting.getAchievementManager().load(player);
+					MobHunting.getInstance().getAchievementManager().load(player);
 			}
 
 			if (MythicMobsCompat.isSupported())

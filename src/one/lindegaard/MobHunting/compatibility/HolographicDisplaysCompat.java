@@ -39,11 +39,11 @@ public class HolographicDisplaysCompat {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationHolographicDisplays ;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationHolographicDisplays ;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationHolographicDisplays ;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationHolographicDisplays ;
 	}
 
 	public static HologramsAPI getHologramsAPI(){

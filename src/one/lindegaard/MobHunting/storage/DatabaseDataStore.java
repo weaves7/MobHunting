@@ -157,23 +157,23 @@ public abstract class DatabaseDataStore implements IDataStore {
 			Connection mConnection = setupConnection();
 
 			// Find current database version
-			if (MobHunting.getConfigManager().databaseVersion == 0) {
+			if (plugin.getConfigManager().databaseVersion == 0) {
 				Statement statement = mConnection.createStatement();
 				try {
 					ResultSet rs = statement.executeQuery("SELECT BALANCE FROM mh_Players LIMIT 0");
 					rs.close();
 					// The TABLE Coloumn BALANCE only exists in Database
 					// layout V5
-					MobHunting.getConfigManager().databaseVersion = 5;
-					MobHunting.getConfigManager().saveConfig();
+					plugin.getConfigManager().databaseVersion = 5;
+					plugin.getConfigManager().saveConfig();
 				} catch (SQLException e5) {
 					try {
 						ResultSet rs = statement.executeQuery("SELECT TOTAL_CASH FROM mh_Daily LIMIT 0");
 						rs.close();
 						// The TABLE Coloumn TOTAL_CASH only exists in Database
 						// layout V4
-						MobHunting.getConfigManager().databaseVersion = 4;
-						MobHunting.getConfigManager().saveConfig();
+						plugin.getConfigManager().databaseVersion = 4;
+						plugin.getConfigManager().saveConfig();
 					} catch (SQLException e4) {
 						try {
 							ResultSet rs = statement.executeQuery("SELECT MOB_ID FROM mh_Mobs LIMIT 0");
@@ -181,15 +181,15 @@ public abstract class DatabaseDataStore implements IDataStore {
 							// The TABLE mh_Mobs created for V3 and does only
 							// contain
 							// data after migration
-							MobHunting.getConfigManager().databaseVersion = 3;
-							MobHunting.getConfigManager().saveConfig();
+							plugin.getConfigManager().databaseVersion = 3;
+							plugin.getConfigManager().saveConfig();
 						} catch (SQLException e3) {
 							try {
 								ResultSet rs = statement.executeQuery("SELECT UUID from mh_Players LIMIT 0");
 								rs.close();
 								// Player UUID is migrated in V2
-								MobHunting.getConfigManager().databaseVersion = 2;
-								MobHunting.getConfigManager().saveConfig();
+								plugin.getConfigManager().databaseVersion = 2;
+								plugin.getConfigManager().saveConfig();
 							} catch (SQLException e2) {
 								// database if from before Minecraft 1.7.9 R1
 								// (No
@@ -198,15 +198,15 @@ public abstract class DatabaseDataStore implements IDataStore {
 								try {
 									ResultSet rs = statement.executeQuery("SELECT PLAYER_ID from mh_Players LIMIT 0");
 									rs.close();
-									MobHunting.getConfigManager().databaseVersion = 1;
-									MobHunting.getConfigManager().saveConfig();
+									plugin.getConfigManager().databaseVersion = 1;
+									plugin.getConfigManager().saveConfig();
 								} catch (SQLException e1) {
 									// DATABASE DOES NOT EXIST AT ALL, CREATE
 									// NEW
 									// EMPTY
 									// V3 DATABASE
-									MobHunting.getConfigManager().databaseVersion = 4;
-									MobHunting.getConfigManager().saveConfig();
+									plugin.getConfigManager().databaseVersion = 4;
+									plugin.getConfigManager().saveConfig();
 								}
 							}
 						}
@@ -215,26 +215,26 @@ public abstract class DatabaseDataStore implements IDataStore {
 				statement.close();
 			}
 
-			switch (MobHunting.getConfigManager().databaseVersion) {
+			switch (plugin.getConfigManager().databaseVersion) {
 			case 1:
 				// create new V2 tables and migrate data.
-				Bukkit.getLogger().info("[MobHunting] Database version " + MobHunting.getConfigManager().databaseVersion
+				Bukkit.getLogger().info("[MobHunting] Database version " + plugin.getConfigManager().databaseVersion
 						+ " detected. Migrating to V2");
 				setupV2Tables(mConnection);
-				MobHunting.getConfigManager().databaseVersion = 2;
-				MobHunting.getConfigManager().saveConfig();
+				plugin.getConfigManager().databaseVersion = 2;
+				plugin.getConfigManager().saveConfig();
 			case 2:
 				// Create new V3 tables and migrate data;
-				Bukkit.getLogger().info("[MobHunting] Database version " + MobHunting.getConfigManager().databaseVersion
+				Bukkit.getLogger().info("[MobHunting] Database version " + plugin.getConfigManager().databaseVersion
 						+ " detected. Migrating to V3");
 				migrateDatabaseLayoutFromV2toV3(mConnection);
 				migrate_mh_PlayersFromV2ToV3(mConnection);
 				createRandomBountyPlayer(mConnection);
 				setupTriggerV3(mConnection);
-				MobHunting.getConfigManager().databaseVersion = 3;
-				MobHunting.getConfigManager().saveConfig();
+				plugin.getConfigManager().databaseVersion = 3;
+				plugin.getConfigManager().saveConfig();
 			case 3:
-				Bukkit.getLogger().info("[MobHunting] Database version " + MobHunting.getConfigManager().databaseVersion
+				Bukkit.getLogger().info("[MobHunting] Database version " + plugin.getConfigManager().databaseVersion
 						+ " detected.");
 				// DATABASE IS UPTODATE or NOT created => create new database
 				setupV3Tables(mConnection);
@@ -242,18 +242,18 @@ public abstract class DatabaseDataStore implements IDataStore {
 				createRandomBountyPlayer(mConnection);
 				setupTriggerV3(mConnection);
 				migrateDatabaseLayoutFromV3ToV4(mConnection);
-				MobHunting.getConfigManager().databaseVersion = 4;
-				MobHunting.getConfigManager().saveConfig();
+				plugin.getConfigManager().databaseVersion = 4;
+				plugin.getConfigManager().saveConfig();
 			case 4:
-				Bukkit.getLogger().info("[MobHunting] Database version " + MobHunting.getConfigManager().databaseVersion
+				Bukkit.getLogger().info("[MobHunting] Database version " + plugin.getConfigManager().databaseVersion
 						+ " detected.");
 				setupV4Tables(mConnection);
 				migrateDatabaseLayoutFromV3ToV4(mConnection);
 				setupTriggerV4andV5(mConnection);
-				MobHunting.getConfigManager().databaseVersion = 5;
-				MobHunting.getConfigManager().saveConfig();
+				plugin.getConfigManager().databaseVersion = 5;
+				plugin.getConfigManager().saveConfig();
 			case 5:
-				Bukkit.getLogger().info("[MobHunting] Database version " + MobHunting.getConfigManager().databaseVersion
+				Bukkit.getLogger().info("[MobHunting] Database version " + plugin.getConfigManager().databaseVersion
 						+ " detected.");
 				setupV5Tables(mConnection);
 				setupTriggerV4andV5(mConnection);
@@ -262,7 +262,7 @@ public abstract class DatabaseDataStore implements IDataStore {
 			insertMissingVanillaMobs();
 
 			// Enable FOREIGN KEY for Sqlite database
-			if (!MobHunting.getConfigManager().databaseType.equalsIgnoreCase("MySQL")) {
+			if (!plugin.getConfigManager().databaseType.equalsIgnoreCase("MySQL")) {
 				Statement statement = mConnection.createStatement();
 				statement.execute("PRAGMA foreign_keys = ON");
 				statement.close();
@@ -301,7 +301,7 @@ public abstract class DatabaseDataStore implements IDataStore {
 				e.printStackTrace();
 			}
 			n++;
-		} while (MobHunting.getDataStoreManager().isRunning() && n < 40);
+		} while (plugin.getDataStoreManager().isRunning() && n < 40);
 		System.out.println("[MobHunting] Closing database connection.");
 	}
 
@@ -777,7 +777,7 @@ public abstract class DatabaseDataStore implements IDataStore {
 			Connection mConnection = setupConnection();
 			Statement statement = mConnection.createStatement();
 			for (String mob : CustomMobsCompat.getMobRewardData().keySet())
-				if (MobHunting.getExtendedMobManager().getMobIdFromMobTypeAndPluginID(mob, MobPlugin.CustomMobs) == 0) {
+				if (plugin.getExtendedMobManager().getMobIdFromMobTypeAndPluginID(mob, MobPlugin.CustomMobs) == 0) {
 					statement.executeUpdate("INSERT INTO mh_Mobs (PLUGIN_ID, MOBTYPE) VALUES (4,'" + mob + "')");
 					n++;
 				}
@@ -1509,7 +1509,7 @@ public abstract class DatabaseDataStore implements IDataStore {
 			}
 		}
 
-		if (MobHunting.getConfigManager().databaseType.equalsIgnoreCase("mysql")) {
+		if (plugin.getConfigManager().databaseType.equalsIgnoreCase("mysql")) {
 			try {
 				statement.executeUpdate("ALTER TABLE mh_Daily DROP FOREIGN KEY mh_Daily_ibfk_1;");
 				statement.executeUpdate("ALTER TABLE mh_Weekly DROP FOREIGN KEY mh_Weekly_ibfk_1;");

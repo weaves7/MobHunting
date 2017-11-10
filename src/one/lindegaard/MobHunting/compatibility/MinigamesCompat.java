@@ -31,11 +31,11 @@ public class MinigamesCompat implements Listener {
 	// OTHER
 	// **************************************************************************
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationMinigames;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationMinigames;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationMinigames;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationMinigames;
 	}
 
 	public static boolean isSupported() {

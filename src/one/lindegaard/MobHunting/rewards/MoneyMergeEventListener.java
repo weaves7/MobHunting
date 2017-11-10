@@ -42,12 +42,12 @@ public class MoneyMergeEventListener implements Listener {
 					is2.setItemMeta(im);
 					is2.setAmount(0);
 					item2.setItemStack(is2);
-					String displayName = MobHunting.getConfigManager().dropMoneyOnGroundItemtype
+					String displayName = plugin.getConfigManager().dropMoneyOnGroundItemtype
 							.equalsIgnoreCase("ITEM") ? plugin.getRewardManager().format(reward2.getMoney())
 									: reward2.getDisplayname() + " ("
 											+ plugin.getRewardManager().format(reward2.getMoney()) + ")";
 					item2.setCustomName(
-							ChatColor.valueOf(MobHunting.getConfigManager().dropMoneyOnGroundTextColor) + displayName);
+							ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + displayName);
 					item2.setCustomNameVisible(true);
 					item2.setMetadata(Reward.MH_REWARD_DATA,
 							new FixedMetadataValue(MobHunting.getInstance(), new Reward(reward2)));

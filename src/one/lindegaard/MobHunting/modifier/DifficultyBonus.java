@@ -29,7 +29,7 @@ public class DifficultyBonus implements IModifier {
 			EntityDamageByEntityEvent lastDamageCause) {
 
 		Difficulty worldDifficulty = killer.getWorld().getDifficulty();
-		Iterator<Entry<String, String>> difficulties = MobHunting.getConfigManager().difficultyMultiplier.entrySet()
+		Iterator<Entry<String, String>> difficulties = MobHunting.getInstance().getConfigManager().difficultyMultiplier.entrySet()
 				.iterator();
 		String multiplierStr = "1";
 		while (difficulties.hasNext()) {
@@ -64,7 +64,7 @@ public class DifficultyBonus implements IModifier {
 	public boolean doesApply(Entity deadEntity, Player killer, HuntData data, DamageInformation extraInfo,
 			EntityDamageByEntityEvent lastDamageCause) {
 		Difficulty worldDifficulty = killer.getWorld().getDifficulty();
-		Iterator<Entry<String, String>> difficulties = MobHunting.getConfigManager().difficultyMultiplier.entrySet()
+		Iterator<Entry<String, String>> difficulties = MobHunting.getInstance().getConfigManager().difficultyMultiplier.entrySet()
 				.iterator();
 		String multiplierStr = "1";
 		while (difficulties.hasNext()) {
@@ -83,7 +83,7 @@ public class DifficultyBonus implements IModifier {
 						break;
 					}
 				} catch (Exception e) {
-					if (MobHunting.getConfigManager().killDebug)
+					if (MobHunting.getInstance().getConfigManager().killDebug)
 						e.printStackTrace();
 				}
 			}

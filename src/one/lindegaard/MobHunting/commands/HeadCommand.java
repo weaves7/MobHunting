@@ -189,13 +189,13 @@ public class HeadCommand implements ICommand, Listener {
 								displayName = displayName + args[i];
 						}
 						reward.setDisplayname(displayName);
-						displayName = MobHunting.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
+						displayName = plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
 								? plugin.getRewardManager().format(reward.getMoney())
 								: (reward.getMoney() == 0 ? reward.getDisplayname()
 										: reward.getDisplayname() + " ("
 												+ plugin.getRewardManager().format(reward.getMoney()) + ")");
 						ItemMeta im = itemInHand.getItemMeta();
-						im.setDisplayName(ChatColor.valueOf(MobHunting.getConfigManager().dropMoneyOnGroundTextColor)
+						im.setDisplayName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 								+ displayName);
 						im.setLore(reward.getHiddenLore());
 						itemInHand.setItemMeta(im);
@@ -232,14 +232,14 @@ public class HeadCommand implements ICommand, Listener {
 							return false;
 						}
 						reward.setMoney(money);
-						String displayName = MobHunting.getConfigManager().dropMoneyOnGroundItemtype
+						String displayName = plugin.getConfigManager().dropMoneyOnGroundItemtype
 								.equalsIgnoreCase("ITEM")
 										? plugin.getRewardManager().format(reward.getMoney())
 										: (reward.getMoney() == 0 ? reward.getDisplayname()
 												: reward.getDisplayname() + " ("
 														+ plugin.getRewardManager().format(reward.getMoney()) + ")");
 						ItemMeta im = itemInHand.getItemMeta();
-						im.setDisplayName(ChatColor.valueOf(MobHunting.getConfigManager().dropMoneyOnGroundTextColor)
+						im.setDisplayName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 								+ displayName);
 						im.setLore(reward.getHiddenLore());
 						itemInHand.setItemMeta(im);

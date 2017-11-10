@@ -23,7 +23,7 @@ public class RankBonus implements IModifier {
 	public double getMultiplier(Entity deadEntity, Player killer, HuntData data, DamageInformation extraInfo,
 			EntityDamageByEntityEvent lastDamageCause) {
 		if (killer!=null && !killer.isOp()) {
-			Iterator<Entry<String, String>> ranks = MobHunting.getConfigManager().rankMultiplier.entrySet().iterator();
+			Iterator<Entry<String, String>> ranks = MobHunting.getInstance().getConfigManager().rankMultiplier.entrySet().iterator();
 			double mul = 0;
 			while (ranks.hasNext()) {
 				Entry<String, String> rank = ranks.next();
@@ -36,8 +36,8 @@ public class RankBonus implements IModifier {
 			}
 			mul = (mul == 0) ? 1 : mul;
 			return mul;
-		} else if (MobHunting.getConfigManager().rankMultiplier.containsKey("mobhunting.multiplier.op"))
-			return Double.valueOf(MobHunting.getConfigManager().rankMultiplier.get("mobhunting.multiplier.op"));
+		} else if (MobHunting.getInstance().getConfigManager().rankMultiplier.containsKey("mobhunting.multiplier.op"))
+			return Double.valueOf(MobHunting.getInstance().getConfigManager().rankMultiplier.get("mobhunting.multiplier.op"));
 		return 1;
 	}
 
@@ -45,7 +45,7 @@ public class RankBonus implements IModifier {
 	public boolean doesApply(Entity deadEntity, Player killer, HuntData data, DamageInformation extraInfo,
 			EntityDamageByEntityEvent lastDamageCause) {
 		if (killer!=null && !killer.isOp()) {
-			Iterator<Entry<String, String>> ranks = MobHunting.getConfigManager().rankMultiplier.entrySet().iterator();
+			Iterator<Entry<String, String>> ranks = MobHunting.getInstance().getConfigManager().rankMultiplier.entrySet().iterator();
 			boolean hasRank = false;
 			while (ranks.hasNext()) {
 				Entry<String, String> rank = ranks.next();
@@ -59,9 +59,9 @@ public class RankBonus implements IModifier {
 				}
 			}
 			return hasRank;
-		} else if (MobHunting.getConfigManager().rankMultiplier.containsKey("mobhunting.multiplier.op")) {
+		} else if (MobHunting.getInstance().getConfigManager().rankMultiplier.containsKey("mobhunting.multiplier.op")) {
 			Messages.debug("RankMultiplier Key=mobhunting.multiplier.op Value=%s Player is OP",
-					MobHunting.getConfigManager().rankMultiplier.get("mobhunting.multiplier.op"));
+					MobHunting.getInstance().getConfigManager().rankMultiplier.get("mobhunting.multiplier.op"));
 			return true;
 		}
 		Messages.debug("%s has no Rank Multiplier", killer.getName());

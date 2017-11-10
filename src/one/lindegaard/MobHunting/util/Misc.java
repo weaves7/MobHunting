@@ -176,18 +176,18 @@ public class Misc {
 	}
 
 	public static double round(double d) {
-		return Math.round(d / MobHunting.getConfigManager().rewardRounding)
-				* MobHunting.getConfigManager().rewardRounding;
+		return Math.round(d / MobHunting.getInstance().getConfigManager().rewardRounding)
+				* MobHunting.getInstance().getConfigManager().rewardRounding;
 	}
 
 	public static double ceil(double d) {
-		return Math.ceil(d / MobHunting.getConfigManager().rewardRounding)
-				* MobHunting.getConfigManager().rewardRounding;
+		return Math.ceil(d / MobHunting.getInstance().getConfigManager().rewardRounding)
+				* MobHunting.getInstance().getConfigManager().rewardRounding;
 	}
 
 	public static double floor(double d) {
-		return Math.floor(d / MobHunting.getConfigManager().rewardRounding)
-				* MobHunting.getConfigManager().rewardRounding;
+		return Math.floor(d / MobHunting.getInstance().getConfigManager().rewardRounding)
+				* MobHunting.getInstance().getConfigManager().rewardRounding;
 	}
 
 	public static final Block getTargetBlock(Player player, int range) {

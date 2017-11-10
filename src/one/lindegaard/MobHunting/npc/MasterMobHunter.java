@@ -137,7 +137,7 @@ public class MasterMobHunter implements IDataCallback<List<StatStore>> {
 	// RequestStats / DataCallBack
 	// ***********************************************************************************
 	public void update() {
-		MobHunting.getDataStoreManager().requestStats(getStatType(), getPeriod(), 25, this);
+		plugin.getDataStoreManager().requestStats(getStatType(), getPeriod(), 25, this);
 	}
 
 	public List<StatStore> getCurrentStats() {

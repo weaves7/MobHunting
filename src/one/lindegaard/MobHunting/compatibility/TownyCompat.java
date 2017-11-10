@@ -48,11 +48,11 @@ public class TownyCompat {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationTowny;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationTowny;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationTowny;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationTowny;
 	}
 
 	public static boolean isInHomeTome(Player player) {

@@ -41,13 +41,13 @@ public class RecordHungry implements Achievement, Listener {
 
 	@Override
 	public double getPrize() {
-		return MobHunting.getConfigManager().specialRecordHungry;
+		return plugin.getConfigManager().specialRecordHungry;
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onDeath(MobHuntKillEvent event) {
 		if (!(event.getKilledEntity() instanceof Creeper)
-				|| !MobHunting.getMobHuntingManager().isHuntEnabledInWorld(event.getKilledEntity().getWorld())
+				|| !plugin.getMobHuntingManager().isHuntEnabledInWorld(event.getKilledEntity().getWorld())
 				|| (plugin.getRewardManager().getBaseKillPrize(event.getKilledEntity()) <= 0))
 			return;
 
@@ -65,21 +65,21 @@ public class RecordHungry implements Achievement, Listener {
 				Player target = (Player) killed.getTarget();
 
 				if (skele.getTarget() == target && target.getGameMode() != GameMode.CREATIVE
-						&& MobHunting.getMobHuntingManager().isHuntEnabled(target))
-					MobHunting.getAchievementManager().awardAchievement(this, target,
-							MobHunting.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()));
+						&& plugin.getMobHuntingManager().isHuntEnabled(target))
+					plugin.getAchievementManager().awardAchievement(this, target,
+							plugin.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()));
 			}
 		}
 	}
 
 	@Override
 	public String getPrizeCmd() {
-		return MobHunting.getConfigManager().specialRecordHungryCmd;
+		return plugin.getConfigManager().specialRecordHungryCmd;
 	}
 
 	@Override
 	public String getPrizeCmdDescription() {
-		return MobHunting.getConfigManager().specialRecordHungryCmdDesc;
+		return plugin.getConfigManager().specialRecordHungryCmdDesc;
 	}
 
 	@Override

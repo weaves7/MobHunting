@@ -40,11 +40,11 @@ public class EssentialsCompat implements Listener {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationEssentials;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationEssentials;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationEssentials;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationEssentials;
 	}
 
 	public static boolean isGodModeEnabled(Player player) {

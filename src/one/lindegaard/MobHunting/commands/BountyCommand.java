@@ -61,10 +61,10 @@ public class BountyCommand implements ICommand {
 				ChatColor.GOLD + label + ChatColor.GREEN + " <player> <prize>" + ChatColor.YELLOW + " <message>"
 						+ ChatColor.WHITE + " - put a bounty on <player> and deliver the message when killed.",
 				ChatColor.GOLD + label + ChatColor.GREEN + " remove <player> " + ChatColor.WHITE
-						+ " - to remove bounty on <player> with a " + MobHunting.getConfigManager().bountyReturnPct
+						+ " - to remove bounty on <player> with a " + plugin.getConfigManager().bountyReturnPct
 						+ "% reduction",
 				ChatColor.GOLD + label + ChatColor.GREEN + " remove <wantedplayer> <bountyowner>" + ChatColor.WHITE
-						+ " - to remove bounty on <player> with a " + MobHunting.getConfigManager().bountyReturnPct
+						+ " - to remove bounty on <player> with a " + plugin.getConfigManager().bountyReturnPct
 						+ "% reduction" };
 	}
 
@@ -91,13 +91,13 @@ public class BountyCommand implements ICommand {
 		}
 		@SuppressWarnings("deprecation")
 		OfflinePlayer bountyOwner = Bukkit.getOfflinePlayer(sender.getName());
-		String worldGroupName = MobHunting.getWorldGroupManager().getCurrentWorldGroup((Player) bountyOwner);
+		String worldGroupName = plugin.getWorldGroupManager().getCurrentWorldGroup((Player) bountyOwner);
 		if (args.length == 0) {
 
 			// /mh bounty
 			// Show list of Bounties on all wantedPlayers
 			plugin.getBountyManager().showMostWanted(sender, worldGroupName,
-					MobHunting.getConfigManager().useGuiForBounties);
+					plugin.getConfigManager().useGuiForBounties);
 			return true;
 
 		} else if (args.length == 1) {
@@ -120,7 +120,7 @@ public class BountyCommand implements ICommand {
 			OfflinePlayer wantedPlayer = Bukkit.getOfflinePlayer(args[0]);
 			if (wantedPlayer != null) {
 				plugin.getBountyManager().showOpenBounties(sender, worldGroupName, wantedPlayer,
-						MobHunting.getConfigManager().useGuiForBounties);
+						plugin.getConfigManager().useGuiForBounties);
 				return true;
 			} else {
 				plugin.getMessages().senderSendMessage(sender,
@@ -165,7 +165,7 @@ public class BountyCommand implements ICommand {
 			OfflinePlayer wantedPlayer = Bukkit.getOfflinePlayer(args[0]);
 			int playerId;
 			try {
-				playerId = MobHunting.getDataStoreManager().getPlayerId(wantedPlayer);
+				playerId = plugin.getDataStoreManager().getPlayerId(wantedPlayer);
 			} catch (UserNotFoundException e) {
 				plugin.getMessages().senderSendMessage(sender,Messages.getString("mobhunting.commands.bounty.unknown-player", "wantedplayer",
 						wantedPlayer.getName()));
@@ -223,7 +223,7 @@ public class BountyCommand implements ICommand {
 			if (args.length == 2) {
 				if (plugin.getBountyManager().hasOpenBounty(worldGroupName, wantedPlayer, bountyOwner)) {
 					Bounty bounty = plugin.getBountyManager().getOpenBounty(worldGroupName, wantedPlayer, bountyOwner);
-					int pct = MobHunting.getConfigManager().bountyReturnPct;
+					int pct = plugin.getConfigManager().bountyReturnPct;
 					plugin.getRewardManager().depositPlayer(bountyOwner, bounty.getPrize() * pct / 100);
 					plugin.getBountyManager().cancel(bounty);
 					plugin.getMessages().senderSendMessage(sender,Messages.getString("mobhunting.commands.bounty.bounty-removed", "wantedplayer",

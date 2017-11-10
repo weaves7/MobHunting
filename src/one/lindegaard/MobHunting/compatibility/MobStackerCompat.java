@@ -45,11 +45,11 @@ public class MobStackerCompat implements Listener {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationMobStacker;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationMobStacker;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationMobStacker;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationMobStacker;
 	}
 
 	public static boolean isStackedMob(Entity entity) {
@@ -78,7 +78,7 @@ public class MobStackerCompat implements Listener {
 	}
 
 	public static boolean isGrindingStackedMobsAllowed() {
-		return MobHunting.getConfigManager().isGrindingStackedMobsAllowed;
+		return MobHunting.getInstance().getConfigManager().isGrindingStackedMobsAllowed;
 	}
 
 }

@@ -40,7 +40,7 @@ public class BasicHuntAchievement implements ProgressAchievement {
 
 	@Override
 	public double getPrize() {
-		return MobHunting.getConfigManager().specialHunter1;
+		return plugin.getConfigManager().specialHunter1;
 	}
 
 	@Override
@@ -63,12 +63,12 @@ public class BasicHuntAchievement implements ProgressAchievement {
 
 	@Override
 	public String getPrizeCmd() {
-		return MobHunting.getConfigManager().specialHunter1Cmd;
+		return plugin.getConfigManager().specialHunter1Cmd;
 	}
 
 	@Override
 	public String getPrizeCmdDescription() {
-		return MobHunting.getConfigManager().specialHunter1CmdDesc;
+		return plugin.getConfigManager().specialHunter1CmdDesc;
 	}
 
 	@Override

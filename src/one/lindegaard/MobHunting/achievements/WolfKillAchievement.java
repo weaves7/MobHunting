@@ -43,7 +43,7 @@ public class WolfKillAchievement implements ProgressAchievement, Listener {
 
 	@Override
 	public double getPrize() {
-		return MobHunting.getConfigManager().specialFangMaster;
+		return plugin.getConfigManager().specialFangMaster;
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class WolfKillAchievement implements ProgressAchievement, Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onWolfKillMob(MobHuntKillEvent event) {
-		if (!MobHunting.getMobHuntingManager().isHuntEnabledInWorld(event.getKilledEntity().getWorld())
+		if (!plugin.getMobHuntingManager().isHuntEnabledInWorld(event.getKilledEntity().getWorld())
 				|| !(event.getKilledEntity().getLastDamageCause() instanceof EntityDamageByEntityEvent)
 				|| (plugin.getRewardManager().getBaseKillPrize(event.getKilledEntity()) <= 0))
 			return;
@@ -78,15 +78,15 @@ public class WolfKillAchievement implements ProgressAchievement, Listener {
 		if (killer.isTamed() && killer.getOwner() instanceof OfflinePlayer) {
 			Player owner = ((OfflinePlayer) killer.getOwner()).getPlayer();
 
-			if (owner != null && MobHunting.getMobHuntingManager().isHuntEnabled(owner)) {
+			if (owner != null && plugin.getMobHuntingManager().isHuntEnabled(owner)) {
 				if (MobArenaCompat.isPlayingMobArena((Player) owner)
-						&& !MobHunting.getConfigManager().mobarenaGetRewards) {
+						&& !plugin.getConfigManager().mobarenaGetRewards) {
 					Messages.debug("AchiveBlocked: FangMaster was achieved while %s was playing MobArena.",
 							owner.getName());
 					plugin.getMessages().learn(owner, Messages.getString("mobhunting.learn.mobarena"));
 				} else
-					MobHunting.getAchievementManager().awardAchievementProgress(this, owner,
-							MobHunting.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()), 1);
+					plugin.getAchievementManager().awardAchievementProgress(this, owner,
+							plugin.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()), 1);
 			}
 		}
 
@@ -94,12 +94,12 @@ public class WolfKillAchievement implements ProgressAchievement, Listener {
 
 	@Override
 	public String getPrizeCmd() {
-		return MobHunting.getConfigManager().specialFangMasterCmd;
+		return plugin.getConfigManager().specialFangMasterCmd;
 	}
 
 	@Override
 	public String getPrizeCmdDescription() {
-		return MobHunting.getConfigManager().specialFangMasterCmdDesc;
+		return plugin.getConfigManager().specialFangMasterCmdDesc;
 	}
 
 	@Override

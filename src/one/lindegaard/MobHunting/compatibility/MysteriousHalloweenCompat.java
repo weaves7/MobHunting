@@ -71,11 +71,11 @@ public class MysteriousHalloweenCompat implements Listener {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationMysteriousHalloween;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationMysteriousHalloween;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationMysteriousHalloween;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationMysteriousHalloween;
 	}
 
 	/**
@@ -131,9 +131,9 @@ public class MysteriousHalloweenCompat implements Listener {
 				mob.read(section);
 				mob.setMobType(key);
 				mMobRewardData.put(key, mob);
-				MobHunting.getStoreManager().insertMysteriousHalloweenMobs(key);
+				MobHunting.getInstance().getStoreManager().insertMysteriousHalloweenMobs(key);
 			}
-			Messages.injectMissingMobNamesToLangFiles();
+			MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
 			Messages.debug("Loaded %s MysteriousHalloween-Mobs", mMobRewardData.size());
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -155,7 +155,7 @@ public class MysteriousHalloweenCompat implements Listener {
 			mob.read(section);
 			mob.setMobType(key);
 			mMobRewardData.put(key, mob);
-			MobHunting.getStoreManager().insertMysteriousHalloweenMobs(key);
+			MobHunting.getInstance().getStoreManager().insertMysteriousHalloweenMobs(key);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InvalidConfigurationException e) {
@@ -222,10 +222,10 @@ public class MysteriousHalloweenCompat implements Listener {
 								MysteriousHalloweenAPI.getMobTypeName(monster), "40:60",
 								"minecraft:give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02));
 				saveMysteriousHalloweenMobsData(monster.name());
-				MobHunting.getStoreManager().insertMysteriousHalloweenMobs(monster.name());
+				MobHunting.getInstance().getStoreManager().insertMysteriousHalloweenMobs(monster.name());
 				// Update mob loaded into memory
-				MobHunting.getExtendedMobManager().updateExtendedMobs();
-				Messages.injectMissingMobNamesToLangFiles();
+				MobHunting.getInstance().getExtendedMobManager().updateExtendedMobs();
+				MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
 			}
 
 			event.getEntity().setMetadata(MH_MYSTERIOUSHALLOWEEN,

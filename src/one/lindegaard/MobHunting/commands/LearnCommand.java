@@ -72,7 +72,7 @@ public class LearnCommand implements ICommand {
 			togglePlayerLearningMode((Player) sender);
 			return true;
 		} else if (args.length == 1) {
-			DataStoreManager ds = MobHunting.getDataStoreManager();
+			DataStoreManager ds = plugin.getDataStoreManager();
 			Player player = (Player) ds.getPlayerByName(args[0]);
 			if (player != null) {
 				if (sender.hasPermission("mobhunting.learn.other") || sender instanceof ConsoleCommandSender) {
@@ -91,7 +91,7 @@ public class LearnCommand implements ICommand {
 	}
 
 	private void togglePlayerLearningMode(Player player) {
-		DataStoreManager ds = MobHunting.getDataStoreManager();
+		DataStoreManager ds = plugin.getDataStoreManager();
 		boolean mm = plugin.getPlayerSettingsmanager().getPlayerSettings(player).isMuted();
 		PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(player);
 		if (ps.isLearningMode()) {

@@ -4,9 +4,31 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+
+import one.lindegaard.MobHunting.MobHunting;
 
 public class CompatibilityManager {
+	
+	private MobHunting plugin;
+	
+	public CompatibilityManager(MobHunting plugin){
+		this.plugin=plugin;
+	}
 	private static HashSet<Object> mCompatClasses = new HashSet<Object>();
+
+	public void registerPlugin(@SuppressWarnings("rawtypes") Class c, CompatPlugin pluginName) {
+		try {
+			register(c, pluginName);
+		} catch (Exception e) {
+			Bukkit.getServer().getConsoleSender()
+					.sendMessage(ChatColor.RED + "[MobHunting][ERROR] MobHunting could not register with [" + pluginName
+							+ "] please check if [" + pluginName + "] is compatible with the server ["
+							+ Bukkit.getServer().getBukkitVersion() + "]");
+			if (plugin.getConfigManager().killDebug)
+				e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Registers the compatability handler if the plugin specified is loaded
@@ -16,7 +38,7 @@ public class CompatibilityManager {
 	 * @param pluginName
 	 *            The name of the plugin to check
 	 */
-	public static void register(Class<?> compatibilityHandler, CompatPlugin pluginName) {
+	private void register(Class<?> compatibilityHandler, CompatPlugin pluginName) {
 		if (Bukkit.getPluginManager().isPluginEnabled(pluginName.getName())) {
 			try {
 				mCompatClasses.add(compatibilityHandler.newInstance());
@@ -33,7 +55,7 @@ public class CompatibilityManager {
 	 *            - The Compatibility class ex. "WorldGuardCompat.class"
 	 * @return true if loaded.
 	 */
-	public static boolean isPluginLoaded(Class<?> class1) {
+	public boolean isPluginLoaded(Class<?> class1) {
 		Iterator<Object> i = mCompatClasses.iterator();
 		while (i.hasNext()) {
 			Class<?> c = i.next().getClass();

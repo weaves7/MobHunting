@@ -58,11 +58,11 @@ public class PlaceholderAPICompat {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationPlaceholderAPI;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationPlaceholderAPI;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationPlaceholderAPI;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationPlaceholderAPI;
 	}
 
 	public static HashMap<UUID, PlaceHolderData> getPlaceHolders() {

@@ -47,11 +47,11 @@ public class ProtocolLibCompat {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationProtocolLib;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationProtocolLib;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationProtocolLib;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationProtocolLib;
 	}
 
 }

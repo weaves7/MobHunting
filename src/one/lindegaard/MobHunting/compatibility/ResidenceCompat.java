@@ -38,11 +38,11 @@ public class ResidenceCompat {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationResidence;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationResidence;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationResidence;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationResidence;
 	}
 
 	public static boolean isProtected(Player player) {

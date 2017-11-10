@@ -71,7 +71,7 @@ public class AchievementManager implements Listener {
 		// this is only need when server owner upgrades from very old
 		// version of Mobhunting
 		if (upgradeAchievements())
-			MobHunting.getDataStoreManager().waitForUpdates();
+			plugin.getDataStoreManager().waitForUpdates();
 
 		Bukkit.getPluginManager().registerEvents(this, MobHunting.getInstance());
 	}
@@ -295,7 +295,7 @@ public class AchievementManager implements Listener {
 		}
 
 		// Look through the data store for offline players
-		MobHunting.getDataStoreManager().requestAllAchievements(player, new IDataCallback<Set<AchievementStore>>() {
+		plugin.getDataStoreManager().requestAllAchievements(player, new IDataCallback<Set<AchievementStore>>() {
 			@Override
 			public void onError(Throwable error) {
 				callback.onError(error);
@@ -389,13 +389,13 @@ public class AchievementManager implements Listener {
 			return;
 		}
 
-		for (String world : MobHunting.getConfigManager().disableAchievementsInWorlds)
+		for (String world : plugin.getConfigManager().disableAchievementsInWorlds)
 			if (world.equalsIgnoreCase(player.getWorld().getName())) {
 				Messages.debug("[AchievementBlocked] Achievements is disabled in world:%s", world);
 				return;
 			}
 
-		if (!MobHunting.getConfigManager().disableMobHuntingAdvancements && Misc.isMC112OrNewer())
+		if (!plugin.getConfigManager().disableMobHuntingAdvancements && Misc.isMC112OrNewer())
 			plugin.getAdvancementManager().grantAdvancement(player, achievement);
 
 		PlayerStorage storage = mStorage.get(player.getUniqueId());
@@ -405,7 +405,7 @@ public class AchievementManager implements Listener {
 		}
 
 		Messages.debug("RecordAchievement: %s achieved.", achievement.getID());
-		MobHunting.getDataStoreManager().recordAchievement(player, achievement, mob);
+		plugin.getDataStoreManager().recordAchievement(player, achievement, mob);
 		storage.gainedAchievements.add(achievement.getID());
 		mStorage.put(player.getUniqueId(), storage);
 
@@ -418,8 +418,8 @@ public class AchievementManager implements Listener {
 
 		plugin.getRewardManager().depositPlayer(player, achievement.getPrize());
 
-		if (MobHunting.getConfigManager().broadcastAchievement
-				&& (!(achievement instanceof TheHuntBegins) || MobHunting.getConfigManager().broadcastFirstAchievement))
+		if (plugin.getConfigManager().broadcastAchievement
+				&& (!(achievement instanceof TheHuntBegins) || plugin.getConfigManager().broadcastFirstAchievement))
 			plugin.getMessages()
 					.broadcast(ChatColor.GOLD + Messages.getString("mobhunting.achievement.awarded.broadcast", "player",
 							player.getName(), "name", "" + ChatColor.WHITE + ChatColor.ITALIC + achievement.getName()),
@@ -478,7 +478,7 @@ public class AchievementManager implements Listener {
 		if (!achievementsEnabledFor(player) || hasAchievement(achievement, player))
 			return;
 
-		for (String world : MobHunting.getConfigManager().disableAchievementsInWorlds)
+		for (String world : plugin.getConfigManager().disableAchievementsInWorlds)
 			if (world.equalsIgnoreCase(player.getWorld().getName())) {
 				Messages.debug("[AchievementBlocked] Achievements is disabled in world:%s", world);
 				return;
@@ -523,7 +523,7 @@ public class AchievementManager implements Listener {
 			storage.progressAchievements.put(achievement.getID(), nextProgress);
 
 			Messages.debug("RecordAchievement: %s has %s kills", achievement.getID(), nextProgress);
-			MobHunting.getDataStoreManager().recordAchievementProgress(player, achievement, nextProgress);
+			plugin.getDataStoreManager().recordAchievementProgress(player, achievement, nextProgress);
 
 			int segment = Math.min(25, maxProgress / 2);
 
@@ -554,13 +554,13 @@ public class AchievementManager implements Listener {
 					for (Object obj : (List<Object>) config.getList(player)) {
 						if (obj instanceof String) {
 							MobHunting.getInstance();
-							MobHunting.getDataStoreManager().recordAchievement(Bukkit.getOfflinePlayer(player),
+							plugin.getDataStoreManager().recordAchievement(Bukkit.getOfflinePlayer(player),
 									getAchievement((String) obj), null);
 						} else if (obj instanceof Map) {
 							Map<String, Integer> map = (Map<String, Integer>) obj;
 							String id = map.keySet().iterator().next();
 							MobHunting.getInstance();
-							MobHunting.getDataStoreManager().recordAchievementProgress(Bukkit.getOfflinePlayer(player),
+							plugin.getDataStoreManager().recordAchievementProgress(Bukkit.getOfflinePlayer(player),
 									(ProgressAchievement) getAchievement(id), (Integer) map.get(id));
 						}
 					}
@@ -589,7 +589,7 @@ public class AchievementManager implements Listener {
 				storage.enableAchievements = false;
 
 				final Player p = player;
-				MobHunting.getDataStoreManager().requestAllAchievements(player,
+				plugin.getDataStoreManager().requestAllAchievements(player,
 						new IDataCallback<Set<AchievementStore>>() {
 							@Override
 							public void onError(Throwable error) {
@@ -630,7 +630,7 @@ public class AchievementManager implements Listener {
 													Messages.debug(
 															"Error in mh_Achievements: %s=%s. Changing status to completed. ",
 															achievementStore.id, achievementStore.progress);
-													MobHunting.getDataStoreManager().recordAchievementProgress(player,
+													plugin.getDataStoreManager().recordAchievementProgress(player,
 															(ProgressAchievement) getAchievement(achievementStore.id),
 															-1);
 													storage.gainedAchievements.add(achievementStore.id);
@@ -651,7 +651,7 @@ public class AchievementManager implements Listener {
 								storage.enableAchievements = true;
 								mStorage.put(p.getUniqueId(), storage);
 
-								if (!MobHunting.getConfigManager().disableMobHuntingAdvancements
+								if (!plugin.getConfigManager().disableMobHuntingAdvancements
 										&& Misc.isMC112OrNewer())
 									plugin.getAdvancementManager().updatePlayerAdvancements(player);
 
@@ -773,7 +773,7 @@ public class AchievementManager implements Listener {
 				for_loop: for (Map.Entry<Achievement, Integer> achievement : data) {
 					if (achievement.getValue() == -1
 							&& (achievement.getKey().getPrize() != 0 || !achievement.getKey().getPrizeCmd().isEmpty()
-									|| MobHunting.getConfigManager().showAchievementsWithoutAReward)) {
+									|| plugin.getConfigManager().showAchievementsWithoutAReward)) {
 						if (achievement.getKey() instanceof ProgressAchievement
 								&& ((ProgressAchievement) achievement.getKey()).nextLevelId() != null
 								&& hasAchievement(((ProgressAchievement) achievement.getKey()).nextLevelId(), player))
@@ -833,7 +833,7 @@ public class AchievementManager implements Listener {
 						if (achievement.getValue() != -1 && achievement.getKey() instanceof ProgressAchievement
 								&& (achievement.getKey().getPrize() != 0
 										|| !achievement.getKey().getPrizeCmd().isEmpty()
-										|| MobHunting.getConfigManager().showAchievementsWithoutAReward)) {
+										|| plugin.getConfigManager().showAchievementsWithoutAReward)) {
 
 							if (achievement.getKey() instanceof ProgressAchievement
 									&& ((ProgressAchievement) achievement.getKey()).nextLevelId() != null
@@ -876,7 +876,7 @@ public class AchievementManager implements Listener {
 						if (!(achievement instanceof ProgressAchievement)) {
 							if (!isOnGoingOrCompleted(achievement, data)) {
 								if (achievement.getPrize() != 0 || !achievement.getPrizeCmd().isEmpty()
-										|| MobHunting.getConfigManager().showAchievementsWithoutAReward) {
+										|| plugin.getConfigManager().showAchievementsWithoutAReward) {
 									if (m <= 53) {
 										addInventoryDetails(achievement.getSymbol(), inventoryNotStarted, m,
 												ChatColor.YELLOW + achievement.getName(),
@@ -897,7 +897,7 @@ public class AchievementManager implements Listener {
 					for_loop: for (Achievement achievement : getAllAchievements()) {
 						if ((achievement instanceof ProgressAchievement
 								&& (achievement.getPrize() != 0 || !achievement.getPrizeCmd().isEmpty()
-										|| MobHunting.getConfigManager().showAchievementsWithoutAReward)
+										|| plugin.getConfigManager().showAchievementsWithoutAReward)
 								&& ((ProgressAchievement) achievement).getNextLevel() != 0)) {
 							boolean ongoing = isOnGoingOrCompleted(achievement, data);
 							if (!ongoing) {

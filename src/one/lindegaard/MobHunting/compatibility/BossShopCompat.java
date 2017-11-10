@@ -44,11 +44,11 @@ public class BossShopCompat implements Listener {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationBossShop;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationBossShop;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationBossShop;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationBossShop;
 	}
 
 }

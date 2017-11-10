@@ -32,11 +32,14 @@ import one.lindegaard.MobHunting.util.Misc;
 
 public class GrindingManager implements Listener {
 
+	private MobHunting plugin;
+	
 	private static HashMap<UUID, LinkedList<Area>> mKnownGrindingAreas = new HashMap<>();
 	private static HashMap<UUID, LinkedList<Area>> mWhitelistedAreas = new HashMap<>();
 	private static HashMap<Integer, GrindingInformation> killed_mobs = new HashMap<>();
 
 	public GrindingManager(MobHunting instance) {
+		this.plugin=instance;
 		if (!loadWhitelist(instance))
 			throw new RuntimeException();
 		if (!loadBlacklist(instance))
@@ -70,12 +73,12 @@ public class GrindingManager implements Listener {
 	 *         area is detected as a Grinding Area
 	 */
 	public boolean isNetherGoldXPFarm(LivingEntity killed) {
-		ExtendedMob mob = MobHunting.getExtendedMobManager().getExtendedMobFromEntity(killed);
+		ExtendedMob mob = MobHunting.getInstance().getExtendedMobManager().getExtendedMobFromEntity(killed);
 		int n = 0;
 		long now = System.currentTimeMillis();
-		final long seconds = MobHunting.getConfigManager().secondsToSearchForGrinding;
-		final double killRadius = MobHunting.getConfigManager().rangeToSearchForGrinding;
-		final int numberOfDeaths = MobHunting.getConfigManager().numberOfDeathsWhenSearchingForGringding;
+		final long seconds = plugin.getConfigManager().secondsToSearchForGrinding;
+		final double killRadius = plugin.getConfigManager().rangeToSearchForGrinding;
+		final int numberOfDeaths = plugin.getConfigManager().numberOfDeathsWhenSearchingForGringding;
 		if (MinecraftMob.getMinecraftMobType(killed) == MinecraftMob.ZombiePigman) {
 			if (killed.getLastDamageCause().getCause() == DamageCause.FALL) {
 				Area detectedGrindingArea = getGrindingArea(killed.getLocation());
@@ -126,12 +129,12 @@ public class GrindingManager implements Listener {
 	}
 
 	public boolean isOtherFarm(LivingEntity killed) {
-		ExtendedMob mob = MobHunting.getExtendedMobManager().getExtendedMobFromEntity(killed);
+		ExtendedMob mob = MobHunting.getInstance().getExtendedMobManager().getExtendedMobFromEntity(killed);
 		int n = 0;
 		long now = System.currentTimeMillis();
-		final long seconds = MobHunting.getConfigManager().secondsToSearchForGrinding;
-		final double killRadius = MobHunting.getConfigManager().rangeToSearchForGrinding;
-		final int numberOfDeaths = MobHunting.getConfigManager().numberOfDeathsWhenSearchingForGringding;
+		final long seconds = plugin.getConfigManager().secondsToSearchForGrinding;
+		final double killRadius = plugin.getConfigManager().rangeToSearchForGrinding;
+		final int numberOfDeaths = plugin.getConfigManager().numberOfDeathsWhenSearchingForGringding;
 		if (MinecraftMob.getMinecraftMobType(killed) == MinecraftMob.ZombiePigman) {
 			if (killed.getLastDamageCause().getCause() == DamageCause.FALL) {
 				Area detectedGrindingArea = getGrindingArea(killed.getLocation());
@@ -554,7 +557,7 @@ public class GrindingManager implements Listener {
 	 */
 	public boolean isGrindingDisabledInWorld(World world) {
 		if (world != null)
-			for (String worldName : MobHunting.getConfigManager().disableGrindingDetectionInWorlds) {
+			for (String worldName : plugin.getConfigManager().disableGrindingDetectionInWorlds) {
 				if (world.getName().equalsIgnoreCase(worldName))
 					return true;
 			}

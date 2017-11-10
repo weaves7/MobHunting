@@ -70,9 +70,9 @@ public class MetricsManager {
 		bStatsMetrics = new org.bstats.bukkit.Metrics(plugin);
 
 		bStatsMetrics.addCustomChart(new org.bstats.bukkit.Metrics.SimplePie("database_used_for_mobhunting",
-				() -> MobHunting.getConfigManager().databaseType));
+				() -> plugin.getConfigManager().databaseType));
 		bStatsMetrics.addCustomChart(
-				new org.bstats.bukkit.Metrics.SimplePie("language", () -> MobHunting.getConfigManager().language));
+				new org.bstats.bukkit.Metrics.SimplePie("language", () -> plugin.getConfigManager().language));
 
 		bStatsMetrics.addCustomChart(new org.bstats.bukkit.Metrics.AdvancedPie("protection_plugin_integrations",
 				new Callable<Map<String, Integer>>() {
@@ -195,11 +195,11 @@ public class MetricsManager {
 					@Override
 					public Map<String, Integer> call() throws Exception {
 						Map<String, Integer> valueMap = new HashMap<>();
-						valueMap.put("Leaderboards", MobHunting.getLeaderboardManager().getWorldLeaderBoards().size());
+						valueMap.put("Leaderboards", plugin.getLeaderboardManager().getWorldLeaderBoards().size());
 						valueMap.put("Holographic Leaderboards",
-								MobHunting.getLeaderboardManager().getHologramManager().getHolograms().size());
+								plugin.getLeaderboardManager().getHologramManager().getHolograms().size());
 						valueMap.put("MasterMobHunters", CitizensCompat.getMasterMobHunterManager().getAll().size());
-						valueMap.put("PlayerBounties", MobHunting.getConfigManager().disablePlayerBounties ? 0
+						valueMap.put("PlayerBounties", plugin.getConfigManager().disablePlayerBounties ? 0
 								: plugin.getBountyManager().getAllBounties().size());
 						return valueMap;
 					}
@@ -215,7 +215,7 @@ public class MetricsManager {
 		}
 
 		databaseGraph = metrics.createGraph("Database used for MobHunting");
-		if (MobHunting.getConfigManager().databaseType.equalsIgnoreCase("MySQL")) {
+		if (plugin.getConfigManager().databaseType.equalsIgnoreCase("MySQL")) {
 			databaseGraph.addPlotter(new Metrics.Plotter("MySQL") {
 				@Override
 				public int getValue() {
@@ -223,7 +223,7 @@ public class MetricsManager {
 				}
 			});
 
-		} else if (MobHunting.getConfigManager().databaseType.equalsIgnoreCase("SQLite")) {
+		} else if (plugin.getConfigManager().databaseType.equalsIgnoreCase("SQLite")) {
 			databaseGraph.addPlotter(new Metrics.Plotter("SQLite") {
 				@Override
 				public int getValue() {
@@ -231,7 +231,7 @@ public class MetricsManager {
 				}
 			});
 		} else {
-			databaseGraph.addPlotter(new Metrics.Plotter(MobHunting.getConfigManager().databaseType) {
+			databaseGraph.addPlotter(new Metrics.Plotter(plugin.getConfigManager().databaseType) {
 				@Override
 				public int getValue() {
 					return 1;
@@ -538,7 +538,7 @@ public class MetricsManager {
 		automaticUpdatesGraph.addPlotter(new Metrics.Plotter("Amount") {
 			@Override
 			public int getValue() {
-				return MobHunting.getConfigManager().autoupdate ? 1 : 0;
+				return plugin.getConfigManager().autoupdate ? 1 : 0;
 			}
 		});
 		metrics.addGraph(automaticUpdatesGraph);
@@ -547,14 +547,14 @@ public class MetricsManager {
 		usageGraph.addPlotter(new Metrics.Plotter("# of Leaderboards") {
 			@Override
 			public int getValue() {
-				return MobHunting.getLeaderboardManager().getWorldLeaderBoards().size();
+				return plugin.getLeaderboardManager().getWorldLeaderBoards().size();
 			}
 		});
 		usageGraph = metrics.createGraph("Usage");
 		usageGraph.addPlotter(new Metrics.Plotter("# of Holographic Leaderboards") {
 			@Override
 			public int getValue() {
-				return MobHunting.getLeaderboardManager().getHologramManager().getHolograms().size();
+				return plugin.getLeaderboardManager().getHologramManager().getHolograms().size();
 			}
 		});
 		usageGraph.addPlotter(new Metrics.Plotter("# of MasterMobHunters") {
@@ -569,7 +569,7 @@ public class MetricsManager {
 		usageGraph.addPlotter(new Metrics.Plotter("# of Bounties") {
 			@Override
 			public int getValue() {
-				if (MobHunting.getConfigManager().disablePlayerBounties)
+				if (plugin.getConfigManager().disablePlayerBounties)
 					return 0;
 				else
 					return plugin.getBountyManager().getAllBounties().size();

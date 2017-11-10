@@ -35,25 +35,25 @@ public class AxeMurderer implements Achievement, Listener {
 
 	@Override
 	public double getPrize() {
-		return MobHunting.getConfigManager().specialAxeMurderer;
+		return plugin.getConfigManager().specialAxeMurderer;
 	}
 
 	@EventHandler
 	public void onKill(MobHuntKillEvent event) {
 		if (Misc.isAxe(event.getDamageInfo().getWeapon())
 				&& plugin.getRewardManager().getBaseKillPrize(event.getKilledEntity()) > 0)
-			MobHunting.getAchievementManager().awardAchievement(this, event.getPlayer(),
-					MobHunting.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()));
+			plugin.getAchievementManager().awardAchievement(this, event.getPlayer(),
+					plugin.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()));
 	}
 
 	@Override
 	public String getPrizeCmd() {
-		return MobHunting.getConfigManager().specialAxeMurdererCmd;
+		return plugin.getConfigManager().specialAxeMurdererCmd;
 	}
 
 	@Override
 	public String getPrizeCmdDescription() {
-		return MobHunting.getConfigManager().specialAxeMurdererCmdDesc;
+		return plugin.getConfigManager().specialAxeMurdererCmdDesc;
 	}
 
 	@Override

@@ -40,11 +40,11 @@ public class ActionAnnouncerCompat {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationActionAnnouncer;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationActionAnnouncer;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationActionAnnouncer;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationActionAnnouncer;
 	}
 
 	public static void setMessage(Player player, String text) {

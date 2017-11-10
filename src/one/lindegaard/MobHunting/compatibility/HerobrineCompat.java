@@ -91,11 +91,11 @@ public class HerobrineCompat implements Listener {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationHerobrine;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationHerobrine;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationHerobrine;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationHerobrine;
 	}
 
 	// **************************************************************************
@@ -153,13 +153,13 @@ public class HerobrineCompat implements Listener {
 					mob.read(section);
 					mob.setMobType(key);
 					mMobRewardData.put(key, mob);
-					MobHunting.getStoreManager().insertMissingHerobrineMobs(key);
+					MobHunting.getInstance().getStoreManager().insertMissingHerobrineMobs(key);
 					n++;
 				} else {
 					Messages.debug("The mob=%s can't be found in Herobrine configuration files", key);
 				}
 			}
-			Messages.injectMissingMobNamesToLangFiles();
+			MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
 			Messages.debug("Loaded %s HerobrineMobs", n);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -184,7 +184,7 @@ public class HerobrineCompat implements Listener {
 				int n = StatType.values().length;
 				StatType.values()[n + 1] = new StatType(mob.getMobType() + "_kill", mob.getMobName());
 				StatType.values()[n + 2] = new StatType(mob.getMobType() + "_assist", mob.getMobName());
-				MobHunting.getStoreManager().insertMissingHerobrineMobs(key);
+				MobHunting.getInstance().getStoreManager().insertMissingHerobrineMobs(key);
 			} else {
 				Messages.debug("The mob=%s can't be found in Herobrine configuration files", key);
 			}

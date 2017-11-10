@@ -39,7 +39,7 @@ public class CriticalModifier implements IModifier {
 	@Override
 	public double getMultiplier(Entity deadEntity, Player killer, HuntData data, DamageInformation extraInfo,
 			EntityDamageByEntityEvent lastDamageCause) {
-		return MobHunting.getConfigManager().bonusCritical;
+		return MobHunting.getInstance().getConfigManager().bonusCritical;
 	}
 
 	@Override

@@ -45,8 +45,9 @@ public class PlayerSettingsManager implements Listener {
 			return mPlayerSettings.get(offlinePlayer.getUniqueId());
 		else {
 			try {
-				PlayerSettings ps = MobHunting.getStoreManager().loadPlayerSettings(offlinePlayer);
-				Messages.debug("%s is not in the database. (Has played before=%s)", offlinePlayer.getName(), offlinePlayer.hasPlayedBefore());
+				PlayerSettings ps = plugin.getStoreManager().loadPlayerSettings(offlinePlayer);
+				Messages.debug("%s is not in the database. (Has played before=%s)", offlinePlayer.getName(),
+						offlinePlayer.hasPlayedBefore());
 				return ps;
 			} catch (DataStoreException | SQLException e) {
 				Messages.debug("%s is not known on this server", offlinePlayer.getName());
@@ -109,7 +110,7 @@ public class PlayerSettingsManager implements Listener {
 	 * @param player
 	 */
 	public void load(final OfflinePlayer player) {
-		MobHunting.getDataStoreManager().requestPlayerSettings(player, new IDataCallback<PlayerSettings>() {
+		plugin.getDataStoreManager().requestPlayerSettings(player, new IDataCallback<PlayerSettings>() {
 
 			@Override
 			public void onCompleted(PlayerSettings ps) {
@@ -128,8 +129,8 @@ public class PlayerSettingsManager implements Listener {
 			public void onError(Throwable error) {
 				Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[MobHunting][ERROR] " + player.getName()
 						+ " is new, creating user in database.");
-				mPlayerSettings.put(player.getUniqueId(), new PlayerSettings(player,
-						BagOfGoldCompat.isSupported() ? BagOfGold.getInstance().getConfigManager().startingBalance : 0));
+				mPlayerSettings.put(player.getUniqueId(), new PlayerSettings(player, BagOfGoldCompat.isSupported()
+						? BagOfGold.getInstance().getConfigManager().startingBalance : 0));
 			}
 		});
 	}
@@ -140,7 +141,7 @@ public class PlayerSettingsManager implements Listener {
 	 * @param player
 	 */
 	public void save(final OfflinePlayer player) {
-		MobHunting.getDataStoreManager().updatePlayerSettings(player, getPlayerSettings(player).isLearningMode(),
+		plugin.getDataStoreManager().updatePlayerSettings(player, getPlayerSettings(player).isLearningMode(),
 				getPlayerSettings(player).isMuted());
 	}
 

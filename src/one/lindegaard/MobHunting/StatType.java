@@ -17,7 +17,7 @@ public class StatType {
 	public static final StatType AssistsTotal = new StatType("total_assist", "stats.total_assist");
 	public static final StatType CashTotal = new StatType("total_cash", "stats.total_cash");
 	private static StatType[] mValues = new StatType[4 + MobPlugin.values().length * 3
-			+ MobHunting.getExtendedMobManager().getAllMobs().size() * 3];
+			+ MobHunting.getInstance().getExtendedMobManager().getAllMobs().size() * 3];
 	private static HashMap<String, StatType> mNameLookup = new HashMap<String, StatType>();
 
 	static {
@@ -55,8 +55,8 @@ public class StatType {
 		}
 
 		// adding other mobtypes from other plugins
-		Iterator<Entry<Integer, ExtendedMob>> itr = MobHunting.getExtendedMobManager().getAllMobs().entrySet()
-				.iterator();
+		Iterator<Entry<Integer, ExtendedMob>> itr = MobHunting.getInstance().getExtendedMobManager().getAllMobs()
+				.entrySet().iterator();
 		offset = offset + MinecraftMob.values().length * 3;
 
 		while (itr.hasNext()) {

@@ -80,10 +80,10 @@ private MobHunting plugin;
 
 		if (args.length == 1 && args[0].equalsIgnoreCase("help")) {
 			plugin.getMessages().senderSendMessage(sender,"list all archivement descriptions");
-			MobHunting.getAchievementManager().listAllAchievements(sender);
+			MobHunting.getInstance().getAchievementManager().listAllAchievements(sender);
 
 		} else if (args.length == 1 && (args[0].equalsIgnoreCase("nogui") || args[0].equalsIgnoreCase("gui"))) {
-			MobHunting.getAchievementManager().showAllAchievements((Player) player, player, args[0].equalsIgnoreCase("gui"),
+			MobHunting.getInstance().getAchievementManager().showAllAchievements((Player) player, player, args[0].equalsIgnoreCase("gui"),
 					self);
 		} else {
 
@@ -98,7 +98,7 @@ private MobHunting plugin;
 				otherPlayer = Bukkit.getOfflinePlayer(name);
 
 				if (otherPlayer == null)
-					otherPlayer = MobHunting.getDataStoreManager().getPlayerByName(name);
+					otherPlayer = plugin.getDataStoreManager().getPlayerByName(name);
 
 				if (otherPlayer == null) {
 					plugin.getMessages().senderSendMessage(sender,ChatColor.RED
@@ -107,16 +107,16 @@ private MobHunting plugin;
 				}
 
 				if (args.length == 2 && (args[1].equalsIgnoreCase("nogui") || args[1].equalsIgnoreCase("gui")))
-					MobHunting.getAchievementManager().showAllAchievements(sender, otherPlayer,
+					MobHunting.getInstance().getAchievementManager().showAllAchievements(sender, otherPlayer,
 							args[1].equalsIgnoreCase("gui"), self);
 				else if (sender instanceof ConsoleCommandSender)
-					MobHunting.getAchievementManager().showAllAchievements(sender, otherPlayer, false, self);
+					MobHunting.getInstance().getAchievementManager().showAllAchievements(sender, otherPlayer, false, self);
 				else
-					MobHunting.getAchievementManager().showAllAchievements(sender, otherPlayer,
-							MobHunting.getConfigManager().useGuiForAchievements, self);
+					MobHunting.getInstance().getAchievementManager().showAllAchievements(sender, otherPlayer,
+							plugin.getConfigManager().useGuiForAchievements, self);
 			} else {
-				MobHunting.getAchievementManager().showAllAchievements(sender, player,
-						MobHunting.getConfigManager().useGuiForAchievements, self);
+				MobHunting.getInstance().getAchievementManager().showAllAchievements(sender, player,
+						plugin.getConfigManager().useGuiForAchievements, self);
 			}
 		}
 

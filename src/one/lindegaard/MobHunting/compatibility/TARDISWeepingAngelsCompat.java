@@ -65,11 +65,11 @@ public class TARDISWeepingAngelsCompat implements Listener {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationTARDISWeepingAngels;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationTARDISWeepingAngels;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationTARDISWeepingAngels;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationTARDISWeepingAngels;
 	}
 
 	/**
@@ -113,9 +113,9 @@ public class TARDISWeepingAngelsCompat implements Listener {
 							new RewardData(MobPlugin.TARDISWeepingAngels, monster.name(), monster.getName(), "40:60",
 									"minecraft:give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02));
 					saveTARDISWeepingAngelsMobsData(mMobRewardData.get(monster.name()).getMobType());
-					MobHunting.getStoreManager().insertTARDISWeepingAngelsMobs(monster.name);
+					MobHunting.getInstance().getStoreManager().insertTARDISWeepingAngelsMobs(monster.name);
 				}
-				Messages.injectMissingMobNamesToLangFiles();
+				MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
 				return;
 			}
 
@@ -126,9 +126,9 @@ public class TARDISWeepingAngelsCompat implements Listener {
 				mob.read(section);
 				mob.setMobType(key);
 				mMobRewardData.put(key, mob);
-				MobHunting.getStoreManager().insertTARDISWeepingAngelsMobs(key);
+				MobHunting.getInstance().getStoreManager().insertTARDISWeepingAngelsMobs(key);
 			}
-			Messages.injectMissingMobNamesToLangFiles();
+			MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
 			Messages.debug("Loaded %s TARDISWeepingAngels-Mobs", mMobRewardData.size());
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -150,7 +150,7 @@ public class TARDISWeepingAngelsCompat implements Listener {
 			mob.read(section);
 			mob.setMobType(key);
 			mMobRewardData.put(key, mob);
-			MobHunting.getStoreManager().insertTARDISWeepingAngelsMobs(key);
+			MobHunting.getInstance().getStoreManager().insertTARDISWeepingAngelsMobs(key);
 		} catch (IOException | InvalidConfigurationException e) {
 			e.printStackTrace();
 		}
@@ -211,10 +211,10 @@ public class TARDISWeepingAngelsCompat implements Listener {
 					new RewardData(MobPlugin.TARDISWeepingAngels, monster.name(), monster.getName(), "40:60",
 							"minecraft:give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02));
 			saveTARDISWeepingAngelsMobsData(monster.name());
-			MobHunting.getStoreManager().insertTARDISWeepingAngelsMobs(monster.name);
+			MobHunting.getInstance().getStoreManager().insertTARDISWeepingAngelsMobs(monster.name);
 			// Update mob loaded into memory
-			MobHunting.getExtendedMobManager().updateExtendedMobs();
-			Messages.injectMissingMobNamesToLangFiles();
+			MobHunting.getInstance().getExtendedMobManager().updateExtendedMobs();
+			MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
 		}
 
 		event.getEntity().setMetadata(MH_TARDISWEEPINGANGELS,

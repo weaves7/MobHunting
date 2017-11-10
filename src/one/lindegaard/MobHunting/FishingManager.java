@@ -38,7 +38,7 @@ public class FishingManager implements Listener {
 
 	public FishingManager(MobHunting plugin) {
 		this.plugin = plugin;
-		if (!MobHunting.getConfigManager().disableFishingRewards) {
+		if (!plugin.getConfigManager().disableFishingRewards) {
 			registerFishingModifiers();
 			Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
 		}
@@ -66,7 +66,7 @@ public class FishingManager implements Listener {
 			return;
 		}
 
-		if (!MobHunting.getMobHuntingManager().isHuntEnabled(player)) {
+		if (!plugin.getMobHuntingManager().isHuntEnabled(player)) {
 			Messages.debug("FishingEvent %s: Player doesnt have permission mobhunting.enable", player.getName());
 			return;
 		}
@@ -106,7 +106,7 @@ public class FishingManager implements Listener {
 			}
 
 			// Calculate basic the reward
-			ExtendedMob eMob = MobHunting.getExtendedMobManager().getExtendedMobFromEntity(fish);
+			ExtendedMob eMob = plugin.getExtendedMobManager().getExtendedMobFromEntity(fish);
 			if (eMob.getMob_id() == 0) {
 				Bukkit.getLogger().warning("Unknown Mob:" + eMob.getMobName() + " from plugin " + eMob.getMobPlugin());
 				Bukkit.getLogger().warning("Please report this to developer!");
@@ -156,8 +156,8 @@ public class FishingManager implements Listener {
 			cash = Misc.ceil(cash);
 
 			// Pay the reward to player and assister
-			if (cash >= MobHunting.getConfigManager().minimumReward
-					|| cash <= -MobHunting.getConfigManager().minimumReward
+			if (cash >= plugin.getConfigManager().minimumReward
+					|| cash <= -plugin.getConfigManager().minimumReward
 					|| !plugin.getRewardManager().getKillConsoleCmd(fish).isEmpty()) {
 
 				// Handle MobHuntFishingEvent
@@ -169,10 +169,10 @@ public class FishingManager implements Listener {
 					return;
 				}
 
-				if (cash >= MobHunting.getConfigManager().minimumReward) {
+				if (cash >= plugin.getConfigManager().minimumReward) {
 					plugin.getRewardManager().depositPlayer(player, cash);
 					Messages.debug("%s got a reward (%s)", player.getName(), plugin.getRewardManager().format(cash));
-				} else if (cash <= -MobHunting.getConfigManager().minimumReward) {
+				} else if (cash <= -plugin.getConfigManager().minimumReward) {
 					plugin.getRewardManager().withdrawPlayer(player, -cash);
 					Messages.debug("%s got a penalty (%s)", player.getName(), plugin.getRewardManager().format(cash));
 				}
@@ -184,7 +184,7 @@ public class FishingManager implements Listener {
 				if (player != null) {
 					Messages.debug("RecordFishing: %s caught a %s (%s)", player.getName(), eMob.getMobName(),
 							eMob.getMobPlugin().name());
-					MobHunting.getDataStoreManager().recordKill(player, eMob, player.hasMetadata("MH:hasBonus"), cash);
+					plugin.getDataStoreManager().recordKill(player, eMob, player.hasMetadata("MH:hasBonus"), cash);
 				}
 
 				// Handle Muted mode
@@ -197,12 +197,12 @@ public class FishingManager implements Listener {
 				// muted
 				if (!fisherman_muted)
 					if (extraString.trim().isEmpty()) {
-						if (cash >= MobHunting.getConfigManager().minimumReward) {
+						if (cash >= plugin.getConfigManager().minimumReward) {
 							plugin.getMessages().playerActionBarMessage(player,
 									ChatColor.GREEN + "" + ChatColor.ITALIC
 											+ Messages.getString("mobhunting.fishcaught.reward", "prize",
 													plugin.getRewardManager().format(cash)));
-						} else if (cash <= -MobHunting.getConfigManager().minimumReward) {
+						} else if (cash <= -plugin.getConfigManager().minimumReward) {
 							plugin.getMessages().playerActionBarMessage(player,
 									ChatColor.RED + "" + ChatColor.ITALIC
 											+ Messages.getString("mobhunting.fishcaught.penalty", "prize",
@@ -210,7 +210,7 @@ public class FishingManager implements Listener {
 						}
 
 					} else {
-						if (cash >= MobHunting.getConfigManager().minimumReward) {
+						if (cash >= plugin.getConfigManager().minimumReward) {
 							Messages.debug("Message to send to ActionBar=%s", ChatColor.GREEN + "" + ChatColor.ITALIC
 									+ Messages.getString("mobhunting.fishcaught.reward.bonuses", "prize",
 											plugin.getRewardManager().format(cash), "bonuses", extraString.trim(),
@@ -219,26 +219,27 @@ public class FishingManager implements Listener {
 									+ Messages.getString("mobhunting.fishcaught.reward.bonuses", "prize",
 											plugin.getRewardManager().format(cash), "bonuses", extraString.trim(),
 											"multipliers", plugin.getRewardManager().format(multipliers)));
-						} else if (cash <= -MobHunting.getConfigManager().minimumReward) {
+						} else if (cash <= -plugin.getConfigManager().minimumReward) {
 							plugin.getMessages().playerActionBarMessage(player, ChatColor.RED + "" + ChatColor.ITALIC
 									+ Messages.getString("mobhunting.fishcaught.penalty.bonuses", "prize",
 											plugin.getRewardManager().format(cash), "bonuses", extraString.trim(),
 											"multipliers", plugin.getRewardManager().format(multipliers)));
 						} else
 							Messages.debug("FishingBlocked %s: Reward was less than %s", player.getName(),
-									MobHunting.getConfigManager().minimumReward);
+									plugin.getConfigManager().minimumReward);
 					}
 
 				// McMMO Experience rewards
-				if (McMMOCompat.isSupported() && MobHunting.getConfigManager().enableMcMMOLevelRewards) {
-					double chance = MobHunting.getMobHuntingManager().mRand.nextDouble();
+				if (McMMOCompat.isSupported() && plugin.getConfigManager().enableMcMMOLevelRewards) {
+					double chance = plugin.getMobHuntingManager().mRand.nextDouble();
 					int level = plugin.getRewardManager().getMcMMOLevel(fish);
 					Messages.debug("If %s<%s %s will get a McMMO Level for fishing", chance,
 							plugin.getRewardManager().getMcMMOChance(fish), player.getName());
 					if (chance < plugin.getRewardManager().getMcMMOChance(fish)) {
 						McMMOCompat.addLevel(player, SkillType.FISHING.getName(), level);
 						Messages.debug("%s was rewarded with %s McMMO level for Fishing", player.getName(), level);
-						plugin.getMessages().playerSendMessage(player, Messages.getString("mobhunting.mcmmo.fishing_level", "mcmmo_level", level));
+						plugin.getMessages().playerSendMessage(player,
+								Messages.getString("mobhunting.mcmmo.fishing_level", "mcmmo_level", level));
 					}
 				}
 

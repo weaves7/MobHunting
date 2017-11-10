@@ -38,13 +38,13 @@ public class Creepercide extends AbstractSkullAchievement implements Listener {
 
 	@Override
 	public double getPrize() {
-		return MobHunting.getConfigManager().specialCreepercide;
+		return plugin.getConfigManager().specialCreepercide;
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	private void onKill(MobHuntKillEvent event) {
 		if (!(event.getKilledEntity() instanceof Creeper)
-				|| !MobHunting.getMobHuntingManager().isHuntEnabledInWorld(event.getKilledEntity().getWorld()))
+				|| !plugin.getMobHuntingManager().isHuntEnabledInWorld(event.getKilledEntity().getWorld()))
 			return;
 
 		if (plugin.getRewardManager().getBaseKillPrize(event.getKilledEntity()) <= 0)
@@ -64,8 +64,8 @@ public class Creepercide extends AbstractSkullAchievement implements Listener {
 				initiator = (Player) ((Creeper) event.getKilledEntity()).getTarget();
 			else {
 				DamageInformation a, b;
-				a = MobHunting.getMobHuntingManager().getDamageInformation(killed);
-				b = MobHunting.getMobHuntingManager().getDamageInformation((Creeper) damage.getDamager());
+				a = plugin.getMobHuntingManager().getDamageInformation(killed);
+				b = plugin.getMobHuntingManager().getDamageInformation((Creeper) damage.getDamager());
 
 				if (a != null)
 					initiator = a.getAttacker();
@@ -74,27 +74,27 @@ public class Creepercide extends AbstractSkullAchievement implements Listener {
 					initiator = b.getAttacker();
 			}
 
-			if (initiator != null && MobHunting.getMobHuntingManager().isHuntEnabled(initiator)) {
+			if (initiator != null && plugin.getMobHuntingManager().isHuntEnabled(initiator)) {
 				// Check if player (initiator) is playing MobArena.
 				if (MobArenaCompat.isPlayingMobArena((Player) initiator)
-						&& !MobHunting.getConfigManager().mobarenaGetRewards) {
+						&& !plugin.getConfigManager().mobarenaGetRewards) {
 					Messages.debug("AchiveBlocked: CreeperCide was achieved while %s was playing MobArena.",
 							initiator.getName());
 					plugin.getMessages().learn(initiator, Messages.getString("mobhunting.learn.mobarena"));
 				} else
-					MobHunting.getAchievementManager().awardAchievement("creepercide", initiator,
-							MobHunting.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()));
+					plugin.getAchievementManager().awardAchievement("creepercide", initiator,
+							plugin.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()));
 			}
 		}
 	}
 
 	@Override
 	public String getPrizeCmd() {
-		return MobHunting.getConfigManager().specialCreepercideCmd;
+		return plugin.getConfigManager().specialCreepercideCmd;
 	}
 
 	@Override
 	public String getPrizeCmdDescription() {
-		return MobHunting.getConfigManager().specialCreepercideCmdDesc;
+		return plugin.getConfigManager().specialCreepercideCmdDesc;
 	}
 }

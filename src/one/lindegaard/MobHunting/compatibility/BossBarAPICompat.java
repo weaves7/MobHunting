@@ -37,11 +37,11 @@ public class BossBarAPICompat {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationBossBarAPI;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationBossBarAPI;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationBossBarAPI;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationBossBarAPI;
 	}
 
 	public static void setSupported(boolean b) {

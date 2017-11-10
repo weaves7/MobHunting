@@ -63,22 +63,22 @@ public class WhitelistAreaCommand implements ICommand {
 		Location loc = ((Player) sender).getLocation();
 
 		if (args.length == 0) {
-			if (MobHunting.getGrindingManager().isWhitelisted(loc)) {
+			if (plugin.getGrindingManager().isWhitelisted(loc)) {
 				plugin.getMessages().senderSendMessage(sender,
 						ChatColor.GREEN + Messages.getString("mobhunting.commands.whitelistarea.iswhitelisted"));
-				Area area = MobHunting.getGrindingManager().getWhitelistArea(loc);
+				Area area = plugin.getGrindingManager().getWhitelistArea(loc);
 				ProtocolLibHelper.showGrindingArea((Player) sender, area, loc);
 			} else
 				plugin.getMessages().senderSendMessage(sender,
 						ChatColor.RED + Messages.getString("mobhunting.commands.whitelistarea.notwhitelisted"));
 		} else if (args.length == 1) {
 			if (args[0].equalsIgnoreCase("remove")) {
-				MobHunting.getGrindingManager().unWhitelistArea(loc);
+				plugin.getGrindingManager().unWhitelistArea(loc);
 				plugin.getMessages().senderSendMessage(sender,
 						ChatColor.GREEN + Messages.getString("mobhunting.commands.whitelistarea.remove.done"));
 			} else if (args[0].equalsIgnoreCase("add")) {
-				Area area = new Area(loc, MobHunting.getConfigManager().grindingDetectionRange, 0);
-				MobHunting.getGrindingManager().whitelistArea(area);
+				Area area = new Area(loc, plugin.getConfigManager().grindingDetectionRange, 0);
+				plugin.getGrindingManager().whitelistArea(area);
 				plugin.getMessages().senderSendMessage(sender,ChatColor.GREEN + Messages.getString("mobhunting.commands.whitelistarea.done"));
 				ProtocolLibHelper.showGrindingArea((Player) sender, area, loc);
 			} else

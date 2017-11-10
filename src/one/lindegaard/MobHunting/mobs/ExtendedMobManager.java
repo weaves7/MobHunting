@@ -36,29 +36,29 @@ public class ExtendedMobManager {
 	}
 
 	public void updateExtendedMobs() {
-		MobHunting.getStoreManager().insertMissingVanillaMobs();
+		plugin.getStoreManager().insertMissingVanillaMobs();
 		if (CitizensCompat.isSupported())
-			MobHunting.getStoreManager().insertMissingCitizensMobs();
+			plugin.getStoreManager().insertMissingCitizensMobs();
 		if (MythicMobsCompat.isSupported())
-			MobHunting.getStoreManager().insertMissingMythicMobs();
+			plugin.getStoreManager().insertMissingMythicMobs();
 		if (CustomMobsCompat.isSupported())
-			MobHunting.getStoreManager().insertCustomMobs();
+			plugin.getStoreManager().insertCustomMobs();
 		if (TARDISWeepingAngelsCompat.isSupported())
-			MobHunting.getStoreManager().insertTARDISWeepingAngelsMobs();
+			plugin.getStoreManager().insertTARDISWeepingAngelsMobs();
 		if (MysteriousHalloweenCompat.isSupported())
-			MobHunting.getStoreManager().insertMysteriousHalloweenMobs();
+			plugin.getStoreManager().insertMysteriousHalloweenMobs();
 		if (SmartGiantsCompat.isSupported())
-			MobHunting.getStoreManager().insertSmartGiants();
+			plugin.getStoreManager().insertSmartGiants();
 		if (HerobrineCompat.isSupported())
-			MobHunting.getStoreManager().insertHerobrineMobs();
+			plugin.getStoreManager().insertHerobrineMobs();
 		// Not needed
 		// if (InfernalMobsCompat.isSupported())
-		// MobHunting.getStoreManager().insertInfernalMobs();
+		// plugin.getStoreManager().insertInfernalMobs();
 
 		Set<ExtendedMob> set = new HashSet<ExtendedMob>();
 
 		try {
-			set = (HashSet<ExtendedMob>) MobHunting.getStoreManager().loadMobs();
+			set = (HashSet<ExtendedMob>) plugin.getStoreManager().loadMobs();
 		} catch (DataStoreException e) {
 			Bukkit.getLogger().severe("[MobHunting] Could not load data from mh_Mobs");
 			e.printStackTrace();

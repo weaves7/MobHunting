@@ -26,10 +26,10 @@ public class ExtraHardModeCompat implements Listener {
 
 			Bukkit.getLogger().info("[MobHunting] Enabling compatibility with ExtraHardMode ("
 					+ mPlugin.getDescription().getVersion() + ").");
-			if (!MobHunting.getConfigManager().difficultyMultiplier.containsKey("difficulty.multiplier.extrahard")) {
+			if (!MobHunting.getInstance().getConfigManager().difficultyMultiplier.containsKey("difficulty.multiplier.extrahard")) {
 				Messages.debug("Adding extrahard difficulty to config.yml");
-				MobHunting.getConfigManager().difficultyMultiplier.put("difficulty.multiplier.extrahard", "2.5");
-				MobHunting.getConfigManager().saveConfig();
+				MobHunting.getInstance().getConfigManager().difficultyMultiplier.put("difficulty.multiplier.extrahard", "2.5");
+				MobHunting.getInstance().getConfigManager().saveConfig();
 			}
 			supported = true;
 		}
@@ -57,11 +57,11 @@ public class ExtraHardModeCompat implements Listener {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationExtraHardMode;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationExtraHardMode;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationExtraHardMode;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationExtraHardMode;
 	}
 
 }

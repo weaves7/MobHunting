@@ -36,9 +36,9 @@ public class BossShopHelper {
 		UUID uuid = UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID);
 		
 		ItemStack is = new CustomItems(plugin).getCustomtexture(uuid,
-				MobHunting.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
-				MobHunting.getConfigManager().dropMoneyOnGroundSkullTextureValue,
-				MobHunting.getConfigManager().dropMoneyOnGroundSkullTextureSignature, 10, UUID.randomUUID(), uuid);
+				MobHunting.getInstance().getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
+				MobHunting.getInstance().getConfigManager().dropMoneyOnGroundSkullTextureValue,
+				MobHunting.getInstance().getConfigManager().dropMoneyOnGroundSkullTextureSignature, 10, UUID.randomUUID(), uuid);
 
 		// ItemStack menu_item = new ItemStack(is);
 		BossShopCompat.getBossShop().getAPI().addItemToShop(is, buy, shop);

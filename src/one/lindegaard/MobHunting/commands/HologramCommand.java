@@ -8,7 +8,6 @@ import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.StatType;
 import one.lindegaard.MobHunting.compatibility.CitizensCompat;
-import one.lindegaard.MobHunting.compatibility.CompatibilityManager;
 import one.lindegaard.MobHunting.leaderboard.HologramLeaderboard;
 import one.lindegaard.MobHunting.storage.TimePeriod;
 
@@ -82,13 +81,13 @@ public class HologramCommand implements ICommand, Listener {
 
 		String[] subcmds = { "create", "delete", "list", "update" };
 		ArrayList<String> items = new ArrayList<String>();
-		if (CompatibilityManager.isPluginLoaded(CitizensCompat.class)) {
+		if (plugin.getCompatibilityManager().isPluginLoaded(CitizensCompat.class)) {
 			if (args.length == 1) {
 				for (String cmd : subcmds)
 					items.add(cmd);
 			} else if (args.length == 2) {
 				if (args[0].equalsIgnoreCase("delete") || args[0].equalsIgnoreCase("update"))
-					for (String hologramName : MobHunting.getLeaderboardManager().getHologramManager().getHolograms()
+					for (String hologramName : plugin.getLeaderboardManager().getHologramManager().getHolograms()
 							.keySet())
 						items.add(hologramName);
 			} else if (args.length == 3) {
@@ -128,8 +127,8 @@ public class HologramCommand implements ICommand, Listener {
 		if (args.length == 2 && (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("delete"))) {
 
 			String hologramName = args[1];
-			if (MobHunting.getLeaderboardManager().getHologramManager().getHolograms().containsKey(hologramName)) {
-				MobHunting.getLeaderboardManager().getHologramManager().deleteHologramLeaderboard(hologramName);
+			if (plugin.getLeaderboardManager().getHologramManager().getHolograms().containsKey(hologramName)) {
+				plugin.getLeaderboardManager().getHologramManager().deleteHologramLeaderboard(hologramName);
 				plugin.getMessages().senderSendMessage(sender,
 						Messages.getString("mobhunting.commands.hologram.deleted", "hologramid", hologramName));
 			} else
@@ -139,10 +138,10 @@ public class HologramCommand implements ICommand, Listener {
 
 		} else if (args.length == 2 && args[0].equalsIgnoreCase("update")) {
 			String hologramName = args[1];
-			if (MobHunting.getLeaderboardManager().getHologramManager().getHolograms().containsKey(hologramName)) {
-				MobHunting.getLeaderboardManager().getHologramManager().deleteHolographicLeaderboard(hologramName);
-				MobHunting.getLeaderboardManager().getHologramManager().loadHologramLeaderboard(hologramName);
-				MobHunting.getLeaderboardManager().getHologramManager().updateHolographicLeaderboard(hologramName);
+			if (plugin.getLeaderboardManager().getHologramManager().getHolograms().containsKey(hologramName)) {
+				plugin.getLeaderboardManager().getHologramManager().deleteHolographicLeaderboard(hologramName);
+				plugin.getLeaderboardManager().getHologramManager().loadHologramLeaderboard(hologramName);
+				plugin.getLeaderboardManager().getHologramManager().updateHolographicLeaderboard(hologramName);
 				plugin.getMessages().senderSendMessage(sender,
 						Messages.getString("mobhunting.commands.hologram.updating", "hologramid", hologramName));
 			} else
@@ -155,12 +154,12 @@ public class HologramCommand implements ICommand, Listener {
 			return true;
 
 		} else if (args.length == 1 && args[0].equalsIgnoreCase("list")) {
-			String res = MobHunting.getLeaderboardManager().getHologramManager().listHolographicLeaderboard();
+			String res = plugin.getLeaderboardManager().getHologramManager().listHolographicLeaderboard();
 			plugin.getMessages().senderSendMessage(sender,res);
 			return true;
 		} else if (args.length == 5 && args[0].equalsIgnoreCase("create")) {
 			String hologramName = args[1];
-			if (!MobHunting.getLeaderboardManager().getHologramManager().getHolograms().containsKey(hologramName)) {
+			if (!plugin.getLeaderboardManager().getHologramManager().getHolograms().containsKey(hologramName)) {
 
 				StatType[] types;
 				try {
@@ -193,8 +192,8 @@ public class HologramCommand implements ICommand, Listener {
 				location.setYaw(0);
 				HologramLeaderboard hologramLeaderboard = new HologramLeaderboard(plugin, hologramName, types, periods,
 						no_of_lines, location.add(0, 2, 0));
-				MobHunting.getLeaderboardManager().getHologramManager().createHologramLeaderboard(hologramLeaderboard);
-				MobHunting.getLeaderboardManager().getHologramManager().saveHologramLeaderboard(hologramName);
+				plugin.getLeaderboardManager().getHologramManager().createHologramLeaderboard(hologramLeaderboard);
+				plugin.getLeaderboardManager().getHologramManager().saveHologramLeaderboard(hologramName);
 				plugin.getMessages().senderSendMessage(sender,ChatColor.GREEN
 						+ Messages.getString("mobhunting.commands.hologram.created", "hologramid", hologramName));
 				Messages.debug("Creating Hologram Leaderbard: id=%s,stat=%s,per=%s,rank=%s", hologramName, args[2],

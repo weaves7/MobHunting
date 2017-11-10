@@ -385,129 +385,129 @@ public enum MinecraftMob {
 	public int getProgressAchievementLevel1() {
 		switch (this) {
 		case Bat:
-			return MobHunting.getConfigManager().batLevel1;
+			return MobHunting.getInstance().getConfigManager().batLevel1;
 		case BonusMob:
-			return MobHunting.getConfigManager().bonusMobLevel1;
+			return MobHunting.getInstance().getConfigManager().bonusMobLevel1;
 		case Blacksmith:
-			return MobHunting.getConfigManager().blacksmithLevel1;
+			return MobHunting.getInstance().getConfigManager().blacksmithLevel1;
 		case Blaze:
-			return MobHunting.getConfigManager().blazeLevel1;
+			return MobHunting.getInstance().getConfigManager().blazeLevel1;
 		case Butcher:
-			return MobHunting.getConfigManager().butcherLevel1;
+			return MobHunting.getInstance().getConfigManager().butcherLevel1;
 		case Clownfish:
-			return MobHunting.getConfigManager().clownfishLevel1;
+			return MobHunting.getInstance().getConfigManager().clownfishLevel1;
 		case CaveSpider:
-			return MobHunting.getConfigManager().caveSpiderLevel1;
+			return MobHunting.getInstance().getConfigManager().caveSpiderLevel1;
 		case Chicken:
-			return MobHunting.getConfigManager().chickenLevel1;
+			return MobHunting.getInstance().getConfigManager().chickenLevel1;
 		case Cow:
-			return MobHunting.getConfigManager().cowLevel1;
+			return MobHunting.getInstance().getConfigManager().cowLevel1;
 		case Creeper:
-			return MobHunting.getConfigManager().creeperLevel1;
+			return MobHunting.getInstance().getConfigManager().creeperLevel1;
 		case Donkey:
-			return MobHunting.getConfigManager().donkeyLevel1;
+			return MobHunting.getInstance().getConfigManager().donkeyLevel1;
 		case ElderGuardian:
-			return MobHunting.getConfigManager().elderGuardianLevel1;
+			return MobHunting.getInstance().getConfigManager().elderGuardianLevel1;
 		case EnderDragon:
-			return MobHunting.getConfigManager().enderdragonLevel1;
+			return MobHunting.getInstance().getConfigManager().enderdragonLevel1;
 		case Enderman:
-			return MobHunting.getConfigManager().endermanLevel1;
+			return MobHunting.getInstance().getConfigManager().endermanLevel1;
 		case Endermite:
-			return MobHunting.getConfigManager().endermiteLevel1;
+			return MobHunting.getInstance().getConfigManager().endermiteLevel1;
 		case Evoker:
-			return MobHunting.getConfigManager().evokerLevel1;
+			return MobHunting.getInstance().getConfigManager().evokerLevel1;
 		case Farmer:
-			return MobHunting.getConfigManager().farmerLevel1;
+			return MobHunting.getInstance().getConfigManager().farmerLevel1;
 		case Ghast:
-			return MobHunting.getConfigManager().ghastLevel1;
+			return MobHunting.getInstance().getConfigManager().ghastLevel1;
 		case Giant:
-			return MobHunting.getConfigManager().giantLevel1;
+			return MobHunting.getInstance().getConfigManager().giantLevel1;
 		case Guardian:
-			return MobHunting.getConfigManager().guardianLevel1;
+			return MobHunting.getInstance().getConfigManager().guardianLevel1;
 		case Horse:
-			return MobHunting.getConfigManager().horseLevel1;
+			return MobHunting.getInstance().getConfigManager().horseLevel1;
 		case Husk:
-			return MobHunting.getConfigManager().huskLevel1;
+			return MobHunting.getInstance().getConfigManager().huskLevel1;
 		case Illusioner:
-			return MobHunting.getConfigManager().illusionerLevel1;
+			return MobHunting.getInstance().getConfigManager().illusionerLevel1;
 		case IronGolem:
-			return MobHunting.getConfigManager().ironGolemLevel1;
+			return MobHunting.getInstance().getConfigManager().ironGolemLevel1;
 		case KillerRabbit:
-			return MobHunting.getConfigManager().killerRabbitLevel1;
+			return MobHunting.getInstance().getConfigManager().killerRabbitLevel1;
 		case Librarian:
-			return MobHunting.getConfigManager().librarianLevel1;
+			return MobHunting.getInstance().getConfigManager().librarianLevel1;
 		case Llama:
-			return MobHunting.getConfigManager().llamaLevel1;
+			return MobHunting.getInstance().getConfigManager().llamaLevel1;
 		case Mule:
-			return MobHunting.getConfigManager().muleLevel1;
+			return MobHunting.getInstance().getConfigManager().muleLevel1;
 		case MagmaCube:
-			return MobHunting.getConfigManager().magmaCubeLevel1;
+			return MobHunting.getInstance().getConfigManager().magmaCubeLevel1;
 		case MushroomCow:
-			return MobHunting.getConfigManager().mushroomCowLevel1;
+			return MobHunting.getInstance().getConfigManager().mushroomCowLevel1;
 		case Nitwit:
-			return MobHunting.getConfigManager().nitwitLevel1;
+			return MobHunting.getInstance().getConfigManager().nitwitLevel1;
 		case Ocelot:
-			return MobHunting.getConfigManager().ocelotLevel1;
+			return MobHunting.getInstance().getConfigManager().ocelotLevel1;
 		case Parrot:
-			return MobHunting.getConfigManager().parrotLevel1;
+			return MobHunting.getInstance().getConfigManager().parrotLevel1;
 		case PassiveRabbit:
-			return MobHunting.getConfigManager().rabbitLevel1;
+			return MobHunting.getInstance().getConfigManager().rabbitLevel1;
 		case Pig:
-			return MobHunting.getConfigManager().pigLevel1;
+			return MobHunting.getInstance().getConfigManager().pigLevel1;
 		case PolarBear:
-			return MobHunting.getConfigManager().polarBearLevel1;
+			return MobHunting.getInstance().getConfigManager().polarBearLevel1;
 		case Priest:
-			return MobHunting.getConfigManager().priestLevel1;
+			return MobHunting.getInstance().getConfigManager().priestLevel1;
 		case Pufferfish:
-			return MobHunting.getConfigManager().pufferfishLevel1;
+			return MobHunting.getInstance().getConfigManager().pufferfishLevel1;
 		case PvpPlayer:
-			return MobHunting.getConfigManager().pvpPlayerLevel1;
+			return MobHunting.getInstance().getConfigManager().pvpPlayerLevel1;
 		case RawFish:
-			return MobHunting.getConfigManager().rawfishLevel1;
+			return MobHunting.getInstance().getConfigManager().rawfishLevel1;
 		case RawSalmon:
-			return MobHunting.getConfigManager().rawsalmonLevel1;
+			return MobHunting.getInstance().getConfigManager().rawsalmonLevel1;
 		case Sheep:
-			return MobHunting.getConfigManager().sheepLevel1;
+			return MobHunting.getInstance().getConfigManager().sheepLevel1;
 		case Shulker:
-			return MobHunting.getConfigManager().shulkerLevel1;
+			return MobHunting.getInstance().getConfigManager().shulkerLevel1;
 		case Silverfish:
-			return MobHunting.getConfigManager().silverfishLevel1;
+			return MobHunting.getInstance().getConfigManager().silverfishLevel1;
 		case Skeleton:
-			return MobHunting.getConfigManager().skeletonLevel1;
+			return MobHunting.getInstance().getConfigManager().skeletonLevel1;
 		case SkeletonHorse:
-			return MobHunting.getConfigManager().skeletonHorseLevel1;
+			return MobHunting.getInstance().getConfigManager().skeletonHorseLevel1;
 		case Slime:
-			return MobHunting.getConfigManager().slimeLevel1;
+			return MobHunting.getInstance().getConfigManager().slimeLevel1;
 		case Snowman:
-			return MobHunting.getConfigManager().snowmanLevel1;
+			return MobHunting.getInstance().getConfigManager().snowmanLevel1;
 		case Spider:
-			return MobHunting.getConfigManager().spiderLevel1;
+			return MobHunting.getInstance().getConfigManager().spiderLevel1;
 		case Squid:
-			return MobHunting.getConfigManager().squidLevel1;
+			return MobHunting.getInstance().getConfigManager().squidLevel1;
 		case Stray:
-			return MobHunting.getConfigManager().strayLevel1;
+			return MobHunting.getInstance().getConfigManager().strayLevel1;
 		case Vex:
-			return MobHunting.getConfigManager().vexLevel1;
+			return MobHunting.getInstance().getConfigManager().vexLevel1;
 		case Villager:
-			return MobHunting.getConfigManager().villagerLevel1;
+			return MobHunting.getInstance().getConfigManager().villagerLevel1;
 		case Vindicator:
-			return MobHunting.getConfigManager().vindicatorLevel1;
+			return MobHunting.getInstance().getConfigManager().vindicatorLevel1;
 		case Witch:
-			return MobHunting.getConfigManager().witchLevel1;
+			return MobHunting.getInstance().getConfigManager().witchLevel1;
 		case Wither:
-			return MobHunting.getConfigManager().witherLevel1;
+			return MobHunting.getInstance().getConfigManager().witherLevel1;
 		case WitherSkeleton:
-			return MobHunting.getConfigManager().witherSkeletonLevel1;
+			return MobHunting.getInstance().getConfigManager().witherSkeletonLevel1;
 		case Wolf:
-			return MobHunting.getConfigManager().wolfLevel1;
+			return MobHunting.getInstance().getConfigManager().wolfLevel1;
 		case Zombie:
-			return MobHunting.getConfigManager().zombieLevel1;
+			return MobHunting.getInstance().getConfigManager().zombieLevel1;
 		case ZombieHorse:
-			return MobHunting.getConfigManager().zombieHorseLevel1;
+			return MobHunting.getInstance().getConfigManager().zombieHorseLevel1;
 		case ZombiePigman:
-			return MobHunting.getConfigManager().zombiePigmanLevel1;
+			return MobHunting.getInstance().getConfigManager().zombiePigmanLevel1;
 		case ZombieVillager:
-			return MobHunting.getConfigManager().zombieVillagerLevel1;
+			return MobHunting.getInstance().getConfigManager().zombieVillagerLevel1;
 		}
 		return 100;
 	}
@@ -520,131 +520,131 @@ public enum MinecraftMob {
 	public double getHeadPrize() {
 		switch (this) {
 		case Bat:
-			return getPrice(MobHunting.getConfigManager().batHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().batHeadPrize);
 		case Blacksmith:
-			return getPrice(MobHunting.getConfigManager().blacksmithHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().blacksmithHeadPrize);
 		case Blaze:
-			return getPrice(MobHunting.getConfigManager().blazeHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().blazeHeadPrize);
 		case BonusMob:
-			return getPrice(MobHunting.getConfigManager().bonusMobHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().bonusMobHeadPrize);
 		case Butcher:
-			return getPrice(MobHunting.getConfigManager().butcherHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().butcherHeadPrize);
 		// case Cartographer:
-		// return getPrice(MobHunting.getConfigManager().cartographerHeadPrize);
+		// return getPrice(MobHunting.getInstance().getConfigManager().cartographerHeadPrize);
 		case CaveSpider:
-			return getPrice(MobHunting.getConfigManager().caveSpiderHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().caveSpiderHeadPrize);
 		case Chicken:
-			return getPrice(MobHunting.getConfigManager().chickenHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().chickenHeadPrize);
 		case Clownfish:
-			return getPrice(MobHunting.getConfigManager().clownfishHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().clownfishHeadPrize);
 		case Cow:
-			return getPrice(MobHunting.getConfigManager().cowHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().cowHeadPrize);
 		case Creeper:
-			return getPrice(MobHunting.getConfigManager().creeperHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().creeperHeadPrize);
 		case Donkey:
-			return getPrice(MobHunting.getConfigManager().donkeyHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().donkeyHeadPrize);
 		case ElderGuardian:
-			return getPrice(MobHunting.getConfigManager().elderGuardianHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().elderGuardianHeadPrize);
 		case EnderDragon:
-			return getPrice(MobHunting.getConfigManager().enderdragonHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().enderdragonHeadPrize);
 		case Enderman:
-			return getPrice(MobHunting.getConfigManager().endermanHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().endermanHeadPrize);
 		case Endermite:
-			return getPrice(MobHunting.getConfigManager().endermiteHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().endermiteHeadPrize);
 		case Evoker:
-			return getPrice(MobHunting.getConfigManager().evokerHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().evokerHeadPrize);
 		case Farmer:
-			return getPrice(MobHunting.getConfigManager().farmerHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().farmerHeadPrize);
 		case Ghast:
-			return getPrice(MobHunting.getConfigManager().ghastHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().ghastHeadPrize);
 		case Giant:
-			return getPrice(MobHunting.getConfigManager().giantHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().giantHeadPrize);
 		case Guardian:
-			return getPrice(MobHunting.getConfigManager().guardianHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().guardianHeadPrize);
 		case Horse:
-			return getPrice(MobHunting.getConfigManager().horseHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().horseHeadPrize);
 		case Husk:
-			return getPrice(MobHunting.getConfigManager().huskHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().huskHeadPrize);
 		case Illusioner:
-			return getPrice(MobHunting.getConfigManager().illusionerHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().illusionerHeadPrize);
 		case IronGolem:
-			return getPrice(MobHunting.getConfigManager().ironGolemHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().ironGolemHeadPrize);
 		case KillerRabbit:
-			return getPrice(MobHunting.getConfigManager().killerrabbitHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().killerrabbitHeadPrize);
 		case Librarian:
-			return getPrice(MobHunting.getConfigManager().librarianHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().librarianHeadPrize);
 		case Llama:
-			return getPrice(MobHunting.getConfigManager().llamaHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().llamaHeadPrize);
 		case MagmaCube:
-			return getPrice(MobHunting.getConfigManager().magmaCubeHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().magmaCubeHeadPrize);
 		case Mule:
-			return getPrice(MobHunting.getConfigManager().muleHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().muleHeadPrize);
 		case MushroomCow:
-			return getPrice(MobHunting.getConfigManager().mushroomCowHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().mushroomCowHeadPrize);
 		case Nitwit:
-			return getPrice(MobHunting.getConfigManager().nitwitHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().nitwitHeadPrize);
 		case Ocelot:
-			return getPrice(MobHunting.getConfigManager().ocelotHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().ocelotHeadPrize);
 		case Parrot:
-			return getPrice(MobHunting.getConfigManager().parrotHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().parrotHeadPrize);
 		case PassiveRabbit:
-			return getPrice(MobHunting.getConfigManager().rabbitHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().rabbitHeadPrize);
 		case Pig:
-			return getPrice(MobHunting.getConfigManager().pigHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().pigHeadPrize);
 		case PolarBear:
-			return getPrice(MobHunting.getConfigManager().polarBearHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().polarBearHeadPrize);
 		case Priest:
-			return getPrice(MobHunting.getConfigManager().priestHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().priestHeadPrize);
 		case Pufferfish:
-			return getPrice(MobHunting.getConfigManager().pufferfishHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().pufferfishHeadPrize);
 		case PvpPlayer:
-			return getPrice(MobHunting.getConfigManager().pvpHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().pvpHeadPrize);
 		case RawFish:
-			return getPrice(MobHunting.getConfigManager().rawFishHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().rawFishHeadPrize);
 		case RawSalmon:
-			return getPrice(MobHunting.getConfigManager().rawSalmonHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().rawSalmonHeadPrize);
 		case Sheep:
-			return getPrice(MobHunting.getConfigManager().sheepHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().sheepHeadPrize);
 		case Shulker:
-			return getPrice(MobHunting.getConfigManager().shulkerHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().shulkerHeadPrize);
 		case Silverfish:
-			return getPrice(MobHunting.getConfigManager().silverfishHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().silverfishHeadPrize);
 		case Skeleton:
-			return getPrice(MobHunting.getConfigManager().skeletonHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().skeletonHeadPrize);
 		case SkeletonHorse:
-			return getPrice(MobHunting.getConfigManager().skeletonHorseHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().skeletonHorseHeadPrize);
 		case Slime:
-			return getPrice(MobHunting.getConfigManager().slimeHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().slimeHeadPrize);
 		case Snowman:
-			return getPrice(MobHunting.getConfigManager().snowmanHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().snowmanHeadPrize);
 		case Spider:
-			return getPrice(MobHunting.getConfigManager().spiderHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().spiderHeadPrize);
 		case Squid:
-			return getPrice(MobHunting.getConfigManager().squidHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().squidHeadPrize);
 		case Stray:
-			return getPrice(MobHunting.getConfigManager().strayHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().strayHeadPrize);
 		case Vex:
-			return getPrice(MobHunting.getConfigManager().vexHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().vexHeadPrize);
 		case Villager:
-			return getPrice(MobHunting.getConfigManager().villagerHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().villagerHeadPrize);
 		case Vindicator:
-			return getPrice(MobHunting.getConfigManager().vindicatorHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().vindicatorHeadPrize);
 		case Witch:
-			return getPrice(MobHunting.getConfigManager().witchHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().witchHeadPrize);
 		case Wither:
-			return getPrice(MobHunting.getConfigManager().witherHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().witherHeadPrize);
 		case WitherSkeleton:
-			return getPrice(MobHunting.getConfigManager().witherSkeletonHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().witherSkeletonHeadPrize);
 		case Wolf:
-			return getPrice(MobHunting.getConfigManager().wolfHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().wolfHeadPrize);
 		case Zombie:
-			return getPrice(MobHunting.getConfigManager().zombieHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().zombieHeadPrize);
 		case ZombieHorse:
-			return getPrice(MobHunting.getConfigManager().zombiehorseHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().zombiehorseHeadPrize);
 		case ZombiePigman:
-			return getPrice(MobHunting.getConfigManager().zombiePigmanHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().zombiePigmanHeadPrize);
 		case ZombieVillager:
-			return getPrice(MobHunting.getConfigManager().zombieVillagerHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().zombieVillagerHeadPrize);
 		}
 		return 0;
 	}
@@ -667,7 +667,7 @@ public enum MinecraftMob {
 				return 0;
 		} else if (str.contains(":")) {
 			String[] str1 = str.split(":");
-			double prize = (MobHunting.getMobHuntingManager().mRand.nextDouble()
+			double prize = (MobHunting.getInstance().getMobHuntingManager().mRand.nextDouble()
 					* (Double.valueOf(str1[1]) - Double.valueOf(str1[0])) + Double.valueOf(str1[0]));
 			return Misc.round(prize);
 		} else

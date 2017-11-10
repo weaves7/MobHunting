@@ -36,27 +36,28 @@ public class Electrifying implements Achievement, Listener {
 
 	@Override
 	public double getPrize() {
-		return MobHunting.getConfigManager().specialCharged;
+		return plugin.getConfigManager().specialCharged;
 	}
 
 	@EventHandler
 	public void onKill(MobHuntKillEvent event) {
 		if (event.getKilledEntity() instanceof Creeper && ((Creeper) event.getKilledEntity()).isPowered()
 				&& plugin.getRewardManager().getBaseKillPrize(event.getKilledEntity()) > 0)
-			MobHunting.getAchievementManager().awardAchievement(this, event.getPlayer(),
-					MobHunting.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()));
+			plugin.getAchievementManager().awardAchievement(this, event.getPlayer(),
+					plugin.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()));
 	}
 
 	@Override
 	public String getPrizeCmd() {
-		return MobHunting.getConfigManager().specialChargedCmd;
+		return plugin.getConfigManager().specialChargedCmd;
 	}
 
 	@Override
 	public String getPrizeCmdDescription() {
-		return MobHunting.getConfigManager().specialChargedCmdDesc;
+		return plugin.getConfigManager().specialChargedCmdDesc;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ItemStack getSymbol() {
 		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1);

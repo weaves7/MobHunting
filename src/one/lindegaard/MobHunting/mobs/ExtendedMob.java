@@ -157,7 +157,7 @@ public class ExtendedMob {
 	}
 
 	public boolean matches(Entity entity) {
-		ExtendedMob mob = MobHunting.getExtendedMobManager().getExtendedMobFromEntity(entity);
+		ExtendedMob mob = MobHunting.getInstance().getExtendedMobManager().getExtendedMobFromEntity(entity);
 		return mobtype.equalsIgnoreCase(mob.mobtype);
 	}
 	

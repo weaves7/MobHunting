@@ -34,7 +34,7 @@ public class FancyPants implements Achievement, Listener {
 
 	@Override
 	public double getPrize() {
-		return MobHunting.getConfigManager().specialFancyPants;
+		return plugin.getConfigManager().specialFancyPants;
 	}
 
 	@EventHandler
@@ -54,18 +54,18 @@ public class FancyPants implements Achievement, Listener {
 				&& event.getPlayer().getInventory().getBoots().getType() == Material.DIAMOND_BOOTS
 				&& !event.getPlayer().getInventory().getBoots().getEnchantments().isEmpty()
 				&& plugin.getRewardManager().getBaseKillPrize(event.getKilledEntity()) > 0)
-			MobHunting.getAchievementManager().awardAchievement(this, event.getPlayer(),
-					MobHunting.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()));
+			plugin.getAchievementManager().awardAchievement(this, event.getPlayer(),
+					plugin.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()));
 	}
 
 	@Override
 	public String getPrizeCmd() {
-		return MobHunting.getConfigManager().specialFancyPantsCmd;
+		return plugin.getConfigManager().specialFancyPantsCmd;
 	}
 
 	@Override
 	public String getPrizeCmdDescription() {
-		return MobHunting.getConfigManager().specialFancyPantsCmdDesc;
+		return plugin.getConfigManager().specialFancyPantsCmdDesc;
 	}
 
 	@Override

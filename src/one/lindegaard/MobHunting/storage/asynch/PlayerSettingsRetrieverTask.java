@@ -28,7 +28,8 @@ public class PlayerSettingsRetrieverTask implements IDataStoreTask<PlayerSetting
 				return store.loadPlayerSettings(mPlayer);
 			} catch (UserNotFoundException e) {
 				Messages.debug("Saving new PlayerSettings for %s to database.", mPlayer.getName());
-				PlayerSettings ps = new PlayerSettings(mPlayer, MobHunting.getConfigManager().learningMode, false);
+				PlayerSettings ps = new PlayerSettings(mPlayer,
+						MobHunting.getInstance().getConfigManager().learningMode, false);
 				try {
 					store.insertPlayerSettings(ps);
 				} catch (DataStoreException e1) {

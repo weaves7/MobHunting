@@ -19,7 +19,7 @@ public class BonusMobBonus implements IModifier {
 	@Override
 	public double getMultiplier(Entity deadEntity, Player killer, HuntData data, DamageInformation extraInfo,
 			EntityDamageByEntityEvent lastDamageCause) {
-		return MobHunting.getConfigManager().bonusBonusMob;
+		return MobHunting.getInstance().getConfigManager().bonusBonusMob;
 	}
 
 	@Override

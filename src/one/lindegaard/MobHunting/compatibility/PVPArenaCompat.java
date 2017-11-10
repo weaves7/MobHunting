@@ -44,11 +44,11 @@ public class PVPArenaCompat implements Listener {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationPvpArena;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationPvpArena;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationPvpArena;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationPvpArena;
 	}
 
 	/**

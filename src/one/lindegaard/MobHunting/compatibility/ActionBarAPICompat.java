@@ -40,11 +40,11 @@ public class ActionBarAPICompat {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationActionBarAPI;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationActionBarAPI;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationActionBarAPI;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationActionBarAPI;
 	}
 
 	public static void setMessage(Player player, String text) {

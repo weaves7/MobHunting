@@ -45,15 +45,15 @@ public class MySQLDataStore extends DatabaseDataStore {
 			Locale.setDefault(new Locale("us", "US"));
 			Class.forName("com.mysql.jdbc.Driver");
 			MysqlDataSource dataSource = new MysqlDataSource();
-			dataSource.setUser(MobHunting.getConfigManager().databaseUsername);
-			dataSource.setPassword(MobHunting.getConfigManager().databasePassword);
-			if (MobHunting.getConfigManager().databaseHost.contains(":")) {
-				dataSource.setServerName(MobHunting.getConfigManager().databaseHost.split(":")[0]);
-				dataSource.setPort(Integer.valueOf(MobHunting.getConfigManager().databaseHost.split(":")[1]));
+			dataSource.setUser(plugin.getConfigManager().databaseUsername);
+			dataSource.setPassword(plugin.getConfigManager().databasePassword);
+			if (plugin.getConfigManager().databaseHost.contains(":")) {
+				dataSource.setServerName(plugin.getConfigManager().databaseHost.split(":")[0]);
+				dataSource.setPort(Integer.valueOf(plugin.getConfigManager().databaseHost.split(":")[1]));
 			} else {
-				dataSource.setServerName(MobHunting.getConfigManager().databaseHost);
+				dataSource.setServerName(plugin.getConfigManager().databaseHost);
 			}
-			dataSource.setDatabaseName(MobHunting.getConfigManager().databaseName + "?autoReconnect=true");
+			dataSource.setDatabaseName(plugin.getConfigManager().databaseName + "?autoReconnect=true");
 			Connection c = dataSource.getConnection();
 			Statement statement = c.createStatement();
 			statement.executeUpdate("SET NAMES 'utf8'");
@@ -215,9 +215,9 @@ public class MySQLDataStore extends DatabaseDataStore {
 		} else {
 			wherepart = (id != null
 					? " AND ID=" + id + " and mh_Mobs.MOB_ID="
-							+ MobHunting.getExtendedMobManager().getMobIdFromMobTypeAndPluginID(mobType, mobPlugin)
+							+ plugin.getExtendedMobManager().getMobIdFromMobTypeAndPluginID(mobType, mobPlugin)
 					: " AND mh_Mobs.MOB_ID="
-							+ MobHunting.getExtendedMobManager().getMobIdFromMobTypeAndPluginID(mobType, mobPlugin));
+							+ plugin.getExtendedMobManager().getMobIdFromMobTypeAndPluginID(mobType, mobPlugin));
 		}
 
 		try {
@@ -405,7 +405,7 @@ public class MySQLDataStore extends DatabaseDataStore {
 		}
 
 		// Create new empty tables if they do not exist
-		String lm = MobHunting.getConfigManager().learningMode ? "1" : "0";
+		String lm = plugin.getConfigManager().learningMode ? "1" : "0";
 		create.executeUpdate(
 				"CREATE TABLE IF NOT EXISTS mh_Players (UUID CHAR(40) PRIMARY KEY, NAME CHAR(20), PLAYER_ID INTEGER NOT NULL AUTO_INCREMENT, "
 						+ "KEY PLAYER_ID (PLAYER_ID), LEARNING_MODE INTEGER NOT NULL DEFAULT " + lm
@@ -432,7 +432,7 @@ public class MySQLDataStore extends DatabaseDataStore {
 				+ "(PLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE, "
 				+ "ACHIEVEMENT VARCHAR(64) NOT NULL, DATE DATETIME NOT NULL, "
 				+ "PROGRESS INTEGER NOT NULL, PRIMARY KEY(PLAYER_ID, ACHIEVEMENT))");
-		if (!MobHunting.getConfigManager().disablePlayerBounties)
+		if (!plugin.getConfigManager().disablePlayerBounties)
 			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties (" //
 					+ "BOUNTYOWNER_ID INTEGER NOT NULL, "//
 					+ "MOBTYPE CHAR(6), "//
@@ -1032,7 +1032,7 @@ public class MySQLDataStore extends DatabaseDataStore {
 			rs.close();
 		} catch (SQLException e) {
 			System.out.println("[MobHunting] Adding new Player leaning mode to MobHunting Database.");
-			String lm = MobHunting.getConfigManager().learningMode ? "1" : "0";
+			String lm = plugin.getConfigManager().learningMode ? "1" : "0";
 			statement.executeUpdate(
 					"alter table `mh_Players` add column `LEARNING_MODE` INTEGER NOT NULL DEFAULT " + lm);
 		}
@@ -1064,7 +1064,7 @@ public class MySQLDataStore extends DatabaseDataStore {
 		Statement create = connection.createStatement();
 
 		// Create new empty tables if they do not exist
-		String lm = MobHunting.getConfigManager().learningMode ? "1" : "0";
+		String lm = plugin.getConfigManager().learningMode ? "1" : "0";
 		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Players " + "(UUID CHAR(40) ," + " NAME VARCHAR(20),"
 				+ " PLAYER_ID INTEGER NOT NULL AUTO_INCREMENT," + " LEARNING_MODE INTEGER NOT NULL DEFAULT " + lm + ","
 				+ " MUTE_MODE INTEGER NOT NULL DEFAULT 0," + " PRIMARY KEY (PLAYER_ID))");
@@ -1117,7 +1117,7 @@ public class MySQLDataStore extends DatabaseDataStore {
 				+ " PRIMARY KEY(PLAYER_ID, ACHIEVEMENT),"
 				+ " CONSTRAINT mh_Achievements_Player_Id FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE)");
 
-		if (!MobHunting.getConfigManager().disablePlayerBounties) {
+		if (!plugin.getConfigManager().disablePlayerBounties) {
 			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties (" + "BOUNTYOWNER_ID INTEGER NOT NULL, "
 					+ "MOBTYPE CHAR(6), " + "WANTEDPLAYER_ID INTEGER NOT NULL, " + "NPC_ID INTEGER, "
 					+ "MOB_ID VARCHAR(40), " + "WORLDGROUP VARCHAR(20) NOT NULL, " + "CREATED_DATE BIGINT NOT NULL, "
@@ -1221,7 +1221,7 @@ public class MySQLDataStore extends DatabaseDataStore {
 		Statement create = connection.createStatement();
 
 		// Create new empty tables if they do not exist
-		String lm = MobHunting.getConfigManager().learningMode ? "1" : "0";
+		String lm = plugin.getConfigManager().learningMode ? "1" : "0";
 		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Players "//
 				+ "(UUID CHAR(40) ,"//
 				+ " NAME VARCHAR(20),"//
@@ -1312,7 +1312,7 @@ public class MySQLDataStore extends DatabaseDataStore {
 				+ " PRIMARY KEY(PLAYER_ID, ACHIEVEMENT),"
 				+ " CONSTRAINT mh_Achievements_Player_Id FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE)");
 
-		if (!MobHunting.getConfigManager().disablePlayerBounties) {
+		if (!plugin.getConfigManager().disablePlayerBounties) {
 			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("//
 					+ "BOUNTYOWNER_ID INTEGER NOT NULL, "//
 					+ "MOBTYPE CHAR(6), "//
@@ -1420,7 +1420,7 @@ public class MySQLDataStore extends DatabaseDataStore {
 		Statement create = connection.createStatement();
 
 		// Create new empty tables if they do not exist
-		String lm = MobHunting.getConfigManager().learningMode ? "1" : "0";
+		String lm = plugin.getConfigManager().learningMode ? "1" : "0";
 		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Players "//
 				+ "(UUID CHAR(40) ,"//
 				+ " NAME VARCHAR(20),"//
@@ -1515,7 +1515,7 @@ public class MySQLDataStore extends DatabaseDataStore {
 				+ " PRIMARY KEY(PLAYER_ID, ACHIEVEMENT),"
 				+ " CONSTRAINT mh_Achievements_Player_Id FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE)");
 
-		if (!MobHunting.getConfigManager().disablePlayerBounties) {
+		if (!plugin.getConfigManager().disablePlayerBounties) {
 			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("//
 					+ "BOUNTYOWNER_ID INTEGER NOT NULL, "//
 					+ "MOBTYPE CHAR(6), "//

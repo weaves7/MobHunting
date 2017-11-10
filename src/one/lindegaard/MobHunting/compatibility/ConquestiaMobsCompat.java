@@ -76,11 +76,11 @@ public class ConquestiaMobsCompat implements Listener {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationConquestiaMobs;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationConquestiaMobs;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationConquestiaMobs;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationConquestiaMobs;
 	}
 
 	// **************************************************************************

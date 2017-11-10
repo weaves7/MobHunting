@@ -145,7 +145,7 @@ public class HologramManager {
 		} catch (IOException | InvalidConfigurationException e) {
 			Bukkit.getConsoleSender()
 					.sendMessage(ChatColor.RED + "Could not read Hologram Leaderboard file: hologram-leaderboards.yml");
-			if (MobHunting.getConfigManager().killDebug)
+			if (plugin.getConfigManager().killDebug)
 				e.printStackTrace();
 		}
 
@@ -177,7 +177,7 @@ public class HologramManager {
 		} catch (IOException | InvalidConfigurationException e) {
 			Bukkit.getConsoleSender()
 					.sendMessage(ChatColor.RED + "Could not read Hologram Leaderboard file: hologram-leaderboards.yml");
-			if (MobHunting.getConfigManager().killDebug)
+			if (plugin.getConfigManager().killDebug)
 				e.printStackTrace();
 		}
 

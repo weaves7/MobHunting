@@ -18,7 +18,7 @@ public class MyPetCompat implements Listener {
 	private static MyPetPlugin mPlugin;
 
 	public MyPetCompat() {
-		if (MobHunting.getConfigManager().disableIntegrationMyPet) {
+		if (MobHunting.getInstance().getConfigManager().disableIntegrationMyPet) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with MyPet is disabled in config.yml");
 		} else {
 			mPlugin = (MyPetPlugin) Bukkit.getPluginManager().getPlugin(CompatPlugin.MyPet.getName());
@@ -48,7 +48,7 @@ public class MyPetCompat implements Listener {
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationMyPet;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationMyPet;
 	}
 
 	public static boolean isKilledByMyPet(Entity entity) {
@@ -94,7 +94,7 @@ public class MyPetCompat implements Listener {
 	// **************************************************************************
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	private void onMyPetKillMob(EntityDeathEvent event) {
-		if (!MobHunting.getMobHuntingManager().isHuntEnabledInWorld(event.getEntity().getWorld())
+		if (!MobHunting.getInstance().getMobHuntingManager().isHuntEnabledInWorld(event.getEntity().getWorld())
 				|| !(event.getEntity().getLastDamageCause() instanceof EntityDamageByEntityEvent))
 			return;
 
@@ -105,9 +105,9 @@ public class MyPetCompat implements Listener {
 		MyPetBukkitEntity killer = (MyPetBukkitEntity) dmg.getDamager();
 		if (killer.getOwner() != null) {
 			Player owner = killer.getOwner().getPlayer();
-			if (owner != null && MobHunting.getMobHuntingManager().isHuntEnabled(owner))
-				MobHunting.getAchievementManager().awardAchievementProgress("fangmaster", owner,
-						MobHunting.getExtendedMobManager().getExtendedMobFromEntity(event.getEntity()), 1);
+			if (owner != null && MobHunting.getInstance().getMobHuntingManager().isHuntEnabled(owner))
+				MobHunting.getInstance().getAchievementManager().awardAchievementProgress("fangmaster", owner,
+						MobHunting.getInstance().getExtendedMobManager().getExtendedMobFromEntity(event.getEntity()), 1);
 		}
 	}
 }

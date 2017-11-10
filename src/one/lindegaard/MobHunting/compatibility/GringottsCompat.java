@@ -37,11 +37,11 @@ public class GringottsCompat {
 	}
 
 	public static boolean isDisabledInConfig() {
-		return MobHunting.getConfigManager().disableIntegrationGringotts;
+		return MobHunting.getInstance().getConfigManager().disableIntegrationGringotts;
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getConfigManager().disableIntegrationGringotts;
+		return !MobHunting.getInstance().getConfigManager().disableIntegrationGringotts;
 	}
 
 }

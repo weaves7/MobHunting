@@ -41,7 +41,7 @@ public class FourthHuntAchievement implements ProgressAchievement {
 
 	@Override
 	public double getPrize() {
-		return MobHunting.getConfigManager().specialHunter4;
+		return plugin.getConfigManager().specialHunter4;
 	}
 
 	@Override
@@ -67,12 +67,12 @@ public class FourthHuntAchievement implements ProgressAchievement {
 
 	@Override
 	public String getPrizeCmd() {
-		return MobHunting.getConfigManager().specialHunter4Cmd;
+		return plugin.getConfigManager().specialHunter4Cmd;
 	}
 
 	@Override
 	public String getPrizeCmdDescription() {
-		return MobHunting.getConfigManager().specialHunter4CmdDesc;
+		return plugin.getConfigManager().specialHunter4CmdDesc;
 	}
 
 	@Override
