@@ -18,7 +18,7 @@ Websites - more info
 * MasterMobHunters (Citizens2) and Signs
 * Leaderboards
 * Mob grinder detection
-* [Supports Minecraft 1.7.9 - 1.12.1]
+* [Supports Minecraft 1.7.9 - 1.12.2]
 * Heavily customizable
 * Language support
 * Tested on SpigotMC, CraftBukkit, PaperSpigot/PaperClip, Glowstone and Cauldron

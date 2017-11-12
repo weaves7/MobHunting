@@ -36,7 +36,6 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.event.block.Action;
 
 import one.lindegaard.BagOfGold.BagOfGold;
-import one.lindegaard.BagOfGold.storage.PlayerSettings;
 import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
@@ -68,27 +67,23 @@ public class RewardListeners implements Listener {
 				Messages.debug("%s dropped a %s (# of rewards left=%s)", player.getName(), reward.getDisplayname(),
 						plugin.getRewardManager().getDroppedMoney().size());
 			} else {
-				String displayName = plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
-						? plugin.getRewardManager().format(money)
-						: reward.getDisplayname() + " (" + plugin.getRewardManager().format(money) + ")";
-				item.setCustomName(
-						ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + displayName);
+				if (reward.isItemReward())
+					item.setCustomName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
+							+ plugin.getRewardManager().format(money));
+				else
+					item.setCustomName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
+							+ reward.getDisplayname() + " (" + plugin.getRewardManager().format(money) + ")");
+
 				plugin.getRewardManager().getDroppedMoney().put(item.getEntityId(), money);
 				if (!plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency)
 					plugin.getRewardManager().getEconomy().withdrawPlayer(player, money);
+
 				Messages.debug("%s dropped %s money. (# of rewards left=%s)", player.getName(),
 						plugin.getRewardManager().format(money), plugin.getRewardManager().getDroppedMoney().size());
 				plugin.getMessages().playerActionBarMessage(player,
 						Messages.getString("mobhunting.moneydrop", "money", plugin.getRewardManager().format(money)));
-				if (BagOfGoldCompat.isSupported() && reward.isBagOfGoldReward()) {
-					// plugin.getRewardManager().withdrawPlayer(player, money);
-					PlayerSettings ps = BagOfGold.getInstance().getPlayerSettingsManager().getPlayerSettings(player);
-					Messages.debug("removing %s from balance %s", Misc.floor(money),
-							Misc.floor(ps.getBalance() + ps.getBalanceChanges()));
-					ps.setBalance(Misc.floor(ps.getBalance() + ps.getBalanceChanges() - money));
-					ps.setBalanceChanges(0);
-					BagOfGold.getInstance().getPlayerSettingsManager().setPlayerSettings(player, ps);
-					BagOfGold.getInstance().getDataStoreManager().updatePlayerSettings(player, ps);
+				if (BagOfGoldCompat.isSupported() && (reward.isBagOfGoldReward() || reward.isItemReward())) {
+					BagOfGold.getInstance().getEconomyManager().removeMoneyFromBalance(player, money);
 				}
 			}
 			item.setCustomNameVisible(true);
@@ -167,7 +162,8 @@ public class RewardListeners implements Listener {
 											plugin.getRewardManager().format(rewardOnGround.getMoney())));
 						} else {
 
-							if (BagOfGoldCompat.isSupported() && rewardOnGround.isBagOfGoldReward()) {
+							if (BagOfGoldCompat.isSupported()
+									&& (rewardOnGround.isBagOfGoldReward() || rewardOnGround.isItemReward())) {
 								plugin.getRewardManager().depositPlayer(player, moneyOnGround);
 								entity.remove();
 							} else {
@@ -272,14 +268,8 @@ public class RewardListeners implements Listener {
 			plugin.getRewardManager().getLocations().put(reward.getUniqueUUID(), reward);
 			plugin.getRewardManager().getReward().put(reward.getUniqueUUID(), block.getLocation());
 			plugin.getRewardManager().saveReward(reward.getUniqueUUID());
-			if (BagOfGoldCompat.isSupported() && reward.isBagOfGoldReward()) {
-				PlayerSettings ps = BagOfGold.getInstance().getPlayerSettingsManager().getPlayerSettings(player);
-				Messages.debug("Removing %s from Balance %s", Misc.floor(reward.getMoney()),
-						Misc.floor(ps.getBalance() + ps.getBalanceChanges()));
-				ps.setBalance(Misc.floor(ps.getBalance() + ps.getBalanceChanges() - reward.getMoney()));
-				ps.setBalanceChanges(0);
-				BagOfGold.getInstance().getPlayerSettingsManager().setPlayerSettings(player, ps);
-				BagOfGold.getInstance().getDataStoreManager().updatePlayerSettings(player, ps);
+			if (BagOfGoldCompat.isSupported() && (reward.isBagOfGoldReward() || reward.isItemReward())) {
+				BagOfGold.getInstance().getEconomyManager().removeMoneyFromBalance(player, reward.getMoney());
 			}
 		}
 	}
@@ -329,8 +319,7 @@ public class RewardListeners implements Listener {
 					: (reward.getMoney() == 0 ? reward.getDisplayname()
 							: reward.getDisplayname() + " (" + plugin.getRewardManager().format(reward.getMoney())
 									+ ")");
-			item.setCustomName(
-					ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + displayName);
+			item.setCustomName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + displayName);
 			item.setCustomNameVisible(true);
 			item.setMetadata(Reward.MH_REWARD_DATA, new FixedMetadataValue(plugin, new Reward(reward.getHiddenLore())));
 
@@ -360,8 +349,9 @@ public class RewardListeners implements Listener {
 			return;
 		}
 
-		if (action == InventoryAction.SWAP_WITH_CURSOR && (isCurrentSlot.getType() == Material.SKULL_ITEM
-				|| isCurrentSlot.getType() == Material.valueOf(plugin.getConfigManager().dropMoneyOnGroundItem))
+		if (action == InventoryAction.SWAP_WITH_CURSOR
+				&& (isCurrentSlot.getType() == Material.SKULL_ITEM
+						|| isCurrentSlot.getType() == Material.valueOf(plugin.getConfigManager().dropMoneyOnGroundItem))
 				&& isCurrentSlot.getType() == isCursor.getType()) {
 			if (Reward.isReward(isCurrentSlot) && Reward.isReward(isCursor)) {
 				event.setCancelled(true);
@@ -413,7 +403,7 @@ public class RewardListeners implements Listener {
 			}
 		} else if (action == InventoryAction.COLLECT_TO_CURSOR && Reward.isReward(isCursor)) {
 			Reward cursor = Reward.getReward(isCursor);
-			if (cursor.getMoney() > 0 && cursor.isBagOfGoldReward()) {
+			if (cursor.getMoney() > 0 && (cursor.isBagOfGoldReward() || cursor.isItemReward())) {
 				double saldo = Misc.floor(cursor.getMoney());
 				for (int slot = 0; slot < player.getInventory().getSize(); slot++) {
 					ItemStack is = player.getInventory().getItem(slot);

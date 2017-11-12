@@ -264,10 +264,10 @@ public class RewardManager {
 				player.getInventory().addItem(is);
 			}
 		}
-		plugin.getMessages().playerActionBarMessage(player,
-				Messages.getString("mobhunting.commands.money.give", "rewardname",
-						plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(), "money",
-						plugin.getRewardManager().getEconomy().format(Misc.floor(amount))));
+		//plugin.getMessages().playerActionBarMessage(player,
+		//		Messages.getString("mobhunting.commands.money.give", "rewardname",
+		//				plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(), "money",
+		//				plugin.getRewardManager().getEconomy().format(Misc.floor(amount))));
 	}
 
 	public double removeBagOfGoldPlayer_RewardManager(Player player, double amount) {
