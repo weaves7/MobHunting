@@ -1,5 +1,6 @@
 V5.1.9
-* Hungarian luanguage file added. Thanks to @Toldi
+* Hungarian language file added. Thanks to @Toldi
+* Added getEssentialsBalance to EssentialsCompat.
 V5.1.8
 * MobHunting & BagOfGold Released. BagOfGold is now a real Economy, which can be used like any other Economy (Essentials, CraftConomy, Gringotts,...)
 V5.1.7
