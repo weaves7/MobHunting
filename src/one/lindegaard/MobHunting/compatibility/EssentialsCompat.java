@@ -8,10 +8,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 
 import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.User;
@@ -80,7 +77,8 @@ public class EssentialsCompat implements Listener {
 
 	public static double getEssentialsBalance(OfflinePlayer offlinePlayer) {
 		if (supported) {
-			String uuid = EssentialsCompat.getEssentials().getOfflineUser(offlinePlayer.getName()).getConfigUUID().toString();
+			String uuid = EssentialsCompat.getEssentials().getOfflineUser(offlinePlayer.getName()).getConfigUUID()
+					.toString();
 			File datafolder = EssentialsCompat.getEssentials().getDataFolder();
 			if (datafolder.exists()) {
 				File configfile = new File(datafolder + "/userdata/" + uuid + ".yml");
@@ -89,25 +87,46 @@ public class EssentialsCompat implements Listener {
 					try {
 						config.load(configfile);
 					} catch (IOException | InvalidConfigurationException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 						return 0;
 					}
 					return Double.valueOf(config.getString("money"));
-				} 
+				}
 			}
 		}
 		return 0;
+	}
+
+	public static void setEssentialsBalance(OfflinePlayer offlinePlayer, double amount) {
+		if (supported) {
+			String uuid = EssentialsCompat.getEssentials().getOfflineUser(offlinePlayer.getName()).getConfigUUID()
+					.toString();
+			File datafolder = EssentialsCompat.getEssentials().getDataFolder();
+			if (datafolder.exists()) {
+				File configfile = new File(datafolder + "/userdata/" + uuid + ".yml");
+				if (configfile.exists()) {
+					YamlConfiguration config = new YamlConfiguration();
+					try {
+						config.load(configfile);
+						config.set("money", amount);
+						config.save(configfile);
+					} catch (IOException | InvalidConfigurationException e) {
+						e.printStackTrace();
+						return;
+					}
+				}
+			}
+		}
 	}
 
 	// **************************************************************************
 	// EVENTS
 	// **************************************************************************
 
-	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-	private void onPlayerJoin(PlayerJoinEvent event) {
-		final Player player = event.getPlayer();
-		// Messages.debug("ESS Balance=%s", getEssBalance(player));
-	}
+	// @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
+	// private void onPlayerJoin(PlayerJoinEvent event) {
+	// final Player player = event.getPlayer();
+	// Messages.debug("ESS Balance=%s", getEssBalance(player));
+	// }
 
 }
