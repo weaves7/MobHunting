@@ -13,6 +13,7 @@ import org.bukkit.event.Listener;
 import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.User;
 
+import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 public class EssentialsCompat implements Listener {
@@ -108,8 +109,9 @@ public class EssentialsCompat implements Listener {
 					YamlConfiguration config = new YamlConfiguration();
 					try {
 						config.load(configfile);
-						config.set("money", amount);
+						config.set("money", String.valueOf(amount));
 						config.save(configfile);
+						Messages.debug("updated essentials balance to %s", amount);
 					} catch (IOException | InvalidConfigurationException e) {
 						e.printStackTrace();
 						return;
