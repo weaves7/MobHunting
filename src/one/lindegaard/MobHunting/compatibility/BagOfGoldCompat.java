@@ -17,7 +17,7 @@ public class BagOfGoldCompat {
 	public BagOfGoldCompat() {
 		mPlugin = (BagOfGold) Bukkit.getPluginManager().getPlugin(CompatPlugin.BagOfGold.getName());
 
-		if (mPlugin.getDescription().getVersion().compareTo("0.6.0") >= 0) {
+		if (mPlugin.getDescription().getVersion().compareTo("0.8.7") >= 0) {
 			Bukkit.getLogger().info("[MobHunting] Enabling compatibility with BagOfGold ("
 					+ getBagOfGoldAPI().getDescription().getVersion() + ")");
 			supported = true;
@@ -25,7 +25,7 @@ public class BagOfGoldCompat {
 			ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
 			console.sendMessage(ChatColor.RED + "[MobHunting/BagOfGold] Your current version of BagOfGold ("
 					+ mPlugin.getDescription().getVersion()
-					+ ") is outdated. Please upgrade to 0.6.0 or newer.");
+					+ ") is outdated. Please upgrade to 0.8.7 or newer.");
 			Bukkit.getPluginManager().disablePlugin(mPlugin);
 		}
 
