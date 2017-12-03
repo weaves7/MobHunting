@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -77,9 +78,9 @@ public class EssentialsCompat implements Listener {
 		return bal;
 	}
 
-	public static double getEssentialsBalance(Player player) {
+	public static double getEssentialsBalance(OfflinePlayer offlinePlayer) {
 		if (supported) {
-			String uuid = EssentialsCompat.getEssentials().getOfflineUser(player.getName()).getConfigUUID().toString();
+			String uuid = EssentialsCompat.getEssentials().getOfflineUser(offlinePlayer.getName()).getConfigUUID().toString();
 			File datafolder = EssentialsCompat.getEssentials().getDataFolder();
 			if (datafolder.exists()) {
 				File configfile = new File(datafolder + "/userdata/" + uuid + ".yml");
