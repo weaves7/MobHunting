@@ -91,7 +91,7 @@ public class EssentialsCompat implements Listener {
 						e.printStackTrace();
 						return 0;
 					}
-					return Double.valueOf(config.getString("money"));
+					return Double.valueOf(config.getString("money","0"));
 				}
 			}
 		}

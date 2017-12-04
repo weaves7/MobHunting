@@ -17,6 +17,7 @@ import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.MetadataValue;
 
+import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.mobs.MinecraftMob;
 
 public class Reward {
@@ -70,6 +71,10 @@ public class Reward {
 		else
 			this.uniqueId = (lore.get(3).startsWith("Hidden:")) ? UUID.fromString(lore.get(3).substring(7))
 					: UUID.fromString(lore.get(3));
+			
+			
+			//something is wrong skin can be null when the bag is give to the player and the placed
+			
 		if (lore.size() >= 5 && !lore.get(4).equalsIgnoreCase("Hidden:")
 				&& !lore.get(4).equalsIgnoreCase("Hidden:null"))
 			this.skinUUID = (lore.get(4).startsWith("Hidden:")) ? UUID.fromString(lore.get(4).substring(7))
@@ -77,6 +82,8 @@ public class Reward {
 		else {
 			if (uuid.equals(UUID.fromString(MH_REWARD_BAG_OF_GOLD_UUID)))
 				this.skinUUID = UUID.fromString(MH_REWARD_BAG_OF_GOLD_UUID);
+			
+			
 		}
 	}
 
