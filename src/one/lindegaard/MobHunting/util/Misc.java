@@ -163,6 +163,23 @@ public class Misc {
 		return true;
 	}
 
+	// *******************************************************************
+	// Version detection
+	// *******************************************************************
+	public static boolean isGlowstoneServer() {
+		return Bukkit.getServer().getName().equalsIgnoreCase("Glowstone");
+	}
+
+	public static boolean isSpigotServer() {
+		return Bukkit.getServer().getName().equalsIgnoreCase("CraftBukkit")
+				&& Bukkit.getServer().getVersion().toLowerCase().contains("spigot");
+	}
+
+	public static boolean isCraftBukkitServer() {
+		return Bukkit.getServer().getName().equalsIgnoreCase("CraftBukkit")
+				&& Bukkit.getServer().getVersion().toLowerCase().contains("bukkit");
+	}
+
 	public static Player getOnlinePlayer(OfflinePlayer offlinePlayer) {
 		for (Player player : getOnlinePlayers()) {
 			if (player.getName().equals(offlinePlayer.getName()))
@@ -202,7 +219,7 @@ public class Misc {
 		}
 		return lastBlock;
 	}
-	
+
 	/**
 	 * Gets the online player (backwards compatibility)
 	 *
@@ -254,6 +271,5 @@ public class Misc {
 		decimalFormat.applyPattern(pattern);
 		return decimalFormat.format(money);
 	}
-
 
 }

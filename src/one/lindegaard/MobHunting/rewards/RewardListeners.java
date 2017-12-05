@@ -83,7 +83,8 @@ public class RewardListeners implements Listener {
 				plugin.getMessages().playerActionBarMessage(player,
 						Messages.getString("mobhunting.moneydrop", "money", plugin.getRewardManager().format(money)));
 				if (BagOfGoldCompat.isSupported() && (reward.isBagOfGoldReward() || reward.isItemReward())) {
-					BagOfGold.getInstance().getEconomyManager().removeMoneyFromBalance(player, money);
+					if (player.getGameMode() == GameMode.SURVIVAL)
+						BagOfGold.getInstance().getEconomyManager().removeMoneyFromBalance(player, money);
 				}
 			}
 			item.setCustomNameVisible(true);
@@ -164,8 +165,10 @@ public class RewardListeners implements Listener {
 
 							if (BagOfGoldCompat.isSupported()
 									&& (rewardOnGround.isBagOfGoldReward() || rewardOnGround.isItemReward())) {
-								plugin.getRewardManager().depositPlayer(player, moneyOnGround);
+								if (player.getGameMode() == GameMode.SURVIVAL)
+									plugin.getRewardManager().depositPlayer(player, moneyOnGround);
 								entity.remove();
+
 							} else {
 								boolean found = false;
 								HashMap<Integer, ? extends ItemStack> slots = player.getInventory()
@@ -269,7 +272,8 @@ public class RewardListeners implements Listener {
 			plugin.getRewardManager().getReward().put(reward.getUniqueUUID(), block.getLocation());
 			plugin.getRewardManager().saveReward(reward.getUniqueUUID());
 			if (BagOfGoldCompat.isSupported() && (reward.isBagOfGoldReward() || reward.isItemReward())) {
-				BagOfGold.getInstance().getEconomyManager().removeMoneyFromBalance(player, reward.getMoney());
+				if (player.getGameMode() == GameMode.SURVIVAL)
+					BagOfGold.getInstance().getEconomyManager().removeMoneyFromBalance(player, reward.getMoney());
 			}
 		}
 	}

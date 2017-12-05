@@ -10,6 +10,7 @@ import one.lindegaard.MobHunting.compatibility.ProtocolLibHelper;
 import one.lindegaard.MobHunting.util.Misc;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -31,11 +32,15 @@ public class PickupRewards {
 			Reward reward = Reward.getReward(item);
 			Messages.debug("The reward name is = %s", reward.getDisplayname());
 			if (BagOfGoldCompat.isSupported() && reward.isBagOfGoldReward()) {
-				Messages.debug("use BagOfGold deposit to pickup");
-				PlayerSettings ps = BagOfGold.getInstance().getPlayerSettingsManager().getPlayerSettings(player);
-				ps.setBalance(Misc.round(ps.getBalance()+reward.getMoney()));
-				BagOfGold.getInstance().getPlayerSettingsManager().setPlayerSettings(player, ps);
-				BagOfGold.getInstance().getDataStoreManager().updatePlayerSettings(player, ps);
+				if (player.getGameMode() == GameMode.SURVIVAL) {
+					PlayerSettings ps = BagOfGold.getInstance().getPlayerSettingsManager().getPlayerSettings(player);
+					Messages.debug("Player picked up a BagOfGold in Survival mode - deposit %s into balance %s",reward.getMoney(),ps.getBalance());
+					ps.setBalance(Misc.round(ps.getBalance() + reward.getMoney()));
+					BagOfGold.getInstance().getPlayerSettingsManager().setPlayerSettings(player, ps);
+					BagOfGold.getInstance().getDataStoreManager().updatePlayerSettings(player, ps);
+				} else {
+					Messages.debug("The player is not in Survival mode - balance not changed");
+				}
 			} else {
 				// If not Gringotts
 				if (reward.getMoney() != 0)
@@ -85,7 +90,7 @@ public class PickupRewards {
 								}
 							}
 						}
-						Messages.debug("Found=%s",found);
+						Messages.debug("Found=%s", found);
 						if (!found) {
 							ItemStack is = item.getItemStack();
 							ItemMeta im = is.getItemMeta();
@@ -95,9 +100,8 @@ public class PickupRewards {
 											: reward.getDisplayname() + " ("
 													+ plugin.getRewardManager().format(Misc.round(reward.getMoney()))
 													+ ")";
-							im.setDisplayName(
-									ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
-											+ displayName);
+							im.setDisplayName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
+									+ displayName);
 							im.setLore(reward.getHiddenLore());
 							is.setItemMeta(im);
 							is.setAmount(1);

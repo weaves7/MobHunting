@@ -11,12 +11,12 @@ import one.lindegaard.MobHunting.MobHunting;
 public class CompatibilityManager {
 	
 	private MobHunting plugin;
+	private static HashSet<Object> mCompatClasses = new HashSet<Object>();
 	
 	public CompatibilityManager(MobHunting plugin){
 		this.plugin=plugin;
 	}
-	private static HashSet<Object> mCompatClasses = new HashSet<Object>();
-
+	
 	public void registerPlugin(@SuppressWarnings("rawtypes") Class c, CompatPlugin pluginName) {
 		try {
 			register(c, pluginName);

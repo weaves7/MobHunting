@@ -74,7 +74,6 @@ public class MobHunting extends JavaPlugin {
 	private AdvancementManager mAdvancementManager;
 	private CommandDispatcher mCommandDispatcher;
 	private CompatibilityManager mCompatibilityManager;
-	// private HologramManager mHologramManager;
 
 	private boolean mInitialized = false;
 
@@ -285,10 +284,9 @@ public class MobHunting extends JavaPlugin {
 		// Check for new MobHuntig updates
 		Updater.hourlyUpdateCheck(getServer().getConsoleSender(), mConfig.updateCheck, false);
 
-		if (!getServer().getName().toLowerCase().contains("glowstone")) {
+		if (!Misc.isGlowstoneServer()) {
 			mMetricsManager = new MetricsManager(this);
 			mMetricsManager.startMetrics();
-
 			mMetricsManager.startBStatsMetrics();
 		}
 
