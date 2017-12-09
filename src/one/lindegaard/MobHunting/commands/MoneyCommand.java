@@ -160,12 +160,15 @@ public class MoneyCommand implements ICommand {
 							ChatColor.GREEN + Messages.getString("mobhunting.commands.money.balance", "playername",
 									offlinePlayer.getName(), "money",
 									plugin.getRewardManager().getEconomy().format(balance), "rewardname",
-									plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim()));
+									ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
+											+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim()));
 				else
 					plugin.getMessages().senderSendMessage(sender,
 							ChatColor.GREEN + Messages.getString("mobhunting.commands.money.balance", "playername",
 									"You", "money", plugin.getRewardManager().getEconomy().format(balance),
-									"rewardname", plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim()));
+									"rewardname",
+									ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
+											+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim()));
 			} else {
 				plugin.getMessages().senderSendMessage(sender,
 						ChatColor.RED + Messages.getString("mobhunting.commands.base.nopermission", "perm",
@@ -222,7 +225,7 @@ public class MoneyCommand implements ICommand {
 					if (args[1].matches("\\d+(\\.\\d+)?")) {
 						Player player = (Player) sender;
 						Location location = Misc.getTargetBlock(player, 20).getLocation();
-						Messages.debug("The Bag of gold was dropped at %s", location);
+						Messages.debug("The BagOfGold was dropped at %s", location);
 						plugin.getRewardManager().dropMoneyOnGround_RewardManager(player, null, location,
 								Misc.floor(Double.valueOf(args[1])));
 						plugin.getMessages().playerActionBarMessage(player, Messages.getString("mobhunting.moneydrop",
@@ -233,7 +236,7 @@ public class MoneyCommand implements ICommand {
 						if (args[2].matches("\\d+(\\.\\d+)?")) {
 							Player player = ((Player) Bukkit.getServer().getOfflinePlayer(args[1]));
 							Location location = Misc.getTargetBlock(player, 3).getLocation();
-							Messages.debug("The Bag of gold was dropped at %s", location);
+							Messages.debug("The BagOfGold was dropped at %s", location);
 							plugin.getRewardManager().dropMoneyOnGround_RewardManager(player, null, location,
 									Misc.floor(Double.valueOf(args[2])));
 							plugin.getMessages().playerActionBarMessage(player,
@@ -277,6 +280,7 @@ public class MoneyCommand implements ICommand {
 					double amount = Misc.floor(Double.valueOf(args[2]));
 
 					if (BagOfGoldCompat.isSupported()) {
+						Messages.debug("BagOfGold supported, using depositPlayer");
 						plugin.getRewardManager().getEconomy().depositPlayer(offlinePlayer, amount);
 					} else {
 						if (offlinePlayer.isOnline()) {
@@ -285,13 +289,12 @@ public class MoneyCommand implements ICommand {
 							plugin.getMessages().playerActionBarMessage(player,
 									Messages.getString("mobhunting.commands.money.give", "rewardname",
 											plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(), "money",
-											plugin.getRewardManager().getEconomy()
-													.format(amount)));
-							plugin.getMessages().senderSendMessage(sender, Messages.getString(
-									"mobhunting.commands.money.give-sender", "rewardname",
-									plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(), "money",
-									plugin.getRewardManager().getEconomy().format(amount),
-									"player", player.getName()));
+											plugin.getRewardManager().getEconomy().format(amount)));
+							plugin.getMessages().senderSendMessage(sender,
+									Messages.getString("mobhunting.commands.money.give-sender", "rewardname",
+											plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(), "money",
+											plugin.getRewardManager().getEconomy().format(amount), "player",
+											player.getName()));
 						} else {
 							plugin.getMessages().senderSendMessage(sender, ChatColor.RED + Messages
 									.getString("mobhunting.commands.base.playername-missing", "player", args[1]));

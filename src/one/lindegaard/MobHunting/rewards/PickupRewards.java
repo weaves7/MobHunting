@@ -30,7 +30,6 @@ public class PickupRewards {
 
 		if (Reward.isReward(item)) {
 			Reward reward = Reward.getReward(item);
-			Messages.debug("The reward name is = %s", reward.getDisplayname());
 			if (BagOfGoldCompat.isSupported() && reward.isBagOfGoldReward()) {
 				if (player.getGameMode() == GameMode.SURVIVAL) {
 					PlayerSettings ps = BagOfGold.getInstance().getPlayerSettingsManager().getPlayerSettings(player);
@@ -53,7 +52,6 @@ public class PickupRewards {
 						plugin.getMessages().playerActionBarMessage(player, Messages.getString("mobhunting.moneypickup",
 								"money", plugin.getRewardManager().format(reward.getMoney())));
 					} else {
-						Messages.debug("Looking for a BagOfGold");
 						boolean found = false;
 						HashMap<Integer, ? extends ItemStack> slots = player.getInventory()
 								.all(item.getItemStack().getType());
@@ -90,7 +88,6 @@ public class PickupRewards {
 								}
 							}
 						}
-						Messages.debug("Found=%s", found);
 						if (!found) {
 							ItemStack is = item.getItemStack();
 							ItemMeta im = is.getItemMeta();
