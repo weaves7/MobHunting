@@ -1,3 +1,5 @@
+V5.2.2
+* Fixed bug when player balance was chnaged, while player was offline
 V5.2.1
 * Fixed BagOfGold balance bug when player is in creative mode.
 V5.2.0

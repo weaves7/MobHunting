@@ -73,7 +73,7 @@ public class AchievementManager implements Listener {
 		if (upgradeAchievements())
 			plugin.getDataStoreManager().waitForUpdates();
 
-		Bukkit.getPluginManager().registerEvents(this, MobHunting.getInstance());
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	public Achievement getAchievement(String id) {
@@ -101,7 +101,7 @@ public class AchievementManager implements Listener {
 		mAchievements.put(achievement.getID().toLowerCase(), achievement);
 
 		if (achievement instanceof Listener)
-			Bukkit.getPluginManager().registerEvents((Listener) achievement, MobHunting.getInstance());
+			Bukkit.getPluginManager().registerEvents((Listener) achievement, plugin);
 	}
 
 	private void registerAchievements() {
@@ -538,12 +538,12 @@ public class AchievementManager implements Listener {
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	public boolean upgradeAchievements() {
-		File file = new File(MobHunting.getInstance().getDataFolder(), "awards.yml");
+		File file = new File(plugin.getDataFolder(), "awards.yml");
 
 		if (!file.exists())
 			return false;
 
-		MobHunting.getInstance().getLogger().info("Upgrading old awards.yml file");
+		plugin.getLogger().info("Upgrading old awards.yml file");
 
 		YamlConfiguration config = new YamlConfiguration();
 		try {
@@ -553,13 +553,11 @@ public class AchievementManager implements Listener {
 				if (config.isList(player)) {
 					for (Object obj : (List<Object>) config.getList(player)) {
 						if (obj instanceof String) {
-							MobHunting.getInstance();
 							plugin.getDataStoreManager().recordAchievement(Bukkit.getOfflinePlayer(player),
 									getAchievement((String) obj), null);
 						} else if (obj instanceof Map) {
 							Map<String, Integer> map = (Map<String, Integer>) obj;
 							String id = map.keySet().iterator().next();
-							MobHunting.getInstance();
 							plugin.getDataStoreManager().recordAchievementProgress(Bukkit.getOfflinePlayer(player),
 									(ProgressAchievement) getAchievement(id), (Integer) map.get(id));
 						}
@@ -675,7 +673,7 @@ public class AchievementManager implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	private void onPlayerJoin(final PlayerJoinEvent event) {
-		Bukkit.getScheduler().runTaskLater(MobHunting.getInstance(), new Runnable() {
+		Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
 
 			@Override
 			public void run() {

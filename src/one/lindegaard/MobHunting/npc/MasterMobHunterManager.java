@@ -40,7 +40,6 @@ import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.CitizensCompat;
 import one.lindegaard.MobHunting.mobs.MobPlugin;
 import one.lindegaard.MobHunting.rewards.RewardData;
-import one.lindegaard.MobHunting.util.Misc;
 
 public class MasterMobHunterManager implements Listener {
 
@@ -181,24 +180,11 @@ public class MasterMobHunterManager implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onClick(NPCLeftClickEvent event) {
-		Messages.debug("NPCLeftClickEvent");
 		NPC npc = event.getNPC();
 		if (isMasterMobHunter(npc)) {
 			@SuppressWarnings("deprecation")
 			ItemStack is = event.getClicker().getItemInHand();
-			// Messages.debug("ItemStack=%s", is);
 			if (!is.getType().equals(Material.STICK)) {
-				if (Misc.isMC110OrNewer()) {
-					// ((Player) npc).getInventory().setItemInMainHand(is);
-					// ((Player)
-					// event.getClicker()).getInventory().setItemInMainHand(new
-					// ItemStack(Material.AIR));
-				} else {
-					// ((Player) npc).getInventory().setItemInHand(is);
-					// ((Player)
-					// event.getClicker()).getInventory().setItemInHand(new
-					// ItemStack(Material.AIR));
-				}
 				Trait trait = getSentinelOrSentryTrait(npc);
 				if (trait != null) {
 					trait.getNPC().faceLocation(event.getClicker().getLocation());

@@ -1,5 +1,7 @@
 package one.lindegaard.MobHunting.commands;
 
+import one.lindegaard.BagOfGold.BagOfGold;
+import one.lindegaard.BagOfGold.storage.PlayerSettings;
 import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
@@ -17,7 +19,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.npc.NPC;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -135,7 +141,7 @@ public class MoneyCommand implements ICommand {
 				if (args.length <= 1) {
 					if (!(sender instanceof Player)) {
 						plugin.getMessages().senderSendMessage(sender, ChatColor.RED
-								+ Messages.getString("mobhunting.commands.base.noconsole", "command", "'money sell'"));
+								+ Messages.getString("mobhunting.commands.base.noconsole", "command", "'money balance'"));
 						return true;
 					} else
 						offlinePlayer = (Player) sender;
@@ -441,9 +447,10 @@ public class MoneyCommand implements ICommand {
 
 		else if (args.length >= 2 && args[0].equalsIgnoreCase("buy")) {
 			// /mh money buy <amount>
+			Player player = (Player) sender;
 			if (sender.hasPermission("mobhunting.money.buy") || sender.hasPermission("mobhunting.money.*")) {
+
 				if (args.length == 2 && args[1].matches("\\d+(\\.\\d+)?")) {
-					Player player = (Player) sender;
 					if (plugin.getRewardManager().getEconomy().has(player, Misc.floor(Double.valueOf(args[1])))) {
 						if (player.getInventory().firstEmpty() == -1)
 							plugin.getRewardManager().dropMoneyOnGround_RewardManager(player, null,
@@ -477,7 +484,124 @@ public class MoneyCommand implements ICommand {
 						ChatColor.RED + Messages.getString("mobhunting.commands.base.nopermission", "perm",
 								"mobhunting.money.buy", "command", "money buy"));
 			}
+			BagOfGold.getApi().getBankManager().sendBankerMessage(player);
 			return true;
+		}
+
+		else if (args.length == 1 && args[0].equalsIgnoreCase("deposit")
+				|| (args.length == 2 && args[0].equalsIgnoreCase("deposit") 
+					&& (args[1].matches("\\d+(\\.\\d+)?")|| args[1].equalsIgnoreCase("all")))) {
+			// /mh money deposit - deposit the bagofgold in the players hand to
+			// the bank
+			// /mh money deposit <amount>
+			if (sender.hasPermission("mobhunting.money.deposit") || sender.hasPermission("mobhunting.money.*")) {
+				if (!(sender instanceof Player)) {
+					plugin.getMessages().senderSendMessage(sender, ChatColor.RED
+							+ Messages.getString("mobhunting.commands.base.noconsole", "command", "'money deposit'"));
+					return true;
+				}
+				Player player = (Player) sender;
+				if (BagOfGoldCompat.isSupported()) {
+					PlayerSettings ps = BagOfGold.getApi().getPlayerSettingsManager().getPlayerSettings(player);
+					for (Iterator<NPC> npcList = CitizensAPI.getNPCRegistry().iterator(); npcList.hasNext();) {
+						NPC npc = npcList.next();
+						if (BagOfGold.getApi().getBankManager().isBagOfGoldBanker(npc.getEntity())) {
+							if (npc.getEntity().getLocation().distance(player.getLocation()) < 3) {
+								if (args.length == 1) {
+									ItemStack is = player.getItemInHand();
+									if (Reward.isReward(is)) {
+										Reward reward = Reward.getReward(is);
+										if (reward.isBagOfGoldReward() && BagOfGoldCompat.isSupported()) {
+											plugin.getMessages().playerSendMessage(player,
+													Messages.getString(
+															"mobhunting.money.you_cant_sell_and_buy_bagofgold",
+															"itemname", reward.getDisplayname()));
+											return true;
+										}
+										BagOfGold.getApi().getEconomyManager()
+										.bankDeposit(player.getUniqueId().toString(), reward.getMoney());
+										BagOfGold.getApi().getEconomyManager().withdrawPlayer(player,
+										reward.getMoney());
+										BagOfGold.getApi().getBankManager().sendBankerMessage(player);
+									}
+								} else {
+									double to_be_removed = args[1].equalsIgnoreCase("all") ? ps.getBalance() + ps.getBalanceChanges() : Double.valueOf(args[1]);
+									double sold = BagOfGold.getApi().getEconomyManager().withdrawPlayer(player,
+											to_be_removed).amount;
+									BagOfGold.getApi().getEconomyManager().bankDeposit(player.getUniqueId().toString(),
+											sold);
+									BagOfGold.getApi().getBankManager().sendBankerMessage(player);
+								}
+								break;
+							} else {
+								plugin.getMessages().senderSendMessage(sender,
+										ChatColor.RED + Messages.getString("mobhunting.commands.money.bankerdistance"));
+							}
+
+						}
+					}
+				} else {
+					Messages.debug("The BagOfGold plugin in not installed or disabled.");
+				}
+			} else {
+				plugin.getMessages().senderSendMessage(sender,
+						ChatColor.RED + Messages.getString("mobhunting.commands.base.nopermission", "perm",
+								"mobhunting.money.deposit", "command", "money deposit"));
+			}
+			return true;
+		}
+
+		else if (args.length == 2 && args[0].equalsIgnoreCase("withdraw")) {
+			// /mh money withdraw <amount>
+			if (sender.hasPermission("mobhunting.money.withdraw") || sender.hasPermission("mobhunting.money.*")) {
+				if (args.length == 2 && (args[1].matches("\\d+(\\.\\d+)?") || args[1].equalsIgnoreCase("all"))) {
+					Player player = (Player) sender;
+					if (BagOfGoldCompat.isSupported()) {
+						PlayerSettings ps = BagOfGold.getApi().getPlayerSettingsManager().getPlayerSettings(player);
+						double amount = args[1].equalsIgnoreCase("all")
+								? ps.getBankBalance() + ps.getBankBalanceChanges() : Double.valueOf(args[1]);
+						for (Iterator<NPC> npcList = CitizensAPI.getNPCRegistry().iterator(); npcList.hasNext();) {
+							NPC npc = npcList.next();
+							if (BagOfGold.getApi().getBankManager().isBagOfGoldBanker(npc.getEntity())) {
+								if (npc.getEntity().getLocation().distance(player.getLocation()) < 3) {
+									if (ps.getBankBalance() + ps.getBankBalanceChanges() >= amount) {
+										
+										BagOfGold.getApi().getEconomyManager()
+										.bankWithdraw(player.getUniqueId().toString(), amount);
+										BagOfGold.getApi().getEconomyManager().depositPlayer(player, amount);
+										BagOfGold.getApi().getBankManager().sendBankerMessage(player);
+								
+									} else {
+										plugin.getMessages().playerActionBarMessage(player,
+												ChatColor.RED + Messages.getString(
+														"mobhunting.commands.money.not-enough-money-in-bank", "money",
+														amount, "rewardname",
+														plugin.getConfigManager().dropMoneyOnGroundSkullRewardName));
+									}
+									break;
+								} else {
+									plugin.getMessages().senderSendMessage(sender, ChatColor.RED
+											+ Messages.getString("mobhunting.commands.money.bankerdistance"));
+								} 
+							} else {
+							}
+						} 
+					} else {
+						Messages.debug("The BagOfGold plugin in not installed or disabled.");
+					}
+
+				} else {
+					plugin.getMessages().senderSendMessage(sender, ChatColor.RED
+							+ Messages.getString("mobhunting.commands.base.not_a_number", "number", args[1]));
+				}
+			} else {
+				plugin.getMessages().senderSendMessage(sender,
+						ChatColor.RED + Messages.getString("mobhunting.commands.base.nopermission", "perm",
+								"mobhunting.money.withdraw", "command", "money withdraw"));
+			}
+			return true;
+		} else {
+			Messages.debug("no command hit...");
 		}
 
 		return false;
