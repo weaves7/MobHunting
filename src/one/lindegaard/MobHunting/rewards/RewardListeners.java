@@ -23,6 +23,7 @@ import org.bukkit.event.entity.ItemDespawnEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.inventory.InventoryPickupItemEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -290,6 +291,17 @@ public class RewardListeners implements Listener {
 
 	}
 
+	@EventHandler(priority = EventPriority.NORMAL)
+	public void onInventoryMoveReward(InventoryMoveItemEvent event) {
+		if (event.isCancelled())
+			return;
+
+		if (Reward.isReward(event.getItem())){
+			Messages.debug("A reward was moved");
+		}
+		
+	}
+	
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onInventoryClickReward(InventoryClickEvent event) {
@@ -307,6 +319,14 @@ public class RewardListeners implements Listener {
 			event.setCancelled(true);
 			return;
 		}
+
+		//Messages.debug("slotno=%s, action=%s, invType=%s, slottype=%s", event.getSlot(), event.getAction().name(),
+		//		event.getInventory().getType().name(), event.getSlotType().name());
+		//if (action == InventoryAction.PLACE_ONE && Reward.isReward(isCursor) && event.getSlot() == 39) {
+		//	plugin.getMessages().learn(player, Messages.getString("mobhunting.learn.bagofgold.head"));
+		//	event.setCancelled(true);
+		//	return;
+		//}
 
 		if (action == InventoryAction.SWAP_WITH_CURSOR
 				&& (isCurrentSlot.getType() == Material.SKULL_ITEM

@@ -640,7 +640,8 @@ public class RewardManager {
 
 			// Minecraft 1.7.10 and older entities
 			if (mob instanceof Player) {
-				if (plugin.getConfigManager().pvpKillPrize.endsWith("%")) {
+				if (plugin.getConfigManager().pvpKillPrize.trim().endsWith("%")) {
+					Messages.debug("PVP kill reward is '%s'",plugin.getConfigManager().pvpKillPrize);
 					double prize = Math.floor(Double
 							.valueOf(plugin.getConfigManager().pvpKillPrize.substring(0,
 									plugin.getConfigManager().pvpKillPrize.length() - 1))

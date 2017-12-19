@@ -7,6 +7,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -35,7 +36,8 @@ public class CustomItems {
 	 * @return
 	 */
 	@SuppressWarnings("deprecation")
-	public ItemStack getPlayerHead(String name, int amount, double money, UUID skinUUID) {
+	public ItemStack getPlayerHeadOldxxx(String name, int amount, double money, UUID skinUUID) {
+		//TODO: Can be deleted
 		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1);
 		skull.setDurability((short) 3);
 		SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
@@ -60,6 +62,48 @@ public class CustomItems {
 	 * @return
 	 */
 	public ItemStack getPlayerHead(UUID uuid, int amount, double money) {
+
+		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+		ItemMeta skullMeta = skull.getItemMeta();
+		OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
+		GameProfile profile = new GameProfile(uuid, player.getName());
+		Field profileField = null;
+
+		try {
+			profileField = skullMeta.getClass().getDeclaredField("profile");
+		} catch (NoSuchFieldException | SecurityException e) {
+			e.printStackTrace();
+			return skull;
+		}
+
+		profileField.setAccessible(true);
+
+		try {
+			profileField.set(skullMeta, profile);
+		} catch (IllegalArgumentException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+
+		skullMeta.setLore(
+				new ArrayList<String>(Arrays.asList("Hidden:" + player.getName(), "Hidden:" + String.format(Locale.ENGLISH,"%.5f", money),
+						"Hidden:" + Reward.MH_REWARD_KILLER_UUID, money == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(), "Hidden:"+uuid)));
+		if (money == 0)
+			skullMeta.setDisplayName(
+					ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + player.getName());
+		else
+			skullMeta.setDisplayName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
+					+ player.getName() + " (" + plugin.getRewardManager().format(money) + ")");
+		if (money == 0)
+			skullMeta.setDisplayName(player.getName());
+		else
+			skullMeta.setDisplayName(player.getName() + " (" + plugin.getRewardManager().getEconomy().format(money) + ")");
+		skull.setAmount(amount);
+		skull.setItemMeta(skullMeta);
+		return skull;
+	}
+
+	//TODO: Can be deleted
+	public ItemStack getPlayerHeadOldxxx(UUID uuid, int amount, double money) {
 		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1);
 		skull.setDurability((short) 3);
 		SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
@@ -71,7 +115,7 @@ public class CustomItems {
 		if (money == 0)
 			skullMeta.setDisplayName(name);
 		else
-			skullMeta.setDisplayName(name + " (" + plugin.getRewardManager().getEconomy().format(money) + ")");
+			skullMeta.setDisplayName(name + " (" + plugin.getRewardManager().format(money) + ")");
 		skull.setAmount(amount);
 		skull.setItemMeta(skullMeta);
 		return skull;
@@ -152,7 +196,7 @@ public class CustomItems {
 			break;
 
 		case PvpPlayer:
-			skull = getPlayerHead(name, amount, money, skinUUID);
+			skull = getPlayerHead(skinUUID, amount, money);
 			break;
 
 		case Creeper:
