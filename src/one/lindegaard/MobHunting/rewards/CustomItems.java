@@ -64,7 +64,7 @@ public class CustomItems {
 	public ItemStack getPlayerHead(UUID uuid, int amount, double money) {
 
 		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
-		ItemMeta skullMeta = skull.getItemMeta();
+		SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
 		OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
 		GameProfile profile = new GameProfile(uuid, player.getName());
 		Field profileField = null;
@@ -75,7 +75,7 @@ public class CustomItems {
 			e.printStackTrace();
 			return skull;
 		}
-
+		
 		profileField.setAccessible(true);
 
 		try {
@@ -83,7 +83,9 @@ public class CustomItems {
 		} catch (IllegalArgumentException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-
+		
+		skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer(uuid));
+		
 		skullMeta.setLore(
 				new ArrayList<String>(Arrays.asList("Hidden:" + player.getName(), "Hidden:" + String.format(Locale.ENGLISH,"%.5f", money),
 						"Hidden:" + Reward.MH_REWARD_KILLER_UUID, money == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(), "Hidden:"+uuid)));
