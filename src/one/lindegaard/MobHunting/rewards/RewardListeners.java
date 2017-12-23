@@ -310,7 +310,6 @@ public class RewardListeners implements Listener {
 
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onInventoryCloseEvent(InventoryCloseEvent event) {
-		Messages.debug("OnInventoryCloseEvent");
 		Player player = (Player) event.getPlayer();
 		Inventory inventory = event.getInventory();
 		if (inventory.getType() == InventoryType.CRAFTING) {

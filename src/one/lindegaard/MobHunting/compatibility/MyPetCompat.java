@@ -9,15 +9,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 
-import com.google.common.base.Optional;
-
-import de.Keyle.MyPet.MyPetApi;
 import de.Keyle.MyPet.MyPetPlugin;
-import de.Keyle.MyPet.api.entity.MyPet;
 import de.Keyle.MyPet.api.entity.MyPetBukkitEntity;
-import de.Keyle.MyPet.api.entity.StoredMyPet;
 import de.Keyle.MyPet.api.event.MyPetInventoryActionEvent;
-import de.Keyle.MyPet.api.repository.MyPetManager;
 import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
@@ -96,6 +90,10 @@ public class MyPetCompat implements Listener {
 
 		return killer.getOwner().getPlayer();
 	}
+	
+	public void getInv(Player player){
+		//mPlugin.getMyPetManager().getMyPet(player).getSkilltree();
+	}
 
 	// **************************************************************************
 	// EVENTS
@@ -121,7 +119,7 @@ public class MyPetCompat implements Listener {
 	
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	private void onMyPetPickupItem(MyPetInventoryActionEvent event){
-		//Messages.debug("MyPetInventoryActionEvent=%s", event.getAction().name());
+		Messages.debug("MyPetInventoryActionEvent=%s", event.getAction().name());
 		
 	}
 	
