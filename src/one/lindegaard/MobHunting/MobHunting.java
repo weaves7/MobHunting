@@ -254,13 +254,14 @@ public class MobHunting extends JavaPlugin {
 			mCommandDispatcher.registerCommand(new HologramCommand(this));
 		mCommandDispatcher.registerCommand(new LearnCommand(this));
 		mCommandDispatcher.registerCommand(new MuteCommand(this));
+		// moved to CitizensCompat
 		// mCommandDispatcher.registerCommand(new NpcCommand(this));
 		mCommandDispatcher.registerCommand(new ReloadCommand(this));
 		if (WorldGuardCompat.isSupported())
-			mCommandDispatcher.registerCommand(new RegionCommand());
+			mCommandDispatcher.registerCommand(new RegionCommand(this));
 		if (WorldEditCompat.isSupported())
 			mCommandDispatcher.registerCommand(new SelectCommand(this));
-		mCommandDispatcher.registerCommand(new TopCommand());
+		mCommandDispatcher.registerCommand(new TopCommand(this));
 		mCommandDispatcher.registerCommand(new WhitelistAreaCommand(this));
 		mCommandDispatcher.registerCommand(new UpdateCommand(this));
 		mCommandDispatcher.registerCommand(new VersionCommand(this));

@@ -1,7 +1,6 @@
 package one.lindegaard.MobHunting.rewards;
 
 import one.lindegaard.BagOfGold.BagOfGold;
-import one.lindegaard.BagOfGold.storage.PlayerSettings;
 import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
@@ -34,11 +33,7 @@ public class PickupRewards {
 				callBack.setCancelled(true);
 				if (BagOfGoldCompat.isSupported()) {
 					if (player.getGameMode() == GameMode.SURVIVAL) {
-						PlayerSettings ps = BagOfGold.getInstance().getPlayerSettingsManager()
-								.getPlayerSettings(player);
-						ps.setBalance(Misc.round(ps.getBalance() + reward.getMoney()));
-						BagOfGold.getInstance().getPlayerSettingsManager().setPlayerSettings(player, ps);
-						BagOfGold.getInstance().getDataStoreManager().updatePlayerSettings(player, ps);
+						BagOfGold.getApi().getEconomyManager().depositPlayer(player, reward.getMoney());
 					} 
 				} else if (reward.getMoney() != 0 && !plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
 					// If not Gringotts

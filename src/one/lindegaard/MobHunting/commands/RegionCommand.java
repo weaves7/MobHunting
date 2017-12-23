@@ -16,7 +16,6 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
-import one.lindegaard.MobHunting.compatibility.CompatibilityManager;
 import one.lindegaard.MobHunting.compatibility.WorldGuardCompat;
 import one.lindegaard.MobHunting.compatibility.WorldGuardHelper;
 
@@ -26,9 +25,6 @@ public class RegionCommand implements ICommand {
 
 	public RegionCommand(MobHunting plugin) {
 		this.plugin = plugin;
-	}
-
-	public RegionCommand() {
 	}
 
 	// Used case (???)
@@ -129,6 +125,7 @@ public class RegionCommand implements ICommand {
 		return items;
 	}
 
+	
 	@Override
 	public boolean onCommand(CommandSender sender, String label, String[] args) {
 		if (args.length == 0)

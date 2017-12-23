@@ -1,5 +1,7 @@
 V5.2.3
 * Fixed Ticket 331. (https://github.com/Rocologo/MobHunting/issues/331)
+* Fixed https://www.spigotmc.org/threads/mobhunting.46937/page-148#post-2802681
+* Fixed Balance Problem when a player moved a BagOfGold from his inventory to a chest and then disconnected and connected again
 V5.2.2
 * Fixed bug when player balance was changed, while player was offline
 V5.2.1

@@ -21,9 +21,6 @@ public class TopCommand implements ICommand {
 		this.plugin=plugin;
 	}
 
-	public TopCommand() {
-	}
-
 	@Override
 	public String getName() {
 		return "top";

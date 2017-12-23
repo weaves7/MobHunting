@@ -72,7 +72,6 @@ public class MuteCommand implements ICommand {
 			togglePlayerMuteMode((Player) sender);
 			return true;
 		} else if (args.length == 1) {
-			MobHunting.getInstance();
 			DataStoreManager ds = plugin.getDataStoreManager();
 			Player player = (Player) ds.getPlayerByName(args[0]);
 			if (player != null) {
