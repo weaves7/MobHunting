@@ -1,3 +1,5 @@
+V5.2.5
+*
 V5.2.4
 * Trying to fix playerheads (/mh head give rocologo rocologo)
 V5.2.3
