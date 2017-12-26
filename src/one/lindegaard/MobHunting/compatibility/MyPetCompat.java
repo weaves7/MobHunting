@@ -12,7 +12,6 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import de.Keyle.MyPet.MyPetPlugin;
 import de.Keyle.MyPet.api.entity.MyPetBukkitEntity;
 import de.Keyle.MyPet.api.event.MyPetInventoryActionEvent;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 public class MyPetCompat implements Listener {
@@ -119,7 +118,7 @@ public class MyPetCompat implements Listener {
 	
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	private void onMyPetPickupItem(MyPetInventoryActionEvent event){
-		Messages.debug("MyPetInventoryActionEvent=%s", event.getAction().name());
+		//Messages.debug("MyPetInventoryActionEvent=%s", event.getAction().name());
 		
 	}
 	

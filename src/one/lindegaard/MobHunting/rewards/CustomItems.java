@@ -3,6 +3,7 @@ package one.lindegaard.MobHunting.rewards;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,11 +18,13 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 
+import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.mobs.MinecraftMob;
 
@@ -39,12 +42,90 @@ public class CustomItems {
 	/**
 	 * Return an ItemStack with the Players head texture.
 	 *
+	 * @param name
+	 * @param money
+	 * @return
+	 */
+	public ItemStack getPlayerHead(UUID uuid, int amount, double money) {
+		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+
+		String name = Bukkit.getOfflinePlayer(uuid).getName();
+
+		String[] skin = getFromName(uuid);
+
+		if (skin == null)
+			return getPlayerHeadOwningPlayer(uuid, amount, money);
+
+		if (skin[0].isEmpty() || skin[1].isEmpty())
+			return skull;
+
+		ItemMeta skullMeta = skull.getItemMeta();
+
+		GameProfile profile = new GameProfile(uuid, name);
+		profile.getProperties().put("textures", new Property("textures", skin[0], skin[1]));
+		Field profileField = null;
+
+		try {
+			profileField = skullMeta.getClass().getDeclaredField("profile");
+		} catch (NoSuchFieldException | SecurityException e) {
+			return getPlayerHeadGameProfile(uuid, amount, money);
+		}
+
+		profileField.setAccessible(true);
+
+		try {
+			profileField.set(skullMeta, profile);
+		} catch (IllegalArgumentException | IllegalAccessException e) {
+			return getPlayerHeadGameProfile(uuid, amount, money);
+		}
+
+		skullMeta.setLore(new ArrayList<String>(Arrays.asList("Hidden:" + name,
+				"Hidden:" + String.format(Locale.ENGLISH, "%.5f", money), "Hidden:" + Reward.MH_REWARD_KILLER_UUID,
+				money == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(), "Hidden:" + uuid)));
+		if (money == 0)
+			skullMeta.setDisplayName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + name);
+		else
+			skullMeta.setDisplayName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + name
+					+ " (" + plugin.getRewardManager().format(money) + ")");
+
+		skull.setItemMeta(skullMeta);
+		Messages.debug("CustomItems: got the skin from URL database (%s)", name);
+		return skull;
+	}
+
+	private String[] getFromName(UUID uuid) {
+		try {
+			URL url_1 = new URL(
+					"https://sessionserver.mojang.com/session/minecraft/profile/" + uuid + "?unsigned=false");
+			InputStreamReader reader_1;
+			reader_1 = new InputStreamReader(url_1.openStream());
+
+			JsonElement json = new JsonParser().parse(reader_1);
+			if (json.isJsonObject()) {
+				JsonObject textureProperty = json.getAsJsonObject().get("properties").getAsJsonArray().get(0)
+						.getAsJsonObject();
+				String texture = textureProperty.get("value").getAsString();
+				String signature = textureProperty.get("signature").getAsString();
+
+				return new String[] { texture, signature };
+			} else return null;
+
+		} catch (IOException e) {
+			Messages.debug("Could not get skin data from session servers!");
+			//e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * Return an ItemStack with the Players head texture.
+	 *
 	 * @param player
 	 *            uuid
 	 * @param money
 	 * @return
 	 */
-	public ItemStack getPlayerHead(UUID uuid, int amount, double money) {
+	public ItemStack getPlayerHeadGameProfile(UUID uuid, int amount, double money) {
 
 		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
 		SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
@@ -56,8 +137,7 @@ public class CustomItems {
 		try {
 			profileField = skullMeta.getClass().getDeclaredField("profile");
 		} catch (NoSuchFieldException | SecurityException e) {
-			e.printStackTrace();
-			return getPlayerHeadURL(uuid, amount, money);
+			return getPlayerHeadOwningPlayer(uuid, amount, money);
 		}
 
 		profileField.setAccessible(true);
@@ -65,7 +145,7 @@ public class CustomItems {
 		try {
 			profileField.set(skullMeta, profile);
 		} catch (IllegalArgumentException | IllegalAccessException e) {
-			e.printStackTrace();
+			return getPlayerHeadOwningPlayer(uuid, amount, money);
 		}
 
 		skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer(uuid));
@@ -79,7 +159,7 @@ public class CustomItems {
 		else
 			skullMeta.setDisplayName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 					+ offlinePlayer.getName() + " (" + plugin.getRewardManager().format(money) + ")");
-		if (money == 0){
+		if (money == 0) {
 			skullMeta.setDisplayName(offlinePlayer.getName());
 			skull.setAmount(amount);
 		} else {
@@ -88,83 +168,9 @@ public class CustomItems {
 			skull.setAmount(1);
 		}
 		skull.setItemMeta(skullMeta);
+		Messages.debug("CustomItems: got the skin from GameProfile (%s)", offlinePlayer.getName());
 		return skull;
 	}
-	
-	/**
-	 * Return an ItemStack with the Players head texture.
-	 *
-	 * @param name
-	 * @param money
-	 * @return
-	 */
-	public ItemStack getPlayerHeadURL(UUID uuid, int amount, double money) {
-		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
-
-		String name = Bukkit.getOfflinePlayer(uuid).getName();
-
-		String[] skin = getFromName(name);
-		
-		if (skin==null)
-			return getPlayerHeadOwningPlayer(uuid, amount, money);
-		
-		if (skin[0].isEmpty() || skin[1].isEmpty())
-			return skull;
-
-		ItemMeta skullMeta = skull.getItemMeta();
-
-		GameProfile profile = new GameProfile(uuid, name);
-		profile.getProperties().put("textures", new Property("textures", skin[0], skin[1]));
-		Field profileField = null;
-
-		try {
-			profileField = skullMeta.getClass().getDeclaredField("profile");
-		} catch (NoSuchFieldException | SecurityException e) {
-			e.printStackTrace();
-			return skull;
-		}
-
-		profileField.setAccessible(true);
-
-		try {
-			profileField.set(skullMeta, profile);
-		} catch (IllegalArgumentException | IllegalAccessException e) {
-			e.printStackTrace();
-		}
-
-		skullMeta.setLore(new ArrayList<String>(Arrays.asList("Hidden:" + name,
-				"Hidden:" + String.format(Locale.ENGLISH, "%.5f", money), "Hidden:" + Reward.MH_REWARD_KILLER_UUID,
-				money == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(), "Hidden:" + uuid)));
-		if (money == 0)
-			skullMeta.setDisplayName(
-					ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + name);
-		else
-			skullMeta.setDisplayName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
-					+ name + " (" + plugin.getRewardManager().format(money) + ")");
-
-		skull.setItemMeta(skullMeta);
-		return skull;
-	}
-	
-	private String[] getFromName(String name) {
-        try {
-            URL url_0 = new URL("https://api.mojang.com/users/profiles/minecraft/" + name);
-            InputStreamReader reader_0 = new InputStreamReader(url_0.openStream());
-            String uuid = new JsonParser().parse(reader_0).getAsJsonObject().get("id").getAsString();
-     
-            URL url_1 = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid + "?unsigned=false");
-            InputStreamReader reader_1 = new InputStreamReader(url_1.openStream());
-            JsonObject textureProperty = new JsonParser().parse(reader_1).getAsJsonObject().get("properties").getAsJsonArray().get(0).getAsJsonObject();
-            String texture = textureProperty.get("value").getAsString();
-            String signature = textureProperty.get("signature").getAsString();
-     
-            return new String[] {texture, signature};
-        } catch (IOException e) {
-            System.err.println("Could not get skin data from session servers!");
-            e.printStackTrace();
-            return null;
-        }
-    }
 
 	public ItemStack getPlayerHeadOwningPlayer(UUID uuid, int amount, double money) {
 		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
@@ -182,6 +188,7 @@ public class CustomItems {
 			skull.setAmount(1);
 		}
 		skull.setItemMeta(skullMeta);
+		Messages.debug("CustomItems: got the skin using OwningPlayer (%s)", name);
 		return skull;
 	}
 
@@ -204,7 +211,7 @@ public class CustomItems {
 			return skull;
 
 		ItemMeta skullMeta = skull.getItemMeta();
-		
+
 		GameProfile profile = new GameProfile(mPlayerUUID, mDisplayName);
 		profile.getProperties().put("textures", new Property("textures", mTextureValue, mTextureSignature));
 		Field profileField = null;

@@ -326,11 +326,8 @@ public class RewardListeners implements Listener {
 							reward.getMoney());
 			}
 		} else if (inventory.getType() == InventoryType.WORKBENCH) {
-			Messages.debug("invSize=%s", inventory.getSize());
 			for (int slot = 0; slot < inventory.getSize(); slot++) {
 				ItemStack is = inventory.getItem(slot);
-				if (inventory.getItem(slot) != null)
-					Messages.debug("Slot(%s)=%s", slot, inventory.getItem(slot).getType());
 				if (Reward.isReward(is)) {
 					Reward reward = Reward.getReward(is);
 					Messages.debug("%s is not allowed to use a BagOfGold/Reward", player.getName());
@@ -359,8 +356,8 @@ public class RewardListeners implements Listener {
 		Inventory inventory = event.getInventory();
 		Inventory clickedInventory = event.getClickedInventory();
 
-		Messages.debug("action=%s, ClickedinvType=%s, InventoryType=%s, slotno=%s", action, clickedInventory.getType(),
-				inventory.getType(), event.getSlot());
+		//Messages.debug("action=%s, ClickedinvType=%s, InventoryType=%s, slotno=%s", action, clickedInventory.getType(),
+		//		inventory.getType(), event.getSlot());
 
 		if (action == InventoryAction.NOTHING)
 			return;
