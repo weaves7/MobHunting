@@ -17,7 +17,6 @@ import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.MetadataValue;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.mobs.MinecraftMob;
 
 public class Reward {
@@ -216,6 +215,7 @@ public class Reward {
 			if (uuid.equals(UUID.fromString(MH_REWARD_BAG_OF_GOLD_UUID)))
 				this.skinUUID = UUID.fromString(MH_REWARD_BAG_OF_GOLD_UUID);
 			else if (uuid.equals(UUID.fromString(MH_REWARD_KILLER_UUID))) {
+				@SuppressWarnings("deprecation")
 				OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(displayname);
 				if (offlinePlayer != null)
 					skinUUID = offlinePlayer.getUniqueId();

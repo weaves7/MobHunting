@@ -37,7 +37,8 @@ public class EntityPickupItemEventListener implements Listener {
 			}
 			return;
 		}
-		pickupRewards.rewardPlayer((Player) entity, event.getItem(), event::setCancelled);
+		if (((Player) entity).getInventory().firstEmpty() != -1)
+			pickupRewards.rewardPlayer((Player) entity, event.getItem(), event::setCancelled);
 	}
 
 }

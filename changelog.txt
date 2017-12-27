@@ -1,5 +1,6 @@
 V5.2.5
 * Trying to fix /mh head give...
+* Fixed ticket 332 (https://github.com/Rocologo/MobHunting/issues/332)
 V5.2.4
 * Trying to fix playerheads (/mh head give rocologo rocologo)
 V5.2.3

@@ -224,7 +224,7 @@ public class RewardManager {
 		return mEconomy.has(offlinePlayer, amount);
 	}
 
-	public void addBagOfGoldPlayer_RewardManager(Player player, double amount) {
+	public boolean addBagOfGoldPlayer_RewardManager(Player player, double amount) {
 		boolean found = false;
 		for (int slot = 0; slot < player.getInventory().getSize(); slot++) {
 			ItemStack is = player.getInventory().getItem(slot);
@@ -234,10 +234,10 @@ public class RewardManager {
 					rewardInSlot.setMoney(rewardInSlot.getMoney() + amount);
 					ItemMeta im = is.getItemMeta();
 					im.setLore(rewardInSlot.getHiddenLore());
-					String displayName = plugin.getConfigManager().dropMoneyOnGroundItemtype
-							.equalsIgnoreCase("ITEM") ? plugin.getRewardManager().format(rewardInSlot.getMoney())
-									: rewardInSlot.getDisplayname() + " ("
-											+ plugin.getRewardManager().format(rewardInSlot.getMoney()) + ")";
+					String displayName = plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
+							? plugin.getRewardManager().format(rewardInSlot.getMoney())
+							: rewardInSlot.getDisplayname() + " ("
+									+ plugin.getRewardManager().format(rewardInSlot.getMoney()) + ")";
 					im.setDisplayName(
 							ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + displayName);
 					is.setItemMeta(im);
@@ -251,19 +251,24 @@ public class RewardManager {
 			}
 		}
 		if (!found) {
-			if (player.getInventory().firstEmpty() == -1)
-				MobHunting.getInstance().getRewardManager().dropMoneyOnGround_RewardManager(player, null,
-						player.getLocation(), Misc.floor(amount));
-			else {
-				ItemStack is = new CustomItems(plugin).getCustomtexture(
-						UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID),
-						plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
-						plugin.getConfigManager().dropMoneyOnGroundSkullTextureValue,
-						plugin.getConfigManager().dropMoneyOnGroundSkullTextureSignature, Misc.floor(amount),
-						UUID.randomUUID(), UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID));
+			if (player.getInventory().firstEmpty() != -1) {
+				ItemStack is;
+				if (plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")) {
+					is = setDisplayNameAndHiddenLores(
+							new ItemStack(Material.valueOf(plugin.getConfigManager().dropMoneyOnGroundItem)), plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
+							amount, UUID.fromString(Reward.MH_REWARD_ITEM_UUID), null);
+				} else {
+					is = new CustomItems(plugin).getCustomtexture(UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID),
+							plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
+							plugin.getConfigManager().dropMoneyOnGroundSkullTextureValue,
+							plugin.getConfigManager().dropMoneyOnGroundSkullTextureSignature, Misc.floor(amount),
+							UUID.randomUUID(), UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID));
+				}
 				player.getInventory().addItem(is);
+				return true;
 			}
 		}
+		return false;
 	}
 
 	public double removeBagOfGoldPlayer_RewardManager(Player player, double amount) {
@@ -353,8 +358,8 @@ public class RewardManager {
 			item.setMetadata(Reward.MH_REWARD_DATA,
 					new FixedMetadataValue(plugin,
 							new Reward(
-									plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
-											? "" : Reward.getReward(is).getDisplayname(),
+									plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM") ? ""
+											: Reward.getReward(is).getDisplayname(),
 									money, uuid, UUID.randomUUID(), skinuuid)));
 			if (Misc.isMC18OrNewer()) {
 				item.setCustomName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
@@ -641,7 +646,7 @@ public class RewardManager {
 			// Minecraft 1.7.10 and older entities
 			if (mob instanceof Player) {
 				if (plugin.getConfigManager().pvpKillPrize.trim().endsWith("%")) {
-					Messages.debug("PVP kill reward is '%s'",plugin.getConfigManager().pvpKillPrize);
+					Messages.debug("PVP kill reward is '%s'", plugin.getConfigManager().pvpKillPrize);
 					double prize = Math.floor(Double
 							.valueOf(plugin.getConfigManager().pvpKillPrize.substring(0,
 									plugin.getConfigManager().pvpKillPrize.length() - 1))
@@ -776,8 +781,8 @@ public class RewardManager {
 	 * Get the command to be run when the player kills a Mob.
 	 * 
 	 * @param mob
-	 * @return a number of commands to be run in the console. Each command must
-	 *         be separeted by a "|"
+	 * @return a number of commands to be run in the console. Each command must be
+	 *         separeted by a "|"
 	 */
 	public String getKillConsoleCmd(Entity mob) {
 		if (TARDISWeepingAngelsCompat.isWeepingAngelMonster(mob)) {
