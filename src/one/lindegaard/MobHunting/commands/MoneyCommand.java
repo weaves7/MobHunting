@@ -12,6 +12,7 @@ import one.lindegaard.MobHunting.rewards.Reward;
 import one.lindegaard.MobHunting.util.Misc;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -235,8 +236,8 @@ public class MoneyCommand implements ICommand {
 						plugin.getRewardManager().dropMoneyOnGround_RewardManager(player, null, location,
 								Misc.floor(Double.valueOf(args[1])));
 						plugin.getMessages().playerActionBarMessage(player, Messages.getString("mobhunting.moneydrop",
-								"rewardname", ChatColor.valueOf(
-										plugin.getConfigManager().dropMoneyOnGroundTextColor)
+								"rewardname",
+								ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 										+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName,
 								"money",
 								plugin.getRewardManager().getEconomy().format(Misc.floor(Double.valueOf(args[1])))));
@@ -290,7 +291,10 @@ public class MoneyCommand implements ICommand {
 
 					if (BagOfGoldCompat.isSupported()) {
 						Messages.debug("BagOfGold supported, using depositPlayer");
-						plugin.getRewardManager().getEconomy().depositPlayer(offlinePlayer, amount);
+						if (offlinePlayer.isOnline() && ((Player) offlinePlayer).getGameMode() != GameMode.SURVIVAL)
+							plugin.getRewardManager().getEconomy().depositPlayer(offlinePlayer, 0);
+						else
+							plugin.getRewardManager().getEconomy().depositPlayer(offlinePlayer, amount);
 					} else {
 						if (offlinePlayer.isOnline()) {
 							Player player = (Player) offlinePlayer;
@@ -302,12 +306,11 @@ public class MoneyCommand implements ICommand {
 								result = true;
 							}
 							if (result) {
-								plugin.getMessages().playerActionBarMessage(player,
-										Messages.getString("mobhunting.commands.money.give", "rewardname",
-												ChatColor.valueOf(
-														plugin.getConfigManager().dropMoneyOnGroundTextColor)
-														+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
-												"money", plugin.getRewardManager().getEconomy().format(amount)));
+								plugin.getMessages().playerActionBarMessage(player, Messages.getString(
+										"mobhunting.commands.money.give", "rewardname",
+										ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
+												+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
+										"money", plugin.getRewardManager().getEconomy().format(amount)));
 								plugin.getMessages().senderSendMessage(sender, Messages.getString(
 										"mobhunting.commands.money.give-sender", "rewardname",
 										ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
@@ -351,8 +354,13 @@ public class MoneyCommand implements ICommand {
 				if (args[2].matches("\\d+(\\.\\d+)?")) {
 					double rest = Misc.floor(Double.valueOf(args[2]));
 					double taken = 0;
-					if (BagOfGoldCompat.isSupported()) {
-						taken = plugin.getRewardManager().withdrawPlayer(offlinePlayer, rest).amount;
+					if (BagOfGoldCompat.isSupported()){
+						
+						if (offlinePlayer.isOnline() && ((Player) offlinePlayer).getGameMode() != GameMode.SURVIVAL){ 
+							taken = 0;
+						}
+						else
+							taken = plugin.getRewardManager().withdrawPlayer(offlinePlayer, rest).amount;
 					} else if (Bukkit.getServer().getOfflinePlayer(args[1]).isOnline()) {
 						Player player = ((Player) Bukkit.getServer().getOfflinePlayer(args[1]));
 						taken = plugin.getRewardManager().removeBagOfGoldPlayer_RewardManager(player, rest);
@@ -365,10 +373,9 @@ public class MoneyCommand implements ICommand {
 						if (offlinePlayer.isOnline())
 							plugin.getMessages().playerActionBarMessage((Player) offlinePlayer,
 									Messages.getString("mobhunting.commands.money.take", "rewardname",
-											ChatColor.valueOf(
-													plugin.getConfigManager().dropMoneyOnGroundTextColor)
-													+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName, "money",
-											plugin.getRewardManager().getEconomy().format(taken)));
+											ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
+													+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName,
+											"money", plugin.getRewardManager().getEconomy().format(taken)));
 						plugin.getMessages().senderSendMessage(sender,
 								Messages.getString("mobhunting.commands.money.take-sender", "rewardname",
 										ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
@@ -547,8 +554,7 @@ public class MoneyCommand implements ICommand {
 									}
 								} else {
 									double to_be_removed = args[1].equalsIgnoreCase("all")
-											? ps.getBalance() + ps.getBalanceChanges()
-											: Double.valueOf(args[1]);
+											? ps.getBalance() + ps.getBalanceChanges() : Double.valueOf(args[1]);
 									double sold = BagOfGold.getApi().getEconomyManager().withdrawPlayer(player,
 											to_be_removed).amount;
 									BagOfGold.getApi().getEconomyManager().bankDeposit(player.getUniqueId().toString(),
@@ -582,8 +588,7 @@ public class MoneyCommand implements ICommand {
 					if (BagOfGoldCompat.isSupported()) {
 						PlayerSettings ps = BagOfGold.getApi().getPlayerSettingsManager().getPlayerSettings(player);
 						double amount = args[1].equalsIgnoreCase("all")
-								? ps.getBankBalance() + ps.getBankBalanceChanges()
-								: Double.valueOf(args[1]);
+								? ps.getBankBalance() + ps.getBankBalanceChanges() : Double.valueOf(args[1]);
 						for (Iterator<NPC> npcList = CitizensAPI.getNPCRegistry().iterator(); npcList.hasNext();) {
 							NPC npc = npcList.next();
 							if (BagOfGold.getApi().getBankManager().isBagOfGoldBanker(npc.getEntity())) {

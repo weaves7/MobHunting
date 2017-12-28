@@ -12,6 +12,7 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -225,6 +226,10 @@ public class RewardManager {
 	}
 
 	public boolean addBagOfGoldPlayer_RewardManager(Player player, double amount) {
+		//if (player.getGameMode() != GameMode.SURVIVAL){
+		//	Messages.debug("Player is not in Survival mode, adjusting amount to 0");
+		//	amount = 0;
+		//}
 		boolean found = false;
 		for (int slot = 0; slot < player.getInventory().getSize(); slot++) {
 			ItemStack is = player.getInventory().getItem(slot);
@@ -272,6 +277,10 @@ public class RewardManager {
 	}
 
 	public double removeBagOfGoldPlayer_RewardManager(Player player, double amount) {
+		//if (player.getGameMode() != GameMode.SURVIVAL){
+		//	Messages.debug("Player is not in Survival mode, adjusting amount to 0");
+		//	amount = 0;
+		//}
 		MobHunting mPlugin = (MobHunting) Bukkit.getPluginManager().getPlugin("MobHunting");
 		double taken = 0;
 		double toBeTaken = Misc.floor(amount);
@@ -449,11 +458,11 @@ public class RewardManager {
 		}
 	}
 
-	public ItemStack setDisplayNameAndHiddenLores(ItemStack skull, String mDisplayName, double money, UUID uuid,
-			UUID skinuuid) {
+	public ItemStack setDisplayNameAndHiddenLores(ItemStack skull, String mDisplayName, double money, UUID rewardUUID,
+			UUID skinUUID) {
 		ItemMeta skullMeta = skull.getItemMeta();
 		skullMeta.setLore(new ArrayList<String>(Arrays.asList("Hidden:" + mDisplayName, "Hidden:" + money,
-				"Hidden:" + uuid, money == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(), "Hidden:" + skinuuid)));
+				"Hidden:" + rewardUUID, money == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(), "Hidden:" + skinUUID)));
 		if (money == 0)
 			skullMeta.setDisplayName(
 					ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + mDisplayName);

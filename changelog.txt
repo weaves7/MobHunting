@@ -1,3 +1,5 @@
+V5.2.7
+* Fixed bug in player balance when changing between Creative and Survival after giving BagOfGOld to the player
 V5.2.6
 * Fixed a balance bug, when moving rewards between Inventories.
 * hu_HU.lang updated by @montlikadani - Thank you!
