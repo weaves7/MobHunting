@@ -226,10 +226,11 @@ public class RewardManager {
 	}
 
 	public boolean addBagOfGoldPlayer_RewardManager(Player player, double amount) {
-		//if (player.getGameMode() != GameMode.SURVIVAL){
-		//	Messages.debug("Player is not in Survival mode, adjusting amount to 0");
-		//	amount = 0;
-		//}
+		// if (player.getGameMode() != GameMode.SURVIVAL){
+		// Messages.debug("Player is not in Survival mode, adjusting amount to
+		// 0");
+		// amount = 0;
+		// }
 		boolean found = false;
 		for (int slot = 0; slot < player.getInventory().getSize(); slot++) {
 			ItemStack is = player.getInventory().getItem(slot);
@@ -260,8 +261,9 @@ public class RewardManager {
 				ItemStack is;
 				if (plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")) {
 					is = setDisplayNameAndHiddenLores(
-							new ItemStack(Material.valueOf(plugin.getConfigManager().dropMoneyOnGroundItem)), plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
-							amount, UUID.fromString(Reward.MH_REWARD_ITEM_UUID), null);
+							new ItemStack(Material.valueOf(plugin.getConfigManager().dropMoneyOnGroundItem)),
+							plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(), amount,
+							UUID.fromString(Reward.MH_REWARD_ITEM_UUID), null);
 				} else {
 					is = new CustomItems(plugin).getCustomtexture(UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID),
 							plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
@@ -272,15 +274,17 @@ public class RewardManager {
 				player.getInventory().addItem(is);
 				return true;
 			}
-		}
+		} else
+			return true;
 		return false;
 	}
 
 	public double removeBagOfGoldPlayer_RewardManager(Player player, double amount) {
-		//if (player.getGameMode() != GameMode.SURVIVAL){
-		//	Messages.debug("Player is not in Survival mode, adjusting amount to 0");
-		//	amount = 0;
-		//}
+		// if (player.getGameMode() != GameMode.SURVIVAL){
+		// Messages.debug("Player is not in Survival mode, adjusting amount to
+		// 0");
+		// amount = 0;
+		// }
 		MobHunting mPlugin = (MobHunting) Bukkit.getPluginManager().getPlugin("MobHunting");
 		double taken = 0;
 		double toBeTaken = Misc.floor(amount);
@@ -790,8 +794,8 @@ public class RewardManager {
 	 * Get the command to be run when the player kills a Mob.
 	 * 
 	 * @param mob
-	 * @return a number of commands to be run in the console. Each command must be
-	 *         separeted by a "|"
+	 * @return a number of commands to be run in the console. Each command must
+	 *         be separeted by a "|"
 	 */
 	public String getKillConsoleCmd(Entity mob) {
 		if (TARDISWeepingAngelsCompat.isWeepingAngelMonster(mob)) {

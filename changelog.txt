@@ -1,3 +1,5 @@
+V5.2.8
+* Fixed ticket 335 (https://github.com/Rocologo/MobHunting/issues/335)
 V5.2.7
 * Fixed bug in player balance when changing between Creative and Survival after giving BagOfGOld to the player
 V5.2.6
