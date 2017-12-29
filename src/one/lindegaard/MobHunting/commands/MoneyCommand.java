@@ -287,18 +287,18 @@ public class MoneyCommand implements ICommand {
 				}
 
 				if (args[2].matches("\\d+(\\.\\d+)?")) {
-					double amount = Misc.floor(Double.valueOf(args[2]));
+					double amount = Misc.round(Double.valueOf(args[2]));
 
 					if (BagOfGoldCompat.isSupported()) {
 						Messages.debug("BagOfGold supported, using depositPlayer");
 						if (offlinePlayer.isOnline() && ((Player) offlinePlayer).getGameMode() != GameMode.SURVIVAL)
-							plugin.getRewardManager().getEconomy().depositPlayer(offlinePlayer, 0);
+							BagOfGold.getApi().getEconomyManager().depositPlayer(offlinePlayer, 0);
 						else
-							plugin.getRewardManager().getEconomy().depositPlayer(offlinePlayer, amount);
+							BagOfGold.getApi().getEconomyManager().depositPlayer(offlinePlayer, amount);
 					} else {
 						if (offlinePlayer.isOnline()) {
 							Player player = (Player) offlinePlayer;
-							boolean result = !plugin.getRewardManager().addBagOfGoldPlayer_RewardManager(player,
+							boolean result = plugin.getRewardManager().addBagOfGoldPlayer_RewardManager(player,
 									amount);
 							if (!result) {
 								MobHunting.getInstance().getRewardManager().dropMoneyOnGround_RewardManager(player,
@@ -352,15 +352,16 @@ public class MoneyCommand implements ICommand {
 					return true;
 				}
 				if (args[2].matches("\\d+(\\.\\d+)?")) {
-					double rest = Misc.floor(Double.valueOf(args[2]));
+					double rest = Misc.round(Double.valueOf(args[2]));
 					double taken = 0;
 					if (BagOfGoldCompat.isSupported()){
+						Messages.debug("BagOfGold supported, using withdrawPlayer");
 						
-						if (offlinePlayer.isOnline() && ((Player) offlinePlayer).getGameMode() != GameMode.SURVIVAL){ 
-							taken = 0;
-						}
+						if (offlinePlayer.isOnline() && ((Player) offlinePlayer).getGameMode() != GameMode.SURVIVAL)
+							BagOfGold.getApi().getEconomyManager().withdrawPlayer(offlinePlayer, 0);
 						else
-							taken = plugin.getRewardManager().withdrawPlayer(offlinePlayer, rest).amount;
+							BagOfGold.getApi().getEconomyManager().withdrawPlayer(offlinePlayer, rest);
+						
 					} else if (Bukkit.getServer().getOfflinePlayer(args[1]).isOnline()) {
 						Player player = ((Player) Bukkit.getServer().getOfflinePlayer(args[1]));
 						taken = plugin.getRewardManager().removeBagOfGoldPlayer_RewardManager(player, rest);

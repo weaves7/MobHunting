@@ -1,3 +1,5 @@
+V5.2.9
+* Fixed /mh bag give ..... when NOT using BagOfGold. ( https://www.spigotmc.org/threads/mobhunting.46937/page-149#post-2813296 )
 V5.2.8
 * Fixed ticket 335 (https://github.com/Rocologo/MobHunting/issues/335)
 V5.2.7

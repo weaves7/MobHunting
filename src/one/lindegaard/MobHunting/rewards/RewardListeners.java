@@ -420,8 +420,8 @@ public class RewardListeners implements Listener {
 		Inventory inventory = event.getInventory();
 		Inventory clickedInventory = event.getClickedInventory();
 
-		Messages.debug("action=%s, ClickedinvType=%s, InventoryType=%s, slotno=%s", action, clickedInventory.getType(),
-				inventory.getType(), event.getSlot());
+		//Messages.debug("action=%s, ClickedinvType=%s, InventoryType=%s, slotno=%s", action, clickedInventory.getType(),
+		//		inventory.getType(), event.getSlot());
 
 		if (action == InventoryAction.NOTHING)
 			return;

@@ -12,7 +12,6 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -222,15 +221,25 @@ public class RewardManager {
 	}
 
 	public boolean has(OfflinePlayer offlinePlayer, double amount) {
-		return mEconomy.has(offlinePlayer, amount);
+		if (BagOfGoldCompat.isSupported())
+			return mEconomy.has(offlinePlayer, amount);
+		else if (offlinePlayer.isOnline()) {
+			Player player = (Player) offlinePlayer;
+			double amountInInventory = 0;
+			for (int slot = 0; slot < player.getInventory().getSize(); slot++) {
+				ItemStack is = player.getInventory().getItem(slot);
+				if (Reward.isReward(is)) {
+					Reward reward = Reward.getReward(is);
+					if (reward.isBagOfGoldReward())
+						amountInInventory = amountInInventory + reward.getMoney();
+				}
+			}
+			return amountInInventory >= amount;
+		}
+		return false;
 	}
 
 	public boolean addBagOfGoldPlayer_RewardManager(Player player, double amount) {
-		// if (player.getGameMode() != GameMode.SURVIVAL){
-		// Messages.debug("Player is not in Survival mode, adjusting amount to
-		// 0");
-		// amount = 0;
-		// }
 		boolean found = false;
 		for (int slot = 0; slot < player.getInventory().getSize(); slot++) {
 			ItemStack is = player.getInventory().getItem(slot);
@@ -280,11 +289,6 @@ public class RewardManager {
 	}
 
 	public double removeBagOfGoldPlayer_RewardManager(Player player, double amount) {
-		// if (player.getGameMode() != GameMode.SURVIVAL){
-		// Messages.debug("Player is not in Survival mode, adjusting amount to
-		// 0");
-		// amount = 0;
-		// }
 		MobHunting mPlugin = (MobHunting) Bukkit.getPluginManager().getPlugin("MobHunting");
 		double taken = 0;
 		double toBeTaken = Misc.floor(amount);
