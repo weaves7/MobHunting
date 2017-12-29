@@ -201,7 +201,7 @@ public class RewardManager {
 	}
 
 	public double getBalance(OfflinePlayer offlinePlayer) {
-		if (BagOfGoldCompat.isSupported())
+		if (BagOfGoldCompat.isSupported() || !plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency)
 			return mEconomy.getBalance(offlinePlayer);
 		else if (offlinePlayer.isOnline()) {
 			Player player = (Player) offlinePlayer;

@@ -85,8 +85,8 @@ public class BagOfGoldSign implements Listener {
 								Messages.debug("Line no. 3 is not a number");
 								plugin.getMessages().playerSendMessage(player,
 										Messages.getString("mobhunting.bagofgoldsign.line3.not_a_number", "number",
-												sign.getLine(2), "everything",
-												Messages.getString("mobhunting.bagofgoldsign.line3.everything")));
+												sign.getLine(2), "everything", Messages
+														.getString("mobhunting.bagofgoldsign.line3.everything")));
 								return;
 							}
 						}
@@ -220,6 +220,26 @@ public class BagOfGoldSign implements Listener {
 					} else {
 						plugin.getMessages().playerSendMessage(player,
 								Messages.getString("mobhunting.bagofgoldsign.not_enough_money"));
+					}
+				} else if (signType.equalsIgnoreCase(Messages.getString("mobhunting.bagofgoldsign.line2.balance"))) {
+					if (BagOfGoldCompat.isSupported() || !plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency)
+						plugin.getMessages().playerActionBarMessage(player, Messages.getString(
+								"mobhunting.bagofgoldsign.balance", "balance",
+								plugin.getRewardManager().getEconomy().getBalance(player), "bankbalance",
+								plugin.getRewardManager().getEconomy().bankBalance(player.getUniqueId().toString())));
+					else {
+						double amountInInventory = 0;
+						for (int slot = 0; slot < player.getInventory().getSize(); slot++) {
+							ItemStack is = player.getInventory().getItem(slot);
+							if (Reward.isReward(is)) {
+								Reward reward = Reward.getReward(is);
+								if (reward.isBagOfGoldReward())
+									amountInInventory = amountInInventory + reward.getMoney();
+							}
+						}
+						plugin.getMessages().playerActionBarMessage(player, Messages.getString(
+								"mobhunting.bagofgoldsign.line2.balance", "balance",
+								amountInInventory));
 					}
 				}
 			} else {

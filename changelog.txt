@@ -1,3 +1,7 @@
+V5.3.0
+* If you have drop-money-use-item-as-currency=false then /mh money give player 25 is the same as /eco give player 25, and /mh money take player 25 is the same as /eco take player 25. And you can't sell & buy BagOfGold.
+* Language files was updated.
+* BagOfGold Balance Sign added. To see the Economy Balance or the number of BagOfGold in the inventory 
 V5.2.9
 * Fixed /mh bag give ..... when NOT using BagOfGold. ( https://www.spigotmc.org/threads/mobhunting.46937/page-149#post-2813296 )
 V5.2.8
