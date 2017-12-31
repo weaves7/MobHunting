@@ -380,29 +380,24 @@ public class RewardListeners implements Listener {
 			ItemStack helmet = player.getEquipment().getHelmet();
 			if (Reward.isReward(helmet)) {
 				Reward reward = Reward.getReward(helmet);
-				Messages.debug("%s is not allowed to wear a BagOfGold/Reward on the head", player.getName());
-				plugin.getMessages().learn(player, Messages.getString("mobhunting.learn.rewards.no-helmet"));
-				event.getPlayer().getEquipment().setHelmet(new ItemStack(Material.AIR));
-				if (BagOfGoldCompat.isSupported() && player.getGameMode() == GameMode.SURVIVAL)
-					BagOfGold.getApi().getEconomyManager().depositPlayer(player, reward.getMoney());
-				else
-					plugin.getRewardManager().dropMoneyOnGround_RewardManager(player, null, player.getLocation(),
-							reward.getMoney());
-			}
-		} else if (inventory.getType() == InventoryType.WORKBENCH) {
-			for (int slot = 0; slot < inventory.getSize(); slot++) {
-				ItemStack is = inventory.getItem(slot);
-				if (Reward.isReward(is)) {
-					Reward reward = Reward.getReward(is);
-					Messages.debug("%s is not allowed to use a BagOfGold/Reward", player.getName());
-					inventory.clear(slot);
+				if (reward.isBagOfGoldReward()) {
+					Messages.debug("%s is not allowed to wear a BagOfGold on the head", player.getName());
+					plugin.getMessages().learn(player, Messages.getString("mobhunting.learn.rewards.no-helmet"));
+					event.getPlayer().getEquipment().setHelmet(new ItemStack(Material.AIR));
 					if (BagOfGoldCompat.isSupported() && player.getGameMode() == GameMode.SURVIVAL)
-						BagOfGold.getApi().getEconomyManager().addBagOfGoldPlayer_EconomyManager(player,
-								reward.getMoney());
+						BagOfGold.getApi().getEconomyManager().depositPlayer(player, reward.getMoney());
 					else
 						plugin.getRewardManager().dropMoneyOnGround_RewardManager(player, null, player.getLocation(),
 								reward.getMoney());
 				}
+			}
+		}
+		ItemStack cursor = event.getView().getCursor();
+		if (Reward.isReward(event.getView().getCursor())) {
+			Reward reward = Reward.getReward(cursor);
+			if (BagOfGoldCompat.isSupported() && (reward.isBagOfGoldReward() || reward.isItemReward())) {
+				Messages.debug("Closed inventory while cursor is a %s", reward.getDisplayname());
+				BagOfGold.getApi().getEconomyManager().addMoneyToBalance(player, reward.getMoney());
 			}
 		}
 	}
@@ -420,8 +415,12 @@ public class RewardListeners implements Listener {
 		Inventory inventory = event.getInventory();
 		Inventory clickedInventory = event.getClickedInventory();
 
-		//Messages.debug("action=%s, ClickedinvType=%s, InventoryType=%s, slotno=%s", action, clickedInventory.getType(),
-		//		inventory.getType(), event.getSlot());
+		if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
+			Messages.debug("action=%s, ClickedinvType=%s, InventoryType=%s, slotno=%s, current=%s, cursor=%s", action,
+					clickedInventory.getType(), inventory.getType(), event.getSlot(),
+					isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
+					isCursor == null ? "null" : isCursor.getType());
+		}
 
 		if (action == InventoryAction.NOTHING)
 			return;
@@ -451,6 +450,15 @@ public class RewardListeners implements Listener {
 					: Reward.getReward(isCursor);
 			plugin.getMessages().learn(player,
 					Messages.getString("mobhunting.learn.rewards.no-clone", "rewardname", reward.getDisplayname()));
+			event.setCancelled(true);
+			return;
+		}
+
+		if ((Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor))
+				&& clickedInventory.getType() == InventoryType.CRAFTING && event.getSlot() == 40) {
+			Reward reward1 = Reward.getReward(isCurrentSlot);
+			Reward reward2 = Reward.getReward(isCursor);
+			Messages.debug("You cant place a BagofGold in the helmet slot : (%s,%s)", reward1 == null, reward2 == null);
 			event.setCancelled(true);
 			return;
 		}
@@ -567,7 +575,16 @@ public class RewardListeners implements Listener {
 						|| (clickedInventory.getType() == InventoryType.CRAFTING && event.getSlot() != 0))) {
 			Reward reward = Reward.getReward(isCursor);
 			if (reward.isBagOfGoldReward() || reward.isItemReward()) {
-				Messages.debug("(3)Reward was moved from %s to PlayerInventory (%s)", inventory.getType(),
+				Messages.debug("(2)Reward was moved from %s to PlayerInventory (%s)", inventory.getType(),
+						clickedInventory.getType());
+				BagOfGold.getApi().getEconomyManager().addMoneyToBalance(player, reward.getMoney());
+			}
+		} else if ((action == InventoryAction.MOVE_TO_OTHER_INVENTORY) && BagOfGoldCompat.isSupported()
+				&& Reward.isReward(isCurrentSlot)
+				&& ((clickedInventory.getType() == InventoryType.PLAYER && event.getSlot() == 39))) {
+			Reward reward = Reward.getReward(isCurrentSlot);
+			if (reward.isBagOfGoldReward() || reward.isItemReward()) {
+				Messages.debug("(3)Reward was moved to %s from PlayerInventory (%s)", inventory.getType(),
 						clickedInventory.getType());
 				BagOfGold.getApi().getEconomyManager().addMoneyToBalance(player, reward.getMoney());
 			}
@@ -580,7 +597,7 @@ public class RewardListeners implements Listener {
 						|| clickedInventory.getType() == InventoryType.SHULKER_BOX)) {
 			Reward reward = Reward.getReward(isCurrentSlot);
 			if (BagOfGoldCompat.isSupported() && (reward.isBagOfGoldReward() || reward.isItemReward())) {
-				Messages.debug("(2)Reward was moved from Inventory (%s) to %s", inventory.getType(),
+				Messages.debug("(4)Reward was moved from Inventory (%s) to %s", inventory.getType(),
 						clickedInventory.getType());
 			}
 		} else if (Reward.isReward(isCurrentSlot) && (action == InventoryAction.MOVE_TO_OTHER_INVENTORY)
@@ -592,7 +609,7 @@ public class RewardListeners implements Listener {
 				&& clickedInventory.getType() == inventory.getType()) {
 			Reward reward = Reward.getReward(isCurrentSlot);
 			if (BagOfGoldCompat.isSupported() && (reward.isBagOfGoldReward() || reward.isItemReward())) {
-				Messages.debug("(2)Reward was moved from PlayerInventory (%s) to %s", inventory.getType(),
+				Messages.debug("(5)Reward was moved from PlayerInventory (%s) to %s", inventory.getType(),
 						clickedInventory.getType());
 				BagOfGold.getApi().getEconomyManager().addMoneyToBalance(player, reward.getMoney());
 			}

@@ -250,7 +250,7 @@ public class MoneyCommand implements ICommand {
 									Misc.floor(Double.valueOf(args[2])));
 							plugin.getMessages().playerActionBarMessage(player, Messages.getString(
 									"mobhunting.moneydrop", "rewardname",
-									ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundSkullTextureValue)
+									ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 											+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
 									"money", plugin.getRewardManager().getEconomy()
 											.format(Misc.floor(Double.valueOf(args[2])))));

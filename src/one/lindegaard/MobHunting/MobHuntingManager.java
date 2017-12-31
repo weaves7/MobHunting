@@ -2,6 +2,8 @@ package one.lindegaard.MobHunting;
 
 import com.gmail.nossr50.datatypes.skills.SkillType;
 import com.sk89q.worldguard.protection.flags.DefaultFlag;
+
+import one.lindegaard.BagOfGold.BagOfGold;
 import one.lindegaard.MobHunting.bounty.Bounty;
 import one.lindegaard.MobHunting.bounty.BountyStatus;
 import one.lindegaard.MobHunting.compatibility.*;
@@ -12,6 +14,7 @@ import one.lindegaard.MobHunting.grinding.Area;
 import one.lindegaard.MobHunting.mobs.ExtendedMob;
 import one.lindegaard.MobHunting.modifier.*;
 import one.lindegaard.MobHunting.placeholder.PlaceHolderData;
+import one.lindegaard.MobHunting.rewards.Reward;
 import one.lindegaard.MobHunting.update.Updater;
 import one.lindegaard.MobHunting.util.Misc;
 import org.bukkit.*;
@@ -275,13 +278,13 @@ public class MobHuntingManager implements Listener {
 		EntityDamageEvent lastDamageCause = killed.getLastDamageCause();
 		if (lastDamageCause instanceof EntityDamageByEntityEvent) {
 			Entity damager = ((EntityDamageByEntityEvent) lastDamageCause).getDamager();
-			Entity killer = null;
+			Player killer = null;
 			LivingEntity mob = null;
 
 			if (damager instanceof Player)
-				killer = damager;
+				killer = (Player) damager;
 			else if (damager instanceof Projectile && ((Projectile) damager).getShooter() instanceof Player)
-				killer = (Entity) ((Projectile) damager).getShooter();
+				killer = (Player) ((Projectile) damager).getShooter();
 			else if (damager instanceof Projectile && ((Projectile) damager).getShooter() instanceof LivingEntity)
 				mob = (LivingEntity) ((Projectile) damager).getShooter();
 			else if (damager instanceof LivingEntity)
@@ -294,43 +297,142 @@ public class MobHuntingManager implements Listener {
 					Messages.debug("%s was killed by a %s", killed.getName(), damager.getName());
 			}
 
+			Messages.debug("%s was killed by a %s", killed.getName(), damager.getName());
+			if (damager instanceof Projectile)
+				Messages.debug("and shooter was %s", ((Projectile) damager).getShooter().toString());
+
+			// MobArena
+			if (MobArenaCompat.isPlayingMobArena((Player) killed) && !plugin.getConfigManager().mobarenaGetRewards) {
+				Messages.debug("KillBlocked: %s was killed while playing MobArena.", killed.getName());
+				return;
+				// PVPArena
+			} else if (PVPArenaCompat.isPlayingPVPArena((Player) killed)
+					&& !plugin.getConfigManager().pvparenaGetRewards) {
+				Messages.debug("KillBlocked: %s was killed while playing PvpArena.", killed.getName());
+				return;
+				// BattleArena
+			} else if (BattleArenaCompat.isPlayingBattleArena((Player) killed)) {
+				Messages.debug("KillBlocked: %s was killed while playing BattleArena.", killed.getName());
+				return;
+			}
+
 			if (mob != null) {
 
-				Messages.debug("%s was killed by a %s", mob.getName(), damager.getName());
-				if (damager instanceof Projectile)
-					Messages.debug("and shooter was %s", ((Projectile) damager).getShooter().toString());
-
-				// MobArena
-				if (MobArenaCompat.isPlayingMobArena((Player) killed)
-						&& !plugin.getConfigManager().mobarenaGetRewards) {
-					Messages.debug("KillBlocked: %s was killed while playing MobArena.", killed.getName());
-					return;
-					// PVPArena
-				} else if (PVPArenaCompat.isPlayingPVPArena((Player) killed)
-						&& !plugin.getConfigManager().pvparenaGetRewards) {
-					Messages.debug("KillBlocked: %s was killed while playing PvpArena.", killed.getName());
-					return;
-					// BattleArena
-				} else if (BattleArenaCompat.isPlayingBattleArena((Player) killed)) {
-					Messages.debug("KillBlocked: %s was killed while playing BattleArena.", killed.getName());
-					return;
-				}
-
 				playerPenalty = plugin.getRewardManager().getPlayerKilledByMobPenalty(killed);
+
 				if (playerPenalty != 0) {
+					if (BagOfGoldCompat.isSupported()) {
+						BagOfGold.getApi().getEconomyManager().withdrawPlayer(killed, playerPenalty);
+					} else if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
+						plugin.getRewardManager().withdrawPlayer(killed, playerPenalty);
+					} else {
+						plugin.getRewardManager().getEconomy().withdrawPlayer(killed, playerPenalty);
+					}
 					boolean killed_muted = false;
 					if (plugin.getPlayerSettingsmanager().containsKey(killed))
 						killed_muted = plugin.getPlayerSettingsmanager().getPlayerSettings(killed).isMuted();
-					plugin.getRewardManager().withdrawPlayer(killed, playerPenalty);
 					if (!killed_muted)
 						plugin.getMessages().playerActionBarMessage(killed,
 								ChatColor.RED + "" + ChatColor.ITALIC + Messages.getString("mobhunting.moneylost",
 										"prize", plugin.getRewardManager().format(playerPenalty)));
-					Messages.debug("%s lost %s for being killed by a %s", mob.getName(),
+					Messages.debug("%s lost %s for being killed by a %s", killed.getName(),
 							plugin.getRewardManager().format(playerPenalty), mob.getName());
 				} else {
 					Messages.debug("There is NO penalty for being killed by a %s", mob.getName());
 				}
+
+				double toberemoved = playerPenalty;
+				if (!event.getKeepInventory()) {
+					Iterator<ItemStack> items = event.getDrops().iterator();
+					while (items.hasNext()) {
+						ItemStack is = items.next();
+						if (Reward.isReward(is)) {
+							Reward reward = Reward.getReward(is);
+							Messages.debug("Reward to be dropped=%s", reward.getMoney());
+							if (reward.isBagOfGoldReward() || reward.isItemReward()) {
+								items.remove();
+								if (reward.getMoney() > toberemoved) {
+									if (BagOfGoldCompat.isSupported()) {
+										BagOfGold.getApi().getEconomyManager().removeMoneyFromBalance(killed,
+												reward.getMoney() - toberemoved);
+									}
+									plugin.getRewardManager().dropMoneyOnGround_RewardManager(killed, null,
+											killed.getLocation(), reward.getMoney() - toberemoved);
+									toberemoved = 0;
+								} else {
+									if (BagOfGoldCompat.isSupported()) {
+										BagOfGold.getApi().getEconomyManager().removeMoneyFromBalance(killed,
+												reward.getMoney() - toberemoved);
+									}
+									toberemoved = toberemoved - reward.getMoney();
+								}
+							}
+						}
+					}
+				}
+
+			} else if (killer!=null){
+
+				//TODO: does this work?
+				playerPenalty = plugin.getRewardManager().getBaseKillPrize(killed);
+
+				if (playerPenalty != 0) {
+					if (BagOfGoldCompat.isSupported()) {
+						BagOfGold.getApi().getEconomyManager().withdrawPlayer(killed, playerPenalty);
+					} else if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
+						plugin.getRewardManager().withdrawPlayer(killed, playerPenalty);
+					} else {
+						plugin.getRewardManager().getEconomy().withdrawPlayer(killed, playerPenalty);
+					}
+					boolean killed_muted = false;
+					if (plugin.getPlayerSettingsmanager().containsKey(killed))
+						killed_muted = plugin.getPlayerSettingsmanager().getPlayerSettings(killed).isMuted();
+					if (!killed_muted)
+						plugin.getMessages().playerActionBarMessage(killed,
+								ChatColor.RED + "" + ChatColor.ITALIC + Messages.getString("mobhunting.moneylost",
+										"prize", plugin.getRewardManager().format(playerPenalty)));
+					Messages.debug("%s lost %s for being killed by %s", killed.getName(),
+							plugin.getRewardManager().format(playerPenalty), killer.getName());
+				} else {
+					Messages.debug("There is NO penalty for being killed by %s", killer.getName());
+				}
+
+				double toberemoved = playerPenalty;
+				if (!event.getKeepInventory()) {
+					Iterator<ItemStack> items = event.getDrops().iterator();
+					while (items.hasNext()) {
+						ItemStack is = items.next();
+						if (Reward.isReward(is)) {
+							Reward reward = Reward.getReward(is);
+							Messages.debug("Reward to be dropped=%s", reward.getMoney());
+							if (reward.isBagOfGoldReward() || reward.isItemReward()) {
+								items.remove();
+								if (reward.getMoney() > toberemoved) {
+									if (BagOfGoldCompat.isSupported()) {
+										BagOfGold.getApi().getEconomyManager().removeMoneyFromBalance(killed,
+												reward.getMoney() - toberemoved);
+									}
+									plugin.getRewardManager().dropMoneyOnGround_RewardManager(killed, null,
+											killed.getLocation(), reward.getMoney() - toberemoved);
+									toberemoved = 0;
+								} else {
+									if (BagOfGoldCompat.isSupported()) {
+										BagOfGold.getApi().getEconomyManager().removeMoneyFromBalance(killed,
+												reward.getMoney() - toberemoved);
+									}
+									toberemoved = toberemoved - reward.getMoney();
+								}
+							}
+						}
+					}
+				}
+
+
+				
+				
+				
+				
+				
 			}
 		}
 	}
@@ -598,8 +700,7 @@ public class MobHuntingManager implements Listener {
 						Messages.debug("================== Farm detection Ended (1)=================");
 						return;
 					}
-					if (plugin.getConfigManager().detectOtherFarms
-							&& plugin.getGrindingManager().isOtherFarm(killed)) {
+					if (plugin.getConfigManager().detectOtherFarms && plugin.getGrindingManager().isOtherFarm(killed)) {
 						cancelDrops(event, plugin.getConfigManager().disableNaturalItemDropsOnOtherFarms,
 								plugin.getConfigManager().disableNaturalXPDropsOnOtherFarms);
 						if (getPlayer(killer, killed) != null) {
@@ -644,8 +745,7 @@ public class MobHuntingManager implements Listener {
 		Messages.debug("======================== New kill ==========================");
 
 		// Check if the mob was killed by MyPet and assisted_kill is disabled.
-		if (killer == null && MyPetCompat.isKilledByMyPet(killed)
-				&& plugin.getConfigManager().enableAssists == false) {
+		if (killer == null && MyPetCompat.isKilledByMyPet(killed) && plugin.getConfigManager().enableAssists == false) {
 			Player owner = MyPetCompat.getMyPetOwner(killed);
 			Messages.debug("KillBlocked: %s - Assisted kill is disabled", owner.getName());
 			plugin.getMessages().learn(owner, Messages.getString("mobhunting.learn.assisted-kill-is-disabled"));
@@ -785,8 +885,7 @@ public class MobHuntingManager implements Listener {
 			if ((killer != null || MyPetCompat.isMyPet(killer)) && !CitizensCompat.isNPC(killer)
 					&& !(killed instanceof Player)) {
 				Player player = getPlayer(killer, killed);
-				if (plugin.getConfigManager().disableRewardsInHomeResidence
-						&& ResidenceCompat.isProtected(player)) {
+				if (plugin.getConfigManager().disableRewardsInHomeResidence && ResidenceCompat.isProtected(player)) {
 					Messages.debug("KillBlocked: %s is hiding in a protected residence", player.getName());
 					plugin.getMessages().learn(getPlayer(killer, killed),
 							Messages.getString("mobhunting.learn.residence-no-rewards-in-protected-area"));
@@ -846,8 +945,7 @@ public class MobHuntingManager implements Listener {
 		// BattleArena, Suicide, PVP, penalty when Mobs kills player
 		if (killed instanceof Player) {
 			// MobArena
-			if (MobArenaCompat.isPlayingMobArena((Player) killed)
-					&& !plugin.getConfigManager().mobarenaGetRewards) {
+			if (MobArenaCompat.isPlayingMobArena((Player) killed) && !plugin.getConfigManager().mobarenaGetRewards) {
 				Messages.debug("KillBlocked: %s was killed while playing MobArena.", mob.getMobName());
 				plugin.getMessages().learn(getPlayer(killer, killed), Messages.getString("mobhunting.learn.mobarena"));
 				Messages.debug("======================= kill ended (13)=====================");
@@ -1179,7 +1277,8 @@ public class MobHuntingManager implements Listener {
 											&& !MobStackerCompat.isGrindingStackedMobsAllowed())) {
 										data.setDampenedKills(data.getDampenedKills() + 1);
 										Messages.debug("DampendKills=%s", data.getDampenedKills());
-										if (data.getDampenedKills() >= plugin.getConfigManager().grindingDetectionNumberOfDeath / 2) {
+										if (data.getDampenedKills() >= plugin
+												.getConfigManager().grindingDetectionNumberOfDeath / 2) {
 											Messages.debug(
 													"Warning: Grinding detected. Killings too close, adding 1 to DampenedKills.");
 											plugin.getMessages().learn(getPlayer(killer, killed),
@@ -1265,7 +1364,7 @@ public class MobHuntingManager implements Listener {
 		// Handle Bounty Kills
 		double reward = 0;
 		if (!plugin.getConfigManager().disablePlayerBounties && killed instanceof Player) {
-			Messages.debug("This was a Pvp kill (killed=%s), number of bounties=%s", killed.getName(),
+			Messages.debug("This was a PVP kill (killed=%s), number of bounties=%s", killed.getName(),
 					plugin.getBountyManager().getAllBounties().size());
 			OfflinePlayer wantedPlayer = (OfflinePlayer) killed;
 			String worldGroupName = plugin.getWorldGroupManager().getCurrentWorldGroup(getPlayer(killer, killed));
@@ -1311,8 +1410,8 @@ public class MobHuntingManager implements Listener {
 
 		// Check if there is a reward for this kill
 		if (cash >= plugin.getConfigManager().minimumReward || cash <= -plugin.getConfigManager().minimumReward
-				|| !plugin.getRewardManager().getKillConsoleCmd(killed).isEmpty() || (killer != null
-						&& McMMOCompat.isSupported() && plugin.getConfigManager().enableMcMMOLevelRewards)) {
+				|| !plugin.getRewardManager().getKillConsoleCmd(killed).isEmpty()
+				|| (killer != null && McMMOCompat.isSupported() && plugin.getConfigManager().enableMcMMOLevelRewards)) {
 
 			// Handle MobHuntKillEvent and Record Hunt Achievement is done using
 			// EighthsHuntAchievement.java (onKillCompleted)
@@ -1345,14 +1444,14 @@ public class MobHuntingManager implements Listener {
 			return;
 		}
 
-		// Pay the money reward to player and assister
-		if ((cash >= plugin.getConfigManager().minimumReward)
-				|| (cash <= -plugin.getConfigManager().minimumReward)) {
+		// Pay the money reward to killer/player and assister
+		if ((cash >= plugin.getConfigManager().minimumReward) || (cash <= -plugin.getConfigManager().minimumReward)) {
 
 			// Handle reward on PVP kill. (Robbing)
 			boolean robbing = killer != null && killed instanceof Player && !CitizensCompat.isNPC(killed)
 					&& plugin.getConfigManager().pvpAllowed && plugin.getConfigManager().robFromVictim;
 			if (robbing) {
+				//TODO: is this correct - does it work with BagOfGold?
 				plugin.getRewardManager().withdrawPlayer((Player) killed, cash);
 				// Messages.debug("RecordCash: %s killed a %s (%s) Cash=%s",
 				// killer.getName(), mob.getName(),
@@ -1664,8 +1763,7 @@ public class MobHuntingManager implements Listener {
 		else
 			cash = plugin.getRewardManager().getBaseKillPrize(killed) * multiplier;
 
-		if ((cash >= plugin.getConfigManager().minimumReward)
-				|| (cash <= -plugin.getConfigManager().minimumReward)) {
+		if ((cash >= plugin.getConfigManager().minimumReward) || (cash <= -plugin.getConfigManager().minimumReward)) {
 			ExtendedMob mob = plugin.getExtendedMobManager().getExtendedMobFromEntity(killed);
 			if (mob.getMob_id() == 0) {
 				Bukkit.getLogger().warning("Unknown Mob:" + mob.getMobName() + " from plugin " + mob.getMobPlugin());

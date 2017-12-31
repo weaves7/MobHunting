@@ -83,6 +83,8 @@ import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.npc.NPCRegistry;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
+import one.lindegaard.BagOfGold.BagOfGold;
+import one.lindegaard.BagOfGold.storage.PlayerSettings;
 import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
@@ -484,29 +486,33 @@ public class RewardManager {
 
 	public double getPlayerKilledByMobPenalty(Player playerToBeRobbed) {
 		if (plugin.getConfigManager().mobKillsPlayerPenalty == null
-				|| plugin.getConfigManager().mobKillsPlayerPenalty.equals("")
-				|| plugin.getConfigManager().mobKillsPlayerPenalty.equals("0%")
-				|| plugin.getConfigManager().mobKillsPlayerPenalty.equals("0")
-				|| plugin.getConfigManager().mobKillsPlayerPenalty.isEmpty()) {
+				|| plugin.getConfigManager().mobKillsPlayerPenalty.trim().equals("")
+				|| plugin.getConfigManager().mobKillsPlayerPenalty.trim().equals("0%")
+				|| plugin.getConfigManager().mobKillsPlayerPenalty.trim().equals("0")
+				|| plugin.getConfigManager().mobKillsPlayerPenalty.trim().isEmpty()) {
 			return 0;
-		} else if (plugin.getConfigManager().mobKillsPlayerPenalty.contains(":")) {
-			String[] str1 = plugin.getConfigManager().mobKillsPlayerPenalty.split(":");
+		} else if (plugin.getConfigManager().mobKillsPlayerPenalty.trim().contains(":")) {
+			String[] str1 = plugin.getConfigManager().mobKillsPlayerPenalty.trim().split(":");
 			double prize = (plugin.getMobHuntingManager().mRand.nextDouble()
 					* (Double.valueOf(str1[1]) - Double.valueOf(str1[0])) + Double.valueOf(str1[0]));
 			return Misc.round(prize);
-		} else if (plugin.getConfigManager().mobKillsPlayerPenalty.endsWith("%")) {
-			double prize = Math.floor(Double
-					.valueOf(plugin.getConfigManager().mobKillsPlayerPenalty.substring(0,
-							plugin.getConfigManager().mobKillsPlayerPenalty.length() - 1))
-					* plugin.getRewardManager().getBalance(playerToBeRobbed) / 100);
+		} else if (plugin.getConfigManager().mobKillsPlayerPenalty.trim().endsWith("%")) {
+			double prize = 0;
+			if (BagOfGoldCompat.isSupported()) {
+				PlayerSettings ps = BagOfGold.getApi().getPlayerSettingsManager().getPlayerSettings(playerToBeRobbed);
+				prize = Math.floor(Double
+						.valueOf(plugin.getConfigManager().mobKillsPlayerPenalty.trim().substring(0,
+								plugin.getConfigManager().mobKillsPlayerPenalty.trim().length() - 1))
+						* (ps.getBalance() + ps.getBalanceChanges()) / 100);
+			} else {
+				prize = Math.floor(Double
+						.valueOf(plugin.getConfigManager().mobKillsPlayerPenalty.trim().substring(0,
+								plugin.getConfigManager().mobKillsPlayerPenalty.trim().length() - 1))
+						* plugin.getRewardManager().getBalance(playerToBeRobbed) / 100);
+			}
 			return Misc.round(prize);
-		} else if (plugin.getConfigManager().mobKillsPlayerPenalty.contains(":")) {
-			String[] str1 = plugin.getConfigManager().mobKillsPlayerPenalty.split(":");
-			double prize2 = (plugin.getMobHuntingManager().mRand.nextDouble()
-					* (Double.valueOf(str1[1]) - Double.valueOf(str1[0])) + Double.valueOf(str1[0]));
-			return Misc.round(Double.valueOf(prize2));
 		} else
-			return Double.valueOf(plugin.getConfigManager().mobKillsPlayerPenalty);
+			return Double.valueOf(plugin.getConfigManager().mobKillsPlayerPenalty.trim());
 	}
 
 	public double getRandomPrice(String str) {
@@ -664,10 +670,20 @@ public class RewardManager {
 			if (mob instanceof Player) {
 				if (plugin.getConfigManager().pvpKillPrize.trim().endsWith("%")) {
 					Messages.debug("PVP kill reward is '%s'", plugin.getConfigManager().pvpKillPrize);
-					double prize = Math.floor(Double
-							.valueOf(plugin.getConfigManager().pvpKillPrize.substring(0,
-									plugin.getConfigManager().pvpKillPrize.length() - 1))
-							* plugin.getRewardManager().getBalance((Player) mob) / 100);
+					double prize = 0;
+					if (BagOfGoldCompat.isSupported()) {
+						PlayerSettings ps = BagOfGold.getApi().getPlayerSettingsManager()
+								.getPlayerSettings((Player) mob);
+						prize = Math.floor(Double
+								.valueOf(plugin.getConfigManager().pvpKillPrize.substring(0,
+										plugin.getConfigManager().pvpKillPrize.length() - 1))
+								* (ps.getBalance() + ps.getBalanceChanges()) / 100);
+					} else {
+						prize = Math.floor(Double
+								.valueOf(plugin.getConfigManager().pvpKillPrize.substring(0,
+										plugin.getConfigManager().pvpKillPrize.length() - 1))
+								* plugin.getRewardManager().getBalance((Player) mob) / 100);
+					}
 					return Misc.round(prize);
 				} else if (plugin.getConfigManager().pvpKillPrize.contains(":")) {
 					String[] str1 = plugin.getConfigManager().pvpKillPrize.split(":");
