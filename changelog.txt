@@ -1,3 +1,5 @@
+V5.3.1
+* Changed how Player Balance is calculated, when using my BagOfGold plugin. Nw using a much more simple and safe way :-)
 V5.3.0 
 * Important bug fixing on Player Balance if you use my BagOfGold plugin
 * If you have drop-money-use-item-as-currency=false then /mh money give player 25 is the same as /eco give player 25, and /mh money take player 25 is the same as /eco take player 25. And you can't sell & buy BagOfGold.
