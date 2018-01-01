@@ -455,7 +455,9 @@ public class RewardListeners implements Listener {
 		if ((inventory.getType() == InventoryType.FURNACE || inventory.getType() == InventoryType.ANVIL
 				|| inventory.getType() == InventoryType.BEACON || inventory.getType() == InventoryType.BREWING
 				|| inventory.getType() == InventoryType.CREATIVE || inventory.getType() == InventoryType.ENCHANTING
-				|| inventory.getType() == InventoryType.WORKBENCH)
+				|| inventory.getType() == InventoryType.WORKBENCH
+				|| (inventory.getType() == InventoryType.CRAFTING
+						&& clickedInventory.getType() == InventoryType.CRAFTING))
 				&& (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor))) {
 			Reward reward = Reward.isReward(isCurrentSlot) ? Reward.getReward(isCurrentSlot)
 					: Reward.getReward(isCursor);
@@ -481,14 +483,16 @@ public class RewardListeners implements Listener {
 			return;
 		}
 
-		if ((Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor))
-				&& clickedInventory.getType() == InventoryType.CRAFTING && event.getSlot() == 40) {
-			Reward reward1 = Reward.getReward(isCurrentSlot);
-			Reward reward2 = Reward.getReward(isCursor);
-			Messages.debug("You cant place a BagofGold in the helmet slot : (%s,%s)", reward1 == null, reward2 == null);
-			event.setCancelled(true);
-			return;
-		}
+		// if ((Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor))
+		// && clickedInventory.getType() == InventoryType.CRAFTING &&
+		// event.getSlot() == 40) {
+		// Reward reward1 = Reward.getReward(isCurrentSlot);
+		// Reward reward2 = Reward.getReward(isCursor);
+		// Messages.debug("You cant place a BagofGold in the helmet slot :
+		// (%s,%s)", reward1 == null, reward2 == null);
+		// event.setCancelled(true);
+		// return;
+		// }
 
 		if (action == InventoryAction.SWAP_WITH_CURSOR
 				&& (isCurrentSlot.getType() == Material.SKULL_ITEM
