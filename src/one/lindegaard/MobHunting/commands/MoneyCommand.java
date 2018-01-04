@@ -248,12 +248,12 @@ public class MoneyCommand implements ICommand {
 							Messages.debug("The BagOfGold was dropped at %s", location);
 							plugin.getRewardManager().dropMoneyOnGround_RewardManager(player, null, location,
 									Misc.floor(Double.valueOf(args[2])));
-							plugin.getMessages().playerActionBarMessage(player, Messages.getString(
-									"mobhunting.moneydrop", "rewardname",
-									ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
-											+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
-									"money", plugin.getRewardManager().getEconomy()
-											.format(Misc.floor(Double.valueOf(args[2])))));
+							plugin.getMessages().playerActionBarMessage(player,
+									Messages.getString("mobhunting.moneydrop", "rewardname",
+											ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
+													+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
+											"money", plugin.getRewardManager().getEconomy()
+													.format(Misc.floor(Double.valueOf(args[2])))));
 						} else {
 							plugin.getMessages().senderSendMessage(sender, ChatColor.RED
 									+ Messages.getString("mobhunting.commands.base.not_a_number", "number", args[2]));
@@ -496,7 +496,12 @@ public class MoneyCommand implements ICommand {
 			// /mh money buy <amount>
 			Player player = (Player) sender;
 			if (sender.hasPermission("mobhunting.money.buy") || sender.hasPermission("mobhunting.money.*")) {
-
+				if (BagOfGoldCompat.isSupported()) {
+					plugin.getMessages().playerSendMessage(player,
+							Messages.getString("mobhunting.money.you_cant_sell_and_buy_bagofgold", "itemname",
+									plugin.getConfigManager().dropMoneyOnGroundSkullRewardName));
+					return true;
+				}
 				if (args.length == 2 && args[1].matches("\\d+(\\.\\d+)?")) {
 					if (plugin.getRewardManager().getEconomy().has(player, Misc.floor(Double.valueOf(args[1])))) {
 						if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
@@ -540,7 +545,6 @@ public class MoneyCommand implements ICommand {
 						ChatColor.RED + Messages.getString("mobhunting.commands.base.nopermission", "perm",
 								"mobhunting.money.buy", "command", "money buy"));
 			}
-			BagOfGold.getApi().getBankManager().sendBankerMessage(player);
 			return true;
 		}
 
@@ -582,7 +586,8 @@ public class MoneyCommand implements ICommand {
 									}
 								} else {
 									double to_be_removed = args[1].equalsIgnoreCase("all")
-											? ps.getBalance() + ps.getBalanceChanges() : Double.valueOf(args[1]);
+											? ps.getBalance() + ps.getBalanceChanges()
+											: Double.valueOf(args[1]);
 									double sold = BagOfGold.getApi().getEconomyManager().withdrawPlayer(player,
 											to_be_removed).amount;
 									BagOfGold.getApi().getEconomyManager().bankDeposit(player.getUniqueId().toString(),
@@ -616,7 +621,8 @@ public class MoneyCommand implements ICommand {
 					if (BagOfGoldCompat.isSupported()) {
 						PlayerSettings ps = BagOfGold.getApi().getPlayerSettingsManager().getPlayerSettings(player);
 						double amount = args[1].equalsIgnoreCase("all")
-								? ps.getBankBalance() + ps.getBankBalanceChanges() : Double.valueOf(args[1]);
+								? ps.getBankBalance() + ps.getBankBalanceChanges()
+								: Double.valueOf(args[1]);
 						for (Iterator<NPC> npcList = CitizensAPI.getNPCRegistry().iterator(); npcList.hasNext();) {
 							NPC npc = npcList.next();
 							if (BagOfGold.getApi().getBankManager().isBagOfGoldBanker(npc.getEntity())) {
