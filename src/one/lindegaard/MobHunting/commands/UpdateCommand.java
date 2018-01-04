@@ -7,15 +7,17 @@ import org.bukkit.command.CommandSender;
 
 import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
-import one.lindegaard.MobHunting.update.Updater;
+import one.lindegaard.MobHunting.update.SpigetUpdater;
 import one.lindegaard.MobHunting.update.UpdateStatus;
 
 public class UpdateCommand implements ICommand {
-	
-private MobHunting plugin;
-	
+
+	private MobHunting plugin;
+	private SpigetUpdater updater;
+
 	public UpdateCommand(MobHunting plugin) {
-		this.plugin=plugin;
+		this.plugin = plugin;
+		updater = new SpigetUpdater(plugin);
 	}
 
 	@Override
@@ -55,17 +57,18 @@ private MobHunting plugin;
 
 	@Override
 	public boolean onCommand(CommandSender sender, String label, String[] args) {
-		if (Updater.getUpdateAvailable() == UpdateStatus.AVAILABLE) {
-			if (Updater.downloadAndUpdateJar()) {
-				plugin.getMessages().senderSendMessage(sender,ChatColor.GREEN + Messages.getString("mobhunting.commands.update.complete"));
-			} else {
-				plugin.getMessages().senderSendMessage(sender,ChatColor.GREEN + Messages.getString("mobhunting.commands.update.could-not-update"));
-			}
-		} else if (Updater.getUpdateAvailable() == UpdateStatus.RESTART_NEEDED) {
-			plugin.getMessages().senderSendMessage(sender,ChatColor.GREEN + Messages.getString("mobhunting.commands.update.complete"));
-		} else {
-			Updater.pluginUpdateCheck(sender, true, false);
-		}
+		if (updater.getUpdateAvailable() == UpdateStatus.AVAILABLE) {
+			if (updater.downloadAndUpdateJar())
+				plugin.getMessages().senderSendMessage(sender,
+						ChatColor.GREEN + Messages.getString("mobhunting.commands.update.complete"));
+			else
+				plugin.getMessages().senderSendMessage(sender,
+						ChatColor.GREEN + Messages.getString("mobhunting.commands.update.could-not-update"));
+		} else if (updater.getUpdateAvailable() == UpdateStatus.RESTART_NEEDED)
+			plugin.getMessages().senderSendMessage(sender,
+					ChatColor.GREEN + Messages.getString("mobhunting.commands.update.complete"));
+		else
+			updater.checkForUpdate(sender, true, false);
 		return true;
 	}
 

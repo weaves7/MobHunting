@@ -388,7 +388,7 @@ public class RewardListeners implements Listener {
 				BagOfGold.getApi().getPlayerSettingsManager().setPlayerSettings(player, ps);
 				BagOfGold.getApi().getDataStoreManager().updatePlayerSettings(player, ps);
 			}
-			Messages.debug("%S closed inventory: new balance is %s", player.getName(),
+			Messages.debug("%s closed inventory: new balance is %s", player.getName(),
 					plugin.getRewardManager().getEconomy().getBalance(player));
 		}
 	}

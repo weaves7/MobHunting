@@ -1,3 +1,6 @@
+V5.3.2
+* Updating system changed from BukkitUpdater to SpigetUpdater (http://spiget.org) Curse broke my updating system again again :-(
+* Language files updated
 V5.3.1
 * Changed how Player Balance is calculated, when using my BagOfGold plugin. Now using a much more simple and safe way :-) I really hope its become stable now. Thank you to @CampingSteve for a great help with the testing BagOfGOld.
 V5.3.0 

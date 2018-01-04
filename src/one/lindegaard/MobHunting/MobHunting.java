@@ -37,7 +37,7 @@ import one.lindegaard.MobHunting.storage.DataStoreManager;
 import one.lindegaard.MobHunting.storage.IDataStore;
 import one.lindegaard.MobHunting.storage.MySQLDataStore;
 import one.lindegaard.MobHunting.storage.SQLiteDataStore;
-import one.lindegaard.MobHunting.update.Updater;
+import one.lindegaard.MobHunting.update.SpigetUpdater;
 import one.lindegaard.MobHunting.util.Misc;
 
 import org.bukkit.Bukkit;
@@ -165,7 +165,8 @@ public class MobHunting extends JavaPlugin {
 			return;
 		}
 
-		Updater.setCurrentJarFile(this.getFile().getName());
+		SpigetUpdater.setCurrentJarFile(this.getFile().getName());
+
 
 		mStoreManager = new DataStoreManager(this, mStore);
 
@@ -282,9 +283,9 @@ public class MobHunting extends JavaPlugin {
 		if (!mConfig.disablePlayerBounties)
 			mBountyManager = new BountyManager(this);
 
-		// Check for new MobHuntig updates
-		Updater.hourlyUpdateCheck(getServer().getConsoleSender(), mConfig.updateCheck, false);
-
+		// Check for new MobHuntig updates using Spiget.org
+		new SpigetUpdater(this).hourlyUpdateCheck(getServer().getConsoleSender(), mConfig.updateCheck, false);
+		
 		if (!Misc.isGlowstoneServer()) {
 			mMetricsManager = new MetricsManager(this);
 			mMetricsManager.startMetrics();

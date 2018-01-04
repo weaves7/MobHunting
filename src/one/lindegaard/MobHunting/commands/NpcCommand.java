@@ -124,7 +124,7 @@ public class NpcCommand implements ICommand, Listener {
 
 	@Override
 	public boolean onCommand(CommandSender sender, String label, String[] args) {
-		
+
 		if (args.length == 0)
 			return false;
 		Player p = (Player) sender;
@@ -136,7 +136,8 @@ public class NpcCommand implements ICommand, Listener {
 			if (npc == null && (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("delete")
 					|| args[0].equalsIgnoreCase("spawn") || args[0].equalsIgnoreCase("despawn")
 					|| args[0].equalsIgnoreCase("tphere") || args[0].equalsIgnoreCase("sethome"))) {
-				plugin.getMessages().senderSendMessage(sender,Messages.getString("mobhunting.commands.npc.no_npc_selected"));
+				plugin.getMessages().senderSendMessage(sender,
+						Messages.getString("mobhunting.commands.npc.no_npc_selected"));
 				return true;
 			}
 
@@ -168,35 +169,42 @@ public class NpcCommand implements ICommand, Listener {
 			} else if (args.length == 1 && args[0].equalsIgnoreCase("sethome")) {
 				if (CitizensCompat.getMasterMobHunterManager().contains(npc.getId())) {
 					CitizensCompat.getMasterMobHunterManager().get(npc.getId()).setHome(npc.getEntity().getLocation());
-					plugin.getMessages().senderSendMessage(sender,Messages.getString("mobhunting.commands.npc.home_set"));
+					plugin.getMessages().senderSendMessage(sender,
+							Messages.getString("mobhunting.commands.npc.home_set"));
 				}
 				return true;
 
 			} else if (args.length == 1 && args[0].equalsIgnoreCase("update")) {
-				plugin.getMessages().senderSendMessage(sender,Messages.getString("mobhunting.commands.npc.updating"));
+				plugin.getMessages().senderSendMessage(sender, Messages.getString("mobhunting.commands.npc.updating"));
 				CitizensCompat.getMasterMobHunterManager().forceUpdate();
 				return true;
 
 			} else if (args.length == 1 && args[0].equalsIgnoreCase("select")) {
-				plugin.getMessages().senderSendMessage(sender,Messages.getString("mobhunting.commands.npc.selected", npc.getName(), npc.getId()));
+				if (npc != null)
+					plugin.getMessages().senderSendMessage(sender, Messages.getString(
+							"mobhunting.commands.npc.selected", "npcname", npc.getName(), "npcid", npc.getId()));
+				else
+					plugin.getMessages().senderSendMessage(sender,
+							Messages.getString("bagofgold.commands.npc.not_selected"));
+
 				return true;
 
 			} else if (args.length == 4 && args[0].equalsIgnoreCase("create")) {
 				StatType statType = StatType.parseStat(args[1]);
 				if (statType == null) {
-					plugin.getMessages().senderSendMessage(sender,ChatColor.RED
+					plugin.getMessages().senderSendMessage(sender, ChatColor.RED
 							+ Messages.getString("mobhunting.commands.base.unknown_stattype", "stattype", args[1]));
 					return true;
 				}
 				TimePeriod period = TimePeriod.parsePeriod(args[2]);
 				if (period == null) {
-					plugin.getMessages().senderSendMessage(sender,ChatColor.RED
+					plugin.getMessages().senderSendMessage(sender, ChatColor.RED
 							+ Messages.getString("mobhunting.commands.base.unknown_timeperiod", "period", args[2]));
 					return true;
 				}
 				int rank = Integer.valueOf(args[3]);
 				if (rank < 1 || rank > 25) {
-					plugin.getMessages().senderSendMessage(sender,ChatColor.RED
+					plugin.getMessages().senderSendMessage(sender, ChatColor.RED
 							+ Messages.getString("mobhunting.commands.npc.unknown_rank", "rank", args[3]));
 					return true;
 				}

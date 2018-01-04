@@ -7,15 +7,17 @@ import org.bukkit.command.CommandSender;
 
 import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
-import one.lindegaard.MobHunting.update.Updater;
+import one.lindegaard.MobHunting.update.SpigetUpdater;
 import one.lindegaard.MobHunting.update.UpdateStatus;
 
 public class VersionCommand implements ICommand {
 
 	private MobHunting plugin;
-	
+	private SpigetUpdater updater;
+
 	public VersionCommand(MobHunting plugin) {
-		this.plugin=plugin;
+		this.plugin = plugin;
+		updater = new SpigetUpdater(plugin);
 	}
 
 	@Override
@@ -35,8 +37,8 @@ public class VersionCommand implements ICommand {
 
 	@Override
 	public String[] getUsageString(String label, CommandSender sender) {
-		return new String[] { ChatColor.GOLD + label + ChatColor.GREEN + " version"
-				+ ChatColor.WHITE + " - to get the version number" };
+		return new String[] { ChatColor.GOLD + label + ChatColor.GREEN + " version" + ChatColor.WHITE
+				+ " - to get the version number" };
 	}
 
 	@Override
@@ -57,24 +59,20 @@ public class VersionCommand implements ICommand {
 	@Override
 	public boolean onCommand(CommandSender sender, String label, String[] args) {
 
-		plugin.getMessages().senderSendMessage(sender,ChatColor.GREEN
-				+ Messages.getString(
-						"mobhunting.commands.version.currentversion","currentversion",
+		plugin.getMessages().senderSendMessage(sender,
+				ChatColor.GREEN + Messages.getString("mobhunting.commands.version.currentversion", "currentversion",
 						MobHunting.getInstance().getDescription().getVersion()));
-		if (Updater.getUpdateAvailable() == UpdateStatus.AVAILABLE)
-			plugin.getMessages().senderSendMessage(sender,ChatColor.GREEN
-					+ Messages.getString(
-							"mobhunting.commands.version.newversion","newversion",
-							Updater.getBukkitUpdate().getVersionName()));
-		if (sender.hasPermission("mobhunting.update")) {
-			Updater.pluginUpdateCheck(sender, true, true);
-		}
+		if (updater.getUpdateAvailable() == UpdateStatus.AVAILABLE)
+			plugin.getMessages().senderSendMessage(sender,
+					ChatColor.GREEN + Messages.getString("mobhunting.commands.version.newversion", "newversion",
+							updater.getNewDownloadVersion()));
+		if (sender.hasPermission("mobhunting.update"))
+			updater.checkForUpdate(sender, true, true);
 		return true;
 	}
 
 	@Override
-	public List<String> onTabComplete(CommandSender sender, String label,
-			String[] args) {
+	public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
 		return null;
 	}
 

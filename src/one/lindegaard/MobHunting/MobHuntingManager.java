@@ -15,7 +15,7 @@ import one.lindegaard.MobHunting.mobs.ExtendedMob;
 import one.lindegaard.MobHunting.modifier.*;
 import one.lindegaard.MobHunting.placeholder.PlaceHolderData;
 import one.lindegaard.MobHunting.rewards.Reward;
-import one.lindegaard.MobHunting.update.Updater;
+import one.lindegaard.MobHunting.update.SpigetUpdater;
 import one.lindegaard.MobHunting.util.Misc;
 import org.bukkit.*;
 import org.bukkit.command.CommandException;
@@ -76,7 +76,7 @@ public class MobHuntingManager implements Listener {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
-					Updater.pluginUpdateCheck(player, true, true);
+					new SpigetUpdater(plugin).checkForUpdate(player, true, true);
 				}
 			}.runTaskLater(plugin, 20L);
 		}

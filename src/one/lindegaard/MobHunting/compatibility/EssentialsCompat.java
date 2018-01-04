@@ -78,20 +78,22 @@ public class EssentialsCompat implements Listener {
 
 	public static double getEssentialsBalance(OfflinePlayer offlinePlayer) {
 		if (supported) {
-			String uuid = EssentialsCompat.getEssentials().getOfflineUser(offlinePlayer.getName()).getConfigUUID()
-					.toString();
-			File datafolder = EssentialsCompat.getEssentials().getDataFolder();
-			if (datafolder.exists()) {
-				File configfile = new File(datafolder + "/userdata/" + uuid + ".yml");
-				if (configfile.exists()) {
-					YamlConfiguration config = new YamlConfiguration();
-					try {
-						config.load(configfile);
-					} catch (IOException | InvalidConfigurationException e) {
-						e.printStackTrace();
-						return 0;
+			if (EssentialsCompat.getEssentials().getOfflineUser(offlinePlayer.getName()) != null) {
+				String uuid = EssentialsCompat.getEssentials().getOfflineUser(offlinePlayer.getName()).getConfigUUID()
+						.toString();
+				File datafolder = EssentialsCompat.getEssentials().getDataFolder();
+				if (datafolder.exists()) {
+					File configfile = new File(datafolder + "/userdata/" + uuid + ".yml");
+					if (configfile.exists()) {
+						YamlConfiguration config = new YamlConfiguration();
+						try {
+							config.load(configfile);
+						} catch (IOException | InvalidConfigurationException e) {
+							e.printStackTrace();
+							return 0;
+						}
+						return Double.valueOf(config.getString("money", "0"));
 					}
-					return Double.valueOf(config.getString("money","0"));
 				}
 			}
 		}
