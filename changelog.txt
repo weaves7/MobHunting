@@ -1,3 +1,5 @@
+V5.3.4
+* Fixed bug in the new Updating system
 V5.3.3
 * Fixed NoClassDefFoundError when using /mh bag buy 40 (https://www.spigotmc.org/threads/mobhunting.46937/page-151#post-2823813)
 * Fixed bug in the new Updating system

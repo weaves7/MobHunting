@@ -7,17 +7,14 @@ import org.bukkit.command.CommandSender;
 
 import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
-import one.lindegaard.MobHunting.update.SpigetUpdater;
 import one.lindegaard.MobHunting.update.UpdateStatus;
 
 public class UpdateCommand implements ICommand {
 
 	private MobHunting plugin;
-	private SpigetUpdater updater;
 
 	public UpdateCommand(MobHunting plugin) {
 		this.plugin = plugin;
-		updater = new SpigetUpdater(plugin);
 	}
 
 	@Override
@@ -57,18 +54,18 @@ public class UpdateCommand implements ICommand {
 
 	@Override
 	public boolean onCommand(CommandSender sender, String label, String[] args) {
-		if (updater.getUpdateAvailable() == UpdateStatus.AVAILABLE) {
-			if (updater.downloadAndUpdateJar())
+		if (plugin.getSpigetUpdater().getUpdateAvailable() == UpdateStatus.AVAILABLE) {
+			if (plugin.getSpigetUpdater().downloadAndUpdateJar())
 				plugin.getMessages().senderSendMessage(sender,
 						ChatColor.GREEN + Messages.getString("mobhunting.commands.update.complete"));
 			else
 				plugin.getMessages().senderSendMessage(sender,
 						ChatColor.GREEN + Messages.getString("mobhunting.commands.update.could-not-update"));
-		} else if (updater.getUpdateAvailable() == UpdateStatus.RESTART_NEEDED)
+		} else if (plugin.getSpigetUpdater().getUpdateAvailable() == UpdateStatus.RESTART_NEEDED)
 			plugin.getMessages().senderSendMessage(sender,
 					ChatColor.GREEN + Messages.getString("mobhunting.commands.update.complete"));
 		else
-			updater.checkForUpdate(sender, true, false);
+			plugin.getSpigetUpdater().checkForUpdate(sender, true, false);
 		return true;
 	}
 

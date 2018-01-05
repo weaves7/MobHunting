@@ -74,6 +74,7 @@ public class MobHunting extends JavaPlugin {
 	private AdvancementManager mAdvancementManager;
 	private CommandDispatcher mCommandDispatcher;
 	private CompatibilityManager mCompatibilityManager;
+	private SpigetUpdater mSpigetUpdater;
 
 	private boolean mInitialized = false;
 
@@ -165,7 +166,8 @@ public class MobHunting extends JavaPlugin {
 			return;
 		}
 
-		SpigetUpdater.setCurrentJarFile(this.getFile().getName());
+		mSpigetUpdater = new SpigetUpdater(this);
+		mSpigetUpdater.setCurrentJarFile(this.getFile().getName());
 
 
 		mStoreManager = new DataStoreManager(this, mStore);
@@ -284,7 +286,7 @@ public class MobHunting extends JavaPlugin {
 			mBountyManager = new BountyManager(this);
 
 		// Check for new MobHuntig updates using Spiget.org
-		new SpigetUpdater(this).hourlyUpdateCheck(getServer().getConsoleSender(), mConfig.updateCheck, false);
+		mSpigetUpdater.hourlyUpdateCheck(getServer().getConsoleSender(), mConfig.updateCheck, false);
 		
 		if (!Misc.isGlowstoneServer()) {
 			mMetricsManager = new MetricsManager(this);
@@ -514,6 +516,10 @@ public class MobHunting extends JavaPlugin {
 
 	public CompatibilityManager getCompatibilityManager() {
 		return mCompatibilityManager;
+	}
+
+	public SpigetUpdater getSpigetUpdater() {
+		return mSpigetUpdater;
 	}
 
 }

@@ -23,7 +23,7 @@ public class SpigetUpdater {
 
 	private SpigetUpdate spigetUpdate = null;
 	private UpdateStatus updateAvailable = UpdateStatus.UNKNOWN;
-	private static String currentJarFile = "";
+	private String currentJarFile = "";
 	private String newDownloadVersion = "";
 
 	public SpigetUpdate getSpigetUpdate() {
@@ -38,11 +38,11 @@ public class SpigetUpdater {
 		updateAvailable = b;
 	}
 
-	public static String getCurrentJarFile() {
+	public String getCurrentJarFile() {
 		return currentJarFile;
 	}
 
-	public static void setCurrentJarFile(String name) {
+	public void setCurrentJarFile(String name) {
 		currentJarFile = name;
 	}
 
@@ -72,41 +72,53 @@ public class SpigetUpdater {
 	}
 
 	public boolean downloadAndUpdateJar() {
-		boolean succes = false;
-		final String OS = System.getProperty("os.name");
-		if (OS.indexOf("Win") >= 0) {
-			succes = spigetUpdate.downloadUpdate();
-			if (succes) {
-				File downloadedJar = new File("plugins/update/MobHunting-" + newDownloadVersion + ".jar");
-				File newJar = new File("plugins/update/MobHunting.jar");
-				if (newJar.exists())
-					newJar.delete();
-				downloadedJar.renameTo(newJar);
-				return true;
-			}
-		} else {
-			if (updateAvailable != UpdateStatus.RESTART_NEEDED)
-				succes = spigetUpdate.downloadUpdate();
-			if (succes) {
-				File currentJar = new File("plugins/" + getCurrentJarFile());
-				File disabledJar = new File("plugins/" + getCurrentJarFile() + ".old");
-				int count = 0;
-				while (disabledJar.exists() && count++ < 100) {
-					disabledJar = new File("plugins/" + getCurrentJarFile() + ".old" + count);
-				}
-				if (!disabledJar.exists()) {
-					currentJar.renameTo(disabledJar);
+		new BukkitRunnable() {
+			int count = 0;
+			boolean succes = spigetUpdate.downloadUpdate();
+			final String OS = System.getProperty("os.name");
 
-					File downloadedJar = new File(
-							"plugins/MobHunting/update/MobHunting-" + newDownloadVersion + ".jar");
-					File newJar = new File("plugins/MobHunting-" + newDownloadVersion + ".jar");
-					downloadedJar.renameTo(newJar);
-					updateAvailable = UpdateStatus.RESTART_NEEDED;
-					return true;
+			@Override
+			public void run() {
+				if (count++ > 10) {
+					Bukkit.getConsoleSender().sendMessage(
+							ChatColor.RED + "[MobHunting] No updates found. (No response from server after 10s)");
+					this.cancel();
+				} else {
+					// Wait for the response
+
+					if (succes) {
+						if (OS.indexOf("Win") >= 0) {
+							File downloadedJar = new File("plugins/update/" + currentJarFile);
+							File newJar = new File("plugins/update/MobHunting-" + newDownloadVersion + ".jar");
+							if (newJar.exists())
+								newJar.delete();
+							downloadedJar.renameTo(newJar);
+						} else {
+							if (updateAvailable != UpdateStatus.RESTART_NEEDED) {
+								File currentJar = new File("plugins/" + currentJarFile);
+								File disabledJar = new File("plugins/" + currentJarFile + ".old");
+								int count = 0;
+								while (disabledJar.exists() && count++ < 100) {
+									disabledJar = new File("plugins/" + currentJarFile + ".old" + count);
+								}
+								if (!disabledJar.exists()) {
+									currentJar.renameTo(disabledJar);
+
+									File downloadedJar = new File("plugins/update/" + currentJarFile);
+									File newJar = new File("plugins/MobHunting-" + newDownloadVersion + ".jar");
+									downloadedJar.renameTo(newJar);
+									Messages.debug("Moved plugins/update/" + currentJarFile + " to plugins/MobHunting-"
+											+ newDownloadVersion + ".jar");
+									updateAvailable = UpdateStatus.RESTART_NEEDED;
+								}
+							}
+						}
+						this.cancel();
+					}
 				}
 			}
-		}
-		return false;
+		}.runTaskTimer(plugin, 20L, 20L);
+		return true;
 	}
 
 	public void checkForUpdate(final CommandSender sender, boolean updateCheck, final boolean silent) {
@@ -126,12 +138,10 @@ public class SpigetUpdater {
 					@Override
 					public void updateAvailable(String newVersion, String downloadUrl, boolean hasDirectDownload) {
 						//// A new version is available
-						Bukkit.getConsoleSender()
-								.sendMessage(ChatColor.RED + "A new version is available: " + newVersion);
 						updateAvailable = UpdateStatus.AVAILABLE;
 						newDownloadVersion = newVersion;
-						sender.sendMessage(ChatColor.GREEN + "[MobHunting] "
-								+ Messages.getString("mobhunting.commands.update.version-found"));
+						sender.sendMessage(ChatColor.GREEN + "[MobHunting] " + Messages
+								.getString("mobhunting.commands.update.version-found", "newversion", newVersion));
 						if (plugin.getConfigManager().autoupdate) {
 							downloadAndUpdateJar();
 							sender.sendMessage(ChatColor.GREEN + "[MobHunting] "
