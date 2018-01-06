@@ -80,12 +80,12 @@ public class SQLiteDataStore extends DatabaseDataStore {
 			break;
 		case INSERT_PLAYER_DATA:
 			mInsertPlayerData = connection.prepareStatement(
-					"INSERT INTO mh_Players (UUID,NAME,PLAYER_ID,LEARNING_MODE,MUTE_MODE) "
-							+ "VALUES(?,?,(SELECT IFNULL(MAX(PLAYER_ID),0)+1 FROM mh_Players),?,?);");
+					"INSERT INTO mh_Players (UUID,NAME,PLAYER_ID,LEARNING_MODE,MUTE_MODE,TEXTURE,SIGNATURE) "
+							+ "VALUES(?,?,(SELECT IFNULL(MAX(PLAYER_ID),0)+1 FROM mh_Players),?,?,?,?);");
 			break;
 		case UPDATE_PLAYER_SETTINGS:
 			mUpdatePlayerSettings = connection
-					.prepareStatement("UPDATE mh_Players SET LEARNING_MODE=?,MUTE_MODE=? WHERE UUID=?;");
+					.prepareStatement("UPDATE mh_Players SET LEARNING_MODE=?,MUTE_MODE=?,TEXTURE=?,SIGNATURE=? WHERE UUID=?;");
 			break;
 		case GET_BOUNTIES:
 			mGetBounties = connection.prepareStatement(
@@ -1490,5 +1490,144 @@ public class SQLiteDataStore extends DatabaseDataStore {
 		connection.commit();
 
 	}
+
+	
+	
+	// *******************************************************************************
+	// V6 DATABASE SETUP / MIGRATION
+	// *******************************************************************************
+
+	@Override
+	protected void setupV6Tables(Connection connection) throws SQLException {
+		Statement create = connection.createStatement();
+
+		// Create new empty tables if they do not exist
+		String lm = plugin.getConfigManager().learningMode ? "1" : "0";
+		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Players" //
+				+ "(UUID TEXT," //
+				+ " NAME TEXT, " //
+				+ " PLAYER_ID INTEGER NOT NULL DEFAULT 1," //
+				+ " LEARNING_MODE INTEGER NOT NULL DEFAULT " + lm + "," //
+				+ " MUTE_MODE INTEGER NOT NULL DEFAULT 0," //
+				+ " TEXTURE TEXT, " //
+				+ " SIGNATURE TEXT, " //
+				+ " PRIMARY KEY(PLAYER_ID))");
+
+		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Mobs "//
+				+ "(MOB_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL DEFAULT 0,"//
+				+ " PLUGIN_ID INTEGER NOT NULL," + " MOBTYPE TEXT)");
+
+		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Daily"//
+				+ "(ID CHAR(7) NOT NULL,"//
+				+ " MOB_ID INTEGER NOT NULL," //
+				+ " PLAYER_ID INTEGER NOT NULL,"//
+				+ " ACHIEVEMENT_COUNT INTEGER DEFAULT 0," //
+				+ " TOTAL_KILL INTEGER DEFAULT 0,"//
+				+ " TOTAL_ASSIST INTEGER DEFAULT 0," //
+				+ " TOTAL_CASH REAL DEFAULT 0," //
+				+ " PRIMARY KEY(ID, MOB_ID, PLAYER_ID),"
+				+ " FOREIGN KEY(MOB_ID) REFERENCES mh_Mobs(MOB_ID) ON DELETE CASCADE,"
+				+ " FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE)");
+
+		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Weekly"//
+				+ "(ID CHAR(6) NOT NULL,"//
+				+ " MOB_ID INTEGER NOT NULL,"//
+				+ " PLAYER_ID INTEGER NOT NULL,"//
+				+ " ACHIEVEMENT_COUNT INTEGER DEFAULT 0,"//
+				+ " TOTAL_KILL INTEGER DEFAULT 0,"//
+				+ " TOTAL_ASSIST INTEGER DEFAULT 0,"//
+				+ " TOTAL_CASH REAL DEFAULT 0," //
+				+ " PRIMARY KEY(ID, MOB_ID, PLAYER_ID),"
+				+ " FOREIGN KEY(MOB_ID) REFERENCES mh_Mobs(MOB_ID) ON DELETE CASCADE,"
+				+ " FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE)");
+
+		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Monthly"//
+				+ "(ID CHAR(6) NOT NULL,"//
+				+ " MOB_ID INTEGER NOT NULL,"//
+				+ " PLAYER_ID INTEGER NOT NULL,"//
+				+ " ACHIEVEMENT_COUNT INTEGER DEFAULT 0,"//
+				+ " TOTAL_KILL INTEGER DEFAULT 0,"//
+				+ " TOTAL_ASSIST INTEGER DEFAULT 0,"//
+				+ " TOTAL_CASH REAL DEFAULT 0," //
+				+ " PRIMARY KEY(ID, MOB_ID, PLAYER_ID),"
+				+ " FOREIGN KEY(MOB_ID) REFERENCES mh_Mobs(MOB_ID) ON DELETE CASCADE,"
+				+ " FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE)");
+
+		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Yearly"//
+				+ "(ID CHAR(4) NOT NULL,"//
+				+ " MOB_ID INTEGER NOT NULL,"//
+				+ " PLAYER_ID INTEGER NOT NULL,"//
+				+ " ACHIEVEMENT_COUNT INTEGER DEFAULT 0,"//
+				+ " TOTAL_KILL INTEGER DEFAULT 0,"//
+				+ " TOTAL_ASSIST INTEGER DEFAULT 0,"//
+				+ " TOTAL_CASH REAL DEFAULT 0," //
+				+ " PRIMARY KEY(ID, MOB_ID, PLAYER_ID),"
+				+ " FOREIGN KEY(MOB_ID) REFERENCES mh_Mobs(MOB_ID) ON DELETE CASCADE,"
+				+ " FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE)");
+
+		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_AllTime"//
+				+ " (MOB_ID INTEGER NOT NULL,"//
+				+ " PLAYER_ID INTEGER NOT NULL,"//
+				+ " ACHIEVEMENT_COUNT INTEGER DEFAULT 0,"//
+				+ " TOTAL_KILL INTEGER DEFAULT 0,"//
+				+ " TOTAL_ASSIST INTEGER DEFAULT 0,"//
+				+ " TOTAL_CASH REAL DEFAULT 0," //
+				+ " PRIMARY KEY(MOB_ID, PLAYER_ID),"
+				+ " FOREIGN KEY(MOB_ID) REFERENCES mh_Mobs(MOB_ID) ON DELETE CASCADE,"
+				+ " FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE)");
+
+		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Achievements "//
+				+ "(PLAYER_ID INTEGER NOT NULL,"//
+				+ " ACHIEVEMENT TEXT NOT NULL,"//
+				+ " DATE INTEGER NOT NULL,"//
+				+ " PROGRESS INTEGER NOT NULL," + " PRIMARY KEY(PLAYER_ID, ACHIEVEMENT), "
+				+ " FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID))");
+
+		if (!plugin.getConfigManager().disablePlayerBounties) {
+			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("
+					+ "BOUNTYOWNER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, " + "MOBTYPE TEXT, "
+					+ "WANTEDPLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID), " + "NPC_ID INTEGER, "
+					+ "MOB_ID TEXT, " + "WORLDGROUP TEXT NOT NULL, " + "CREATED_DATE INTEGER NOT NULL, "
+					+ "END_DATE INTEGER NOT NULL, " + "PRIZE FLOAT NOT NULL, " + "MESSAGE TEXT, "
+					+ "STATUS INTEGER NOT NULL DEFAULT 0, "
+					+ "PRIMARY KEY(WORLDGROUP, WANTEDPLAYER_ID, BOUNTYOWNER_ID), "
+					+ "FOREIGN KEY(BOUNTYOWNER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE, "
+					+ "FOREIGN KEY(WANTEDPLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE" + ")");
+		}
+
+		// Setup Database triggers
+		create.executeUpdate("DROP TRIGGER IF EXISTS `mh_DailyInsert`");
+		create.executeUpdate("DROP TRIGGER IF EXISTS `mh_DailyUpdate`");
+
+		create.close();
+		connection.commit();
+
+	}
+
+	protected void migrateDatabaseLayoutFromV5ToV6(Connection mConnection) throws DataStoreException {
+		Statement statement;
+		try {
+			statement = mConnection.createStatement();
+			try {
+				ResultSet rs = statement.executeQuery("SELECT TEXTURE from mh_Players LIMIT 0");
+				rs.close();
+			} catch (SQLException e) {
+				statement.executeUpdate("alter table `mh_Players` add column `TEXTURE` TEXT");
+				System.out.println("[MobHunting] TEXTURE added to mh_Players.");
+			}
+			try {
+				ResultSet rs = statement.executeQuery("SELECT SIGNATURE from mh_Players LIMIT 0");
+				rs.close();
+			} catch (SQLException e) {
+				statement.executeUpdate("alter table `mh_Players` add column `SIGNATURE` TEXT");
+				System.out.println("[MobHunting] SIGNATURE added to mh_Players.");
+			}
+			statement.close();
+			mConnection.commit();
+		} catch (SQLException e) {
+			throw new DataStoreException(e);
+		}
+	}
+
 
 }

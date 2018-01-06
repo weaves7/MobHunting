@@ -132,6 +132,17 @@ public abstract class DatabaseDataStore implements IDataStore {
 	protected abstract void setupV5Tables(Connection connection) throws SQLException;
 
 	/**
+	 * Setup / Create database version 5 tables for MobHunting
+	 */
+	protected abstract void setupV6Tables(Connection connection) throws SQLException;
+
+	/**
+	 * Setup / Migrate from database version 5 to version 6 tables for MobHunting
+	 * @throws DataStoreException 
+	 */
+	protected abstract void migrateDatabaseLayoutFromV5ToV6(Connection connection) throws DataStoreException;
+
+	/**
 	 * Open a connection to the Database and prepare a statement for executing.
 	 * 
 	 * @param connection
@@ -147,8 +158,8 @@ public abstract class DatabaseDataStore implements IDataStore {
 
 	/**
 	 * Initialize the connection. Must be called after Opening of initial
-	 * connection. Open Prepared statements for batch processing large
-	 * selections of players. Batches will be performed in batches of 10,5,2,1
+	 * connection. Open Prepared statements for batch processing large selections of
+	 * players. Batches will be performed in batches of 10,5,2,1
 	 */
 	@Override
 	public void initialize() throws DataStoreException {
@@ -160,53 +171,63 @@ public abstract class DatabaseDataStore implements IDataStore {
 			if (plugin.getConfigManager().databaseVersion == 0) {
 				Statement statement = mConnection.createStatement();
 				try {
-					ResultSet rs = statement.executeQuery("SELECT BALANCE FROM mh_Players LIMIT 0");
+					ResultSet rs = statement.executeQuery("SELECT TEXTURE FROM mh_Players LIMIT 0");
 					rs.close();
 					// The TABLE Coloumn BALANCE only exists in Database
 					// layout V5
-					plugin.getConfigManager().databaseVersion = 5;
+					plugin.getConfigManager().databaseVersion = 6;
 					plugin.getConfigManager().saveConfig();
-				} catch (SQLException e5) {
+				} catch (SQLException e6) {
 					try {
-						ResultSet rs = statement.executeQuery("SELECT TOTAL_CASH FROM mh_Daily LIMIT 0");
+						ResultSet rs = statement.executeQuery("SELECT BALANCE FROM mh_Players LIMIT 0");
 						rs.close();
-						// The TABLE Coloumn TOTAL_CASH only exists in Database
-						// layout V4
-						plugin.getConfigManager().databaseVersion = 4;
+						// The TABLE Coloumn BALANCE only exists in Database
+						// layout V5
+						plugin.getConfigManager().databaseVersion = 5;
 						plugin.getConfigManager().saveConfig();
-					} catch (SQLException e4) {
+					} catch (SQLException e5) {
 						try {
-							ResultSet rs = statement.executeQuery("SELECT MOB_ID FROM mh_Mobs LIMIT 0");
+							ResultSet rs = statement.executeQuery("SELECT TOTAL_CASH FROM mh_Daily LIMIT 0");
 							rs.close();
-							// The TABLE mh_Mobs created for V3 and does only
-							// contain
-							// data after migration
-							plugin.getConfigManager().databaseVersion = 3;
+							// The TABLE Coloumn TOTAL_CASH only exists in Database
+							// layout V4
+							plugin.getConfigManager().databaseVersion = 4;
 							plugin.getConfigManager().saveConfig();
-						} catch (SQLException e3) {
+						} catch (SQLException e4) {
 							try {
-								ResultSet rs = statement.executeQuery("SELECT UUID from mh_Players LIMIT 0");
+								ResultSet rs = statement.executeQuery("SELECT MOB_ID FROM mh_Mobs LIMIT 0");
 								rs.close();
-								// Player UUID is migrated in V2
-								plugin.getConfigManager().databaseVersion = 2;
+								// The TABLE mh_Mobs created for V3 and does only
+								// contain
+								// data after migration
+								plugin.getConfigManager().databaseVersion = 3;
 								plugin.getConfigManager().saveConfig();
-							} catch (SQLException e2) {
-								// database if from before Minecraft 1.7.9 R1
-								// (No
-								// UUID)
-								// = V1
+							} catch (SQLException e3) {
 								try {
-									ResultSet rs = statement.executeQuery("SELECT PLAYER_ID from mh_Players LIMIT 0");
+									ResultSet rs = statement.executeQuery("SELECT UUID from mh_Players LIMIT 0");
 									rs.close();
-									plugin.getConfigManager().databaseVersion = 1;
+									// Player UUID is migrated in V2
+									plugin.getConfigManager().databaseVersion = 2;
 									plugin.getConfigManager().saveConfig();
-								} catch (SQLException e1) {
-									// DATABASE DOES NOT EXIST AT ALL, CREATE
-									// NEW
-									// EMPTY
-									// V3 DATABASE
-									plugin.getConfigManager().databaseVersion = 4;
-									plugin.getConfigManager().saveConfig();
+								} catch (SQLException e2) {
+									// database if from before Minecraft 1.7.9 R1
+									// (No
+									// UUID)
+									// = V1
+									try {
+										ResultSet rs = statement
+												.executeQuery("SELECT PLAYER_ID from mh_Players LIMIT 0");
+										rs.close();
+										plugin.getConfigManager().databaseVersion = 1;
+										plugin.getConfigManager().saveConfig();
+									} catch (SQLException e1) {
+										// DATABASE DOES NOT EXIST AT ALL, CREATE
+										// NEW
+										// EMPTY
+										// V3 DATABASE
+										plugin.getConfigManager().databaseVersion = 4;
+										plugin.getConfigManager().saveConfig();
+									}
 								}
 							}
 						}
@@ -234,8 +255,8 @@ public abstract class DatabaseDataStore implements IDataStore {
 				plugin.getConfigManager().databaseVersion = 3;
 				plugin.getConfigManager().saveConfig();
 			case 3:
-				Bukkit.getLogger().info("[MobHunting] Database version " + plugin.getConfigManager().databaseVersion
-						+ " detected.");
+				Bukkit.getLogger().info(
+						"[MobHunting] Database version " + plugin.getConfigManager().databaseVersion + " detected.");
 				// DATABASE IS UPTODATE or NOT created => create new database
 				setupV3Tables(mConnection);
 				migrate_mh_PlayersFromV2ToV3(mConnection);
@@ -245,18 +266,27 @@ public abstract class DatabaseDataStore implements IDataStore {
 				plugin.getConfigManager().databaseVersion = 4;
 				plugin.getConfigManager().saveConfig();
 			case 4:
-				Bukkit.getLogger().info("[MobHunting] Database version " + plugin.getConfigManager().databaseVersion
-						+ " detected.");
+				Bukkit.getLogger().info(
+						"[MobHunting] Database version " + plugin.getConfigManager().databaseVersion + " detected.");
 				setupV4Tables(mConnection);
 				migrateDatabaseLayoutFromV3ToV4(mConnection);
 				setupTriggerV4andV5(mConnection);
 				plugin.getConfigManager().databaseVersion = 5;
 				plugin.getConfigManager().saveConfig();
 			case 5:
-				Bukkit.getLogger().info("[MobHunting] Database version " + plugin.getConfigManager().databaseVersion
-						+ " detected.");
+				Bukkit.getLogger().info(
+						"[MobHunting] Database version " + plugin.getConfigManager().databaseVersion + " detected.");
 				setupV5Tables(mConnection);
 				setupTriggerV4andV5(mConnection);
+				migrateDatabaseLayoutFromV5ToV6(mConnection);
+				plugin.getConfigManager().databaseVersion = 6;
+				plugin.getConfigManager().saveConfig();
+			case 6:
+				Bukkit.getLogger().info(
+						"[MobHunting] Database version " + plugin.getConfigManager().databaseVersion + " detected.");
+				setupV5Tables(mConnection);
+				setupTriggerV4andV5(mConnection);
+			
 			}
 
 			insertMissingVanillaMobs();
@@ -307,8 +337,8 @@ public abstract class DatabaseDataStore implements IDataStore {
 
 	/**
 	 * databaseFixLeaderboard - tries to fix inconsistens in the database. Will
-	 * later be used for cleaning the database; deleting old data or so. This is
-	 * not implemented yet.
+	 * later be used for cleaning the database; deleting old data or so. This is not
+	 * implemented yet.
 	 * 
 	 * @throws DataStoreException
 	 */
@@ -1030,7 +1060,7 @@ public abstract class DatabaseDataStore implements IDataStore {
 		ResultSet result = mGetPlayerData.executeQuery();
 		if (result.next()) {
 			PlayerSettings ps = new PlayerSettings(offlinePlayer, result.getBoolean("LEARNING_MODE"),
-					result.getBoolean("MUTE_MODE"));
+					result.getBoolean("MUTE_MODE"),result.getString("TEXTURE"),result.getString("SIGNATURE"));
 			int id = result.getInt("PLAYER_ID");
 			if (id != 0)
 				ps.setPlayerId(id);
@@ -1059,6 +1089,8 @@ public abstract class DatabaseDataStore implements IDataStore {
 				mInsertPlayerData.setString(2, playerSettings.getPlayer().getName());
 				mInsertPlayerData.setInt(3, playerSettings.isLearningMode() ? 1 : 0);
 				mInsertPlayerData.setInt(4, playerSettings.isMuted() ? 1 : 0);
+				mInsertPlayerData.setString(5, playerSettings.getTexture());
+				mInsertPlayerData.setString(6, playerSettings.getSignature());
 				mInsertPlayerData.addBatch();
 				mInsertPlayerData.executeBatch();
 				mInsertPlayerData.close();
@@ -1085,7 +1117,9 @@ public abstract class DatabaseDataStore implements IDataStore {
 				for (PlayerSettings playerData : playerDataSet) {
 					mUpdatePlayerSettings.setInt(1, playerData.isLearningMode() ? 1 : 0);
 					mUpdatePlayerSettings.setInt(2, playerData.isMuted() ? 1 : 0);
-					mUpdatePlayerSettings.setString(3, playerData.getPlayer().getUniqueId().toString());
+					mUpdatePlayerSettings.setString(3, playerData.getTexture());
+					mUpdatePlayerSettings.setString(4, playerData.getSignature());
+					mUpdatePlayerSettings.setString(5, playerData.getPlayer().getUniqueId().toString());
 					mUpdatePlayerSettings.addBatch();
 				}
 				mUpdatePlayerSettings.executeBatch();
@@ -1333,7 +1367,6 @@ public abstract class DatabaseDataStore implements IDataStore {
 				throw new DataStoreException(e);
 			}
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
@@ -1604,4 +1637,5 @@ public abstract class DatabaseDataStore implements IDataStore {
 		connection.commit();
 	}
 
+		
 }

@@ -26,6 +26,7 @@ import com.mojang.authlib.properties.Property;
 import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.mobs.MinecraftMob;
+import one.lindegaard.MobHunting.storage.PlayerSettings;
 
 public class CustomItems {
 
@@ -48,15 +49,29 @@ public class CustomItems {
 	public ItemStack getPlayerHead(UUID uuid, int amount, double money) {
 		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
 
-		String name = Bukkit.getOfflinePlayer(uuid).getName();
+		OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
+		String name = offlinePlayer.getName();
 
-		String[] skin = getFromName(uuid);
+		PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(offlinePlayer);
+		String[] skin = { ps.getTexture(), ps.getSignature() };
 
-		if (skin == null)
-			return getPlayerHeadOwningPlayer(uuid, amount, money);
+		if (skin == null || skin[0].isEmpty() || skin[1].isEmpty()) {
 
-		if (skin[0].isEmpty() || skin[1].isEmpty())
-			return skull;
+			skin = getFromName(uuid);
+
+			if (skin == null)
+				return getPlayerHeadOwningPlayer(uuid, amount, money);
+			else {
+				ps.setTexture(skin[0]);
+				ps.setSignature(skin[1]);
+				plugin.getPlayerSettingsmanager().setPlayerSettings(offlinePlayer, ps);
+				plugin.getDataStoreManager().updatePlayerSettings(offlinePlayer, ps);
+			}
+
+			if (skin[0].isEmpty() || skin[1].isEmpty())
+				return skull;
+
+		}
 
 		ItemMeta skullMeta = skull.getItemMeta();
 
@@ -107,11 +122,12 @@ public class CustomItems {
 				String signature = textureProperty.get("signature").getAsString();
 
 				return new String[] { texture, signature };
-			} else return null;
+			} else
+				return null;
 
 		} catch (IOException e) {
 			Messages.debug("Could not get skin data from session servers!");
-			//e.printStackTrace();
+			// e.printStackTrace();
 			return null;
 		}
 	}

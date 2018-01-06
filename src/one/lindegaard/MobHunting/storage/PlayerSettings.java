@@ -9,6 +9,8 @@ public class PlayerSettings {
 	private int playerId;
 	private boolean learning_mode = false;
 	private boolean mute = false;
+	private String texture="";
+	private String signature="";
 
 	public PlayerSettings(OfflinePlayer player, double balance) {
 		this.player = player;
@@ -22,10 +24,20 @@ public class PlayerSettings {
 		this.setMuteMode(mute);
 	}
 	
+	public PlayerSettings(OfflinePlayer player, boolean learning_mode, boolean mute, String texture, String signature) {
+		this.player = player;
+		this.setLearningMode(learning_mode);
+		this.setMuteMode(mute);
+		this.setTexture(texture);
+		this.setSignature(signature);
+	}
+	
 	public PlayerSettings(OfflinePlayer player, PlayerSettings ps) {
 		this.player = ps.getPlayer();
 		this.setLearningMode(ps.isLearningMode());
 		this.setMuteMode(ps.isMuted());
+		this.setTexture(ps.getTexture());
+		this.setSignature(ps.getSignature());
 	}
 
 	/**
@@ -56,6 +68,34 @@ public class PlayerSettings {
 	 */
 	public void setMuteMode(boolean mute) {
 		this.mute = mute;
+	}
+
+	/**
+	 * @return the texture
+	 */
+	public String getTexture() {
+		return texture;
+	}
+
+	/**
+	 * @param texture the texture to set
+	 */
+	public void setTexture(String texture) {
+		this.texture = texture;
+	}
+
+	/**
+	 * @return the signature
+	 */
+	public String getSignature() {
+		return signature;
+	}
+
+	/**
+	 * @param signature the signature to set
+	 */
+	public void setSignature(String signature) {
+		this.signature = signature;
 	}
 
 	/**

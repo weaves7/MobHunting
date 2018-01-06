@@ -85,7 +85,6 @@ public class SpigetUpdater {
 					this.cancel();
 				} else {
 					// Wait for the response
-
 					if (succes) {
 						if (OS.indexOf("Win") >= 0) {
 							File downloadedJar = new File("plugins/update/" + currentJarFile);
@@ -103,7 +102,6 @@ public class SpigetUpdater {
 								}
 								if (!disabledJar.exists()) {
 									currentJar.renameTo(disabledJar);
-
 									File downloadedJar = new File("plugins/update/" + currentJarFile);
 									File newJar = new File("plugins/MobHunting-" + newDownloadVersion + ".jar");
 									downloadedJar.renameTo(newJar);
@@ -127,11 +125,10 @@ public class SpigetUpdater {
 			if (!silent)
 				Bukkit.getConsoleSender().sendMessage(
 						ChatColor.GOLD + "[MobHunting] " + Messages.getString("mobhunting.commands.update.check"));
-
 			if (updateAvailable != UpdateStatus.RESTART_NEEDED) {
 				spigetUpdate = new SpigetUpdate(plugin, 3582);
 				spigetUpdate.setVersionComparator(VersionComparator.SEM_VER);
-				spigetUpdate.setUserAgent("MobHunting/" + plugin.getDescription().getVersion());
+				spigetUpdate.setUserAgent("MobHunting-" + plugin.getDescription().getVersion());
 
 				spigetUpdate.checkForUpdate(new UpdateCallback() {
 
@@ -158,7 +155,6 @@ public class SpigetUpdater {
 							sender.sendMessage(ChatColor.GOLD + "[MobHunting] "
 									+ Messages.getString("mobhunting.commands.update.no-update"));
 					}
-
 				});
 			}
 		}

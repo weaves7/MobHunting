@@ -95,12 +95,12 @@ public class MySQLDataStore extends DatabaseDataStore {
 			break;
 		case UPDATE_PLAYER_SETTINGS:
 			mUpdatePlayerSettings = connection.prepareStatement(
-					"UPDATE mh_Players SET LEARNING_MODE=?,MUTE_MODE=? WHERE UUID=?;");
+					"UPDATE mh_Players SET LEARNING_MODE=?,MUTE_MODE=?,TEXTURE=?,SIGNATURE=? WHERE UUID=?;");
 			break;
 		case INSERT_PLAYER_DATA:
 			mInsertPlayerData = connection.prepareStatement(
-					"INSERT INTO mh_Players (UUID,NAME,LEARNING_MODE,MUTE_MODE) "
-							+ "VALUES(?,?,?,?);");
+					"INSERT INTO mh_Players (UUID,NAME,LEARNING_MODE,MUTE_MODE,TEXTURE,SIGNATURE) "
+							+ "VALUES(?,?,?,?,?,?);");
 			break;
 		case GET_BOUNTIES:
 			mGetBounties = connection.prepareStatement(
@@ -1542,5 +1542,161 @@ public class MySQLDataStore extends DatabaseDataStore {
 		connection.commit();
 
 	}
+
+	// *******************************************************************************
+	// V6 DATABASE SETUP / MIGRATION
+	// *******************************************************************************
+
+	@Override
+	protected void setupV6Tables(Connection connection) throws SQLException {
+		Statement create = connection.createStatement();
+
+		// Create new empty tables if they do not exist
+		String lm = plugin.getConfigManager().learningMode ? "1" : "0";
+		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Players "//
+				+ "(UUID CHAR(40) ,"//
+				+ " NAME VARCHAR(20),"//
+				+ " PLAYER_ID INTEGER NOT NULL AUTO_INCREMENT,"//
+				+ " LEARNING_MODE INTEGER NOT NULL DEFAULT " + lm + ","//
+				+ " MUTE_MODE INTEGER NOT NULL DEFAULT 0,"//
+				+ " TEXTURE VARCHAR(500),"//
+				+ " SIGNATURE VARCHAR(1000),"//
+				+ " PRIMARY KEY (PLAYER_ID))");
+
+		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Mobs "//
+				+ "(MOB_ID INTEGER NOT NULL AUTO_INCREMENT,"//
+				+ " PLUGIN_ID INTEGER NOT NULL,"//
+				+ " MOBTYPE VARCHAR(30),"//
+				+ " PRIMARY KEY(MOB_ID))");
+
+		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Daily "//
+				+ "(ID CHAR(7) NOT NULL,"//
+				+ " MOB_ID INTEGER NOT NULL,"//
+				+ " PLAYER_ID INTEGER NOT NULL,"//
+				+ " ACHIEVEMENT_COUNT INTEGER DEFAULT 0,"//
+				+ " TOTAL_KILL INTEGER DEFAULT 0,"//
+				+ " TOTAL_ASSIST INTEGER DEFAULT 0,"//
+				+ " TOTAL_CASH REAL DEFAULT 0,"//
+				+ " PRIMARY KEY(ID, MOB_ID, PLAYER_ID),"//
+				+ " KEY `MOB_ID` (`MOB_ID`)," + " KEY `mh_Daily_Player_Id` (`PLAYER_ID`),"
+				+ " CONSTRAINT mh_Daily_Player_Id FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE,"
+				+ " CONSTRAINT mh_Daily_Mob_Id FOREIGN KEY(MOB_ID) REFERENCES mh_Mobs(MOB_ID) ON DELETE CASCADE)");
+
+		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Weekly "//
+				+ "(ID CHAR(6) NOT NULL,"//
+				+ " MOB_ID INTEGER NOT NULL,"//
+				+ " PLAYER_ID INTEGER NOT NULL,"//
+				+ " ACHIEVEMENT_COUNT INTEGER DEFAULT 0,"//
+				+ " TOTAL_KILL INTEGER DEFAULT 0,"//
+				+ " TOTAL_ASSIST INTEGER DEFAULT 0,"//
+				+ " TOTAL_CASH REAL DEFAULT 0,"//
+				+ " PRIMARY KEY(ID, MOB_ID, PLAYER_ID),"//
+				+ " KEY `MOB_ID` (`MOB_ID`),"//
+				+ " KEY `mh_Weekly_Player_Id` (`PLAYER_ID`),"
+				+ " CONSTRAINT mh_Weekly_Player_Id FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE,"
+				+ " CONSTRAINT mh_Weekly_Mob_Id FOREIGN KEY(MOB_ID) REFERENCES mh_Mobs(MOB_ID) ON DELETE CASCADE)");
+
+		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Monthly "//
+				+ "(ID CHAR(6) NOT NULL,"//
+				+ " MOB_ID INTEGER NOT NULL,"//
+				+ " PLAYER_ID INTEGER NOT NULL,"//
+				+ " ACHIEVEMENT_COUNT INTEGER DEFAULT 0,"//
+				+ " TOTAL_KILL INTEGER DEFAULT 0,"//
+				+ " TOTAL_ASSIST INTEGER DEFAULT 0,"//
+				+ " TOTAL_CASH REAL DEFAULT 0,"//
+				+ " PRIMARY KEY(ID, MOB_ID, PLAYER_ID),"//
+				+ " KEY `MOB_ID` (`MOB_ID`),"//
+				+ " KEY `mh_Monthly_Player_Id` (`PLAYER_ID`),"
+				+ " CONSTRAINT mh_Monthly_Player_Id FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE,"
+				+ " CONSTRAINT mh_Monthly_Mob_Id FOREIGN KEY(MOB_ID) REFERENCES mh_Mobs(MOB_ID) ON DELETE CASCADE)");
+
+		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Yearly "//
+				+ "(ID CHAR(4) NOT NULL,"//
+				+ " MOB_ID INTEGER NOT NULL,"//
+				+ " PLAYER_ID INTEGER NOT NULL,"//
+				+ " ACHIEVEMENT_COUNT INTEGER DEFAULT 0,"//
+				+ " TOTAL_KILL INTEGER DEFAULT 0,"//
+				+ " TOTAL_ASSIST INTEGER DEFAULT 0,"//
+				+ " TOTAL_CASH REAL DEFAULT 0,"//
+				+ " PRIMARY KEY(ID, MOB_ID, PLAYER_ID),"//
+				+ " KEY `MOB_ID` (`MOB_ID`),"//
+				+ " KEY `mh_Yearly_Player_Id` (`PLAYER_ID`),"
+				+ " CONSTRAINT mh_Yearly_Player_Id FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE,"
+				+ " CONSTRAINT mh_Yearly_Mob_Id FOREIGN KEY(MOB_ID) REFERENCES mh_Mobs(MOB_ID) ON DELETE CASCADE)");
+
+		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_AllTime "//
+				+ "(MOB_ID INTEGER NOT NULL,"//
+				+ " PLAYER_ID INTEGER NOT NULL,"//
+				+ " ACHIEVEMENT_COUNT INTEGER DEFAULT 0,"//
+				+ " TOTAL_KILL INTEGER DEFAULT 0,"//
+				+ " TOTAL_ASSIST INTEGER DEFAULT 0,"//
+				+ " TOTAL_CASH REAL DEFAULT 0,"//
+				+ " PRIMARY KEY(MOB_ID, PLAYER_ID),"//
+				+ " KEY `MOB_ID` (`MOB_ID`),"//
+				+ " KEY `mh_AllTime_Player_Id` (`PLAYER_ID`),"//
+				+ " CONSTRAINT mh_AllTime_Player_Id FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE,"
+				+ " CONSTRAINT mh_AllTime_Mob_Id FOREIGN KEY(MOB_ID) REFERENCES mh_Mobs(MOB_ID) ON DELETE CASCADE)");
+
+		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Achievements "//
+				+ "(PLAYER_ID INTEGER NOT NULL,"//
+				+ " ACHIEVEMENT VARCHAR(64) NOT NULL,"//
+				+ " DATE DATETIME NOT NULL,"//
+				+ " PROGRESS INTEGER NOT NULL,"//
+				+ " PRIMARY KEY(PLAYER_ID, ACHIEVEMENT),"
+				+ " CONSTRAINT mh_Achievements_Player_Id FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE)");
+
+		if (!plugin.getConfigManager().disablePlayerBounties) {
+			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("//
+					+ "BOUNTYOWNER_ID INTEGER NOT NULL, "//
+					+ "MOBTYPE CHAR(6), "//
+					+ "WANTEDPLAYER_ID INTEGER NOT NULL, "//
+					+ "NPC_ID INTEGER, "//
+					+ "MOB_ID VARCHAR(40), "//
+					+ "WORLDGROUP VARCHAR(20) NOT NULL, "//
+					+ "CREATED_DATE BIGINT NOT NULL, " + "END_DATE BIGINT NOT NULL, "//
+					+ "PRIZE FLOAT NOT NULL, "//
+					+ "MESSAGE VARCHAR(64), "//
+					+ "STATUS INTEGER NOT NULL DEFAULT 0, "//
+					+ "PRIMARY KEY(WORLDGROUP, WANTEDPLAYER_ID, BOUNTYOWNER_ID), "
+					+ "KEY `mh_Bounties_Player_Id_1` (`BOUNTYOWNER_ID`),"
+					+ "KEY `mh_Bounties_Player_Id_2` (`WANTEDPLAYER_ID`),"
+					+ "CONSTRAINT mh_Bounties_Player_Id_1 FOREIGN KEY(BOUNTYOWNER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE, "
+					+ "CONSTRAINT mh_Bounties_Player_Id_2 FOREIGN KEY(WANTEDPLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE"
+					+ ")");
+		}
+
+		// Setup Database triggers
+		create.executeUpdate("DROP TRIGGER IF EXISTS `mh_DailyInsert`");
+		create.executeUpdate("DROP TRIGGER IF EXISTS `mh_DailyUpdate`");
+		create.close();
+		connection.commit();
+
+	}
+
+	protected void migrateDatabaseLayoutFromV5ToV6(Connection mConnection) throws DataStoreException {
+		Statement statement;
+		try {
+			statement = mConnection.createStatement();
+			try {
+				ResultSet rs = statement.executeQuery("SELECT TEXTURE from mh_Players LIMIT 0");
+				rs.close();
+			} catch (SQLException e) {
+				statement.executeUpdate("alter table `mh_Players` add column `TEXTURE` VARCHAR(500)");
+				System.out.println("[MobHunting] TEXTURE added to mh_Players.");
+			}
+			try {
+				ResultSet rs = statement.executeQuery("SELECT SIGNATURE from mh_Players LIMIT 0");
+				rs.close();
+			} catch (SQLException e) {
+				statement.executeUpdate("alter table `mh_Players` add column `SIGNATURE` VARCHAR(1000)");
+				System.out.println("[MobHunting] SIGNATURE added to mh_Players.");
+			}
+			statement.close();
+			mConnection.commit();
+		} catch (SQLException e) {
+			throw new DataStoreException(e);
+		}
+	}
+
 
 }
