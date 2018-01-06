@@ -206,37 +206,30 @@ public class RewardManager {
 		if (BagOfGoldCompat.isSupported() || !plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency)
 			return mEconomy.getBalance(offlinePlayer);
 		else if (offlinePlayer.isOnline()) {
-			Player player = (Player) offlinePlayer;
-			double amountInInventory = 0;
-			for (int slot = 0; slot < player.getInventory().getSize(); slot++) {
-				ItemStack is = player.getInventory().getItem(slot);
-				if (Reward.isReward(is)) {
-					Reward reward = Reward.getReward(is);
-					if (reward.isBagOfGoldReward())
-						amountInInventory = amountInInventory + reward.getMoney();
-				}
-			}
-			return amountInInventory;
+			return getAmountInInventory((Player) offlinePlayer);
 		} else {
 			return 0;
 		}
+	}
+
+	public double getAmountInInventory(Player player) {
+		double amountInInventory = 0;
+		for (int slot = 0; slot < player.getInventory().getSize(); slot++) {
+			ItemStack is = player.getInventory().getItem(slot);
+			if (Reward.isReward(is)) {
+				Reward reward = Reward.getReward(is);
+				if (reward.isBagOfGoldReward() || reward.isItemReward())
+					amountInInventory = amountInInventory + reward.getMoney();
+			}
+		}
+		return amountInInventory;
 	}
 
 	public boolean has(OfflinePlayer offlinePlayer, double amount) {
 		if (BagOfGoldCompat.isSupported())
 			return mEconomy.has(offlinePlayer, amount);
 		else if (offlinePlayer.isOnline()) {
-			Player player = (Player) offlinePlayer;
-			double amountInInventory = 0;
-			for (int slot = 0; slot < player.getInventory().getSize(); slot++) {
-				ItemStack is = player.getInventory().getItem(slot);
-				if (Reward.isReward(is)) {
-					Reward reward = Reward.getReward(is);
-					if (reward.isBagOfGoldReward())
-						amountInInventory = amountInInventory + reward.getMoney();
-				}
-			}
-			return amountInInventory >= amount;
+			return getAmountInInventory((Player) offlinePlayer) >= amount;
 		}
 		return false;
 	}
@@ -252,16 +245,14 @@ public class RewardManager {
 					ItemMeta im = is.getItemMeta();
 					im.setLore(rewardInSlot.getHiddenLore());
 					String displayName = plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
-							? plugin.getRewardManager().format(rewardInSlot.getMoney())
-							: rewardInSlot.getDisplayname() + " ("
-									+ plugin.getRewardManager().format(rewardInSlot.getMoney()) + ")";
+							? mEconomy.format(rewardInSlot.getMoney())
+							: rewardInSlot.getDisplayname() + " (" + mEconomy.format(rewardInSlot.getMoney()) + ")";
 					im.setDisplayName(
 							ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + displayName);
 					is.setItemMeta(im);
 					is.setAmount(1);
 					Messages.debug("Added %s to item in slot %s, new value is %s (addBagOfGoldPlayer_RewardManager)",
-							plugin.getRewardManager().format(amount), slot,
-							plugin.getRewardManager().format(rewardInSlot.getMoney()));
+							mEconomy.format(amount), slot, mEconomy.format(rewardInSlot.getMoney()));
 					found = true;
 					break;
 				}
@@ -383,9 +374,8 @@ public class RewardManager {
 			if (Misc.isMC18OrNewer()) {
 				item.setCustomName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 						+ (plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
-								? plugin.getRewardManager().format(money)
-								: Reward.getReward(is).getDisplayname() + " (" + plugin.getRewardManager().format(money)
-										+ ")"));
+								? mEconomy.format(money)
+								: Reward.getReward(is).getDisplayname() + " (" + mEconomy.format(money) + ")"));
 				item.setCustomNameVisible(true);
 			}
 		}
@@ -500,7 +490,7 @@ public class RewardManager {
 			double prize = 0;
 			if (BagOfGoldCompat.isSupported()) {
 				PlayerSettings ps = BagOfGold.getApi().getPlayerSettingsManager().getPlayerSettings(playerToBeRobbed);
-				prize = Math.floor(Double
+				prize = Math.round(Double
 						.valueOf(plugin.getConfigManager().mobKillsPlayerPenalty.trim().substring(0,
 								plugin.getConfigManager().mobKillsPlayerPenalty.trim().length() - 1))
 						* (ps.getBalance() + ps.getBalanceChanges()) / 100);
@@ -508,7 +498,7 @@ public class RewardManager {
 				prize = Math.floor(Double
 						.valueOf(plugin.getConfigManager().mobKillsPlayerPenalty.trim().substring(0,
 								plugin.getConfigManager().mobKillsPlayerPenalty.trim().length() - 1))
-						* plugin.getRewardManager().getBalance(playerToBeRobbed) / 100);
+						* getBalance(playerToBeRobbed) / 100);
 			}
 			return Misc.round(prize);
 		} else
@@ -669,20 +659,19 @@ public class RewardManager {
 			// Minecraft 1.7.10 and older entities
 			if (mob instanceof Player) {
 				if (plugin.getConfigManager().pvpKillPrize.trim().endsWith("%")) {
-					Messages.debug("PVP kill reward is '%s'", plugin.getConfigManager().pvpKillPrize);
 					double prize = 0;
 					if (BagOfGoldCompat.isSupported()) {
 						PlayerSettings ps = BagOfGold.getApi().getPlayerSettingsManager()
 								.getPlayerSettings((Player) mob);
-						prize = Math.floor(Double
-								.valueOf(plugin.getConfigManager().pvpKillPrize.substring(0,
-										plugin.getConfigManager().pvpKillPrize.length() - 1))
+						prize = Math.round(Double
+								.valueOf(plugin.getConfigManager().pvpKillPrize.trim().substring(0,
+										plugin.getConfigManager().pvpKillPrize.trim().length() - 1))
 								* (ps.getBalance() + ps.getBalanceChanges()) / 100);
 					} else {
-						prize = Math.floor(Double
-								.valueOf(plugin.getConfigManager().pvpKillPrize.substring(0,
-										plugin.getConfigManager().pvpKillPrize.length() - 1))
-								* plugin.getRewardManager().getBalance((Player) mob) / 100);
+						prize = Math.round(Double
+								.valueOf(plugin.getConfigManager().pvpKillPrize.trim().substring(0,
+										plugin.getConfigManager().pvpKillPrize.trim().length() - 1))
+								* getBalance((Player) mob) / 100);
 					}
 					return Misc.round(prize);
 				} else if (plugin.getConfigManager().pvpKillPrize.contains(":")) {
@@ -691,7 +680,7 @@ public class RewardManager {
 							* (Double.valueOf(str1[1]) - Double.valueOf(str1[0])) + Double.valueOf(str1[0]));
 					return Misc.round(Double.valueOf(prize2));
 				} else
-					return Double.valueOf(plugin.getConfigManager().pvpKillPrize);
+					return Double.valueOf(plugin.getConfigManager().pvpKillPrize.trim());
 			} else if (mob instanceof Blaze)
 				return getPrice(mob, plugin.getConfigManager().blazePrize);
 			else if (mob instanceof Creeper)
@@ -814,8 +803,8 @@ public class RewardManager {
 	 * Get the command to be run when the player kills a Mob.
 	 * 
 	 * @param mob
-	 * @return a number of commands to be run in the console. Each command must
-	 *         be separeted by a "|"
+	 * @return a number of commands to be run in the console. Each command must be
+	 *         separeted by a "|"
 	 */
 	public String getKillConsoleCmd(Entity mob) {
 		if (TARDISWeepingAngelsCompat.isWeepingAngelMonster(mob)) {

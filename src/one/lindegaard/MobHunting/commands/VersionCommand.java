@@ -56,7 +56,6 @@ public class VersionCommand implements ICommand {
 
 	@Override
 	public boolean onCommand(CommandSender sender, String label, String[] args) {
-
 		if (sender instanceof Player) {
 			plugin.getMessages().senderSendMessage(sender,
 					ChatColor.GREEN + Messages.getString("mobhunting.commands.version.currentversion", "currentversion",
@@ -65,9 +64,9 @@ public class VersionCommand implements ICommand {
 				plugin.getMessages().senderSendMessage(sender,
 						ChatColor.GREEN + Messages.getString("mobhunting.commands.version.newversion", "newversion",
 								plugin.getSpigetUpdater().getNewDownloadVersion()));
-			if (sender.hasPermission("mobhunting.update"))
-				plugin.getSpigetUpdater().checkForUpdate(sender, true, true);
 		}
+		if (sender.hasPermission("mobhunting.update"))
+			plugin.getSpigetUpdater().checkForUpdate(sender, true, true);
 		return true;
 	}
 
