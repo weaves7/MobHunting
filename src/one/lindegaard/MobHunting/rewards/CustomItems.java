@@ -54,8 +54,8 @@ public class CustomItems {
 		PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(offlinePlayer);
 		String[] skin = new String[2];
 
-		if (ps.getTexture() == null || ps.getSignature() == null ||
-				ps.getTexture().isEmpty()||ps.getSignature().isEmpty()) {
+		if (ps.getTexture() == null || ps.getSignature() == null || ps.getTexture().isEmpty()
+				|| ps.getSignature().isEmpty()) {
 			Messages.debug("Trying to fecth skin from Minecraft Servers");
 			skin = getSkinFromUUID(uuid);
 		} else {
@@ -94,7 +94,7 @@ public class CustomItems {
 		} catch (IllegalArgumentException | IllegalAccessException e) {
 			return getPlayerHeadGameProfile(uuid, amount, money);
 		}
-		
+
 		skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer(uuid));
 
 		skullMeta.setLore(new ArrayList<String>(Arrays.asList("Hidden:" + name,
@@ -107,7 +107,7 @@ public class CustomItems {
 					+ " (" + plugin.getRewardManager().format(money) + ")");
 
 		skull.setItemMeta(skullMeta);
-		Messages.debug("CustomItems: got the skin from URL database (%s)", name);
+		Messages.debug("CustomItems: set the skin using Mojang database (%s,%s)", name, uuid.toString());
 		return skull;
 	}
 
@@ -187,7 +187,7 @@ public class CustomItems {
 			skull.setAmount(1);
 		}
 		skull.setItemMeta(skullMeta);
-		Messages.debug("CustomItems: got the skin from GameProfile (%s)", offlinePlayer.getName());
+		Messages.debug("CustomItems: set the skin using GameProfile (%s,%s)", offlinePlayer.getName(), uuid.toString());
 		return skull;
 	}
 
@@ -207,7 +207,7 @@ public class CustomItems {
 			skull.setAmount(1);
 		}
 		skull.setItemMeta(skullMeta);
-		Messages.debug("CustomItems: got the skin using OwningPlayer (%s)", name);
+		Messages.debug("CustomItems: set the skin using OwningPlayer (%s,%s)", name, uuid.toString());
 		return skull;
 	}
 
