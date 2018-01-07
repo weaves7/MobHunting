@@ -12,7 +12,6 @@ import java.util.UUID;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -55,7 +54,8 @@ public class CustomItems {
 		PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(offlinePlayer);
 		String[] skin = new String[2];
 
-		if (ps.getTexture() == null || ps.getSignature() == null) {
+		if (ps.getTexture() == null || ps.getSignature() == null ||
+				ps.getTexture().isEmpty()||ps.getSignature().isEmpty()) {
 			Messages.debug("Trying to fecth skin from Minecraft Servers");
 			skin = getSkinFromUUID(uuid);
 		} else {
@@ -75,7 +75,7 @@ public class CustomItems {
 		if (skin[0].isEmpty() || skin[1].isEmpty())
 			return skull;
 
-		ItemMeta skullMeta = skull.getItemMeta();
+		SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
 
 		GameProfile profile = new GameProfile(uuid, name);
 		profile.getProperties().put("textures", new Property("textures", skin[0], skin[1]));
@@ -94,6 +94,8 @@ public class CustomItems {
 		} catch (IllegalArgumentException | IllegalAccessException e) {
 			return getPlayerHeadGameProfile(uuid, amount, money);
 		}
+		
+		skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer(uuid));
 
 		skullMeta.setLore(new ArrayList<String>(Arrays.asList("Hidden:" + name,
 				"Hidden:" + String.format(Locale.ENGLISH, "%.5f", money), "Hidden:" + Reward.MH_REWARD_KILLER_UUID,
@@ -227,7 +229,7 @@ public class CustomItems {
 		if (mTextureSignature.isEmpty() || mTextureValue.isEmpty())
 			return skull;
 
-		ItemMeta skullMeta = skull.getItemMeta();
+		SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
 
 		GameProfile profile = new GameProfile(mPlayerUUID, mDisplayName);
 		profile.getProperties().put("textures", new Property("textures", mTextureValue, mTextureSignature));
