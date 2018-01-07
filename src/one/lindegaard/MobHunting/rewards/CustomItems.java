@@ -53,25 +53,27 @@ public class CustomItems {
 		String name = offlinePlayer.getName();
 
 		PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(offlinePlayer);
-		String[] skin = { ps.getTexture(), ps.getSignature() };
+		String[] skin = new String[2];
 
-		if (skin == null || skin[0].isEmpty() || skin[1].isEmpty()) {
-
-			skin = getFromName(uuid);
-
-			if (skin == null)
-				return getPlayerHeadOwningPlayer(uuid, amount, money);
-			else {
-				ps.setTexture(skin[0]);
-				ps.setSignature(skin[1]);
-				plugin.getPlayerSettingsmanager().setPlayerSettings(offlinePlayer, ps);
-				plugin.getDataStoreManager().updatePlayerSettings(offlinePlayer, ps);
-			}
-
-			if (skin[0].isEmpty() || skin[1].isEmpty())
-				return skull;
-
+		if (ps.getTexture() == null || ps.getSignature() == null) {
+			Messages.debug("Trying to fecth skin from Minecraft Servers");
+			skin = getSkinFromUUID(uuid);
+		} else {
+			skin[0] = ps.getTexture();
+			skin[1] = ps.getSignature();
 		}
+
+		if (skin == null)
+			return getPlayerHeadOwningPlayer(uuid, amount, money);
+		else {
+			ps.setTexture(skin[0]);
+			ps.setSignature(skin[1]);
+			plugin.getPlayerSettingsmanager().setPlayerSettings(offlinePlayer, ps);
+			plugin.getDataStoreManager().updatePlayerSettings(offlinePlayer, ps);
+		}
+
+		if (skin[0].isEmpty() || skin[1].isEmpty())
+			return skull;
 
 		ItemMeta skullMeta = skull.getItemMeta();
 
@@ -107,7 +109,7 @@ public class CustomItems {
 		return skull;
 	}
 
-	private String[] getFromName(UUID uuid) {
+	private String[] getSkinFromUUID(UUID uuid) {
 		try {
 			URL url_1 = new URL(
 					"https://sessionserver.mojang.com/session/minecraft/profile/" + uuid + "?unsigned=false");
@@ -122,12 +124,12 @@ public class CustomItems {
 				String signature = textureProperty.get("signature").getAsString();
 
 				return new String[] { texture, signature };
-			} else
+			} else {
+				Messages.debug("(1) Could not get skin data from session servers!");
 				return null;
-
+			}
 		} catch (IOException e) {
-			Messages.debug("Could not get skin data from session servers!");
-			// e.printStackTrace();
+			Messages.debug("(2) Could not get skin data from session servers!");
 			return null;
 		}
 	}
