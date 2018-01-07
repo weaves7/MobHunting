@@ -169,7 +169,6 @@ public class MobHunting extends JavaPlugin {
 		mSpigetUpdater = new SpigetUpdater(this);
 		mSpigetUpdater.setCurrentJarFile(this.getFile().getName());
 
-
 		mStoreManager = new DataStoreManager(this, mStore);
 
 		mPlayerSettingsManager = new PlayerSettingsManager(this);
@@ -287,7 +286,7 @@ public class MobHunting extends JavaPlugin {
 
 		// Check for new MobHuntig updates using Spiget.org
 		mSpigetUpdater.hourlyUpdateCheck(getServer().getConsoleSender(), mConfig.updateCheck, false);
-		
+
 		if (!Misc.isGlowstoneServer()) {
 			mMetricsManager = new MetricsManager(this);
 			mMetricsManager.startMetrics();
@@ -327,6 +326,8 @@ public class MobHunting extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
+		Messages.debug("Disabling MobHunting initiated");
+
 		if (!mInitialized)
 			return;
 

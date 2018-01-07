@@ -127,7 +127,10 @@ public class SpigetUpdater {
 						ChatColor.GOLD + "[MobHunting] " + Messages.getString("mobhunting.commands.update.check"));
 			if (updateAvailable != UpdateStatus.RESTART_NEEDED) {
 				spigetUpdate = new SpigetUpdate(plugin, 3582);
-				spigetUpdate.setVersionComparator(VersionComparator.SEM_VER);
+				if (plugin.getDescription().getVersion().contains("SNAPSHOT"))
+					spigetUpdate.setVersionComparator(VersionComparator.EQUAL);
+				else
+					spigetUpdate.setVersionComparator(VersionComparator.SEM_VER);
 				spigetUpdate.setUserAgent("MobHunting-" + plugin.getDescription().getVersion());
 
 				spigetUpdate.checkForUpdate(new UpdateCallback() {
@@ -159,4 +162,64 @@ public class SpigetUpdater {
 			}
 		}
 	}
+
+	/**
+	public static UpdateStatus isSnapShotNewerVersion() {
+		// Version format on Bukkit.org: "MobHunting Vn.n.n"
+		// Version format in jar file: "n.n.n" | "n.n.n-SNAPSHOT-Bn"
+
+		int updateCheck = 0, pluginCheck = 0;
+		boolean snapshot = false;
+		// Check to see if the latest file is newer that this one
+		//String[] split = Updater.getBukkitUpdate().getVersionName().split(" V");
+		// Only do this if the format is what we expect
+		String[] split = new String[2];
+		if (split.length == 2) {
+			// Need to escape the period in the regex expression
+			String[] updateVer = split[1].split("\\.");
+			// Check the version #'smy
+			String[] pluginVerSNAPSHOT = MobHunting.getInstance().getDescription().getVersion().split("\\-");
+			if (pluginVerSNAPSHOT.length > 1)
+				snapshot = pluginVerSNAPSHOT[1].equals("SNAPSHOT");
+			if (snapshot)
+				Messages.debug("You are using a development version (%s)",
+						MobHunting.getInstance().getDescription().getVersion());
+			String[] pluginVer = pluginVerSNAPSHOT[0].split("\\.");
+			// Run through major, minor, sub
+			for (int i = 0; i < Math.max(updateVer.length, pluginVer.length); i++) {
+				try {
+					updateCheck = 0;
+					if (i < updateVer.length) {
+						updateCheck = Integer.valueOf(updateVer[i]);
+					}
+					pluginCheck = 0;
+					if (i < pluginVer.length) {
+						pluginCheck = Integer.valueOf(pluginVer[i]);
+					}
+					if (updateCheck > pluginCheck) {
+						return UpdateStatus.AVAILABLE;
+					} else if (updateCheck < pluginCheck)
+						return UpdateStatus.NOT_AVAILABLE;
+				} catch (Exception e) {
+					MobHunting.getInstance().getLogger().warning("Could not determine update's version # ");
+					MobHunting.getInstance().getLogger().warning(
+							"Installed plugin version: " + MobHunting.getInstance().getDescription().getVersion());
+					MobHunting.getInstance().getLogger()
+							.warning("Newest version on Bukkit.org: " + Updater.getBukkitUpdate().getVersionName());
+					return UpdateStatus.UNKNOWN;
+				}
+			}
+		} else {
+			MobHunting.getInstance().getLogger().warning("Could not determine update's version # ");
+			MobHunting.getInstance().getLogger()
+					.warning("Installed plugin version: " + MobHunting.getInstance().getDescription().getVersion());
+			MobHunting.getInstance().getLogger()
+					.warning("Newest version on Bukkit.org: " + Updater.getBukkitUpdate().getVersionName());
+			return UpdateStatus.UNKNOWN;
+		}
+		if ((updateCheck == pluginCheck && snapshot))
+			return UpdateStatus.AVAILABLE;
+		else
+			return UpdateStatus.NOT_AVAILABLE;
+	}**/
 }
