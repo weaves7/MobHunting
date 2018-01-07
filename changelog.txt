@@ -1,5 +1,6 @@
 V5.3.6
 * Added player skin cache to mh_Players
+* Fixed support for CraftBukkit
 V5.3.5
 * Fixed /mh version
 * Tested and fixed rewards for PVP kills.

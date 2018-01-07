@@ -127,10 +127,7 @@ public class SpigetUpdater {
 						ChatColor.GOLD + "[MobHunting] " + Messages.getString("mobhunting.commands.update.check"));
 			if (updateAvailable != UpdateStatus.RESTART_NEEDED) {
 				spigetUpdate = new SpigetUpdate(plugin, 3582);
-				if (plugin.getDescription().getVersion().contains("SNAPSHOT"))
-					spigetUpdate.setVersionComparator(VersionComparator.EQUAL);
-				else
-					spigetUpdate.setVersionComparator(VersionComparator.SEM_VER);
+				spigetUpdate.setVersionComparator(VersionComparator.SEM_VER);
 				spigetUpdate.setUserAgent("MobHunting-" + plugin.getDescription().getVersion());
 
 				spigetUpdate.checkForUpdate(new UpdateCallback() {
