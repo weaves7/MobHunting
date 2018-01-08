@@ -1,5 +1,6 @@
 V5.3.7
 * Deny players to use BagOfGold in all other slottypes than QuickBar and Container.
+* BagOfGold can now be handled in Creative mode too.
 V5.3.6
 * Added player skin cache to mh_Players
 * Fixed support for CraftBukkit

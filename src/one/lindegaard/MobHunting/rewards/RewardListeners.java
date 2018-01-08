@@ -411,6 +411,7 @@ public class RewardListeners implements Listener {
 		if (action == InventoryAction.NOTHING)
 			return;
 
+		/**
 		if (inventory.getType() == InventoryType.FURNACE || inventory.getType() == InventoryType.ANVIL
 				|| inventory.getType() == InventoryType.BEACON || inventory.getType() == InventoryType.BREWING
 				|| inventory.getType() == InventoryType.CREATIVE || inventory.getType() == InventoryType.ENCHANTING
@@ -424,30 +425,37 @@ public class RewardListeners implements Listener {
 				return;
 			}
 		}
+		**/
 
 		if (!(slotType == SlotType.CONTAINER || slotType == SlotType.QUICKBAR)) {
-			Reward reward = Reward.isReward(isCurrentSlot) ? Reward.getReward(isCurrentSlot)
-					: Reward.getReward(isCursor);
-			plugin.getMessages().learn(player,
-					Messages.getString("mobhunting.learn.rewards.no-use", "rewardname", reward.getDisplayname()));
-			event.setCancelled(true);
-			return;
+			if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
+				Reward reward = Reward.isReward(isCurrentSlot) ? Reward.getReward(isCurrentSlot)
+						: Reward.getReward(isCursor);
+				plugin.getMessages().learn(player,
+						Messages.getString("mobhunting.learn.rewards.no-use", "rewardname", reward.getDisplayname()));
+				event.setCancelled(true);
+				return;
+			}
 		}
 
-		if (player.getGameMode() != GameMode.SURVIVAL
-				&& (Reward.isReward(isCursor) || Reward.isReward(isCurrentSlot))) {
-			plugin.getMessages().learn(player, Messages.getString("mobhunting.learn.rewards.creative"));
-			event.setCancelled(true);
-			return;
-		}
+		/**
+		if (player.getGameMode() != GameMode.SURVIVAL) {
+			if (Reward.isReward(isCursor) || Reward.isReward(isCurrentSlot)) {
+				plugin.getMessages().learn(player, Messages.getString("mobhunting.learn.rewards.creative"));
+				event.setCancelled(true);
+				return;
+			}
+		}**/
 
-		if (action == InventoryAction.CLONE_STACK && (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor))) {
-			Reward reward = Reward.isReward(isCurrentSlot) ? Reward.getReward(isCurrentSlot)
-					: Reward.getReward(isCursor);
-			plugin.getMessages().learn(player,
-					Messages.getString("mobhunting.learn.rewards.no-clone", "rewardname", reward.getDisplayname()));
-			event.setCancelled(true);
-			return;
+		if (action == InventoryAction.CLONE_STACK) {
+			if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
+				Reward reward = Reward.isReward(isCurrentSlot) ? Reward.getReward(isCurrentSlot)
+						: Reward.getReward(isCursor);
+				plugin.getMessages().learn(player,
+						Messages.getString("mobhunting.learn.rewards.no-clone", "rewardname", reward.getDisplayname()));
+				event.setCancelled(true);
+				return;
+			}
 		}
 
 		if (action == InventoryAction.SWAP_WITH_CURSOR) {
