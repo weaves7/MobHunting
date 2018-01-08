@@ -41,6 +41,7 @@ mobhunting.reward.steve=Steve
 mobhunting.reward.item=${rewardname} (${rewardvalue})
 mobhunting.reward.killed=This is ${rewardname}'s head (${rewardvalue})
 mobhunting.reward.killer=This is ${rewardname}'s head (${rewardvalue})
+mobhunting.reward.mypet_pickup=&2${petname} picked up ${money} ${rewardname}
 mobhunting.killstreak.activated=Killstreak x${multiplier} Activated
 mobhunting.killstreak.ended=Killstreak ended
 mobhunting.killstreak.level.1=Nice!

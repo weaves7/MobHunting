@@ -1,7 +1,9 @@
 package one.lindegaard.MobHunting.compatibility;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -10,9 +12,14 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 
 import de.Keyle.MyPet.MyPetPlugin;
+import de.Keyle.MyPet.api.entity.MyPet;
 import de.Keyle.MyPet.api.entity.MyPetBukkitEntity;
 import de.Keyle.MyPet.api.event.MyPetInventoryActionEvent;
+import de.Keyle.MyPet.api.event.MyPetInventoryActionEvent.Action;
+import de.Keyle.MyPet.api.event.MyPetPickupItemEvent;
+import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
+import one.lindegaard.MobHunting.rewards.Reward;
 
 public class MyPetCompat implements Listener {
 	private static boolean supported = false;
@@ -89,9 +96,9 @@ public class MyPetCompat implements Listener {
 
 		return killer.getOwner().getPlayer();
 	}
-	
-	public void getInv(Player player){
-		//mPlugin.getMyPetManager().getMyPet(player).getSkilltree();
+
+	public void getInv(Player player) {
+		// mPlugin.getMyPetManager().getMyPet(player).getSkilltree();
 	}
 
 	// **************************************************************************
@@ -112,14 +119,45 @@ public class MyPetCompat implements Listener {
 			Player owner = killer.getOwner().getPlayer();
 			if (owner != null && MobHunting.getInstance().getMobHuntingManager().isHuntEnabled(owner))
 				MobHunting.getInstance().getAchievementManager().awardAchievementProgress("fangmaster", owner,
-						MobHunting.getInstance().getExtendedMobManager().getExtendedMobFromEntity(event.getEntity()), 1);
+						MobHunting.getInstance().getExtendedMobManager().getExtendedMobFromEntity(event.getEntity()),
+						1);
 		}
 	}
-	
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	private void onMyPetPickupItem(MyPetInventoryActionEvent event){
-		//Messages.debug("MyPetInventoryActionEvent=%s", event.getAction().name());
-		
+
+	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = false)
+	private void onMyPetInventoryActionEvent(MyPetInventoryActionEvent event) {
+		if (event.getAction() == Action.Pickup)
+			Messages.debug("MyPetInventoryActionEvent=%s", event.getAction().name());
 	}
-	
+
+	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = false)
+	private void onMyPetPickupItem(MyPetPickupItemEvent event) {
+		if (event.isCancelled())
+			return;
+
+		Item item = event.getItem();
+		Player player = event.getOwner().getPlayer();
+		MyPet pet = event.getPet();
+
+		if (Reward.isReward(item)) {
+			Reward reward = Reward.getReward(item);
+			MobHunting.getInstance().getMessages().playerActionBarMessage(player,
+					Messages.getString("mobhunting.reward.mypet_pickup", "rewardname",
+							ChatColor.valueOf(MobHunting.getInstance().getConfigManager().dropMoneyOnGroundTextColor)
+									+ reward.getDisplayname(),
+							"petname", pet.getPetName(), "money",
+							MobHunting.getInstance().getRewardManager().getEconomy().format(reward.getMoney())));
+			Messages.debug("%s owned by %s picked up %s %s.", pet.getPetName(), player.getName(),
+					MobHunting.getInstance().getRewardManager().getEconomy().format(reward.getMoney()),
+					reward.getDisplayname());
+			if (reward.isBagOfGoldReward() || reward.isItemReward()) {
+				if (!MobHunting.getInstance().getConfigManager().dropMoneyOnGroundUseAsCurrency) {
+					event.setCancelled(true);
+					item.remove();
+					MobHunting.getInstance().getRewardManager().depositPlayer(player,reward.getMoney());
+				}
+			}
+		}
+	}
+
 }

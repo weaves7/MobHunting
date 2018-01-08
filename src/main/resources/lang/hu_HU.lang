@@ -41,6 +41,7 @@ mobhunting.reward.steve=Steve
 mobhunting.reward.item=${rewardname} (${rewardvalue})
 mobhunting.reward.killed=Ez egy ${rewardname} feje (${rewardvalue})
 mobhunting.reward.killer=Ez egy ${rewardname} feje (${rewardvalue})
+mobhunting.reward.mypet_pickup=&2${petname} picked up ${money} ${rewardname}
 mobhunting.killstreak.activated=Killstreak x${multiplier} aktiválva
 mobhunting.killstreak.ended=A killstreak vége lett
 mobhunting.killstreak.level.1=Szép!

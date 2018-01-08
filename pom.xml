@@ -6,8 +6,8 @@
 	<groupId>one.lindegaard</groupId>
 	<artifactId>MobHunting</artifactId>
 	<packaging>jar</packaging>
-	<version>5.3.7</version>
-	<!-- <version>5.3.7-SNAPSHOT-B${build.number}</version> -->
+	<version>5.3.8</version>
+	<!-- <version>5.3.8-SNAPSHOT-B${build.number}</version> -->
 	<name>MobHunting</name>
 	<url>http://dev.bukkit.org/server-mods/mobhunting/</url>
 	<description>MobHunting adds a new level of fun to hunting monsters. Now you can get money from kills, get bonuses for skilled and creative kills, and get special achievements!</description>
@@ -46,7 +46,7 @@
 		<protocollib.version>4.4.0-SNAPSHOT</protocollib.version>
 		<minigames.version>1.9.0-SNAPSHOT</minigames.version>
 		<minigameslib.version>1.14.14</minigameslib.version>
-		<mypet.version>2.3.2</mypet.version>
+		<mypet.version>2.3.3-SNAPSHOT</mypet.version>
 		<worldedit.version>6.1.5</worldedit.version>
 		<worldguard.version>6.2</worldguard.version>
 		<PreciousStones.version>10.7.2</PreciousStones.version>

@@ -1,7 +1,7 @@
 name: MobHunting
 main: one.lindegaard.MobHunting.MobHunting
 version: ${version}
-description: A Mobhunting plugin
+description: MobHunting adds a new level of fun to hunting monsters. Now you can get money from kills, get bonuses for skilled and creative kills, and get special achievements.
 dev-url: http://dev.bukkit.org/server-mods/mobhunting/
 author: Rocologo
 depend: [Vault]

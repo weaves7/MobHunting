@@ -24,6 +24,7 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.event.inventory.InventoryPickupItemEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.inventory.InventoryType.SlotType;
@@ -71,7 +72,7 @@ public class RewardListeners implements Listener {
 				money = reward.getMoney();
 			else {
 				ItemStack is = item.getItemStack();
-				is = plugin.getRewardManager().setDisplayNameAndHiddenLores(is, reward.getDisplayname(), money,
+				is = plugin.getRewardManager().setDisplayNameAndHiddenLores(is, reward.getDisplayname(), 0,
 						reward.getRewardUUID(), reward.getSkinUUID());
 				item.setItemStack(is);
 			}
@@ -154,8 +155,12 @@ public class RewardListeners implements Listener {
 	public void onPlayerMoveOverRewardEvent(PlayerMoveEvent event) {
 		if (event.isCancelled())
 			return;
-
+		
 		Player player = event.getPlayer();
+		
+		if (player.getGameMode()!=GameMode.SURVIVAL)
+			return;
+		
 		if (player.getInventory().firstEmpty() == -1) {
 			Iterator<Entity> entityList = ((Entity) player).getNearbyEntities(1, 1, 1).iterator();
 			while (entityList.hasNext()) {
@@ -396,8 +401,8 @@ public class RewardListeners implements Listener {
 		ItemStack isCurrentSlot = event.getCurrentItem();
 		ItemStack isCursor = event.getCursor();
 		Player player = (Player) event.getWhoClicked();
-		Inventory inventory = event.getInventory();
 		SlotType slotType = event.getSlotType();
+		// Inventory inventory = event.getInventory();
 
 		// if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
 		// Messages.debug(
@@ -412,20 +417,17 @@ public class RewardListeners implements Listener {
 			return;
 
 		/**
-		if (inventory.getType() == InventoryType.FURNACE || inventory.getType() == InventoryType.ANVIL
-				|| inventory.getType() == InventoryType.BEACON || inventory.getType() == InventoryType.BREWING
-				|| inventory.getType() == InventoryType.CREATIVE || inventory.getType() == InventoryType.ENCHANTING
-				|| inventory.getType() == InventoryType.WORKBENCH) {
-			if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
-				Reward reward = Reward.isReward(isCurrentSlot) ? Reward.getReward(isCurrentSlot)
-						: Reward.getReward(isCursor);
-				plugin.getMessages().learn(player,
-						Messages.getString("mobhunting.learn.rewards.no-use", "rewardname", reward.getDisplayname()));
-				event.setCancelled(true);
-				return;
-			}
-		}
-		**/
+		 * if (inventory.getType() == InventoryType.FURNACE || inventory.getType() ==
+		 * InventoryType.ANVIL || inventory.getType() == InventoryType.BEACON ||
+		 * inventory.getType() == InventoryType.BREWING || inventory.getType() ==
+		 * InventoryType.CREATIVE || inventory.getType() == InventoryType.ENCHANTING ||
+		 * inventory.getType() == InventoryType.WORKBENCH) { if
+		 * (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) { Reward reward
+		 * = Reward.isReward(isCurrentSlot) ? Reward.getReward(isCurrentSlot) :
+		 * Reward.getReward(isCursor); plugin.getMessages().learn(player,
+		 * Messages.getString("mobhunting.learn.rewards.no-use", "rewardname",
+		 * reward.getDisplayname())); event.setCancelled(true); return; } }
+		 **/
 
 		if (!(slotType == SlotType.CONTAINER || slotType == SlotType.QUICKBAR)) {
 			if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
@@ -439,13 +441,12 @@ public class RewardListeners implements Listener {
 		}
 
 		/**
-		if (player.getGameMode() != GameMode.SURVIVAL) {
-			if (Reward.isReward(isCursor) || Reward.isReward(isCurrentSlot)) {
-				plugin.getMessages().learn(player, Messages.getString("mobhunting.learn.rewards.creative"));
-				event.setCancelled(true);
-				return;
-			}
-		}**/
+		 * if (player.getGameMode() != GameMode.SURVIVAL) { if
+		 * (Reward.isReward(isCursor) || Reward.isReward(isCurrentSlot)) {
+		 * plugin.getMessages().learn(player,
+		 * Messages.getString("mobhunting.learn.rewards.creative"));
+		 * event.setCancelled(true); return; } }
+		 **/
 
 		if (action == InventoryAction.CLONE_STACK) {
 			if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
@@ -618,6 +619,57 @@ public class RewardListeners implements Listener {
 				break;
 			}
 		}
+	}
+
+	@EventHandler(priority = EventPriority.NORMAL)
+	public void onInventoryCreative(InventoryCreativeEvent event) {
+
+		if (event.isCancelled() || event.getInventory() == null)
+			return;
+
+		// InventoryAction action = event.getAction();
+		ItemStack isCurrentSlot = event.getCurrentItem();
+		ItemStack isCursor = event.getCursor();
+		Player player = (Player) event.getWhoClicked();
+		// SlotType slotType = event.getSlotType();
+		// Inventory inventory = event.getInventory();
+
+		if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
+			// Messages.debug(
+			// "Creative GameMode: action=%s, InventoryType=%s, slottype=%s, slotno=%s,
+			// current=%s, cursor=%s, view=%s",
+			// action, inventory.getType(), slotType, event.getSlot(),
+			// isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
+			// isCursor == null ? "null" : isCursor.getType(), event.getView().getType());
+
+			if ((Reward.isReward(isCursor) && Reward.getReward(isCursor).getMoney() > 0)
+					|| (Reward.isReward(isCurrentSlot) && Reward.getReward(isCurrentSlot).getMoney() > 0))
+				plugin.getMessages().learn(player, Messages.getString("mobhunting.learn.rewards.creative"));
+
+		}
+
+		if (Reward.isReward(isCurrentSlot)) {
+			Reward reward = Reward.getReward(isCurrentSlot);
+			isCurrentSlot = plugin.getRewardManager().setDisplayNameAndHiddenLores(isCurrentSlot.clone(),
+					ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
+							+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName,
+					0, reward.getRewardUUID(), reward.getSkinUUID());
+			event.setCursor(isCursor);
+			if (reward.getMoney() > 0)
+				Messages.debug("Reward in slot %s had its value set to 0", event.getSlot());
+		}
+
+		if (Reward.isReward(isCursor)) {
+			Reward reward = Reward.getReward(isCursor);
+			isCursor = plugin.getRewardManager().setDisplayNameAndHiddenLores(isCursor.clone(),
+					ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
+							+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName,
+					0, reward.getRewardUUID(), reward.getSkinUUID());
+			event.setCursor(isCursor);
+			if (reward.getMoney() > 0)
+				Messages.debug("Reward on the cursor had its value set to 0", event.getSlot());
+		}
+
 	}
 
 }
