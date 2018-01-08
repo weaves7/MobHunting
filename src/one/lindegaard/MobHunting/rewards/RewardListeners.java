@@ -389,8 +389,7 @@ public class RewardListeners implements Listener {
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onInventoryClickReward(InventoryClickEvent event) {
-		if (event.isCancelled() || event.getInventory() == null
-				|| (Misc.isSpigotServer() && event.getClickedInventory() == null))
+		if (event.isCancelled() || event.getInventory() == null)
 			return;
 
 		InventoryAction action = event.getAction();
@@ -401,17 +400,15 @@ public class RewardListeners implements Listener {
 		SlotType slotType = event.getSlotType();
 
 		// if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
-		//Messages.debug(
-		//		"action=%s, InventoryType=%s, slottype=%s, slotno=%s, current=%s, cursor=%s, view=%s",
-		//		action, inventory.getType(), slotType,
-		//		event.getSlot(), isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
-		//		isCursor == null ? "null" : isCursor.getType(), event.getView().getType());
+		// Messages.debug(
+		// "action=%s, InventoryType=%s, slottype=%s, slotno=%s, current=%s, cursor=%s,
+		// view=%s",
+		// action, inventory.getType(), slotType,
+		// event.getSlot(), isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
+		// isCursor == null ? "null" : isCursor.getType(), event.getView().getType());
 		// }
 
 		if (action == InventoryAction.NOTHING)
-			return;
-
-		if (!(slotType == SlotType.CONTAINER || slotType == SlotType.QUICKBAR))
 			return;
 
 		if (inventory.getType() == InventoryType.FURNACE || inventory.getType() == InventoryType.ANVIL
@@ -426,6 +423,15 @@ public class RewardListeners implements Listener {
 				event.setCancelled(true);
 				return;
 			}
+		}
+
+		if (!(slotType == SlotType.CONTAINER || slotType == SlotType.QUICKBAR)) {
+			Reward reward = Reward.isReward(isCurrentSlot) ? Reward.getReward(isCurrentSlot)
+					: Reward.getReward(isCursor);
+			plugin.getMessages().learn(player,
+					Messages.getString("mobhunting.learn.rewards.no-use", "rewardname", reward.getDisplayname()));
+			event.setCancelled(true);
+			return;
 		}
 
 		if (player.getGameMode() != GameMode.SURVIVAL
