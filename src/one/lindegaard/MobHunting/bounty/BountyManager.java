@@ -123,6 +123,8 @@ public class BountyManager implements Listener {
 	class BountyComparator implements Comparator<Bounty> {
 		@Override
 		public int compare(Bounty b1, Bounty b2) {
+			if (b2==null)
+				return -1;
 			if (b1.equals(b2))
 				return Double.compare(b1.getPrize(), b2.getPrize());
 			else if (b1.getWantedPlayer().getName().equals(b2.getWantedPlayer().getName()))
