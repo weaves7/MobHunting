@@ -155,12 +155,12 @@ public class RewardListeners implements Listener {
 	public void onPlayerMoveOverRewardEvent(PlayerMoveEvent event) {
 		if (event.isCancelled())
 			return;
-		
+
 		Player player = event.getPlayer();
-		
-		if (player.getGameMode()!=GameMode.SURVIVAL)
+
+		if (player.getGameMode() != GameMode.SURVIVAL)
 			return;
-		
+
 		if (player.getInventory().firstEmpty() == -1) {
 			Iterator<Entity> entityList = ((Entity) player).getNearbyEntities(1, 1, 1).iterator();
 			while (entityList.hasNext()) {
@@ -402,34 +402,20 @@ public class RewardListeners implements Listener {
 		ItemStack isCursor = event.getCursor();
 		Player player = (Player) event.getWhoClicked();
 		SlotType slotType = event.getSlotType();
-		// Inventory inventory = event.getInventory();
-
-		// if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
-		// Messages.debug(
-		// "action=%s, InventoryType=%s, slottype=%s, slotno=%s, current=%s, cursor=%s,
-		// view=%s",
-		// action, inventory.getType(), slotType,
-		// event.getSlot(), isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
-		// isCursor == null ? "null" : isCursor.getType(), event.getView().getType());
-		// }
+		
+		//Inventory inventory = event.getInventory();
+		//if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
+		//	Messages.debug("action=%s, InventoryType=%s, slottype=%s, slotno=%s, current=%s, cursor=%s, view=%s",
+		//			action, inventory.getType(), slotType, event.getSlot(),
+		//			isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
+		//			isCursor == null ? "null" : isCursor.getType(), event.getView().getType());
+		//}
 
 		if (action == InventoryAction.NOTHING)
 			return;
 
-		/**
-		 * if (inventory.getType() == InventoryType.FURNACE || inventory.getType() ==
-		 * InventoryType.ANVIL || inventory.getType() == InventoryType.BEACON ||
-		 * inventory.getType() == InventoryType.BREWING || inventory.getType() ==
-		 * InventoryType.CREATIVE || inventory.getType() == InventoryType.ENCHANTING ||
-		 * inventory.getType() == InventoryType.WORKBENCH) { if
-		 * (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) { Reward reward
-		 * = Reward.isReward(isCurrentSlot) ? Reward.getReward(isCurrentSlot) :
-		 * Reward.getReward(isCursor); plugin.getMessages().learn(player,
-		 * Messages.getString("mobhunting.learn.rewards.no-use", "rewardname",
-		 * reward.getDisplayname())); event.setCancelled(true); return; } }
-		 **/
-
-		if (!(slotType == SlotType.CONTAINER || slotType == SlotType.QUICKBAR)) {
+		if (!(slotType == SlotType.CONTAINER || slotType == SlotType.QUICKBAR
+				|| (slotType == SlotType.ARMOR && event.getSlot() == 39))) {
 			if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
 				Reward reward = Reward.isReward(isCurrentSlot) ? Reward.getReward(isCurrentSlot)
 						: Reward.getReward(isCursor);
@@ -439,14 +425,6 @@ public class RewardListeners implements Listener {
 				return;
 			}
 		}
-
-		/**
-		 * if (player.getGameMode() != GameMode.SURVIVAL) { if
-		 * (Reward.isReward(isCursor) || Reward.isReward(isCurrentSlot)) {
-		 * plugin.getMessages().learn(player,
-		 * Messages.getString("mobhunting.learn.rewards.creative"));
-		 * event.setCancelled(true); return; } }
-		 **/
 
 		if (action == InventoryAction.CLONE_STACK) {
 			if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
@@ -469,6 +447,7 @@ public class RewardListeners implements Listener {
 				if ((reward1.isBagOfGoldReward() || reward1.isItemReward())
 						&& reward1.getRewardUUID().equals(reward2.getRewardUUID())) {
 					reward2.setMoney(reward1.getMoney() + reward2.getMoney());
+					
 					imCursor.setLore(reward2.getHiddenLore());
 					imCursor.setDisplayName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 							+ (plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
@@ -476,8 +455,12 @@ public class RewardListeners implements Listener {
 									: reward2.getDisplayname() + " ("
 											+ plugin.getRewardManager().format(reward2.getMoney()) + ")"));
 					isCursor.setItemMeta(imCursor);
+					
 					isCurrentSlot.setAmount(0);
 					isCurrentSlot.setType(Material.AIR);
+					
+					event.setCurrentItem(isCursor);
+					event.setCursor(isCurrentSlot);
 					Messages.debug("%s merged two rewards", player.getName());
 				}
 			}

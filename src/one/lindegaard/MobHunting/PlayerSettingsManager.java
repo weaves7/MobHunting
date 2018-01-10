@@ -46,11 +46,10 @@ public class PlayerSettingsManager implements Listener {
 		else {
 			try {
 				PlayerSettings ps = plugin.getStoreManager().loadPlayerSettings(offlinePlayer);
-				Messages.debug("%s is not in the database. (Has played before=%s)", offlinePlayer.getName(),
-						offlinePlayer.hasPlayedBefore());
 				return ps;
 			} catch (DataStoreException | SQLException e) {
-				Messages.debug("%s is not known on this server", offlinePlayer.getName());
+				Messages.debug("%s is not in the database. (Has played before=%s)", offlinePlayer.getName(),
+						offlinePlayer.hasPlayedBefore());
 				return new PlayerSettings(offlinePlayer, 0);
 			}
 		}
@@ -93,8 +92,8 @@ public class PlayerSettingsManager implements Listener {
 	}
 
 	/**
-	 * Write PlayerSettings to Database when Player Quit and remove
-	 * PlayerSettings from memory
+	 * Write PlayerSettings to Database when Player Quit and remove PlayerSettings
+	 * from memory
 	 * 
 	 * @param event
 	 */
@@ -129,8 +128,11 @@ public class PlayerSettingsManager implements Listener {
 			public void onError(Throwable error) {
 				Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[MobHunting][ERROR] " + player.getName()
 						+ " is new, creating user in database.");
-				mPlayerSettings.put(player.getUniqueId(), new PlayerSettings(player, BagOfGoldCompat.isSupported()
-						? BagOfGold.getInstance().getConfigManager().startingBalance : 0));
+				mPlayerSettings.put(player.getUniqueId(),
+						new PlayerSettings(player,
+								BagOfGoldCompat.isSupported()
+										? BagOfGold.getInstance().getConfigManager().startingBalance
+										: 0));
 			}
 		});
 	}

@@ -1,3 +1,6 @@
+V5.3.9
+* Fixed bug where player could not remove MobHunting heads from their own head again.
+* Fixed bug where merging two BagOfGold did not work properly on Minecraft 1.11 
 V5.3.8
 * MyPet can now pickup BagOfGold and the money will directly into the owners balance if "drop-money-use-item-as-currency: false" in config.yml. If true the Pet just pickup the BagOfGold like when the player picks up the bag. If the BagOfGold plugin is used, the money will not go into the player balance until the money is stored in the player inventory. This means that the player save his BagOfGold/money in the MyPet Inventory in case he dies. (This feature is only possible because @xXKeyleXx made a new event MyPetPickupItem for me to use in MobHunting. Thanks Keyle!)     
 * Fixed /mh version
