@@ -13,6 +13,7 @@ import org.mcstats_mh.Metrics.Graph;
 import one.lindegaard.MobHunting.compatibility.ActionAnnouncerCompat;
 import one.lindegaard.MobHunting.compatibility.ActionBarAPICompat;
 import one.lindegaard.MobHunting.compatibility.ActionbarCompat;
+import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
 import one.lindegaard.MobHunting.compatibility.BarAPICompat;
 import one.lindegaard.MobHunting.compatibility.BattleArenaCompat;
 import one.lindegaard.MobHunting.compatibility.BossBarAPICompat;
@@ -146,6 +147,7 @@ public class MetricsManager {
 						valueMap.put("ProtocolLib", ProtocolLibCompat.isSupported() ? 1 : 0);
 						valueMap.put("ExtraHardMode", ExtraHardModeCompat.isSupported() ? 1 : 0);
 						valueMap.put("CrackShot", CrackShotCompat.isSupported() ? 1 : 0);
+						valueMap.put("BagOfGold", BagOfGoldCompat.isSupported() ? 1 : 0);
 						return valueMap;
 					}
 

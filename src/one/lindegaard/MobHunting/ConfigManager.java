@@ -9,10 +9,11 @@ import org.bukkit.configuration.InvalidConfigurationException;
 public class ConfigManager extends AutoConfig {
 
 	private MobHunting plugin;
+
 	public ConfigManager(MobHunting plugin, File file) {
 
 		super(file);
-		this.plugin=plugin;
+		this.plugin = plugin;
 
 		setCategoryComment("mobs", "########################################################################"
 				+ "\nRewards for killing mobs."
@@ -1647,8 +1648,7 @@ public class ConfigManager extends AutoConfig {
 			+ "\n\nChoose between \"ITEM\",\"KILLED\",\"SKULL\",\"KILLER\"")
 	public String dropMoneyOnGroundItemtype = "SKULL";
 
-	@ConfigField(name = "drop-money-use-item-as-currency", category = "dropmoneyonground", comment = 
-			  "Use the reward as a currency (bag of gold) which can be sold, bought, stored in a"
+	@ConfigField(name = "drop-money-use-item-as-currency", category = "dropmoneyonground", comment = "Use the reward as a currency (bag of gold) which can be sold, bought, stored in a"
 			+ "\nprotected chest or a protected area (a Bank?). Check the command /mh money sell."
 			+ "\nIf false the bag of gold will be picked up as money, if true the bag of gold "
 			+ "\nwill be picked up as an item. OBS: If you want to use the bags as an Economy "
@@ -2213,7 +2213,10 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "database", category = "database")
 	public String databaseName = "mobhunting";
 
-	@ConfigField(name = "database_version", category = "database", comment = "FOR INTERNAL USE ONLY. DONT CHANGE THIS VALUE!")
+	@ConfigField(name = "database_version", category = "database", comment = 
+			"This is the database layout version. Mostly for internal use and you should not need"+
+			"\nto change this value. In case you decide to delete your database and let it recreate"+
+			"\nor if you change database type sqlite/mysql you should set this value to 0 again.")
 	public int databaseVersion = 0;
 
 	// #####################################################################################

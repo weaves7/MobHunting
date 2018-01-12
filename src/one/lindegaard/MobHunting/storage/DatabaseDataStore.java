@@ -284,7 +284,7 @@ public abstract class DatabaseDataStore implements IDataStore {
 			case 6:
 				Bukkit.getLogger().info(
 						"[MobHunting] Database version " + plugin.getConfigManager().databaseVersion + " detected.");
-				setupV5Tables(mConnection);
+				setupV6Tables(mConnection);
 				setupTriggerV4andV5(mConnection);
 			
 			}

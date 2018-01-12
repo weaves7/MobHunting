@@ -1,3 +1,6 @@
+V5.4.0
+* Added 2 new strings to the lang files. "mobhunting.commands.happyhour.xxx"
+* Fixed bug where new database V6 tables could not be created if not exist. Ticket 344 (https://github.com/Rocologo/MobHunting/issues/344)
 V5.3.9
 * Fixed bug where player could not remove MobHunting heads from their own head again.
 * Fixed bug where merging two BagOfGold did not work properly on Minecraft 1.11

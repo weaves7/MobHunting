@@ -100,7 +100,7 @@ public class HappyHourCommand implements ICommand {
 							20, 100, 20);
 				}
 			} else {
-				plugin.getMessages().senderSendMessage(sender,"The Happy Hour event is not started");
+				plugin.getMessages().senderSendMessage(sender,Messages.getString("mobhunting.commands.happyhour.not_started"));
 			}
 			return true;
 
@@ -127,7 +127,7 @@ public class HappyHourCommand implements ICommand {
 								Messages.getString("mobhunting.commands.happyhour.cancelled_subtitle"), 20, 100, 20);
 					}
 				} else
-					plugin.getMessages().senderSendMessage(sender,"Its not happy hour now");
+					plugin.getMessages().senderSendMessage(sender,Messages.getString("mobhunting.commands.happyhour.not_now"));
 				return true;
 			}
 
