@@ -75,6 +75,9 @@ public class MetricsManager {
 		bStatsMetrics.addCustomChart(
 				new org.bstats.bukkit.Metrics.SimplePie("language", () -> plugin.getConfigManager().language));
 
+		bStatsMetrics.addCustomChart(
+				new org.bstats.bukkit.Metrics.SimplePie("economy_plugin", () -> plugin.getRewardManager().getEconomy().getName()));
+
 		bStatsMetrics.addCustomChart(new org.bstats.bukkit.Metrics.AdvancedPie("protection_plugin_integrations",
 				new Callable<Map<String, Integer>>() {
 					@Override
