@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.Bukkit;
@@ -25,7 +26,15 @@ import com.mojang.authlib.properties.Property;
 import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.mobs.MinecraftMob;
+import one.lindegaard.MobHunting.rewards.skins.Skins;
+import one.lindegaard.MobHunting.rewards.skins.Skins_1_10_R1;
+import one.lindegaard.MobHunting.rewards.skins.Skins_1_11_R1;
+import one.lindegaard.MobHunting.rewards.skins.Skins_1_12_R1;
+import one.lindegaard.MobHunting.rewards.skins.Skins_1_8_R1;
+import one.lindegaard.MobHunting.rewards.skins.Skins_1_8_R3;
+import one.lindegaard.MobHunting.rewards.skins.Skins_1_9_R1;
 import one.lindegaard.MobHunting.storage.PlayerSettings;
+import one.lindegaard.MobHunting.util.Misc;
 
 public class CustomItems {
 
@@ -46,68 +55,72 @@ public class CustomItems {
 	 * @return
 	 */
 	public ItemStack getPlayerHead(UUID uuid, int amount, double money) {
+
 		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
 
 		OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
-		String name = offlinePlayer.getName();
 
 		PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(offlinePlayer);
 		String[] skin = new String[2];
 
 		if (ps.getTexture() == null || ps.getSignature() == null || ps.getTexture().isEmpty()
 				|| ps.getSignature().isEmpty()) {
-			Messages.debug("Trying to fecth skin from Minecraft Servers");
-			skin = getSkinFromUUID(uuid);
+			if (offlinePlayer.isOnline()) {
+				Player player = (Player) offlinePlayer;
+				String version;
+				Skins sk = null;
+				try {
+					version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
+				} catch (ArrayIndexOutOfBoundsException whatVersionAreYouUsingException) {
+					whatVersionAreYouUsingException.printStackTrace();
+					return null;
+				}
+				Bukkit.getLogger().info("[MobHunting] Your server is running version " + version);
+				if (version.equals("v1_12_R1")) {
+					sk = new Skins_1_12_R1();
+				} else if (version.equals("v1_11_R1")) {
+					Messages.debug("v1_11_R1");
+					sk = new Skins_1_11_R1();
+				} else if (version.equals("v1_10_R1")) {
+					sk = new Skins_1_10_R1();
+				} else if (version.equals("v1_9_R1")) {
+					sk = new Skins_1_9_R1();
+				} else if (version.equals("v1_8_R3")) {
+					sk = new Skins_1_8_R3();
+				} else if (version.equals("v1_8_R1")) {
+					sk = new Skins_1_8_R1();
+				}
+				if (sk != null) {
+					Messages.debug("Trying to fecth skin from Online Player Profile");
+					skin = sk.getSkin(player);
+				} else {
+					Messages.debug("Trying to fecth skin from Minecraft Servers");
+					skin = getSkinFromUUID(uuid);
+				}
+			}
+
+			if ((skin == null || skin[0] == null || skin[0].isEmpty() || skin[1] == null || skin[1].isEmpty())
+					&& Misc.isMC112OrNewer())
+				return getPlayerHeadOwningPlayer(uuid, amount, money);
+
+			if (skin != null && !skin[0].isEmpty() && !skin[1].isEmpty()) {
+				ps.setTexture(skin[0]);
+				ps.setSignature(skin[1]);
+				plugin.getPlayerSettingsmanager().setPlayerSettings(offlinePlayer, ps);
+				plugin.getDataStoreManager().updatePlayerSettings(offlinePlayer, ps);
+			} else {
+				Messages.debug("Empty skin");
+				return skull;
+			}
 		} else {
 			skin[0] = ps.getTexture();
 			skin[1] = ps.getSignature();
+			Messages.debug("%s using skin from MobHunting Skin Cache", offlinePlayer.getName());
 		}
 
-		if (skin == null)
-			return getPlayerHeadOwningPlayer(uuid, amount, money);
-		else {
-			ps.setTexture(skin[0]);
-			ps.setSignature(skin[1]);
-			plugin.getPlayerSettingsmanager().setPlayerSettings(offlinePlayer, ps);
-			plugin.getDataStoreManager().updatePlayerSettings(offlinePlayer, ps);
-		}
-
-		if (skin[0].isEmpty() || skin[1].isEmpty())
-			return skull;
-
-		SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
-
-		GameProfile profile = new GameProfile(uuid, name);
-		profile.getProperties().put("textures", new Property("textures", skin[0], skin[1]));
-		Field profileField = null;
-
-		try {
-			profileField = skullMeta.getClass().getDeclaredField("profile");
-		} catch (NoSuchFieldException | SecurityException e) {
-			return getPlayerHeadGameProfile(uuid, amount, money);
-		}
-
-		profileField.setAccessible(true);
-
-		try {
-			profileField.set(skullMeta, profile);
-		} catch (IllegalArgumentException | IllegalAccessException e) {
-			return getPlayerHeadGameProfile(uuid, amount, money);
-		}
-
-		skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer(uuid));
-
-		skullMeta.setLore(new ArrayList<String>(Arrays.asList("Hidden:" + name,
-				"Hidden:" + String.format(Locale.ENGLISH, "%.5f", money), "Hidden:" + Reward.MH_REWARD_KILLER_UUID,
-				money == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(), "Hidden:" + uuid)));
-		if (money == 0)
-			skullMeta.setDisplayName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + name);
-		else
-			skullMeta.setDisplayName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + name
-					+ " (" + plugin.getRewardManager().format(money) + ")");
-
-		skull.setItemMeta(skullMeta);
-		Messages.debug("CustomItems: set the skin using Mojang database (%s,%s)", name, uuid.toString());
+		skull = new ItemStack(getCustomtexture(UUID.fromString(Reward.MH_REWARD_KILLED_UUID), offlinePlayer.getName(),
+				skin[0], skin[1], money, UUID.randomUUID(), uuid));
+		skull.setAmount(amount);
 		return skull;
 	}
 

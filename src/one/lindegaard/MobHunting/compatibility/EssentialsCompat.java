@@ -8,7 +8,6 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 
 import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.User;
@@ -16,7 +15,7 @@ import com.earth2me.essentials.User;
 import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
-public class EssentialsCompat implements Listener {
+public class EssentialsCompat{
 
 	private static Essentials mPlugin;
 	private static boolean supported = false;
@@ -26,8 +25,6 @@ public class EssentialsCompat implements Listener {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with Essentials is disabled in config.yml");
 		} else {
 			mPlugin = (Essentials) Bukkit.getPluginManager().getPlugin(CompatPlugin.Essentials.getName());
-
-			Bukkit.getPluginManager().registerEvents(this, MobHunting.getInstance());
 
 			Bukkit.getLogger().info("[MobHunting] Enabling compatibility with Essentials ("
 					+ getEssentials().getDescription().getVersion() + ")");
@@ -126,11 +123,5 @@ public class EssentialsCompat implements Listener {
 	// **************************************************************************
 	// EVENTS
 	// **************************************************************************
-
-	// @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-	// private void onPlayerJoin(PlayerJoinEvent event) {
-	// final Player player = event.getPlayer();
-	// Messages.debug("ESS Balance=%s", getEssBalance(player));
-	// }
 
 }

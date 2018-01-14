@@ -46,8 +46,9 @@ public enum CompatPlugin {
 	Holograms("Holograms", 44), //
 	HolographicDisplays("HolographicDisplays", 45), //
 	PreciousStones("PreciousStones", 46), //
-	BagOfGold("BagOfGold", 47);
-
+	BagOfGold("BagOfGold", 47), //
+	MobHunting("MobHunting", 48);
+	
 	private final String name;
 	private final Integer id;
 
@@ -70,6 +71,13 @@ public enum CompatPlugin {
 
 	public CompatPlugin valueOf(int id) {
 		return CompatPlugin.values()[id];
+	}
+	
+	public static CompatPlugin getCompatPlugin(String pluginname) {
+		for (CompatPlugin name : values())
+			if (name.getName().equalsIgnoreCase(pluginname))
+				return name;
+		return null;
 	}
 
 	public String getName() {

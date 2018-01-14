@@ -1,22 +1,29 @@
 package one.lindegaard.MobHunting.compatibility;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.server.PluginEnableEvent;
 
 import one.lindegaard.MobHunting.MobHunting;
 
-public class CompatibilityManager {
-	
+public class CompatibilityManager implements Listener {
+
 	private MobHunting plugin;
 	private static HashSet<Object> mCompatClasses = new HashSet<Object>();
-	
-	public CompatibilityManager(MobHunting plugin){
-		this.plugin=plugin;
+	private static HashMap<CompatPlugin, Class<?>> mWaitingCompatClasses = new HashMap<CompatPlugin, Class<?>>();
+
+	public CompatibilityManager(MobHunting plugin) {
+		this.plugin = plugin;
+		Bukkit.getPluginManager().registerEvents(this, MobHunting.getInstance());
 	}
-	
+
 	public void registerPlugin(@SuppressWarnings("rawtypes") Class c, CompatPlugin pluginName) {
 		try {
 			register(c, pluginName);
@@ -45,7 +52,8 @@ public class CompatibilityManager {
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}
-		}
+		} else
+			mWaitingCompatClasses.put(pluginName, compatibilityHandler);
 	}
 
 	/**
@@ -63,6 +71,15 @@ public class CompatibilityManager {
 				return true;
 		}
 		return false;
+	}
+
+	@EventHandler(priority = EventPriority.NORMAL)
+	private void onPluginEnabled(PluginEnableEvent event) {
+		CompatPlugin compatPlugin = CompatPlugin.getCompatPlugin(event.getPlugin().getName());
+		if (mWaitingCompatClasses.containsKey(compatPlugin)) {
+			registerPlugin(mWaitingCompatClasses.get(compatPlugin), compatPlugin);
+			mWaitingCompatClasses.remove(compatPlugin);
+		}
 	}
 
 }

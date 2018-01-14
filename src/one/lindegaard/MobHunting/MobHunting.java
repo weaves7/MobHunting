@@ -372,6 +372,10 @@ public class MobHunting extends JavaPlugin {
 		return instance;
 	}
 
+	public static MobHunting getAPI() {
+		return instance;
+	}
+	
 	public ConfigManager getConfigManager() {
 		return mConfig;
 	}

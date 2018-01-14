@@ -16,6 +16,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import one.lindegaard.BagOfGold.BagOfGold;
 import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
+import one.lindegaard.MobHunting.rewards.CustomItems;
 import one.lindegaard.MobHunting.storage.DataStoreException;
 import one.lindegaard.MobHunting.storage.IDataCallback;
 import one.lindegaard.MobHunting.storage.PlayerSettings;
@@ -122,6 +123,11 @@ public class PlayerSettingsManager implements Listener {
 				// player inventory
 				double balance = plugin.getRewardManager().getBalance(player);
 				Messages.debug("%s balance=%s", player.getName(), balance);
+
+				if (ps.getTexture()==null || ps.getTexture().equals("")) {
+					Messages.debug("Store %s skin in MobHunting Skin Cache" , player.getName());
+					new CustomItems(plugin).getPlayerHead(player.getUniqueId(), 1, 0);
+				}
 			}
 
 			@Override
