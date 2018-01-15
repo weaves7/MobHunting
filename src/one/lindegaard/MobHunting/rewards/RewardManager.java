@@ -196,10 +196,10 @@ public class RewardManager {
 	}
 
 	public String format(double amount) {
-		if (BagOfGoldCompat.isSupported())
-			return mEconomy.format(Misc.round(amount));
-		else
+		if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency)
 			return Misc.format(amount);
+		else
+			return getEconomy().format(amount);
 	}
 
 	public double getBalance(OfflinePlayer offlinePlayer) {
@@ -245,14 +245,14 @@ public class RewardManager {
 					ItemMeta im = is.getItemMeta();
 					im.setLore(rewardInSlot.getHiddenLore());
 					String displayName = plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
-							? mEconomy.format(rewardInSlot.getMoney())
-							: rewardInSlot.getDisplayname() + " (" + mEconomy.format(rewardInSlot.getMoney()) + ")";
+							? format(rewardInSlot.getMoney())
+							: rewardInSlot.getDisplayname() + " (" + format(rewardInSlot.getMoney()) + ")";
 					im.setDisplayName(
 							ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + displayName);
 					is.setItemMeta(im);
 					is.setAmount(1);
 					Messages.debug("Added %s to item in slot %s, new value is %s (addBagOfGoldPlayer_RewardManager)",
-							mEconomy.format(amount), slot, mEconomy.format(rewardInSlot.getMoney()));
+							format(amount), slot, format(rewardInSlot.getMoney()));
 					found = true;
 					break;
 				}
@@ -373,9 +373,8 @@ public class RewardManager {
 									money, uuid, UUID.randomUUID(), skinuuid)));
 			if (Misc.isMC18OrNewer()) {
 				item.setCustomName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
-						+ (plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
-								? mEconomy.format(money)
-								: Reward.getReward(is).getDisplayname() + " (" + mEconomy.format(money) + ")"));
+						+ (plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM") ? format(money)
+								: Reward.getReward(is).getDisplayname() + " (" + format(money) + ")"));
 				item.setCustomNameVisible(true);
 			}
 		}

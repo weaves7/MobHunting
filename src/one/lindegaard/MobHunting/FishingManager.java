@@ -156,8 +156,7 @@ public class FishingManager implements Listener {
 			cash = Misc.ceil(cash);
 
 			// Pay the reward to player and assister
-			if (cash >= plugin.getConfigManager().minimumReward
-					|| cash <= -plugin.getConfigManager().minimumReward
+			if (cash >= plugin.getConfigManager().minimumReward || cash <= -plugin.getConfigManager().minimumReward
 					|| !plugin.getRewardManager().getKillConsoleCmd(fish).isEmpty()) {
 
 				// Handle MobHuntFishingEvent

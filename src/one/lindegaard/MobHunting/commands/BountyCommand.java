@@ -213,6 +213,7 @@ public class BountyCommand implements ICommand {
 			// <bountyOwner>'s bounty on <player>. Permission
 			// mobhunting.bounty.admin needed.
 
+			@SuppressWarnings("deprecation")
 			OfflinePlayer wantedPlayer = Bukkit.getOfflinePlayer(args[1]);
 			if (wantedPlayer == null) {
 				plugin.getMessages().senderSendMessage(sender,
@@ -258,6 +259,7 @@ public class BountyCommand implements ICommand {
 					//return true;
 				}
 			} else if (args.length == 3 && sender.hasPermission("mobhunting.bounty.admin")) {
+				@SuppressWarnings("deprecation")
 				OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[2]);
 				if (offlinePlayer != null)
 					bountyOwner = offlinePlayer;

@@ -111,6 +111,7 @@ public class CrackShotCompat implements Listener {
 	// EVENTS
 	// **************************************************************************
 
+	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.LOW)
 	public void onWeaponDamageEntityEvent(WeaponDamageEntityEvent event) {
 		if (event.getVictim() instanceof LivingEntity) {

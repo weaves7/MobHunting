@@ -7,8 +7,6 @@ import io.chazza.advancementapi.Trigger;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.TextComponent;
 
-import java.io.File;
-
 import org.bukkit.*;
 import org.bukkit.inventory.ItemStack;
 
@@ -19,13 +17,13 @@ import org.bukkit.inventory.ItemStack;
 public class AdvancementAPITest {
 
 	private final String worldName = "world";
-    private final File worldFile = new File(worldName);
+   // private final File worldFile = new File(worldName);
 
 
-    public void createAndSave() {
+    @SuppressWarnings("deprecation")
+	public void createAndSave() {
 
-
-        AdvancementAPI parent = AdvancementAPI.builder(new NamespacedKey("test", "my/firststeps"))
+		AdvancementAPI parent = AdvancementAPI.builder(new NamespacedKey("test", "my/firststeps"))
                 .title("First Steps")
                 .description("Starting")
                 .icon("minecraft:wood_sword")

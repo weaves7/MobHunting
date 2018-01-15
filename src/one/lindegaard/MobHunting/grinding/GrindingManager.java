@@ -26,7 +26,6 @@ import org.bukkit.event.world.WorldUnloadEvent;
 
 import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
-import one.lindegaard.MobHunting.mobs.ExtendedMob;
 import one.lindegaard.MobHunting.mobs.MinecraftMob;
 import one.lindegaard.MobHunting.util.Misc;
 
@@ -73,7 +72,7 @@ public class GrindingManager implements Listener {
 	 *         area is detected as a Grinding Area
 	 */
 	public boolean isNetherGoldXPFarm(LivingEntity killed) {
-		ExtendedMob mob = MobHunting.getInstance().getExtendedMobManager().getExtendedMobFromEntity(killed);
+		//ExtendedMob mob = MobHunting.getInstance().getExtendedMobManager().getExtendedMobFromEntity(killed);
 		int n = 0;
 		long now = System.currentTimeMillis();
 		final long seconds = plugin.getConfigManager().secondsToSearchForGrinding;
@@ -129,7 +128,7 @@ public class GrindingManager implements Listener {
 	}
 
 	public boolean isOtherFarm(LivingEntity killed) {
-		ExtendedMob mob = MobHunting.getInstance().getExtendedMobManager().getExtendedMobFromEntity(killed);
+		//ExtendedMob mob = MobHunting.getInstance().getExtendedMobManager().getExtendedMobFromEntity(killed);
 		int n = 0;
 		long now = System.currentTimeMillis();
 		final long seconds = plugin.getConfigManager().secondsToSearchForGrinding;

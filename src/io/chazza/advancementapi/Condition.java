@@ -25,7 +25,8 @@ public class Condition {
 
 
     //BEGIN UTIL
-    private static JsonObject convertItemToJSON(ItemStack item) {
+    @SuppressWarnings("deprecation")
+	private static JsonObject convertItemToJSON(ItemStack item) {
         JsonObject itemJSON = new JsonObject();
         itemJSON.addProperty("item", "minecraft:" + item.getType().name().toLowerCase());
         itemJSON.addProperty("amount", item.getAmount());

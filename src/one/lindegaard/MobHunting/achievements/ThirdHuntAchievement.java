@@ -5,9 +5,7 @@ import org.bukkit.inventory.ItemStack;
 import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.mobs.ExtendedMob;
-import one.lindegaard.MobHunting.mobs.MinecraftMob;
 import one.lindegaard.MobHunting.mobs.MobPlugin;
-import one.lindegaard.MobHunting.rewards.CustomItems;
 
 public class ThirdHuntAchievement implements ProgressAchievement {
 

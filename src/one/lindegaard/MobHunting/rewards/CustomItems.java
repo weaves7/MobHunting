@@ -31,6 +31,7 @@ import one.lindegaard.MobHunting.rewards.skins.Skins_1_10_R1;
 import one.lindegaard.MobHunting.rewards.skins.Skins_1_11_R1;
 import one.lindegaard.MobHunting.rewards.skins.Skins_1_12_R1;
 import one.lindegaard.MobHunting.rewards.skins.Skins_1_8_R1;
+import one.lindegaard.MobHunting.rewards.skins.Skins_1_8_R2;
 import one.lindegaard.MobHunting.rewards.skins.Skins_1_8_R3;
 import one.lindegaard.MobHunting.rewards.skins.Skins_1_9_R1;
 import one.lindegaard.MobHunting.storage.PlayerSettings;
@@ -47,6 +48,35 @@ public class CustomItems {
 	// How to get Playerskin
 	// https://www.spigotmc.org/threads/how-to-get-a-players-texture.244966/
 
+	private Skins getSkinsClass() {
+		String version;
+		Skins sk = null;
+		try {
+			version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
+		} catch (ArrayIndexOutOfBoundsException whatVersionAreYouUsingException) {
+			whatVersionAreYouUsingException.printStackTrace();
+			return null;
+		}
+		Bukkit.getLogger().info("[MobHunting] Your server is running version " + version);
+		if (version.equals("v1_12_R1")) {
+			sk = new Skins_1_12_R1();
+		} else if (version.equals("v1_11_R1")) {
+			Messages.debug("v1_11_R1");
+			sk = new Skins_1_11_R1();
+		} else if (version.equals("v1_10_R1")) {
+			sk = new Skins_1_10_R1();
+		} else if (version.equals("v1_9_R1")) {
+			sk = new Skins_1_9_R1();
+		} else if (version.equals("v1_8_R3")) {
+			sk = new Skins_1_8_R3();
+		} else if (version.equals("v1_8_R2")) {
+			sk = new Skins_1_8_R2();
+		} else if (version.equals("v1_8_R1")) {
+			sk = new Skins_1_8_R1();
+		}
+		return sk;
+	}
+
 	/**
 	 * Return an ItemStack with the Players head texture.
 	 *
@@ -61,51 +91,29 @@ public class CustomItems {
 		OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
 
 		PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(offlinePlayer);
-		String[] skin = new String[2];
+		String[] skinCache = new String[2];
 
 		if (ps.getTexture() == null || ps.getSignature() == null || ps.getTexture().isEmpty()
 				|| ps.getSignature().isEmpty()) {
 			if (offlinePlayer.isOnline()) {
 				Player player = (Player) offlinePlayer;
-				String version;
-				Skins sk = null;
-				try {
-					version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
-				} catch (ArrayIndexOutOfBoundsException whatVersionAreYouUsingException) {
-					whatVersionAreYouUsingException.printStackTrace();
-					return null;
-				}
-				Bukkit.getLogger().info("[MobHunting] Your server is running version " + version);
-				if (version.equals("v1_12_R1")) {
-					sk = new Skins_1_12_R1();
-				} else if (version.equals("v1_11_R1")) {
-					Messages.debug("v1_11_R1");
-					sk = new Skins_1_11_R1();
-				} else if (version.equals("v1_10_R1")) {
-					sk = new Skins_1_10_R1();
-				} else if (version.equals("v1_9_R1")) {
-					sk = new Skins_1_9_R1();
-				} else if (version.equals("v1_8_R3")) {
-					sk = new Skins_1_8_R3();
-				} else if (version.equals("v1_8_R1")) {
-					sk = new Skins_1_8_R1();
-				}
+				Skins sk = getSkinsClass();
 				if (sk != null) {
 					Messages.debug("Trying to fecth skin from Online Player Profile");
-					skin = sk.getSkin(player);
+					skinCache = sk.getSkin(player);
 				} else {
 					Messages.debug("Trying to fecth skin from Minecraft Servers");
-					skin = getSkinFromUUID(uuid);
+					skinCache = getSkinFromUUID(uuid);
 				}
 			}
 
-			if ((skin == null || skin[0] == null || skin[0].isEmpty() || skin[1] == null || skin[1].isEmpty())
-					&& Misc.isMC112OrNewer())
+			if ((skinCache == null || skinCache[0] == null || skinCache[0].isEmpty() || skinCache[1] == null
+					|| skinCache[1].isEmpty()) && Misc.isMC112OrNewer())
 				return getPlayerHeadOwningPlayer(uuid, amount, money);
 
-			if (skin != null && !skin[0].isEmpty() && !skin[1].isEmpty()) {
-				ps.setTexture(skin[0]);
-				ps.setSignature(skin[1]);
+			if (skinCache != null && !skinCache[0].isEmpty() && !skinCache[1].isEmpty()) {
+				ps.setTexture(skinCache[0]);
+				ps.setSignature(skinCache[1]);
 				plugin.getPlayerSettingsmanager().setPlayerSettings(offlinePlayer, ps);
 				plugin.getDataStoreManager().updatePlayerSettings(offlinePlayer, ps);
 			} else {
@@ -113,13 +121,27 @@ public class CustomItems {
 				return skull;
 			}
 		} else {
-			skin[0] = ps.getTexture();
-			skin[1] = ps.getSignature();
+			if (offlinePlayer.isOnline()) {
+				Player player = (Player) offlinePlayer;
+				Skins sk = getSkinsClass();
+				if (sk != null) {
+					String[] skinOnline = sk.getSkin(player);
+					if (skinOnline != null && !skinOnline.equals(skinCache)) {
+						Messages.debug("%s has changed skin, updating MobHunting Skin cache");
+						ps.setTexture(skinOnline[0]);
+						ps.setSignature(skinOnline[1]);
+						plugin.getPlayerSettingsmanager().setPlayerSettings(offlinePlayer, ps);
+						plugin.getDataStoreManager().updatePlayerSettings(offlinePlayer, ps);
+					}
+				}
+			}
+			skinCache[0] = ps.getTexture();
+			skinCache[1] = ps.getSignature();
 			Messages.debug("%s using skin from MobHunting Skin Cache", offlinePlayer.getName());
 		}
 
 		skull = new ItemStack(getCustomtexture(UUID.fromString(Reward.MH_REWARD_KILLED_UUID), offlinePlayer.getName(),
-				skin[0], skin[1], money, UUID.randomUUID(), uuid));
+				skinCache[0], skinCache[1], money, UUID.randomUUID(), uuid));
 		skull.setAmount(amount);
 		return skull;
 	}

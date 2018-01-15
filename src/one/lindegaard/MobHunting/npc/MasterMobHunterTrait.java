@@ -21,6 +21,7 @@ public class MasterMobHunterTrait extends Trait implements Listener {
 	// The Trait class also implements Listener so you can add EventHandlers
 	// directly to your trait.
 
+	@SuppressWarnings("unused")
 	private MobHunting plugin;
 
 	public MasterMobHunterTrait() {

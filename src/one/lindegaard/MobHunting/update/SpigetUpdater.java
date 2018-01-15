@@ -57,8 +57,8 @@ public class SpigetUpdater {
 	public void hourlyUpdateCheck(final CommandSender sender, boolean updateCheck, final boolean silent) {
 		long seconds = MobHunting.getInstance().getConfigManager().checkEvery;
 		if (seconds < 900) {
-			Bukkit.getConsoleSender().sendMessage(ChatColor.RED
-					+ "[MobHunting][Warning] check_every in your config.yml is too low. A low number can cause server crashes. The number is raised to 900 seconds = 15 minutes.");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting]" + ChatColor.RED
+					+ "[Warning] check_every in your config.yml is too low. A low number can cause server crashes. The number is raised to 900 seconds = 15 minutes.");
 			seconds = 900;
 		}
 		if (updateCheck) {
@@ -80,8 +80,8 @@ public class SpigetUpdater {
 			@Override
 			public void run() {
 				if (count++ > 10) {
-					Bukkit.getConsoleSender().sendMessage(
-							ChatColor.RED + "[MobHunting] No updates found. (No response from server after 10s)");
+					Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting]" + ChatColor.RED
+							+ " No updates found. (No response from server after 10s)");
 					this.cancel();
 				} else {
 					// Wait for the response
@@ -123,8 +123,8 @@ public class SpigetUpdater {
 
 		if (updateCheck) {
 			if (!silent)
-				Bukkit.getConsoleSender().sendMessage(
-						ChatColor.GOLD + "[MobHunting] " + Messages.getString("mobhunting.commands.update.check"));
+				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+						+ Messages.getString("mobhunting.commands.update.check"));
 			if (updateAvailable != UpdateStatus.RESTART_NEEDED) {
 				spigetUpdate = new SpigetUpdate(plugin, 3582);
 				spigetUpdate.setVersionComparator(VersionComparator.SEM_VER);
@@ -137,14 +137,14 @@ public class SpigetUpdater {
 						//// A new version is available
 						updateAvailable = UpdateStatus.AVAILABLE;
 						newDownloadVersion = newVersion;
-						sender.sendMessage(ChatColor.GREEN + "[MobHunting] " + Messages
+						sender.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.GREEN + Messages
 								.getString("mobhunting.commands.update.version-found", "newversion", newVersion));
 						if (plugin.getConfigManager().autoupdate) {
 							downloadAndUpdateJar();
-							sender.sendMessage(ChatColor.GREEN + "[MobHunting] "
+							sender.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.GREEN
 									+ Messages.getString("mobhunting.commands.update.complete"));
 						} else
-							sender.sendMessage(ChatColor.GREEN + "[MobHunting] "
+							sender.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.GREEN
 									+ Messages.getString("mobhunting.commands.update.help"));
 					}
 
@@ -152,7 +152,7 @@ public class SpigetUpdater {
 					public void upToDate() {
 						//// Plugin is up-to-date
 						if (!silent)
-							sender.sendMessage(ChatColor.GOLD + "[MobHunting] "
+							sender.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
 									+ Messages.getString("mobhunting.commands.update.no-update"));
 					}
 				});
@@ -161,62 +161,41 @@ public class SpigetUpdater {
 	}
 
 	/**
-	public static UpdateStatus isSnapShotNewerVersion() {
-		// Version format on Bukkit.org: "MobHunting Vn.n.n"
-		// Version format in jar file: "n.n.n" | "n.n.n-SNAPSHOT-Bn"
-
-		int updateCheck = 0, pluginCheck = 0;
-		boolean snapshot = false;
-		// Check to see if the latest file is newer that this one
-		//String[] split = Updater.getBukkitUpdate().getVersionName().split(" V");
-		// Only do this if the format is what we expect
-		String[] split = new String[2];
-		if (split.length == 2) {
-			// Need to escape the period in the regex expression
-			String[] updateVer = split[1].split("\\.");
-			// Check the version #'smy
-			String[] pluginVerSNAPSHOT = MobHunting.getInstance().getDescription().getVersion().split("\\-");
-			if (pluginVerSNAPSHOT.length > 1)
-				snapshot = pluginVerSNAPSHOT[1].equals("SNAPSHOT");
-			if (snapshot)
-				Messages.debug("You are using a development version (%s)",
-						MobHunting.getInstance().getDescription().getVersion());
-			String[] pluginVer = pluginVerSNAPSHOT[0].split("\\.");
-			// Run through major, minor, sub
-			for (int i = 0; i < Math.max(updateVer.length, pluginVer.length); i++) {
-				try {
-					updateCheck = 0;
-					if (i < updateVer.length) {
-						updateCheck = Integer.valueOf(updateVer[i]);
-					}
-					pluginCheck = 0;
-					if (i < pluginVer.length) {
-						pluginCheck = Integer.valueOf(pluginVer[i]);
-					}
-					if (updateCheck > pluginCheck) {
-						return UpdateStatus.AVAILABLE;
-					} else if (updateCheck < pluginCheck)
-						return UpdateStatus.NOT_AVAILABLE;
-				} catch (Exception e) {
-					MobHunting.getInstance().getLogger().warning("Could not determine update's version # ");
-					MobHunting.getInstance().getLogger().warning(
-							"Installed plugin version: " + MobHunting.getInstance().getDescription().getVersion());
-					MobHunting.getInstance().getLogger()
-							.warning("Newest version on Bukkit.org: " + Updater.getBukkitUpdate().getVersionName());
-					return UpdateStatus.UNKNOWN;
-				}
-			}
-		} else {
-			MobHunting.getInstance().getLogger().warning("Could not determine update's version # ");
-			MobHunting.getInstance().getLogger()
-					.warning("Installed plugin version: " + MobHunting.getInstance().getDescription().getVersion());
-			MobHunting.getInstance().getLogger()
-					.warning("Newest version on Bukkit.org: " + Updater.getBukkitUpdate().getVersionName());
-			return UpdateStatus.UNKNOWN;
-		}
-		if ((updateCheck == pluginCheck && snapshot))
-			return UpdateStatus.AVAILABLE;
-		else
-			return UpdateStatus.NOT_AVAILABLE;
-	}**/
+	 * public static UpdateStatus isSnapShotNewerVersion() { // Version format on
+	 * Bukkit.org: "MobHunting Vn.n.n" // Version format in jar file: "n.n.n" |
+	 * "n.n.n-SNAPSHOT-Bn"
+	 * 
+	 * int updateCheck = 0, pluginCheck = 0; boolean snapshot = false; // Check to
+	 * see if the latest file is newer that this one //String[] split =
+	 * Updater.getBukkitUpdate().getVersionName().split(" V"); // Only do this if
+	 * the format is what we expect String[] split = new String[2]; if (split.length
+	 * == 2) { // Need to escape the period in the regex expression String[]
+	 * updateVer = split[1].split("\\."); // Check the version #'smy String[]
+	 * pluginVerSNAPSHOT =
+	 * MobHunting.getInstance().getDescription().getVersion().split("\\-"); if
+	 * (pluginVerSNAPSHOT.length > 1) snapshot =
+	 * pluginVerSNAPSHOT[1].equals("SNAPSHOT"); if (snapshot) Messages.debug("You
+	 * are using a development version (%s)",
+	 * MobHunting.getInstance().getDescription().getVersion()); String[] pluginVer =
+	 * pluginVerSNAPSHOT[0].split("\\."); // Run through major, minor, sub for (int
+	 * i = 0; i < Math.max(updateVer.length, pluginVer.length); i++) { try {
+	 * updateCheck = 0; if (i < updateVer.length) { updateCheck =
+	 * Integer.valueOf(updateVer[i]); } pluginCheck = 0; if (i < pluginVer.length) {
+	 * pluginCheck = Integer.valueOf(pluginVer[i]); } if (updateCheck > pluginCheck)
+	 * { return UpdateStatus.AVAILABLE; } else if (updateCheck < pluginCheck) return
+	 * UpdateStatus.NOT_AVAILABLE; } catch (Exception e) {
+	 * MobHunting.getInstance().getLogger().warning("Could not determine update's
+	 * version # "); MobHunting.getInstance().getLogger().warning( "Installed plugin
+	 * version: " + MobHunting.getInstance().getDescription().getVersion());
+	 * MobHunting.getInstance().getLogger() .warning("Newest version on Bukkit.org:
+	 * " + Updater.getBukkitUpdate().getVersionName()); return UpdateStatus.UNKNOWN;
+	 * } } } else { MobHunting.getInstance().getLogger().warning("Could not
+	 * determine update's version # "); MobHunting.getInstance().getLogger()
+	 * .warning("Installed plugin version: " +
+	 * MobHunting.getInstance().getDescription().getVersion());
+	 * MobHunting.getInstance().getLogger() .warning("Newest version on Bukkit.org:
+	 * " + Updater.getBukkitUpdate().getVersionName()); return UpdateStatus.UNKNOWN;
+	 * } if ((updateCheck == pluginCheck && snapshot)) return
+	 * UpdateStatus.AVAILABLE; else return UpdateStatus.NOT_AVAILABLE; }
+	 **/
 }

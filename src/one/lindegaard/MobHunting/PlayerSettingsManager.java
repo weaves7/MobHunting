@@ -124,8 +124,8 @@ public class PlayerSettingsManager implements Listener {
 				double balance = plugin.getRewardManager().getBalance(player);
 				Messages.debug("%s balance=%s", player.getName(), balance);
 
-				if (ps.getTexture()==null || ps.getTexture().equals("")) {
-					Messages.debug("Store %s skin in MobHunting Skin Cache" , player.getName());
+				if (ps.getTexture() == null || ps.getTexture().equals("")) {
+					Messages.debug("Store %s skin in MobHunting Skin Cache", player.getName());
 					new CustomItems(plugin).getPlayerHead(player.getUniqueId(), 1, 0);
 				}
 			}

@@ -166,13 +166,13 @@ public class MoneyCommand implements ICommand {
 					plugin.getMessages().senderSendMessage(sender,
 							ChatColor.GREEN + Messages.getString("mobhunting.commands.money.balance", "playername",
 									offlinePlayer.getName(), "money",
-									plugin.getRewardManager().getEconomy().format(balance), "rewardname",
+									plugin.getRewardManager().format(balance), "rewardname",
 									ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 											+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim()));
 				else
 					plugin.getMessages().senderSendMessage(sender,
 							ChatColor.GREEN + Messages.getString("mobhunting.commands.money.balance", "playername",
-									"You", "money", plugin.getRewardManager().getEconomy().format(balance),
+									"You", "money", plugin.getRewardManager().format(balance),
 									"rewardname",
 									ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 											+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim()));
@@ -240,7 +240,7 @@ public class MoneyCommand implements ICommand {
 								ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 										+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName,
 								"money",
-								plugin.getRewardManager().getEconomy().format(Misc.floor(Double.valueOf(args[1])))));
+								plugin.getRewardManager().format(Misc.floor(Double.valueOf(args[1])))));
 					} else if (Bukkit.getServer().getOfflinePlayer(args[1]).isOnline()) {
 						if (args[2].matches("\\d+(\\.\\d+)?")) {
 							Player player = ((Player) Bukkit.getServer().getOfflinePlayer(args[1]));
@@ -311,12 +311,12 @@ public class MoneyCommand implements ICommand {
 											"mobhunting.commands.money.give", "rewardname",
 											ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 													+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
-											"money", plugin.getRewardManager().getEconomy().format(amount)));
+											"money", plugin.getRewardManager().format(amount)));
 									plugin.getMessages().senderSendMessage(sender, Messages.getString(
 											"mobhunting.commands.money.give-sender", "rewardname",
 											ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 													+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
-											"money", plugin.getRewardManager().getEconomy().format(amount), "player",
+											"money", plugin.getRewardManager().format(amount), "player",
 											player.getName()));
 								}
 							} else {
@@ -383,12 +383,12 @@ public class MoneyCommand implements ICommand {
 										Messages.getString("mobhunting.commands.money.take", "rewardname",
 												ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 														+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName,
-												"money", plugin.getRewardManager().getEconomy().format(taken)));
+												"money", plugin.getRewardManager().format(taken)));
 							plugin.getMessages().senderSendMessage(sender,
 									Messages.getString("mobhunting.commands.money.take-sender", "rewardname",
 											ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 													+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
-											"money", plugin.getRewardManager().getEconomy().format(taken), "player",
+											"money", plugin.getRewardManager().format(taken), "player",
 											offlinePlayer.getName()));
 						}
 					} else {
@@ -437,7 +437,7 @@ public class MoneyCommand implements ICommand {
 								Messages.getString("mobhunting.commands.money.sell", "rewardname",
 										ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 												+ reward.getDisplayname(),
-										"money", plugin.getRewardManager().getEconomy().format(reward.getMoney())));
+										"money", plugin.getRewardManager().format(reward.getMoney())));
 					}
 				} else if ((args[0].equalsIgnoreCase("sell") && (args[1].matches("\\d+(\\.\\d+)?")))) {
 					double sold = 0;
@@ -476,7 +476,7 @@ public class MoneyCommand implements ICommand {
 								Messages.getString("mobhunting.commands.money.sell", "rewardname",
 										ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 												+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
-										"money", plugin.getRewardManager().getEconomy().format(sold)));
+										"money", plugin.getRewardManager().format(sold)));
 					} else {
 						plugin.getMessages().playerActionBarMessage(player,
 								Messages.getString("mobhunting.commands.money.sell.nobag", "rewardname",

@@ -21,6 +21,7 @@ import one.lindegaard.MobHunting.MobHunting;
  */
 public class WorldGroup {
 
+	@SuppressWarnings("unused")
 	private MobHunting plugin;
 	private File file = new File(MobHunting.getInstance().getDataFolder(), "worldGroups.yml");
 	private YamlConfiguration config = new YamlConfiguration();
