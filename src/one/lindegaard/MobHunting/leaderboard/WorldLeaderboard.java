@@ -263,7 +263,7 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 					sign.setLine(0, ChatColor.GREEN + String.valueOf(place) + " " + ChatColor.BLACK + name1);
 					if (getStatType().getDBColumn().endsWith("_cash"))
 						sign.setLine(1, ChatColor.BLUE
-								+ plugin.getRewardManager().getEconomy().format(Misc.round(stat1.getCash())));
+								+ plugin.getRewardManager().format(Misc.round(stat1.getCash())));
 					else
 						sign.setLine(1, ChatColor.BLUE + String.valueOf(stat1.getAmount()));
 				} else {
@@ -283,7 +283,7 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 					sign.setLine(2, ChatColor.GREEN + String.valueOf(place + 1) + " " + ChatColor.BLACK + name2);
 					if (getStatType().getDBColumn().endsWith("_cash"))
 						sign.setLine(3, ChatColor.BLUE
-								+ plugin.getRewardManager().getEconomy().format(Misc.round(stat2.getCash())));
+								+ plugin.getRewardManager().format(Misc.round(stat2.getCash())));
 					else
 						sign.setLine(3, ChatColor.BLUE + String.valueOf(stat2.getAmount()));
 				} else {
@@ -486,28 +486,28 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 
 		if (mFacing != BlockFace.NORTH && mFacing != BlockFace.SOUTH && mFacing != BlockFace.WEST
 				&& mFacing != BlockFace.EAST)
-			throw new InvalidConfigurationException("Error on Leaderboard " + section.getName()
+			throw new InvalidConfigurationException("[MobHunting] Error on Leaderboard " + section.getName()
 					+ ":Invalid leaderboard facing " + section.getString("facing"));
 		if (periods == null)
 			throw new InvalidConfigurationException(
-					"Error on Leaderboard " + section.getName() + ":Error in time period list");
+					"[MobHunting] Error on Leaderboard " + section.getName() + ":Error in time period list");
 		if (stats == null)
 			throw new InvalidConfigurationException(
-					"Error on Leaderboard " + section.getName() + ":Error in stat type list");
+					"[MobHunting] Error on Leaderboard " + section.getName() + ":Error in stat type list");
 		if (pos == null)
-			throw new InvalidConfigurationException("Error on Leaderboard " + section.getName() + ":Error in position");
+			throw new InvalidConfigurationException("[MobHunting] Error on Leaderboard " + section.getName() + ":Error in position");
 
 		if (mWidth < 1)
-			throw new InvalidConfigurationException("Error on Leaderboard " + section.getName() + ":Invalid width");
+			throw new InvalidConfigurationException("[MobHunting] Error on Leaderboard " + section.getName() + ":Invalid width");
 		if (mHeight < 1)
-			throw new InvalidConfigurationException("Error on Leaderboard " + section.getName() + ":Invalid height");
+			throw new InvalidConfigurationException("[MobHunting] Error on Leaderboard " + section.getName() + ":Invalid height");
 
 		mPeriod = new TimePeriod[periods.size()];
 		for (int i = 0; i < periods.size(); ++i) {
 			mPeriod[i] = TimePeriod.valueOf(periods.get(i));
 			if (mPeriod[i] == null)
 				throw new InvalidConfigurationException(
-						"Error on Leaderboard " + section.getName() + ":Invalid time period " + periods.get(i));
+						"[MobHunting] Error on Leaderboard " + section.getName() + ":Invalid time period " + periods.get(i));
 		}
 
 		mPeriodIndex = 0;
@@ -518,11 +518,11 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 			mType[i] = StatType.fromColumnName(stats.get(i));
 			if (mType[i] == null)
 				throw new InvalidConfigurationException(
-						"Error on Leaderboard " + section.getName() + ":Invalid stat type " + stats.get(i));
+						"[MobHunting] Error on Leaderboard " + section.getName() + ":Invalid stat type " + stats.get(i));
 		}
 
 		if (!Misc.isSign(mLocation.getBlock())) {
-			throw new InvalidConfigurationException("Error on Leaderboard " + section.getName()
+			throw new InvalidConfigurationException("[MobHunting] Error on Leaderboard " + section.getName()
 					+ ":Leaderboard in world " + mLocation.getWorld().getName() + " at pos (" + mLocation.getBlockX()
 					+ "," + mLocation.getBlockY() + "," + mLocation.getBlockZ() + ") has been deleted from world");
 		}

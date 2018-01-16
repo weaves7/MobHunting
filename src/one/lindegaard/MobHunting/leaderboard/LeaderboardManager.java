@@ -218,7 +218,7 @@ public class LeaderboardManager implements Listener {
 			config.load(file);
 		} catch (IOException | InvalidConfigurationException e) {
 			Bukkit.getConsoleSender().sendMessage(
-					ChatColor.RED + "Could not read world leaderboard file: boards-" + world.getName() + ".yml");
+					ChatColor.RED + "[MobHunting] Could not read world leaderboard file: boards-" + world.getName() + ".yml");
 			if (plugin.getConfigManager().killDebug)
 				e.printStackTrace();
 		}
