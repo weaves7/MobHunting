@@ -1703,14 +1703,12 @@ public class MySQLDataStore extends DatabaseDataStore {
 		try {
 			statement = mConnection.createStatement();
 			try {
-				ResultSet rs = statement.executeQuery("ALTER TABLE mh_Players MODIFY `TEXTURE` VARCHAR(2000)");
-				rs.close();
+				statement.executeUpdate("ALTER TABLE mh_Players MODIFY `TEXTURE` VARCHAR(2000)");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			try {
-				ResultSet rs = statement.executeQuery("ALTER TABLE mh_Players MODIFY `SIGNATURE` VARCHAR(2000)");
-				rs.close();
+				statement.executeUpdate("ALTER TABLE mh_Players MODIFY `SIGNATURE` VARCHAR(2000)");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

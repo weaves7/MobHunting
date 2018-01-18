@@ -1630,7 +1630,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 	}
 
 	protected void migrateDatabaseLayoutFromV6ToV7(Connection mConnection) throws DataStoreException {
-
+		//There is noting to do if the plugin uses Sqlite
 	}
 	
 }
