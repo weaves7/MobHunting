@@ -1559,8 +1559,8 @@ public class MySQLDataStore extends DatabaseDataStore {
 				+ " PLAYER_ID INTEGER NOT NULL AUTO_INCREMENT,"//
 				+ " LEARNING_MODE INTEGER NOT NULL DEFAULT " + lm + ","//
 				+ " MUTE_MODE INTEGER NOT NULL DEFAULT 0,"//
-				+ " TEXTURE VARCHAR(500),"//
-				+ " SIGNATURE VARCHAR(1000),"//
+				+ " TEXTURE VARCHAR(2000),"//
+				+ " SIGNATURE VARCHAR(2000),"//
 				+ " PRIMARY KEY (PLAYER_ID))");
 
 		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Mobs "//
@@ -1681,15 +1681,38 @@ public class MySQLDataStore extends DatabaseDataStore {
 				ResultSet rs = statement.executeQuery("SELECT TEXTURE from mh_Players LIMIT 0");
 				rs.close();
 			} catch (SQLException e) {
-				statement.executeUpdate("alter table `mh_Players` add column `TEXTURE` VARCHAR(500)");
+				statement.executeUpdate("alter table `mh_Players` add column `TEXTURE` VARCHAR(2000)");
 				System.out.println("[MobHunting] TEXTURE added to mh_Players.");
 			}
 			try {
 				ResultSet rs = statement.executeQuery("SELECT SIGNATURE from mh_Players LIMIT 0");
 				rs.close();
 			} catch (SQLException e) {
-				statement.executeUpdate("alter table `mh_Players` add column `SIGNATURE` VARCHAR(1000)");
+				statement.executeUpdate("alter table `mh_Players` add column `SIGNATURE` VARCHAR(2000)");
 				System.out.println("[MobHunting] SIGNATURE added to mh_Players.");
+			}
+			statement.close();
+			mConnection.commit();
+		} catch (SQLException e) {
+			throw new DataStoreException(e);
+		}
+	}
+
+	protected void migrateDatabaseLayoutFromV6ToV7(Connection mConnection) throws DataStoreException {
+		Statement statement;
+		try {
+			statement = mConnection.createStatement();
+			try {
+				ResultSet rs = statement.executeQuery("ALTER TABLE mh_Players MODIFY `TEXTURE` VARCHAR(2000)");
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				ResultSet rs = statement.executeQuery("ALTER TABLE mh_Players MODIFY `SIGNATURE` VARCHAR(2000)");
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
 			statement.close();
 			mConnection.commit();

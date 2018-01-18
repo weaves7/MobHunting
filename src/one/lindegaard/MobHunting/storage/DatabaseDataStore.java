@@ -143,6 +143,12 @@ public abstract class DatabaseDataStore implements IDataStore {
 	protected abstract void migrateDatabaseLayoutFromV5ToV6(Connection connection) throws DataStoreException;
 
 	/**
+	 * Setup / Migrate from database version 6 to version 7 tables for MobHunting
+	 * @throws DataStoreException 
+	 */
+	protected abstract void migrateDatabaseLayoutFromV6ToV7(Connection connection) throws DataStoreException;
+
+	/**
 	 * Open a connection to the Database and prepare a statement for executing.
 	 * 
 	 * @param connection
@@ -285,8 +291,15 @@ public abstract class DatabaseDataStore implements IDataStore {
 				Bukkit.getLogger().info(
 						"[MobHunting] Database version " + plugin.getConfigManager().databaseVersion + " detected.");
 				setupV6Tables(mConnection);
+				migrateDatabaseLayoutFromV6ToV7(mConnection);
 				setupTriggerV4andV5(mConnection);
-			
+				plugin.getConfigManager().databaseVersion = 7;
+				plugin.getConfigManager().saveConfig();
+			case 7:
+				Bukkit.getLogger().info(
+						"[MobHunting] Database version " + plugin.getConfigManager().databaseVersion + " detected.");
+				setupV6Tables(mConnection);
+				setupTriggerV4andV5(mConnection);
 			}
 
 			insertMissingVanillaMobs();

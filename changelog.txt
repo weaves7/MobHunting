@@ -1,3 +1,5 @@
+V5.4.3
+* Extend Column TEXTURE and SIGNATURE in mh_Players for MySQL users
 V5.4.2
 * MobHunting Skin Cache improved - support for MC 1.8R1, 1.8R2, 1.8R3, 1.9R1, 1.10R1, 1.11R1, 1.12R1
 * Changed format() in rewardManager(). Trying to fix ticket 345 (https://github.com/Rocologo/MobHunting/issues/345)

@@ -1629,5 +1629,8 @@ public class SQLiteDataStore extends DatabaseDataStore {
 		}
 	}
 
+	protected void migrateDatabaseLayoutFromV6ToV7(Connection mConnection) throws DataStoreException {
 
+	}
+	
 }
