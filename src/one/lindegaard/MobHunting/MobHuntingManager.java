@@ -1625,9 +1625,9 @@ public class MobHuntingManager implements Listener {
 			}
 
 			// send a message to the player
-			if (!plugin.getRewardManager().getKillRewardDescription(killed).equals("") && !killer_muted) {
+			if (!plugin.getRewardManager().getKillRewardDescription(killed).trim().isEmpty() && !killer_muted) {
 				String message = ChatColor.GREEN + "" + ChatColor.ITALIC
-						+ plugin.getRewardManager().getKillRewardDescription(killed)
+						+ plugin.getRewardManager().getKillRewardDescription(killed).trim()
 								.replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
 								.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
 								.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
