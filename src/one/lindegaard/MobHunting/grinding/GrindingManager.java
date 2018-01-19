@@ -32,13 +32,13 @@ import one.lindegaard.MobHunting.util.Misc;
 public class GrindingManager implements Listener {
 
 	private MobHunting plugin;
-	
+
 	private static HashMap<UUID, LinkedList<Area>> mKnownGrindingAreas = new HashMap<>();
 	private static HashMap<UUID, LinkedList<Area>> mWhitelistedAreas = new HashMap<>();
 	private static HashMap<Integer, GrindingInformation> killed_mobs = new HashMap<>();
 
 	public GrindingManager(MobHunting instance) {
-		this.plugin=instance;
+		this.plugin = instance;
 		if (!loadWhitelist(instance))
 			throw new RuntimeException();
 		if (!loadBlacklist(instance))
@@ -72,7 +72,8 @@ public class GrindingManager implements Listener {
 	 *         area is detected as a Grinding Area
 	 */
 	public boolean isNetherGoldXPFarm(LivingEntity killed) {
-		//ExtendedMob mob = MobHunting.getInstance().getExtendedMobManager().getExtendedMobFromEntity(killed);
+		// ExtendedMob mob =
+		// MobHunting.getInstance().getExtendedMobManager().getExtendedMobFromEntity(killed);
 		int n = 0;
 		long now = System.currentTimeMillis();
 		final long seconds = plugin.getConfigManager().secondsToSearchForGrinding;
@@ -128,7 +129,8 @@ public class GrindingManager implements Listener {
 	}
 
 	public boolean isOtherFarm(LivingEntity killed) {
-		//ExtendedMob mob = MobHunting.getInstance().getExtendedMobManager().getExtendedMobFromEntity(killed);
+		// ExtendedMob mob =
+		// MobHunting.getInstance().getExtendedMobManager().getExtendedMobFromEntity(killed);
 		int n = 0;
 		long now = System.currentTimeMillis();
 		final long seconds = plugin.getConfigManager().secondsToSearchForGrinding;
@@ -144,7 +146,8 @@ public class GrindingManager implements Listener {
 						if (gi.getKilled().getEntityId() != killed.getEntityId()) {
 							if (n < numberOfDeaths) {
 								if (now < gi.getTimeOfDeath() + seconds * 1000L) {
-									if (killed.getLocation().distance(gi.getKilled().getLocation()) < killRadius) {
+									if (killed.getWorld().equals(gi.getKilled().getWorld()) && killed.getLocation()
+											.distance(gi.getKilled().getLocation()) < killRadius) {
 										n++;
 										// Messages.debug("This was not a Nether
 										// Gold XP Farm (%s sec.)",
