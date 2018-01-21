@@ -225,15 +225,6 @@ public class RewardManager {
 		return amountInInventory;
 	}
 
-	public boolean has(OfflinePlayer offlinePlayer, double amount) {
-		if (BagOfGoldCompat.isSupported())
-			return mEconomy.has(offlinePlayer, amount);
-		else if (offlinePlayer.isOnline()) {
-			return getAmountInInventory((Player) offlinePlayer) >= amount;
-		}
-		return false;
-	}
-
 	public boolean addBagOfGoldPlayer_RewardManager(Player player, double amount) {
 		boolean found = false;
 		for (int slot = 0; slot < player.getInventory().getSize(); slot++) {
