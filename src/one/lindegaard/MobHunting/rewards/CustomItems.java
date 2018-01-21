@@ -6,13 +6,16 @@ import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -34,6 +37,7 @@ import one.lindegaard.MobHunting.rewards.skins.Skins_1_8_R1;
 import one.lindegaard.MobHunting.rewards.skins.Skins_1_8_R2;
 import one.lindegaard.MobHunting.rewards.skins.Skins_1_8_R3;
 import one.lindegaard.MobHunting.rewards.skins.Skins_1_9_R1;
+import one.lindegaard.MobHunting.rewards.skins.Skins_1_9_R2;
 import one.lindegaard.MobHunting.storage.PlayerSettings;
 import one.lindegaard.MobHunting.util.Misc;
 
@@ -61,10 +65,11 @@ public class CustomItems {
 		if (version.equals("v1_12_R1")) {
 			sk = new Skins_1_12_R1();
 		} else if (version.equals("v1_11_R1")) {
-			Messages.debug("v1_11_R1");
 			sk = new Skins_1_11_R1();
 		} else if (version.equals("v1_10_R1")) {
 			sk = new Skins_1_10_R1();
+		} else if (version.equals("v1_9_R2")) {
+			sk = new Skins_1_9_R2();
 		} else if (version.equals("v1_9_R1")) {
 			sk = new Skins_1_9_R1();
 		} else if (version.equals("v1_8_R3")) {
@@ -127,7 +132,7 @@ public class CustomItems {
 				if (sk != null) {
 					String[] skinOnline = sk.getSkin(player);
 					if (skinOnline != null && !skinOnline.equals(skinCache)) {
-						Messages.debug("%s has changed skin, updating MobHunting Skin cache");
+						Messages.debug("%s has changed skin, updating MobHunting Skin cache", player.getName());
 						ps.setTexture(skinOnline[0]);
 						ps.setSignature(skinOnline[1]);
 						plugin.getPlayerSettingsmanager().setPlayerSettings(offlinePlayer, ps);
@@ -346,4 +351,15 @@ public class CustomItems {
 		return skull;
 	}
 
+	// TODO:
+	public ItemStack getCoin() {
+		ItemStack customItem = new ItemStack(Material.GOLD_NUGGET, 1, (short) 1);
+		ItemMeta meta = customItem.getItemMeta();
+		meta.spigot().setUnbreakable(true);
+		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
+		List<String> lores = new ArrayList<>();
+		lores.add("My coin");
+		customItem.setItemMeta(meta);
+		return customItem;
+	}
 }

@@ -1,3 +1,7 @@
+V5.4.4
+* MobHunting Skin Cache improved - support for MC 1.9.4 added
+* Removing Bags with 0 value from player inventory when the player changes from creative to survival
+* Fixed NPE error, when the players skin was updated.
 V5.4.3
 * Extend Column TEXTURE and SIGNATURE in mh_Players for MySQL users
 * Fixed Ticket 346: (https://github.com/Rocologo/MobHunting/issues/346)

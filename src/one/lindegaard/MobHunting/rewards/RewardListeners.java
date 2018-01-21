@@ -214,8 +214,9 @@ public class RewardListeners implements Listener {
 											is.setItemMeta(im);
 											is.setAmount(1);
 											Messages.debug(
-													"Added %s to item in slot %s, new value is %s (addBagOfGoldPlayer_RewardManager)",
-													plugin.getRewardManager().format(reward.getMoney()), slot,
+													"Added %s to %s's item in slot %s, new value is %s (addBagOfGoldPlayer_RewardManager)",
+													plugin.getRewardManager().format(reward.getMoney()),
+													player.getName(), slot,
 													plugin.getRewardManager().format(rewardInSlot.getMoney()));
 											done = true;
 											break;
@@ -291,7 +292,7 @@ public class RewardListeners implements Listener {
 			}
 			if (reward.getMoney() == 0)
 				reward.setUniqueId(UUID.randomUUID());
-			Messages.debug("Placed Reward Block:%s", reward.toString());
+			Messages.debug("%s placed a reward block: %s", player.getName(), ChatColor.stripColor(reward.toString()));
 			block.setMetadata(Reward.MH_REWARD_DATA, new FixedMetadataValue(plugin, reward));
 			plugin.getRewardManager().getLocations().put(reward.getUniqueUUID(), reward);
 			plugin.getRewardManager().getReward().put(reward.getUniqueUUID(), block.getLocation());
@@ -402,14 +403,15 @@ public class RewardListeners implements Listener {
 		ItemStack isCursor = event.getCursor();
 		Player player = (Player) event.getWhoClicked();
 		SlotType slotType = event.getSlotType();
-		
-		//Inventory inventory = event.getInventory();
-		//if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
-		//	Messages.debug("action=%s, InventoryType=%s, slottype=%s, slotno=%s, current=%s, cursor=%s, view=%s",
-		//			action, inventory.getType(), slotType, event.getSlot(),
-		//			isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
-		//			isCursor == null ? "null" : isCursor.getType(), event.getView().getType());
-		//}
+
+		// Inventory inventory = event.getInventory();
+		// if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
+		// Messages.debug("action=%s, InventoryType=%s, slottype=%s, slotno=%s,
+		// current=%s, cursor=%s, view=%s",
+		// action, inventory.getType(), slotType, event.getSlot(),
+		// isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
+		// isCursor == null ? "null" : isCursor.getType(), event.getView().getType());
+		// }
 
 		if (action == InventoryAction.NOTHING)
 			return;
@@ -447,7 +449,7 @@ public class RewardListeners implements Listener {
 				if ((reward1.isBagOfGoldReward() || reward1.isItemReward())
 						&& reward1.getRewardUUID().equals(reward2.getRewardUUID())) {
 					reward2.setMoney(reward1.getMoney() + reward2.getMoney());
-					
+
 					imCursor.setLore(reward2.getHiddenLore());
 					imCursor.setDisplayName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 							+ (plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
@@ -455,10 +457,10 @@ public class RewardListeners implements Listener {
 									: reward2.getDisplayname() + " ("
 											+ plugin.getRewardManager().format(reward2.getMoney()) + ")"));
 					isCursor.setItemMeta(imCursor);
-					
+
 					isCurrentSlot.setAmount(0);
 					isCurrentSlot.setType(Material.AIR);
-					
+
 					event.setCurrentItem(isCursor);
 					event.setCursor(isCurrentSlot);
 					Messages.debug("%s merged two rewards", player.getName());
@@ -625,8 +627,9 @@ public class RewardListeners implements Listener {
 			// isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
 			// isCursor == null ? "null" : isCursor.getType(), event.getView().getType());
 
-			if ((Reward.isReward(isCursor) && Reward.getReward(isCursor).getMoney() > 0)
-					|| (Reward.isReward(isCurrentSlot) && Reward.getReward(isCurrentSlot).getMoney() > 0))
+			if ( //(Reward.isReward(isCursor) && Reward.getReward(isCursor).getMoney() > 0)
+					//||
+					(Reward.isReward(isCurrentSlot) && Reward.getReward(isCurrentSlot).getMoney() > 0))
 				plugin.getMessages().learn(player, Messages.getString("mobhunting.learn.rewards.creative"));
 
 		}
@@ -637,7 +640,7 @@ public class RewardListeners implements Listener {
 					ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 							+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName,
 					0, reward.getRewardUUID(), reward.getSkinUUID());
-			event.setCursor(isCursor);
+			event.setCurrentItem(isCurrentSlot);
 			if (reward.getMoney() > 0)
 				Messages.debug("Reward in slot %s had its value set to 0", event.getSlot());
 		}

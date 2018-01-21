@@ -6,8 +6,8 @@
 	<groupId>one.lindegaard</groupId>
 	<artifactId>MobHunting</artifactId>
 	<packaging>jar</packaging>
-	<version>5.4.3</version>
-	<!-- <version>5.4.3-SNAPSHOT-B${build.number}</version> -->
+	<!-- <version>5.4.4</version> -->
+	<version>5.4.4-SNAPSHOT-B${build.number}</version>
 	<name>MobHunting</name>
 	<url>https://www.spigotmc.org/resources/mobhunting.3582/</url>
 	<description>MobHunting adds a new level of fun to hunting monsters. Now you can get money from kills, get bonuses for skilled and creative kills, and get special achievements!</description>
@@ -32,13 +32,15 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<mainClass>${project.groupId}.${project.artifactId}</mainClass>
 		<spigotmc112.version>1.12.2-R0.1-SNAPSHOT</spigotmc112.version>
-		<bukkit112.version>1.12.2-R0.1-SNAPSHOT</bukkit112.version>
-		<bukkit111R1.version>1.11-R1</bukkit111R1.version>
-		<bukkit110R1.version>1.10-R1</bukkit110R1.version>
-		<bukkit19R1.version>1.9-R1</bukkit19R1.version>
-		<bukkit18R3.version>1.8-R3</bukkit18R3.version>
-		<bukkit18R2.version>1.8-R2</bukkit18R2.version>
-		<bukkit18R1.version>1.8-R1</bukkit18R1.version>
+		<bukkit113.version>18w03b-R0.1-SNAPSHOT</bukkit113.version>
+		<craftbukkit112.version>1.12.2-R1</craftbukkit112.version>
+		<craftbukkit111R1.version>1.11-R1</craftbukkit111R1.version>
+		<craftbukkit110R1.version>1.10-R1</craftbukkit110R1.version>
+		<craftbukkit19R1.version>1.9-R1</craftbukkit19R1.version>
+		<craftbukkit19R2.version>1.9-R2</craftbukkit19R2.version>
+		<craftbukkit18R3.version>1.8-R3</craftbukkit18R3.version>
+		<craftbukkit18R2.version>1.8-R2</craftbukkit18R2.version>
+		<craftbukkit18R1.version>1.8-R1</craftbukkit18R1.version>
 		<spongeapi.version>5.1.0-SNAPSHOT</spongeapi.version>
 		<javacompiler.version>1.8</javacompiler.version>
 		<mavenCompilerPlugin.version>3.6.1</mavenCompilerPlugin.version>
@@ -162,7 +164,7 @@
 					<artifactSet>
 						<includes>
 							<include>org.bstats:*</include>
-							<!-- <include>org.inventivetalent:reflectionhelper**</include>  -->
+							<!-- <include>org.inventivetalent:reflectionhelper**</include> -->
 							<include>org.inventivetalent.spiget-update:bukkit**</include>
 						</includes>
 					</artifactSet>
@@ -182,11 +184,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			
-			
-			
-			
-			
 		</plugins>
 	</build>
 
@@ -333,63 +330,79 @@
 			<version>${spigotmc111R1.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
-		<!-- CraftBukkit -->
-		<dependency>
-			<groupId>org.craftbukkit</groupId>
-			<artifactId>bukkit</artifactId>
-			<version>${bukkit111R1.version}</version>
-			<!-- <scope>provided</scope> -->
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/craftbukkit-1.11.2.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>org.craftbukkit</groupId>
-			<artifactId>bukkit2</artifactId>
-			<version>${bukkit110R1.version}</version>
-			<!-- <scope>provided</scope> -->
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/craftbukkit-1.10.2-R0.1-SNAPSHOT.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>org.craftbukkit</groupId>
-			<artifactId>bukkit3</artifactId>
-			<version>${bukkit19R1.version}</version>
-			<!-- <scope>provided</scope> -->
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/craftbukkit-1.9-R0.1-SNAPSHOT.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>org.craftbukkit</groupId>
-			<artifactId>bukkit4</artifactId>
-			<version>${bukkit18R3.version}</version>
-			<!-- <scope>provided</scope> -->
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/craftbukkit-1.8.8-R0.1-SNAPSHOT.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>org.craftbukkit</groupId>
-			<artifactId>bukkit5</artifactId>
-			<version>${bukkit18R2.version}</version>
-			<!-- <scope>provided</scope> -->
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/craftbukkit-1.8.3-R0.1-SNAPSHOT.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>org.craftbukkit</groupId>
-			<artifactId>bukkit6</artifactId>
-			<version>${bukkit18R1.version}</version>
-			<!-- <scope>provided</scope> -->
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/craftbukkit-1.8-R0.1-SNAPSHOT.jar</systemPath>
-		</dependency>
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
 			<version>${spigotmc112.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
+		<!-- Bukkit -->
+		<dependency>
+			<groupId>org.bukkit</groupId>
+			<artifactId>bukkit</artifactId>
+			<version>${bukkit113.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- CraftBukkit -->
+		<dependency>
+			<groupId>org.craftbukkit</groupId>
+			<artifactId>craftbukkit111R1</artifactId>
+			<version>${craftbukkit111R1.version}</version>
+			<!-- <scope>provided</scope> -->
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/craftbukkit-1.11.2.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.craftbukkit</groupId>
+			<artifactId>craftbukkit110R1</artifactId>
+			<version>${craftbukkit110R1.version}</version>
+			<!-- <scope>provided</scope> -->
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/craftbukkit-1.10.2-R0.1-SNAPSHOT.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.craftbukkit</groupId>
+			<artifactId>craftbukkit19R2</artifactId>
+			<version>${craftbukkit19R2.version}</version>
+			<!-- <scope>provided</scope> -->
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/craftbukkit-1.9.4-R0.1-SNAPSHOT.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.craftbukkit</groupId>
+			<artifactId>craftbukkit19R1</artifactId>
+			<version>${craftbukkit19R1.version}</version>
+			<!-- <scope>provided</scope> -->
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/craftbukkit-1.9-R0.1-SNAPSHOT.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.craftbukkit</groupId>
+			<artifactId>craftbukkit18R3</artifactId>
+			<version>${craftbukkit18R3.version}</version>
+			<!-- <scope>provided</scope> -->
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/craftbukkit-1.8.8-R0.1-SNAPSHOT.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.craftbukkit</groupId>
+			<artifactId>craftbukkit18R2</artifactId>
+			<version>${craftbukkit18R2.version}</version>
+			<!-- <scope>provided</scope> -->
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/craftbukkit-1.8.3-R0.1-SNAPSHOT.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.craftbukkit</groupId>
+			<artifactId>craftbukkit18R1</artifactId>
+			<version>${craftbukkit18R1.version}</version>
+			<!-- <scope>provided</scope> -->
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/craftbukkit-1.8-R0.1-SNAPSHOT.jar</systemPath>
+		</dependency>
+
 		<!-- SpongeAPI -->
 		<dependency>
 			<groupId>org.spongepowered</groupId>
@@ -782,7 +795,7 @@
 			<version>${spigetupdate.version}</version>
 			<scope>compile</scope>
 		</dependency>
-		
+
 	</dependencies>
 
 
