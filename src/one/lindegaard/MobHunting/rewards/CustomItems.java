@@ -116,7 +116,8 @@ public class CustomItems {
 					|| skinCache[1].isEmpty()) && Misc.isMC112OrNewer())
 				return getPlayerHeadOwningPlayer(uuid, amount, money);
 
-			if (skinCache != null && !skinCache[0].isEmpty() && !skinCache[1].isEmpty()) {
+			if (skinCache != null && skinCache[0] != null && !skinCache[0].isEmpty() && skinCache[1] != null
+					&& !skinCache[1].isEmpty()) {
 				ps.setTexture(skinCache[0]);
 				ps.setSignature(skinCache[1]);
 				plugin.getPlayerSettingsmanager().setPlayerSettings(offlinePlayer, ps);
