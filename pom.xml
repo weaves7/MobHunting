@@ -33,6 +33,7 @@
 		<mainClass>${project.groupId}.${project.artifactId}</mainClass>
 		<spigotmc112.version>1.12.2-R0.1-SNAPSHOT</spigotmc112.version>
 		<bukkit113.version>18w03b-R0.1-SNAPSHOT</bukkit113.version>
+		<bukkit112.version>1.12.2-R0.1-SNAPSHOT</bukkit112.version>
 		<craftbukkit112.version>1.12.2-R1</craftbukkit112.version>
 		<craftbukkit111R1.version>1.11-R1</craftbukkit111R1.version>
 		<craftbukkit110R1.version>1.10-R1</craftbukkit110R1.version>
@@ -341,7 +342,7 @@
 		<dependency>
 			<groupId>org.bukkit</groupId>
 			<artifactId>bukkit</artifactId>
-			<version>${bukkit113.version}</version>
+			<version>${bukkit112.version}</version>
 			<scope>provided</scope>
 		</dependency>
 
