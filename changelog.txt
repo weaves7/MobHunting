@@ -1,3 +1,6 @@
+V5.4.5
+* Added support for LorinthsRpgMobs (https://dev.bukkit.org/projects/lorinthsrpgmobs)
+* Fixed reload command. Messages can now be changed while server is online and reloaded with /mh reload 
 V5.4.4
 * MobHunting Skin Cache improved - support for MC 1.9.4 added
 * Removing Bags with 0 value from player inventory when the player changes from creative to survival

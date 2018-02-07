@@ -88,7 +88,6 @@ public class MobHunting extends JavaPlugin {
 		instance = this;
 
 		mMessages = new Messages(this);
-		mMessages.exportDefaultLanguages(this);
 
 		mConfig = new ConfigManager(this, new File(getDataFolder(), "config.yml"));
 
@@ -224,6 +223,7 @@ public class MobHunting extends JavaPlugin {
 		mCompatibilityManager.registerPlugin(StackMobCompat.class, CompatPlugin.StackMob);
 		mCompatibilityManager.registerPlugin(MobStackerCompat.class, CompatPlugin.MobStacker);
 		mCompatibilityManager.registerPlugin(ConquestiaMobsCompat.class, CompatPlugin.ConquestiaMobs);
+		mCompatibilityManager.registerPlugin(LorinthsRpgMobsCompat.class, CompatPlugin.LorinthsRpgMobs);
 
 		// ExtendedMob Plugins where special mobs are created
 		mCompatibilityManager.registerPlugin(MythicMobsCompat.class, CompatPlugin.MythicMobs);
@@ -381,6 +381,24 @@ public class MobHunting extends JavaPlugin {
 	}
 
 	/**
+	 * Get the MessagesManager
+	 * 
+	 * @return
+	 */
+	public Messages getMessages() {
+		return mMessages;
+	}
+
+	/**
+	 * setMessages
+	 * @param messages
+	 */
+	public void setMessages(Messages messages) {
+		mMessages=messages;
+	}
+
+	
+	/**
 	 * Gets the MobHuntingHandler
 	 * 
 	 * @return MobHuntingManager
@@ -504,15 +522,6 @@ public class MobHunting extends JavaPlugin {
 	 */
 	public AdvancementManager getAdvancementManager() {
 		return mAdvancementManager;
-	}
-
-	/**
-	 * Get the MessagesManager
-	 * 
-	 * @return
-	 */
-	public Messages getMessages() {
-		return mMessages;
 	}
 
 	public CommandDispatcher getCommandDispatcher() {

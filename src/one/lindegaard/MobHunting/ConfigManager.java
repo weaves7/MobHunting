@@ -1554,12 +1554,17 @@ public class ConfigManager extends AutoConfig {
 	public double multiplierPerInfernalLevel = 1.25;
 
 	// #####################################################################################
-	// ConquestiaMobs Settings
+	// ConquestiaMobs / LorinthsRpgMobs Settings
 	// #####################################################################################
 	@ConfigField(name = "disable-integration-conquestiamobs", category = "conquestiamobs", comment = "Disable integration with ConquestiaMobs"
 			+ "\nhttps://www.spigotmc.org/resources/conquesita-mobs.21307/")
 	public boolean disableIntegrationConquestiaMobs = false;
 
+	@ConfigField(name = "disable-integration-lorinthsrpgmobs", category = "conquestiamobs", comment = "Disable integration with LorinthsRpgMobs"
+			+ "\nhttps://dev.bukkit.org/projects/lorinthsrpgmobs")
+	public boolean disableIntegrationLorinthsRpgMobs = false;
+
+	
 	@ConfigField(name = "multiplier_per_level", category = "conquestiamobs", comment = "This is the multiplier per level mutiplied with the basic reward."
 			+ "\nBecareful not to ruin the server economy by making the multiplier to big."
 			+ "\nExample: If the reward is 10 and the multiplier is 1.05, the calculated" + "\nreward is:"

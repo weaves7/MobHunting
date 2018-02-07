@@ -14,7 +14,6 @@ import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
 
 import com.conquestiamc.cqmobs.CqMobs;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 public class ConquestiaMobsCompat implements Listener {
@@ -38,9 +37,9 @@ public class ConquestiaMobsCompat implements Listener {
 				supported = true;
 			} else {
 				Bukkit.getConsoleSender().sendMessage(ChatColor.RED
-						+ "[MobHunting] Your current version of Conqustia Mobs ("
+						+ "[MobHunting] Your current version of ConqustiaMobs ("
 						+ mPlugin.getDescription().getVersion()
-						+ ") is not supported by MobHunting. Please update Conquestia Mobs to version 3.3.3 or newer.");
+						+ ") is not supported by MobHunting. Please update ConquestiaMobs to version 3.3.3 or newer.");
 			}
 		}
 
@@ -92,7 +91,7 @@ public class ConquestiaMobsCompat implements Listener {
 		Entity entity = event.getEntity();
 		if (CqMobs.isLeveledMob(entity)) {
 			int level = CqMobs.getMobLevel(entity);
-			Messages.debug("ConquestiaMobSpawnEvent: MinecraftMobtype=%s Level=%s", entity.getType(), level);
+			//Messages.debug("ConquestiaMobSpawnEvent: MinecraftMobtype=%s Level=%s", entity.getType(), level);
 			entity.setMetadata(MH_CONQUESTIAMOBS, new FixedMetadataValue(mPlugin, level));
 		}
 	}

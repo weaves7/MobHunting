@@ -72,6 +72,8 @@ public class ReloadCommand implements ICommand {
 			}
 		}
 
+		plugin.setMessages(new Messages(plugin));
+		
 		if (plugin.getConfigManager().loadConfig()) {
 			int n = Misc.getOnlinePlayersAmount();
 			if (n > 0) {

@@ -46,6 +46,7 @@ public class Messages {
 
 	public Messages(MobHunting plugin) {
 		this.plugin = plugin;
+		exportDefaultLanguages(plugin);
 	}
 
 	private static Map<String, String> mTranslationTable;
