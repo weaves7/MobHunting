@@ -7,7 +7,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import one.lindegaard.MobHunting.DamageInformation;
 import one.lindegaard.MobHunting.HuntData;
-import one.lindegaard.MobHunting.Messages;
+import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.MobStackerCompat;
 import one.lindegaard.MobHunting.compatibility.StackMobCompat;
 
@@ -15,7 +15,7 @@ public class StackedMobBonus implements IModifier {
 
 	@Override
 	public String getName() {
-		return ChatColor.AQUA + Messages.getString("bonus.mobstacker.name");
+		return ChatColor.AQUA + MobHunting.getInstance().getMessages().getString("bonus.mobstacker.name");
 	}
 
 	@Override
@@ -23,13 +23,13 @@ public class StackedMobBonus implements IModifier {
 			EntityDamageByEntityEvent lastDamageCause) {
 		if (MobStackerCompat.isSupported() && MobStackerCompat.killHoleStackOnDeath(entity)
 				&& MobStackerCompat.multiplyLoot()) {
-			Messages.debug("StackedMobBonus: Pay reward for no %s mob", MobStackerCompat.getStackSize(entity));
+			MobHunting.getInstance().getMessages().debug("StackedMobBonus: Pay reward for no %s mob", MobStackerCompat.getStackSize(entity));
 			return MobStackerCompat.getStackSize(entity);
 		} else if (StackMobCompat.isSupported() && StackMobCompat.killHoleStackOnDeath(entity)) {
-			Messages.debug("StackedMobBonus: Pay reward for no %s mob", StackMobCompat.getStackSize(entity));
+			MobHunting.getInstance().getMessages().debug("StackedMobBonus: Pay reward for no %s mob", StackMobCompat.getStackSize(entity));
 			return StackMobCompat.getStackSize(entity);
 		} else {
-			Messages.debug("StackedMobBonus: Pay reward for one mob");
+			MobHunting.getInstance().getMessages().debug("StackedMobBonus: Pay reward for one mob");
 			return 1;
 		}
 	}

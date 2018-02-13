@@ -5,7 +5,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.events.MobHuntKillEvent;
 
@@ -19,7 +18,7 @@ public class ItsMagic implements Achievement, Listener {
 
 	@Override
 	public String getName() {
-		return Messages.getString("achievements.itsmagic.name");
+		return plugin.getMessages().getString("achievements.itsmagic.name");
 	}
 
 	@Override
@@ -29,7 +28,7 @@ public class ItsMagic implements Achievement, Listener {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("achievements.itsmagic.description");
+		return plugin.getMessages().getString("achievements.itsmagic.description");
 	}
 
 	@Override

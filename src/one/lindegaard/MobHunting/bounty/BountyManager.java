@@ -1,6 +1,5 @@
 package one.lindegaard.MobHunting.bounty;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.achievements.AchievementManager;
 import one.lindegaard.MobHunting.compatibility.EssentialsCompat;
@@ -9,6 +8,7 @@ import one.lindegaard.MobHunting.rewards.CustomItems;
 import one.lindegaard.MobHunting.storage.IDataCallback;
 import one.lindegaard.MobHunting.storage.UserNotFoundException;
 import one.lindegaard.MobHunting.util.Misc;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -44,7 +44,7 @@ public class BountyManager implements Listener {
 					if (bounty.getEndDate() < System.currentTimeMillis() && bounty.isOpen()) {
 						bounty.setStatus(BountyStatus.expired);
 						plugin.getDataStoreManager().updateBounty(bounty);
-						Messages.debug("BountyManager: Expired Bounty %s", bounty.toString());
+						plugin.getMessages().debug("BountyManager: Expired Bounty %s", bounty.toString());
 						mOpenBounties.remove(bounty);
 					}
 				}
@@ -205,7 +205,7 @@ public class BountyManager implements Listener {
 		}
 		if (n > 0) {
 			mOpenBounties.removeAll(toBeRemoved);
-			Messages.debug("%s bounties on %s was removed when player quit", n, event.getPlayer().getName());
+			plugin.getMessages().debug("%s bounties on %s was removed when player quit", n, event.getPlayer().getName());
 		}
 	}
 
@@ -238,7 +238,7 @@ public class BountyManager implements Listener {
 							mOpenBounties.add(bounty);
 							n++;
 						} else {
-							Messages.debug("BountyManager: Expired onLoad Bounty %s", bounty.toString());
+							plugin.getMessages().debug("BountyManager: Expired onLoad Bounty %s", bounty.toString());
 							bounty.setStatus(BountyStatus.expired);
 							bounty.setPrize(0);
 							plugin.getDataStoreManager().updateBounty(bounty);
@@ -249,14 +249,14 @@ public class BountyManager implements Listener {
 				}
 				if (sort)
 					sort();
-				Messages.debug("%s bounties for %s was loaded.", n, player.getName());
+				plugin.getMessages().debug("%s bounties for %s was loaded.", n, player.getName());
 				if (n > 0 && hasOpenBounties(player)) {
 					plugin.getMessages().playerSendMessage(player,
-							Messages.getString("mobhunting.bounty.youarewanted"));
+							plugin.getMessages().getString("mobhunting.bounty.youarewanted"));
 					if (!EssentialsCompat.isVanishedModeEnabled(player)
 							&& !VanishNoPacketCompat.isVanishedModeEnabled(player))
 						plugin.getMessages().broadcast(
-								Messages.getString("mobhunting.bounty.playeriswanted", "playername", player.getName()),
+								plugin.getMessages().getString("mobhunting.bounty.playeriswanted", "playername", player.getName()),
 								player);
 				}
 			}
@@ -266,12 +266,12 @@ public class BountyManager implements Listener {
 				if (error instanceof UserNotFoundException)
 					if (player.isOnline()) {
 						Player p = player;
-						p.sendMessage(Messages.getString("mobhunting.bounty.user-not-found"));
+						p.sendMessage(plugin.getMessages().getString("mobhunting.bounty.user-not-found"));
 					} else {
 						error.printStackTrace();
 						if (player.isOnline()) {
 							Player p = player;
-							p.sendMessage(Messages.getString("mobhunting.bounty.load-fail"));
+							p.sendMessage(plugin.getMessages().getString("mobhunting.bounty.load-fail"));
 						}
 					}
 			}
@@ -286,14 +286,14 @@ public class BountyManager implements Listener {
 	 */
 	public void save(Bounty bounty) {
 		if (hasOpenBounty(bounty)) {
-			Messages.debug("adding bounty %s+%s", getOpenBounty(bounty).getPrize(), bounty.getPrize());
+			plugin.getMessages().debug("adding bounty %s+%s", getOpenBounty(bounty).getPrize(), bounty.getPrize());
 			getOpenBounty(bounty).setPrize(getOpenBounty(bounty).getPrize() + bounty.getPrize());
 			getOpenBounty(bounty).setMessage(bounty.getMessage());
 			plugin.getDataStoreManager().updateBounty(getOpenBounty(bounty));
 		} else {
 			mOpenBounties.add(bounty);
 			plugin.getDataStoreManager().updateBounty(bounty);
-			Messages.debug("adding bounty %s", getOpenBounty(bounty).getPrize());
+			plugin.getMessages().debug("adding bounty %s", getOpenBounty(bounty).getPrize());
 		}
 	}
 
@@ -340,7 +340,7 @@ public class BountyManager implements Listener {
 								AchievementManager.addInventoryDetails(
 										customItems.getPlayerHead(wantedPlayer.getUniqueId(), 1, bounty.getPrize()),
 										inventory, n, ChatColor.GREEN + wantedPlayer.getName(),
-										new String[] { ChatColor.WHITE + "", Messages.getString(
+										new String[] { ChatColor.WHITE + "", plugin.getMessages().getString(
 												"mobhunting.commands.bounty.bounties", "bountyowner",
 												bounty.getBountyOwner().getName(), "prize",
 												plugin.getRewardManager().format(bounty.getPrize()), "wantedplayer",
@@ -350,7 +350,7 @@ public class BountyManager implements Listener {
 								AchievementManager.addInventoryDetails(
 										customItems.getPlayerHead(wantedPlayer.getUniqueId(), 1, bounty.getPrize()),
 										inventory, n, ChatColor.GREEN + wantedPlayer.getName(),
-										new String[] { ChatColor.WHITE + "", Messages.getString(
+										new String[] { ChatColor.WHITE + "", plugin.getMessages().getString(
 												"mobhunting.commands.bounty.bounties", "bountyowner", "Random Bounty",
 												"prize", plugin.getRewardManager().format(bounty.getPrize()),
 												"wantedplayer", bounty.getWantedPlayer().getName(), "daysleft",
@@ -363,18 +363,18 @@ public class BountyManager implements Listener {
 					((Player) sender).openInventory(inventoryMap.get(sender));
 
 				} else {
-					sender.sendMessage(Messages.getString("mobhunting.commands.bounty.bounties-header"));
+					sender.sendMessage(plugin.getMessages().getString("mobhunting.commands.bounty.bounties-header"));
 					sender.sendMessage("-----------------------------------");
 					for (Bounty bounty : bountiesOnWantedPlayer) {
 						if (bounty.isOpen())
 							if (bounty.getBountyOwner() != null)
-								sender.sendMessage(Messages.getString("mobhunting.commands.bounty.bounties",
+								sender.sendMessage(plugin.getMessages().getString("mobhunting.commands.bounty.bounties",
 										"bountyowner", bounty.getBountyOwner().getName(), "prize",
 										plugin.getRewardManager().format(bounty.getPrize()), "wantedplayer",
 										bounty.getWantedPlayer().getName(), "daysleft",
 										(bounty.getEndDate() - System.currentTimeMillis()) / (86400000L)));
 							else
-								sender.sendMessage(Messages.getString("mobhunting.commands.bounty.bounties",
+								sender.sendMessage(plugin.getMessages().getString("mobhunting.commands.bounty.bounties",
 										"bountyowner", "Random Bounty", "prize",
 										plugin.getRewardManager().format(bounty.getPrize()), "wantedplayer",
 										bounty.getWantedPlayer().getName(), "daysleft",
@@ -382,7 +382,7 @@ public class BountyManager implements Listener {
 					}
 				}
 			} else {
-				sender.sendMessage(Messages.getString("mobhunting.commands.bounty.no-bounties-player", "wantedplayer",
+				sender.sendMessage(plugin.getMessages().getString("mobhunting.commands.bounty.no-bounties-player", "wantedplayer",
 						wantedPlayer.getName()));
 			}
 		} else {
@@ -404,7 +404,7 @@ public class BountyManager implements Listener {
 									customItems.getPlayerHead(bounty.getWantedPlayer().getUniqueId(), 1,
 											bounty.getPrize()),
 									inventory, n, ChatColor.GREEN + bounty.getWantedPlayer().getName(),
-									new String[] { ChatColor.WHITE + "", Messages.getString(
+									new String[] { ChatColor.WHITE + "", plugin.getMessages().getString(
 											"mobhunting.commands.bounty.bounties", "bountyowner",
 											bounty.getBountyOwner().getName(), "prize",
 											plugin.getRewardManager().format(bounty.getPrize()), "wantedplayer",
@@ -415,7 +415,7 @@ public class BountyManager implements Listener {
 									customItems.getPlayerHead(bounty.getWantedPlayer().getUniqueId(), 1,
 											bounty.getPrize()),
 									inventory, n, ChatColor.GREEN + bounty.getWantedPlayer().getName(),
-									new String[] { ChatColor.WHITE + "", Messages.getString(
+									new String[] { ChatColor.WHITE + "", plugin.getMessages().getString(
 											"mobhunting.commands.bounty.bounties", "bountyowner", "Random Bounty",
 											"prize", plugin.getRewardManager().format(bounty.getPrize()),
 											"wantedplayer", bounty.getWantedPlayer().getName(), "daysleft",
@@ -426,24 +426,24 @@ public class BountyManager implements Listener {
 					inventoryMap.put(sender, inventory);
 					((Player) sender).openInventory(inventoryMap.get(sender));
 				} else {
-					sender.sendMessage(Messages.getString("mobhunting.commands.bounty.bounties-header"));
+					sender.sendMessage(plugin.getMessages().getString("mobhunting.commands.bounty.bounties-header"));
 					sender.sendMessage("-----------------------------------");
 					for (Bounty bounty : mOpenBounties) {
 						if (bounty.getBountyOwner() != null)
-							sender.sendMessage(Messages.getString("mobhunting.commands.bounty.bounties", "bountyowner",
+							sender.sendMessage(plugin.getMessages().getString("mobhunting.commands.bounty.bounties", "bountyowner",
 									bounty.getBountyOwner().getName(), "prize",
 									plugin.getRewardManager().format(bounty.getPrize()), "wantedplayer",
 									bounty.getWantedPlayer().getName(), "daysleft",
 									(bounty.getEndDate() - System.currentTimeMillis()) / (86400000L)));
 						else
-							sender.sendMessage(Messages.getString("mobhunting.commands.bounty.bounties", "bountyowner",
+							sender.sendMessage(plugin.getMessages().getString("mobhunting.commands.bounty.bounties", "bountyowner",
 									"Random Bounty", "prize", plugin.getRewardManager().format(bounty.getPrize()),
 									"wantedplayer", bounty.getWantedPlayer().getName(), "daysleft",
 									(bounty.getEndDate() - System.currentTimeMillis()) / (86400000L)));
 					}
 				}
 			} else {
-				sender.sendMessage(Messages.getString("mobhunting.commands.bounty.no-bounties"));
+				sender.sendMessage(plugin.getMessages().getString("mobhunting.commands.bounty.no-bounties"));
 			}
 		} else {
 			sender.sendMessage("[MobHunting] You cant use this command in the console");
@@ -488,11 +488,11 @@ public class BountyManager implements Listener {
 					for (Player player : Misc.getOnlinePlayers()) {
 						if (player.getName().equals(randomPlayer.getName()))
 							plugin.getMessages().playerSendMessage(player,
-									Messages.getString("mobhunting.bounty.randombounty.self", "prize",
+									plugin.getMessages().getString("mobhunting.bounty.randombounty.self", "prize",
 											plugin.getRewardManager().format(randomBounty.getPrize())));
 						else
 							plugin.getMessages().playerSendMessage(player,
-									Messages.getString("mobhunting.bounty.randombounty", "prize",
+									plugin.getMessages().getString("mobhunting.bounty.randombounty", "prize",
 											plugin.getRewardManager().format(randomBounty.getPrize()), "playername",
 											randomPlayer.getName()));
 					}

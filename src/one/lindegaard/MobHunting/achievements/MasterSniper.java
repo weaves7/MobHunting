@@ -6,7 +6,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.events.MobHuntKillEvent;
 
@@ -20,7 +19,7 @@ public class MasterSniper implements Achievement, Listener {
 
 	@Override
 	public String getName() {
-		return Messages.getString("achievements.master-sniper.name");
+		return plugin.getMessages().getString("achievements.master-sniper.name");
 	}
 
 	@Override
@@ -30,7 +29,7 @@ public class MasterSniper implements Achievement, Listener {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("achievements.master-sniper.description");
+		return plugin.getMessages().getString("achievements.master-sniper.description");
 	}
 
 	@Override

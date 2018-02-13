@@ -8,7 +8,6 @@ import org.bukkit.plugin.Plugin;
 import com.extrahardmode.ExtraHardMode;
 import com.extrahardmode.config.RootConfig;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 public class ExtraHardModeCompat implements Listener {
@@ -27,7 +26,7 @@ public class ExtraHardModeCompat implements Listener {
 			Bukkit.getLogger().info("[MobHunting] Enabling compatibility with ExtraHardMode ("
 					+ mPlugin.getDescription().getVersion() + ").");
 			if (!MobHunting.getInstance().getConfigManager().difficultyMultiplier.containsKey("difficulty.multiplier.extrahard")) {
-				Messages.debug("Adding extrahard difficulty to config.yml");
+				MobHunting.getInstance().getMessages().debug("Adding extrahard difficulty to config.yml");
 				MobHunting.getInstance().getConfigManager().difficultyMultiplier.put("difficulty.multiplier.extrahard", "2.5");
 				MobHunting.getInstance().getConfigManager().saveConfig();
 			}

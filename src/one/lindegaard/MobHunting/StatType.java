@@ -128,24 +128,24 @@ public class StatType {
 
 	public String translateName() {
 		if (mExtra == null)
-			return Messages.getString(mName);
+			return MobHunting.getInstance().getMessages().getString(mName);
 
 		String[] extra = Arrays.copyOf(mExtra, mExtra.length);
 		for (int i = 1; i < extra.length; i += 2)
-			extra[i] = Messages.getString(extra[i]);
+			extra[i] = MobHunting.getInstance().getMessages().getString(extra[i]);
 
-		return Messages.getString(mName, (Object[]) extra);
+		return MobHunting.getInstance().getMessages().getString(mName, (Object[]) extra);
 	}
 
 	public String longTranslateName() {
 		if (mExtra == null)
-			return Messages.getString(mName);
+			return MobHunting.getInstance().getMessages().getString(mName);
 
 		String[] extra = Arrays.copyOf(mExtra, mExtra.length);
 		for (int i = 1; i < extra.length; i += 2)
-			extra[i] = Messages.getString(extra[i]);
+			extra[i] = MobHunting.getInstance().getMessages().getString(extra[i]);
 
-		return Messages.getString(mName, (Object[]) extra);
+		return MobHunting.getInstance().getMessages().getString(mName, (Object[]) extra);
 	}
 
 	public static StatType[] values() {

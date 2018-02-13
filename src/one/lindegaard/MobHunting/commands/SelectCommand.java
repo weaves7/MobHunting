@@ -10,7 +10,6 @@ import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.SelectionHelper;
 
@@ -44,7 +43,7 @@ public class SelectCommand implements ICommand {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("mobhunting.commands.select.description");
+		return plugin.getMessages().getString("mobhunting.commands.select.description");
 	}
 
 	@Override
@@ -69,7 +68,7 @@ public class SelectCommand implements ICommand {
 			pointA = true;
 		else if (!args[0].equalsIgnoreCase("2")) {
 			plugin.getMessages().senderSendMessage(sender,
-					ChatColor.RED + Messages.getString("mobhunting.commands.select.unknown-point", "point", args[0]));
+					ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.select.unknown-point", "point", args[0]));
 			return true;
 		}
 
@@ -78,7 +77,7 @@ public class SelectCommand implements ICommand {
 
 		Block target = player.getTargetBlock(transparent, 10);
 		if (target == null) {
-			plugin.getMessages().senderSendMessage(sender,ChatColor.RED + Messages.getString("mobhunting.commands.select.too-far"));
+			plugin.getMessages().senderSendMessage(sender,ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.select.too-far"));
 			return true;
 		}
 
@@ -87,7 +86,7 @@ public class SelectCommand implements ICommand {
 		else
 			SelectionHelper.setPointB(player, target.getLocation());
 
-		plugin.getMessages().senderSendMessage(sender,ChatColor.GREEN + Messages.getString("mobhunting.commands.select.done", "point", args[0],
+		plugin.getMessages().senderSendMessage(sender,ChatColor.GREEN + plugin.getMessages().getString("mobhunting.commands.select.done", "point", args[0],
 				"coords", String.format("%d, %d, %d", target.getX(), target.getY(), target.getZ())));
 		return true;
 	}

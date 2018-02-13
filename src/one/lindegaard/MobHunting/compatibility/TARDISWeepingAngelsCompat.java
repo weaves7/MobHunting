@@ -14,7 +14,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.metadata.FixedMetadataValue;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.mobs.MobPlugin;
 import one.lindegaard.MobHunting.rewards.RewardData;
@@ -129,7 +128,7 @@ public class TARDISWeepingAngelsCompat implements Listener {
 				MobHunting.getInstance().getStoreManager().insertTARDISWeepingAngelsMobs(key);
 			}
 			MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
-			Messages.debug("Loaded %s TARDISWeepingAngels-Mobs", mMobRewardData.size());
+			MobHunting.getInstance().getMessages().debug("Loaded %s TARDISWeepingAngels-Mobs", mMobRewardData.size());
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InvalidConfigurationException e) {
@@ -170,7 +169,7 @@ public class TARDISWeepingAngelsCompat implements Listener {
 				}
 
 				if (n != 0) {
-					Messages.debug("Saving Mobhunting extra TARDISWeepingAngels data.");
+					MobHunting.getInstance().getMessages().debug("Saving Mobhunting extra TARDISWeepingAngels data.");
 					config.save(file);
 				}
 			}
@@ -184,11 +183,11 @@ public class TARDISWeepingAngelsCompat implements Listener {
 			if (mMobRewardData.containsKey(key)) {
 				ConfigurationSection section = config.createSection(key);
 				mMobRewardData.get(key).save(section);
-				Messages.debug("Saving extra TARDISWeepingAngels data for mob=%s (%s)", key,
+				MobHunting.getInstance().getMessages().debug("Saving extra TARDISWeepingAngels data for mob=%s (%s)", key,
 						mMobRewardData.get(key).getMobName());
 				config.save(file);
 			} else {
-				Messages.debug("ERROR! TARDISWeepingAngels ID (%s) is not found in mMobRewardData", key);
+				MobHunting.getInstance().getMessages().debug("ERROR! TARDISWeepingAngels ID (%s) is not found in mMobRewardData", key);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -206,7 +205,7 @@ public class TARDISWeepingAngelsCompat implements Listener {
 		Monster monster = getWeepingAngelMonsterType(entity);
 
 		if (mMobRewardData != null && !mMobRewardData.containsKey(monster.name())) {
-			Messages.debug("New TARDIS mob found=%s (%s)", monster.name(), monster.getName());
+			MobHunting.getInstance().getMessages().debug("New TARDIS mob found=%s (%s)", monster.name(), monster.getName());
 			mMobRewardData.put(monster.name(),
 					new RewardData(MobPlugin.TARDISWeepingAngels, monster.name(), monster.getName(), "40:60",
 							"minecraft:give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02));

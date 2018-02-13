@@ -11,7 +11,7 @@ import com.palmergames.bukkit.towny.object.TownBlock;
 import com.palmergames.bukkit.towny.object.TownyPermission;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
 
-import one.lindegaard.MobHunting.Messages;
+import one.lindegaard.MobHunting.MobHunting;
 
 public class TownyHelper {
 
@@ -22,7 +22,7 @@ public class TownyHelper {
 			try {
 				resident = TownyUniverse.getDataSource().getResident(player.getName());
 			} catch (NotRegisteredException ex) {
-				// Messages.debug("Could not find the Resident (%s)",
+				// MobHunting.getInstance().getMessages().debug("Could not find the Resident (%s)",
 				// player.getName());
 				return false;
 			}
@@ -31,7 +31,7 @@ public class TownyHelper {
 				try {
 					homeTown = resident.getTown();
 				} catch (NotRegisteredException e) {
-					// Messages.debug("%s has no town", player.getName());
+					// MobHunting.getInstance().getMessages().debug("%s has no town", player.getName());
 					return false;
 				}
 			}
@@ -40,11 +40,11 @@ public class TownyHelper {
 			if (tb != null) {
 				// Location is within a town
 				try {
-					Messages.debug("%s is in a town (%s)", player.getName(), tb.getTown().getName());
+					MobHunting.getInstance().getMessages().debug("%s is in a town (%s)", player.getName(), tb.getTown().getName());
 				} catch (NotRegisteredException e) {
 				}
 			} else {
-				// Messages.debug("The player is not in a town");
+				// MobHunting.getInstance().getMessages().debug("The player is not in a town");
 				return false;
 			}
 
@@ -55,11 +55,11 @@ public class TownyHelper {
 					// check if town is protected against mob damage
 					TownyPermission p1 = homeTown.getPermissions();
 					Boolean protected_mob = p1.mobs;
-					Messages.debug("%s is in his HomeTown. Mob spawns:%s", player.getName(),
+					MobHunting.getInstance().getMessages().debug("%s is in his HomeTown. Mob spawns:%s", player.getName(),
 							protected_mob ? "On" : "Off");
 					return true;
 				} else {
-					// Messages.debug("%s is not in his home town",
+					// MobHunting.getInstance().getMessages().debug("%s is not in his home town",
 					// player.getName());
 					return false;
 				}

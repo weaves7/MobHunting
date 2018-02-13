@@ -5,7 +5,6 @@ import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.update.UpdateStatus;
 
@@ -39,7 +38,7 @@ public class UpdateCommand implements ICommand {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("mobhunting.commands.update.description");
+		return plugin.getMessages().getString("mobhunting.commands.update.description");
 	}
 
 	@Override
@@ -58,9 +57,9 @@ public class UpdateCommand implements ICommand {
 			plugin.getSpigetUpdater().downloadAndUpdateJar(sender);
 		else if (plugin.getSpigetUpdater().getUpdateAvailable() == UpdateStatus.RESTART_NEEDED)
 			plugin.getMessages().senderSendMessage(sender,
-					ChatColor.GREEN + Messages.getString("mobhunting.commands.update.complete"));
+					ChatColor.GREEN + plugin.getMessages().getString("mobhunting.commands.update.complete"));
 		else
-			plugin.getSpigetUpdater().checkForUpdate(sender, true, false);
+			plugin.getSpigetUpdater().checkForUpdate(sender, false);
 		return true;
 	}
 

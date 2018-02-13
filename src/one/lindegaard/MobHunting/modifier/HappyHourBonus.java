@@ -7,14 +7,14 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import one.lindegaard.MobHunting.DamageInformation;
 import one.lindegaard.MobHunting.HuntData;
-import one.lindegaard.MobHunting.Messages;
+import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.commands.HappyHourCommand;
 
 public class HappyHourBonus implements IModifier {
 
 	@Override
 	public String getName() {
-		return ChatColor.LIGHT_PURPLE + Messages.getString("bonus.happyhour.name");
+		return ChatColor.LIGHT_PURPLE + MobHunting.getInstance().getMessages().getString("bonus.happyhour.name");
 	}
 
 	@Override

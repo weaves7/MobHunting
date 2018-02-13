@@ -1,6 +1,6 @@
 package one.lindegaard.MobHunting.storage;
 
-import one.lindegaard.MobHunting.Messages;
+import one.lindegaard.MobHunting.MobHunting;
 
 public enum TimePeriod {
 	Day("Daily"), Week("Weekly"), Month("Monthly"), Year("Yearly"), AllTime(
@@ -17,12 +17,11 @@ public enum TimePeriod {
 	}
 
 	public String translateName() {
-		return Messages.getString("stats." + name().toLowerCase());
+		return MobHunting.getInstance().getMessages().getString("stats." + name().toLowerCase());
 	}
 
 	public String translateNameFriendly() {
-		return Messages
-				.getString("stats." + name().toLowerCase() + ".friendly");
+		return MobHunting.getInstance().getMessages().getString("stats." + name().toLowerCase() + ".friendly");
 	}
 
 	public static TimePeriod parsePeriod(String period) {

@@ -62,7 +62,7 @@ public class HologramManager {
 		String str = "";
 		if (HologramsCompat.isSupported() || HolographicDisplaysCompat.isSupported()) {
 			if (holograms.size() == 0) {
-				str = Messages.getString("mobhunting.holograms.no-holograms");
+				str = plugin.getMessages().getString("mobhunting.holograms.no-holograms");
 			} else {
 				str = "Holograms: ";
 				for (String hologramName : holograms.keySet()) {
@@ -163,7 +163,7 @@ public class HologramManager {
 		}
 
 		if (getHolograms().size() > 0)
-			Messages.debug("%s Holographic Leaderboards loaded", getHolograms().size());
+			plugin.getMessages().debug("%s Holographic Leaderboards loaded", getHolograms().size());
 
 	}
 
@@ -190,7 +190,7 @@ public class HologramManager {
 			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + e.getMessage());
 		}
 
-		Messages.debug("The Holographic Leaderboard '%s' was loaded from file.", hologramName);
+		plugin.getMessages().debug("The Holographic Leaderboard '%s' was loaded from file.", hologramName);
 
 	}
 

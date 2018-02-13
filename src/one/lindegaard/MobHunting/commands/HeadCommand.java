@@ -14,7 +14,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.mobs.MinecraftMob;
 import one.lindegaard.MobHunting.rewards.CustomItems;
@@ -75,7 +74,7 @@ public class HeadCommand implements ICommand, Listener {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("mobhunting.commands.head.description");
+		return plugin.getMessages().getString("mobhunting.commands.head.description");
 	}
 
 	@Override
@@ -104,7 +103,7 @@ public class HeadCommand implements ICommand, Listener {
 				toPlayer = Bukkit.getOfflinePlayer(args[1]);
 				if (toPlayer == null || !toPlayer.isOnline()) {
 					plugin.getMessages().senderSendMessage(sender,
-							Messages.getString("mobhunting.commands.head.online", "playername", args[1]));
+							plugin.getMessages().getString("mobhunting.commands.head.online", "playername", args[1]));
 					return true;
 				}
 
@@ -116,7 +115,7 @@ public class HeadCommand implements ICommand, Listener {
 						mob = MinecraftMob.PvpPlayer;
 					} else {
 						plugin.getMessages().senderSendMessage(sender,
-								Messages.getString("mobhunting.commands.head.unknown_name", "playername", args[2]));
+								plugin.getMessages().getString("mobhunting.commands.head.unknown_name", "playername", args[2]));
 						return true;
 					}
 				}
@@ -135,7 +134,7 @@ public class HeadCommand implements ICommand, Listener {
 						amount = Integer.valueOf(args[4]);
 					} catch (NumberFormatException e) {
 						plugin.getMessages().senderSendMessage(sender,
-								Messages.getString("mobhunting.commands.base.not_a_number", "number", args[4]));
+								plugin.getMessages().getString("mobhunting.commands.base.not_a_number", "number", args[4]));
 						return false;
 					}
 				}
@@ -162,12 +161,12 @@ public class HeadCommand implements ICommand, Listener {
 							.replace("{texturevalue}", mob.getTextureValue())
 							.replace("{amount}", String.valueOf(amount)).replace("{playername}",
 									offlinePlayer != null ? offlinePlayer.getName() : mob.getPlayerProfile());
-					Messages.debug("%s Cmd=%s", mob.getFriendlyName(), cmdString);
+					plugin.getMessages().debug("%s Cmd=%s", mob.getFriendlyName(), cmdString);
 					Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), cmdString);
 				}
 				if (toPlayer.isOnline() && !silent)
 					plugin.getMessages().playerSendMessage((Player) toPlayer,
-							Messages.getString("mobhunting.commands.head.you_got_a_head", "mobname", displayName));
+							plugin.getMessages().getString("mobhunting.commands.head.you_got_a_head", "mobname", displayName));
 
 			}
 
@@ -201,11 +200,11 @@ public class HeadCommand implements ICommand, Listener {
 						itemInHand.setItemMeta(im);
 					} else {
 						plugin.getMessages().senderSendMessage(sender,
-								Messages.getString("mobhunting.commands.head.headmustbeinhand"));
+								plugin.getMessages().getString("mobhunting.commands.head.headmustbeinhand"));
 					}
 				} else {
 					plugin.getMessages().senderSendMessage(sender,
-							ChatColor.RED + Messages.getString("mobhunting.commands.base.nopermission", "perm",
+							ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.base.nopermission", "perm",
 									"mobhunting.head.rename", "command", "head"));
 				}
 			} else {
@@ -228,7 +227,7 @@ public class HeadCommand implements ICommand, Listener {
 							money = Double.valueOf(args[1]);
 						} catch (NumberFormatException e) {
 							plugin.getMessages().senderSendMessage(sender,
-									Messages.getString("mobhunting.commands.base.not_a_number", "number", args[1]));
+									plugin.getMessages().getString("mobhunting.commands.base.not_a_number", "number", args[1]));
 							return false;
 						}
 						reward.setMoney(money);
@@ -245,11 +244,11 @@ public class HeadCommand implements ICommand, Listener {
 						itemInHand.setItemMeta(im);
 					} else {
 						plugin.getMessages().senderSendMessage(sender,
-								Messages.getString("mobhunting.commands.head.headmustbeinhand"));
+								plugin.getMessages().getString("mobhunting.commands.head.headmustbeinhand"));
 					}
 				} else {
 					plugin.getMessages().senderSendMessage(sender,
-							ChatColor.RED + Messages.getString("mobhunting.commands.base.nopermission", "perm",
+							ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.base.nopermission", "perm",
 									"mobhunting.head.value", "command", "head"));
 				}
 			} else {
@@ -296,7 +295,7 @@ public class HeadCommand implements ICommand, Listener {
 										mob.getFriendlyName(), 1, money, offlinePlayer.getUniqueId()));
 
 						} else {
-							plugin.getMessages().senderSendMessage(sender, ChatColor.RED + Messages
+							plugin.getMessages().senderSendMessage(sender, ChatColor.RED + plugin.getMessages()
 									.getString("mobhunting.commands.base.playername-missing", "player", args[2]));
 						}
 					} else if ((args.length == 5 || args.length == 6) && args[2].matches("-?\\d+(\\d+)?")
@@ -328,12 +327,12 @@ public class HeadCommand implements ICommand, Listener {
 					}
 				} else {
 					plugin.getMessages().senderSendMessage(sender,
-							Messages.getString("mobhunting.commands.head.unknown_name", "playername", args[1]));
+							plugin.getMessages().getString("mobhunting.commands.head.unknown_name", "playername", args[1]));
 				}
 
 			} else {
 				plugin.getMessages().senderSendMessage(sender,
-						ChatColor.RED + Messages.getString("mobhunting.commands.base.nopermission", "perm",
+						ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.base.nopermission", "perm",
 								"mobhunting.head.drop", "command", "head"));
 			}
 			return true;

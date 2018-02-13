@@ -8,14 +8,13 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import one.lindegaard.MobHunting.DamageInformation;
 import one.lindegaard.MobHunting.HuntData;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 public class ShoveBonus implements IModifier {
 
 	@Override
 	public String getName() {
-		return ChatColor.AQUA + Messages.getString("bonus.ashove.name"); //$NON-NLS-1$
+		return ChatColor.AQUA + MobHunting.getInstance().getMessages().getString("bonus.ashove.name"); //$NON-NLS-1$
 	}
 
 	@Override

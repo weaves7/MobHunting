@@ -12,7 +12,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitTask;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.StatType;
 import one.lindegaard.MobHunting.storage.IDataCallback;
@@ -30,7 +29,7 @@ public class PlaceHolderManager implements Listener, IDataCallback<List<StatStor
 		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
 		mUpdater = Bukkit.getScheduler().runTaskTimer(plugin, new Updater(), 120L,
 				plugin.getConfigManager().leaderboardUpdatePeriod);
-		Messages.debug("PlaceHolderManager started");
+		plugin.getMessages().debug("PlaceHolderManager started");
 	}
 
 	public HashMap<UUID, PlaceHolderData> getPlaceHolders() {
@@ -81,7 +80,7 @@ public class PlaceHolderManager implements Listener, IDataCallback<List<StatStor
 			}
 		}
 		if (!placeHolders.isEmpty())
-			Messages.debug("Refreshed %s ranks.", placeHolders.size());
+			plugin.getMessages().debug("Refreshed %s ranks.", placeHolders.size());
 	}
 
 	@Override

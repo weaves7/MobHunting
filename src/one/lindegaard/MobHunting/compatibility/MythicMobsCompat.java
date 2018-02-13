@@ -15,7 +15,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.StatType;
 import one.lindegaard.MobHunting.rewards.RewardData;
@@ -131,7 +130,7 @@ public class MythicMobsCompat {
 		try {
 			if (!file.exists())
 				return;
-			Messages.debug("Loading extra MobRewards for MythicMobs mobs.");
+			MobHunting.getInstance().getMessages().debug("Loading extra MobRewards for MythicMobs mobs.");
 
 			config.load(file);
 			int n = 0;
@@ -145,11 +144,11 @@ public class MythicMobsCompat {
 					MobHunting.getInstance().getStoreManager().insertMissingMythicMobs(key);
 					n++;
 				} else {
-					Messages.debug("The mob=%s can't be found in MythicMobs configuration files", key);
+					MobHunting.getInstance().getMessages().debug("The mob=%s can't be found in MythicMobs configuration files", key);
 				}
 			}
 			MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
-			Messages.debug("Loaded %s MythicMobs", n);
+			MobHunting.getInstance().getMessages().debug("Loaded %s MythicMobs", n);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InvalidConfigurationException e) {
@@ -175,7 +174,7 @@ public class MythicMobsCompat {
 				StatType.values()[n + 2] = new StatType(mob.getMobType() + "_assist", mob.getMobName());
 				MobHunting.getInstance().getStoreManager().insertMissingMythicMobs(key);
 			} else {
-				Messages.debug("The mob=%s can't be found in MythicMobs configuration files", key);
+				MobHunting.getInstance().getMessages().debug("The mob=%s can't be found in MythicMobs configuration files", key);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -198,7 +197,7 @@ public class MythicMobsCompat {
 				}
 
 				if (n != 0) {
-					Messages.debug("Saving Mobhunting extra MythicMobs data.");
+					MobHunting.getInstance().getMessages().debug("Saving Mobhunting extra MythicMobs data.");
 					config.save(file);
 				}
 			}
@@ -212,10 +211,10 @@ public class MythicMobsCompat {
 			if (mMobRewardData.containsKey(key)) {
 				ConfigurationSection section = config.createSection(key);
 				mMobRewardData.get(key).save(section);
-				Messages.debug("Saving Mobhunting extra MythicMobs data.");
+				MobHunting.getInstance().getMessages().debug("Saving Mobhunting extra MythicMobs data.");
 				config.save(file);
 			} else {
-				Messages.debug("ERROR! MythicMobs ID (%s) is not found in mMobRewardData", key);
+				MobHunting.getInstance().getMessages().debug("ERROR! MythicMobs ID (%s) is not found in mMobRewardData", key);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

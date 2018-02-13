@@ -582,7 +582,7 @@ public class MetricsManager {
 		});
 		metrics.addGraph(usageGraph);
 		metrics.start();
-		Messages.debug("Metrics started");
+		plugin.getMessages().debug("Metrics started");
 		Bukkit.getScheduler().runTaskTimerAsynchronously(MobHunting.getInstance(), new Runnable() {
 			public void run() {
 				try {
@@ -592,7 +592,7 @@ public class MetricsManager {
 						metrics.enable();
 					} else {
 						metrics.disable();
-						Messages.debug("Http://mcstats.org seems to be down");
+						plugin.getMessages().debug("Http://mcstats.org seems to be down");
 					}
 				} catch (IOException e) {
 					e.printStackTrace();

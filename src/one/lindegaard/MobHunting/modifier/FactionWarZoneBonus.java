@@ -6,7 +6,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import one.lindegaard.MobHunting.DamageInformation;
 import one.lindegaard.MobHunting.HuntData;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.FactionsCompat;
 
@@ -14,7 +13,7 @@ public class FactionWarZoneBonus implements IModifier {
 
 	@Override
 	public String getName() {
-		return Messages.getString("bonus.factionwarzone.name");
+		return MobHunting.getInstance().getMessages().getString("bonus.factionwarzone.name");
 	}
 
 	@Override

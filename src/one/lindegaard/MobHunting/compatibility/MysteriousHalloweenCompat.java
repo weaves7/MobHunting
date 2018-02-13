@@ -18,7 +18,6 @@ import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.mobs.MobPlugin;
 import one.lindegaard.MobHunting.rewards.RewardData;
@@ -134,7 +133,7 @@ public class MysteriousHalloweenCompat implements Listener {
 				MobHunting.getInstance().getStoreManager().insertMysteriousHalloweenMobs(key);
 			}
 			MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
-			Messages.debug("Loaded %s MysteriousHalloween-Mobs", mMobRewardData.size());
+			MobHunting.getInstance().getMessages().debug("Loaded %s MysteriousHalloween-Mobs", mMobRewardData.size());
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InvalidConfigurationException e) {
@@ -177,7 +176,7 @@ public class MysteriousHalloweenCompat implements Listener {
 				}
 
 				if (n != 0) {
-					Messages.debug("Saving Mobhunting extra MysteriousHalloween data.");
+					MobHunting.getInstance().getMessages().debug("Saving Mobhunting extra MysteriousHalloween data.");
 					config.save(file);
 				}
 			}
@@ -191,11 +190,11 @@ public class MysteriousHalloweenCompat implements Listener {
 			if (mMobRewardData.containsKey(key)) {
 				ConfigurationSection section = config.createSection(key);
 				mMobRewardData.get(key).save(section);
-				Messages.debug("Saving extra MysteriousHalloweens data for mob=%s (%s)", key,
+				MobHunting.getInstance().getMessages().debug("Saving extra MysteriousHalloweens data for mob=%s (%s)", key,
 						mMobRewardData.get(key).getMobName());
 				config.save(file);
 			} else {
-				Messages.debug("ERROR! MysteriousHalloween ID (%s) is not found in mMobRewardData", key);
+				MobHunting.getInstance().getMessages().debug("ERROR! MysteriousHalloween ID (%s) is not found in mMobRewardData", key);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -216,7 +215,7 @@ public class MysteriousHalloweenCompat implements Listener {
 			MobType monster = getMysteriousHalloweenType(entity);
 
 			if (mMobRewardData != null && !mMobRewardData.containsKey(monster.name())) {
-				Messages.debug("New MysteriousHalloween mob found=%s (%s)", monster.name(), monster.toString());
+				MobHunting.getInstance().getMessages().debug("New MysteriousHalloween mob found=%s (%s)", monster.name(), monster.toString());
 				mMobRewardData.put(monster.name(),
 						new RewardData(MobPlugin.MysteriousHalloween, monster.name(),
 								MysteriousHalloweenAPI.getMobTypeName(monster), "40:60",

@@ -37,7 +37,6 @@ import com.sk89q.worldguard.protection.flags.StateFlag.State;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 public class WorldGuardHelper implements Listener {
@@ -197,7 +196,7 @@ public class WorldGuardHelper implements Listener {
 				if (pr.getFlags().containsKey(MOBHUNTINGFLAG)) {
 					if (!mobHuntingRegions.containsKey(pr.getId()) || !pr.getFlag(MOBHUNTINGFLAG).toString()
 							.equalsIgnoreCase(mobHuntingRegions.get(pr.getId()))) {
-						Messages.debug(
+						MobHunting.getInstance().getMessages().debug(
 								"Found unregistered flag or flag with changed State found in region '%s' with value %s",
 								pr.getId(), pr.getFlag(MOBHUNTINGFLAG).name());
 						mobHuntingRegions.put(pr.getId(), pr.getFlag(MOBHUNTINGFLAG).toString().toLowerCase());
@@ -224,13 +223,13 @@ public class WorldGuardHelper implements Listener {
 				if (set.size() > 0) {
 					LocalPlayer localPlayer = WorldGuardCompat.getWorldGuardPlugin().wrapPlayer(checkedPlayer);
 					State flag = set.queryState(localPlayer, stateFlag);
-					// Messages.debug("testState=%s", set.testState(localPlayer,
+					// MobHunting.getInstance().getMessages().debug("testState=%s", set.testState(localPlayer,
 					// stateFlag));
-					// Messages.debug("FLAG %s defaultValue=%s",
+					// MobHunting.getInstance().getMessages().debug("FLAG %s defaultValue=%s",
 					// stateFlag.getName(), stateFlag.getDefault());
 					// State flag = set.getFlag(stateFlag);
 					if (flag == null) {
-						//Messages.debug("WorldGuard %s flag not defined. Default value = %s", stateFlag.getName(),
+						//MobHunting.getInstance().getMessages().debug("WorldGuard %s flag not defined. Default value = %s", stateFlag.getName(),
 						//		defaultValue);
 						return defaultValue;
 					} else if (flag.equals(State.ALLOW)) {
@@ -239,12 +238,12 @@ public class WorldGuardHelper implements Listener {
 						return false;
 					}
 				} else {
-					//Messages.debug("No region here, return default %s=%s", stateFlag.getName(), defaultValue);
+					//MobHunting.getInstance().getMessages().debug("No region here, return default %s=%s", stateFlag.getName(), defaultValue);
 					return defaultValue;
 				}
 			}
 		}
-		//Messages.debug("WorldGuard return default %s=%s", stateFlag.getName(), defaultValue);
+		//MobHunting.getInstance().getMessages().debug("WorldGuard return default %s=%s", stateFlag.getName(), defaultValue);
 		return defaultValue;
 	}
 

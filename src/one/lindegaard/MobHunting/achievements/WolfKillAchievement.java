@@ -10,7 +10,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.MobArenaCompat;
 import one.lindegaard.MobHunting.events.MobHuntKillEvent;
@@ -28,7 +27,7 @@ public class WolfKillAchievement implements ProgressAchievement, Listener {
 
 	@Override
 	public String getName() {
-		return Messages.getString("achievements.fangmaster.name");
+		return plugin.getMessages().getString("achievements.fangmaster.name");
 	}
 
 	@Override
@@ -38,7 +37,7 @@ public class WolfKillAchievement implements ProgressAchievement, Listener {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("achievements.fangmaster.description");
+		return plugin.getMessages().getString("achievements.fangmaster.description");
 	}
 
 	@Override
@@ -81,9 +80,9 @@ public class WolfKillAchievement implements ProgressAchievement, Listener {
 			if (owner != null && plugin.getMobHuntingManager().isHuntEnabled(owner)) {
 				if (MobArenaCompat.isPlayingMobArena((Player) owner)
 						&& !plugin.getConfigManager().mobarenaGetRewards) {
-					Messages.debug("AchiveBlocked: FangMaster was achieved while %s was playing MobArena.",
+					plugin.getMessages().debug("AchiveBlocked: FangMaster was achieved while %s was playing MobArena.",
 							owner.getName());
-					plugin.getMessages().learn(owner, Messages.getString("mobhunting.learn.mobarena"));
+					plugin.getMessages().learn(owner, plugin.getMessages().getString("mobhunting.learn.mobarena"));
 				} else
 					plugin.getAchievementManager().awardAchievementProgress(this, owner,
 							plugin.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()), 1);

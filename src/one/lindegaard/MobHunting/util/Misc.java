@@ -21,7 +21,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.BlockIterator;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 public class Misc {
@@ -234,7 +233,7 @@ public class Misc {
 				return ((Player[]) method.invoke(Bukkit.getServer())).length;
 			}
 		} catch (Exception ex) {
-			Messages.debug(ex.getMessage());
+			MobHunting.getInstance().getMessages().debug(ex.getMessage());
 		}
 		return 0;
 	}

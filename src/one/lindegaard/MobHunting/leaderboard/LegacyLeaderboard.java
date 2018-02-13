@@ -15,7 +15,6 @@ import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.util.BlockVector;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.StatType;
 import one.lindegaard.MobHunting.storage.IDataCallback;
@@ -56,7 +55,7 @@ public class LegacyLeaderboard implements IDataCallback<List<StatStore>> {
 		if (mMaxCorner.getBlockX() - mMinCorner.getBlockX() > 1
 				&& mMaxCorner.getBlockZ() - mMaxCorner.getBlockZ() > 1)
 			throw new IllegalArgumentException(
-					Messages.getString("leaderboard.thick"));
+					plugin.getMessages().getString("leaderboard.thick"));
 
 		mHorizontal = horizontal;
 	}

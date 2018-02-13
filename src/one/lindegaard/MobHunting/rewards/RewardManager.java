@@ -85,7 +85,6 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import one.lindegaard.BagOfGold.BagOfGold;
 import one.lindegaard.BagOfGold.storage.PlayerSettings;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
 import one.lindegaard.MobHunting.compatibility.CitizensCompat;
@@ -120,20 +119,20 @@ public class RewardManager {
 		file = new File(plugin.getDataFolder(), "rewards.yml");
 		RegisteredServiceProvider<Economy> economyProvider = Bukkit.getServicesManager().getRegistration(Economy.class);
 		if (economyProvider == null) {
-			Bukkit.getLogger().severe(Messages.getString(plugin.getName().toLowerCase() + ".hook.econ"));
+			Bukkit.getLogger().severe(plugin.getMessages().getString(plugin.getName().toLowerCase() + ".hook.econ"));
 			Bukkit.getPluginManager().disablePlugin(plugin);
 			return;
 		}
 
 		mEconomy = economyProvider.getProvider();
 
-		Messages.debug("MobHunting is using %s as Economy Provider", mEconomy.getName());
-		Messages.debug("Number of Economy Providers = %s",
+		plugin.getMessages().debug("MobHunting is using %s as Economy Provider", mEconomy.getName());
+		plugin.getMessages().debug("Number of Economy Providers = %s",
 				Bukkit.getServicesManager().getRegistrations(Economy.class).size());
 		if (Bukkit.getServicesManager().getRegistrations(Economy.class).size() > 1) {
 			for (RegisteredServiceProvider<Economy> registation : Bukkit.getServicesManager()
 					.getRegistrations(Economy.class)) {
-				Messages.debug("Provider name=%s", registation.getProvider().getName());
+				plugin.getMessages().debug("Provider name=%s", registation.getProvider().getName());
 			}
 		}
 
@@ -242,7 +241,7 @@ public class RewardManager {
 							ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + displayName);
 					is.setItemMeta(im);
 					is.setAmount(1);
-					Messages.debug("Added %s to item in slot %s, new value is %s (addBagOfGoldPlayer_RewardManager)",
+					plugin.getMessages().debug("Added %s to item in slot %s, new value is %s (addBagOfGoldPlayer_RewardManager)",
 							format(amount), slot, format(rewardInSlot.getMoney()));
 					found = true;
 					break;
@@ -370,7 +369,7 @@ public class RewardManager {
 			}
 		}
 		if (item != null)
-			Messages.debug("%s was dropped on the ground as item %s (# of rewards=%s)", format(money),
+			plugin.getMessages().debug("%s was dropped on the ground as item %s (# of rewards=%s)", format(money),
 					plugin.getConfigManager().dropMoneyOnGroundItemtype, droppedMoney.size());
 	}
 
@@ -384,7 +383,7 @@ public class RewardManager {
 					ConfigurationSection section = config.createSection(uuid.toString());
 					section.set("location", location);
 					reward.save(section);
-					Messages.debug("Saving a reward placed as a block.");
+					plugin.getMessages().debug("Saving a reward placed as a block.");
 					config.save(file);
 				}
 			}
@@ -433,14 +432,14 @@ public class RewardManager {
 		try {
 
 			if (deleted > 0) {
-				Messages.debug("Deleted %s rewards from the rewards.yml file", deleted);
+				plugin.getMessages().debug("Deleted %s rewards from the rewards.yml file", deleted);
 				File file_copy = new File(MobHunting.getInstance().getDataFolder(), "rewards.yml.old");
 				Files.copy(file.toPath(), file_copy.toPath(), StandardCopyOption.COPY_ATTRIBUTES,
 						StandardCopyOption.REPLACE_EXISTING);
 				config.save(file);
 			}
 			if (n > 0) {
-				Messages.debug("Loaded %s rewards from the rewards.yml file", n);
+				plugin.getMessages().debug("Loaded %s rewards from the rewards.yml file", n);
 			}
 
 		} catch (IOException e) {
@@ -521,7 +520,7 @@ public class RewardManager {
 					.containsKey(TARDISWeepingAngelsCompat.getWeepingAngelMonsterType(mob).name()))
 				return getPrice(mob, TARDISWeepingAngelsCompat.getMobRewardData()
 						.get(TARDISWeepingAngelsCompat.getWeepingAngelMonsterType(mob).name()).getRewardPrize());
-			Messages.debug("TARDISWeepingAngel %s has no reward data",
+			plugin.getMessages().debug("TARDISWeepingAngel %s has no reward data",
 					TARDISWeepingAngelsCompat.getWeepingAngelMonsterType(mob).getName());
 			return 0;
 
@@ -529,7 +528,7 @@ public class RewardManager {
 			if (MythicMobsCompat.getMobRewardData().containsKey(MythicMobsCompat.getMythicMobType(mob)))
 				return getPrice(mob, MythicMobsCompat.getMobRewardData().get(MythicMobsCompat.getMythicMobType(mob))
 						.getRewardPrize());
-			Messages.debug("MythicMob %s has no reward data", MythicMobsCompat.getMythicMobType(mob));
+			plugin.getMessages().debug("MythicMob %s has no reward data", MythicMobsCompat.getMythicMobType(mob));
 			return 0;
 
 		} else if (CitizensCompat.isSentryOrSentinelOrSentries(mob)) {
@@ -538,14 +537,14 @@ public class RewardManager {
 			if (CitizensCompat.getMobRewardData().containsKey(key)) {
 				return getPrice(mob, CitizensCompat.getMobRewardData().get(key).getRewardPrize());
 			}
-			Messages.debug("Citizens mob %s has no reward data", npc.getName());
+			plugin.getMessages().debug("Citizens mob %s has no reward data", npc.getName());
 			return 0;
 
 		} else if (CustomMobsCompat.isCustomMob(mob)) {
 			if (CustomMobsCompat.getMobRewardData().containsKey(CustomMobsCompat.getCustomMobType(mob)))
 				return getPrice(mob, CustomMobsCompat.getMobRewardData().get(CustomMobsCompat.getCustomMobType(mob))
 						.getRewardPrize());
-			Messages.debug("CustomMob %s has no reward data", CustomMobsCompat.getCustomMobType(mob));
+			plugin.getMessages().debug("CustomMob %s has no reward data", CustomMobsCompat.getCustomMobType(mob));
 			return 0;
 
 		} else if (MysteriousHalloweenCompat.isMysteriousHalloween(mob)) {
@@ -553,7 +552,7 @@ public class RewardManager {
 					.containsKey(MysteriousHalloweenCompat.getMysteriousHalloweenType(mob).name()))
 				return getPrice(mob, MysteriousHalloweenCompat.getMobRewardData()
 						.get(MysteriousHalloweenCompat.getMysteriousHalloweenType(mob).name()).getRewardPrize());
-			Messages.debug("MysteriousHalloween %s has no reward data",
+			plugin.getMessages().debug("MysteriousHalloween %s has no reward data",
 					MysteriousHalloweenCompat.getMysteriousHalloweenType(mob).name());
 			return 0;
 
@@ -561,11 +560,11 @@ public class RewardManager {
 			if (SmartGiantsCompat.getMobRewardData().containsKey(SmartGiantsCompat.getSmartGiantsMobType(mob)))
 				return getPrice(mob, SmartGiantsCompat.getMobRewardData()
 						.get(SmartGiantsCompat.getSmartGiantsMobType(mob)).getRewardPrize());
-			Messages.debug("SmartGiantsS %s has no reward data", SmartGiantsCompat.getSmartGiantsMobType(mob));
+			plugin.getMessages().debug("SmartGiantsS %s has no reward data", SmartGiantsCompat.getSmartGiantsMobType(mob));
 			return 0;
 
 		} else if (MyPetCompat.isMyPet(mob)) {
-			Messages.debug("Tried to find a prize for a MyPet: %s (Owner=%s)", MyPetCompat.getMyPet(mob),
+			plugin.getMessages().debug("Tried to find a prize for a MyPet: %s (Owner=%s)", MyPetCompat.getMyPet(mob),
 					MyPetCompat.getMyPetOwner(mob));
 			return getPrice(mob, plugin.getConfigManager().wolfPrize);
 
@@ -573,7 +572,7 @@ public class RewardManager {
 			if (HerobrineCompat.getMobRewardData().containsKey(HerobrineCompat.getHerobrineMobType(mob)))
 				return getPrice(mob, HerobrineCompat.getMobRewardData().get(HerobrineCompat.getHerobrineMobType(mob))
 						.getRewardPrize());
-			Messages.debug("Herobrine mob %s has no reward data", HerobrineCompat.getHerobrineMobType(mob));
+			plugin.getMessages().debug("Herobrine mob %s has no reward data", HerobrineCompat.getHerobrineMobType(mob));
 			return 0;
 
 		} else {
@@ -758,7 +757,7 @@ public class RewardManager {
 				}
 			}
 		}
-		// Messages.debug("Mobhunting could not find the prize for killing this
+		// plugin.getMessages().debug("Mobhunting could not find the prize for killing this
 		// mob: %s (%s)",
 		// ExtendedMobManager.getMobName(mob), mob.getType());
 		return 0;
@@ -1875,7 +1874,7 @@ public class RewardManager {
 	public boolean isCmdGointToBeExcuted(Entity killed) {
 		double randomDouble = plugin.getMobHuntingManager().mRand.nextDouble();
 		double runChanceDouble = getCmdRunChance(killed);
-		Messages.debug("Command will be run if chance: %s > %s (random number)", runChanceDouble, randomDouble);
+		plugin.getMessages().debug("Command will be run if chance: %s > %s (random number)", runChanceDouble, randomDouble);
 		if (killed instanceof Player)
 			return randomDouble < plugin.getConfigManager().pvpKillCmdRunChance;
 		else

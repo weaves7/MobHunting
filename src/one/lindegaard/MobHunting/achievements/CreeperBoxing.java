@@ -1,6 +1,5 @@
 package one.lindegaard.MobHunting.achievements;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.events.MobHuntKillEvent;
 import org.bukkit.entity.Creeper;
@@ -17,7 +16,7 @@ public class CreeperBoxing extends AbstractSkullAchievement implements Listener 
 
 	@Override
 	public String getName() {
-		return Messages.getString("achievements.creeperboxing.name");
+		return plugin.getMessages().getString("achievements.creeperboxing.name");
 	}
 
 	@Override
@@ -27,7 +26,7 @@ public class CreeperBoxing extends AbstractSkullAchievement implements Listener 
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("achievements.creeperboxing.description");
+		return plugin.getMessages().getString("achievements.creeperboxing.description");
 	}
 
 	@Override

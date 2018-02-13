@@ -8,7 +8,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 
 import net.citizensnpcs.api.npc.NPC;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.CitizensCompat;
 import one.lindegaard.MobHunting.compatibility.CustomMobsCompat;
@@ -123,9 +122,9 @@ public class ExtendedMob {
 
 	public String getFriendlyName() {
 		if (mobPlugin == MobPlugin.Minecraft)
-			return Messages.getString("mobs." + mobtype + ".name");
+			return MobHunting.getInstance().getMessages().getString("mobs." + mobtype + ".name");
 		else
-			return Messages.getString("mobs." + mobPlugin.name() + "_" + mobtype + ".name");
+			return MobHunting.getInstance().getMessages().getString("mobs." + mobPlugin.name() + "_" + mobtype + ".name");
 	}
 
 	public int getProgressAchievementLevel1() {

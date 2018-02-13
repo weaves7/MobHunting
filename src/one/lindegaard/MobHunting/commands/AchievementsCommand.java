@@ -9,7 +9,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 public class AchievementsCommand implements ICommand {
@@ -49,7 +48,7 @@ private MobHunting plugin;
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("mobhunting.commands.listachievements.description");
+		return plugin.getMessages().getString("mobhunting.commands.listachievements.description");
 	}
 
 	@Override
@@ -102,7 +101,7 @@ private MobHunting plugin;
 
 				if (otherPlayer == null) {
 					plugin.getMessages().senderSendMessage(sender,ChatColor.RED
-							+ Messages.getString("mobhunting.commands.listachievements.player-not-exist"));
+							+ plugin.getMessages().getString("mobhunting.commands.listachievements.player-not-exist"));
 					return true;
 				}
 

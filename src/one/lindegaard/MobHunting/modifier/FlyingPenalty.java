@@ -7,14 +7,13 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import one.lindegaard.MobHunting.DamageInformation;
 import one.lindegaard.MobHunting.HuntData;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 public class FlyingPenalty implements IModifier {
 
 	@Override
 	public String getName() {
-		return ChatColor.RED + Messages.getString("penalty.flying.name"); //$NON-NLS-1$
+		return ChatColor.RED + MobHunting.getInstance().getMessages().getString("penalty.flying.name"); //$NON-NLS-1$
 	}
 
 	@Override

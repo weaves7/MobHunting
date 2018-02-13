@@ -17,7 +17,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.WeakHashMap;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.CitizensCompat;
 import one.lindegaard.MobHunting.compatibility.CustomMobsCompat;
@@ -381,7 +380,7 @@ public class AchievementManager implements Listener {
 	 */
 	public void awardAchievement(Achievement achievement, Player player, ExtendedMob mob) {
 		if (!achievementsEnabledFor(player)) {
-			Messages.debug("[AchievementBlocked] Achievements is disabled for player %s", player.getName());
+			plugin.getMessages().debug("[AchievementBlocked] Achievements is disabled for player %s", player.getName());
 			return;
 		}
 
@@ -391,7 +390,7 @@ public class AchievementManager implements Listener {
 
 		for (String world : plugin.getConfigManager().disableAchievementsInWorlds)
 			if (world.equalsIgnoreCase(player.getWorld().getName())) {
-				Messages.debug("[AchievementBlocked] Achievements is disabled in world:%s", world);
+				plugin.getMessages().debug("[AchievementBlocked] Achievements is disabled in world:%s", world);
 				return;
 			}
 
@@ -404,16 +403,16 @@ public class AchievementManager implements Listener {
 			storage.enableAchievements = true;
 		}
 
-		Messages.debug("RecordAchievement: %s achieved.", achievement.getID());
+		plugin.getMessages().debug("RecordAchievement: %s achieved.", achievement.getID());
 		plugin.getDataStoreManager().recordAchievement(player, achievement, mob);
 		storage.gainedAchievements.add(achievement.getID());
 		mStorage.put(player.getUniqueId(), storage);
 
-		plugin.getMessages().playerSendMessage(player, ChatColor.GOLD + Messages.getString("mobhunting.achievement.awarded", "name",
+		plugin.getMessages().playerSendMessage(player, ChatColor.GOLD + plugin.getMessages().getString("mobhunting.achievement.awarded", "name",
 				"" + ChatColor.WHITE + ChatColor.ITALIC + achievement.getName()));
 		plugin.getMessages().playerSendMessage(player, ChatColor.BLUE + "" + ChatColor.ITALIC + achievement.getDescription());
 		plugin.getMessages().playerSendMessage(player, 
-				ChatColor.WHITE + "" + ChatColor.ITALIC + Messages.getString("mobhunting.achievement.awarded.prize",
+				ChatColor.WHITE + "" + ChatColor.ITALIC + plugin.getMessages().getString("mobhunting.achievement.awarded.prize",
 						"prize", plugin.getRewardManager().format(achievement.getPrize())));
 
 		plugin.getRewardManager().depositPlayer(player, achievement.getPrize());
@@ -421,7 +420,7 @@ public class AchievementManager implements Listener {
 		if (plugin.getConfigManager().broadcastAchievement
 				&& (!(achievement instanceof TheHuntBegins) || plugin.getConfigManager().broadcastFirstAchievement))
 			plugin.getMessages()
-					.broadcast(ChatColor.GOLD + Messages.getString("mobhunting.achievement.awarded.broadcast", "player",
+					.broadcast(ChatColor.GOLD + plugin.getMessages().getString("mobhunting.achievement.awarded.broadcast", "player",
 							player.getName(), "name", "" + ChatColor.WHITE + ChatColor.ITALIC + achievement.getName()),
 							player);
 
@@ -435,7 +434,7 @@ public class AchievementManager implements Listener {
 				.replaceAll("\\{monstertype\\}", mob.getMobName());
 
 		if (!achievement.getPrizeCmd().equals("")) {
-			Messages.debug("Command to be run:" + prizeCommand);
+			plugin.getMessages().debug("Command to be run:" + prizeCommand);
 			String str = prizeCommand;
 			do {
 				if (str.contains("|")) {
@@ -480,12 +479,12 @@ public class AchievementManager implements Listener {
 
 		for (String world : plugin.getConfigManager().disableAchievementsInWorlds)
 			if (world.equalsIgnoreCase(player.getWorld().getName())) {
-				Messages.debug("[AchievementBlocked] Achievements is disabled in world:%s", world);
+				plugin.getMessages().debug("[AchievementBlocked] Achievements is disabled in world:%s", world);
 				return;
 			}
 
 		if (achievement.getExtendedMob().getProgressAchievementLevel1() == 0) {
-			Messages.debug(
+			plugin.getMessages().debug(
 					"[AchievementBlocked] ProgressAchievement for killing a %s is disabled (%s_level1 is 0 in config.yml)",
 					achievement.getExtendedMob().getMobtype().toLowerCase(),
 					achievement.getExtendedMob().getMobtype().toLowerCase());
@@ -522,13 +521,13 @@ public class AchievementManager implements Listener {
 		else {
 			storage.progressAchievements.put(achievement.getID(), nextProgress);
 
-			Messages.debug("RecordAchievement: %s has %s kills", achievement.getID(), nextProgress);
+			plugin.getMessages().debug("RecordAchievement: %s has %s kills", achievement.getID(), nextProgress);
 			plugin.getDataStoreManager().recordAchievementProgress(player, achievement, nextProgress);
 
 			int segment = Math.min(25, maxProgress / 2);
 
 			if (curProgress / segment < nextProgress / segment || curProgress == 0 && nextProgress > 0) {
-				plugin.getMessages().playerSendMessage(player, ChatColor.BLUE + Messages.getString("mobhunting.achievement.progress", "name",
+				plugin.getMessages().playerSendMessage(player, ChatColor.BLUE + plugin.getMessages().getString("mobhunting.achievement.progress", "name",
 						"" + ChatColor.WHITE + ChatColor.ITALIC + achievement.getName()));
 				plugin.getMessages().playerSendMessage(player, ChatColor.GRAY + "" + nextProgress + " / " + maxProgress);
 			}
@@ -581,7 +580,7 @@ public class AchievementManager implements Listener {
 		if (!player.hasPermission("mobhunting.achievements.disabled") || player.hasPermission("*")) {
 
 			if (!mStorage.containsKey(player.getUniqueId())) {
-				Messages.debug("Loading %s's Achievements", player.getName());
+				plugin.getMessages().debug("Loading %s's Achievements", player.getName());
 
 				final PlayerStorage storage = new PlayerStorage();
 				storage.enableAchievements = false;
@@ -595,14 +594,14 @@ public class AchievementManager implements Listener {
 									storage.enableAchievements = true;
 								else {
 									error.printStackTrace();
-									p.sendMessage(Messages.getString("achievements.load-fail"));
+									p.sendMessage(plugin.getMessages().getString("achievements.load-fail"));
 									storage.enableAchievements = false;
 								}
 							}
 
 							@Override
 							public void onCompleted(Set<AchievementStore> data) {
-								Messages.debug("Loaded %s Achievements.", data.size());
+								plugin.getMessages().debug("Loaded %s Achievements.", data.size());
 								for (AchievementStore achievementStore : data) {
 									if (achievementStore.progress == -1)
 										storage.gainedAchievements.add(achievementStore.id);
@@ -625,7 +624,7 @@ public class AchievementManager implements Listener {
 												if (as.id.equalsIgnoreCase(
 														((ProgressAchievement) getAchievement(achievementStore.id))
 																.nextLevelId())) {
-													Messages.debug(
+													plugin.getMessages().debug(
 															"Error in mh_Achievements: %s=%s. Changing status to completed. ",
 															achievementStore.id, achievementStore.progress);
 													plugin.getDataStoreManager().recordAchievementProgress(player,
@@ -656,16 +655,16 @@ public class AchievementManager implements Listener {
 							}
 						});
 			} else {
-				Messages.debug("Using cached achievements for %s", player.getName());
+				plugin.getMessages().debug("Using cached achievements for %s", player.getName());
 				PlayerStorage storage = mStorage.get(player.getUniqueId());
 				if (!storage.enableAchievements) {
-					Messages.debug("Enabling achievements in cache for %s.", player.getName());
+					plugin.getMessages().debug("Enabling achievements in cache for %s.", player.getName());
 					storage.enableAchievements = true;
 					mStorage.put(player.getUniqueId(), storage);
 				}
 			}
 		} else {
-			Messages.debug("achievements is disabled with permission 'mobhunting.achievements.disabled' for player %s",
+			plugin.getMessages().debug("achievements is disabled with permission 'mobhunting.achievements.disabled' for player %s",
 					player.getName());
 		}
 
@@ -711,7 +710,7 @@ public class AchievementManager implements Listener {
 			@Override
 			public void onError(Throwable error) {
 				if (error instanceof UserNotFoundException) {
-					sender.sendMessage(ChatColor.GRAY + Messages.getString(
+					sender.sendMessage(ChatColor.GRAY + plugin.getMessages().getString(
 							"mobhunting.commands.listachievements.player-empty", "player", player.getName()));
 				} else {
 					sender.sendMessage(ChatColor.RED + "An internal error occured while getting the achievements");
@@ -756,12 +755,12 @@ public class AchievementManager implements Listener {
 				if (!gui) {
 					if (self)
 						lines.add(ChatColor.GRAY
-								+ Messages.getString("mobhunting.commands.listachievements.completed.self", "num",
+								+ plugin.getMessages().getString("mobhunting.commands.listachievements.completed.self", "num",
 										ChatColor.YELLOW + "" + count + ChatColor.GRAY, "max",
 										ChatColor.YELLOW + "" + outOf + ChatColor.GRAY));
 					else
 						lines.add(ChatColor.GRAY
-								+ Messages.getString("mobhunting.commands.listachievements.completed.other", "player",
+								+ plugin.getMessages().getString("mobhunting.commands.listachievements.completed.other", "player",
 										player.getName(), "num", ChatColor.YELLOW + "" + count + ChatColor.GRAY, "max",
 										ChatColor.YELLOW + "" + outOf + ChatColor.GRAY));
 				}
@@ -788,7 +787,7 @@ public class AchievementManager implements Listener {
 											ChatColor.YELLOW + achievement.getKey().getName(),
 											new String[] { ChatColor.GRAY + "" + ChatColor.ITALIC,
 													achievement.getKey().getDescription(), "",
-													Messages.getString(
+													plugin.getMessages().getString(
 															"mobhunting.commands.listachievements.completed.self",
 															"num", ChatColor.YELLOW + "" + count + ChatColor.GRAY,
 															"max", ChatColor.YELLOW + "" + outOf + ChatColor.GRAY) });
@@ -797,7 +796,7 @@ public class AchievementManager implements Listener {
 											ChatColor.YELLOW + achievement.getKey().getName(),
 											new String[] { ChatColor.GRAY + "" + ChatColor.ITALIC,
 													achievement.getKey().getDescription(), "",
-													Messages.getString(
+													plugin.getMessages().getString(
 															"mobhunting.commands.listachievements.completed.other",
 															"player", player.getName(), "num",
 															ChatColor.YELLOW + "" + count + ChatColor.GRAY, "max",
@@ -805,13 +804,13 @@ public class AchievementManager implements Listener {
 								}
 								n++;
 							} else {
-								Messages.debug("No room for more Achievements");
+								plugin.getMessages().debug("No room for more Achievements");
 								break for_loop;
 							}
 					} else {
 						if (achievement.getKey() instanceof ProgressAchievement && hasAchievement(
 								(((ProgressAchievement) achievement.getKey()).nextLevelId()), player)) {
-							Messages.debug("Error in DB %s is not done, but %s is... skipping",
+							plugin.getMessages().debug("Error in DB %s is not done, but %s is... skipping",
 									achievement.getKey().getID(),
 									((ProgressAchievement) achievement.getKey()).nextLevelId());
 						} else
@@ -824,7 +823,7 @@ public class AchievementManager implements Listener {
 					if (!gui) {
 						lines.add("");
 						lines.add(
-								ChatColor.YELLOW + Messages.getString("mobhunting.commands.listachievements.progress"));
+								ChatColor.YELLOW + plugin.getMessages().getString("mobhunting.commands.listachievements.progress"));
 					}
 
 					for_loop: for (Map.Entry<Achievement, Integer> achievement : data) {
@@ -852,14 +851,14 @@ public class AchievementManager implements Listener {
 												ChatColor.YELLOW + achievement.getKey().getName(),
 												new String[] { ChatColor.GRAY + "" + ChatColor.ITALIC,
 														achievement.getKey().getDescription(), "",
-														Messages.getString(
+														plugin.getMessages().getString(
 																"mobhunting.commands.listachievements.progress") + " "
 																+ ChatColor.WHITE + achievement.getValue() + " / "
 																+ ((ProgressAchievement) achievement.getKey())
 																		.getNextLevel() });
 										n++;
 									} else {
-										Messages.debug("No room for more achievements");
+										plugin.getMessages().debug("No room for more achievements");
 										break for_loop;
 									}
 							}
@@ -879,12 +878,12 @@ public class AchievementManager implements Listener {
 										addInventoryDetails(achievement.getSymbol(), inventoryNotStarted, m,
 												ChatColor.YELLOW + achievement.getName(),
 												new String[] { ChatColor.GRAY + "" + ChatColor.ITALIC,
-														achievement.getDescription(), "", Messages.getString(
+														achievement.getDescription(), "", plugin.getMessages().getString(
 																"mobhunting.commands.listachievements.notstarted") });
 
 										m++;
 									} else {
-										Messages.debug("No room for achievement: %s", achievement.getName());
+										plugin.getMessages().debug("No room for achievement: %s", achievement.getName());
 										break for_loop;
 									}
 								}
@@ -907,12 +906,12 @@ public class AchievementManager implements Listener {
 										addInventoryDetails(achievement.getSymbol(), inventoryNotStarted, m,
 												ChatColor.YELLOW + achievement.getName(),
 												new String[] { ChatColor.GRAY + "" + ChatColor.ITALIC,
-														achievement.getDescription(), "", Messages.getString(
+														achievement.getDescription(), "", plugin.getMessages().getString(
 																"mobhunting.commands.listachievements.notstarted") });
 
 										m++;
 									} else {
-										Messages.debug("No room for achievement: %s", achievement.getName());
+										plugin.getMessages().debug("No room for achievement: %s", achievement.getName());
 										break for_loop;
 									}
 								}

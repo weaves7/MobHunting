@@ -45,7 +45,7 @@ public class ReloadCommand implements ICommand {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("mobhunting.commands.reload.description");
+		return plugin.getMessages().getString("mobhunting.commands.reload.description");
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class ReloadCommand implements ICommand {
 		int i = 1;
 		while (plugin.getDataStoreManager().isRunning() && (starttime + 10000 > System.currentTimeMillis())) {
 			if (((int) (System.currentTimeMillis() - starttime)) / 1000 == i) {
-				Messages.debug("saving data (%s)");
+				plugin.getMessages().debug("saving data (%s)");
 				i++;
 			}
 		}
@@ -77,10 +77,10 @@ public class ReloadCommand implements ICommand {
 		if (plugin.getConfigManager().loadConfig()) {
 			int n = Misc.getOnlinePlayersAmount();
 			if (n > 0) {
-				Messages.debug("Reloading %s online playerSettings from the database", n);
+				plugin.getMessages().debug("Reloading %s online playerSettings from the database", n);
 				// reload player settings
 				for (Player player : Misc.getOnlinePlayers())
-					plugin.getPlayerSettingsmanager().load(player);
+					plugin.getPlayerSettingsManager().load(player);
 				// reload bounties
 				if (!plugin.getConfigManager().disablePlayerBounties)
 					for (Player player : Misc.getOnlinePlayers())
@@ -101,10 +101,10 @@ public class ReloadCommand implements ICommand {
 			if (CitizensCompat.isSupported())
 				CitizensCompat.loadCitizensData();
 
-			plugin.getMessages().senderSendMessage(sender,ChatColor.GREEN + Messages.getString("mobhunting.commands.reload.reload-complete"));
+			plugin.getMessages().senderSendMessage(sender,ChatColor.GREEN + plugin.getMessages().getString("mobhunting.commands.reload.reload-complete"));
 
 		} else
-			plugin.getMessages().senderSendMessage(sender,ChatColor.RED + Messages.getString("mobhunting.commands.reload.reload-error"));
+			plugin.getMessages().senderSendMessage(sender,ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.reload.reload-error"));
 
 		return true;
 	}

@@ -17,7 +17,6 @@ import com.gmail.nossr50.events.skills.fishing.McMMOPlayerFishingTreasureEvent;
 import com.gmail.nossr50.events.skills.fishing.McMMOPlayerMagicHunterEvent;
 import com.gmail.nossr50.events.skills.fishing.McMMOPlayerShakeEvent;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 public class McMMOCompat implements Listener {
@@ -90,27 +89,27 @@ public class McMMOCompat implements Listener {
 	public void Fish2(McMMOPlayerFishingTreasureEvent event) {
 		Player p = event.getPlayer();
 		ItemStack s = event.getTreasure();
-		Messages.debug("McMMO-FishingEvent1: %s caught a %s", p.getName(), s.getType());
+		MobHunting.getInstance().getMessages().debug("McMMO-FishingEvent1: %s caught a %s", p.getName(), s.getType());
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = false)
 	public void Fish3(McMMOPlayerFishingEvent event) {
 		Player p = event.getPlayer();
-		Messages.debug("McMMO-FishingEvent2: %s is fishing", p.getName());
+		MobHunting.getInstance().getMessages().debug("McMMO-FishingEvent2: %s is fishing", p.getName());
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = false)
 	public void Fish4(McMMOPlayerMagicHunterEvent event) {
 		Player p = event.getPlayer();
 		ItemStack is = event.getTreasure();
-		Messages.debug("McMMO-FishingEvent3: %s, Treasure = %s", p.getName(), is.getType());
+		MobHunting.getInstance().getMessages().debug("McMMO-FishingEvent3: %s, Treasure = %s", p.getName(), is.getType());
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = false)
 	public void Fish5(McMMOPlayerShakeEvent event) {
 		Player p = event.getPlayer();
 		ItemStack is = event.getDrop();
-		Messages.debug("McMMO-FishingEvent4: %s, Drop = %s", p.getName(), is.getType());
+		MobHunting.getInstance().getMessages().debug("McMMO-FishingEvent4: %s, Drop = %s", p.getName(), is.getType());
 	}
 
 }

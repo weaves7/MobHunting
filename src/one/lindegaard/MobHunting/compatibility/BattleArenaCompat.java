@@ -14,7 +14,6 @@ import org.bukkit.plugin.Plugin;
 import mc.alk.arena.events.players.ArenaPlayerJoinEvent;
 import mc.alk.arena.events.players.ArenaPlayerLeaveEvent;
 import mc.alk.arena.objects.ArenaPlayer;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 public class BattleArenaCompat implements Listener {
@@ -86,7 +85,7 @@ public class BattleArenaCompat implements Listener {
 	 */
 	public static void stopPlayingBattleArena(ArenaPlayer arenaPlayer) {
 		if (!playersPlayingBattleArena.remove(arenaPlayer.getID())) {
-			Messages.debug("Player: %s is not a the BattleArena", arenaPlayer.getName());
+			MobHunting.getInstance().getMessages().debug("Player: %s is not a the BattleArena", arenaPlayer.getName());
 		}
 	}
 
@@ -95,13 +94,13 @@ public class BattleArenaCompat implements Listener {
 	// **************************************************************************
 	@EventHandler(priority = EventPriority.NORMAL)
 	private void onArenaPlayerJoinEvent(ArenaPlayerJoinEvent event) {
-		Messages.debug("BattleArenaCompat.StartEvent s%", event.getEventName());
+		MobHunting.getInstance().getMessages().debug("BattleArenaCompat.StartEvent s%", event.getEventName());
 		startPlayingBattleArena(event.getPlayer());
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
 	private void onArenaPlayerLeaveEvent(ArenaPlayerLeaveEvent event) {
-		Messages.debug("BattleArenaCompat.StartEvent %s", event.getEventName());
+		MobHunting.getInstance().getMessages().debug("BattleArenaCompat.StartEvent %s", event.getEventName());
 		stopPlayingBattleArena(event.getPlayer());
 	}
 

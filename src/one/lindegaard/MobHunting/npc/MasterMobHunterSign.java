@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.CitizensCompat;
 import one.lindegaard.MobHunting.util.Misc;
@@ -204,7 +203,7 @@ public class MasterMobHunterSign implements Listener {
 		if (str.matches(MASTERMOBHUNTERSIGN)) {
 			// block.setMetadata(MH_SIGN, new
 			// FixedMetadataValue(MobHunting.getInstance(), str));
-			// Messages.debug("(186)MH Sign updated=%s",
+			// MobHunting.getInstance().getMessages().debug("(186)MH Sign updated=%s",
 			// str);
 
 			// TODO: cleanup
@@ -259,14 +258,14 @@ public class MasterMobHunterSign implements Listener {
 			block.removeMetadata(MH_POWERED, MobHunting.getInstance());
 			for (BlockFace bf : possibleBlockface) {
 				Block rb = block.getRelative(bf);
-				// Messages.debug("rb = %s, isPowered=%s, !isMHPoweredSign=%s",
+				// MobHunting.getInstance().getMessages().debug("rb = %s, isPowered=%s, !isMHPoweredSign=%s",
 				// rb.getType(), isMHPowered(rb),
 				// !isMHPoweredSign(rb));
 				if (rb != null && isMHPowered(rb) && !isMHPoweredSign(rb) && supportedmats.contains(rb.getType())) {
-					// Messages.debug("remove power on %s", rb.getType());
+					// MobHunting.getInstance().getMessages().debug("remove power on %s", rb.getType());
 					if (rb.getType().equals(Material.REDSTONE_LAMP_ON)) {
 						rb.setType(Material.REDSTONE_LAMP_OFF);
-						// Messages.debug("Turn Redstone Lamp OFF");
+						// MobHunting.getInstance().getMessages().debug("Turn Redstone Lamp OFF");
 						// BlockRedstoneEvent bre = new BlockRedstoneEvent(rb,
 						// 15, 0);
 						// Bukkit.getServer().getPluginManager().callEvent(bre);
@@ -327,7 +326,7 @@ public class MasterMobHunterSign implements Listener {
 				}
 			}
 
-			Messages.debug("power=%s, hasMeta(MH_POWERED)=%s", power, event.getClickedBlock().hasMetadata(MH_POWERED));
+			MobHunting.getInstance().getMessages().debug("power=%s, hasMeta(MH_POWERED)=%s", power, event.getClickedBlock().hasMetadata(MH_POWERED));
 
 			// Check if block is MMH Sign
 			if (isMHSign(event.getClickedBlock())) {
@@ -336,10 +335,10 @@ public class MasterMobHunterSign implements Listener {
 					if (id != -1) {
 						if (power > 0)
 							plugin.getMessages().playerActionBarMessage(event.getPlayer(),
-									Messages.getString("mobhunting.npc.clickednpcsignpowered", "npcid", id));
+									MobHunting.getInstance().getMessages().getString("mobhunting.npc.clickednpcsignpowered", "npcid", id));
 						else
 							plugin.getMessages().playerActionBarMessage(event.getPlayer(),
-									Messages.getString("mobhunting.npc.clickednpcsign", "npcid", id));
+									MobHunting.getInstance().getMessages().getString("mobhunting.npc.clickednpcsign", "npcid", id));
 
 						NPC npc = CitizensAPI.getNPCRegistry().getById(id);
 						if (npc != null) {
@@ -464,7 +463,7 @@ public class MasterMobHunterSign implements Listener {
 					event.setLine(3, "");
 				}
 			} else {
-				Messages.debug("The sign does not have a valid NPC id!(%s)", id);
+				MobHunting.getInstance().getMessages().debug("The sign does not have a valid NPC id!(%s)", id);
 			}
 		}
 

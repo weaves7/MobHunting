@@ -8,7 +8,7 @@ import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
 import com.sk89q.worldedit.bukkit.selections.Selection;
 
-import one.lindegaard.MobHunting.Messages;
+import one.lindegaard.MobHunting.MobHunting;
 
 public class WorldEditCompat {
 	private static WorldEditPlugin mPlugin;
@@ -33,10 +33,10 @@ public class WorldEditCompat {
 		Selection sel = mPlugin.getSelection(player);
 
 		if (sel == null)
-			throw new IllegalArgumentException(Messages.getString("mobhunting.commands.select.no-select"));
+			throw new IllegalArgumentException(MobHunting.getInstance().getMessages().getString("mobhunting.commands.select.no-select"));
 
 		if (!(sel instanceof CuboidSelection))
-			throw new IllegalArgumentException(Messages.getString("mobhunting.commands.select.select-type"));
+			throw new IllegalArgumentException(MobHunting.getInstance().getMessages().getString("mobhunting.commands.select.select-type"));
 
 		return sel.getMinimumPoint();
 	}
@@ -48,10 +48,10 @@ public class WorldEditCompat {
 		Selection sel = mPlugin.getSelection(player);
 
 		if (sel == null)
-			throw new IllegalArgumentException(Messages.getString("mobhunting.commands.select.no-select"));
+			throw new IllegalArgumentException(MobHunting.getInstance().getMessages().getString("mobhunting.commands.select.no-select"));
 
 		if (!(sel instanceof CuboidSelection))
-			throw new IllegalArgumentException(Messages.getString("mobhunting.commands.select.select-type"));
+			throw new IllegalArgumentException(MobHunting.getInstance().getMessages().getString("mobhunting.commands.select.select-type"));
 
 		return sel.getMaximumPoint();
 	}

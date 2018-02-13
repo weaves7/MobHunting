@@ -5,7 +5,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.events.MobHuntKillEvent;
 import one.lindegaard.MobHunting.util.Misc;
@@ -20,7 +19,7 @@ public class AxeMurderer implements Achievement, Listener {
 
 	@Override
 	public String getName() {
-		return Messages.getString("achievements.axemurderer.name");
+		return plugin.getMessages().getString("achievements.axemurderer.name");
 	}
 
 	@Override
@@ -30,7 +29,7 @@ public class AxeMurderer implements Achievement, Listener {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("achievements.axemurderer.description");
+		return plugin.getMessages().getString("achievements.axemurderer.description");
 	}
 
 	@Override

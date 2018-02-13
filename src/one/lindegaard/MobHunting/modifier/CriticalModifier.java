@@ -10,14 +10,13 @@ import org.bukkit.potion.PotionEffectType;
 
 import one.lindegaard.MobHunting.DamageInformation;
 import one.lindegaard.MobHunting.HuntData;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 public class CriticalModifier implements IModifier {
 
 	@Override
 	public String getName() {
-		return ChatColor.LIGHT_PURPLE + Messages.getString("bonus.critical.name"); //$NON-NLS-1$
+		return ChatColor.LIGHT_PURPLE + MobHunting.getInstance().getMessages().getString("bonus.critical.name"); //$NON-NLS-1$
 	}
 
 	private boolean isInWater(Player player) {

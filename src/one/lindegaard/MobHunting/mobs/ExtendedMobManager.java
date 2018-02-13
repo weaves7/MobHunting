@@ -11,7 +11,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Entity;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.CitizensCompat;
 import one.lindegaard.MobHunting.compatibility.CustomMobsCompat;
@@ -125,7 +124,7 @@ public class ExtendedMobManager {
 				mobs.put(mob.getMob_id(), mob);
 			}
 		}
-		Messages.debug("%s mobs was loaded into memory. Total mobs=%s", n, mobs.size());
+		plugin.getMessages().debug("%s mobs was loaded into memory. Total mobs=%s", n, mobs.size());
 	}
 
 	public ExtendedMob getExtendedMobFromMobID(int i) {
@@ -175,7 +174,7 @@ public class ExtendedMobManager {
 			if (mob != null)
 				mobtype = mob.name();
 			else{
-				Messages.debug("unhandled entity %s", entity.getType());
+				plugin.getMessages().debug("unhandled entity %s", entity.getType());
 				mobtype = "";
 			}
 		} else if (HerobrineCompat.isHerobrineMob(entity)){

@@ -9,7 +9,6 @@ import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.ProtocolLibHelper;
 import one.lindegaard.MobHunting.grinding.Area;
@@ -45,7 +44,7 @@ public class WhitelistAreaCommand implements ICommand {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("mobhunting.commands.whitelistarea.description");
+		return plugin.getMessages().getString("mobhunting.commands.whitelistarea.description");
 	}
 
 	@Override
@@ -65,21 +64,21 @@ public class WhitelistAreaCommand implements ICommand {
 		if (args.length == 0) {
 			if (plugin.getGrindingManager().isWhitelisted(loc)) {
 				plugin.getMessages().senderSendMessage(sender,
-						ChatColor.GREEN + Messages.getString("mobhunting.commands.whitelistarea.iswhitelisted"));
+						ChatColor.GREEN + plugin.getMessages().getString("mobhunting.commands.whitelistarea.iswhitelisted"));
 				Area area = plugin.getGrindingManager().getWhitelistArea(loc);
 				ProtocolLibHelper.showGrindingArea((Player) sender, area, loc);
 			} else
 				plugin.getMessages().senderSendMessage(sender,
-						ChatColor.RED + Messages.getString("mobhunting.commands.whitelistarea.notwhitelisted"));
+						ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.whitelistarea.notwhitelisted"));
 		} else if (args.length == 1) {
 			if (args[0].equalsIgnoreCase("remove")) {
 				plugin.getGrindingManager().unWhitelistArea(loc);
 				plugin.getMessages().senderSendMessage(sender,
-						ChatColor.GREEN + Messages.getString("mobhunting.commands.whitelistarea.remove.done"));
+						ChatColor.GREEN + plugin.getMessages().getString("mobhunting.commands.whitelistarea.remove.done"));
 			} else if (args[0].equalsIgnoreCase("add")) {
 				Area area = new Area(loc, plugin.getConfigManager().grindingDetectionRange, 0);
 				plugin.getGrindingManager().whitelistArea(area);
-				plugin.getMessages().senderSendMessage(sender,ChatColor.GREEN + Messages.getString("mobhunting.commands.whitelistarea.done"));
+				plugin.getMessages().senderSendMessage(sender,ChatColor.GREEN + plugin.getMessages().getString("mobhunting.commands.whitelistarea.done"));
 				ProtocolLibHelper.showGrindingArea((Player) sender, area, loc);
 			} else
 				return false;

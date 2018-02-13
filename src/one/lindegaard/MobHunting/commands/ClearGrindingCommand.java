@@ -10,7 +10,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import one.lindegaard.MobHunting.HuntData;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 public class ClearGrindingCommand implements ICommand {
@@ -43,7 +42,7 @@ private MobHunting plugin;
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("mobhunting.commands.cleargrinding.description");
+		return plugin.getMessages().getString("mobhunting.commands.cleargrinding.description");
 	}
 
 	@Override
@@ -69,7 +68,7 @@ private MobHunting plugin;
 			data.clearGrindingArea(loc);
 		}
 
-		plugin.getMessages().senderSendMessage(sender,ChatColor.GREEN + Messages.getString("mobhunting.commands.cleargrinding.done"));
+		plugin.getMessages().senderSendMessage(sender,ChatColor.GREEN + plugin.getMessages().getString("mobhunting.commands.cleargrinding.done"));
 
 		return true;
 	}

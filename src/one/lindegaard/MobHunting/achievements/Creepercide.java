@@ -8,7 +8,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import one.lindegaard.MobHunting.DamageInformation;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.MobArenaCompat;
 import one.lindegaard.MobHunting.events.MobHuntKillEvent;
@@ -23,7 +22,7 @@ public class Creepercide extends AbstractSkullAchievement implements Listener {
 
 	@Override
 	public String getName() {
-		return Messages.getString("achievements.creepercide.name");
+		return plugin.getMessages().getString("achievements.creepercide.name");
 	}
 
 	@Override
@@ -33,7 +32,7 @@ public class Creepercide extends AbstractSkullAchievement implements Listener {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("achievements.creepercide.description");
+		return plugin.getMessages().getString("achievements.creepercide.description");
 	}
 
 	@Override
@@ -78,9 +77,9 @@ public class Creepercide extends AbstractSkullAchievement implements Listener {
 				// Check if player (initiator) is playing MobArena.
 				if (MobArenaCompat.isPlayingMobArena((Player) initiator)
 						&& !plugin.getConfigManager().mobarenaGetRewards) {
-					Messages.debug("AchiveBlocked: CreeperCide was achieved while %s was playing MobArena.",
+					plugin.getMessages().debug("AchiveBlocked: CreeperCide was achieved while %s was playing MobArena.",
 							initiator.getName());
-					plugin.getMessages().learn(initiator, Messages.getString("mobhunting.learn.mobarena"));
+					plugin.getMessages().learn(initiator, plugin.getMessages().getString("mobhunting.learn.mobarena"));
 				} else
 					plugin.getAchievementManager().awardAchievement("creepercide", initiator,
 							plugin.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()));

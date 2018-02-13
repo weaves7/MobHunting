@@ -18,7 +18,6 @@ import org.bukkit.command.ConsoleCommandSender;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.StatType;
 import one.lindegaard.MobHunting.bounty.Bounty;
@@ -242,7 +241,7 @@ public class MySQLDataStore extends DatabaseDataStore {
 							.warning("Could not find player name for PLAYER_ID:" + results.getString("PLAYER_ID"));
 				}
 				if (offlinePlayer == null)
-					Messages.debug("getOfflinePlayer(%s) was not in cache.", results.getString("name"));
+					plugin.getMessages().debug("getOfflinePlayer(%s) was not in cache.", results.getString("name"));
 				else
 					list.add(new StatStore(type, offlinePlayer, results.getInt("amount"), results.getDouble("cash")));
 			}
@@ -259,7 +258,7 @@ public class MySQLDataStore extends DatabaseDataStore {
 	public void savePlayerStats(Set<StatStore> stats) throws DataStoreException {
 		Connection mConnection = setupConnection();
 		try {
-			Messages.debug("Saving PlayerStats to Database.");
+			plugin.getMessages().debug("Saving PlayerStats to Database.");
 			Statement statement = mConnection.createStatement();
 			for (StatStore stat : stats) {
 				String column = "";
@@ -284,7 +283,7 @@ public class MySQLDataStore extends DatabaseDataStore {
 			statement.close();
 			mConnection.commit();
 			mConnection.close();
-			Messages.debug("Saved.");
+			plugin.getMessages().debug("Saved.");
 		} catch (SQLException e) {
 			rollback(mConnection);
 			throw new DataStoreException(e);
@@ -300,7 +299,7 @@ public class MySQLDataStore extends DatabaseDataStore {
 				openPreparedStatements(mConnection, PreparedConnectionType.INSERT_BOUNTY);
 				for (Bounty bounty : bountyDataSet) {
 					if (bounty.getBountyOwner() == null)
-						Messages.debug("RandomBounty to be inserted: %s", bounty.toString());
+						plugin.getMessages().debug("RandomBounty to be inserted: %s", bounty.toString());
 					int bountyOwnerId = getPlayerId(bounty.getBountyOwner());
 					int wantedPlayerId = getPlayerId(bounty.getWantedPlayer());
 					mInsertBounty.setString(1, bounty.getMobtype());
@@ -317,7 +316,7 @@ public class MySQLDataStore extends DatabaseDataStore {
 					// ON DUPLCATE KEY
 					mInsertBounty.setLong(12, bounty.getCreatedDate());
 					mInsertBounty.setLong(13, bounty.getEndDate());
-					Messages.debug("Saving Bounty on wantedplayer=%s (value=%s)", bounty.getWantedPlayer().getName(),
+					plugin.getMessages().debug("Saving Bounty on wantedplayer=%s (value=%s)", bounty.getWantedPlayer().getName(),
 							bounty.getPrize());
 					mInsertBounty.setString(14, String.format(Locale.US, String.valueOf(bounty.getPrize())));
 					mInsertBounty.setString(15, bounty.getMessage());
@@ -1139,7 +1138,7 @@ public class MySQLDataStore extends DatabaseDataStore {
 
 		insertMissingVanillaMobs();
 
-		Messages.debug("MobHunting V3 Database created/updated.");
+		plugin.getMessages().debug("MobHunting V3 Database created/updated.");
 	}
 
 	@Override

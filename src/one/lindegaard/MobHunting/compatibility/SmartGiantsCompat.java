@@ -22,7 +22,6 @@ import org.bukkit.plugin.Plugin;
 
 import me.jjm_223.smartgiants.SmartGiants;
 import me.jjm_223.smartgiants.api.util.IGiantTools;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.mobs.MobPlugin;
 import one.lindegaard.MobHunting.rewards.RewardData;
@@ -140,7 +139,7 @@ public class SmartGiantsCompat implements Listener {
 				MobHunting.getInstance().getStoreManager().insertSmartGiants(key);
 			}
 			MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
-			Messages.debug("Loaded %s SmartGiants", mMobRewardData.size());
+			MobHunting.getInstance().getMessages().debug("Loaded %s SmartGiants", mMobRewardData.size());
 		} catch (IOException | InvalidConfigurationException e) {
 			e.printStackTrace();
 		}
@@ -179,7 +178,7 @@ public class SmartGiantsCompat implements Listener {
 				}
 
 				if (n != 0) {
-					Messages.debug("Saving Mobhunting extra SmartGiants data.");
+					MobHunting.getInstance().getMessages().debug("Saving Mobhunting extra SmartGiants data.");
 					config.save(file);
 				}
 			}
@@ -193,11 +192,11 @@ public class SmartGiantsCompat implements Listener {
 			if (mMobRewardData.containsKey(key)) {
 				ConfigurationSection section = config.createSection(key);
 				mMobRewardData.get(key).save(section);
-				Messages.debug("Saving extra SmartGiants data for mob=%s (%s)", key,
+				MobHunting.getInstance().getMessages().debug("Saving extra SmartGiants data for mob=%s (%s)", key,
 						mMobRewardData.get(key).getMobName());
 				config.save(file);
 			} else {
-				Messages.debug("ERROR! SmartGiants ID (%s) is not found in mMobRewardData", key);
+				MobHunting.getInstance().getMessages().debug("ERROR! SmartGiants ID (%s) is not found in mMobRewardData", key);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -214,12 +213,12 @@ public class SmartGiantsCompat implements Listener {
 		Entity entity = event.getEntity();
 
 		if (isSmartGiants(entity)) {
-			Messages.debug("A SmartGiant was spawned at %s,%s,%s in %s", event.getEntity().getLocation().getBlockX(),
+			MobHunting.getInstance().getMessages().debug("A SmartGiant was spawned at %s,%s,%s in %s", event.getEntity().getLocation().getBlockX(),
 					event.getEntity().getLocation().getBlockY(), event.getEntity().getLocation().getBlockZ(),
 					event.getEntity().getLocation().getWorld().getName());
 			String mobtype = MONSTER_NAME;
 			if (mMobRewardData != null && !mMobRewardData.containsKey(mobtype)) {
-				Messages.debug("New SmartGiants mob found=%s (%s)", mobtype, mobtype.toString());
+				MobHunting.getInstance().getMessages().debug("New SmartGiants mob found=%s (%s)", mobtype, mobtype.toString());
 				mMobRewardData.put(mobtype, new RewardData(MobPlugin.SmartGiants, mobtype, mobtype, "100:200",
 						"minecraft:give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02));
 				saveSmartGiantsData(mobtype);

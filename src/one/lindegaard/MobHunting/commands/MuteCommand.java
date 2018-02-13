@@ -7,7 +7,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.storage.DataStoreManager;
 import one.lindegaard.MobHunting.storage.PlayerSettings;
@@ -47,7 +46,7 @@ public class MuteCommand implements ICommand {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("mobhunting.commands.mute.description");
+		return plugin.getMessages().getString("mobhunting.commands.mute.description");
 	}
 
 	@Override
@@ -92,16 +91,16 @@ public class MuteCommand implements ICommand {
 
 	private void togglePlayerMuteMode(Player player) {
 		DataStoreManager ds = plugin.getDataStoreManager();
-		PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(player);
+		PlayerSettings ps = plugin.getPlayerSettingsManager().getPlayerSettings(player);
 		boolean lm = ps.isLearningMode();
 		if (ps.isMuted()) {
 			ds.updatePlayerSettings(player, lm, false);
-			plugin.getPlayerSettingsmanager().setPlayerSettings(player, new PlayerSettings(player, lm, false));
-			player.sendMessage(Messages.getString("mobhunting.commands.mute.unmuted", "player", player.getName()));
+			plugin.getPlayerSettingsManager().setPlayerSettings(player, new PlayerSettings(player, lm, false));
+			player.sendMessage(plugin.getMessages().getString("mobhunting.commands.mute.unmuted", "player", player.getName()));
 		} else {
 			ds.updatePlayerSettings(player, lm, true);
-			plugin.getPlayerSettingsmanager().setPlayerSettings(player, new PlayerSettings(player, lm, true));
-			player.sendMessage(Messages.getString("mobhunting.commands.mute.muted", "player", player.getName()));
+			plugin.getPlayerSettingsManager().setPlayerSettings(player, new PlayerSettings(player, lm, true));
+			player.sendMessage(plugin.getMessages().getString("mobhunting.commands.mute.muted", "player", player.getName()));
 		}
 	}
 }

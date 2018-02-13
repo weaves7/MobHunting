@@ -75,6 +75,7 @@ public class MobHunting extends JavaPlugin {
 	private CommandDispatcher mCommandDispatcher;
 	private CompatibilityManager mCompatibilityManager;
 	private SpigetUpdater mSpigetUpdater;
+	//private CustomItemsLib mCustomItemsLib;
 
 	private boolean mInitialized = false;
 
@@ -86,7 +87,7 @@ public class MobHunting extends JavaPlugin {
 	public void onEnable() {
 
 		instance = this;
-
+		
 		mMessages = new Messages(this);
 
 		mConfig = new ConfigManager(this, new File(getDataFolder(), "config.yml"));
@@ -96,7 +97,7 @@ public class MobHunting extends JavaPlugin {
 				mConfig.dropMoneyOnGroundTextColor = "WHITE";
 			mConfig.saveConfig();
 		} else
-			throw new RuntimeException(Messages.getString(pluginName + ".config.fail"));
+			throw new RuntimeException(getMessages().getString(pluginName + ".config.fail"));
 		if (mConfig.pvpKillCmd.toLowerCase().contains("skullowner")
 				&& mConfig.pvpKillCmd.toLowerCase().contains("mobhunt")) {
 			Bukkit.getConsoleSender().sendMessage(
@@ -113,9 +114,13 @@ public class MobHunting extends JavaPlugin {
 			Bukkit.getConsoleSender().sendMessage(
 					ChatColor.RED + "[Mobhunting]=========================================================");
 		}
+		
+		//getMessages().debug("Include Library: %s , Misc.round(1.05)=%s", 
+		//		CustomItemsLib.testLibTest(false), 
+		//		Misc.round(1.05));
 
 		if (isbStatsEnabled())
-			Messages.debug("bStat is enabled");
+			getMessages().debug("bStat is enabled");
 		else {
 			Bukkit.getConsoleSender().sendMessage(
 					ChatColor.RED + "[Mobhunting]=====================WARNING=============================");
@@ -242,7 +247,7 @@ public class MobHunting extends JavaPlugin {
 
 		// Register commands
 		mCommandDispatcher = new CommandDispatcher(this, "mobhunt",
-				Messages.getString("mobhunting.command.base.description") + getDescription().getVersion());
+				getMessages().getString("mobhunting.command.base.description") + getDescription().getVersion());
 		getCommand("mobhunt").setExecutor(mCommandDispatcher);
 		getCommand("mobhunt").setTabCompleter(mCommandDispatcher);
 		mCommandDispatcher.registerCommand(new AchievementsCommand(this));
@@ -301,7 +306,7 @@ public class MobHunting extends JavaPlugin {
 
 		// Handle online players when server admin do a /reload or /mh reload
 		if (Misc.getOnlinePlayersAmount() > 0) {
-			Messages.debug("Reloading %s player settings from the database", Misc.getOnlinePlayersAmount());
+			getMessages().debug("Reloading %s player settings from the database", Misc.getOnlinePlayersAmount());
 			for (Player player : Misc.getOnlinePlayers()) {
 				mPlayerSettingsManager.load(player);
 				mAchievementManager.load(player);
@@ -311,32 +316,32 @@ public class MobHunting extends JavaPlugin {
 			}
 		}
 
-		Messages.debug("Updating advancements");
+		getMessages().debug("Updating advancements");
 		if (!getConfigManager().disableMobHuntingAdvancements && Misc.isMC112OrNewer()) {
 			mAdvancementManager = new AdvancementManager(this);
 			mAdvancementManager.getAdvancementsFromAchivements();
 		}
 
 		// for (int i = 0; i < 2; i++)
-		// Messages.debug("Random uuid = %s", UUID.randomUUID());
+		// getMessages().debug("Random uuid = %s", UUID.randomUUID());
 
 		mInitialized = true;
-
+		
 	}
 
 	@Override
 	public void onDisable() {
-		Messages.debug("Disabling MobHunting initiated");
+		getMessages().debug("Disabling MobHunting initiated");
 
 		if (!mInitialized)
 			return;
 
-		Messages.debug("Shutdown LeaderBoardManager");
+		getMessages().debug("Shutdown LeaderBoardManager");
 		mLeaderboardManager.shutdown();
-		Messages.debug("Shutdown AreaManager");
+		getMessages().debug("Shutdown AreaManager");
 		mAreaManager.saveData();
 		if (PlaceholderAPICompat.isSupported()) {
-			Messages.debug("Shutdown PlaceHolderManager");
+			getMessages().debug("Shutdown PlaceHolderManager");
 			PlaceholderAPICompat.shutdown();
 		}
 		getMobHuntingManager().getHuntingModifiers().clear();
@@ -344,18 +349,18 @@ public class MobHunting extends JavaPlugin {
 			getFishingManager().getFishingModifiers().clear();
 
 		try {
-			Messages.debug("Shutdown StoreManager");
+			getMessages().debug("Shutdown StoreManager");
 			mStoreManager.shutdown();
-			Messages.debug("Shutdown Store");
+			getMessages().debug("Shutdown Store");
 			mStore.shutdown();
 		} catch (DataStoreException e) {
 			e.printStackTrace();
 		}
-		Messages.debug("Shutdown CitizensCompat");
+		getMessages().debug("Shutdown CitizensCompat");
 		CitizensCompat.shutdown();
-		Messages.debug("Shutdown WorldGroupManager");
+		getMessages().debug("Shutdown WorldGroupManager");
 		mWorldGroupManager.save();
-		Messages.debug("MobHunting disabled.");
+		getMessages().debug("MobHunting disabled.");
 	}
 
 	private boolean isbStatsEnabled() {
@@ -475,7 +480,7 @@ public class MobHunting extends JavaPlugin {
 	 * 
 	 * @return
 	 */
-	public PlayerSettingsManager getPlayerSettingsmanager() {
+	public PlayerSettingsManager getPlayerSettingsManager() {
 		return mPlayerSettingsManager;
 	}
 
@@ -535,5 +540,9 @@ public class MobHunting extends JavaPlugin {
 	public SpigetUpdater getSpigetUpdater() {
 		return mSpigetUpdater;
 	}
+
+	//public CustomItemsLib getCustomItemsLib() {
+	//	return mCustomItemsLib;
+	//}
 
 }

@@ -7,7 +7,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.storage.DataStoreManager;
 import one.lindegaard.MobHunting.storage.PlayerSettings;
@@ -47,7 +46,7 @@ public class LearnCommand implements ICommand {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("mobhunting.commands.learn.description");
+		return plugin.getMessages().getString("mobhunting.commands.learn.description");
 	}
 
 	@Override
@@ -92,15 +91,15 @@ public class LearnCommand implements ICommand {
 
 	private void togglePlayerLearningMode(Player player) {
 		DataStoreManager ds = plugin.getDataStoreManager();
-		boolean mm = plugin.getPlayerSettingsmanager().getPlayerSettings(player).isMuted();
-		PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(player);
+		boolean mm = plugin.getPlayerSettingsManager().getPlayerSettings(player).isMuted();
+		PlayerSettings ps = plugin.getPlayerSettingsManager().getPlayerSettings(player);
 		if (ps.isLearningMode()) {
 			ds.updatePlayerSettings(player, false, mm);
-			plugin.getPlayerSettingsmanager().setPlayerSettings(player, new PlayerSettings(player, false, mm));
-			player.sendMessage(Messages.getString("mobhunting.commands.learn.disabled", "player", player.getName()));
+			plugin.getPlayerSettingsManager().setPlayerSettings(player, new PlayerSettings(player, false, mm));
+			player.sendMessage(plugin.getMessages().getString("mobhunting.commands.learn.disabled", "player", player.getName()));
 		} else {
-			plugin.getPlayerSettingsmanager().setPlayerSettings(player, new PlayerSettings(player, true, mm));
-			player.sendMessage(Messages.getString("mobhunting.commands.learn.enabled", "player", player.getName()));
+			plugin.getPlayerSettingsManager().setPlayerSettings(player, new PlayerSettings(player, true, mm));
+			player.sendMessage(plugin.getMessages().getString("mobhunting.commands.learn.enabled", "player", player.getName()));
 		}
 	}
 

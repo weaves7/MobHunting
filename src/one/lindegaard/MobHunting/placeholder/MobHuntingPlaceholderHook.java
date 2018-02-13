@@ -4,15 +4,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import me.clip.placeholderapi.external.EZPlaceholderHook;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.PlaceholderAPICompat;
 
 public class MobHuntingPlaceholderHook extends EZPlaceholderHook implements Listener {
-
+	
 	public MobHuntingPlaceholderHook(Plugin plugin) {
 		super(plugin, "mobhunting");
-		Messages.debug("PlaceHolderHook started");
+		MobHunting.getInstance().getMessages().debug("PlaceHolderHook started");
 	}
 
 	@Override

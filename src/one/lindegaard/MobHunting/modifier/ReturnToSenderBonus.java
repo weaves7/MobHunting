@@ -9,14 +9,13 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import one.lindegaard.MobHunting.DamageInformation;
 import one.lindegaard.MobHunting.HuntData;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 public class ReturnToSenderBonus implements IModifier {
 
 	@Override
 	public String getName() {
-		return ChatColor.GOLD + Messages.getString("bonus.returntosender.name");
+		return ChatColor.GOLD + MobHunting.getInstance().getMessages().getString("bonus.returntosender.name");
 	}
 
 	@Override

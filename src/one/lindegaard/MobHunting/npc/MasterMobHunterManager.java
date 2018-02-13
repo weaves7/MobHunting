@@ -35,7 +35,6 @@ import net.citizensnpcs.api.event.NPCSpawnEvent;
 import net.citizensnpcs.api.event.PlayerCreateNPCEvent;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.trait.Trait;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.CitizensCompat;
 import one.lindegaard.MobHunting.mobs.MobPlugin;
@@ -81,11 +80,11 @@ public class MasterMobHunterManager implements Listener {
 					}
 				}
 				if (n > 0)
-					Messages.debug("Refreshed %s MasterMobHunters", n);
+					MobHunting.getInstance().getMessages().debug("Refreshed %s MasterMobHunters", n);
 				else
-					Messages.debug("No MasterMobHunters ???");
+					MobHunting.getInstance().getMessages().debug("No MasterMobHunters ???");
 			} else {
-				Messages.debug("MasterMobHunterManager: Citizens is disabled.");
+				MobHunting.getInstance().getMessages().debug("MasterMobHunterManager: Citizens is disabled.");
 			}
 		}
 	}
@@ -166,9 +165,9 @@ public class MasterMobHunterManager implements Listener {
 					mmh.getHome();
 				}
 			}
-			Messages.debug("The file citizens-MasterMobHunter.yml is not used anymore and can be deleted.");
+			MobHunting.getInstance().getMessages().debug("The file citizens-MasterMobHunter.yml is not used anymore and can be deleted.");
 			if (n > 0)
-				Messages.debug("Loaded %s MasterMobHunter Traits's from file.", n);
+				MobHunting.getInstance().getMessages().debug("Loaded %s MasterMobHunter Traits's from file.", n);
 		} catch (IOException | InvalidConfigurationException e) {
 			e.printStackTrace();
 		}
@@ -198,7 +197,7 @@ public class MasterMobHunterManager implements Listener {
 				MasterMobHunter mmh = mMasterMobHunter.get(npc.getId());
 				mmh.update();
 				plugin.getMessages().playerActionBarMessage(event.getClicker(),
-						Messages.getString("mobhunting.npc.clickednpc", "killer",
+						MobHunting.getInstance().getMessages().getString("mobhunting.npc.clickednpc", "killer",
 								CitizensAPI.getNPCRegistry().getById(npc.getId()).getName(), "rank", mmh.getRank(),
 								"numberofkills", mmh.getNumberOfKills(), "stattype", mmh.getStatType().translateName(),
 								"period", mmh.getPeriod().translateNameFriendly(), "npcid", npc.getId()));
@@ -215,7 +214,7 @@ public class MasterMobHunterManager implements Listener {
 			final NPC npc1 = npc;
 			Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, new Runnable() {
 				public void run() {
-					Messages.debug("NPC %s (ID=%s) killed %s - return to home", npc1.getName(), npc1.getId(),
+					MobHunting.getInstance().getMessages().debug("NPC %s (ID=%s) killed %s - return to home", npc1.getName(), npc1.getId(),
 							player.getName());
 					npc1.teleport(mMasterMobHunter.get(npc1.getId()).getHome(), TeleportCause.PLUGIN);
 				}
@@ -229,7 +228,7 @@ public class MasterMobHunterManager implements Listener {
 		if (isMasterMobHunter(npc)) {
 			if (npc.getStoredLocation() != null && mMasterMobHunter.containsKey(npc.getId())
 					&& npc.getStoredLocation().distance(mMasterMobHunter.get(npc.getId()).getHome()) > 0.2) {
-				Messages.debug("NPC %s (ID=%s) return to home", npc.getName(), npc.getId());
+				MobHunting.getInstance().getMessages().debug("NPC %s (ID=%s) return to home", npc.getName(), npc.getId());
 				final NPC npc1 = npc;
 				Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, new Runnable() {
 					public void run() {
@@ -252,7 +251,7 @@ public class MasterMobHunterManager implements Listener {
 			// npc.addTrait(CitizensAPI.getTraitFactory().getTraitClass("Sentinel"));
 			// trait =
 			// npc.getTrait(CitizensAPI.getTraitFactory().getTraitClass("Sentinel"));
-			// Messages.debug("Sentinel trait added to %s (id=%s)",
+			// MobHunting.getInstance().getMessages().debug("Sentinel trait added to %s (id=%s)",
 			// npc.getName(), npc.getId());
 		}
 		return trait;
@@ -266,7 +265,7 @@ public class MasterMobHunterManager implements Listener {
 			MasterMobHunter mmh = mMasterMobHunter.get(npc.getId());
 			mmh.update();
 			plugin.getMessages().playerActionBarMessage(event.getClicker(),
-					Messages.getString("mobhunting.npc.clickednpc", "killer",
+					MobHunting.getInstance().getMessages().getString("mobhunting.npc.clickednpc", "killer",
 							CitizensAPI.getNPCRegistry().getById(npc.getId()).getName(), "rank", mmh.getRank(),
 							"numberofkills", mmh.getNumberOfKills(), "stattype", mmh.getStatType().translateName(),
 							"period", mmh.getPeriod().translateNameFriendly(), "npcid", npc.getId()));
@@ -286,7 +285,7 @@ public class MasterMobHunterManager implements Listener {
 
 	// @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	// public void onSpawnNPC(NPCTraitEvent event) {
-	// Messages.debug("NPCTraitEvent NPC=%s, Trait=%s", event.getNPC().getId(),
+	// MobHunting.getInstance().getMessages().debug("NPCTraitEvent NPC=%s, Trait=%s", event.getNPC().getId(),
 	// event.getTrait().getName());
 	// }
 
@@ -314,10 +313,10 @@ public class MasterMobHunterManager implements Listener {
 			NPC npc = event.getNPC();
 			if (npc.getId() == event.getNPC().getId()) {
 				if (CitizensCompat.getMasterMobHunterManager().isMasterMobHunter(npc.getEntity())) {
-					// Messages.debug("MasterMobHunterTrait - NPCSpawnEvent: %s
+					// MobHunting.getInstance().getMessages().debug("MasterMobHunterTrait - NPCSpawnEvent: %s
 					// spawned", npc.getName());
 					if (!CitizensCompat.getMasterMobHunterManager().contains(npc.getId())) {
-						// Messages.debug("MasterMobHunter NPC was detected.
+						// MobHunting.getInstance().getMessages().debug("MasterMobHunter NPC was detected.
 						// ID=%s,%s n=%s", npc.getId(),
 						// npc.getName(),plugin.getMasterMobHunterManager().getAll().size());
 						MasterMobHunter masterMobHunter = new MasterMobHunter(plugin, npc);
@@ -339,17 +338,17 @@ public class MasterMobHunterManager implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	private void onNPCDespawnEvent(NPCDespawnEvent event) {
-		// Messages.debug("NPCDespawnEvent");
+		// MobHunting.getInstance().getMessages().debug("NPCDespawnEvent");
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	private void onPlayerCreateNPCEvent(PlayerCreateNPCEvent event) {
-		// Messages.debug("NPCCreateNPCEvent");
+		// MobHunting.getInstance().getMessages().debug("NPCCreateNPCEvent");
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	private void onCitizensEnableEvent(CitizensEnableEvent event) {
-		// Messages.debug("MasterMobHunterManager-onCitizensEnableEvent:%s",
+		// MobHunting.getInstance().getMessages().debug("MasterMobHunterManager-onCitizensEnableEvent:%s",
 		// event.getEventName());
 		// if (CitizensCompat.isSupported()) {
 		// loadData();

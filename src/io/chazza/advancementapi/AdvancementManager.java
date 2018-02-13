@@ -6,7 +6,6 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.achievements.Achievement;
 import one.lindegaard.MobHunting.achievements.ProgressAchievement;
@@ -127,7 +126,7 @@ public class AdvancementManager {
 			Achievement achievement = plugin.getAchievementManager()
 					.getAchievement(api.getId().getKey().split("/")[1]);
 			if (plugin.getAchievementManager().hasAchievement(achievement, player)) {
-				Messages.debug("AdvancementManager: granting %s to player:%s", achievement.getID(), player.getName());
+				plugin.getMessages().debug("AdvancementManager: granting %s to player:%s", achievement.getID(), player.getName());
 				api.grant(player);
 			}
 		}

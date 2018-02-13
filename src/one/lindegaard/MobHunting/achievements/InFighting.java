@@ -11,7 +11,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 import one.lindegaard.MobHunting.DamageInformation;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.events.MobHuntKillEvent;
 
@@ -25,7 +24,7 @@ public class InFighting implements Achievement, Listener {
 
 	@Override
 	public String getName() {
-		return Messages.getString("achievements.infighting.name");
+		return plugin.getMessages().getString("achievements.infighting.name");
 	}
 
 	@Override
@@ -35,7 +34,7 @@ public class InFighting implements Achievement, Listener {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("achievements.infighting.description");
+		return plugin.getMessages().getString("achievements.infighting.description");
 	}
 
 	@Override

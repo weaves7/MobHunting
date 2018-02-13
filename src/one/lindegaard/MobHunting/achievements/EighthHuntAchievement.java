@@ -5,7 +5,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.events.MobHuntFishingEvent;
 import one.lindegaard.MobHunting.events.MobHuntKillEvent;
@@ -24,7 +23,7 @@ public class EighthHuntAchievement implements ProgressAchievement, Listener {
 
 	@Override
 	public String getName() {
-		return Messages.getString("achievements.hunter.8.name", "mob", mExtendedMob.getFriendlyName());
+		return plugin.getMessages().getString("achievements.hunter.8.name", "mob", mExtendedMob.getFriendlyName());
 	}
 
 	@Override
@@ -39,7 +38,7 @@ public class EighthHuntAchievement implements ProgressAchievement, Listener {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("achievements.hunter.8.description", "count", getNextLevel(), "mob",
+		return plugin.getMessages().getString("achievements.hunter.8.description", "count", getNextLevel(), "mob",
 				mExtendedMob.getFriendlyName());
 	}
 

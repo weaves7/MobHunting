@@ -10,7 +10,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import one.lindegaard.MobHunting.DamageInformation;
 import one.lindegaard.MobHunting.HuntData;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 public class FriendleFireBonus implements IModifier
@@ -18,7 +17,7 @@ public class FriendleFireBonus implements IModifier
 	@Override
 	public String getName()
 	{
-		return ChatColor.DARK_GREEN + Messages.getString("bonus.friendlyfire.name"); //$NON-NLS-1$
+		return ChatColor.DARK_GREEN + MobHunting.getInstance().getMessages().getString("bonus.friendlyfire.name"); //$NON-NLS-1$
 	}
 
 	@Override

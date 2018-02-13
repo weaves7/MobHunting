@@ -23,7 +23,6 @@ import de.hellfirepvp.api.data.ICustomMob;
 import de.hellfirepvp.api.event.CustomMobDeathEvent;
 import de.hellfirepvp.api.event.CustomMobSpawnEvent;
 import de.hellfirepvp.api.event.CustomMobSpawnEvent.SpawnReason;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.mobs.MobPlugin;
 import one.lindegaard.MobHunting.rewards.RewardData;
@@ -86,7 +85,7 @@ public class CustomMobsCompat implements Listener {
 				}
 			}
 			MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
-			Messages.debug("Loaded %s CustomMobs", mMobRewardData.size());
+			MobHunting.getInstance().getMessages().debug("Loaded %s CustomMobs", mMobRewardData.size());
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InvalidConfigurationException e) {
@@ -110,7 +109,7 @@ public class CustomMobsCompat implements Listener {
 				mMobRewardData.put(key, mob);
 				MobHunting.getInstance().getStoreManager().insertCustomMobs(key);
 			} else {
-				Messages.debug("The mob=%s cant be found in CustomMobs configuration file", key);
+				MobHunting.getInstance().getMessages().debug("The mob=%s cant be found in CustomMobs configuration file", key);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -133,7 +132,7 @@ public class CustomMobsCompat implements Listener {
 				}
 
 				if (n != 0) {
-					Messages.debug("Saving Mobhunting extra CustomMobs data.");
+					MobHunting.getInstance().getMessages().debug("Saving Mobhunting extra CustomMobs data.");
 					config.save(file);
 				}
 			}
@@ -147,10 +146,10 @@ public class CustomMobsCompat implements Listener {
 			if (mMobRewardData.containsKey(key)) {
 				ConfigurationSection section = config.createSection(key);
 				mMobRewardData.get(key).save(section);
-				Messages.debug("Saving Mobhunting extra CustomMobs data.");
+				MobHunting.getInstance().getMessages().debug("Saving Mobhunting extra CustomMobs data.");
 				config.save(file);
 			} else {
-				Messages.debug("ERROR! CustomMobs ID (%s) is not found in mMobRewardData", key);
+				MobHunting.getInstance().getMessages().debug("ERROR! CustomMobs ID (%s) is not found in mMobRewardData", key);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -219,7 +218,7 @@ public class CustomMobsCompat implements Listener {
 		// The LivingEntity instance that was spawned.
 		LivingEntity entity = event.getEntity();
 
-		Messages.debug("CustomMobSpawnEvent: MinecraftMobtype=%s CustomMobName=%s", entity.getType(), mob.getName());
+		MobHunting.getInstance().getMessages().debug("CustomMobSpawnEvent: MinecraftMobtype=%s CustomMobName=%s", entity.getType(), mob.getName());
 
 		// Specific reason why the mob was spawned
 		CustomMobSpawnEvent.SpawnReason reason = event.getReason();
@@ -230,7 +229,7 @@ public class CustomMobsCompat implements Listener {
 		}
 
 		if (mMobRewardData != null && !mMobRewardData.containsKey(mob.getName())) {
-			Messages.debug("New CustomMobName found=%s,%s", mob.getName(), mob.getDisplayName());
+			MobHunting.getInstance().getMessages().debug("New CustomMobName found=%s,%s", mob.getName(), mob.getDisplayName());
 			String name = mob.getDisplayName() == null ? mob.getName() : mob.getDisplayName();
 			mMobRewardData.put(mob.getName(), new RewardData(MobPlugin.CustomMobs, mob.getName(), name, "10",
 					"minecraft:give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02));

@@ -6,16 +6,13 @@ import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -26,7 +23,6 @@ import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.mobs.MinecraftMob;
 import one.lindegaard.MobHunting.rewards.skins.Skins;
@@ -95,7 +91,7 @@ public class CustomItems {
 
 		OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
 
-		PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(offlinePlayer);
+		PlayerSettings ps = plugin.getPlayerSettingsManager().getPlayerSettings(offlinePlayer);
 		String[] skinCache = new String[2];
 
 		if (ps.getTexture() == null || ps.getSignature() == null || ps.getTexture().isEmpty()
@@ -104,10 +100,10 @@ public class CustomItems {
 				Player player = (Player) offlinePlayer;
 				Skins sk = getSkinsClass();
 				if (sk != null) {
-					Messages.debug("Trying to fecth skin from Online Player Profile");
+					plugin.getMessages().debug("Trying to fecth skin from Online Player Profile");
 					skinCache = sk.getSkin(player);
 				} else {
-					Messages.debug("Trying to fecth skin from Minecraft Servers");
+					plugin.getMessages().debug("Trying to fecth skin from Minecraft Servers");
 					skinCache = getSkinFromUUID(uuid);
 				}
 			}
@@ -120,10 +116,10 @@ public class CustomItems {
 					&& !skinCache[1].isEmpty()) {
 				ps.setTexture(skinCache[0]);
 				ps.setSignature(skinCache[1]);
-				plugin.getPlayerSettingsmanager().setPlayerSettings(offlinePlayer, ps);
+				plugin.getPlayerSettingsManager().setPlayerSettings(offlinePlayer, ps);
 				plugin.getDataStoreManager().updatePlayerSettings(offlinePlayer, ps);
 			} else {
-				Messages.debug("Empty skin");
+				plugin.getMessages().debug("Empty skin");
 				return skull;
 			}
 		} else {
@@ -133,17 +129,17 @@ public class CustomItems {
 				if (sk != null) {
 					String[] skinOnline = sk.getSkin(player);
 					if (skinOnline != null && !skinOnline.equals(skinCache)) {
-						Messages.debug("%s has changed skin, updating MobHunting Skin cache", player.getName());
+						plugin.getMessages().debug("%s has changed skin, updating MobHunting Skin cache", player.getName());
 						ps.setTexture(skinOnline[0]);
 						ps.setSignature(skinOnline[1]);
-						plugin.getPlayerSettingsmanager().setPlayerSettings(offlinePlayer, ps);
+						plugin.getPlayerSettingsManager().setPlayerSettings(offlinePlayer, ps);
 						plugin.getDataStoreManager().updatePlayerSettings(offlinePlayer, ps);
 					}
 				}
 			}
 			skinCache[0] = ps.getTexture();
 			skinCache[1] = ps.getSignature();
-			Messages.debug("%s using skin from MobHunting Skin Cache", offlinePlayer.getName());
+			plugin.getMessages().debug("%s using skin from MobHunting Skin Cache", offlinePlayer.getName());
 		}
 
 		skull = new ItemStack(getCustomtexture(UUID.fromString(Reward.MH_REWARD_KILLED_UUID), offlinePlayer.getName(),
@@ -168,11 +164,11 @@ public class CustomItems {
 
 				return new String[] { texture, signature };
 			} else {
-				Messages.debug("(1) Could not get skin data from session servers!");
+				plugin.getMessages().debug("(1) Could not get skin data from session servers!");
 				return null;
 			}
 		} catch (IOException e) {
-			Messages.debug("(2) Could not get skin data from session servers!");
+			plugin.getMessages().debug("(2) Could not get skin data from session servers!");
 			return null;
 		}
 	}
@@ -228,7 +224,7 @@ public class CustomItems {
 			skull.setAmount(1);
 		}
 		skull.setItemMeta(skullMeta);
-		Messages.debug("CustomItems: set the skin using GameProfile (%s,%s)", offlinePlayer.getName(), uuid.toString());
+		plugin.getMessages().debug("CustomItems: set the skin using GameProfile (%s,%s)", offlinePlayer.getName(), uuid.toString());
 		return skull;
 	}
 
@@ -248,7 +244,7 @@ public class CustomItems {
 			skull.setAmount(1);
 		}
 		skull.setItemMeta(skullMeta);
-		Messages.debug("CustomItems: set the skin using OwningPlayer (%s,%s)", name, uuid.toString());
+		plugin.getMessages().debug("CustomItems: set the skin using OwningPlayer (%s,%s)", name, uuid.toString());
 		return skull;
 	}
 
@@ -352,15 +348,4 @@ public class CustomItems {
 		return skull;
 	}
 
-	// TODO:
-	public ItemStack getCoin() {
-		ItemStack customItem = new ItemStack(Material.GOLD_NUGGET, 1, (short) 1);
-		ItemMeta meta = customItem.getItemMeta();
-		meta.spigot().setUnbreakable(true);
-		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
-		List<String> lores = new ArrayList<>();
-		lores.add("My coin");
-		customItem.setItemMeta(meta);
-		return customItem;
-	}
 }

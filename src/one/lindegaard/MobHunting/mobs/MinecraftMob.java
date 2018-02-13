@@ -14,7 +14,6 @@ import org.bukkit.entity.ZombieVillager;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.rewards.CustomItems;
 import one.lindegaard.MobHunting.rewards.Reward;
@@ -379,7 +378,7 @@ public enum MinecraftMob {
 	}
 
 	public String getFriendlyName() {
-		return Messages.getString("mobs." + name() + ".name");
+		return MobHunting.getInstance().getMessages().getString("mobs." + name() + ".name");
 	}
 
 	public int getProgressAchievementLevel1() {
@@ -824,7 +823,7 @@ public enum MinecraftMob {
 				return String.valueOf(mob.getTextureValue());
 			}
 		}
-		Messages.debug("[ERROR] %s NO texture found", displayname);
+		MobHunting.getInstance().getMessages().debug("[ERROR] %s NO texture found", displayname);
 		return "";
 	}
 
@@ -835,7 +834,7 @@ public enum MinecraftMob {
 				return String.valueOf(mob.getTextureSignature());
 			}
 		}
-		Messages.debug("[ERROR] %s NO Signature found", displayname);
+		MobHunting.getInstance().getMessages().debug("[ERROR] %s NO Signature found", displayname);
 		return "";
 
 	}

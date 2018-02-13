@@ -6,7 +6,6 @@ import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.StatType;
 import one.lindegaard.MobHunting.storage.IDataCallback;
@@ -44,7 +43,7 @@ public class TopCommand implements ICommand {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("mobhunting.commands.top.description");
+		return plugin.getMessages().getString("mobhunting.commands.top.description");
 	}
 
 	@Override
@@ -64,7 +63,7 @@ public class TopCommand implements ICommand {
 
 		StatType selectedType = StatType.parseStat(args[0]);
 		if (selectedType == null) {
-			plugin.getMessages().senderSendMessage(sender,ChatColor.RED + Messages.getString("mobhunting.commands.top.unknown-stat", "stat",
+			plugin.getMessages().senderSendMessage(sender,ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.top.unknown-stat", "stat",
 					ChatColor.YELLOW + args[0] + ChatColor.RED));
 			return true;
 		}
@@ -72,7 +71,7 @@ public class TopCommand implements ICommand {
 		// Check the time period
 		TimePeriod selectedPeriod = TimePeriod.parsePeriod(args[1]);
 		if (selectedPeriod == null) {
-			plugin.getMessages().senderSendMessage(sender,ChatColor.RED + Messages.getString("mobhunting.commands.top.unknown-period", "period",
+			plugin.getMessages().senderSendMessage(sender,ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.top.unknown-period", "period",
 					ChatColor.YELLOW + args[1] + ChatColor.RED));
 			return true;
 		}
@@ -82,11 +81,11 @@ public class TopCommand implements ICommand {
 			try {
 				count = Integer.parseInt(args[2]);
 				if (count <= 0 || count > 100) {
-					plugin.getMessages().senderSendMessage(sender,ChatColor.RED + Messages.getString("mobhunting.commands.top.invalid-range"));
+					plugin.getMessages().senderSendMessage(sender,ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.top.invalid-range"));
 					return true;
 				}
 			} catch (NumberFormatException e) {
-				plugin.getMessages().senderSendMessage(sender,ChatColor.RED + Messages.getString("mobhunting.commands.top.invalid-number"));
+				plugin.getMessages().senderSendMessage(sender,ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.top.invalid-number"));
 				return true;
 			}
 		}
@@ -142,12 +141,12 @@ public class TopCommand implements ICommand {
 			if (!data.isEmpty())
 				name = data.get(0).getType().translateName();
 			else {
-				mSender.sendMessage(Messages.getString("mobhunting.commands.top.results.empty", "period",
+				mSender.sendMessage(MobHunting.getInstance().getMessages().getString("mobhunting.commands.top.results.empty", "period",
 						mPeriod.translateNameFriendly()));
 				return;
 			}
 
-			lines.add(ChatColor.GRAY + Messages.getString("mobhunting.commands.top.results.header", "count",
+			lines.add(ChatColor.GRAY + MobHunting.getInstance().getMessages().getString("mobhunting.commands.top.results.header", "count",
 					ChatColor.YELLOW + "" + mCount + ChatColor.GRAY, "period",
 					ChatColor.YELLOW + mPeriod.translateNameFriendly() + ChatColor.GRAY, "statname",
 					ChatColor.YELLOW + name + ChatColor.GRAY));
@@ -167,7 +166,7 @@ public class TopCommand implements ICommand {
 
 		@Override
 		public void onError(Throwable error) {
-			mSender.sendMessage(ChatColor.RED + Messages.getString("mobhunting.commands.base.error"));
+			mSender.sendMessage(ChatColor.RED + MobHunting.getInstance().getMessages().getString("mobhunting.commands.base.error"));
 			error.printStackTrace();
 		}
 

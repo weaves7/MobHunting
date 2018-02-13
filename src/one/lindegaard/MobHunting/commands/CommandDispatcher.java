@@ -15,7 +15,6 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.RemoteConsoleCommandSender;
 import org.bukkit.command.TabCompleter;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 /**
@@ -77,12 +76,12 @@ public class CommandDispatcher implements CommandExecutor, TabCompleter {
 		// Check that the sender is correct
 		if (!com.canBeConsole()
 				&& (sender instanceof ConsoleCommandSender || sender instanceof RemoteConsoleCommandSender)) {
-			plugin.getMessages().senderSendMessage(sender, ChatColor.RED + Messages
+			plugin.getMessages().senderSendMessage(sender, ChatColor.RED + plugin.getMessages()
 					.getString("mobhunting.commands.base.noconsole", "command", "/" + label + " " + subCommand));
 			return true;
 		}
 		if (!com.canBeCommandBlock() && sender instanceof BlockCommandSender) {
-			plugin.getMessages().senderSendMessage(sender, ChatColor.RED + Messages
+			plugin.getMessages().senderSendMessage(sender, ChatColor.RED + plugin.getMessages()
 					.getString("mobhunting.commands.base.nocommandblock", "command", "/" + label + " " + subCommand));
 			return true;
 		}
@@ -90,7 +89,7 @@ public class CommandDispatcher implements CommandExecutor, TabCompleter {
 		// Check that they have permission
 		if (com.getPermission() != null && !sender.hasPermission(com.getPermission())) {
 			plugin.getMessages().senderSendMessage(sender,
-					ChatColor.RED + Messages.getString("mobhunting.commands.base.nopermission", "command",
+					ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.base.nopermission", "command",
 							"/" + label + " " + subCommand, "perm", com.getPermission()));
 			return true;
 		}
@@ -106,7 +105,7 @@ public class CommandDispatcher implements CommandExecutor, TabCompleter {
 				usageString += ChatColor.GRAY + "/" + label + " " + line;
 			}
 
-			usageString = ChatColor.RED + Messages.getString("mobhunting.commands.base.usage", "usage", usageString);
+			usageString = ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.base.usage", "usage", usageString);
 			plugin.getMessages().senderSendMessage(sender, usageString);
 		}
 
@@ -118,16 +117,16 @@ public class CommandDispatcher implements CommandExecutor, TabCompleter {
 
 		if (subcommand != null) {
 			plugin.getMessages().senderSendMessage(sender,
-					ChatColor.RED + Messages.getString("mobhunting.commands.base.unknowncommand", "command",
+					ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.base.unknowncommand", "command",
 							ChatColor.RESET + "/" + label + " " + ChatColor.GOLD + subcommand));
 			plugin.getMessages().senderSendMessage(sender,
-					Messages.getString("mobhunting.commands.base.validcommands"));
+					plugin.getMessages().getString("mobhunting.commands.base.validcommands"));
 		} else {
 			plugin.getMessages().senderSendMessage(sender,
-					ChatColor.RED + Messages.getString("mobhunting.commands.base.nocommand", "command",
+					ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.base.nocommand", "command",
 							ChatColor.RESET + "/" + label + ChatColor.GOLD + " <command>"));
 			plugin.getMessages().senderSendMessage(sender,
-					Messages.getString("mobhunting.commands.base.validcommands"));
+					plugin.getMessages().getString("mobhunting.commands.base.validcommands"));
 		}
 
 		boolean first = true;
@@ -151,7 +150,7 @@ public class CommandDispatcher implements CommandExecutor, TabCompleter {
 		plugin.getMessages().senderSendMessage(sender, usage);
 
 		if (subcommand == null) {
-			plugin.getMessages().senderSendMessage(sender, Messages.getString("mobhunting.commands.base.morehelp"));
+			plugin.getMessages().senderSendMessage(sender, plugin.getMessages().getString("mobhunting.commands.base.morehelp"));
 		}
 
 	}
@@ -239,7 +238,7 @@ public class CommandDispatcher implements CommandExecutor, TabCompleter {
 
 		@Override
 		public String getDescription() {
-			return Messages.getString("mobhunting.commands.base.help.description");
+			return plugin.getMessages().getString("mobhunting.commands.base.help.description");
 		}
 
 		@Override
@@ -259,7 +258,7 @@ public class CommandDispatcher implements CommandExecutor, TabCompleter {
 
 			plugin.getMessages().senderSendMessage(sender, ChatColor.GOLD + mRootCommandDescription);
 			plugin.getMessages().senderSendMessage(sender,
-					ChatColor.GOLD + Messages.getString("mobhunting.commands.base.help.commands"));
+					ChatColor.GOLD + plugin.getMessages().getString("mobhunting.commands.base.help.commands"));
 
 			for (ICommand command : mCommands.values()) {
 				// Dont show commands that are irrelevant

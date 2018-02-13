@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 public class ActionbarCompat {
@@ -50,7 +49,7 @@ public class ActionbarCompat {
 
 	public static void setMessage(Player player, String text) {
 		if (supported) {
-			Messages.debug(
+			MobHunting.getInstance().getMessages().debug(
 					"[WARNING] ActionbarCompat: setMessage() is not made yet. I cant get access to source code or API.");
 			player.sendMessage(text);
 

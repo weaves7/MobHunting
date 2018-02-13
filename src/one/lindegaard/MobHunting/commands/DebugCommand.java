@@ -5,7 +5,6 @@ import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 public class DebugCommand implements ICommand {
@@ -41,7 +40,7 @@ private MobHunting plugin;
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("mobhunting.commands.debug.description");
+		return plugin.getMessages().getString("mobhunting.commands.debug.description");
 	}
 
 	@Override
@@ -72,11 +71,11 @@ private MobHunting plugin;
 		boolean debug = plugin.getConfigManager().killDebug;
 		if (debug) {
 			plugin.getConfigManager().killDebug = false;
-			plugin.getMessages().senderSendMessage(sender,"[MobHunting] " + Messages.getString("mobhunting.commands.debug.disabled"));
+			plugin.getMessages().senderSendMessage(sender,"[MobHunting] " + plugin.getMessages().getString("mobhunting.commands.debug.disabled"));
 			plugin.getConfigManager().saveConfig();
 		} else {
 			plugin.getConfigManager().killDebug = true;
-			plugin.getMessages().senderSendMessage(sender,"[MobHunting] " + Messages.getString("mobhunting.commands.debug.enabled"));
+			plugin.getMessages().senderSendMessage(sender,"[MobHunting] " + plugin.getMessages().getString("mobhunting.commands.debug.enabled"));
 			plugin.getConfigManager().saveConfig();
 		}
 

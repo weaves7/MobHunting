@@ -12,7 +12,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.bounty.Bounty;
 import one.lindegaard.MobHunting.bounty.BountyStatus;
@@ -361,26 +360,26 @@ public abstract class DatabaseDataStore implements IDataStore {
 			Connection mConnection = setupConnection();
 			Statement statement = mConnection.createStatement();
 
-			Messages.debug("Beginning cleaning of database");
+			plugin.getMessages().debug("Beginning cleaning of database");
 			int result;
 			result = statement.executeUpdate("DELETE FROM mh_Achievements WHERE PLAYER_ID NOT IN "
 					+ "(SELECT PLAYER_ID FROM mh_Players " + "where mh_Achievements.PLAYER_ID=mh_Players.PLAYER_ID);");
-			Messages.debug("%s rows was deleted from Mh_Achievements", result);
+			plugin.getMessages().debug("%s rows was deleted from Mh_Achievements", result);
 			result = statement.executeUpdate("DELETE FROM mh_AllTime WHERE PLAYER_ID NOT IN "
 					+ "(SELECT PLAYER_ID FROM mh_Players " + "where mh_AllTime.PLAYER_ID=mh_Players.PLAYER_ID);");
-			Messages.debug("%s rows was deleted from Mh_AllTime", result);
+			plugin.getMessages().debug("%s rows was deleted from Mh_AllTime", result);
 			result = statement.executeUpdate("DELETE FROM mh_Daily WHERE PLAYER_ID NOT IN "
 					+ "(SELECT PLAYER_ID FROM mh_Players " + "where mh_Daily.PLAYER_ID=mh_Players.PLAYER_ID);");
-			Messages.debug("%s rows was deleted from Mh_Daily", result);
+			plugin.getMessages().debug("%s rows was deleted from Mh_Daily", result);
 			result = statement.executeUpdate("DELETE FROM mh_Monthly WHERE PLAYER_ID NOT IN "
 					+ "(SELECT PLAYER_ID FROM mh_Players " + "where mh_Monthly.PLAYER_ID=mh_Players.PLAYER_ID);");
-			Messages.debug("%s rows was deleted from Mh_Monthly", result);
+			plugin.getMessages().debug("%s rows was deleted from Mh_Monthly", result);
 			result = statement.executeUpdate("DELETE FROM mh_Weekly WHERE PLAYER_ID NOT IN "
 					+ "(SELECT PLAYER_ID FROM mh_Players " + "where mh_Weekly.PLAYER_ID=mh_Players.PLAYER_ID);");
-			Messages.debug("%s rows was deleted from Mh_Weekly", result);
+			plugin.getMessages().debug("%s rows was deleted from Mh_Weekly", result);
 			result = statement.executeUpdate("DELETE FROM mh_Yearly WHERE PLAYER_ID NOT IN "
 					+ "(SELECT PLAYER_ID FROM mh_Players " + "where mh_Yearly.PLAYER_ID=mh_Players.PLAYER_ID);");
-			Messages.debug("%s rows was deleted from Mh_Yearly", result);
+			plugin.getMessages().debug("%s rows was deleted from Mh_Yearly", result);
 			statement.close();
 			mConnection.commit();
 			mConnection.close();
@@ -1078,7 +1077,7 @@ public abstract class DatabaseDataStore implements IDataStore {
 			if (id != 0)
 				ps.setPlayerId(id);
 			result.close();
-			Messages.debug("Reading Playersettings from Database: %s", ps.toString());
+			plugin.getMessages().debug("Reading Playersettings from Database: %s", ps.toString());
 			mGetPlayerData.close();
 			mConnection.close();
 			return ps;
@@ -1141,12 +1140,12 @@ public abstract class DatabaseDataStore implements IDataStore {
 				mConnection.close();
 
 				for (PlayerSettings playerData : playerDataSet) {
-					if (plugin.getPlayerSettingsmanager().containsKey(playerData.getPlayer())
+					if (plugin.getPlayerSettingsManager().containsKey(playerData.getPlayer())
 							&& !playerData.getPlayer().isOnline())
-						plugin.getPlayerSettingsmanager().removePlayerSettings((Player) playerData.getPlayer());
+						plugin.getPlayerSettingsManager().removePlayerSettings((Player) playerData.getPlayer());
 				}
 
-				Messages.debug("PlayerSettings saved.");
+				plugin.getMessages().debug("PlayerSettings saved.");
 
 			} catch (SQLException e) {
 				rollback(mConnection);
@@ -1170,7 +1169,7 @@ public abstract class DatabaseDataStore implements IDataStore {
 		if (offlinePlayer == null)
 			return 0;
 		int playerId = 0;
-		PlayerSettings ps = plugin.getPlayerSettingsmanager().getPlayerSettings(offlinePlayer);
+		PlayerSettings ps = plugin.getPlayerSettingsManager().getPlayerSettings(offlinePlayer);
 		if (ps != null)
 			playerId = ps.getPlayerId();
 		if (playerId == 0) {
@@ -1204,7 +1203,7 @@ public abstract class DatabaseDataStore implements IDataStore {
 				Iterator<OfflinePlayer> itr = changedNames.iterator();
 				while (itr.hasNext()) {
 					OfflinePlayer p = itr.next();
-					Messages.debug("Updating playername in database and in memory (%s)", p.getName());
+					plugin.getMessages().debug("Updating playername in database and in memory (%s)", p.getName());
 					updatePlayerName(p.getPlayer());
 				}
 			} catch (SQLException e) {

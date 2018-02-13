@@ -17,7 +17,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.material.Sign;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.StatType;
 import one.lindegaard.MobHunting.leaderboard.WorldLeaderboard;
@@ -58,7 +57,7 @@ public class LeaderboardCommand implements ICommand, Listener {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("mobhunting.commands.leaderboard.description");
+		return plugin.getMessages().getString("mobhunting.commands.leaderboard.description");
 	}
 
 	@Override
@@ -104,7 +103,7 @@ public class LeaderboardCommand implements ICommand, Listener {
 		try {
 			plugin.getLeaderboardManager().deleteLegacyLeaderboard(id);
 			plugin.getMessages().senderSendMessage(sender,
-					ChatColor.GREEN + Messages.getString("mobhunting.commands.leaderboard.delete", "leaderboard", id));
+					ChatColor.GREEN + plugin.getMessages().getString("mobhunting.commands.leaderboard.delete", "leaderboard", id));
 		} catch (IllegalArgumentException e) {
 			plugin.getMessages().senderSendMessage(sender,ChatColor.RED + e.getMessage());
 		}
@@ -124,7 +123,7 @@ public class LeaderboardCommand implements ICommand, Listener {
 			try {
 				state.type = parseTypes(args[2]);
 			} catch (IllegalArgumentException e) {
-				plugin.getMessages().senderSendMessage(sender,ChatColor.RED + Messages.getString("mobhunting.commands.top.unknown-stat", "stat",
+				plugin.getMessages().senderSendMessage(sender,ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.top.unknown-stat", "stat",
 						ChatColor.YELLOW + e.getMessage() + ChatColor.RED));
 				return true;
 			}
@@ -132,7 +131,7 @@ public class LeaderboardCommand implements ICommand, Listener {
 			try {
 				state.addType = parseTypes(args[2]);
 			} catch (IllegalArgumentException e) {
-				plugin.getMessages().senderSendMessage(sender,ChatColor.RED + Messages.getString("mobhunting.commands.top.unknown-stat", "stat",
+				plugin.getMessages().senderSendMessage(sender,ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.top.unknown-stat", "stat",
 						ChatColor.YELLOW + e.getMessage() + ChatColor.RED));
 				return true;
 			}
@@ -140,7 +139,7 @@ public class LeaderboardCommand implements ICommand, Listener {
 			try {
 				state.period = parsePeriods(args[2]);
 			} catch (IllegalArgumentException e) {
-				plugin.getMessages().senderSendMessage(sender,ChatColor.RED + Messages.getString("mobhunting.commands.top.unknown-period",
+				plugin.getMessages().senderSendMessage(sender,ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.top.unknown-period",
 						"period", ChatColor.YELLOW + e.getMessage() + ChatColor.RED));
 				return true;
 			}
@@ -148,7 +147,7 @@ public class LeaderboardCommand implements ICommand, Listener {
 			try {
 				state.addPeriod = parsePeriods(args[2]);
 			} catch (IllegalArgumentException e) {
-				plugin.getMessages().senderSendMessage(sender,ChatColor.RED + Messages.getString("mobhunting.commands.top.unknown-period",
+				plugin.getMessages().senderSendMessage(sender,ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.top.unknown-period",
 						"period", ChatColor.YELLOW + e.getMessage() + ChatColor.RED));
 				return true;
 			}
@@ -156,7 +155,7 @@ public class LeaderboardCommand implements ICommand, Listener {
 			state.horizontal = Boolean.parseBoolean(args[2]);
 		} else {
 			plugin.getMessages().senderSendMessage(sender,ChatColor.RED
-					+ Messages.getString("mobhunting.commands.leaderboard.edit.unknown", "setting", args[1]));
+					+ plugin.getMessages().getString("mobhunting.commands.leaderboard.edit.unknown", "setting", args[1]));
 			return true;
 		}
 
@@ -178,7 +177,7 @@ public class LeaderboardCommand implements ICommand, Listener {
 		try {
 			types = parseTypes(args[1]);
 		} catch (IllegalArgumentException e) {
-			plugin.getMessages().senderSendMessage(sender,ChatColor.RED + Messages.getString("mobhunting.commands.top.unknown-stat", "stat",
+			plugin.getMessages().senderSendMessage(sender,ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.top.unknown-stat", "stat",
 					ChatColor.YELLOW + e.getMessage() + ChatColor.RED));
 			return true;
 		}
@@ -188,7 +187,7 @@ public class LeaderboardCommand implements ICommand, Listener {
 		try {
 			periods = parsePeriods(args[2]);
 		} catch (IllegalArgumentException e) {
-			plugin.getMessages().senderSendMessage(sender,ChatColor.RED + Messages.getString("mobhunting.commands.top.unknown-period", "period",
+			plugin.getMessages().senderSendMessage(sender,ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.top.unknown-period", "period",
 					ChatColor.YELLOW + e.getMessage() + ChatColor.RED));
 			return true;
 		}
@@ -240,7 +239,7 @@ public class LeaderboardCommand implements ICommand, Listener {
 
 		mWaitingStates.put((Player) sender, state);
 
-		// TODO: create string in messages.
+		// TODO: create string in plugin.getMessages().
 		plugin.getMessages().senderSendMessage(sender,ChatColor.GOLD + "Click a wall sign to create the leaderboard");
 
 		return true;
@@ -319,7 +318,7 @@ public class LeaderboardCommand implements ICommand, Listener {
 			return;
 
 		if (event.getClickedBlock().getType() != Material.WALL_SIGN) {
-			// TODO: Create new strings in Messages.
+			// TODO: Create new strings in plugin.getMessages().
 			if (state.create)
 				event.getPlayer().sendMessage(ChatColor.RED + "Leaderboard creation cancelled.");
 			else

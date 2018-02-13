@@ -10,7 +10,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 public class MoneyMergeEventListener implements Listener {
@@ -51,7 +50,7 @@ public class MoneyMergeEventListener implements Listener {
 					item2.setCustomNameVisible(true);
 					item2.setMetadata(Reward.MH_REWARD_DATA,
 							new FixedMetadataValue(MobHunting.getInstance(), new Reward(reward2)));
-					Messages.debug("Rewards merged - new value=%s",
+					plugin.getMessages().debug("Rewards merged - new value=%s",
 							plugin.getRewardManager().format(reward2.getMoney()));
 				}
 				if (plugin.getRewardManager().getDroppedMoney().containsKey(item1.getEntityId()))

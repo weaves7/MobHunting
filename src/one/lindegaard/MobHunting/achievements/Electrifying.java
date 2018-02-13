@@ -7,7 +7,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.events.MobHuntKillEvent;
 
@@ -21,7 +20,7 @@ public class Electrifying implements Achievement, Listener {
 
 	@Override
 	public String getName() {
-		return Messages.getString("achievements.electrifying.name");
+		return plugin.getMessages().getString("achievements.electrifying.name");
 	}
 
 	@Override
@@ -31,7 +30,7 @@ public class Electrifying implements Achievement, Listener {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("achievements.electrifying.description");
+		return plugin.getMessages().getString("achievements.electrifying.description");
 	}
 
 	@Override

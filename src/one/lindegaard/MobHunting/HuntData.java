@@ -61,7 +61,7 @@ public class HuntData{
 		for (Area area : lastGridingAreas) {
 			if (area.getCenter().getWorld().equals(location.getWorld())) {
 				if (area.getCenter().distance(location) < area.getRange()) {
-					Messages.debug("Found a blacklisted player specific grinding Area: (%s,%s,%s,%s)",
+					MobHunting.getInstance().getMessages().debug("Found a blacklisted player specific grinding Area: (%s,%s,%s,%s)",
 							area.getCenter().getWorld().getName(), area.getCenter().getBlockX(),
 							area.getCenter().getBlockY(), area.getCenter().getBlockZ());
 					return area;
@@ -276,26 +276,26 @@ public class HuntData{
 				switch (getKillstreakLevel()) {
 				case 1:
 					plugin.getMessages().playerBossbarMessage(player,
-							ChatColor.BLUE + Messages.getString("mobhunting.killstreak.level.1") + " " + ChatColor.GRAY
-									+ Messages.getString("mobhunting.killstreak.activated", "multiplier",
+							ChatColor.BLUE + plugin.getMessages().getString("mobhunting.killstreak.level.1") + " " + ChatColor.GRAY
+									+ plugin.getMessages().getString("mobhunting.killstreak.activated", "multiplier",
 											String.format("%.1f", multiplier)));
 					break;
 				case 2:
 					plugin.getMessages().playerBossbarMessage(player,
-							ChatColor.BLUE + Messages.getString("mobhunting.killstreak.level.2") + " " + ChatColor.GRAY
-									+ Messages.getString("mobhunting.killstreak.activated", "multiplier",
+							ChatColor.BLUE + plugin.getMessages().getString("mobhunting.killstreak.level.2") + " " + ChatColor.GRAY
+									+ plugin.getMessages().getString("mobhunting.killstreak.activated", "multiplier",
 											String.format("%.1f", multiplier)));
 					break;
 				case 3:
 					plugin.getMessages().playerBossbarMessage(player,
-							ChatColor.BLUE + Messages.getString("mobhunting.killstreak.level.3") + " " + ChatColor.GRAY
-									+ Messages.getString("mobhunting.killstreak.activated", "multiplier",
+							ChatColor.BLUE + plugin.getMessages().getString("mobhunting.killstreak.level.3") + " " + ChatColor.GRAY
+									+ plugin.getMessages().getString("mobhunting.killstreak.activated", "multiplier",
 											String.format("%.1f", multiplier)));
 					break;
 				default:
 					plugin.getMessages().playerBossbarMessage(player,
-							ChatColor.BLUE + Messages.getString("mobhunting.killstreak.level.4") + " " + ChatColor.GRAY
-									+ Messages.getString("mobhunting.killstreak.activated", "multiplier",
+							ChatColor.BLUE + plugin.getMessages().getString("mobhunting.killstreak.level.4") + " " + ChatColor.GRAY
+									+ plugin.getMessages().getString("mobhunting.killstreak.activated", "multiplier",
 											String.format("%.1f", multiplier)));
 					break;
 				}

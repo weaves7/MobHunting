@@ -49,7 +49,7 @@ public class PlayerSettingsManager implements Listener {
 				PlayerSettings ps = plugin.getStoreManager().loadPlayerSettings(offlinePlayer);
 				return ps;
 			} catch (DataStoreException | SQLException e) {
-				Messages.debug("%s is not in the database. (Has played before=%s)", offlinePlayer.getName(),
+				plugin.getMessages().debug("%s is not in the database. (Has played before=%s)", offlinePlayer.getName(),
 						offlinePlayer.hasPlayedBefore());
 				return new PlayerSettings(offlinePlayer, 0);
 			}
@@ -72,7 +72,7 @@ public class PlayerSettingsManager implements Listener {
 	 * @param player
 	 */
 	public void removePlayerSettings(OfflinePlayer player) {
-		Messages.debug("Removing %s from player settings cache", player.getName());
+		plugin.getMessages().debug("Removing %s from player settings cache", player.getName());
 		mPlayerSettings.remove(player.getUniqueId());
 	}
 
@@ -85,7 +85,7 @@ public class PlayerSettingsManager implements Listener {
 	private void onPlayerJoin(PlayerJoinEvent event) {
 		final Player player = event.getPlayer();
 		if (containsKey(player))
-			Messages.debug("Using cached playersettings for %s. Balance=%s", player.getName(),
+			plugin.getMessages().debug("Using cached playersettings for %s. Balance=%s", player.getName(),
 					plugin.getRewardManager().getBalance(player));
 		else {
 			load(player);
@@ -115,17 +115,17 @@ public class PlayerSettingsManager implements Listener {
 			@Override
 			public void onCompleted(PlayerSettings ps) {
 				if (ps.isMuted())
-					Messages.debug("%s isMuted()", player.getName());
+					plugin.getMessages().debug("%s isMuted()", player.getName());
 				if (ps.isLearningMode())
-					Messages.debug("%s is in LearningMode()", player.getName());
+					plugin.getMessages().debug("%s is in LearningMode()", player.getName());
 				mPlayerSettings.put(player.getUniqueId(), ps);
 				// get Balance to check if balance in DB is the same as in
 				// player inventory
 				double balance = plugin.getRewardManager().getBalance(player);
-				Messages.debug("%s balance=%s", player.getName(), balance);
+				plugin.getMessages().debug("%s balance=%s", player.getName(), balance);
 
 				if (ps.getTexture() == null || ps.getTexture().equals("")) {
-					Messages.debug("Store %s skin in MobHunting Skin Cache", player.getName());
+					plugin.getMessages().debug("Store %s skin in MobHunting Skin Cache", player.getName());
 					new CustomItems(plugin).getPlayerHead(player.getUniqueId(), 1, 0);
 				}
 			}

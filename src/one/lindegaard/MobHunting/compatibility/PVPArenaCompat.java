@@ -4,7 +4,6 @@ import net.slipcor.pvparena.events.PADeathEvent;
 import net.slipcor.pvparena.events.PAExitEvent;
 import net.slipcor.pvparena.events.PAJoinEvent;
 import net.slipcor.pvparena.events.PALeaveEvent;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 import java.util.ArrayList;
@@ -79,7 +78,7 @@ public class PVPArenaCompat implements Listener {
 	 */
 	public static void stopPlayingPVPArena(Player player) {
 		if (!playersPlayingPVPArena.remove(player.getUniqueId())) {
-			Messages.debug("Player: %s is not in PVPArena", player.getName());
+			MobHunting.getInstance().getMessages().debug("Player: %s is not in PVPArena", player.getName());
 		}
 	}
 
@@ -88,25 +87,25 @@ public class PVPArenaCompat implements Listener {
 	// **************************************************************************
 	@EventHandler(priority = EventPriority.NORMAL)
 	private void onPvpPlayerJoin(PAJoinEvent event) {
-		Messages.debug("[MH]Player %s joined PVPArena: %s", event.getPlayer().getName(), event.getArena());
+		MobHunting.getInstance().getMessages().debug("[MH]Player %s joined PVPArena: %s", event.getPlayer().getName(), event.getArena());
 		startPlayingPVPArena(event.getPlayer());
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
 	private void onPvpPlayerDeath(PADeathEvent event) {
-		Messages.debug("[MH]Player %s died in PVPArena: %s", event.getPlayer().getName(), event.getArena());
+		MobHunting.getInstance().getMessages().debug("[MH]Player %s died in PVPArena: %s", event.getPlayer().getName(), event.getArena());
 		//startPlayingPVPArena(event.getPlayer());
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
 	private void onPvpPlayerLeave(PALeaveEvent event) {
-		Messages.debug("[MH]Player %s left PVPArena: %s", event.getPlayer().getName(), event.getArena());
+		MobHunting.getInstance().getMessages().debug("[MH]Player %s left PVPArena: %s", event.getPlayer().getName(), event.getArena());
 		stopPlayingPVPArena(event.getPlayer());
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
 	private void onPAExit(PAExitEvent event) {
-		Messages.debug("[MH]Player %s exit PVPArena: %s", event.getPlayer().getName(), event.getArena());
+		MobHunting.getInstance().getMessages().debug("[MH]Player %s exit PVPArena: %s", event.getPlayer().getName(), event.getArena());
 		stopPlayingPVPArena(event.getPlayer());
 	}
 

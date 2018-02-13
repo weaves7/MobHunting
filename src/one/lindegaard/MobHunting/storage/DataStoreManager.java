@@ -10,7 +10,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.StatType;
 import one.lindegaard.MobHunting.achievements.Achievement;
@@ -219,7 +218,7 @@ public class DataStoreManager {
 	 */
 	public void flush() {
 		if (mWaiting.size() != 0) {
-			Messages.debug("Flushing waiting %s data to database...", mWaiting.size());
+			plugin.getMessages().debug("Flushing waiting %s data to database...", mWaiting.size());
 			mTaskThread.addTask(new StoreTask(mWaiting), null);
 		}
 	}
@@ -238,19 +237,19 @@ public class DataStoreManager {
 				Thread.sleep(500);
 				n++;
 			}
-			Messages.debug("mTaskThread.state=%s", mTaskThread.getState());
+			plugin.getMessages().debug("mTaskThread.state=%s", mTaskThread.getState());
 			if (mTaskThread.getState() == Thread.State.RUNNABLE) {
-				Messages.debug("Interupting mTaskThread");
+				plugin.getMessages().debug("Interupting mTaskThread");
 				mTaskThread.interrupt();
 			}
-			Messages.debug("mStoreThread.state=%s", mStoreThread.getState());
-			Messages.debug("Interupting mStoreThread");
+			plugin.getMessages().debug("mStoreThread.state=%s", mStoreThread.getState());
+			plugin.getMessages().debug("Interupting mStoreThread");
 			mStoreThread.interrupt();
-			Messages.debug("mTaskThread.state=%s", mTaskThread.getState());
+			plugin.getMessages().debug("mTaskThread.state=%s", mTaskThread.getState());
 			if (mTaskThread.getState() != Thread.State.WAITING) {
 				mTaskThread.waitForEmptyQueue();
 			} else {
-				Messages.debug("Interupting mTaskThread");
+				plugin.getMessages().debug("Interupting mTaskThread");
 				mTaskThread.interrupt();
 			}
 
@@ -307,7 +306,7 @@ public class DataStoreManager {
 					Thread.sleep(mSaveInterval * 50);
 				}
 			} catch (InterruptedException e) {
-				Messages.debug("StoreThread was interrupted");
+				plugin.getMessages().debug("StoreThread was interrupted");
 			}
 		}
 	}
@@ -363,7 +362,7 @@ public class DataStoreManager {
 				return;
 
 			synchronized (mSignal) {
-				Messages.debug("waitForEmptyQueue: Waiting for %s+%s tasks to finish before closing connections.",
+				plugin.getMessages().debug("waitForEmptyQueue: Waiting for %s+%s tasks to finish before closing connections.",
 						mQueue.size(), mWaiting.size());
 				while (!mQueue.isEmpty())
 					mSignal.wait();
@@ -407,7 +406,7 @@ public class DataStoreManager {
 									new CallbackCaller((IDataCallback<Object>) task.callback, result, true));
 
 					} catch (DataStoreException e) {
-						Messages.debug("DataStoreManager: TaskThread.run() failed!!!!!!!");
+						plugin.getMessages().debug("DataStoreManager: TaskThread.run() failed!!!!!!!");
 						if (task.callback != null)
 							Bukkit.getScheduler().runTask(MobHunting.getInstance(),
 									new CallbackCaller((IDataCallback<Object>) task.callback, e, false));
@@ -417,7 +416,7 @@ public class DataStoreManager {
 				}
 
 			} catch (InterruptedException e) {
-				Messages.debug(" TaskThread was interrupted");
+				plugin.getMessages().debug(" TaskThread was interrupted");
 			}
 		}
 	}

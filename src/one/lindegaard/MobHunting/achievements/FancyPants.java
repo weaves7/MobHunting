@@ -5,7 +5,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.events.MobHuntKillEvent;
 
@@ -19,7 +18,7 @@ public class FancyPants implements Achievement, Listener {
 
 	@Override
 	public String getName() {
-		return Messages.getString("achievements.fancypants.name");
+		return plugin.getMessages().getString("achievements.fancypants.name");
 	}
 
 	@Override
@@ -29,7 +28,7 @@ public class FancyPants implements Achievement, Listener {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("achievements.fancypants.description");
+		return plugin.getMessages().getString("achievements.fancypants.description");
 	}
 
 	@Override

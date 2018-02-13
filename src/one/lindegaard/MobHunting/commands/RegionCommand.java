@@ -14,7 +14,6 @@ import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.WorldGuardCompat;
 import one.lindegaard.MobHunting.compatibility.WorldGuardHelper;
@@ -63,7 +62,7 @@ public class RegionCommand implements ICommand {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("mobhunting.commands.region.description");
+		return plugin.getMessages().getString("mobhunting.commands.region.description");
 	}
 
 	@Override
@@ -156,7 +155,7 @@ public class RegionCommand implements ICommand {
 										WorldGuardHelper.getMobHuntingFlag());
 							}
 						}
-						plugin.getMessages().senderSendMessage(sender, ChatColor.RED + Messages
+						plugin.getMessages().senderSendMessage(sender, ChatColor.RED + plugin.getMessages()
 								.getString("mobhunting.commands.region.unknownRegionId", "regionid", args[0]));
 					} else if ((args.length >= 3) && args[1].equalsIgnoreCase("mobhunting")) {
 						RegionManager rm = WorldGuardHelper.getRegionContainer().get(((Player) sender).getWorld());
@@ -171,16 +170,16 @@ public class RegionCommand implements ICommand {
 												WorldGuardHelper.getMobHuntingFlag(), args[2]);
 							}
 						}
-						plugin.getMessages().senderSendMessage(sender, ChatColor.RED + Messages
+						plugin.getMessages().senderSendMessage(sender, ChatColor.RED + plugin.getMessages()
 								.getString("mobhunting.commands.region.unknownRegionId", "regionid", args[0]));
 					} else {
 						plugin.getMessages().senderSendMessage(sender,
-								ChatColor.RED + Messages.getString("mobhunting.commands.region.specifyRegionId"));
+								ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.region.specifyRegionId"));
 					}
 				}
 			} else {
 				plugin.getMessages().senderSendMessage(sender,
-						ChatColor.RED + Messages.getString("mobhunting.commands.region.noWorldguardSupport"));
+						ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.region.noWorldguardSupport"));
 			}
 		}
 

@@ -263,7 +263,12 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 					sign.setLine(0, ChatColor.GREEN + String.valueOf(place) + " " + ChatColor.BLACK + name1);
 					if (getStatType().getDBColumn().endsWith("_cash"))
 						sign.setLine(1, ChatColor.BLUE
-								+ plugin.getRewardManager().format(Misc.round(stat1.getCash())));
+								+ plugin.
+								getRewardManager().
+								format(
+										Misc.round(
+												stat1.
+												getCash())));
 					else
 						sign.setLine(1, ChatColor.BLUE + String.valueOf(stat1.getAmount()));
 				} else {

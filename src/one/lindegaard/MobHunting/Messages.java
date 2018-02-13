@@ -51,7 +51,7 @@ public class Messages {
 
 	private static Map<String, String> mTranslationTable;
 	private static String[] mValidEncodings = new String[] { "UTF-16", "UTF-16BE", "UTF-16LE", "UTF-8", "ISO646-US" };
-	private static final String PREFIX = "[MobHunting]";
+	private static final String PREFIX = ChatColor.GOLD + "[MobHunting]" + ChatColor.RESET;
 	private static String[] sources = new String[] { "en_US.lang", "hu_HU.lang", "zh_CN.lang" };
 
 	public void exportDefaultLanguages(MobHunting plugin) {
@@ -343,7 +343,7 @@ public class Messages {
 		}
 	}
 
-	private static String getStringInternal(String key) {
+	private String getStringInternal(String key) {
 		String value = mTranslationTable.get(key);
 
 		if (value == null) {
@@ -365,7 +365,7 @@ public class Messages {
 	 *            these are key-value pairs, they should be like: {key1, value1,
 	 *            key2, value2,..., keyN,valueN}. keys must be strings
 	 */
-	public static String getString(String key, Object... values) {
+	public String getString(String key, Object... values) {
 		try {
 			if (mPattern == null)
 				mPattern = Pattern.compile("\\$\\{([\\w\\.\\-]+)\\}");
@@ -401,7 +401,7 @@ public class Messages {
 		}
 	}
 
-	public static String getString(String key) {
+	public String getString(String key) {
 		try {
 			return ChatColor.translateAlternateColorCodes('&', getStringInternal(key));
 		} catch (MissingResourceException e) {
@@ -422,7 +422,7 @@ public class Messages {
 		Iterator<Player> players = Misc.getOnlinePlayers().iterator();
 		while (players.hasNext()) {
 			Player player = players.next();
-			if (player.equals(except) || plugin.getPlayerSettingsmanager().getPlayerSettings(player).isMuted())
+			if (player.equals(except) || plugin.getPlayerSettingsManager().getPlayerSettings(player).isMuted())
 				continue;
 
 			if (plugin.getConfigManager().useActionBarforBroadcasts)
@@ -439,7 +439,7 @@ public class Messages {
 	 * @param message
 	 * @param args
 	 */
-	public static void debug(String message, Object... args) {
+	public void debug(String message, Object... args) {
 		if (MobHunting.getInstance().getConfigManager().killDebug) {
 			if (PlaceholderAPICompat.isSupported())
 				Bukkit.getServer().getConsoleSender().sendMessage(
@@ -458,7 +458,7 @@ public class Messages {
 	 */
 	public void learn(Player player, String text, Object... args) {
 		if (player != null && !CitizensCompat.isNPC(player)
-				&& plugin.getPlayerSettingsmanager().getPlayerSettings(player).isLearningMode() && !isEmpty(text))
+				&& plugin.getPlayerSettingsManager().getPlayerSettings(player).isLearningMode() && !isEmpty(text))
 			playerBossbarMessage(player, text, args);
 	}
 
@@ -481,7 +481,7 @@ public class Messages {
 		} else if (BarAPICompat.isSupported()) {
 			BarAPICompat.setMessageTime(player, String.format(message, args), 5);
 		} else {
-			player.sendMessage(ChatColor.AQUA + Messages.getString("mobhunting.learn.prefix") + " "
+			player.sendMessage(ChatColor.AQUA + getString("mobhunting.learn.prefix") + " "
 					+ String.format(message, args));
 		}
 	}

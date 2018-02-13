@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.User;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 public class EssentialsCompat{
@@ -110,7 +109,7 @@ public class EssentialsCompat{
 						config.load(configfile);
 						config.set("money", String.valueOf(amount));
 						config.save(configfile);
-						Messages.debug("updated essentials balance to %s", amount);
+						MobHunting.getInstance().getMessages().debug("updated essentials balance to %s", amount);
 					} catch (IOException | InvalidConfigurationException e) {
 						e.printStackTrace();
 						return;

@@ -17,7 +17,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.ConsoleCommandSender;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.StatType;
 import one.lindegaard.MobHunting.bounty.Bounty;
@@ -218,7 +217,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 					+ ((type.getDBColumn().equalsIgnoreCase("total_cash") || plugins_cash.contains(type.getDBColumn()))
 							? "CASH" : "AMOUNT")
 					+ " DESC LIMIT " + count;
-			// Messages.debug("Load str=%s",exestr);
+			// plugin.getMessages().debug("Load str=%s",exestr);
 			ResultSet results = statement.executeQuery(exestr);
 			while (results.next()) {
 				OfflinePlayer offlinePlayer = null;
@@ -232,7 +231,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 							.warning("Could not find player name for PLAYER_ID:" + results.getString("PLAYER_ID"));
 				}
 				if (offlinePlayer == null)
-					Messages.debug("getOfflinePlayer(%s) was not in cache.", results.getString("name"));
+					plugin.getMessages().debug("getOfflinePlayer(%s) was not in cache.", results.getString("name"));
 				else
 					list.add(new StatStore(type, offlinePlayer, results.getInt("amount"), results.getDouble("cash")));
 			}
@@ -249,7 +248,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 	public void savePlayerStats(Set<StatStore> stats) throws DataStoreException {
 		Connection mConnection = setupConnection();
 		try {
-			Messages.debug("Saving PlayerStats to Database.");
+			plugin.getMessages().debug("Saving PlayerStats to Database.");
 			openPreparedStatements(mConnection, PreparedConnectionType.SAVE_PLAYER_STATS);
 			mSavePlayerStats.clearBatch();
 			for (StatStore st : stats) {
@@ -286,14 +285,14 @@ public class SQLiteDataStore extends DatabaseDataStore {
 						"UPDATE mh_Daily SET %1$s = %1$s + %2$d, %5$s = %5$s + %6$f WHERE ID = strftime(\"%%Y%%j\",\"now\")"
 								+ " AND MOB_ID=%3$d AND PLAYER_ID = %4$d;",
 						column, amount, mob_id, player_id, column2, cash);
-				// Messages.debug("Save Str=%s", str);
+				// plugin.getMessages().debug("Save Str=%s", str);
 				statement.addBatch(str);
 			}
 			statement.executeBatch();
 			statement.close();
 			mConnection.commit();
 			mConnection.close();
-			Messages.debug("Saved.");
+			plugin.getMessages().debug("Saved.");
 		} catch (SQLException e) {
 			rollback(mConnection);
 			throw new DataStoreException(e);
@@ -309,7 +308,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 				openPreparedStatements(mConnection, PreparedConnectionType.INSERT_BOUNTY);
 				for (Bounty bounty : bountyDataSet) {
 					if (bounty.getBountyOwner() == null)
-						Messages.debug("RandomBounty to be inserted: %s", bounty.toString());
+						plugin.getMessages().debug("RandomBounty to be inserted: %s", bounty.toString());
 					int bountyOwnerId = getPlayerId(bounty.getBountyOwner());
 					int wantedPlayerId = getPlayerId(bounty.getWantedPlayer());
 					mInsertBounty.setString(1, bounty.getMobtype());
@@ -1045,7 +1044,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 			statement.executeUpdate("alter table `mh_Players` add column `MUTE_MODE` INTEGER NOT NULL DEFAULT 0");
 		}
 
-		Messages.debug("Updating database triggers.");
+		plugin.getMessages().debug("Updating database triggers.");
 		statement.executeUpdate("DROP TRIGGER IF EXISTS `mh_DailyInsert`");
 		statement.executeUpdate("DROP TRIGGER IF EXISTS `mh_DailyUpdate`");
 
@@ -1138,7 +1137,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 
 		insertMissingVanillaMobs();
 
-		Messages.debug("MobHunting V3 Database created.");
+		plugin.getMessages().debug("MobHunting V3 Database created.");
 
 	}
 
@@ -1204,7 +1203,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 		create.close();
 		connection.commit();
 
-		Messages.debug("Database trigger updated.");
+		plugin.getMessages().debug("Database trigger updated.");
 	}
 
 	// *******************************************************************************
@@ -1375,7 +1374,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 		create.close();
 		connection.commit();
 
-		Messages.debug("Database trigger updated.");
+		plugin.getMessages().debug("Database trigger updated.");
 	}
 
 	// *******************************************************************************

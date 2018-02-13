@@ -17,7 +17,6 @@ import de.Keyle.MyPet.api.entity.MyPetBukkitEntity;
 import de.Keyle.MyPet.api.event.MyPetInventoryActionEvent;
 import de.Keyle.MyPet.api.event.MyPetInventoryActionEvent.Action;
 import de.Keyle.MyPet.api.event.MyPetPickupItemEvent;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.rewards.Reward;
 
@@ -127,7 +126,7 @@ public class MyPetCompat implements Listener {
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = false)
 	private void onMyPetInventoryActionEvent(MyPetInventoryActionEvent event) {
 		if (event.getAction() == Action.Pickup)
-			Messages.debug("MyPetInventoryActionEvent=%s", event.getAction().name());
+			MobHunting.getInstance().getMessages().debug("MyPetInventoryActionEvent=%s", event.getAction().name());
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = false)
@@ -142,12 +141,12 @@ public class MyPetCompat implements Listener {
 		if (Reward.isReward(item)) {
 			Reward reward = Reward.getReward(item);
 			MobHunting.getInstance().getMessages().playerActionBarMessage(player,
-					Messages.getString("mobhunting.reward.mypet_pickup", "rewardname",
+					MobHunting.getInstance().getMessages().getString("mobhunting.reward.mypet_pickup", "rewardname",
 							ChatColor.valueOf(MobHunting.getInstance().getConfigManager().dropMoneyOnGroundTextColor)
 									+ reward.getDisplayname(),
 							"petname", pet.getPetName(), "money",
 							MobHunting.getInstance().getRewardManager().getEconomy().format(reward.getMoney())));
-			Messages.debug("%s owned by %s picked up %s %s.", pet.getPetName(), player.getName(),
+			MobHunting.getInstance().getMessages().debug("%s owned by %s picked up %s %s.", pet.getPetName(), player.getName(),
 					MobHunting.getInstance().getRewardManager().getEconomy().format(reward.getMoney()),
 					reward.getDisplayname());
 			if (reward.isBagOfGoldReward() || reward.isItemReward()) {

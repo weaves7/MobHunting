@@ -6,7 +6,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 
-import one.lindegaard.MobHunting.Messages;
+import one.lindegaard.MobHunting.MobHunting;
 
 public class EntityPickupItemEventListener implements Listener {
 
@@ -28,11 +28,11 @@ public class EntityPickupItemEventListener implements Listener {
 
 		if (event.getEntity().getType() != EntityType.PLAYER) {
 			// Entity is not a Player
-			Messages.debug("A reward was picked up by a %s", entity.getType());
+			MobHunting.getInstance().getMessages().debug("A reward was picked up by a %s", entity.getType());
 			if (entity.getType().equals(EntityType.ZOMBIE) || entity.getType().equals(EntityType.SKELETON)
 					|| entity.getType().equals(EntityType.PIG_ZOMBIE)
 					|| entity.getType().equals(EntityType.WITHER_SKELETON)) {
-				Messages.debug("The pickup event was cancelled");
+				MobHunting.getInstance().getMessages().debug("The pickup event was cancelled");
 				event.setCancelled(true);
 			}
 			return;

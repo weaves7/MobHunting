@@ -12,7 +12,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.events.MobHuntKillEvent;
 
@@ -26,7 +25,7 @@ public class RecordHungry implements Achievement, Listener {
 
 	@Override
 	public String getName() {
-		return Messages.getString("achievements.recordhungry.name");
+		return plugin.getMessages().getString("achievements.recordhungry.name");
 	}
 
 	@Override
@@ -36,7 +35,7 @@ public class RecordHungry implements Achievement, Listener {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("achievements.recordhungry.description");
+		return plugin.getMessages().getString("achievements.recordhungry.description");
 	}
 
 	@Override

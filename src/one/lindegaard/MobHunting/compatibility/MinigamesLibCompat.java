@@ -14,7 +14,6 @@ import org.bukkit.plugin.Plugin;
 import com.comze_instancelabs.minigamesapi.events.PlayerJoinLobbyEvent;
 import com.comze_instancelabs.minigamesapi.events.PlayerLeaveArenaEvent;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 public class MinigamesLibCompat implements Listener {
@@ -67,17 +66,17 @@ public class MinigamesLibCompat implements Listener {
 	// **************************************************************************
 	@EventHandler(priority = EventPriority.NORMAL)
 	private void onPlayerJoinLobby(PlayerJoinLobbyEvent event) {
-		Messages.debug("PlayerJoinLobbyEvent was run...");
+		MobHunting.getInstance().getMessages().debug("PlayerJoinLobbyEvent was run...");
 		Player player = event.getPlayer();
 		playersPlayingMinigames.add(player.getUniqueId());
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
 	private void onPlayerLeaveArena(PlayerLeaveArenaEvent event) {
-		Messages.debug("PlayerLeave was run...");
+		MobHunting.getInstance().getMessages().debug("PlayerLeave was run...");
 		Player player = event.getPlayer();
 		if (!playersPlayingMinigames.remove(player.getUniqueId())) {
-			Messages.debug("Player: %s is not in MiniGamesLib", player.getName());
+			MobHunting.getInstance().getMessages().debug("Player: %s is not in MiniGamesLib", player.getName());
 		}
 	}
 

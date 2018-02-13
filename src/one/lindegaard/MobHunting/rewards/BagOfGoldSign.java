@@ -1,6 +1,5 @@
 package one.lindegaard.MobHunting.rewards;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
 import one.lindegaard.MobHunting.util.Misc;
@@ -57,26 +56,26 @@ public class BagOfGoldSign implements Listener {
 				double moneyInHand = 0;
 				double moneyOnSign = 0;
 				// SELL BagOfGold Sign
-				if (signType.equalsIgnoreCase(Messages.getString("mobhunting.bagofgoldsign.line2.sell"))) {
+				if (signType.equalsIgnoreCase(plugin.getMessages().getString("mobhunting.bagofgoldsign.line2.sell"))) {
 					if (Reward.isReward(player.getItemInHand())) {
 						Reward reward = Reward.getReward(player.getItemInHand());
 
 						if (BagOfGoldCompat.isSupported() && reward.isBagOfGoldReward()) {
 							plugin.getMessages().playerSendMessage(player,
-									Messages.getString("mobhunting.money.you_cant_sell_and_buy_bagofgold", "itemname",
+									plugin.getMessages().getString("mobhunting.money.you_cant_sell_and_buy_bagofgold", "itemname",
 											reward.getDisplayname()));
 							return;
 						}
 
 						moneyInHand = reward.getMoney();
 						if (moneyInHand == 0) {
-							plugin.getMessages().playerSendMessage(player, Messages.getString(
+							plugin.getMessages().playerSendMessage(player, plugin.getMessages().getString(
 									"mobhunting.bagofgoldsign.item_has_no_value", "itemname", reward.getDisplayname()));
 							return;
 						}
 
 						if (sign.getLine(2).isEmpty() || sign.getLine(2)
-								.equalsIgnoreCase(Messages.getString("mobhunting.bagofgoldsign.line3.everything"))) {
+								.equalsIgnoreCase(plugin.getMessages().getString("mobhunting.bagofgoldsign.line3.everything"))) {
 							money = moneyInHand;
 							moneyOnSign = moneyInHand;
 						} else {
@@ -84,10 +83,10 @@ public class BagOfGoldSign implements Listener {
 								moneyOnSign = Double.valueOf(sign.getLine(2));
 								money = moneyInHand <= moneyOnSign ? moneyInHand : moneyOnSign;
 							} catch (NumberFormatException e) {
-								Messages.debug("Line no. 3 is not a number");
+								plugin.getMessages().debug("Line no. 3 is not a number");
 								plugin.getMessages().playerSendMessage(player,
-										Messages.getString("mobhunting.bagofgoldsign.line3.not_a_number", "number",
-												sign.getLine(2), "everything", Messages
+										plugin.getMessages().getString("mobhunting.bagofgoldsign.line3.not_a_number", "number",
+												sign.getLine(2), "everything", plugin.getMessages()
 														.getString("mobhunting.bagofgoldsign.line3.everything")));
 								return;
 							}
@@ -113,9 +112,9 @@ public class BagOfGoldSign implements Listener {
 									+ displayName);
 							event.getItem().setItemMeta(im);
 						}
-						Messages.debug("%s sold his %s for %s", player.getName(), reward.getDisplayname(),
+						plugin.getMessages().debug("%s sold his %s for %s", player.getName(), reward.getDisplayname(),
 								plugin.getRewardManager().getEconomy().format(money));
-						plugin.getMessages().playerSendMessage(player, Messages.getString(
+						plugin.getMessages().playerSendMessage(player, plugin.getMessages().getString(
 								"mobhunting.bagofgoldsign.sold", "money",
 								plugin.getRewardManager().getEconomy().format(money), "rewardname",
 								ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
@@ -123,18 +122,18 @@ public class BagOfGoldSign implements Listener {
 												? plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim()
 												: reward.getDisplayname())));
 					} else {
-						Messages.debug("Player does not hold a bag of gold in his hand");
+						plugin.getMessages().debug("Player does not hold a bag of gold in his hand");
 						plugin.getMessages().playerSendMessage(player,
-								Messages.getString("mobhunting.bagofgoldsign.hold_reward_in_hand", "rewardname",
+								plugin.getMessages().getString("mobhunting.bagofgoldsign.hold_reward_in_hand", "rewardname",
 										ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 												+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim()));
 					}
 
 					// BUY BagOfGold Sign
-				} else if (signType.equalsIgnoreCase(Messages.getString("mobhunting.bagofgoldsign.line2.buy"))) {
+				} else if (signType.equalsIgnoreCase(plugin.getMessages().getString("mobhunting.bagofgoldsign.line2.buy"))) {
 					if (BagOfGoldCompat.isSupported()) {
 						plugin.getMessages().playerSendMessage(player,
-								Messages.getString("mobhunting.money.you_cant_sell_and_buy_bagofgold", "itemname",
+								plugin.getMessages().getString("mobhunting.money.you_cant_sell_and_buy_bagofgold", "itemname",
 										ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 												+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim()));
 						return;
@@ -142,11 +141,11 @@ public class BagOfGoldSign implements Listener {
 					try {
 						moneyOnSign = Double.valueOf(sign.getLine(2));
 					} catch (NumberFormatException e) {
-						Messages.debug("Line no. 3 is not a number");
+						plugin.getMessages().debug("Line no. 3 is not a number");
 						plugin.getMessages().playerSendMessage(player,
-								Messages.getString("mobhunting.bagofgoldsign.line3.not_a_number", "number",
+								plugin.getMessages().getString("mobhunting.bagofgoldsign.line3.not_a_number", "number",
 										sign.getLine(2), "everything",
-										Messages.getString("mobhunting.bagofgoldsign.line3.everything")));
+										plugin.getMessages().getString("mobhunting.bagofgoldsign.line3.everything")));
 						return;
 					}
 					if (plugin.getRewardManager().getEconomy().getBalance(player) >= moneyOnSign) {
@@ -174,7 +173,7 @@ public class BagOfGoldSign implements Listener {
 									is.setItemMeta(im);
 									is.setAmount(1);
 									event.setCancelled(true);
-									Messages.debug("Added %s to item in slot %s, new value is %s",
+									plugin.getMessages().debug("Added %s to item in slot %s, new value is %s",
 											plugin.getRewardManager().format(hrd.getMoney()), slot,
 											plugin.getRewardManager().format(newReward.getMoney()));
 									found = true;
@@ -213,7 +212,7 @@ public class BagOfGoldSign implements Listener {
 						// IF okay the withdraw money
 						if (found) {
 							plugin.getRewardManager().getEconomy().withdrawPlayer(player, moneyOnSign);
-							plugin.getMessages().playerSendMessage(player, Messages.getString(
+							plugin.getMessages().playerSendMessage(player, plugin.getMessages().getString(
 									"mobhunting.bagofgoldsign.bought", "money",
 									plugin.getRewardManager().getEconomy().format(moneyOnSign), "rewardname",
 									ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
@@ -221,15 +220,15 @@ public class BagOfGoldSign implements Listener {
 						}
 					} else {
 						plugin.getMessages().playerSendMessage(player,
-								Messages.getString("mobhunting.bagofgoldsign.not_enough_money"));
+								plugin.getMessages().getString("mobhunting.bagofgoldsign.not_enough_money"));
 					}
-				} else if (signType.equalsIgnoreCase(Messages.getString("mobhunting.bagofgoldsign.line2.balance"))) {
+				} else if (signType.equalsIgnoreCase(plugin.getMessages().getString("mobhunting.bagofgoldsign.line2.balance"))) {
 					if (BagOfGoldCompat.isSupported() || !plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency)
 						if (plugin.getRewardManager().getEconomy().hasBankSupport()
 								&& plugin.getRewardManager().getEconomy()
 										.isBankOwner(player.getUniqueId().toString(), player).transactionSuccess()) {
 							plugin.getMessages().playerActionBarMessage(player,
-									Messages.getString("mobhunting.bagofgoldsign.balance2", "balance",
+									plugin.getMessages().getString("mobhunting.bagofgoldsign.balance2", "balance",
 											plugin.getRewardManager().getEconomy()
 													.format(plugin.getRewardManager().getEconomy().getBalance(player)),
 											"bankbalance",
@@ -238,7 +237,7 @@ public class BagOfGoldSign implements Listener {
 															.bankBalance(player.getUniqueId().toString()).balance)));
 						} else {
 							plugin.getMessages().playerActionBarMessage(player,
-									Messages.getString("mobhunting.bagofgoldsign.balance1", "balance",
+									plugin.getMessages().getString("mobhunting.bagofgoldsign.balance1", "balance",
 											plugin.getRewardManager().getEconomy().format(
 													plugin.getRewardManager().getEconomy().getBalance(player))));
 
@@ -254,12 +253,12 @@ public class BagOfGoldSign implements Listener {
 							}
 						}
 						plugin.getMessages().playerActionBarMessage(player,
-								Messages.getString("mobhunting.bagofgoldsign.balance1", "balance",
+								plugin.getMessages().getString("mobhunting.bagofgoldsign.balance1", "balance",
 										plugin.getRewardManager().getEconomy().format(amountInInventory)));
 					}
 				}
 			} else {
-				plugin.getMessages().playerSendMessage(player, Messages.getString(
+				plugin.getMessages().playerSendMessage(player, plugin.getMessages().getString(
 						"mobhunting.bagofgoldsign.no_permission_to_use", "perm", "mobhunting.bagofgoldsign.use"));
 			}
 		}
@@ -276,56 +275,56 @@ public class BagOfGoldSign implements Listener {
 
 				// Check line 2
 				if (ChatColor.stripColor(event.getLine(1)).equalsIgnoreCase(
-						ChatColor.stripColor(Messages.getString("mobhunting.bagofgoldsign.line2.sell")))) {
-					event.setLine(1, Messages.getString("mobhunting.bagofgoldsign.line2.sell"));
+						ChatColor.stripColor(plugin.getMessages().getString("mobhunting.bagofgoldsign.line2.sell")))) {
+					event.setLine(1, plugin.getMessages().getString("mobhunting.bagofgoldsign.line2.sell"));
 
 				} else if (ChatColor.stripColor(event.getLine(1)).equalsIgnoreCase(
-						ChatColor.stripColor(Messages.getString("mobhunting.bagofgoldsign.line2.buy")))) {
-					event.setLine(1, Messages.getString("mobhunting.bagofgoldsign.line2.buy"));
+						ChatColor.stripColor(plugin.getMessages().getString("mobhunting.bagofgoldsign.line2.buy")))) {
+					event.setLine(1, plugin.getMessages().getString("mobhunting.bagofgoldsign.line2.buy"));
 				} else if (ChatColor.stripColor(event.getLine(1)).equalsIgnoreCase(
-						ChatColor.stripColor(Messages.getString("mobhunting.bagofgoldsign.line2.balance")))) {
-					event.setLine(1, Messages.getString("mobhunting.bagofgoldsign.line2.balance"));
+						ChatColor.stripColor(plugin.getMessages().getString("mobhunting.bagofgoldsign.line2.balance")))) {
+					event.setLine(1, plugin.getMessages().getString("mobhunting.bagofgoldsign.line2.balance"));
 				} else {
 					plugin.getMessages().playerSendMessage(player,
-							Messages.getString("mobhunting.bagofgoldsign.line2.mustbe_sell_or_buy"));
-					event.setLine(3, Messages.getString("mobhunting.bagofgoldsign.line4.error_on_sign", "line", "2"));
+							plugin.getMessages().getString("mobhunting.bagofgoldsign.line2.mustbe_sell_or_buy"));
+					event.setLine(3, plugin.getMessages().getString("mobhunting.bagofgoldsign.line4.error_on_sign", "line", "2"));
 					return;
 				}
 
 				// Check line 3
 				if (ChatColor.stripColor(event.getLine(1)).equalsIgnoreCase(
-						ChatColor.stripColor(Messages.getString("mobhunting.bagofgoldsign.line2.balance")))) {
+						ChatColor.stripColor(plugin.getMessages().getString("mobhunting.bagofgoldsign.line2.balance")))) {
 					event.setLine(2, "");
 					event.setLine(3, "");
 				} else {
 					if (event.getLine(2).isEmpty() || ChatColor.stripColor(event.getLine(2)).equalsIgnoreCase(
-							ChatColor.stripColor(Messages.getString("mobhunting.bagofgoldsign.line3.everything")))) {
-						event.setLine(2, Messages.getString("mobhunting.bagofgoldsign.line3.everything"));
+							ChatColor.stripColor(plugin.getMessages().getString("mobhunting.bagofgoldsign.line3.everything")))) {
+						event.setLine(2, plugin.getMessages().getString("mobhunting.bagofgoldsign.line3.everything"));
 					} else {
 
 						try {
 							if (Double.valueOf(event.getLine(2)) > 0) {
-								Messages.debug("%s created a BagOfGold Sign", event.getPlayer().getName());
+								plugin.getMessages().debug("%s created a BagOfGold Sign", event.getPlayer().getName());
 							}
 						} catch (NumberFormatException e) {
-							Messages.debug("Line no. 3 is not positive a number");
+							plugin.getMessages().debug("Line no. 3 is not positive a number");
 							plugin.getMessages().playerSendMessage(player,
-									Messages.getString("mobhunting.bagofgoldsign.line3.not_a_number", "number",
+									plugin.getMessages().getString("mobhunting.bagofgoldsign.line3.not_a_number", "number",
 											event.getLine(2), "everything",
-											Messages.getString("mobhunting.bagofgoldsign.line3.everything")));
+											plugin.getMessages().getString("mobhunting.bagofgoldsign.line3.everything")));
 							event.setLine(3,
-									Messages.getString("mobhunting.bagofgoldsign.line4.error_on_sign", "line", "3"));
+									plugin.getMessages().getString("mobhunting.bagofgoldsign.line4.error_on_sign", "line", "3"));
 							return;
 						}
 					}
 				}
 
-				event.setLine(0, Messages.getString("mobhunting.bagofgoldsign.line1", "rewardname",
+				event.setLine(0, plugin.getMessages().getString("mobhunting.bagofgoldsign.line1", "rewardname",
 						plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim()));
-				event.setLine(3, Messages.getString("mobhunting.bagofgoldsign.line4.ok"));
+				event.setLine(3, plugin.getMessages().getString("mobhunting.bagofgoldsign.line4.ok"));
 
 			} else {
-				plugin.getMessages().playerSendMessage(player, Messages.getString(
+				plugin.getMessages().playerSendMessage(player, plugin.getMessages().getString(
 						"mobhunting.bagofgoldsign.no_permission", "perm", "mobhunting.bagofgoldsign.create"));
 				event.setCancelled(true);
 			}
@@ -340,10 +339,10 @@ public class BagOfGoldSign implements Listener {
 		Block b = event.getBlock();
 		if (isBagOfGoldSign(b)) {
 			if (event.getPlayer().hasPermission("mobhunting.bagofgoldsign.destroy")) {
-				Messages.debug("%s destroyed a BagOfGold sign", event.getPlayer().getName());
+				plugin.getMessages().debug("%s destroyed a BagOfGold sign", event.getPlayer().getName());
 			} else {
-				Messages.debug("%s tried to destroy a BagOfGold sign without permission", event.getPlayer().getName());
-				event.getPlayer().sendMessage(Messages.getString("mobhunting.bagofgoldsign.no_permission", "perm",
+				plugin.getMessages().debug("%s tried to destroy a BagOfGold sign without permission", event.getPlayer().getName());
+				event.getPlayer().sendMessage(plugin.getMessages().getString("mobhunting.bagofgoldsign.no_permission", "perm",
 						"mobhunting.bagofgoldsign.destroy"));
 				event.setCancelled(true);
 			}
@@ -357,7 +356,7 @@ public class BagOfGoldSign implements Listener {
 	public boolean isBagOfGoldSign(Block block) {
 		if (Misc.isSign(block))
 			return ChatColor.stripColor(((Sign) block.getState()).getLine(0))
-					.equalsIgnoreCase(ChatColor.stripColor(Messages.getString("mobhunting.bagofgoldsign.line1",
+					.equalsIgnoreCase(ChatColor.stripColor(plugin.getMessages().getString("mobhunting.bagofgoldsign.line1",
 							"rewardname", plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim())))
 					|| ChatColor.stripColor(((Sign) block.getState()).getLine(0)).equalsIgnoreCase("[bagofgold]");
 		return false;
@@ -365,7 +364,7 @@ public class BagOfGoldSign implements Listener {
 
 	public boolean isBagOfGoldSign(String line) {
 		return ChatColor.stripColor(line)
-				.equalsIgnoreCase(ChatColor.stripColor(Messages.getString("mobhunting.bagofgoldsign.line1",
+				.equalsIgnoreCase(ChatColor.stripColor(plugin.getMessages().getString("mobhunting.bagofgoldsign.line1",
 						"rewardname", plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim())))
 				|| ChatColor.stripColor(line).equalsIgnoreCase("[bagofgold]");
 	}

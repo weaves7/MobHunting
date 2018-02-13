@@ -13,7 +13,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import one.lindegaard.MobHunting.DamageInformation;
 import one.lindegaard.MobHunting.HuntData;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.ExtraHardModeCompat;
 
@@ -21,7 +20,7 @@ public class DifficultyBonus implements IModifier {
 
 	@Override
 	public String getName() {
-		return Messages.getString("bonus.difficulty.name");
+		return MobHunting.getInstance().getMessages().getString("bonus.difficulty.name");
 	}
 
 	@Override

@@ -5,7 +5,6 @@ import java.util.HashSet;
 
 import org.bukkit.OfflinePlayer;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.storage.DataStoreException;
 import one.lindegaard.MobHunting.storage.IDataStore;
@@ -27,7 +26,7 @@ public class PlayerSettingsRetrieverTask implements IDataStoreTask<PlayerSetting
 			try {
 				return store.loadPlayerSettings(mPlayer);
 			} catch (UserNotFoundException e) {
-				Messages.debug("Saving new PlayerSettings for %s to database.", mPlayer.getName());
+				MobHunting.getInstance().getMessages().debug("Saving new PlayerSettings for %s to database.", mPlayer.getName());
 				PlayerSettings ps = new PlayerSettings(mPlayer,
 						MobHunting.getInstance().getConfigManager().learningMode, false);
 				try {

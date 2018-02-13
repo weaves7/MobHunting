@@ -6,7 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
-import one.lindegaard.MobHunting.Messages;
+import one.lindegaard.MobHunting.MobHunting;
 
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
@@ -183,7 +183,7 @@ public class AdvancementAPI {
             Bukkit.getUnsafe().loadAdvancement(id, getJSON());
             //Bukkit.getLogger().info("Successfully registered advancement.");
         } catch (IllegalArgumentException e) {
-            Messages.debug("[MobHunting][Warning] Error registering advancement "+getId()+". It seems to already exist!");
+            MobHunting.getInstance().getMessages().debug("[MobHunting][Warning] Error registering advancement "+getId()+". It seems to already exist!");
         }
         return this;
     }

@@ -12,7 +12,6 @@ import net.elseland.xikage.MythicMobs.API.Bukkit.Events.MythicMobDeathEvent;
 import net.elseland.xikage.MythicMobs.API.Bukkit.Events.MythicMobSpawnEvent;
 import net.elseland.xikage.MythicMobs.API.Exceptions.InvalidMobTypeException;
 import net.elseland.xikage.MythicMobs.Mobs.MythicMob;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.mobs.MobPlugin;
 import one.lindegaard.MobHunting.rewards.RewardData;
@@ -55,10 +54,10 @@ public class MythicMobsV251Compat implements Listener {
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	private void onMythicMobV251SpawnEvent(MythicMobSpawnEvent event) {
 		String mobtype = event.getMobType().getInternalName();
-		Messages.debug("MythicMobSpawnEvent: MinecraftMobtype=%s MythicMobType=%s", event.getLivingEntity().getType(),
+		MobHunting.getInstance().getMessages().debug("MythicMobSpawnEvent: MinecraftMobtype=%s MythicMobType=%s", event.getLivingEntity().getType(),
 				mobtype);
 		if (!MythicMobsCompat.getMobRewardData().containsKey(mobtype)) {
-			Messages.debug("New MythicMobType found=%s (%s)", mobtype, event.getMobType().getDisplayName());
+			MobHunting.getInstance().getMessages().debug("New MythicMobType found=%s (%s)", mobtype, event.getMobType().getDisplayName());
 			MythicMobsCompat.getMobRewardData().put(mobtype,
 					new RewardData(MobPlugin.MythicMobs, mobtype, event.getMobType().getDisplayName(), "10",
 							"minecraft:give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02));

@@ -39,7 +39,6 @@ import org.bukkit.scheduler.BukkitTask;
 import com.google.common.collect.HashMultimap;
 
 import one.lindegaard.MobHunting.HologramManager;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.StatType;
 import one.lindegaard.MobHunting.storage.StatStore;
@@ -91,7 +90,7 @@ public class LeaderboardManager implements Listener {
 			for (HologramLeaderboard board : hologramManager.getHolograms().values())
 				board.update();
 
-			Messages.debug("Refreshed %s leaderboards.",
+			plugin.getMessages().debug("Refreshed %s leaderboards.",
 					hologramManager.getHolograms().size() + mLegacyLeaderboards.size() + mLeaderboards.size());
 		}
 	}
@@ -141,7 +140,7 @@ public class LeaderboardManager implements Listener {
 	// *******************************************************************
 	public void deleteLegacyLeaderboard(String id) throws IllegalArgumentException {
 		if (!mLegacyNameMap.containsKey(id.toLowerCase()))
-			throw new IllegalArgumentException(Messages.getString("leaderboard.notexists", "leaderboard", id));
+			throw new IllegalArgumentException(plugin.getMessages().getString("leaderboard.notexists", "leaderboard", id));
 
 		mLegacyLeaderboards.remove(mLegacyNameMap.remove(id.toLowerCase()));
 		saveLegacyBoards();
@@ -239,7 +238,7 @@ public class LeaderboardManager implements Listener {
 		}
 
 		if (mLeaderboards.size() > 0)
-			Messages.debug("%s Leaderboards in '%s' loaded from file: %s!", mLeaderboards.size(), world.getName(),
+			plugin.getMessages().debug("%s Leaderboards in '%s' loaded from file: %s!", mLeaderboards.size(), world.getName(),
 					MobHunting.getInstance().getDataFolder(), "boards-" + world.getName() + ".yml");
 
 	}
@@ -255,7 +254,7 @@ public class LeaderboardManager implements Listener {
 			ConfigurationSection section = config.createSection(String.valueOf(i++));
 			board.save(section);
 		}
-		Messages.debug("Leaderboards saved to file: %s!", MobHunting.getInstance().getDataFolder(),
+		plugin.getMessages().debug("Leaderboards saved to file: %s!", MobHunting.getInstance().getDataFolder(),
 				"boards-" + world.getName() + ".yml");
 
 		try {
@@ -379,7 +378,7 @@ public class LeaderboardManager implements Listener {
 				board.removeSigns();
 				mLeaderboards.remove(block.getWorld(), board);
 				saveWorld(board.getWorld());
-				Messages.debug("Leaderboard removed: %s", block.getLocation().toString());
+				plugin.getMessages().debug("Leaderboard removed: %s", block.getLocation().toString());
 				return;
 			}
 		}

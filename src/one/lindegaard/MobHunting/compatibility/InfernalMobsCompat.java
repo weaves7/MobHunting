@@ -12,7 +12,6 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
 
 import io.hotmail.com.jacob_vejvoda.infernal_mobs.infernal_mobs;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.mobs.MinecraftMob;
 
@@ -86,7 +85,7 @@ public class InfernalMobsCompat implements Listener {
 			String key = mob.getName();
 			mMobRewardData.put(key, 1.0);
 		}
-		Messages.debug("Loaded %s InfernalMobs", mMobRewardData.size());
+		MobHunting.getInstance().getMessages().debug("Loaded %s InfernalMobs", mMobRewardData.size());
 	}
 
 	// **************************************************************************

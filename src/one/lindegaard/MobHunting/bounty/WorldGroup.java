@@ -12,7 +12,6 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 /**
@@ -21,14 +20,14 @@ import one.lindegaard.MobHunting.MobHunting;
  */
 public class WorldGroup {
 
-	@SuppressWarnings("unused")
 	private MobHunting plugin;
-	private File file = new File(MobHunting.getInstance().getDataFolder(), "worldGroups.yml");
+	private File file;
 	private YamlConfiguration config = new YamlConfiguration();
 	private HashMap<String, List<String>> worldGroups = new HashMap<String, List<String>>();
 
 	public WorldGroup(MobHunting plugin) {
 		this.plugin=plugin;
+		 file = new File(plugin.getDataFolder(), "worldGroups.yml");
 		if (worldGroups.isEmpty()) {
 			worldGroups.put("DefaultGroup", Arrays.asList("world", "world_nether", "world_the_end"));
 			worldGroups.put("CreativeGroup", Collections.singletonList("creative"));
@@ -83,7 +82,7 @@ public class WorldGroup {
 							+ "\nbounty created in one worldgroup can not be claimed in"
 							+ "\nanother worldgroup. This is to make sure that economies"
 							+ "\nare not mixed.");
-			Messages.debug("Saving worldGroups");
+			plugin.getMessages().debug("Saving worldGroups");
 			ConfigurationSection section = config.createSection("WorldGroups");
 			section.set("WorldGroups", worldGroups);
 			config.save(file);
@@ -95,7 +94,7 @@ public class WorldGroup {
 	public void load() {
 		if (!file.exists())
 			return;
-		Messages.debug("Loading WorldGroups");
+		plugin.getMessages().debug("Loading WorldGroups");
 		try {
 			config.load(file);
 			ConfigurationSection section = config.getConfigurationSection("WorldGroups");

@@ -7,7 +7,6 @@ import java.util.List;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.npc.NPCRegistry;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.StatType;
 import one.lindegaard.MobHunting.compatibility.CitizensCompat;
@@ -72,7 +71,7 @@ public class NpcCommand implements ICommand, Listener {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("mobhunting.commands.npc.description");
+		return plugin.getMessages().getString("mobhunting.commands.npc.description");
 	}
 
 	@Override
@@ -137,7 +136,7 @@ public class NpcCommand implements ICommand, Listener {
 					|| args[0].equalsIgnoreCase("spawn") || args[0].equalsIgnoreCase("despawn")
 					|| args[0].equalsIgnoreCase("tphere") || args[0].equalsIgnoreCase("sethome"))) {
 				plugin.getMessages().senderSendMessage(sender,
-						Messages.getString("mobhunting.commands.npc.no_npc_selected"));
+						plugin.getMessages().getString("mobhunting.commands.npc.no_npc_selected"));
 				return true;
 			}
 
@@ -170,22 +169,22 @@ public class NpcCommand implements ICommand, Listener {
 				if (CitizensCompat.getMasterMobHunterManager().contains(npc.getId())) {
 					CitizensCompat.getMasterMobHunterManager().get(npc.getId()).setHome(npc.getEntity().getLocation());
 					plugin.getMessages().senderSendMessage(sender,
-							Messages.getString("mobhunting.commands.npc.home_set"));
+							plugin.getMessages().getString("mobhunting.commands.npc.home_set"));
 				}
 				return true;
 
 			} else if (args.length == 1 && args[0].equalsIgnoreCase("update")) {
-				plugin.getMessages().senderSendMessage(sender, Messages.getString("mobhunting.commands.npc.updating"));
+				plugin.getMessages().senderSendMessage(sender, plugin.getMessages().getString("mobhunting.commands.npc.updating"));
 				CitizensCompat.getMasterMobHunterManager().forceUpdate();
 				return true;
 
 			} else if (args.length == 1 && args[0].equalsIgnoreCase("select")) {
 				if (npc != null)
-					plugin.getMessages().senderSendMessage(sender, Messages.getString(
+					plugin.getMessages().senderSendMessage(sender, plugin.getMessages().getString(
 							"mobhunting.commands.npc.selected", "npcname", npc.getName(), "npcid", npc.getId()));
 				else
 					plugin.getMessages().senderSendMessage(sender,
-							Messages.getString("bagofgold.commands.npc.not_selected"));
+							plugin.getMessages().getString("bagofgold.commands.npc.not_selected"));
 
 				return true;
 
@@ -193,19 +192,19 @@ public class NpcCommand implements ICommand, Listener {
 				StatType statType = StatType.parseStat(args[1]);
 				if (statType == null) {
 					plugin.getMessages().senderSendMessage(sender, ChatColor.RED
-							+ Messages.getString("mobhunting.commands.base.unknown_stattype", "stattype", args[1]));
+							+ plugin.getMessages().getString("mobhunting.commands.base.unknown_stattype", "stattype", args[1]));
 					return true;
 				}
 				TimePeriod period = TimePeriod.parsePeriod(args[2]);
 				if (period == null) {
 					plugin.getMessages().senderSendMessage(sender, ChatColor.RED
-							+ Messages.getString("mobhunting.commands.base.unknown_timeperiod", "period", args[2]));
+							+ plugin.getMessages().getString("mobhunting.commands.base.unknown_timeperiod", "period", args[2]));
 					return true;
 				}
 				int rank = Integer.valueOf(args[3]);
 				if (rank < 1 || rank > 25) {
 					plugin.getMessages().senderSendMessage(sender, ChatColor.RED
-							+ Messages.getString("mobhunting.commands.npc.unknown_rank", "rank", args[3]));
+							+ plugin.getMessages().getString("mobhunting.commands.npc.unknown_rank", "rank", args[3]));
 					return true;
 				}
 				NPCRegistry registry = CitizensAPI.getNPCRegistry();
@@ -216,8 +215,8 @@ public class NpcCommand implements ICommand, Listener {
 				npc.spawn(p.getLocation());
 				CitizensCompat.getMasterMobHunterManager().update(npc);
 				plugin.getMessages().senderSendMessage(sender,
-						ChatColor.GREEN + Messages.getString("mobhunting.commands.npc.created", "npcid", npc.getId()));
-				Messages.debug("Creating MasterMobHunter: id=%s,stat=%s,per=%s,rank=%s", npc.getId(),
+						ChatColor.GREEN + plugin.getMessages().getString("mobhunting.commands.npc.created", "npcid", npc.getId()));
+				plugin.getMessages().debug("Creating MasterMobHunter: id=%s,stat=%s,per=%s,rank=%s", npc.getId(),
 						statType.translateName(), period, rank);
 				return true;
 			}

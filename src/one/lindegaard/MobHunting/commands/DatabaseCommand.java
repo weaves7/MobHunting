@@ -7,7 +7,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Listener;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.storage.DataStoreException;
 
@@ -42,7 +41,7 @@ public class DatabaseCommand implements ICommand, Listener {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("mobhunting.commands.database.description");
+		return plugin.getMessages().getString("mobhunting.commands.database.description");
 	}
 
 	@Override

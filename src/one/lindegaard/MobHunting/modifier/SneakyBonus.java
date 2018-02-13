@@ -9,14 +9,13 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import one.lindegaard.MobHunting.DamageInformation;
 import one.lindegaard.MobHunting.HuntData;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 
 public class SneakyBonus implements IModifier {
 
 	@Override
 	public String getName() {
-		return ChatColor.BLUE + Messages.getString("bonus.sneaky.name");
+		return ChatColor.BLUE + MobHunting.getInstance().getMessages().getString("bonus.sneaky.name");
 	}
 
 	@Override

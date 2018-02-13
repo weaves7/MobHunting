@@ -5,7 +5,6 @@ import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.update.UpdateStatus;
 
@@ -40,7 +39,7 @@ public class VersionCommand implements ICommand {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("mobhunting.commands.version.description");
+		return plugin.getMessages().getString("mobhunting.commands.version.description");
 	}
 
 	@Override
@@ -56,14 +55,14 @@ public class VersionCommand implements ICommand {
 	@Override
 	public boolean onCommand(CommandSender sender, String label, String[] args) {
 		plugin.getMessages().senderSendMessage(sender,
-				ChatColor.GREEN + Messages.getString("mobhunting.commands.version.currentversion", "currentversion",
+				ChatColor.GREEN + plugin.getMessages().getString("mobhunting.commands.version.currentversion", "currentversion",
 						MobHunting.getInstance().getDescription().getVersion()));
 		if (plugin.getSpigetUpdater().getUpdateAvailable() == UpdateStatus.AVAILABLE)
 			plugin.getMessages().senderSendMessage(sender,
-					ChatColor.GREEN + Messages.getString("mobhunting.commands.version.newversion", "newversion",
+					ChatColor.GREEN + plugin.getMessages().getString("mobhunting.commands.version.newversion", "newversion",
 							plugin.getSpigetUpdater().getNewDownloadVersion()));
 		else if (sender.hasPermission("mobhunting.update"))
-			plugin.getSpigetUpdater().checkForUpdate(sender, true, true);
+			plugin.getSpigetUpdater().checkForUpdate(sender, true);
 		return true;
 	}
 

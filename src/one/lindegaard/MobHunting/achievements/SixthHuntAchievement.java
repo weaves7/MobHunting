@@ -2,7 +2,6 @@ package one.lindegaard.MobHunting.achievements;
 
 import org.bukkit.inventory.ItemStack;
 
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.mobs.ExtendedMob;
 import one.lindegaard.MobHunting.mobs.MobPlugin;
@@ -19,7 +18,7 @@ public class SixthHuntAchievement implements ProgressAchievement {
 
 	@Override
 	public String getName() {
-		return Messages.getString("achievements.hunter.6.name", "mob", mExtendedMob.getFriendlyName());
+		return plugin.getMessages().getString("achievements.hunter.6.name", "mob", mExtendedMob.getFriendlyName());
 	}
 
 	@Override
@@ -34,7 +33,7 @@ public class SixthHuntAchievement implements ProgressAchievement {
 
 	@Override
 	public String getDescription() {
-		return Messages.getString("achievements.hunter.6.description", "count", getNextLevel(), "mob",
+		return plugin.getMessages().getString("achievements.hunter.6.description", "count", getNextLevel(), "mob",
 				mExtendedMob.getFriendlyName());
 	}
 

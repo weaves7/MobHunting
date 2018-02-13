@@ -7,7 +7,6 @@ import org.bukkit.event.Listener;
 
 import au.com.mineauz.minigames.MinigamePlayer;
 import au.com.mineauz.minigames.Minigames;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.events.MobHuntEnableCheckEvent;
 
@@ -47,7 +46,7 @@ public class MinigamesCompat implements Listener {
 	// **************************************************************************
 	@EventHandler(priority = EventPriority.NORMAL)
 	private void onPlayerJoinMinigame(MobHuntEnableCheckEvent event) {
-		Messages.debug("onPlayerJoinMinigame was run...");
+		MobHunting.getInstance().getMessages().debug("onPlayerJoinMinigame was run...");
 		MinigamePlayer player = Minigames.plugin.pdata.getMinigamePlayer(event
 				.getPlayer());
 		if (player != null && player.isInMinigame())

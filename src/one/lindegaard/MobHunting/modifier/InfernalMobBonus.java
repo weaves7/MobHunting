@@ -9,7 +9,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import one.lindegaard.MobHunting.DamageInformation;
 import one.lindegaard.MobHunting.HuntData;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.InfernalMobsCompat;
 
@@ -17,7 +16,7 @@ public class InfernalMobBonus implements IModifier {
 
 	@Override
 	public String getName() {
-		return ChatColor.AQUA + Messages.getString("bonus.infernalmob.name");
+		return ChatColor.AQUA + MobHunting.getInstance().getMessages().getString("bonus.infernalmob.name");
 	}
 
 	@SuppressWarnings("unchecked")

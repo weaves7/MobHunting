@@ -19,7 +19,6 @@ import org.bukkit.plugin.Plugin;
 
 import net.theprogrammersworld.herobrine.Herobrine;
 import net.theprogrammersworld.herobrine.nms.entity.MobType;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.StatType;
 import one.lindegaard.MobHunting.mobs.MinecraftMob;
@@ -115,7 +114,7 @@ public class HerobrineCompat implements Listener {
 			Entity entity = event.getEntity();
 			if (isHerobrineMob(entity)) {
 				mobList.put(entity.getEntityId(), api.getEntityManager().getMobType(entity.getEntityId()).getMobType());
-				Messages.debug("A Herobrine Mob (%s) was spawned at %s,%s,%s in %s",
+				MobHunting.getInstance().getMessages().debug("A Herobrine Mob (%s) was spawned at %s,%s,%s in %s",
 						api.getEntityManager().getMobType(entity.getEntityId()).getMobType().name(),
 						event.getEntity().getLocation().getBlockX(), event.getEntity().getLocation().getBlockY(),
 						event.getEntity().getLocation().getBlockZ(),
@@ -142,7 +141,7 @@ public class HerobrineCompat implements Listener {
 		try {
 			if (!file.exists())
 				return;
-			Messages.debug("Loading extra MobRewards for Herobrine mobs.");
+			MobHunting.getInstance().getMessages().debug("Loading extra MobRewards for Herobrine mobs.");
 
 			config.load(file);
 			int n = 0;
@@ -156,11 +155,11 @@ public class HerobrineCompat implements Listener {
 					MobHunting.getInstance().getStoreManager().insertMissingHerobrineMobs(key);
 					n++;
 				} else {
-					Messages.debug("The mob=%s can't be found in Herobrine configuration files", key);
+					MobHunting.getInstance().getMessages().debug("The mob=%s can't be found in Herobrine configuration files", key);
 				}
 			}
 			MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
-			Messages.debug("Loaded %s HerobrineMobs", n);
+			MobHunting.getInstance().getMessages().debug("Loaded %s HerobrineMobs", n);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InvalidConfigurationException e) {
@@ -186,7 +185,7 @@ public class HerobrineCompat implements Listener {
 				StatType.values()[n + 2] = new StatType(mob.getMobType() + "_assist", mob.getMobName());
 				MobHunting.getInstance().getStoreManager().insertMissingHerobrineMobs(key);
 			} else {
-				Messages.debug("The mob=%s can't be found in Herobrine configuration files", key);
+				MobHunting.getInstance().getMessages().debug("The mob=%s can't be found in Herobrine configuration files", key);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -209,7 +208,7 @@ public class HerobrineCompat implements Listener {
 				}
 
 				if (n != 0) {
-					Messages.debug("Saving Mobhunting extra Herobrine data.");
+					MobHunting.getInstance().getMessages().debug("Saving Mobhunting extra Herobrine data.");
 					config.save(file);
 				}
 			}
@@ -223,10 +222,10 @@ public class HerobrineCompat implements Listener {
 			if (mMobRewardData.containsKey(key)) {
 				ConfigurationSection section = config.createSection(key);
 				mMobRewardData.get(key).save(section);
-				Messages.debug("Saving Mobhunting extra Herobrine data.");
+				MobHunting.getInstance().getMessages().debug("Saving Mobhunting extra Herobrine data.");
 				config.save(file);
 			} else {
-				Messages.debug("ERROR! Herobrine ID (%s) is not found in mMobRewardData", key);
+				MobHunting.getInstance().getMessages().debug("ERROR! Herobrine ID (%s) is not found in mMobRewardData", key);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -1,7 +1,6 @@
 package one.lindegaard.MobHunting.rewards;
 
 import one.lindegaard.BagOfGold.BagOfGold;
-import one.lindegaard.MobHunting.Messages;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
 import one.lindegaard.MobHunting.compatibility.ProtocolLibCompat;
@@ -49,19 +48,19 @@ public class PickupRewards {
 					ProtocolLibHelper.pickupMoney(player, item);
 
 				if (reward.getMoney() == 0) {
-					Messages.debug("%s picked up a %s (# of rewards left=%s)", player.getName(),
+					plugin.getMessages().debug("%s picked up a %s (# of rewards left=%s)", player.getName(),
 							plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM") ? "ITEM"
 									: reward.getDisplayname(),
 							plugin.getRewardManager().getDroppedMoney().size());
 				} else {
-					Messages.debug("%s picked up a %s with a value:%s (# of rewards left=%s)(PickupRewards)",
+					plugin.getMessages().debug("%s picked up a %s with a value:%s (# of rewards left=%s)(PickupRewards)",
 							player.getName(),
 							plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM") ? "ITEM"
 									: reward.getDisplayname(),
 							plugin.getRewardManager().format(Misc.round(reward.getMoney())),
 							plugin.getRewardManager().getDroppedMoney().size());
 					plugin.getMessages().playerActionBarMessage(player,
-							Messages.getString("mobhunting.moneypickup", "money",
+							plugin.getMessages().getString("mobhunting.moneypickup", "money",
 									plugin.getRewardManager().format(reward.getMoney()), "rewardname",
 									ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 											+ (reward.getDisplayname().isEmpty()

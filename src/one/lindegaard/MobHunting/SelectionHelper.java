@@ -19,11 +19,11 @@ public class SelectionHelper {
 			Entry<Location, Location> existing = mPoints.get(player);
 			if (existing == null || existing.getKey() == null)
 				throw new IllegalArgumentException(
-						Messages.getString("mobhunting.commands.select.point1-unset"));
+						MobHunting.getInstance().getMessages().getString("mobhunting.commands.select.point1-unset"));
 
 			if (!existing.getKey().getWorld().equals(player.getWorld()))
 				throw new IllegalArgumentException(
-						Messages.getString("mobhunting.commands.select.point1-unset"));
+						MobHunting.getInstance().getMessages().getString("mobhunting.commands.select.point1-unset"));
 
 			return existing.getKey();
 		} else
@@ -36,11 +36,11 @@ public class SelectionHelper {
 			Entry<Location, Location> existing = mPoints.get(player);
 			if (existing == null || existing.getValue() == null)
 				throw new IllegalArgumentException(
-						Messages.getString("mobhunting.commands.select.point2-unset")); //$NON-NLS-1$
+						MobHunting.getInstance().getMessages().getString("mobhunting.commands.select.point2-unset")); //$NON-NLS-1$
 
 			if (!existing.getValue().getWorld().equals(player.getWorld()))
 				throw new IllegalArgumentException(
-						Messages.getString("mobhunting.commands.select.point2-unset")); //$NON-NLS-1$
+						MobHunting.getInstance().getMessages().getString("mobhunting.commands.select.point2-unset")); //$NON-NLS-1$
 
 			return existing.getValue();
 		} else
