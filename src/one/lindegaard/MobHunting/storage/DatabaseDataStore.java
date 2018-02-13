@@ -230,7 +230,7 @@ public abstract class DatabaseDataStore implements IDataStore {
 										// NEW
 										// EMPTY
 										// V3 DATABASE
-										plugin.getConfigManager().databaseVersion = 4;
+										plugin.getConfigManager().databaseVersion = 7;
 										plugin.getConfigManager().saveConfig();
 									}
 								}

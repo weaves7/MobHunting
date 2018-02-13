@@ -183,7 +183,7 @@ public class AdvancementAPI {
             Bukkit.getUnsafe().loadAdvancement(id, getJSON());
             //Bukkit.getLogger().info("Successfully registered advancement.");
         } catch (IllegalArgumentException e) {
-            MobHunting.getInstance().getMessages().debug("[MobHunting][Warning] Error registering advancement "+getId()+". It seems to already exist!");
+            //MobHunting.getInstance().getMessages().debug("[MobHunting][Warning] Error registering advancement "+getId()+". It seems to already exist!");
         }
         return this;
     }

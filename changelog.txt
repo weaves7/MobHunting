@@ -1,6 +1,8 @@
 V5.4.6
+* Added support for FactionsUUID (https://www.spigotmc.org/resources/factionsuuid.1035/)
 * Improved /mh update so it handles SNAPSHOT's too.
 * Support for LorinthsRPGMobs was broken through changes in LorinthsRPGMobs. Fixed.
+* Initial database version is now 7, if the database does not exist.
 V5.4.5
 * Added support for LorinthsRpgMobs (https://dev.bukkit.org/projects/lorinthsrpgmobs)
 * Fixed reload command. Messages can now be changed while server is online and reloaded with /mh reload 

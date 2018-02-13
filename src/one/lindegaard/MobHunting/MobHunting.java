@@ -189,7 +189,7 @@ public class MobHunting extends JavaPlugin {
 		mCompatibilityManager.registerPlugin(WorldGuardCompat.class, CompatPlugin.WorldGuard);
 		mCompatibilityManager.registerPlugin(HologramsCompat.class, CompatPlugin.Holograms);
 		mCompatibilityManager.registerPlugin(HolographicDisplaysCompat.class, CompatPlugin.HolographicDisplays);
-		mCompatibilityManager.registerPlugin(FactionsCompat.class, CompatPlugin.Factions);
+		mCompatibilityManager.registerPlugin(FactionsHelperCompat.class, CompatPlugin.Factions);
 		mCompatibilityManager.registerPlugin(TownyCompat.class, CompatPlugin.Towny);
 		mCompatibilityManager.registerPlugin(ResidenceCompat.class, CompatPlugin.Residence);
 		mCompatibilityManager.registerPlugin(PreciousStonesCompat.class, CompatPlugin.PreciousStones);

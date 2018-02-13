@@ -70,6 +70,9 @@
 		<mobarena.version>0.97.1</mobarena.version>
 		<massivecore.version>2.12.1</massivecore.version>
 		<factions.version>2.12.1</factions.version>
+		<!-- <factions.version>1.6.9.5-U0.2.1-SNAPSHOT</factions.version> -->
+		<factionsuuid.jar.version>FactionsUUID-1.6.9.5-B52.jar</factionsuuid.jar.version>
+		
 		<ActionBarAPI.version>1.5.2</ActionBarAPI.version>
 		<ActionAnnouncer.version>1.10.0</ActionAnnouncer.version>
 		<EssentialsX.version>2.0.1</EssentialsX.version>
@@ -751,7 +754,14 @@
 			<version>${factions.version}</version>
 			<scope>provided</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>com.massivecraft.factions.P</groupId>
+			<artifactId>Factions</artifactId>
+			<version>${factionsuuid.jar.version}</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/${factionsuuid.jar.version}</systemPath>
+		</dependency>
+		
 		<!-- Towny -->
 		<dependency>
 			<groupId>Towny</groupId>
@@ -806,13 +816,9 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<!-- CustomItemsLib 
-		<dependency>
-			<groupId>one.lindegaard.CustomItemsLib</groupId>
-			<artifactId>CustomItemsLib</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency>-->
+		<!-- CustomItemsLib <dependency> <groupId>one.lindegaard.CustomItemsLib</groupId> 
+			<artifactId>CustomItemsLib</artifactId> <version>0.0.1-SNAPSHOT</version> 
+			<scope>compile</scope> </dependency> -->
 
 	</dependencies>
 

@@ -23,7 +23,8 @@ public class FactionsCompat {
 	// https://www.massivecraft.com/factions-develop
 
 	public FactionsCompat() {
-		if (isDisabledInConfig()) {
+		mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.Factions.getName());
+		/**if (isDisabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with Factions is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.Factions.getName());
@@ -45,7 +46,7 @@ public class FactionsCompat {
 							+ ") is not complatible with this version of MobHunting, please upgrade.");
 				}
 			}
-		}
+		}**/
 	}
 
 	// **************************************************************************
