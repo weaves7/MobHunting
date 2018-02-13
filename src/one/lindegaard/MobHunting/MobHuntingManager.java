@@ -161,7 +161,7 @@ public class MobHuntingManager implements Listener {
 		mHuntingModifiers.add(new CoverBlown());
 		mHuntingModifiers.add(new CriticalModifier());
 		mHuntingModifiers.add(new DifficultyBonus());
-		if (FactionsCompat.isSupported())
+		if (FactionsHelperCompat.isSupported())
 			mHuntingModifiers.add(new FactionWarZoneBonus());
 		mHuntingModifiers.add(new FlyingPenalty());
 		mHuntingModifiers.add(new FriendleFireBonus());
@@ -838,10 +838,10 @@ public class MobHuntingManager implements Listener {
 		}
 
 		// Factions Compatibility - no reward when player are in SafeZone
-		if (FactionsCompat.isSupported()) {
+		if (FactionsHelperCompat.isSupported()) {
 			if ((killer != null || MyPetCompat.isMyPet(killer)) && !CitizensCompat.isNPC(killer)) {
 				Player player = getPlayer(killer, killed);
-				if (FactionsCompat.isInSafeZone(player)) {
+				if (FactionsHelperCompat.isInSafeZone(player)) {
 					plugin.getMessages().debug("KillBlocked: %s is hiding in Factions SafeZone", player.getName());
 					plugin.getMessages();
 					plugin.getMessages().learn(getPlayer(killer, killed),

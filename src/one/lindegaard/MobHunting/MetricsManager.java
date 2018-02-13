@@ -13,7 +13,6 @@ import org.mcstats_mh.Metrics.Graph;
 import one.lindegaard.MobHunting.compatibility.ActionAnnouncerCompat;
 import one.lindegaard.MobHunting.compatibility.ActionBarAPICompat;
 import one.lindegaard.MobHunting.compatibility.ActionbarCompat;
-import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
 import one.lindegaard.MobHunting.compatibility.BarAPICompat;
 import one.lindegaard.MobHunting.compatibility.BattleArenaCompat;
 import one.lindegaard.MobHunting.compatibility.BossBarAPICompat;
@@ -24,7 +23,8 @@ import one.lindegaard.MobHunting.compatibility.CustomMobsCompat;
 import one.lindegaard.MobHunting.compatibility.DisguiseCraftCompat;
 import one.lindegaard.MobHunting.compatibility.EssentialsCompat;
 import one.lindegaard.MobHunting.compatibility.ExtraHardModeCompat;
-import one.lindegaard.MobHunting.compatibility.FactionsCompat;
+import one.lindegaard.MobHunting.compatibility.FactionsHelperCompat;
+import one.lindegaard.MobHunting.compatibility.FactionsHelperCompat.FactionsVersion;
 import one.lindegaard.MobHunting.compatibility.GringottsCompat;
 import one.lindegaard.MobHunting.compatibility.HerobrineCompat;
 import one.lindegaard.MobHunting.compatibility.HologramsCompat;
@@ -75,8 +75,8 @@ public class MetricsManager {
 		bStatsMetrics.addCustomChart(
 				new org.bstats.bukkit.Metrics.SimplePie("language", () -> plugin.getConfigManager().language));
 
-		bStatsMetrics.addCustomChart(
-				new org.bstats.bukkit.Metrics.SimplePie("economy_plugin", () -> plugin.getRewardManager().getEconomy().getName()));
+		bStatsMetrics.addCustomChart(new org.bstats.bukkit.Metrics.SimplePie("economy_plugin",
+				() -> plugin.getRewardManager().getEconomy().getName()));
 
 		bStatsMetrics.addCustomChart(new org.bstats.bukkit.Metrics.AdvancedPie("protection_plugin_integrations",
 				new Callable<Map<String, Integer>>() {
@@ -84,7 +84,10 @@ public class MetricsManager {
 					public Map<String, Integer> call() throws Exception {
 						Map<String, Integer> valueMap = new HashMap<>();
 						valueMap.put("WorldGuard", Integer.valueOf(WorldGuardCompat.isSupported() ? 1 : 0));
-						valueMap.put("Factions", Integer.valueOf(FactionsCompat.isSupported() ? 1 : 0));
+						valueMap.put("Factions", Integer
+								.valueOf(FactionsHelperCompat.factionsVersion == FactionsVersion.FACTIONS ? 1 : 0));
+						valueMap.put("FactionsUUID", Integer.valueOf(
+								FactionsHelperCompat.factionsVersion == FactionsVersion.FACTIONS_UUID ? 1 : 0));
 						valueMap.put("Towny", Integer.valueOf(TownyCompat.isSupported() ? 1 : 0));
 						valueMap.put("Residence", Integer.valueOf(ResidenceCompat.isSupported() ? 1 : 0));
 						valueMap.put("PreciousStones", Integer.valueOf(PreciousStonesCompat.isSupported() ? 1 : 0));
@@ -150,7 +153,6 @@ public class MetricsManager {
 						valueMap.put("ProtocolLib", ProtocolLibCompat.isSupported() ? 1 : 0);
 						valueMap.put("ExtraHardMode", ExtraHardModeCompat.isSupported() ? 1 : 0);
 						valueMap.put("CrackShot", CrackShotCompat.isSupported() ? 1 : 0);
-						valueMap.put("BagOfGold", BagOfGoldCompat.isSupported() ? 1 : 0);
 						return valueMap;
 					}
 
@@ -319,7 +321,14 @@ public class MetricsManager {
 		protectionPluginsGraph.addPlotter(new Metrics.Plotter("Factions") {
 			@Override
 			public int getValue() {
-				return FactionsCompat.isSupported() ? 1 : 0;
+				return FactionsHelperCompat.factionsVersion == FactionsVersion.FACTIONS ? 1 : 0;
+
+			}
+		});
+		protectionPluginsGraph.addPlotter(new Metrics.Plotter("FactionsUUID") {
+			@Override
+			public int getValue() {
+				return FactionsHelperCompat.factionsVersion == FactionsVersion.FACTIONS_UUID ? 1 : 0;
 
 			}
 		});

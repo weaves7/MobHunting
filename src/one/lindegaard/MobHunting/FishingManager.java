@@ -20,7 +20,7 @@ import org.bukkit.event.player.PlayerFishEvent.State;
 
 import com.gmail.nossr50.datatypes.skills.SkillType;
 
-import one.lindegaard.MobHunting.compatibility.FactionsCompat;
+import one.lindegaard.MobHunting.compatibility.FactionsHelperCompat;
 import one.lindegaard.MobHunting.compatibility.McMMOCompat;
 import one.lindegaard.MobHunting.events.MobHuntFishingEvent;
 import one.lindegaard.MobHunting.mobs.ExtendedMob;
@@ -48,7 +48,7 @@ public class FishingManager implements Listener {
 		mFishingModifiers.add(new DifficultyBonus());
 		mFishingModifiers.add(new HappyHourBonus());
 		mFishingModifiers.add(new RankBonus());
-		if (FactionsCompat.isSupported())
+		if (FactionsHelperCompat.isSupported())
 			mFishingModifiers.add(new FactionWarZoneBonus());
 	}
 

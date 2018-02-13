@@ -1,8 +1,6 @@
 package one.lindegaard.MobHunting.compatibility;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
@@ -18,35 +16,11 @@ import one.lindegaard.MobHunting.MobHunting;
 public class FactionsCompat {
 
 	private static Plugin mPlugin;
-	private static boolean supported = false;
 
 	// https://www.massivecraft.com/factions-develop
 
 	public FactionsCompat() {
 		mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.Factions.getName());
-		/**if (isDisabledInConfig()) {
-			Bukkit.getLogger().info("[MobHunting] Compatibility with Factions is disabled in config.yml");
-		} else {
-			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.Factions.getName());
-			if (mPlugin.getDescription().getVersion().compareTo("1.6.9.6") < 0) {
-				ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-				console.sendMessage(ChatColor.RED + "[MobHunting] Your version of Factions ("
-						+ mPlugin.getDescription().getVersion() + ") is not supported by MobHunting, please upgrade.");
-			} else {
-				try {
-					@SuppressWarnings({ "rawtypes", "unused" })
-					Class cls = Class.forName("com.massivecraft.factions.entity.BoardColl");
-					Bukkit.getLogger().info("[MobHunting] Enabling compatibility with Factions ("
-							+ mPlugin.getDescription().getVersion() + ").");
-					supported = true;
-				} catch (ClassNotFoundException e) {
-					ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-					console.sendMessage(ChatColor.RED + "[MobHunting] Your version of Factions ("
-							+ mPlugin.getDescription().getVersion()
-							+ ") is not complatible with this version of MobHunting, please upgrade.");
-				}
-			}
-		}**/
 	}
 
 	// **************************************************************************
@@ -55,10 +29,6 @@ public class FactionsCompat {
 
 	public Plugin getPlugin() {
 		return mPlugin;
-	}
-
-	public static boolean isSupported() {
-		return supported;
 	}
 
 	public static boolean isDisabledInConfig() {
@@ -81,44 +51,29 @@ public class FactionsCompat {
 	// ENDERGRIEF: Can endermen grief in this territory? (no
 
 	public static boolean isPVPAllowed(Player player) {
-		if (supported) {
-			MPlayer mplayer = MPlayer.get(player);
-			Faction faction = mplayer.getFaction();
-			return faction.getFlag(MFlag.ID_FRIENDLYFIRE);
-		}
-		return false;
+		MPlayer mplayer = MPlayer.get(player);
+		Faction faction = mplayer.getFaction();
+		return faction.getFlag(MFlag.ID_FRIENDLYFIRE);
 	}
 
 	public static boolean isMonstersAllowedToSpawn(Player player) {
-		if (supported) {
-			MPlayer mplayer = MPlayer.get(player);
-			Faction faction = mplayer.getFaction();
-			return faction.getFlag(MFlag.ID_MONSTERS);
-		}
-		return false;
+		MPlayer mplayer = MPlayer.get(player);
+		Faction faction = mplayer.getFaction();
+		return faction.getFlag(MFlag.ID_MONSTERS);
 	}
 
 	public static boolean isInSafeZone(Player player) {
-		if (supported) {
-			Faction faction = BoardColl.get().getFactionAt(PS.valueOf(player.getLocation()));
-			return FactionColl.get().getSafezone().equals(faction);
-		}
-		return false;
+		Faction faction = BoardColl.get().getFactionAt(PS.valueOf(player.getLocation()));
+		return FactionColl.get().getSafezone().equals(faction);
 	}
 
 	public static boolean isInWilderness(Player player) {
-		if (supported) {
-			Faction faction = BoardColl.get().getFactionAt(PS.valueOf(player.getLocation()));
-			return FactionColl.get().getNone().equals(faction);
-		}
-		return false;
+		Faction faction = BoardColl.get().getFactionAt(PS.valueOf(player.getLocation()));
+		return FactionColl.get().getNone().equals(faction);
 	}
 
 	public static boolean isInWarZone(Player player) {
-		if (supported) {
-			Faction faction = BoardColl.get().getFactionAt(PS.valueOf(player.getLocation()));
-			return FactionColl.get().getWarzone().equals(faction);
-		}
-		return false;
+		Faction faction = BoardColl.get().getFactionAt(PS.valueOf(player.getLocation()));
+		return FactionColl.get().getWarzone().equals(faction);
 	}
 }

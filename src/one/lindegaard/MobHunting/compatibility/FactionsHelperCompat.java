@@ -24,15 +24,22 @@ public class FactionsHelperCompat {
 	public FactionsHelperCompat() {
 		ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
 		if (isDisabledInConfig()) {
-			console.sendMessage(PREFIX + "Compatibility with Factions is disabled in config.yml");
+			console.sendMessage(PREFIX + "Compatibility with Factions/FactionsUUID is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.Factions.getName());
 			if (mPlugin.getDescription().getVersion().compareTo("1.6.9.6") >= 0) {
-
-				console.sendMessage("[MobHunting] Enabling compatibility with Factions ("
-						+ mPlugin.getDescription().getVersion() + ")");
-				factionsVersion = FactionsVersion.FACTIONS;
-				supported = true;
+				try {
+					@SuppressWarnings({ "rawtypes", "unused" })
+					Class cls = Class.forName("com.massivecraft.factions.entity.BoardColl");
+					console.sendMessage(PREFIX + "Enabling compatibility with Factions ("
+							+ mPlugin.getDescription().getVersion() + ")");
+					factionsVersion = FactionsVersion.FACTIONS;
+					supported = true;
+				} catch (ClassNotFoundException e) {
+					console.sendMessage(PREFIX + ChatColor.RED + "Your version of Factions ("
+							+ mPlugin.getDescription().getVersion()
+							+ ") is not complatible with this version of MobHunting, please upgrade.");
+				}
 				// Bukkit.getPluginManager().registerEvents(new FactionsCompat(),
 				// MobHunting.getInstance());
 
@@ -54,7 +61,7 @@ public class FactionsHelperCompat {
 	public static boolean isSupported() {
 		return supported;
 	}
-	
+
 	public static void setSupported(boolean status) {
 		supported = status;
 	}
@@ -98,7 +105,7 @@ public class FactionsHelperCompat {
 		}
 		return false;
 	}
-	
+
 	public static boolean isInWarZone(Player player) {
 		if (supported) {
 			switch (factionsVersion) {
