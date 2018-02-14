@@ -182,11 +182,12 @@ public class ConfigManager extends AutoConfig {
 						+ "\nHere you can change the behavior of ConquestiaMobs Integration, or you can disable"
 						+ "\nintegration completely." + "\nhttps://www.spigotmc.org/resources/conquesita-mobs.21307/");
 
-		setCategoryComment("factions",
-				"########################################################################" + "\nFactions settings"
-						+ "\n########################################################################"
-						+ "\nHere you can change the behavior of the Factions integration, or you can disable"
-						+ "\nintegration completely." + "\nhttps://www.spigotmc.org/resources/factions.1900/");
+		setCategoryComment("factions", "########################################################################"
+				+ "\nFactions / FactionsUUID settings"
+				+ "\n########################################################################"
+				+ "\nHere you can change the behavior of the Factions / FactionsUUID integration, or you can disable"
+				+ "\nintegration completely." + "\nhttps://www.spigotmc.org/resources/factions.1900/"
+				+ "\nhttps://www.spigotmc.org/resources/factionsuuid.1035/");
 
 		setCategoryComment("towny",
 				"########################################################################" + "\nTowny settings"
@@ -1564,7 +1565,6 @@ public class ConfigManager extends AutoConfig {
 			+ "\nhttps://dev.bukkit.org/projects/lorinthsrpgmobs")
 	public boolean disableIntegrationLorinthsRpgMobs = false;
 
-	
 	@ConfigField(name = "multiplier_per_level", category = "conquestiamobs", comment = "This is the multiplier per level mutiplied with the basic reward."
 			+ "\nBecareful not to ruin the server economy by making the multiplier to big."
 			+ "\nExample: If the reward is 10 and the multiplier is 1.05, the calculated" + "\nreward is:"
@@ -1581,10 +1581,11 @@ public class ConfigManager extends AutoConfig {
 	public double mulitiplierPerLevel = 1.05;
 
 	// #####################################################################################
-	// Factions Settings
+	// Factions / FactionsUUID Settings
 	// #####################################################################################
 	@ConfigField(name = "disable-integration-factions", category = "factions", comment = "Disable integration with Factions."
-			+ "\nhttps://www.massivecraft.com/")
+			+ "\nhttps://www.massivecraft.com/" + "\nhttps://www.spigotmc.org/resources/factions.1900/"
+			+ "\nhttps://www.spigotmc.org/resources/factionsuuid.1035/")
 	public boolean disableIntegrationFactions = false;
 
 	@ConfigField(name = "factions_warzone_multiplier", category = "factions", comment = "This is the bonus when a player kills a mob or a player in a Factions WarZone.")
@@ -2218,10 +2219,9 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "database", category = "database")
 	public String databaseName = "mobhunting";
 
-	@ConfigField(name = "database_version", category = "database", comment = 
-			"This is the database layout version. Mostly for internal use and you should not need"+
-			"\nto change this value. In case you decide to delete your database and let it recreate"+
-			"\nor if you change database type sqlite/mysql you should set this value to 0 again.")
+	@ConfigField(name = "database_version", category = "database", comment = "This is the database layout version. Mostly for internal use and you should not need"
+			+ "\nto change this value. In case you decide to delete your database and let it recreate"
+			+ "\nor if you change database type sqlite/mysql you should set this value to 0 again.")
 	public int databaseVersion = 0;
 
 	// #####################################################################################

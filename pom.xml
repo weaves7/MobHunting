@@ -6,8 +6,8 @@
 	<groupId>one.lindegaard</groupId>
 	<artifactId>MobHunting</artifactId>
 	<packaging>jar</packaging>
-	<!-- <version>5.4.6</version> -->
-	<version>5.4.6-SNAPSHOT-B${build.number}</version>
+	<version>5.4.6</version>
+	<!-- <version>5.4.6-SNAPSHOT-B${build.number}</version> -->
 	<name>MobHunting</name>
 	<url>https://www.spigotmc.org/resources/mobhunting.3582/</url>
 	<description>MobHunting adds a new level of fun to hunting monsters. Now you can get money from kills, get bonuses for skilled and creative kills, and get special achievements!</description>
@@ -70,7 +70,7 @@
 		<mobarena.version>0.97.1</mobarena.version>
 		<massivecore.version>2.12.1</massivecore.version>
 		<factions.version>2.12.1</factions.version>
-		<!-- <factions.version>1.6.9.5-U0.2.1-SNAPSHOT</factions.version> -->
+		<factionsuuid.version>1.6.9.5-U0.2.1-SNAPSHOT</factionsuuid.version>
 		<factionsuuid.jar.version>FactionsUUID-1.6.9.5-B52.jar</factionsuuid.jar.version>
 		
 		<ActionBarAPI.version>1.5.2</ActionBarAPI.version>
@@ -320,6 +320,12 @@
 		<repository>
 			<id>placeholderapi</id>
 			<url>http://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+		</repository>
+		
+		<!-- FactionsUUID repository -->
+		<repository>
+			<id>factionsuuid-repo</id>
+			<url>https://ci.ender.zone/plugin/repository/everything/com/massivecraft/Factions/</url>
 		</repository>
 
 	</repositories>
@@ -742,6 +748,7 @@
 			<scope>compile</scope>
 		</dependency>
 
+		
 		<!-- MassiveCore / Factions -->
 		<dependency>
 			<groupId>com.massivecraft.massivecore</groupId>
@@ -752,15 +759,21 @@
 			<groupId>com.massivecraft.factions</groupId>
 			<artifactId>Factions</artifactId>
 			<version>${factions.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.massivecraft.factions.P</groupId>
+			<groupId>com.massivecraft</groupId>
 			<artifactId>Factions</artifactId>
 			<version>${factionsuuid.jar.version}</version>
 			<scope>system</scope>
 			<systemPath>${project.basedir}/lib/${factionsuuid.jar.version}</systemPath>
+		</dependency>  
+		<!-- Does not work???
+		<dependency>
+			<groupId>com.massivecraft</groupId>
+			<artifactId>Factions</artifactId>
+			<version>${factionsuuid.version}</version>
 		</dependency>
+		 -->
 		
 		<!-- Towny -->
 		<dependency>
@@ -815,10 +828,6 @@
 			<version>${spigetupdate.version}</version>
 			<scope>compile</scope>
 		</dependency>
-
-		<!-- CustomItemsLib <dependency> <groupId>one.lindegaard.CustomItemsLib</groupId> 
-			<artifactId>CustomItemsLib</artifactId> <version>0.0.1-SNAPSHOT</version> 
-			<scope>compile</scope> </dependency> -->
 
 	</dependencies>
 
