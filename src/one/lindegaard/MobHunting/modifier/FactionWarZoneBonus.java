@@ -7,7 +7,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import one.lindegaard.MobHunting.DamageInformation;
 import one.lindegaard.MobHunting.HuntData;
 import one.lindegaard.MobHunting.MobHunting;
-import one.lindegaard.MobHunting.compatibility.FactionsCompat;
+import one.lindegaard.MobHunting.compatibility.FactionsHelperCompat;
 
 public class FactionWarZoneBonus implements IModifier {
 
@@ -25,7 +25,7 @@ public class FactionWarZoneBonus implements IModifier {
 	@Override
 	public boolean doesApply(Entity deadEntity, Player killer, HuntData data, DamageInformation extraInfo,
 			EntityDamageByEntityEvent lastDamageCause) {
-		return FactionsCompat.isInWarZone(killer);
+		return FactionsHelperCompat.isInWarZone(killer);
 	}
 
 }
