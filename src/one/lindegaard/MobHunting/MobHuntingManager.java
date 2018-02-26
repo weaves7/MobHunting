@@ -166,7 +166,8 @@ public class MobHuntingManager implements Listener {
 			mHuntingModifiers.add(new FactionWarZoneBonus());
 		mHuntingModifiers.add(new FlyingPenalty());
 		mHuntingModifiers.add(new FriendleFireBonus());
-		mHuntingModifiers.add(new GrindingPenalty());
+		if (plugin.getConfigManager().grindingDetectionEnabled)
+			mHuntingModifiers.add(new GrindingPenalty());
 		mHuntingModifiers.add(new HappyHourBonus());
 		mHuntingModifiers.add(new MountedBonus());
 		mHuntingModifiers.add(new ProSniperBonus());
@@ -649,7 +650,7 @@ public class MobHuntingManager implements Listener {
 		}
 
 		// Grinding Farm detections
-		if (plugin.getConfigManager().detectFarms
+		if (plugin.getConfigManager().grindingDetectionEnabled && plugin.getConfigManager().detectFarms
 				&& !plugin.getGrindingManager().isGrindingDisabledInWorld(event.getEntity().getWorld())) {
 			if (killed.getLastDamageCause() != null) {
 				if (killed.getLastDamageCause().getCause() == DamageCause.FALL
@@ -1090,7 +1091,7 @@ public class MobHuntingManager implements Listener {
 		}
 
 		// Mob Spawner / Egg / Egg Dispenser detection
-		if (event.getEntity().hasMetadata(SPAWNER_BLOCKED)) {
+		if (plugin.getConfigManager().grindingDetectionEnabled && event.getEntity().hasMetadata(SPAWNER_BLOCKED)) {
 			if (!plugin.getGrindingManager().isWhitelisted(event.getEntity().getLocation())) {
 				if (killed != null) {
 					plugin.getMessages().debug(
@@ -1248,8 +1249,9 @@ public class MobHuntingManager implements Listener {
 
 		HuntData data = new HuntData(getPlayer(killer, killed));
 		if (getPlayer(killer, killed) != null) {
-			if (cash != 0 && (!plugin.getGrindingManager().isGrindingArea(getPlayer(killer, killed).getLocation())
-					|| plugin.getGrindingManager().isWhitelisted(getPlayer(killer, killed).getLocation()))) {
+			if (cash != 0 && plugin.getConfigManager().grindingDetectionEnabled
+					&& (!plugin.getGrindingManager().isGrindingArea(getPlayer(killer, killed).getLocation())
+							|| plugin.getGrindingManager().isWhitelisted(getPlayer(killer, killed).getLocation()))) {
 				// Killstreak
 				data.handleKillstreak(plugin, getPlayer(killer, killed));
 			} else {
@@ -1271,9 +1273,9 @@ public class MobHuntingManager implements Listener {
 		Location loc = killed.getLocation();
 
 		// Grinding detection
-		if (cash != 0 && plugin.getRewardManager().getKillConsoleCmd(killed) != null
-				&& !plugin.getRewardManager().getKillConsoleCmd(killed).isEmpty()
-				&& plugin.getConfigManager().grindingDetectionEnabled) {
+		if (cash != 0 && plugin.getConfigManager().grindingDetectionEnabled
+				&& plugin.getRewardManager().getKillConsoleCmd(killed) != null
+				&& !plugin.getRewardManager().getKillConsoleCmd(killed).isEmpty()) {
 			// Check if the location is marked as a Grinding Area. Whitelist
 			// overrules blacklist.
 
@@ -1711,8 +1713,8 @@ public class MobHuntingManager implements Listener {
 							.replaceAll("\\{world\\}", worldname)
 							.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
 							.replace("{prize}", plugin.getRewardManager().format(cash))
-							.replaceAll("\\{killerpos\\}", killerpos).replaceAll("\\{killedpos\\}", killedpos).
-							replaceAll("{rewardname}", plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
+							.replaceAll("\\{killerpos\\}", killerpos).replaceAll("\\{killedpos\\}", killedpos)
+							.replaceAll("{rewardname}", plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
 					if (killed instanceof Player)
 						prizeCommand = prizeCommand.replaceAll("\\{killed_player\\}", killed.getName())
 								.replaceAll("\\{killed\\}", killed.getName());
@@ -1969,7 +1971,8 @@ public class MobHuntingManager implements Listener {
 		if (event.getSpawnReason() == SpawnReason.SPAWNER || event.getSpawnReason() == SpawnReason.SPAWNER_EGG
 				|| event.getSpawnReason() == SpawnReason.DISPENSE_EGG) {
 			if (plugin.getConfigManager().disableMoneyRewardsFromMobSpawnersEggsAndDispensers)
-				if (!plugin.getGrindingManager().isWhitelisted(event.getEntity().getLocation()))
+				if (plugin.getConfigManager().grindingDetectionEnabled
+						&& !plugin.getGrindingManager().isWhitelisted(event.getEntity().getLocation()))
 					event.getEntity().setMetadata(SPAWNER_BLOCKED, new FixedMetadataValue(plugin, true));
 		}
 	}
