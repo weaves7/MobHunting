@@ -38,7 +38,7 @@ public class HerobrineCompat implements Listener {
 	private static HashMap<Integer, MobType> mobList = new HashMap<Integer, MobType>();
 
 	public HerobrineCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getConsoleSender()
 					.sendMessage("[MobHunting] Compatibility with Herobrine is disabled in config.yml");
 		} else {
@@ -89,12 +89,8 @@ public class HerobrineCompat implements Listener {
 		return mMobRewardData;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationHerobrine;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationHerobrine;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationHerobrine;
 	}
 
 	// **************************************************************************

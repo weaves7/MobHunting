@@ -20,7 +20,7 @@ public class MobStackerCompat implements Listener {
 	private static Plugin mPlugin;
 
 	public MobStackerCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with MobStacker is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.MobStacker.getName());
@@ -44,12 +44,8 @@ public class MobStackerCompat implements Listener {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationMobStacker;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationMobStacker;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationMobStacker;
 	}
 
 	public static boolean isStackedMob(Entity entity) {

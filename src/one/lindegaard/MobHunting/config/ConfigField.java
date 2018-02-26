@@ -1,4 +1,4 @@
-package one.lindegaard.MobHunting.util;
+package one.lindegaard.MobHunting.config;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

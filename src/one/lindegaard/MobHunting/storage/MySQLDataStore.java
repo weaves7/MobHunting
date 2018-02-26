@@ -431,7 +431,7 @@ public class MySQLDataStore extends DatabaseDataStore {
 				+ "(PLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE, "
 				+ "ACHIEVEMENT VARCHAR(64) NOT NULL, DATE DATETIME NOT NULL, "
 				+ "PROGRESS INTEGER NOT NULL, PRIMARY KEY(PLAYER_ID, ACHIEVEMENT))");
-		if (!plugin.getConfigManager().disablePlayerBounties)
+		if (!plugin.getConfigManager().enablePlayerBounties)
 			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties (" //
 					+ "BOUNTYOWNER_ID INTEGER NOT NULL, "//
 					+ "MOBTYPE CHAR(6), "//
@@ -1116,7 +1116,7 @@ public class MySQLDataStore extends DatabaseDataStore {
 				+ " PRIMARY KEY(PLAYER_ID, ACHIEVEMENT),"
 				+ " CONSTRAINT mh_Achievements_Player_Id FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE)");
 
-		if (!plugin.getConfigManager().disablePlayerBounties) {
+		if (!plugin.getConfigManager().enablePlayerBounties) {
 			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties (" + "BOUNTYOWNER_ID INTEGER NOT NULL, "
 					+ "MOBTYPE CHAR(6), " + "WANTEDPLAYER_ID INTEGER NOT NULL, " + "NPC_ID INTEGER, "
 					+ "MOB_ID VARCHAR(40), " + "WORLDGROUP VARCHAR(20) NOT NULL, " + "CREATED_DATE BIGINT NOT NULL, "
@@ -1311,7 +1311,7 @@ public class MySQLDataStore extends DatabaseDataStore {
 				+ " PRIMARY KEY(PLAYER_ID, ACHIEVEMENT),"
 				+ " CONSTRAINT mh_Achievements_Player_Id FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE)");
 
-		if (!plugin.getConfigManager().disablePlayerBounties) {
+		if (!plugin.getConfigManager().enablePlayerBounties) {
 			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("//
 					+ "BOUNTYOWNER_ID INTEGER NOT NULL, "//
 					+ "MOBTYPE CHAR(6), "//
@@ -1514,7 +1514,7 @@ public class MySQLDataStore extends DatabaseDataStore {
 				+ " PRIMARY KEY(PLAYER_ID, ACHIEVEMENT),"
 				+ " CONSTRAINT mh_Achievements_Player_Id FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE)");
 
-		if (!plugin.getConfigManager().disablePlayerBounties) {
+		if (!plugin.getConfigManager().enablePlayerBounties) {
 			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("//
 					+ "BOUNTYOWNER_ID INTEGER NOT NULL, "//
 					+ "MOBTYPE CHAR(6), "//
@@ -1644,7 +1644,7 @@ public class MySQLDataStore extends DatabaseDataStore {
 				+ " PRIMARY KEY(PLAYER_ID, ACHIEVEMENT),"
 				+ " CONSTRAINT mh_Achievements_Player_Id FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE)");
 
-		if (!plugin.getConfigManager().disablePlayerBounties) {
+		if (!plugin.getConfigManager().enablePlayerBounties) {
 			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("//
 					+ "BOUNTYOWNER_ID INTEGER NOT NULL, "//
 					+ "MOBTYPE CHAR(6), "//

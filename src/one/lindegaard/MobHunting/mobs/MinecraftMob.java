@@ -545,7 +545,7 @@ public enum MinecraftMob {
 		case ElderGuardian:
 			return getPrice(MobHunting.getInstance().getConfigManager().elderGuardianHeadPrize);
 		case EnderDragon:
-			return getPrice(MobHunting.getInstance().getConfigManager().enderdragonHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().enderDragonHeadPrize);
 		case Enderman:
 			return getPrice(MobHunting.getInstance().getConfigManager().endermanHeadPrize);
 		case Endermite:
@@ -569,7 +569,7 @@ public enum MinecraftMob {
 		case IronGolem:
 			return getPrice(MobHunting.getInstance().getConfigManager().ironGolemHeadPrize);
 		case KillerRabbit:
-			return getPrice(MobHunting.getInstance().getConfigManager().killerrabbitHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().killerRabbitHeadPrize);
 		case Librarian:
 			return getPrice(MobHunting.getInstance().getConfigManager().librarianHeadPrize);
 		case Llama:
@@ -639,7 +639,7 @@ public enum MinecraftMob {
 		case Zombie:
 			return getPrice(MobHunting.getInstance().getConfigManager().zombieHeadPrize);
 		case ZombieHorse:
-			return getPrice(MobHunting.getInstance().getConfigManager().zombiehorseHeadPrize);
+			return getPrice(MobHunting.getInstance().getConfigManager().zombieHorseHeadPrize);
 		case ZombiePigman:
 			return getPrice(MobHunting.getInstance().getConfigManager().zombiePigmanHeadPrize);
 		case ZombieVillager:
@@ -666,7 +666,7 @@ public enum MinecraftMob {
 				return 0;
 		} else if (str.contains(":")) {
 			String[] str1 = str.split(":");
-			double prize = (MobHunting.getInstance().getMobHuntingManager().mRand.nextDouble()
+			double prize = (MobHunting.getInstance().mRand.nextDouble()
 					* (Double.valueOf(str1[1]) - Double.valueOf(str1[0])) + Double.valueOf(str1[0]));
 			return Misc.round(prize);
 		} else

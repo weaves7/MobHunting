@@ -42,12 +42,8 @@ public class MythicMobsV400Compat implements Listener {
 		return null;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationMythicmobs;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationMythicmobs;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationMythicmobs;
 	}
 
 	// **************************************************************************
@@ -62,8 +58,9 @@ public class MythicMobsV400Compat implements Listener {
 		if (!MythicMobsCompat.getMobRewardData().containsKey(mobtype)) {
 			MobHunting.getInstance().getMessages().debug("New MythicMobType found=%s (%s)", mobtype, event.getMobType().getDisplayName());
 			MythicMobsCompat.getMobRewardData().put(mobtype,
-					new RewardData(MobPlugin.MythicMobs, mobtype, event.getMobType().getDisplayName(), "10",
-							"minecraft:give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02));
+					new RewardData(MobPlugin.MythicMobs, mobtype, event.getMobType().getDisplayName(),
+							true, "10",1,"You killed a MythicMob",
+							null, 1, 0.02));
 			MythicMobsCompat.saveMythicMobsData(mobtype);
 			MobHunting.getInstance().getStoreManager().insertMissingMythicMobs(mobtype);
 			// Update mob loaded into memory

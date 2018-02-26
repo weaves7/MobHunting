@@ -1,3 +1,11 @@
+V5.4.7
+* The configuration file config.yml has been completely redesigned and extra features has been added. Individual mobs can be enabled/disabled. Each command has its own chance to run and its own message. Also DropHead is a new feature, which can be enabled/disabled and has its own chance and message. All settings will be autoconverted to the new format, but you should check the settings after first run.
+* 
+* Fixed color codes in console debug information
+* Added LorinthsRpgMobs to MetricsManager
+* Config.yml is backed up to "plugins/MobHunting/backup", before writing updates.
+* Disabled sending statistics to mcstat.org (https://github.com/Rocologo/MobHunting/issues/351)
+* Fixed minor bugs (https://github.com/Rocologo/MobHunting/issues/356)
 V5.4.6
 * Added support for FactionsUUID (https://www.spigotmc.org/resources/factionsuuid.1035/)
 * Improved /mh update so it handles SNAPSHOT's too.

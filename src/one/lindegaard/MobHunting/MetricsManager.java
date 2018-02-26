@@ -32,6 +32,7 @@ import one.lindegaard.MobHunting.compatibility.HolographicDisplaysCompat;
 import one.lindegaard.MobHunting.compatibility.IDisguiseCompat;
 import one.lindegaard.MobHunting.compatibility.InfernalMobsCompat;
 import one.lindegaard.MobHunting.compatibility.LibsDisguisesCompat;
+import one.lindegaard.MobHunting.compatibility.LorinthsRpgMobsCompat;
 import one.lindegaard.MobHunting.compatibility.MinigamesCompat;
 import one.lindegaard.MobHunting.compatibility.MinigamesLibCompat;
 import one.lindegaard.MobHunting.compatibility.MobArenaCompat;
@@ -168,6 +169,7 @@ public class MetricsManager {
 						valueMap.put("MobStacker", MobStackerCompat.isSupported() ? 1 : 0);
 						valueMap.put("CustomMobs", CustomMobsCompat.isSupported() ? 1 : 0);
 						valueMap.put("ConquestiaMobs", ConquestiaMobsCompat.isSupported() ? 1 : 0);
+						valueMap.put("LorinthsRpgMobs", LorinthsRpgMobsCompat.isSupported() ? 1 : 0);
 						valueMap.put("StackMob", StackMobCompat.isSupported() ? 1 : 0);
 						valueMap.put("MysteriousHalloween", MysteriousHalloweenCompat.isSupported() ? 1 : 0);
 						valueMap.put("SmartGiants", SmartGiantsCompat.isSupported() ? 1 : 0);
@@ -206,7 +208,7 @@ public class MetricsManager {
 						valueMap.put("Holographic Leaderboards",
 								plugin.getLeaderboardManager().getHologramManager().getHolograms().size());
 						valueMap.put("MasterMobHunters", CitizensCompat.getMasterMobHunterManager().getAll().size());
-						valueMap.put("PlayerBounties", plugin.getConfigManager().disablePlayerBounties ? 0
+						valueMap.put("PlayerBounties", plugin.getConfigManager().enablePlayerBounties ? 0
 								: plugin.getBountyManager().getAllBounties().size());
 						return valueMap;
 					}
@@ -419,6 +421,12 @@ public class MetricsManager {
 				return ConquestiaMobsCompat.isSupported() ? 1 : 0;
 			}
 		});
+		mobPluginIntegrationsGraph.addPlotter(new Metrics.Plotter("LorinthsRpgMobs") {
+			@Override
+			public int getValue() {
+				return LorinthsRpgMobsCompat.isSupported() ? 1 : 0;
+			}
+		});
 		mobPluginIntegrationsGraph.addPlotter(new Metrics.Plotter("StackMob") {
 			@Override
 			public int getValue() {
@@ -583,7 +591,7 @@ public class MetricsManager {
 		usageGraph.addPlotter(new Metrics.Plotter("# of Bounties") {
 			@Override
 			public int getValue() {
-				if (plugin.getConfigManager().disablePlayerBounties)
+				if (plugin.getConfigManager().enablePlayerBounties)
 					return 0;
 				else
 					return plugin.getBountyManager().getAllBounties().size();

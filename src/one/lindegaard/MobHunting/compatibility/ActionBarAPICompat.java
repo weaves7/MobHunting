@@ -15,7 +15,7 @@ public class ActionBarAPICompat {
 	// https://www.spigotmc.org/resources/actionbarapi-1-8-1-9-1-10.1315/
 
 	public ActionBarAPICompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getConsoleSender()
 					.sendMessage("[MobHunting] Compatibility with ActionBarAPI is disabled in config.yml");
 		} else {
@@ -39,12 +39,8 @@ public class ActionBarAPICompat {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationActionBarAPI;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationActionBarAPI;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationActionBarAPI;
 	}
 
 	public static void setMessage(Player player, String text) {

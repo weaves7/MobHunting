@@ -6,7 +6,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
-import one.lindegaard.MobHunting.MobHunting;
 
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;

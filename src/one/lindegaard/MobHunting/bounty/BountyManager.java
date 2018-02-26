@@ -180,7 +180,7 @@ public class BountyManager implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onPlayerJoin(final PlayerJoinEvent event) {
-		if (plugin.getConfigManager().disablePlayerBounties)
+		if (plugin.getConfigManager().enablePlayerBounties)
 			return;
 
 		Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
@@ -455,7 +455,7 @@ public class BountyManager implements Listener {
 	// ***********************************************************
 
 	public void createRandomBounty() {
-		boolean createBounty = plugin.getMobHuntingManager().mRand
+		boolean createBounty = plugin.mRand
 				.nextDouble() <= plugin.getConfigManager().chanceToCreateBounty;
 		if (createBounty) {
 			int noOfPlayers = Misc.getOnlinePlayersAmount();
@@ -468,7 +468,7 @@ public class BountyManager implements Listener {
 			Player randomPlayer = null;
 			if (plugin.getConfigManager().minimumNumberOfOnlinePlayers <= noOfPlayersNotVanished) {
 
-				int random = plugin.getMobHuntingManager().mRand.nextInt(noOfPlayersNotVanished);
+				int random = plugin.mRand.nextInt(noOfPlayersNotVanished);
 				int n = 0;
 				for (Player player : Misc.getOnlinePlayers()) {
 					if (n == random && !EssentialsCompat.isVanishedModeEnabled(player)

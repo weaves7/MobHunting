@@ -24,7 +24,7 @@ public class CrackShotCompat implements Listener {
 	// API: https://github.com/Shampaggon/CrackShot/wiki/Hooking-into-CrackShot
 
 	public CrackShotCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with CrackShot is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.CrackShot.getName());
@@ -59,12 +59,8 @@ public class CrackShotCompat implements Listener {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationCrackShot;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationCrackShot;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationCrackShot;
 	}
 
 	public static boolean isCrackShotWeapon(ItemStack itemStack) {

@@ -36,7 +36,7 @@ public class MythicMobsCompat {
 	public static MythicMobVersion mmVersion = MythicMobVersion.NOT_DETECTED;
 
 	public MythicMobsCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with MythicMobs is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.MythicMobs.getName());
@@ -78,12 +78,8 @@ public class MythicMobsCompat {
 		return mmVersion;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationMythicmobs;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationMythicmobs;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationMythicmobs;
 	}
 
 	public static HashMap<String, RewardData> getMobRewardData() {

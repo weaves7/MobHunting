@@ -14,7 +14,7 @@ public class HolographicDisplaysCompat {
 	// https://dev.bukkit.org/projects/holographic-displays
 
 	public HolographicDisplaysCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getConsoleSender()
 					.sendMessage("[MobHunting] Compatibility with Holographic Displays is disabled in config.yml");
 		} else {
@@ -38,12 +38,8 @@ public class HolographicDisplaysCompat {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationHolographicDisplays ;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationHolographicDisplays ;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationHolographicDisplays ;
 	}
 
 	public static HologramsAPI getHologramsAPI(){

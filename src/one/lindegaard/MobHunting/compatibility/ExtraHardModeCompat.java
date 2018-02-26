@@ -18,7 +18,7 @@ public class ExtraHardModeCompat implements Listener {
 	// https://www.spigotmc.org/resources/extra-hard-mode.19673/
 
 	public ExtraHardModeCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with ExtraHardMode is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.ExtraHardMode.getName());
@@ -55,12 +55,8 @@ public class ExtraHardModeCompat implements Listener {
 		return false;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationExtraHardMode;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationExtraHardMode;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationExtraHardMode;
 	}
 
 }

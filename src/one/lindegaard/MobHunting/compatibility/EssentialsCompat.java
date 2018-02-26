@@ -20,7 +20,7 @@ public class EssentialsCompat{
 	private static boolean supported = false;
 
 	public EssentialsCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with Essentials is disabled in config.yml");
 		} else {
 			mPlugin = (Essentials) Bukkit.getPluginManager().getPlugin(CompatPlugin.Essentials.getName());
@@ -43,12 +43,8 @@ public class EssentialsCompat{
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationEssentials;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationEssentials;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationEssentials;
 	}
 
 	public static boolean isGodModeEnabled(Player player) {

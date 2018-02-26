@@ -26,7 +26,7 @@ public class PlaceholderAPICompat {
 	// https://www.spigotmc.org/wiki/hooking-into-placeholderapi/
 
 	public PlaceholderAPICompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with PlaceholderAPI is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.PlaceholderAPI.getName());
@@ -57,12 +57,8 @@ public class PlaceholderAPICompat {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationPlaceholderAPI;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationPlaceholderAPI;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationPlaceholderAPI;
 	}
 
 	public static HashMap<UUID, PlaceHolderData> getPlaceHolders() {

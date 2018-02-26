@@ -14,7 +14,7 @@ public class GringottsCompat {
 	private static Gringotts mPlugin;
 
 	public GringottsCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with Gringotts is disabled in config.yml");
 		} else {
 			mPlugin = (Gringotts) Bukkit.getPluginManager().getPlugin(CompatPlugin.Gringotts.getName());
@@ -36,12 +36,8 @@ public class GringottsCompat {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationGringotts;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationGringotts;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationGringotts;
 	}
 
 }

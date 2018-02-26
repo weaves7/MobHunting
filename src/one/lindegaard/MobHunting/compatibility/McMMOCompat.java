@@ -26,7 +26,7 @@ public class McMMOCompat implements Listener {
 	public static final String MH_MCMMO = "MH:MCMMO";
 
 	public McMMOCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with McMMO is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.mcMMO.getName());
@@ -65,12 +65,8 @@ public class McMMOCompat implements Listener {
 		return false;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationMcMMO;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationMcMMO;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationMcMMO;
 	}
 
 	public static void addXP2(Player player, String skillType, int XP, String xpGainReason) {

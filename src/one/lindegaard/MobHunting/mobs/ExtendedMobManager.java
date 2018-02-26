@@ -69,44 +69,44 @@ public class ExtendedMobManager {
 			ExtendedMob mob = (ExtendedMob) mobset.next();
 			switch (mob.getMobPlugin()) {
 			case MythicMobs:
-				if (!MythicMobsCompat.isSupported() || MythicMobsCompat.isDisabledInConfig()
+				if (!MythicMobsCompat.isSupported() || !MythicMobsCompat.isEnabledInConfig()
 						|| !MythicMobsCompat.isMythicMob(mob.getMobtype()))
 					continue;
 				break;
 
 			case CustomMobs:
-				if (!CustomMobsCompat.isSupported() || CustomMobsCompat.isDisabledInConfig())
+				if (!CustomMobsCompat.isSupported() || !CustomMobsCompat.isEnabledInConfig())
 					continue;
 				break;
 
 			case TARDISWeepingAngels:
-				if (!TARDISWeepingAngelsCompat.isSupported() || TARDISWeepingAngelsCompat.isDisabledInConfig())
+				if (!TARDISWeepingAngelsCompat.isSupported() || !TARDISWeepingAngelsCompat.isEnabledInConfig())
 					continue;
 				break;
 
 			case Citizens:
-				if (!CitizensCompat.isSupported() || CitizensCompat.isDisabledInConfig()
+				if (!CitizensCompat.isSupported() || !CitizensCompat.isEnabledInConfig()
 						|| !CitizensCompat.isSentryOrSentinelOrSentries(mob.getMobtype()))
 					continue;
 				break;
 
 			case MysteriousHalloween:
-				if (!MysteriousHalloweenCompat.isSupported() || MysteriousHalloweenCompat.isDisabledInConfig())
+				if (!MysteriousHalloweenCompat.isSupported() || !MysteriousHalloweenCompat.isEnabledInConfig())
 					continue;
 				break;
 
 			case SmartGiants:
-				if (!SmartGiantsCompat.isSupported() || SmartGiantsCompat.isDisabledInConfig())
+				if (!SmartGiantsCompat.isSupported() || !SmartGiantsCompat.isEnabledInConfig())
 					continue;
 				break;
 
 			case InfernalMobs:
-				if (!InfernalMobsCompat.isSupported() || InfernalMobsCompat.isDisabledInConfig())
+				if (!InfernalMobsCompat.isSupported() || !InfernalMobsCompat.isEnabledInConfig())
 					continue;
 				break;
 				
 			case Herobrine:
-				if (!HerobrineCompat.isSupported()|| HerobrineCompat.isDisabledInConfig())
+				if (!HerobrineCompat.isSupported()|| !HerobrineCompat.isEnabledInConfig())
 					continue;
 				break;
 

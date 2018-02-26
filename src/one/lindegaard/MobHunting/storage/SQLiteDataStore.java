@@ -399,7 +399,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 				+ "(PLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, ACHIEVEMENT TEXT NOT NULL, "
 				+ "DATE INTEGER NOT NULL, PROGRESS INTEGER NOT NULL, PRIMARY KEY(PLAYER_ID, ACHIEVEMENT), "
 				+ "FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID))");
-		if (!plugin.getConfigManager().disablePlayerBounties)
+		if (!plugin.getConfigManager().enablePlayerBounties)
 			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("
 					+ "BOUNTYOWNER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, " + "MOBTYPE TEXT, "
 					+ "WANTEDPLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID), " + "NPC_ID INTEGER, "
@@ -1116,7 +1116,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 				+ " PRIMARY KEY(PLAYER_ID, ACHIEVEMENT), "
 				+ " FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID))");
 
-		if (!plugin.getConfigManager().disablePlayerBounties) {
+		if (!plugin.getConfigManager().enablePlayerBounties) {
 			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("
 					+ "BOUNTYOWNER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, " + "MOBTYPE TEXT, "
 					+ "WANTEDPLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID), " + "NPC_ID INTEGER, "
@@ -1290,7 +1290,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 				+ " PROGRESS INTEGER NOT NULL," + " PRIMARY KEY(PLAYER_ID, ACHIEVEMENT), "
 				+ " FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID))");
 
-		if (!plugin.getConfigManager().disablePlayerBounties) {
+		if (!plugin.getConfigManager().enablePlayerBounties) {
 			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("
 					+ "BOUNTYOWNER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, " + "MOBTYPE TEXT, "
 					+ "WANTEDPLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID), " + "NPC_ID INTEGER, "
@@ -1469,7 +1469,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 				+ " PROGRESS INTEGER NOT NULL," + " PRIMARY KEY(PLAYER_ID, ACHIEVEMENT), "
 				+ " FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID))");
 
-		if (!plugin.getConfigManager().disablePlayerBounties) {
+		if (!plugin.getConfigManager().enablePlayerBounties) {
 			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("
 					+ "BOUNTYOWNER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, " + "MOBTYPE TEXT, "
 					+ "WANTEDPLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID), " + "NPC_ID INTEGER, "
@@ -1582,7 +1582,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 				+ " PROGRESS INTEGER NOT NULL," + " PRIMARY KEY(PLAYER_ID, ACHIEVEMENT), "
 				+ " FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID))");
 
-		if (!plugin.getConfigManager().disablePlayerBounties) {
+		if (!plugin.getConfigManager().enablePlayerBounties) {
 			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("
 					+ "BOUNTYOWNER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, " + "MOBTYPE TEXT, "
 					+ "WANTEDPLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID), " + "NPC_ID INTEGER, "

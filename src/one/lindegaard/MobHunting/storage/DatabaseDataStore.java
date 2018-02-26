@@ -1417,31 +1417,31 @@ public abstract class DatabaseDataStore implements IDataStore {
 				MobPlugin mp = PluginManager.valueOf(set.getInt("PLUGIN_ID"));
 				switch (mp) {
 				case Citizens:
-					if (!CitizensCompat.isSupported() || CitizensCompat.isDisabledInConfig())
+					if (!CitizensCompat.isSupported() || !CitizensCompat.isEnabledInConfig())
 						continue;
 					break;
 				case CustomMobs:
-					if (!CustomMobsCompat.isSupported() || CustomMobsCompat.isDisabledInConfig())
+					if (!CustomMobsCompat.isSupported() || !CustomMobsCompat.isEnabledInConfig())
 						continue;
 					break;
 				case MythicMobs:
-					if (!MythicMobsCompat.isSupported() || MythicMobsCompat.isDisabledInConfig())
+					if (!MythicMobsCompat.isSupported() || !MythicMobsCompat.isEnabledInConfig())
 						continue;
 					break;
 				case TARDISWeepingAngels:
-					if (!TARDISWeepingAngelsCompat.isSupported() || TARDISWeepingAngelsCompat.isDisabledInConfig())
+					if (!TARDISWeepingAngelsCompat.isSupported() || !TARDISWeepingAngelsCompat.isEnabledInConfig())
 						continue;
 					break;
 				case MysteriousHalloween:
-					if (!MysteriousHalloweenCompat.isSupported() || MysteriousHalloweenCompat.isDisabledInConfig())
+					if (!MysteriousHalloweenCompat.isSupported() || !MysteriousHalloweenCompat.isEnabledInConfig())
 						continue;
 					break;
 				case SmartGiants:
-					if (!SmartGiantsCompat.isSupported() || SmartGiantsCompat.isDisabledInConfig())
+					if (!SmartGiantsCompat.isSupported() || !SmartGiantsCompat.isEnabledInConfig())
 						continue;
 					break;
 				case Herobrine:
-					if (!HerobrineCompat.isSupported() || HerobrineCompat.isDisabledInConfig())
+					if (!HerobrineCompat.isSupported() || !HerobrineCompat.isEnabledInConfig())
 						continue;
 					break;
 				case Minecraft:

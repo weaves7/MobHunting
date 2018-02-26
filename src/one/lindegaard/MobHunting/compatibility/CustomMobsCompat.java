@@ -39,7 +39,7 @@ public class CustomMobsCompat implements Listener {
 	public static final String MH_CUSTOMMOBS = "MH:CUSTOMMOBS";
 
 	public CustomMobsCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getConsoleSender()
 					.sendMessage("[MobHunting] Compatibility with CustomMobs is disabled in config.yml");
 		} else {
@@ -77,8 +77,8 @@ public class CustomMobsCompat implements Listener {
 							mob.setMobName(mob.getMobType());
 					} else
 						mob = new RewardData(MobPlugin.CustomMobs, CustomMobsAPI.getCustomMob(key).getName(),
-								CustomMobsAPI.getCustomMob(key).getDisplayName(), "10",
-								"minecraft:give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02);
+								CustomMobsAPI.getCustomMob(key).getDisplayName(), true,"10",1,"You killed a CustomMob",
+								null, 1, 0.02);
 
 					mMobRewardData.put(key, mob);
 					MobHunting.getInstance().getStoreManager().insertCustomMobs(key);
@@ -192,12 +192,8 @@ public class CustomMobsCompat implements Listener {
 		return mMobRewardData;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationCustomMobs;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationCustomMobs;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationCustomMobs;
 	}
 
 	// **************************************************************************
@@ -231,8 +227,9 @@ public class CustomMobsCompat implements Listener {
 		if (mMobRewardData != null && !mMobRewardData.containsKey(mob.getName())) {
 			MobHunting.getInstance().getMessages().debug("New CustomMobName found=%s,%s", mob.getName(), mob.getDisplayName());
 			String name = mob.getDisplayName() == null ? mob.getName() : mob.getDisplayName();
-			mMobRewardData.put(mob.getName(), new RewardData(MobPlugin.CustomMobs, mob.getName(), name, "10",
-					"minecraft:give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02));
+			mMobRewardData.put(mob.getName(), new RewardData(MobPlugin.CustomMobs, mob.getName(), name, 
+					true, "10", 1, "You killed a CustomMob",
+					null, 1, 0.02));
 			saveCustomMobsData(mob.getName());
 			MobHunting.getInstance().getStoreManager().insertCustomMobs(mob.getName());
 			// Update mob loaded into memory

@@ -12,7 +12,7 @@ public class BossBarAPICompat {
 	private static boolean supported = false;
 
 	public BossBarAPICompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getConsoleSender()
 					.sendMessage("[MobHunting] Compatibility with BossBarAPI is disabled in config.yml");
 		} else {
@@ -36,12 +36,8 @@ public class BossBarAPICompat {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationBossBarAPI;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationBossBarAPI;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationBossBarAPI;
 	}
 
 	public static void setSupported(boolean b) {

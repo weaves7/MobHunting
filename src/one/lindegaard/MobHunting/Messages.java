@@ -63,7 +63,8 @@ public class Messages {
 			File dest = new File(folder, source);
 			if (!dest.exists()) {
 				// if (plugin.getResource("lang/" + source) != null) {
-				Bukkit.getLogger().info(PREFIX + " Creating language file " + source + " from JAR.");
+				Bukkit.getServer().getConsoleSender()
+						.sendMessage(PREFIX + " Creating language file " + source + " from JAR.");
 				plugin.saveResource("lang/" + source, false);
 			} else {
 				if (!injectChanges(plugin.getResource("lang/" + source),
@@ -96,7 +97,8 @@ public class Messages {
 				for (Entry<String, String> entry : newEntries.entrySet())
 					writer.append("\n" + entry.getKey() + "=" + entry.getValue());
 				writer.close();
-				Bukkit.getLogger().info(PREFIX + " Updated " + onDisk.getName() + " language file with missing keys");
+				Bukkit.getServer().getConsoleSender()
+						.sendMessage(PREFIX + " Updated " + onDisk.getName() + " language file with missing keys");
 			}
 
 			return true;
@@ -116,7 +118,8 @@ public class Messages {
 				writer.append("\n" + entry.getKey() + "=" + entry.getValue());
 			}
 			writer.close();
-			// Bukkit.getLogger().info(PREFIX + " Sorted " + onDisk.getName() +
+			// Bukkit.getServer().getConsoleSender().sendMessage(PREFIX + " Sorted " +
+			// onDisk.getName() +
 			// " translation");
 
 			return true;
@@ -164,7 +167,7 @@ public class Messages {
 						k = "mobs." + key.getValue().getMobPlugin().name() + "_" + key.getValue().getMobtype()
 								+ ".name";
 					if (!dest.containsKey(k)) {
-						Bukkit.getLogger().info(
+						Bukkit.getServer().getConsoleSender().sendMessage(
 								PREFIX + " Creating missing key (" + k + ") in language file " + onDisk.getName());
 						newEntries.put(k, key.getValue().getMobName());
 					}
@@ -181,7 +184,8 @@ public class Messages {
 				// add new mobs to the TranslationTable
 				mTranslationTable.putAll(newEntries);
 
-				Bukkit.getLogger().info(PREFIX + " Updated " + onDisk.getName() + " language file");
+				Bukkit.getServer().getConsoleSender()
+						.sendMessage(PREFIX + " Updated " + onDisk.getName() + " language file");
 			}
 
 			return true;
@@ -203,20 +207,20 @@ public class Messages {
 			for (MobPlugin p : MobPlugin.values()) {
 				String k = "stats." + p.name() + ".kills";
 				if (!dest.containsKey(k)) {
-					Bukkit.getLogger()
-							.info(PREFIX + " Creating missing key (" + k + ") in language file" + onDisk.getName());
+					Bukkit.getServer().getConsoleSender().sendMessage(
+							PREFIX + " Creating missing key (" + k + ") in language file" + onDisk.getName());
 					newEntries.put(k, p.name() + " kills");
 				}
 				k = "stats." + p.name() + ".assists";
 				if (!dest.containsKey(k)) {
-					Bukkit.getLogger()
-							.info(PREFIX + " Creating missing key (" + k + ") in language file " + onDisk.getName());
+					Bukkit.getServer().getConsoleSender().sendMessage(
+							PREFIX + " Creating missing key (" + k + ") in language file " + onDisk.getName());
 					newEntries.put(k, p.name() + " assists");
 				}
 				k = "stats." + p.name() + ".cashs";
 				if (!dest.containsKey(k)) {
-					Bukkit.getLogger()
-							.info(PREFIX + " Creating missing key (" + k + ") in language file " + onDisk.getName());
+					Bukkit.getServer().getConsoleSender().sendMessage(
+							PREFIX + " Creating missing key (" + k + ") in language file " + onDisk.getName());
 					newEntries.put(k, p.name() + " cash");
 				}
 			}
@@ -231,7 +235,8 @@ public class Messages {
 
 				// add new mobs to the TranslationTable
 				mTranslationTable.putAll(newEntries);
-				Bukkit.getLogger().info(PREFIX + " Updated " + onDisk.getName() + " language file");
+				Bukkit.getServer().getConsoleSender()
+						.sendMessage(PREFIX + " Updated " + onDisk.getName() + " language file");
 			}
 
 			return true;
@@ -297,7 +302,8 @@ public class Messages {
 			String encoding = detectEncoding(file);
 			if (encoding == null) {
 				FileInputStream input = new FileInputStream(file);
-				Bukkit.getLogger().warning(PREFIX + " Could not detect encoding of lang file. Defaulting to UTF-8");
+				Bukkit.getServer().getConsoleSender()
+						.sendMessage(PREFIX + " Could not detect encoding of lang file. Defaulting to UTF-8");
 				map = loadLang(input, "UTF-8");
 				input.close();
 			}
@@ -316,7 +322,7 @@ public class Messages {
 	public void setLanguage(String lang) {
 		File file = new File(MobHunting.getInstance().getDataFolder(), "lang/" + lang);
 		if (!file.exists()) {
-			Bukkit.getLogger().severe(PREFIX
+			Bukkit.getServer().getConsoleSender().sendMessage(PREFIX
 					+ " Language file does not exist. Creating a new file based on en_US. You need to translate the file yourself.");
 			try {
 				file.createNewFile();
@@ -334,12 +340,13 @@ public class Messages {
 			injectMissingMobNamesToLangFile(file);
 			sortFileOnDisk(file);
 		} else {
-			Bukkit.getLogger().warning(PREFIX + " Could not read the language file:" + file.getName());
+			Bukkit.getServer().getConsoleSender()
+					.sendMessage(PREFIX + " Could not read the language file:" + file.getName());
 		}
 
 		if (mTranslationTable == null) {
 			mTranslationTable = new HashMap<String, String>();
-			Bukkit.getLogger().warning(PREFIX + " Creating new translation table.");
+			Bukkit.getServer().getConsoleSender().sendMessage(PREFIX + " Creating new translation table.");
 		}
 	}
 
@@ -347,7 +354,8 @@ public class Messages {
 		String value = mTranslationTable.get(key);
 
 		if (value == null) {
-			Bukkit.getLogger().warning(PREFIX + " mTranslationTable has not key: " + key.toString());
+			Bukkit.getServer().getConsoleSender()
+					.sendMessage(PREFIX + " mTranslationTable has not key: " + key.toString());
 			throw new MissingResourceException("", "", key);
 		}
 
@@ -396,7 +404,8 @@ public class Messages {
 
 			return ChatColor.translateAlternateColorCodes('&', output);
 		} catch (MissingResourceException e) {
-			Bukkit.getLogger().warning(PREFIX + " MobHunting could not find key: " + key.toString());
+			Bukkit.getServer().getConsoleSender()
+					.sendMessage(PREFIX + " MobHunting could not find key: " + key.toString());
 			return key;
 		}
 	}
@@ -410,8 +419,8 @@ public class Messages {
 	}
 
 	/**
-	 * Broadcast message to all players except Player using the ActionBar. if
-	 * the no plugins for the actionbar is available the chat will be used.
+	 * Broadcast message to all players except Player using the ActionBar. if the no
+	 * plugins for the actionbar is available the chat will be used.
 	 * 
 	 * @param message
 	 * @param except
@@ -481,8 +490,8 @@ public class Messages {
 		} else if (BarAPICompat.isSupported()) {
 			BarAPICompat.setMessageTime(player, String.format(message, args), 5);
 		} else {
-			player.sendMessage(ChatColor.AQUA + getString("mobhunting.learn.prefix") + " "
-					+ String.format(message, args));
+			player.sendMessage(
+					ChatColor.AQUA + getString("mobhunting.learn.prefix") + " " + String.format(message, args));
 		}
 	}
 

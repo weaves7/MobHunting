@@ -23,7 +23,7 @@ public class FactionsHelperCompat {
 
 	public FactionsHelperCompat() {
 		ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			console.sendMessage(PREFIX + "Compatibility with Factions/FactionsUUID is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.Factions.getName());
@@ -70,12 +70,8 @@ public class FactionsHelperCompat {
 		return factionsVersion;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationFactions;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationFactions;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationFactions;
 	}
 
 	public static boolean isInSafeZone(Player player) {

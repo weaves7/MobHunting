@@ -30,7 +30,7 @@ public class MobArenaCompat implements Listener {
 	private static boolean supported = false;
 
 	public MobArenaCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with MobArena is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.MobArena.getName());
@@ -55,13 +55,9 @@ public class MobArenaCompat implements Listener {
 		return supported;
 	}
 
-	private static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationMobArena;
-	}
-
 	@SuppressWarnings("unused")
 	private static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationMobArena;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationMobArena;
 	}
 	
 	/**

@@ -39,7 +39,7 @@ public class SmartGiantsCompat implements Listener {
 	// https://www.spigotmc.org/threads/smartgiants.55208/
 
 	public SmartGiantsCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with SmartGiants is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.SmartGiants.getName());
@@ -76,12 +76,8 @@ public class SmartGiantsCompat implements Listener {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationSmartGiants;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationSmartGiants;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationSmartGiants;
 	}
 
 	public static boolean isSmartGiants(Entity entity) {
@@ -123,8 +119,9 @@ public class SmartGiantsCompat implements Listener {
 		try {
 			if (!file.exists()) {
 				String monster = "SmartGiant";
-				mMobRewardData.put(monster, new RewardData(MobPlugin.SmartGiants, monster, monster, "100:200",
-						"minecraft:give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02));
+				mMobRewardData.put(monster, new RewardData(MobPlugin.SmartGiants, monster, monster,
+						true,"100:200",1,"You killed a SmartGiant",
+						null, 1, 0.02));
 				saveSmartGiantsData(mMobRewardData.get(monster).getMobType());
 				return;
 			}
@@ -219,8 +216,9 @@ public class SmartGiantsCompat implements Listener {
 			String mobtype = MONSTER_NAME;
 			if (mMobRewardData != null && !mMobRewardData.containsKey(mobtype)) {
 				MobHunting.getInstance().getMessages().debug("New SmartGiants mob found=%s (%s)", mobtype, mobtype.toString());
-				mMobRewardData.put(mobtype, new RewardData(MobPlugin.SmartGiants, mobtype, mobtype, "100:200",
-						"minecraft:give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02));
+				mMobRewardData.put(mobtype, new RewardData(MobPlugin.SmartGiants, mobtype, mobtype, 
+						true,"100:200",1,"You killed a SmartGiant",
+						null, 1, 0.02));
 				saveSmartGiantsData(mobtype);
 				MobHunting.getInstance().getStoreManager().insertSmartGiants(mobtype);
 				// Update mob loaded into memory

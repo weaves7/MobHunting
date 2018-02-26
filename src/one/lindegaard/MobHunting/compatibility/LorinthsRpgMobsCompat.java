@@ -26,7 +26,7 @@ public class LorinthsRpgMobsCompat implements Listener {
 	public static final String MH_LORINTHS_RPG_MOBS = "MH:LorinthsRpgMobs";
 
 	public LorinthsRpgMobsCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with LorinthsRpgMobs is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.LorinthsRpgMobs.getName());
@@ -76,12 +76,8 @@ public class LorinthsRpgMobsCompat implements Listener {
 		return (double) value.value();
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationLorinthsRpgMobs;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationLorinthsRpgMobs;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationLorinthsRpgMobs;
 	}
 
 	// **************************************************************************

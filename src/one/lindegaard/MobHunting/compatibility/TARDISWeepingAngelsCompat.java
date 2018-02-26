@@ -33,10 +33,11 @@ public class TARDISWeepingAngelsCompat implements Listener {
 	// http://dev.bukkit.org/bukkit-plugins/tardisweepingangels/
 
 	public TARDISWeepingAngelsCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with TARDISWeepingAngels is disabled in config.yml");
 		} else {
-			mPlugin = (TARDISWeepingAngels) Bukkit.getPluginManager().getPlugin(CompatPlugin.TARDISWeepingAngels.getName());
+			mPlugin = (TARDISWeepingAngels) Bukkit.getPluginManager()
+					.getPlugin(CompatPlugin.TARDISWeepingAngels.getName());
 
 			Bukkit.getLogger().info("[MobHunting] Enabling compatibility with TARDISWeepingAngelsAPI ("
 					+ mPlugin.getDescription().getVersion() + ")");
@@ -63,12 +64,8 @@ public class TARDISWeepingAngelsCompat implements Listener {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationTARDISWeepingAngels;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationTARDISWeepingAngels;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationTARDISWeepingAngels;
 	}
 
 	/**
@@ -108,9 +105,8 @@ public class TARDISWeepingAngelsCompat implements Listener {
 		try {
 			if (!file.exists()) {
 				for (Monster monster : Monster.getValues()) {
-					mMobRewardData.put(monster.name(),
-							new RewardData(MobPlugin.TARDISWeepingAngels, monster.name(), monster.getName(), "40:60",
-									"minecraft:give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02));
+					mMobRewardData.put(monster.name(), new RewardData(MobPlugin.TARDISWeepingAngels, monster.name(),
+							monster.getName(), true, "40:60", 1, "You killed a TRADIS Mob", null, 1, 0.02));
 					saveTARDISWeepingAngelsMobsData(mMobRewardData.get(monster.name()).getMobType());
 					MobHunting.getInstance().getStoreManager().insertTARDISWeepingAngelsMobs(monster.name);
 				}
@@ -183,11 +179,12 @@ public class TARDISWeepingAngelsCompat implements Listener {
 			if (mMobRewardData.containsKey(key)) {
 				ConfigurationSection section = config.createSection(key);
 				mMobRewardData.get(key).save(section);
-				MobHunting.getInstance().getMessages().debug("Saving extra TARDISWeepingAngels data for mob=%s (%s)", key,
-						mMobRewardData.get(key).getMobName());
+				MobHunting.getInstance().getMessages().debug("Saving extra TARDISWeepingAngels data for mob=%s (%s)",
+						key, mMobRewardData.get(key).getMobName());
 				config.save(file);
 			} else {
-				MobHunting.getInstance().getMessages().debug("ERROR! TARDISWeepingAngels ID (%s) is not found in mMobRewardData", key);
+				MobHunting.getInstance().getMessages()
+						.debug("ERROR! TARDISWeepingAngels ID (%s) is not found in mMobRewardData", key);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -205,10 +202,10 @@ public class TARDISWeepingAngelsCompat implements Listener {
 		Monster monster = getWeepingAngelMonsterType(entity);
 
 		if (mMobRewardData != null && !mMobRewardData.containsKey(monster.name())) {
-			MobHunting.getInstance().getMessages().debug("New TARDIS mob found=%s (%s)", monster.name(), monster.getName());
-			mMobRewardData.put(monster.name(),
-					new RewardData(MobPlugin.TARDISWeepingAngels, monster.name(), monster.getName(), "40:60",
-							"minecraft:give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02));
+			MobHunting.getInstance().getMessages().debug("New TARDIS mob found=%s (%s)", monster.name(),
+					monster.getName());
+			mMobRewardData.put(monster.name(), new RewardData(MobPlugin.TARDISWeepingAngels, monster.name(),
+					monster.getName(), true, "40:60", 1, "You killed a TARDIS Mob", null, 1, 0.02));
 			saveTARDISWeepingAngelsMobsData(monster.name());
 			MobHunting.getInstance().getStoreManager().insertTARDISWeepingAngelsMobs(monster.name);
 			// Update mob loaded into memory

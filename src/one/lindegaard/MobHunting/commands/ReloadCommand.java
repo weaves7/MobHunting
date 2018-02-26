@@ -82,7 +82,7 @@ public class ReloadCommand implements ICommand {
 				for (Player player : Misc.getOnlinePlayers())
 					plugin.getPlayerSettingsManager().load(player);
 				// reload bounties
-				if (!plugin.getConfigManager().disablePlayerBounties)
+				if (!plugin.getConfigManager().enablePlayerBounties)
 					for (Player player : Misc.getOnlinePlayers())
 						plugin.getBountyManager().load(player);
 				// reload achievements

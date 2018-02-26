@@ -291,6 +291,7 @@ mobhunting.learn.huntdisabled=管理员已被禁用 MobHunting.
 mobhunting.learn.killedcreative= MobHunting 奖励一个处于创造性模式的玩家。
 mobhunting.learn.minigameslib=你没有得到奖励而玩 MiniGames
 mobhunting.learn.mob-damage-flag=没有奖励: 你在一个受保护的地区 mob-damage=DENY
+mobhunting.learn.mob-disabled=Rewards for killing ${killed-mob} is disabled by Admin.
 mobhunting.learn.mobarena=你没有得到奖励而玩 MobArena
 mobhunting.learn.mobhunting-deny=没有奖励: 你在一个受保护的地区 MobHunting=DENY
 mobhunting.learn.mobspawner=没有奖励:${killed} 可能来源于刷怪笼

@@ -16,7 +16,7 @@ public class TownyCompat {
 	// http://towny.palmergames.com/
 
 	public TownyCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with Towny in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.Towny.getName());
@@ -47,12 +47,8 @@ public class TownyCompat {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationTowny;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationTowny;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationTowny;
 	}
 
 	public static boolean isInHomeTome(Player player) {

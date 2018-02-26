@@ -43,7 +43,7 @@ public class CitizensCompat implements Listener {
 	public static final String MH_CITIZENS = "MH:CITIZENS";
 
 	public CitizensCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getConsoleSender()
 					.sendMessage("[MobHunting] Compatibility with Citizens2 is disabled in config.yml");
 		} else {
@@ -204,12 +204,8 @@ public class CitizensCompat implements Listener {
 		return mMobRewardData;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationCitizens;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationCitizens;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationCitizens;
 	}
 
 	public static int getProgressAchievementLevel1(String mobtype) {
@@ -248,8 +244,9 @@ public class CitizensCompat implements Listener {
 				if (mMobRewardData != null && !mMobRewardData.containsKey(String.valueOf(npc.getId()))) {
 					MobHunting.getInstance().getMessages().debug("A new Sentinel or Sentry NPC was found. ID=%s,%s", npc.getId(), npc.getName());
 					mMobRewardData.put(String.valueOf(npc.getId()),
-							new RewardData(MobPlugin.Citizens, "npc", npc.getFullName(), "10",
-									"give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02));
+							new RewardData(MobPlugin.Citizens, "npc", npc.getFullName(), 
+									true, "10",1,"You killed a Citizen",
+									null,  1, 0.02));
 					saveCitizensData(String.valueOf(npc.getId()));
 				}
 			}
@@ -257,8 +254,10 @@ public class CitizensCompat implements Listener {
 				if (!CitizensCompat.getMasterMobHunterManager().contains(npc.getId())) {
 					MasterMobHunter masterMobHunter = new MasterMobHunter(MobHunting.getInstance(), npc);
 					CitizensCompat.getMasterMobHunterManager().put(npc.getId(), masterMobHunter);
-					RewardData rewardData = new RewardData(MobPlugin.Citizens, "npc", npc.getFullName(), "0",
-							"give {player} iron_sword 1", "You got an Iron sword.", 0, 1, 0.02);
+					RewardData rewardData = new RewardData(MobPlugin.Citizens, 
+							"npc", npc.getFullName(), 
+							true,"0",1, "You killed a Citizen",
+							null,  1, 0.02);
 					CitizensCompat.getMobRewardData().put(String.valueOf(npc.getId()), rewardData);
 					npc.getEntity().setMetadata(CitizensCompat.MH_CITIZENS,
 							new FixedMetadataValue(MobHunting.getInstance(), rewardData));

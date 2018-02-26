@@ -16,7 +16,7 @@ public class BossShopCompat implements Listener {
 	// https://www.spigotmc.org/resources/bossshop-powerful-and-playerfriendly-chest-gui-shop-menu-plugin.222/
 
 	public BossShopCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getConsoleSender().sendMessage("[MobHunting] Compatibility with BossShop is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.BossShop.getName());
@@ -43,12 +43,8 @@ public class BossShopCompat implements Listener {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationBossShop;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationBossShop;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationBossShop;
 	}
 
 }

@@ -15,7 +15,7 @@ public class MinigamesCompat implements Listener {
 	private static boolean supported = false;
 	
 	public MinigamesCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info(
 					"[MobHunting] Compatibility with MiniGames is disabled in config.yml");
 		} else {
@@ -29,12 +29,8 @@ public class MinigamesCompat implements Listener {
 	// **************************************************************************
 	// OTHER
 	// **************************************************************************
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationMinigames;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationMinigames;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationMinigames;
 	}
 
 	public static boolean isSupported() {

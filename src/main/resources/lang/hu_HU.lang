@@ -348,6 +348,7 @@ mobhunting.learn.prefix=[MobHunting]
 mobhunting.learn.overruled=A MobHunting letiltva ${huntworld}, de a régió lehetővé teszi mobhunting=allow 
 mobhunting.learn.disabled=A MobHunting-ot ebben a világban letiltotta az Admin.
 mobhunting.learn.mob-damage-flag=Nincs jutalom: egy védett régióban vagy mob-damage=DENY
+mobhunting.learn.mob-disabled=Rewards for killing ${killed-mob} is disabled by Admin.
 mobhunting.learn.mobhunting-deny=Nincs jutalom: egy védett régióban vagy MobHunting=DENY
 mobhunting.learn.prevent-mob-damage-flag=Nincs jutalom: elrejted egy mezőt megelőző szörny sebzéssel
 mobhunting.learn.prevent-pvp-flag=Nincs jutalom: elrejted egy olyan területen, ahol megakadályozza a pvp-t

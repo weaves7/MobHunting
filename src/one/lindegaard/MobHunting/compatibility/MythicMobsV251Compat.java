@@ -59,8 +59,9 @@ public class MythicMobsV251Compat implements Listener {
 		if (!MythicMobsCompat.getMobRewardData().containsKey(mobtype)) {
 			MobHunting.getInstance().getMessages().debug("New MythicMobType found=%s (%s)", mobtype, event.getMobType().getDisplayName());
 			MythicMobsCompat.getMobRewardData().put(mobtype,
-					new RewardData(MobPlugin.MythicMobs, mobtype, event.getMobType().getDisplayName(), "10",
-							"minecraft:give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02));
+					new RewardData(MobPlugin.MythicMobs, mobtype, event.getMobType().getDisplayName(), 
+							true,"10", 1, "You killed a Mythic mob",
+							null, 1, 0.02));
 			MythicMobsCompat.saveMythicMobsData(mobtype);
 			MobHunting.getInstance().getStoreManager().insertMissingMythicMobs(mobtype);
 			// Update mob loaded into memory

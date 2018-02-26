@@ -23,7 +23,7 @@ public class BattleArenaCompat implements Listener {
 	private static boolean supported = false;
 
 	public BattleArenaCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getConsoleSender()
 					.sendMessage("[MobHunting] Compatibility with BattleArena is disabled in config.yml");
 		} else {
@@ -49,12 +49,8 @@ public class BattleArenaCompat implements Listener {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationBattleArena;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationBattleArena;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationBattleArena;
 	}
 
 	/**

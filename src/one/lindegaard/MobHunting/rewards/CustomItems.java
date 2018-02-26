@@ -57,7 +57,6 @@ public class CustomItems {
 			whatVersionAreYouUsingException.printStackTrace();
 			return null;
 		}
-		Bukkit.getLogger().info("[MobHunting] Your server is running version " + version);
 		if (version.equals("v1_12_R1")) {
 			sk = new Skins_1_12_R1();
 		} else if (version.equals("v1_11_R1")) {

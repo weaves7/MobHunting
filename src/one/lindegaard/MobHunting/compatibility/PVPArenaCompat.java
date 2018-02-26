@@ -24,7 +24,7 @@ public class PVPArenaCompat implements Listener {
 	private static boolean supported = false;
 
 	public PVPArenaCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with PvpArena is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.PVPArena.getName());
@@ -42,12 +42,8 @@ public class PVPArenaCompat implements Listener {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationPvpArena;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationPvpArena;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationPvpArena;
 	}
 
 	/**

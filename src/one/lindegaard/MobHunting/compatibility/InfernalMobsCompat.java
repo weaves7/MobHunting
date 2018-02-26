@@ -26,7 +26,7 @@ public class InfernalMobsCompat implements Listener {
 	public static final String MH_INFERNALMOBS = "MH:INFERNALMOBS";
 
 	public InfernalMobsCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getConsoleSender()
 					.sendMessage("[MobHunting] Compatibility with InfernalMobs is disabled in config.yml");
 		} else {
@@ -69,12 +69,8 @@ public class InfernalMobsCompat implements Listener {
 		return mMobRewardData;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationInfernalMobs;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationInfernalMobs;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationInfernalMobs;
 	}
 
 	// **************************************************************************

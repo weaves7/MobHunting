@@ -37,12 +37,12 @@ public class DifficultyBonus implements IModifier {
 					&& !difficulty.getKey().equalsIgnoreCase("difficulty.multiplier")) {
 				try {
 					if (ExtraHardModeCompat.isEnabledForWorld(killer.getWorld())) {
-						if (difficulty.getKey().equalsIgnoreCase("difficulty.multiplier.extrahard")) {
+						if (difficulty.getKey().equalsIgnoreCase("extrahard")) {
 							multiplierStr = difficulty.getValue();
 							break;
 						}
 					} else if ((difficulty.getKey()
-							.equalsIgnoreCase("difficulty.multiplier." + worldDifficulty.name().toLowerCase()))) {
+							.equalsIgnoreCase(worldDifficulty.name()))) {
 						multiplierStr = difficulty.getValue();
 						break;
 					}
@@ -72,12 +72,12 @@ public class DifficultyBonus implements IModifier {
 					&& !difficulty.getKey().equalsIgnoreCase("difficulty.multiplier")) {
 				try {
 					if (ExtraHardModeCompat.isEnabledForWorld(killer.getWorld())) {
-						if (difficulty.getKey().equalsIgnoreCase("difficulty.multiplier.extrahard")) {
+						if (difficulty.getKey().equalsIgnoreCase("extrahard")) {
 							multiplierStr = difficulty.getValue();
 							break;
 						}
 					} else if ((difficulty.getKey()
-							.equalsIgnoreCase("difficulty.multiplier." + worldDifficulty.name().toLowerCase()))) {
+							.equalsIgnoreCase(worldDifficulty.name()))) {
 						multiplierStr = difficulty.getValue();
 						break;
 					}

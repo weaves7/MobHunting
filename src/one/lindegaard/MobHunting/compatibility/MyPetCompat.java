@@ -25,7 +25,7 @@ public class MyPetCompat implements Listener {
 	private static MyPetPlugin mPlugin;
 
 	public MyPetCompat() {
-		if (MobHunting.getInstance().getConfigManager().disableIntegrationMyPet) {
+		if (MobHunting.getInstance().getConfigManager().enableIntegrationMyPet) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with MyPet is disabled in config.yml");
 		} else {
 			mPlugin = (MyPetPlugin) Bukkit.getPluginManager().getPlugin(CompatPlugin.MyPet.getName());
@@ -55,7 +55,7 @@ public class MyPetCompat implements Listener {
 	}
 
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationMyPet;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationMyPet;
 	}
 
 	public static boolean isKilledByMyPet(Entity entity) {

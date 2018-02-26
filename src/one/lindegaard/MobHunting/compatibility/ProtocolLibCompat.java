@@ -16,7 +16,7 @@ public class ProtocolLibCompat {
 	// https://www.spigotmc.org/resources/protocollib.1997/
 
 	public ProtocolLibCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with ProtocolLib is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.ProtocolLib.getName());
@@ -46,12 +46,8 @@ public class ProtocolLibCompat {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationProtocolLib;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationProtocolLib;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationProtocolLib;
 	}
 
 }

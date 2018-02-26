@@ -19,7 +19,7 @@ public class StackMobCompat implements Listener {
 	private static Plugin mPlugin;
 
 	public StackMobCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with StackMob is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.StackMob.getName());
@@ -45,13 +45,9 @@ public class StackMobCompat implements Listener {
 		return supported;
 	}
 
-	private static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationStackMob;
-	}
-
 	@SuppressWarnings("unused")
 	private static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationStackMob;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationStackMob;
 	}
 
 	public static EntityManager getEntityManager() {

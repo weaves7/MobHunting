@@ -36,7 +36,7 @@ public class MysteriousHalloweenCompat implements Listener {
 	// https://www.spigotmc.org/resources/mysterioushalloween.13059/
 
 	public MysteriousHalloweenCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with MysteriousHalloween is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.MysteriousHalloween.getName());
@@ -69,12 +69,8 @@ public class MysteriousHalloweenCompat implements Listener {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationMysteriousHalloween;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationMysteriousHalloween;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationMysteriousHalloween;
 	}
 
 	/**
@@ -116,8 +112,9 @@ public class MysteriousHalloweenCompat implements Listener {
 				for (MobType monster : MysteriousHalloweenAPI.getMobTypes()) {
 					mMobRewardData.put(monster.name(),
 							new RewardData(MobPlugin.MysteriousHalloween, monster.name(),
-									MysteriousHalloweenAPI.getMobTypeName(monster), "40:60",
-									"minecraft:give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02));
+									MysteriousHalloweenAPI.getMobTypeName(monster),
+									true,"40:60",1,"You killed a MysteriousHalloween mob",
+									null, 1, 0.02));
 					saveMysteriousHalloweenMobsData(mMobRewardData.get(monster.name()).getMobType());
 				}
 				return;
@@ -218,8 +215,9 @@ public class MysteriousHalloweenCompat implements Listener {
 				MobHunting.getInstance().getMessages().debug("New MysteriousHalloween mob found=%s (%s)", monster.name(), monster.toString());
 				mMobRewardData.put(monster.name(),
 						new RewardData(MobPlugin.MysteriousHalloween, monster.name(),
-								MysteriousHalloweenAPI.getMobTypeName(monster), "40:60",
-								"minecraft:give {player} iron_sword 1", "You got an Iron sword.", 1, 1, 0.02));
+								MysteriousHalloweenAPI.getMobTypeName(monster), 
+								true,"40:60",1,"You killed a MysteriousHalloween mob",
+								null, 1, 0.02));
 				saveMysteriousHalloweenMobsData(monster.name());
 				MobHunting.getInstance().getStoreManager().insertMysteriousHalloweenMobs(monster.name());
 				// Update mob loaded into memory

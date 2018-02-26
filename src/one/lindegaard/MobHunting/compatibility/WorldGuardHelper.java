@@ -184,7 +184,7 @@ public class WorldGuardHelper implements Listener {
 	// *******************************************************************
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onPlayerMove(final PlayerMoveEvent event) {
-		if (WorldGuardCompat.isDisabledInConfig() || !WorldGuardCompat.isSupported())
+		if (!WorldGuardCompat.isEnabledInConfig() || !WorldGuardCompat.isSupported())
 			return;
 		Player player = event.getPlayer();
 		ApplicableRegionSet set = WorldGuardCompat.getWorldGuardPlugin().getRegionManager(player.getWorld())

@@ -3,6 +3,8 @@ package one.lindegaard.MobHunting;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
@@ -38,7 +40,7 @@ public class FishingManager implements Listener {
 
 	public FishingManager(MobHunting plugin) {
 		this.plugin = plugin;
-		if (!plugin.getConfigManager().disableFishingRewards) {
+		if (!plugin.getConfigManager().enableFishingRewards) {
 			registerFishingModifiers();
 			Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
 		}
@@ -67,7 +69,8 @@ public class FishingManager implements Listener {
 		}
 
 		if (!plugin.getMobHuntingManager().isHuntEnabled(player)) {
-			plugin.getMessages().debug("FishingEvent %s: Player doesnt have permission mobhunting.enable", player.getName());
+			plugin.getMessages().debug("FishingEvent %s: Player doesnt have permission mobhunting.enable",
+					player.getName());
 			return;
 		}
 
@@ -101,7 +104,8 @@ public class FishingManager implements Listener {
 
 			Material material_under_hook = fish.getLocation().getBlock().getType();
 			if (!(material_under_hook == Material.WATER || material_under_hook == Material.STATIONARY_WATER)) {
-				plugin.getMessages().debug("FishingBlocked: %s was fishing on %s", player.getName(), material_under_hook);
+				plugin.getMessages().debug("FishingBlocked: %s was fishing on %s", player.getName(),
+						material_under_hook);
 				return;
 			}
 
@@ -170,10 +174,12 @@ public class FishingManager implements Listener {
 
 				if (cash >= plugin.getConfigManager().minimumReward) {
 					plugin.getRewardManager().depositPlayer(player, cash);
-					plugin.getMessages().debug("%s got a reward (%s)", player.getName(), plugin.getRewardManager().format(cash));
+					plugin.getMessages().debug("%s got a reward (%s)", player.getName(),
+							plugin.getRewardManager().format(cash));
 				} else if (cash <= -plugin.getConfigManager().minimumReward) {
 					plugin.getRewardManager().withdrawPlayer(player, -cash);
-					plugin.getMessages().debug("%s got a penalty (%s)", player.getName(), plugin.getRewardManager().format(cash));
+					plugin.getMessages().debug("%s got a penalty (%s)", player.getName(),
+							plugin.getRewardManager().format(cash));
 				}
 
 				// Record Fishing Achievement is done using
@@ -181,8 +187,8 @@ public class FishingManager implements Listener {
 
 				// Record the kill in the Database
 				if (player != null) {
-					plugin.getMessages().debug("RecordFishing: %s caught a %s (%s)", player.getName(), eMob.getMobName(),
-							eMob.getMobPlugin().name());
+					plugin.getMessages().debug("RecordFishing: %s caught a %s (%s)", player.getName(),
+							eMob.getMobName(), eMob.getMobPlugin().name());
 					plugin.getDataStoreManager().recordKill(player, eMob, player.hasMetadata("MH:hasBonus"), cash);
 				}
 
@@ -210,7 +216,8 @@ public class FishingManager implements Listener {
 
 					} else {
 						if (cash >= plugin.getConfigManager().minimumReward) {
-							plugin.getMessages().debug("Message to send to ActionBar=%s", ChatColor.GREEN + "" + ChatColor.ITALIC
+							plugin.getMessages().debug("Message to send to ActionBar=%s", ChatColor.GREEN + ""
+									+ ChatColor.ITALIC
 									+ plugin.getMessages().getString("mobhunting.fishcaught.reward.bonuses", "prize",
 											plugin.getRewardManager().format(cash), "bonuses", extraString.trim(),
 											"multipliers", plugin.getRewardManager().format(multipliers)));
@@ -230,13 +237,14 @@ public class FishingManager implements Listener {
 
 				// McMMO Experience rewards
 				if (McMMOCompat.isSupported() && plugin.getConfigManager().enableMcMMOLevelRewards) {
-					double chance = plugin.getMobHuntingManager().mRand.nextDouble();
+					double chance = plugin.mRand.nextDouble();
 					int level = plugin.getRewardManager().getMcMMOLevel(fish);
 					plugin.getMessages().debug("If %s<%s %s will get a McMMO Level for fishing", chance,
 							plugin.getRewardManager().getMcMMOChance(fish), player.getName());
 					if (chance < plugin.getRewardManager().getMcMMOChance(fish)) {
 						McMMOCompat.addLevel(player, SkillType.FISHING.getName(), level);
-						plugin.getMessages().debug("%s was rewarded with %s McMMO level for Fishing", player.getName(), level);
+						plugin.getMessages().debug("%s was rewarded with %s McMMO level for Fishing", player.getName(),
+								level);
 						plugin.getMessages().playerSendMessage(player,
 								plugin.getMessages().getString("mobhunting.mcmmo.fishing_level", "mcmmo_level", level));
 					}
@@ -244,37 +252,51 @@ public class FishingManager implements Listener {
 
 				String fishermanPos = player.getLocation().getBlockX() + " " + player.getLocation().getBlockY() + " "
 						+ player.getLocation().getBlockZ();
-				if (plugin.getRewardManager().isCmdGointToBeExcuted(fish)) {
-					String worldname = player.getWorld().getName();
-					String prizeCommand = plugin.getRewardManager().getKillConsoleCmd(fish)
-							.replaceAll("\\{player\\}", player.getName()).replaceAll("\\{killer\\}", player.getName())
-							.replaceAll("\\{world\\}", worldname)
-							.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
-							.replaceAll("\\{killerpos\\}", fishermanPos);
-					plugin.getMessages().debug("command to be run is:" + prizeCommand);
-					if (!plugin.getRewardManager().getKillConsoleCmd(fish).equals("")) {
-						String str = prizeCommand;
-						do {
-							if (str.contains("|")) {
-								int n = str.indexOf("|");
-								Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),
-										str.substring(0, n));
-								str = str.substring(n + 1, str.length()).toString();
-							}
-						} while (str.contains("|"));
-						Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), str);
-					}
 
-					// send a message to the player
-					if (!plugin.getRewardManager().getKillRewardDescription(fish).equals("") && !fisherman_muted) {
-						String message = ChatColor.GREEN + "" + ChatColor.ITALIC + plugin.getRewardManager()
-								.getKillRewardDescription(fish).replaceAll("\\{player\\}", player.getName())
-								.replaceAll("\\{killer\\}", player.getName())
+				List<HashMap<String, String>> fishCommands = new ArrayList<HashMap<String, String>>();
+				fishCommands = plugin.getRewardManager().getKillConsoleCmd(fish);
+
+				Iterator<HashMap<String, String>> itr = fishCommands.iterator();
+				while (itr.hasNext()) {
+					// for (HashMap<String, String> command : fishCommands.entrySet()) {
+					// HashMap<String, String> cmd = command.getValue();
+					HashMap<String, String> cmd = itr.next();
+					if (plugin.mRand.nextDouble() < Double.valueOf(cmd.get("chance"))) {
+						String worldname = player.getWorld().getName();
+						String prizeCommand = cmd.get("cmd").replaceAll("\\{player\\}", player.getName())
+								.replaceAll("\\{killer\\}", player.getName()).replaceAll("\\{world\\}", worldname)
 								.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
-								.replaceAll("\\{world\\}", worldname).replaceAll("\\{killerpos\\}", fishermanPos);
+								.replace("{prize}", plugin.getRewardManager().format(cash))
+								.replaceAll("\\{killerpos\\}", fishermanPos)
+								.replaceAll("{rewardname}", plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
+						plugin.getMessages().debug("command to be run is:" + prizeCommand);
+						if (!plugin.getRewardManager().getKillConsoleCmd(fish).equals("")) {
+							String str = prizeCommand;
+							do {
+								if (str.contains("|")) {
+									int n = str.indexOf("|");
+									Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),
+											str.substring(0, n));
+									str = str.substring(n + 1, str.length()).toString();
+								}
+							} while (str.contains("|"));
+							Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), str);
+						}
 
-						plugin.getMessages().debug("Description to be send:" + message);
-						plugin.getMessages().playerSendMessage(player, message);
+						// send a message to the player
+						if (!cmd.get("message").equals("") && !fisherman_muted) {
+							String message = ChatColor.GREEN + "" + ChatColor.ITALIC
+									+ cmd.get("message").replaceAll("\\{player\\}", player.getName())
+											.replaceAll("\\{killer\\}", player.getName())
+											.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
+											.replace("{prize}", plugin.getRewardManager().format(cash))
+											.replaceAll("\\{world\\}", worldname)
+											.replaceAll("\\{killerpos\\}", fishermanPos).replaceAll("{rewardname}",
+													plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
+
+							plugin.getMessages().debug("Description to be send:" + message);
+							plugin.getMessages().playerSendMessage(player, message);
+						}
 					}
 				}
 			}

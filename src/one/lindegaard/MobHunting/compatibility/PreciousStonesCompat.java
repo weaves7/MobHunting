@@ -16,7 +16,7 @@ public class PreciousStonesCompat {
 	// https://www.spigotmc.org/resources/preciousstones.5270/
 
 	public PreciousStonesCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with PreciousStones is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.PreciousStones.getName());
@@ -39,12 +39,8 @@ public class PreciousStonesCompat {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationPreciousStones;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationPreciousStones;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationPreciousStones;
 	}
 
 	// Flag references

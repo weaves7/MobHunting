@@ -13,7 +13,7 @@ public class WorldGuardCompat {
 	private static WorldGuardPlugin mPlugin;
 
 	public WorldGuardCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with WorldGuard is disabled in config.yml");
 		} else {
 			mPlugin = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin(CompatPlugin.WorldGuard.getName());
@@ -46,12 +46,8 @@ public class WorldGuardCompat {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationWorldGuard;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationWorldGuard;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationWorldGuard;
 	}
 
 }

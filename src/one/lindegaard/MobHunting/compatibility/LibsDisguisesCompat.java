@@ -134,7 +134,7 @@ public class LibsDisguisesCompat implements Listener {
 	private static Set<DisguiseType> otherDisguiseTypes = new HashSet<DisguiseType>(Arrays.asList(otherList));
 
 	public LibsDisguisesCompat() {
-		if (MobHunting.getInstance().getConfigManager().disableIntegrationLibsDisguises) {
+		if (MobHunting.getInstance().getConfigManager().enableIntegrationLibsDisguises) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with LibsDisguises is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getServer().getPluginManager().getPlugin(CompatPlugin.LibsDisguises.getName());

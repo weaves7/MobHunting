@@ -30,12 +30,8 @@ public class FactionsUUIDCompat {
 		return mPlugin;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationFactions;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationFactions;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationFactions;
 	}
 
 	public static boolean isInSafeZone(Player player) {

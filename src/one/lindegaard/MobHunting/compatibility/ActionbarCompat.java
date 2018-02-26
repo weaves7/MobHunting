@@ -15,7 +15,7 @@ public class ActionbarCompat {
 	// https://www.spigotmc.org/resources/actionbar.1458/
 
 	public ActionbarCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getConsoleSender()
 					.sendMessage("[MobHunting] Compatibility with Actionbar is disabled in config.yml ");
 		} else {
@@ -39,12 +39,8 @@ public class ActionbarCompat {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationActionbar;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationActionbar;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationActionbar;
 	}
 
 	public static void setMessage(Player player, String text) {

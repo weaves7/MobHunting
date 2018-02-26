@@ -1,16 +1,19 @@
-package one.lindegaard.MobHunting;
+package one.lindegaard.MobHunting.config;
 
 import java.io.File;
 import java.util.HashMap;
-import one.lindegaard.MobHunting.util.AutoConfig;
-import one.lindegaard.MobHunting.util.ConfigField;
+
+import one.lindegaard.MobHunting.MobHunting;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.InvalidConfigurationException;
 
-public class ConfigManager extends AutoConfig {
+public class ConfigManagerOld extends AutoConfig {
 
 	private MobHunting plugin;
 
-	public ConfigManager(MobHunting plugin, File file) {
+	public ConfigManagerOld(MobHunting plugin, File file) {
 
 		super(file);
 		this.plugin = plugin;
@@ -462,7 +465,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "spider-cmd-desc", category = "mobs")
 	public String spiderCmdDesc = "You got a Spider skull and an Iron ingot.";
 	@ConfigField(name = "spider-cmd-run-chance", category = "mobs")
-	public double spiderCmdRunChance = 0.05;
+	public double spiderCmdRunChance = 0.07;
 	@ConfigField(name = "spider-head-prize", category = "mobs")
 	public String spiderHeadPrize = "0";
 
@@ -2331,9 +2334,35 @@ public class ConfigManager extends AutoConfig {
 			+ "\nIf you want the mobs to drop normal XP set " + "\n\"try-to-cancel-xp-drops-when-in-creative\"=false")
 	public boolean tryToCancelXPDropsWhenInCreative = true;
 
+	@ConfigField(name = "config-version", category = "general", comment = "Do not change this value unless you know what you are doing. It's meant for internal use.")
+	public int configVersion = 0;
+
 	@Override
 	protected void onPostLoad() throws InvalidConfigurationException {
 		plugin.getMessages().setLanguage(language + ".lang");
+		
+		if (pvpKillCmd.toLowerCase().contains("skullowner")
+				&& pvpKillCmd.toLowerCase().contains("mobhunt"))
+
+		{
+			Bukkit.getConsoleSender().sendMessage(
+					ChatColor.RED + "[Mobhunting]==================WARNING=================================");
+			Bukkit.getConsoleSender().sendMessage(
+					ChatColor.RED + "Potential error in your config.yml. pvp-kill-cmd contains SkullOwner,");
+			Bukkit.getConsoleSender().sendMessage(
+					ChatColor.RED + "which indicates that pvp-kill-cmd is outdated. Check the head command");
+			Bukkit.getConsoleSender()
+					.sendMessage(ChatColor.RED + "or delete the line pvp-kill-cmd, and then reload the plugin. The ");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "correct syntax to get a player head is:");
+			Bukkit.getConsoleSender().sendMessage(
+					ChatColor.RED + "\"mobhunt head give {player} {killed_player} {killed_player} 1 silent\"");
+			Bukkit.getConsoleSender().sendMessage(
+					ChatColor.RED + "[Mobhunting]=========================================================");
+		}
+		
+		if (dropMoneyOnGroundTextColor.equals("&0"))
+			dropMoneyOnGroundTextColor = "WHITE";
+
 	}
 
 }

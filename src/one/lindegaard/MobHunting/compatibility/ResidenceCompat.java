@@ -14,7 +14,7 @@ public class ResidenceCompat {
 	// https://www.spigotmc.org/resources/residence-1-7-10-up-to-1-11.11480/
 
 	public ResidenceCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with Residence is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.Residence.getName());
@@ -37,12 +37,8 @@ public class ResidenceCompat {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationResidence;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationResidence;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationResidence;
 	}
 
 	public static boolean isProtected(Player player) {

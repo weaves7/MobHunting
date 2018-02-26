@@ -348,6 +348,7 @@ mobhunting.learn.prefix=[MobHunting]
 mobhunting.learn.overruled=MobHunting disabled in ${huntworld}, but region allows mobhunting=allow 
 mobhunting.learn.disabled=MobHunting is disabled in this world by Admin.
 mobhunting.learn.mob-damage-flag=No reward: You are in a protected region with mob-damage=DENY
+mobhunting.learn.mob-disabled=Rewards for killing ${killed-mob} is disabled by Admin.
 mobhunting.learn.mobhunting-deny=No reward: You are in a protected region with MobHunting=DENY
 mobhunting.learn.prevent-mob-damage-flag=No Reward: You are hiding in a field with prevent-mob-damage
 mobhunting.learn.prevent-pvp-flag=No Reward: You are hiding in a field with prevent-pvp

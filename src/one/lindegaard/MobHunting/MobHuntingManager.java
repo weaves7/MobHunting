@@ -13,8 +13,10 @@ import one.lindegaard.MobHunting.events.MobHuntEnableCheckEvent;
 import one.lindegaard.MobHunting.events.MobHuntKillEvent;
 import one.lindegaard.MobHunting.grinding.Area;
 import one.lindegaard.MobHunting.mobs.ExtendedMob;
+import one.lindegaard.MobHunting.mobs.MinecraftMob;
 import one.lindegaard.MobHunting.modifier.*;
 import one.lindegaard.MobHunting.placeholder.PlaceHolderData;
+import one.lindegaard.MobHunting.rewards.CustomItems;
 import one.lindegaard.MobHunting.rewards.Reward;
 import one.lindegaard.MobHunting.update.SpigetUpdater;
 import one.lindegaard.MobHunting.util.Misc;
@@ -43,7 +45,6 @@ import java.util.*;
 public class MobHuntingManager implements Listener {
 
 	private MobHunting plugin;
-	public Random mRand = new Random();
 	private final String SPAWNER_BLOCKED = "MH:SpawnerBlocked";
 
 	private static WeakHashMap<LivingEntity, DamageInformation> mDamageHistory = new WeakHashMap<>();
@@ -1075,7 +1076,16 @@ public class MobHuntingManager implements Listener {
 			plugin.getMessages();
 			plugin.getMessages().learn(getPlayer(killer, killed),
 					plugin.getMessages().getString("mobhunting.learn.no-permission", "killed-mob", mob.getMobName()));
-			plugin.getMessages().debug("======================= kill ended (25)=====================");
+			plugin.getMessages().debug("======================= kill ended (25a)=====================");
+			return;
+		}
+
+		if (!plugin.getRewardManager().getMobEnabled(killed)) {
+			plugin.getMessages().debug("KillBlocked: %s is disabled in config.yml", mob.getMobName());
+			plugin.getMessages();
+			plugin.getMessages().learn(getPlayer(killer, killed),
+					plugin.getMessages().getString("mobhunting.learn.mob-disabled", "killed-mob", mob.getMobName()));
+			plugin.getMessages().debug("======================= kill ended (25b)=====================");
 			return;
 		}
 
@@ -1123,12 +1133,15 @@ public class MobHuntingManager implements Listener {
 
 		// Calculate basic the reward
 		double cash = plugin.getRewardManager().getBaseKillPrize(killed);
+		if (plugin.mRand.nextDouble() > plugin.getRewardManager().getCmdRunChance(killed))
+			cash = 0;
 		double basic_prize = cash;
 		plugin.getMessages().debug("Basic Prize=%s for killing a %s", plugin.getRewardManager().format(cash),
 				mob.getMobName());
 
 		// There is no reward and no penalty for this kill
-		if (basic_prize == 0 && plugin.getRewardManager().getKillConsoleCmd(killed).equals("")) {
+		if (basic_prize == 0 && (plugin.getRewardManager().getKillConsoleCmd(killed) == null
+				|| plugin.getRewardManager().getKillConsoleCmd(killed).isEmpty())) {
 			plugin.getMessages().debug(
 					"KillBlocked %s(%d): There is no reward and no penalty for this Mob/Player and is not counted as kill/achievement.",
 					mob.getMobName(), killed.getEntityId());
@@ -1258,7 +1271,8 @@ public class MobHuntingManager implements Listener {
 		Location loc = killed.getLocation();
 
 		// Grinding detection
-		if (cash != 0 && !plugin.getRewardManager().getKillConsoleCmd(killed).equals("")
+		if (cash != 0 && plugin.getRewardManager().getKillConsoleCmd(killed) != null
+				&& !plugin.getRewardManager().getKillConsoleCmd(killed).isEmpty()
 				&& plugin.getConfigManager().grindingDetectionEnabled) {
 			// Check if the location is marked as a Grinding Area. Whitelist
 			// overrules blacklist.
@@ -1414,7 +1428,7 @@ public class MobHuntingManager implements Listener {
 
 		// Handle Bounty Kills
 		double reward = 0;
-		if (!plugin.getConfigManager().disablePlayerBounties && killed instanceof Player) {
+		if (!plugin.getConfigManager().enablePlayerBounties && killed instanceof Player) {
 			plugin.getMessages().debug("This was a PVP kill (killed=%s), number of bounties=%s", killed.getName(),
 					plugin.getBountyManager().getAllBounties().size());
 			OfflinePlayer wantedPlayer = (OfflinePlayer) killed;
@@ -1464,10 +1478,12 @@ public class MobHuntingManager implements Listener {
 
 		// Check if there is a reward for this kill
 		if (cash >= plugin.getConfigManager().minimumReward || cash <= -plugin.getConfigManager().minimumReward
-				|| !plugin.getRewardManager().getKillConsoleCmd(killed).isEmpty()
-				|| (killer != null && McMMOCompat.isSupported() && plugin.getConfigManager().enableMcMMOLevelRewards)) {
+				|| (plugin.getRewardManager().getKillConsoleCmd(killed) != null
+						&& !plugin.getRewardManager().getKillConsoleCmd(killed).isEmpty())
+				|| (killer != null && McMMOCompat.isSupported() && plugin.getConfigManager().enableMcMMOLevelRewards)
+				|| plugin.getRewardManager().getHeadDropHead(killed)) {
 
-			// Handle MobHuntKillEvent and Record Hunt Achievement is done using
+			// Remember: Handle MobHuntKillEvent and Record Hunt Achievement is done using
 			// EighthsHuntAchievement.java (onKillCompleted)
 			MobHuntKillEvent event2 = new MobHuntKillEvent(data, info, killed, getPlayer(killer, killed));
 			Bukkit.getPluginManager().callEvent(event2);
@@ -1660,7 +1676,7 @@ public class MobHuntingManager implements Listener {
 				skilltype = SkillType.UNARMED;
 
 			if (skilltype != null) {
-				double chance = mRand.nextDouble();
+				double chance = plugin.mRand.nextDouble();
 				plugin.getMessages().debug("If %s<%s %s will get a McMMO Level for %s", chance,
 						plugin.getRewardManager().getMcMMOChance(killed), killer.getName(), skilltype.getName());
 
@@ -1677,52 +1693,67 @@ public class MobHuntingManager implements Listener {
 		}
 
 		// Run console commands as a reward
-		if (plugin.getRewardManager().isCmdGointToBeExcuted(killed) && data.getDampenedKills() < 10) {
+		if (data.getDampenedKills() < 10) {
 			String worldname = getPlayer(killer, killed).getWorld().getName();
 			String killerpos = getPlayer(killer, killed).getLocation().getBlockX() + " "
 					+ getPlayer(killer, killed).getLocation().getBlockY() + " "
 					+ getPlayer(killer, killed).getLocation().getBlockZ();
 			String killedpos = killed.getLocation().getBlockX() + " " + killed.getLocation().getBlockY() + " "
 					+ killed.getLocation().getBlockZ();
-			String prizeCommand = plugin.getRewardManager().getKillConsoleCmd(killed)
-					.replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
-					.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
-					.replaceAll("\\{world\\}", worldname).replace("\\{prize\\}", plugin.getRewardManager().format(cash))
-					.replaceAll("\\{killerpos\\}", killerpos).replaceAll("\\{killedpos\\}", killedpos);
-			if (killed instanceof Player)
-				prizeCommand = prizeCommand.replaceAll("\\{killed_player\\}", killed.getName())
-						.replaceAll("\\{killed\\}", killed.getName());
-			else
-				prizeCommand = prizeCommand.replaceAll("\\{killed_player\\}", mob.getMobName())
-						.replaceAll("\\{killed\\}", mob.getMobName());
-			plugin.getMessages().debug("Command to be run:" + prizeCommand);
-			if (!plugin.getRewardManager().getKillConsoleCmd(killed).equals("")) {
-				String str = prizeCommand;
-				do {
-					if (str.contains("|")) {
-						int n = str.indexOf("|");
+
+			Iterator<HashMap<String, String>> itr = plugin.getRewardManager().getKillConsoleCmd(killed).iterator();
+			while (itr.hasNext()) {
+				HashMap<String, String> cmd = itr.next();
+				double random = plugin.mRand.nextDouble();
+				if (random < Double.valueOf(cmd.get("chance"))) {
+					String prizeCommand = cmd.get("cmd").replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
+							.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
+							.replaceAll("\\{world\\}", worldname)
+							.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
+							.replace("{prize}", plugin.getRewardManager().format(cash))
+							.replaceAll("\\{killerpos\\}", killerpos).replaceAll("\\{killedpos\\}", killedpos).
+							replaceAll("{rewardname}", plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
+					if (killed instanceof Player)
+						prizeCommand = prizeCommand.replaceAll("\\{killed_player\\}", killed.getName())
+								.replaceAll("\\{killed\\}", killed.getName());
+					else
+						prizeCommand = prizeCommand.replaceAll("\\{killed_player\\}", mob.getMobName())
+								.replaceAll("\\{killed\\}", mob.getMobName());
+					plugin.getMessages().debug("Command to be run:" + prizeCommand);
+					if (!cmd.get("cmd").equals("")) {
+						String str = prizeCommand;
+						do {
+							if (str.contains("|")) {
+								int n = str.indexOf("|");
+								try {
+									Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),
+											str.substring(0, n));
+								} catch (CommandException e) {
+									Bukkit.getConsoleSender()
+											.sendMessage(ChatColor.RED + "[MobHunting][ERROR] Could not run cmd:\""
+													+ str.substring(0, n) + "\" when Mob:" + mob.getMobName()
+													+ " was killed by " + getPlayer(killer, killed).getName());
+									Bukkit.getConsoleSender()
+											.sendMessage(ChatColor.RED + "Command:" + str.substring(0, n));
+								}
+								str = str.substring(n + 1, str.length());
+							}
+						} while (str.contains("|"));
 						try {
-							Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),
-									str.substring(0, n));
+							Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), str);
 						} catch (CommandException e) {
 							Bukkit.getConsoleSender()
-									.sendMessage(ChatColor.RED + "[MobHunting][ERROR] Could not run cmd:\""
-											+ str.substring(0, n) + "\" when Mob:" + mob.getMobName()
-											+ " was killed by " + getPlayer(killer, killed).getName());
-							Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Command:" + str.substring(0, n));
+									.sendMessage(ChatColor.RED + "[MobHunting][ERROR] Could not run cmd:\"" + str
+											+ "\" when Mob:" + mob.getMobName() + " was killed by "
+											+ getPlayer(killer, killed).getName());
+							Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Command:" + str);
 						}
-						str = str.substring(n + 1, str.length());
 					}
-				} while (str.contains("|"));
-				try {
-					Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), str);
-				} catch (CommandException e) {
-					Bukkit.getConsoleSender()
-							.sendMessage(ChatColor.RED + "[MobHunting][ERROR] Could not run cmd:\"" + str
-									+ "\" when Mob:" + mob.getMobName() + " was killed by "
-									+ getPlayer(killer, killed).getName());
-					Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Command:" + str);
-				}
+				} else
+					plugin.getMessages().debug(
+							"The command did not run because random number (%s) was bigger than chance (%s)", random,
+							cmd.get("chance"));
+				itr.remove();
 			}
 
 			// Update PlaceHolderData
@@ -1746,9 +1777,11 @@ public class MobHuntingManager implements Listener {
 						+ plugin.getRewardManager().getKillRewardDescription(killed).trim()
 								.replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
 								.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
+								.replace("{prize}", plugin.getRewardManager().format(cash))
 								.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
 								.replaceAll("\\{world\\}", worldname).replaceAll("\\{killerpos\\}", killerpos)
-								.replaceAll("\\{killedpos\\}", killedpos);
+								.replaceAll("\\{killedpos\\}", killedpos)
+								.replaceAll("{rewardname}", plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
 				if (killed instanceof Player)
 					message = message.replaceAll("\\{killed_player\\}", killed.getName()).replaceAll("\\{killed\\}",
 							killed.getName());
@@ -1759,6 +1792,34 @@ public class MobHuntingManager implements Listener {
 				getPlayer(killer, killed).sendMessage(message);
 			}
 		}
+
+		// drop a head if allowed
+		if (plugin.getRewardManager().getHeadDropHead(killed)) {
+			double random = plugin.mRand.nextDouble();
+			if (random < plugin.getRewardManager().getHeadDropChance(killed)) {
+				MinecraftMob minecraftMob = MinecraftMob.getMinecraftMobType(killed);
+				if (minecraftMob == MinecraftMob.PvpPlayer) {
+					ItemStack head = new CustomItems(plugin).getPlayerHead(killed.getUniqueId(), 1,
+							plugin.getRewardManager().getHeadValue(killed));
+					killer.getWorld().dropItem(killed.getLocation(), head);
+				} else {
+					ItemStack head = new CustomItems(plugin).getCustomHead(minecraftMob, mob.getFriendlyName(), 1,
+							plugin.getRewardManager().getHeadValue(killed), minecraftMob.getPlayerUUID());
+					plugin.getRewardManager().setDisplayNameAndHiddenLores(head, mob.getFriendlyName(),
+							plugin.getRewardManager().getHeadValue(killed), minecraftMob.getPlayerUUID(),
+							minecraftMob.getPlayerUUID());
+					killer.getWorld().dropItem(killed.getLocation(), head);
+				}
+				plugin.getMessages().debug("%s killed a %s and a head was dropped", killer.getName(), killed.getName());
+				if (!plugin.getRewardManager().getHeadDropMessage(killed).isEmpty())
+					plugin.getMessages().playerSendMessage(killer,
+							plugin.getRewardManager().getHeadDropMessage(killed));
+			} else {
+				plugin.getMessages().debug("Did not drop a head: random(%s)>chance(%s)", random,
+						plugin.getRewardManager().getHeadDropChance(killed));
+			}
+		}
+
 		plugin.getMessages().debug("======================= kill ended (37)=====================");
 	}
 
@@ -1883,9 +1944,9 @@ public class MobHuntingManager implements Listener {
 				|| event.getSpawnReason() != SpawnReason.NATURAL)
 			return;
 
-		if (mRand.nextDouble() * 100 < plugin.getConfigManager().bonusMobChance) {
+		if (plugin.mRand.nextDouble() * 100 < plugin.getConfigManager().bonusMobChance) {
 			plugin.getParticleManager().attachEffect(event.getEntity(), Effect.MOBSPAWNER_FLAMES);
-			if (mRand.nextBoolean())
+			if (plugin.mRand.nextBoolean())
 				event.getEntity()
 						.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 3));
 			else

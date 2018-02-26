@@ -21,7 +21,7 @@ public class TitleManagerCompat {
 	// https://www.spigotmc.org/resources/titlemanager.1049/
 
 	public TitleManagerCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with TitleManager is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.TitleManager.getName());
@@ -50,12 +50,8 @@ public class TitleManagerCompat {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationTitleManager;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationTitleManager;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationTitleManager;
 	}
 
 	public static void setActionBar(Player player, String message) {

@@ -13,7 +13,7 @@ public class VanishNoPacketCompat implements Listener {
 	private static boolean supported = false;
 
 	public VanishNoPacketCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with VanishNoPacket is disabled in config.yml");
 		} else {
 
@@ -39,12 +39,8 @@ public class VanishNoPacketCompat implements Listener {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationVanishNoPacket;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationVanishNoPacket;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationVanishNoPacket;
 	}
 
 	public static boolean isVanishedModeEnabled(Player player) {

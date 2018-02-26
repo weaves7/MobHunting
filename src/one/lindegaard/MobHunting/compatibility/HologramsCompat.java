@@ -16,7 +16,7 @@ public class HologramsCompat {
 	// https://www.spigotmc.org/resources/holograms.4924/
 
 	public HologramsCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getConsoleSender()
 					.sendMessage("[MobHunting] Compatibility with Holograms is disabled in config.yml");
 		} else {
@@ -41,12 +41,8 @@ public class HologramsCompat {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationHolograms;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationHolograms;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationHolograms;
 	}
 
 	public static HologramManager getHologramManager() {

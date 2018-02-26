@@ -13,7 +13,7 @@ public class TitleAPICompat {
 	private static boolean supported = false;
 
 	public TitleAPICompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with TitelAPI is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.TitleAPI.getName());
@@ -36,12 +36,8 @@ public class TitleAPICompat {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationTitleAPI;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationTitleAPI;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationTitleAPI;
 	}
 
 	public static void sendTitles(Player player, String title, String subtitle, int fadeIn, int stay, int fadeOut) {

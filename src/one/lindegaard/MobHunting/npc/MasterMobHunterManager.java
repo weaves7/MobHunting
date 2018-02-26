@@ -321,8 +321,8 @@ public class MasterMobHunterManager implements Listener {
 						// npc.getName(),plugin.getMasterMobHunterManager().getAll().size());
 						MasterMobHunter masterMobHunter = new MasterMobHunter(plugin, npc);
 						CitizensCompat.getMasterMobHunterManager().put(npc.getId(), masterMobHunter);
-						RewardData rewardData = new RewardData(MobPlugin.Citizens, "npc", npc.getFullName(), "0",
-								"give {player} iron_sword 1", "You got an Iron sword.", 0, 1, 0.02);
+						RewardData rewardData = new RewardData(MobPlugin.Citizens, "npc", npc.getFullName(), true,"0",1,"You killed a Citizen",
+								null, 1, 0.02);
 						CitizensCompat.getMobRewardData().put(String.valueOf(npc.getId()), rewardData);
 						npc.getEntity().setMetadata(CitizensCompat.MH_CITIZENS,
 								new FixedMetadataValue(plugin, rewardData));

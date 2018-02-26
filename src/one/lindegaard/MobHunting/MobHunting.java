@@ -1,6 +1,7 @@
 package one.lindegaard.MobHunting;
 
 import java.io.File;
+import java.util.Random;
 
 import one.lindegaard.MobHunting.achievements.*;
 import one.lindegaard.MobHunting.bounty.BountyManager;
@@ -28,6 +29,8 @@ import one.lindegaard.MobHunting.commands.UpdateCommand;
 import one.lindegaard.MobHunting.commands.VersionCommand;
 import one.lindegaard.MobHunting.commands.WhitelistAreaCommand;
 import one.lindegaard.MobHunting.compatibility.*;
+import one.lindegaard.MobHunting.config.ConfigManagerOld;
+import one.lindegaard.MobHunting.config.ConfigManager;
 import one.lindegaard.MobHunting.grinding.GrindingManager;
 import one.lindegaard.MobHunting.leaderboard.LeaderboardManager;
 import one.lindegaard.MobHunting.mobs.ExtendedMobManager;
@@ -54,8 +57,10 @@ public class MobHunting extends JavaPlugin {
 	private final static String pluginName = "mobhunting";
 
 	private static MobHunting instance;
+	public Random mRand = new Random();
 
 	private Messages mMessages;
+	private ConfigManagerOld mConfig0;
 	private ConfigManager mConfig;
 	private RewardManager mRewardManager;
 	private MobHuntingManager mMobHuntingManager;
@@ -75,7 +80,7 @@ public class MobHunting extends JavaPlugin {
 	private CommandDispatcher mCommandDispatcher;
 	private CompatibilityManager mCompatibilityManager;
 	private SpigetUpdater mSpigetUpdater;
-	//private CustomItemsLib mCustomItemsLib;
+	// private CustomItemsLib mCustomItemsLib;
 
 	private boolean mInitialized = false;
 
@@ -87,37 +92,24 @@ public class MobHunting extends JavaPlugin {
 	public void onEnable() {
 
 		instance = this;
-		
+
 		mMessages = new Messages(this);
-
+		
 		mConfig = new ConfigManager(this, new File(getDataFolder(), "config.yml"));
-
+		
 		if (mConfig.loadConfig()) {
-			if (mConfig.dropMoneyOnGroundTextColor.equals("&0"))
-				mConfig.dropMoneyOnGroundTextColor = "WHITE";
+			if (mConfig.configVersion == 0) {
+				mConfig0 = new ConfigManagerOld(this, new File(getDataFolder(), "config.yml"));
+				if (mConfig0.loadConfig()) {
+					if (mConfig.convertConfig(mConfig0)) {
+						getMessages().debug("Config.yml converted to version 1");
+						mConfig.configVersion = 1;
+					}
+				}
+			}
 			mConfig.saveConfig();
 		} else
 			throw new RuntimeException(getMessages().getString(pluginName + ".config.fail"));
-		if (mConfig.pvpKillCmd.toLowerCase().contains("skullowner")
-				&& mConfig.pvpKillCmd.toLowerCase().contains("mobhunt")) {
-			Bukkit.getConsoleSender().sendMessage(
-					ChatColor.RED + "[Mobhunting]==================WARNING=================================");
-			Bukkit.getConsoleSender().sendMessage(
-					ChatColor.RED + "Potential error in your config.yml. pvp-kill-cmd contains SkullOwner,");
-			Bukkit.getConsoleSender().sendMessage(
-					ChatColor.RED + "which indicates that pvp-kill-cmd is outdated. Check the head command");
-			Bukkit.getConsoleSender()
-					.sendMessage(ChatColor.RED + "or delete the line pvp-kill-cmd, and then reload the plugin. The ");
-			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "correct syntax to get a player head is:");
-			Bukkit.getConsoleSender().sendMessage(
-					ChatColor.RED + "\"mobhunt head give {player} {killed_player} {killed_player} 1 silent\"");
-			Bukkit.getConsoleSender().sendMessage(
-					ChatColor.RED + "[Mobhunting]=========================================================");
-		}
-		
-		//getMessages().debug("Include Library: %s , Misc.round(1.05)=%s", 
-		//		CustomItemsLib.testLibTest(false), 
-		//		Misc.round(1.05));
 
 		if (isbStatsEnabled())
 			getMessages().debug("bStat is enabled");
@@ -273,7 +265,7 @@ public class MobHunting extends JavaPlugin {
 		mCommandDispatcher.registerCommand(new UpdateCommand(this));
 		mCommandDispatcher.registerCommand(new VersionCommand(this));
 		mCommandDispatcher.registerCommand(new DebugCommand(this));
-		if (!mConfig.disablePlayerBounties)
+		if (!mConfig.enablePlayerBounties)
 			mCommandDispatcher.registerCommand(new BountyCommand(this));
 		mCommandDispatcher.registerCommand(new HappyHourCommand(this));
 		mCommandDispatcher.registerCommand(new MoneyCommand(this));
@@ -283,10 +275,10 @@ public class MobHunting extends JavaPlugin {
 		mAchievementManager = new AchievementManager(this);
 
 		mMobHuntingManager = new MobHuntingManager(this);
-		if (!mConfig.disableFishingRewards)
+		if (!mConfig.enableFishingRewards)
 			mFishingManager = new FishingManager(this);
 
-		if (!mConfig.disablePlayerBounties)
+		if (!mConfig.enablePlayerBounties)
 			mBountyManager = new BountyManager(this);
 
 		// Check for new MobHuntig updates using Spiget.org
@@ -294,7 +286,8 @@ public class MobHunting extends JavaPlugin {
 
 		if (!Misc.isGlowstoneServer()) {
 			mMetricsManager = new MetricsManager(this);
-			mMetricsManager.startMetrics();
+			// MCStats.org is unstable
+			//mMetricsManager.startMetrics();
 			mMetricsManager.startBStatsMetrics();
 		}
 
@@ -310,7 +303,7 @@ public class MobHunting extends JavaPlugin {
 			for (Player player : Misc.getOnlinePlayers()) {
 				mPlayerSettingsManager.load(player);
 				mAchievementManager.load(player);
-				if (!mConfig.disablePlayerBounties)
+				if (!mConfig.enablePlayerBounties)
 					mBountyManager.load(player);
 				mMobHuntingManager.setHuntEnabled(player, true);
 			}
@@ -326,7 +319,7 @@ public class MobHunting extends JavaPlugin {
 		// getMessages().debug("Random uuid = %s", UUID.randomUUID());
 
 		mInitialized = true;
-		
+
 	}
 
 	@Override
@@ -345,7 +338,7 @@ public class MobHunting extends JavaPlugin {
 			PlaceholderAPICompat.shutdown();
 		}
 		getMobHuntingManager().getHuntingModifiers().clear();
-		if (!mConfig.disableFishingRewards)
+		if (!mConfig.enableFishingRewards)
 			getFishingManager().getFishingModifiers().clear();
 
 		try {
@@ -380,7 +373,7 @@ public class MobHunting extends JavaPlugin {
 	public static MobHunting getAPI() {
 		return instance;
 	}
-	
+
 	public ConfigManager getConfigManager() {
 		return mConfig;
 	}
@@ -396,13 +389,13 @@ public class MobHunting extends JavaPlugin {
 
 	/**
 	 * setMessages
+	 * 
 	 * @param messages
 	 */
 	public void setMessages(Messages messages) {
-		mMessages=messages;
+		mMessages = messages;
 	}
 
-	
 	/**
 	 * Gets the MobHuntingHandler
 	 * 
@@ -541,8 +534,8 @@ public class MobHunting extends JavaPlugin {
 		return mSpigetUpdater;
 	}
 
-	//public CustomItemsLib getCustomItemsLib() {
-	//	return mCustomItemsLib;
-	//}
+	// public CustomItemsLib getCustomItemsLib() {
+	// return mCustomItemsLib;
+	// }
 
 }

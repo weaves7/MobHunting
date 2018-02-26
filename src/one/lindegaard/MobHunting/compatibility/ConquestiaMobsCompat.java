@@ -25,7 +25,7 @@ public class ConquestiaMobsCompat implements Listener {
 	public static final String MH_CONQUESTIAMOBS = "MH:CQMOBS";
 
 	public ConquestiaMobsCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getLogger().info("[MobHunting] Compatibility with ConquestiaMobs is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.ConquestiaMobs.getName());
@@ -74,12 +74,8 @@ public class ConquestiaMobsCompat implements Listener {
 		return (double) value.value();
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationConquestiaMobs;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationConquestiaMobs;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationConquestiaMobs;
 	}
 
 	// **************************************************************************

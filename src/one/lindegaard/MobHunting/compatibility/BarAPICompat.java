@@ -16,7 +16,7 @@ public class BarAPICompat {
 	private static boolean supported = false;
 
 	public BarAPICompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getConsoleSender().sendMessage("[MobHunting] Compatibility with BarAPI is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.BarApi.getName());
@@ -45,12 +45,8 @@ public class BarAPICompat {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationBarAPI;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationBarAPI;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationBarAPI;
 	}
 
 	@SuppressWarnings("deprecation")

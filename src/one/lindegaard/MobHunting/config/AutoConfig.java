@@ -1,4 +1,4 @@
-package one.lindegaard.MobHunting.util;
+package one.lindegaard.MobHunting.config;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,6 +8,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -15,8 +17,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 
@@ -69,10 +72,31 @@ public abstract class AutoConfig {
 	};
 
 	protected void onPreSave() {
+
+		File backupFile = new File(mFile.toString());
+		int count = 0;
+		while (backupFile.exists() && count++ < 1000) {
+			backupFile = new File("plugins/MobHunting/backup/" + mFile.getName() + ".bak" + count);
+		}
+		if (mFile.exists())
+			try {
+				if (!backupFile.exists())
+					backupFile.mkdirs();
+				Files.copy(mFile.toPath(), backupFile.toPath(), StandardCopyOption.COPY_ATTRIBUTES,
+						StandardCopyOption.REPLACE_EXISTING);
+				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting]" + ChatColor.RESET
+						+ " Config.yml was backed up to " + backupFile.getPath());
+			} catch (IOException e1) {
+				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting]" + ChatColor.RED
+						+ "[ERROR] - Could not backup config.yml file to plugins/MobHunting/config.yml. Delete some old backups");
+				e1.printStackTrace();
+			}
+
 	};
 
+	@SuppressWarnings("unchecked")
 	public boolean loadConfig() {
-		FileConfiguration yml = new YamlConfiguration();
+		YamlConfiguration yml = new YamlConfiguration();
 		try {
 			// Make sure the file exists
 			if (!mFile.exists()) {
@@ -80,10 +104,12 @@ public abstract class AutoConfig {
 				mFile.createNewFile();
 			}
 
-			InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(mFile), StandardCharsets.UTF_8);
+			InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(mFile),
+					StandardCharsets.UTF_8);
 
 			// Parse the config
-			yml.load(inputStreamReader);
+			// yml.load(inputStreamReader);
+			yml = YamlConfiguration.loadConfiguration(inputStreamReader);
 			for (Field field : getClass().getDeclaredFields()) {
 				ConfigField configField = field.getAnnotation(ConfigField.class);
 				if (configField == null)
@@ -99,14 +125,15 @@ public abstract class AutoConfig {
 				field.setAccessible(true);
 
 				String path = (configField.category().isEmpty() ? "" : configField.category() + ".") + optionName;
+
 				mCategoryNodes.put(path, optionName);
+
 				if (!yml.contains(path)) {
 					if (field.get(this) == null)
 						throw new InvalidConfigurationException(
 								path + " is required to be set! Info:\n" + configField.comment());
 				} else {
 					// Parse the value
-
 					if (field.getType().isArray()) {
 						// Integer
 						if (field.getType().getComponentType().equals(Integer.TYPE))
@@ -139,10 +166,16 @@ public abstract class AutoConfig {
 
 						// HashMap
 						else if (field.getType().getComponentType().equals(HashMap.class)) {
-							field.set(this, yml.getConfigurationSection(path).getValues(true));
+							field.set(this, (List<HashMap<String, String>>) yml.getList(path));
+
 						} else
 							throw new IllegalArgumentException("LoadConfig - Cannot use type "
 									+ field.getType().getSimpleName() + " for AutoConfiguration (Is it an Array?)");
+
+					} else if (field.getType().equals(List.class)) {
+						// List of HashMaps
+						field.set(this, yml.getList(path));
+
 					} else {
 						// Integer
 						if (field.getType().equals(Integer.TYPE))
@@ -178,6 +211,7 @@ public abstract class AutoConfig {
 						// HashMap
 						else if (field.getType().equals(HashMap.class)) {
 							field.set(this, yml.getConfigurationSection(path).getValues(true));
+
 						} else
 							throw new IllegalArgumentException("LoadConfig - Cannot use type "
 									+ field.getType().getSimpleName() + " for AutoConfiguration");
@@ -204,7 +238,7 @@ public abstract class AutoConfig {
 
 			// Add all the category comments
 			comments.putAll(mCategoryComments);
-
+			
 			// Add all the values
 			for (Field field : getClass().getDeclaredFields()) {
 				ConfigField configField = field.getAnnotation(ConfigField.class);
@@ -219,13 +253,24 @@ public abstract class AutoConfig {
 
 				String path = (configField.category().isEmpty() ? "" : configField.category() + ".") + optionName;
 
-				// Ensure the secion exists
+				// Ensure the section exists
 				if (!configField.category().isEmpty() && !config.contains(configField.category()))
 					config.createSection(configField.category());
+
+				if (field.getType().equals(List.class)) {
+					config.set(path, field.get(this));
+				} else if (field.getType().equals(ArrayList.class)) {
+					if (field.getType().getComponentType().equals(HashMap.class)) {
+						config.createSection(path, (HashMap<String, String>) Arrays.asList(field.get(this)));
+					} else
+						throw new IllegalArgumentException("SaveConfig ArrayList - Cannot use type "
+								+ field.getType().getSimpleName() + " for AutoConfiguration (is it an ArrayList)");
+				} else
 
 				if (field.getType().isArray()) {
 					// Integer
 					if (field.getType().getComponentType().equals(Integer.TYPE))
+						// TODO: Check if field is "empty"
 						config.set(path, Arrays.asList((Integer[]) field.get(this)));
 
 					// Float
@@ -249,15 +294,24 @@ public abstract class AutoConfig {
 						config.set(path, Arrays.asList((Boolean[]) field.get(this)));
 
 					// String
-					else if (field.getType().getComponentType().equals(String.class))
+					else if (field.getType().getComponentType().equals(String.class)) {
+						// String[] str = (String[]) field.get(this);
+						// if (str.length != 0)
 						config.set(path, Arrays.asList((String[]) field.get(this)));
-					// HashMap
-					else if (field.getType().getComponentType().equals(HashMap.class)) {
-						config.createSection(path, (Map<String, String>) Arrays.asList(field.get(this)));
+
+						// HashMap
+					} else if (field.getType().getComponentType().equals(HashMap.class)) {
+						HashMap<String, String> map = new HashMap<String, String>();
+						map = (HashMap<String, String>) field.get(this);
+						config.createSection(path, map);
+
 					} else
-						throw new IllegalArgumentException("SaveConfig - Cannot use type "
+						throw new IllegalArgumentException("SaveConfig Array - Cannot use type "
 								+ field.getType().getSimpleName() + " for AutoConfiguration (is it an Array)");
-				} else {
+
+				}
+
+				else {
 					// Integer
 					if (field.getType().equals(Integer.TYPE))
 						config.set(path, field.get(this));
@@ -287,14 +341,21 @@ public abstract class AutoConfig {
 						config.set(path, field.get(this));
 
 					// String
-					else if (field.getType().equals(String.class))
-						config.set(path, field.get(this));
+					else if (field.getType().equals(String.class)) {
+						String str = (String) field.get(this);
+						if (!str.isEmpty() && !str.equals("\'\'"))
+							config.set(path, field.get(this));
+						else
+							config.set(path, null);
+					}
 					// HashMap
 					else if (field.getType().equals(HashMap.class)) {
-						config.createSection(path, (HashMap<String, String>) field.get(this));
-					} else
+						config.createSection(path, (HashMap<String, HashMap<String, String>>) field.get(this));
+
+					} else {
 						throw new IllegalArgumentException("SaveConfig - Cannot use type "
 								+ field.getType().getSimpleName() + " for AutoConfiguration (" + field.getName() + ")");
+					}
 				}
 
 				// Record the comment
@@ -306,7 +367,9 @@ public abstract class AutoConfig {
 
 			// Apply comments
 			String category = "";
+			String path = "";
 			List<String> lines = new ArrayList<String>(Arrays.asList(output.split("\n")));
+			int lvl = 0;
 			for (int l = 0; l < lines.size(); l++) {
 				String line = lines.get(l);
 
@@ -319,17 +382,17 @@ public abstract class AutoConfig {
 				if (!line.contains(":"))
 					continue;
 
-				String path = "";
 				line = line.substring(0, line.indexOf(":"));
+				lvl = getLevel(line);
+				category = getCategory(path, lvl);
 
-				if (line.startsWith("  "))
-					path = category + "." + line.substring(2).trim();
-				else {
-					category = line.trim();
+				if (lvl == 0)
 					path = line.trim();
-				}
+				else
+					path = category + "." + line.trim();
 
 				if (comments.containsKey(path)) {
+
 					String indent = "";
 					for (int i = 0; i < line.length(); i++) {
 						if (line.charAt(i) == ' ')
@@ -354,7 +417,7 @@ public abstract class AutoConfig {
 			OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(mFile), StandardCharsets.UTF_8);
 			writer.write(output);
 			writer.close();
-			
+
 			return true;
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
@@ -364,5 +427,26 @@ public abstract class AutoConfig {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	private int getLevel(String line) {
+		int n = 0;
+		while (line.startsWith("  ")) {
+			line = line.substring(2);
+			n++;
+		}
+		return n;
+	}
+
+	private String getCategory(String path, int lvl) {
+		String[] elements = path.split("\\.");
+		String result = "";
+		for (int i = 0; i < lvl; i++) {
+			if (result.equals(""))
+				result = elements[i];
+			else
+				result = result + "." + elements[i];
+		}
+		return result;
 	}
 }

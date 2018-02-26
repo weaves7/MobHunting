@@ -1,6 +1,7 @@
 package one.lindegaard.MobHunting.compatibility;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
@@ -15,9 +16,9 @@ public class ActionAnnouncerCompat {
 	// https://www.spigotmc.org/resources/actionannouncer.1320/
 
 	public ActionAnnouncerCompat() {
-		if (isDisabledInConfig()) {
+		if (!isEnabledInConfig()) {
 			Bukkit.getConsoleSender()
-					.sendMessage("[MobHunting] Compatibility with ActionAnnouncer is disabled in config.yml");
+					.sendMessage(ChatColor.GOLD+"[MobHunting]"+ChatColor.RESET+" Compatibility with ActionAnnouncer is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.ActionAnnouncer.getName());
 
@@ -39,12 +40,8 @@ public class ActionAnnouncerCompat {
 		return supported;
 	}
 
-	public static boolean isDisabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().disableIntegrationActionAnnouncer;
-	}
-
 	public static boolean isEnabledInConfig() {
-		return !MobHunting.getInstance().getConfigManager().disableIntegrationActionAnnouncer;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationActionAnnouncer;
 	}
 
 	public static void setMessage(Player player, String text) {
