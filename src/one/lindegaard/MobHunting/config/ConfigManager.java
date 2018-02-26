@@ -4408,41 +4408,6 @@ public class ConfigManager extends AutoConfig {
 		this.specialHunter8Cmd = mConfig0.specialHunter8Cmd;
 		this.specialHunter8CmdDesc = mConfig0.specialHunter8CmdDesc;
 
-		/**
-		 * HashMap<String, String> values1 = new HashMap<String, String>();
-		 * values1.put("money", String.valueOf(mConfig0.specialHunter1));
-		 * values1.put("cmd", mConfig0.specialHunter1Cmd); values1.put("message",
-		 * mConfig0.specialHunter1CmdDesc); this.specialHunter.put("level1", values1);
-		 * HashMap<String, String> values2 = new HashMap<String, String>();
-		 * values2.put("money", String.valueOf(mConfig0.specialHunter2));
-		 * values2.put("cmd", mConfig0.specialHunter2Cmd); values2.put("message",
-		 * mConfig0.specialHunter2CmdDesc); this.specialHunter.put("level2", values2);
-		 * HashMap<String, String> values3 = new HashMap<String, String>();
-		 * values3.put("money", String.valueOf(mConfig0.specialHunter3));
-		 * values3.put("cmd", mConfig0.specialHunter3Cmd); values3.put("message",
-		 * mConfig0.specialHunter3CmdDesc); this.specialHunter.put("level3", values3);
-		 * HashMap<String, String> values4 = new HashMap<String, String>();
-		 * values4.put("money", String.valueOf(mConfig0.specialHunter4));
-		 * values4.put("cmd", mConfig0.specialHunter4Cmd); values4.put("message",
-		 * mConfig0.specialHunter4CmdDesc); this.specialHunter.put("level4", values4);
-		 * HashMap<String, String> values5 = new HashMap<String, String>();
-		 * values5.put("money", String.valueOf(mConfig0.specialHunter5));
-		 * values5.put("cmd", mConfig0.specialHunter5Cmd); values5.put("message",
-		 * mConfig0.specialHunter5CmdDesc); this.specialHunter.put("level5", values5);
-		 * HashMap<String, String> values6 = new HashMap<String, String>();
-		 * values6.put("money", String.valueOf(mConfig0.specialHunter6));
-		 * values6.put("cmd", mConfig0.specialHunter6Cmd); values6.put("message",
-		 * mConfig0.specialHunter6CmdDesc); this.specialHunter.put("level6", values6);
-		 * HashMap<String, String> values7 = new HashMap<String, String>();
-		 * values7.put("money", String.valueOf(mConfig0.specialHunter7));
-		 * values7.put("cmd", mConfig0.specialHunter7Cmd); values7.put("message",
-		 * mConfig0.specialHunter7CmdDesc); this.specialHunter.put("level7", values7);
-		 * HashMap<String, String> values8 = new HashMap<String, String>();
-		 * values8.put("money", String.valueOf(mConfig0.specialHunter8));
-		 * values8.put("cmd", mConfig0.specialHunter8Cmd); values8.put("message",
-		 * mConfig0.specialHunter8CmdDesc); this.specialHunter.put("level8", values8);
-		 **/
-
 		this.batLevel1 = mConfig0.batLevel1;
 		this.blazeLevel1 = mConfig0.blazeLevel1;
 		this.blacksmithLevel1 = mConfig0.blacksmithLevel1;

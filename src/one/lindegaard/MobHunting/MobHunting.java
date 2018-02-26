@@ -94,19 +94,17 @@ public class MobHunting extends JavaPlugin {
 		instance = this;
 
 		mMessages = new Messages(this);
-		
+
+		//check if config file is old
+		mConfig0 = new ConfigManagerOld(this, new File(getDataFolder(), "config.yml"));
 		mConfig = new ConfigManager(this, new File(getDataFolder(), "config.yml"));
-		
-		if (mConfig.loadConfig()) {
-			if (mConfig.configVersion == 0) {
-				mConfig0 = new ConfigManagerOld(this, new File(getDataFolder(), "config.yml"));
-				if (mConfig0.loadConfig()) {
-					if (mConfig.convertConfig(mConfig0)) {
-						getMessages().debug("Config.yml converted to version 1");
-						mConfig.configVersion = 1;
-					}
-				}
+		if (mConfig0.loadConfig() && mConfig0.configVersion==0) {
+			if (mConfig.convertConfig(mConfig0)) {
+				getMessages().debug("Config.yml converted to version 1");
+				mConfig.configVersion = 1;
 			}
+		}
+		if (mConfig.loadConfig()) {
 			mConfig.saveConfig();
 		} else
 			throw new RuntimeException(getMessages().getString(pluginName + ".config.fail"));
