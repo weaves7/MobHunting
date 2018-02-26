@@ -1531,6 +1531,34 @@ public class MobHuntingManager implements Listener {
 			return;
 		}
 
+		String worldname = getPlayer(killer, killed).getWorld().getName();
+		String killerpos = getPlayer(killer, killed).getLocation().getBlockX() + " "
+				+ getPlayer(killer, killed).getLocation().getBlockY() + " "
+				+ getPlayer(killer, killed).getLocation().getBlockZ();
+		String killedpos = killed.getLocation().getBlockX() + " " + killed.getLocation().getBlockY() + " "
+				+ killed.getLocation().getBlockZ();
+
+		// send a message to the player
+		if (!plugin.getRewardManager().getKillRewardDescription(killed).trim().isEmpty() && !killer_muted) {
+			String message = ChatColor.GREEN + "" + ChatColor.ITALIC
+					+ plugin.getRewardManager().getKillRewardDescription(killed).trim()
+							.replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
+							.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
+							.replaceAll("\\{killed\\}", mob.getFriendlyName())
+							.replace("{prize}", plugin.getRewardManager().format(cash))
+							.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
+							.replaceAll("\\{world\\}", worldname).replaceAll("\\{killerpos\\}", killerpos)
+							.replaceAll("\\{killedpos\\}", killedpos)
+							.replaceAll("\\{rewardname\\}", plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
+			if (killed instanceof Player)
+				message = message.replaceAll("\\{killed_player\\}", killed.getName()).replaceAll("\\{killed\\}",
+						killed.getName());
+			else
+				message = message.replaceAll("\\{killed_player\\}", mob.getMobName()).replaceAll("\\{killed\\}",
+						mob.getMobName());
+			plugin.getMessages().debug("Description to be send:" + message);
+			getPlayer(killer, killed).sendMessage(message);
+		}
 		// Pay the money reward to killer/player and assister
 		if ((cash >= plugin.getConfigManager().minimumReward) || (cash <= -plugin.getConfigManager().minimumReward)) {
 
@@ -1709,12 +1737,6 @@ public class MobHuntingManager implements Listener {
 
 		// Run console commands as a reward
 		if (data.getDampenedKills() < 10) {
-			String worldname = getPlayer(killer, killed).getWorld().getName();
-			String killerpos = getPlayer(killer, killed).getLocation().getBlockX() + " "
-					+ getPlayer(killer, killed).getLocation().getBlockY() + " "
-					+ getPlayer(killer, killed).getLocation().getBlockZ();
-			String killedpos = killed.getLocation().getBlockX() + " " + killed.getLocation().getBlockY() + " "
-					+ killed.getLocation().getBlockZ();
 
 			Iterator<HashMap<String, String>> itr = plugin.getRewardManager().getKillConsoleCmd(killed).iterator();
 			while (itr.hasNext()) {
@@ -1723,6 +1745,7 @@ public class MobHuntingManager implements Listener {
 				if (random < Double.valueOf(cmd.get("chance"))) {
 					String prizeCommand = cmd.get("cmd").replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
 							.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
+							.replaceAll("\\{killed\\}", mob.getFriendlyName())
 							.replaceAll("\\{world\\}", worldname)
 							.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
 							.replace("{prize}", plugin.getRewardManager().format(cash))
@@ -1786,26 +1809,6 @@ public class MobHuntingManager implements Listener {
 				}
 			}
 
-			// send a message to the player
-			if (!plugin.getRewardManager().getKillRewardDescription(killed).trim().isEmpty() && !killer_muted) {
-				String message = ChatColor.GREEN + "" + ChatColor.ITALIC
-						+ plugin.getRewardManager().getKillRewardDescription(killed).trim()
-								.replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
-								.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
-								.replace("{prize}", plugin.getRewardManager().format(cash))
-								.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
-								.replaceAll("\\{world\\}", worldname).replaceAll("\\{killerpos\\}", killerpos)
-								.replaceAll("\\{killedpos\\}", killedpos)
-								.replaceAll("\\{rewardname\\}", plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
-				if (killed instanceof Player)
-					message = message.replaceAll("\\{killed_player\\}", killed.getName()).replaceAll("\\{killed\\}",
-							killed.getName());
-				else
-					message = message.replaceAll("\\{killed_player\\}", mob.getMobName()).replaceAll("\\{killed\\}",
-							mob.getMobName());
-				plugin.getMessages().debug("Description to be send:" + message);
-				getPlayer(killer, killed).sendMessage(message);
-			}
 		}
 
 		// drop a head if allowed
@@ -1827,8 +1830,16 @@ public class MobHuntingManager implements Listener {
 				}
 				plugin.getMessages().debug("%s killed a %s and a head was dropped", killer.getName(), killed.getName());
 				if (!plugin.getRewardManager().getHeadDropMessage(killed).isEmpty())
-					plugin.getMessages().playerSendMessage(killer,
-							plugin.getRewardManager().getHeadDropMessage(killed));
+					plugin.getMessages().playerSendMessage(killer,ChatColor.GREEN +
+							plugin.getRewardManager().getHeadDropMessage(killed)
+									.replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
+									.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
+									.replaceAll("\\{killed\\}", mob.getFriendlyName())
+									.replace("{prize}", plugin.getRewardManager().format(cash))
+									.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
+									.replaceAll("\\{world\\}", worldname).replaceAll("\\{killerpos\\}", killerpos)
+									.replaceAll("\\{killedpos\\}", killedpos).replaceAll("\\{rewardname\\}",
+											plugin.getConfigManager().dropMoneyOnGroundSkullRewardName));
 			} else {
 				plugin.getMessages().debug("Did not drop a head: random(%s)>chance(%s)", random,
 						plugin.getRewardManager().getHeadDropChance(killed));

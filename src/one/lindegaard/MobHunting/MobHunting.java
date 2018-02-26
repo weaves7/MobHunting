@@ -95,14 +95,18 @@ public class MobHunting extends JavaPlugin {
 
 		mMessages = new Messages(this);
 
-		//check if config file is old
-		mConfig0 = new ConfigManagerOld(this, new File(getDataFolder(), "config.yml"));
-		mConfig = new ConfigManager(this, new File(getDataFolder(), "config.yml"));
-		if (mConfig0.loadConfig() && mConfig0.configVersion==0) {
-			if (mConfig.convertConfig(mConfig0)) {
-				getMessages().debug("Config.yml converted to version 1");
-				mConfig.configVersion = 1;
+		if (new File(getDataFolder(), "config.yml").exists()) {
+			// check if config file is old
+			mConfig0 = new ConfigManagerOld(this, new File(getDataFolder(), "config.yml"));
+			mConfig = new ConfigManager(this, new File(getDataFolder(), "config.yml"));
+			if (mConfig0.loadConfig() && mConfig0.configVersion == 0) {
+				if (mConfig.convertConfig(mConfig0)) {
+					getMessages().debug("Config.yml converted to version 1");
+					mConfig.configVersion = 1;
+				}
 			}
+		} else {
+			mConfig = new ConfigManager(this, new File(getDataFolder(), "config.yml"));
 		}
 		if (mConfig.loadConfig()) {
 			mConfig.saveConfig();
@@ -285,7 +289,7 @@ public class MobHunting extends JavaPlugin {
 		if (!Misc.isGlowstoneServer()) {
 			mMetricsManager = new MetricsManager(this);
 			// MCStats.org is unstable
-			//mMetricsManager.startMetrics();
+			// mMetricsManager.startMetrics();
 			mMetricsManager.startBStatsMetrics();
 		}
 

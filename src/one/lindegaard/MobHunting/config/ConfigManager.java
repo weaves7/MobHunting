@@ -532,9 +532,9 @@ public class ConfigManager extends AutoConfig {
 		defaultCommands.add(values2);
 
 		HashMap<String, String> values3 = new HashMap<String, String>();
-		values3.put("cmd", "say {player} killed an entity");
+		values3.put("cmd", "say {player} killed an {killed}");
 		values3.put("chance", "1");
-		values3.put("message", "You killed an entity");
+		values3.put("message", "You killed an {killed}");
 		defaultCommands.add(values3);
 
 	}
@@ -546,13 +546,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "chance", category = "example.mobname.head", comment = "The chance to drop a head (a number between 0 and 1")
 	public double defaultHeadChance = 0.5;
 	@ConfigField(name = "message", category = "example.mobname.head", comment = "The message you want when a head is dropped")
-	public String defaultHeadMessage = "You got a Skull";
+	public String defaultHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Blaze============================================
 	@ConfigField(name = "blaze.enabled", category = "mobs")
 	public boolean blazeEnabled = true;
 	@ConfigField(name = "blaze.message", category = "mobs")
-	public String blazeMessage = "The {killed} dropped {prize} {rewardname}";
+	public String blazeMessage = "You killed a {killed}";
 	@ConfigField(name = "blaze.money.amount", category = "mobs")
 	public String blazeMoney = "10.0";
 	@ConfigField(name = "blaze.money.chance", category = "mobs")
@@ -573,13 +573,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "blaze.head.chance", category = "mobs")
 	public double blazeHeadDropChance = 0.10;
 	@ConfigField(name = "blaze.head.message", category = "mobs")
-	public String blazeHeadMessage = "You got a Blaze skull";
+	public String blazeHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Cave Spider============================================
 	@ConfigField(name = "cave_spider.enabled", category = "mobs")
 	public boolean caveSpiderEnabled = true;
 	@ConfigField(name = "cave_spider.message", category = "mobs")
-	public String caveSpiderCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String caveSpiderCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "cave_spider.money.amount", category = "mobs")
 	public String caveSpiderPrize = "10:20";
 	@ConfigField(name = "cave_spider.money.chance", category = "mobs")
@@ -600,13 +600,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "cave_spider.head.chance", category = "mobs")
 	public double caveSpiderHeadDropChance = 0.1;
 	@ConfigField(name = "cave_spider.head.message", category = "mobs")
-	public String caveSpiderHeadMessage = "You got a Cave Spider skull.";
+	public String caveSpiderHeadMessage = "The {killed} dropped a skull on the ground.";
 
 	// =====Creeper============================================
 	@ConfigField(name = "creeper.enabled", category = "mobs")
 	public boolean creeperEnabled = true;
 	@ConfigField(name = "creeper.message", category = "mobs")
-	public String creeperCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String creeperCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "creeper.money.amount", category = "mobs")
 	public String creeperPrize = "10.0";
 	@ConfigField(name = "creeper.money.chance", category = "mobs")
@@ -627,13 +627,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "creeper.head.chance", category = "mobs")
 	public double creeperHeadDropChance = 0.05;
 	@ConfigField(name = "creeper.head.message", category = "mobs")
-	public String creeperHeadMessage = "You got a Creeper skull";
+	public String creeperHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Elder Guardian============================================
 	@ConfigField(name = "elder_guardian.enabled", category = "mobs")
 	public boolean elderGuardianEnabled = true;
 	@ConfigField(name = "elder_guardian.message", category = "mobs")
-	public String elderGuardianCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String elderGuardianCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "elder_guardian.money.amount", category = "mobs")
 	public String elderGuardianPrize = "40:80";
 	@ConfigField(name = "elder_guardian.money.chance", category = "mobs")
@@ -654,13 +654,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "elder_guardian.head.chance", category = "mobs")
 	public double elderGuardianHeadDropChance = 0.33;
 	@ConfigField(name = "elder_guardian.head.message", category = "mobs")
-	public String elderGuardianHeadMessage = "You got a Elder Guardian skull";
+	public String elderGuardianHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Enderman============================================
 	@ConfigField(name = "enderman.enabled", category = "mobs")
 	public boolean endermanEnabled = true;
 	@ConfigField(name = "enderman.message", category = "mobs")
-	public String endermanCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String endermanCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "enderman.money.amount", category = "mobs")
 	public String endermanPrize = "20:40";
 	@ConfigField(name = "enderman.money.chance", category = "mobs")
@@ -681,13 +681,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "enderman.head.chance", category = "mobs")
 	public double endermanHeadDropChance = 0.33;
 	@ConfigField(name = "enderman.head.message", category = "mobs")
-	public String endermanHeadMessage = "You got a Enderman skull";
+	public String endermanHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Endermite============================================
 	@ConfigField(name = "endermite.enabled", category = "mobs")
 	public boolean endermiteEnabled = true;
 	@ConfigField(name = "enderman.message", category = "mobs")
-	public String endermiteCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String endermiteCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "endermite.money.amount", category = "mobs")
 	public String endermitePrize = "10";
 	@ConfigField(name = "endermite.money.chance", category = "mobs")
@@ -708,13 +708,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "endermite.head.chance", category = "mobs")
 	public double endermiteHeadDropChance = 0.10;
 	@ConfigField(name = "endermite.head.message", category = "mobs")
-	public String endermiteHeadMessage = "You got a Endermite skull";
+	public String endermiteHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Ghast============================================
 	@ConfigField(name = "ghast.enabled", category = "mobs")
 	public boolean ghastEnabled = true;
 	@ConfigField(name = "ghast.message", category = "mobs")
-	public String ghastCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String ghastCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "ghast.money.amount", category = "mobs")
 	public String ghastPrize = "40:80";
 	@ConfigField(name = "ghast.money.chance", category = "mobs")
@@ -735,13 +735,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "ghast.head.chance", category = "mobs")
 	public double ghastHeadDropChance = 0.10;
 	@ConfigField(name = "ghast.head.message", category = "mobs")
-	public String ghastHeadMessage = "You got a Ghast skull";
+	public String ghastHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Giant============================================
 	@ConfigField(name = "giant.enabled", category = "mobs")
 	public boolean giantEnabled = true;
 	@ConfigField(name = "giant.message", category = "mobs")
-	public String giantCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String giantCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "giant.money.amount", category = "mobs")
 	public String giantPrize = "5.0";
 	@ConfigField(name = "giant.money.chance", category = "mobs")
@@ -762,13 +762,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "giant.head.chance", category = "mobs")
 	public double giantHeadDropChance = 0.10;
 	@ConfigField(name = "giant.head.message", category = "mobs")
-	public String giantHeadMessage = "You got a Giant skull";
+	public String giantHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Iron Golem============================================
 	@ConfigField(name = "iron_golem.enabled", category = "mobs")
 	public boolean ironGolemEnabled = true;
 	@ConfigField(name = "iron_golem.message", category = "mobs")
-	public String ironGolemCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String ironGolemCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "iron_golem.money.amount", category = "mobs")
 	public String ironGolemPrize = "20:40";
 	@ConfigField(name = "iron_golem.money.chance", category = "mobs")
@@ -789,13 +789,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "iron_golem.head.chance", category = "mobs")
 	public double ironGolemHeadDropChance = 0.10;
 	@ConfigField(name = "iron_golem.head.message", category = "mobs")
-	public String ironGolemHeadMessage = "You got a Iron Golem skull";
+	public String ironGolemHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Guardian============================================
 	@ConfigField(name = "guardian.enabled", category = "mobs")
 	public boolean guardianEnabled = true;
 	@ConfigField(name = "guardian.message", category = "mobs")
-	public String guardianCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String guardianCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "guardian.money.amount", category = "mobs")
 	public String guardianPrize = "20:40";
 	@ConfigField(name = "guardian.money.chance", category = "mobs")
@@ -816,13 +816,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "guardian.head.chance", category = "mobs")
 	public double guardianHeadDropChance = 0.10;
 	@ConfigField(name = "guardian.head.message", category = "mobs")
-	public String guardianHeadMessage = "You got a Guardian skull";
+	public String guardianHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Husk============================================
 	@ConfigField(name = "husk.enabled", category = "mobs")
 	public boolean huskEnabled = true;
 	@ConfigField(name = "husk.message", category = "mobs")
-	public String huskCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String huskCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "husk.money.amount", category = "mobs")
 	public String huskPrize = "9:13";
 	@ConfigField(name = "husk.money.chance", category = "mobs")
@@ -843,13 +843,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "husk.head.chance", category = "mobs")
 	public double huskHeadDropChance = 0.20;
 	@ConfigField(name = "husk.head.message", category = "mobs")
-	public String huskHeadMessage = "You got a Husk skull";
+	public String huskHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Killer Rabbit============================================
 	@ConfigField(name = "killer_rabbit.enabled", category = "mobs")
 	public boolean killerRabbitEnabled = true;
 	@ConfigField(name = "killer_rabbit.message", category = "mobs")
-	public String killerRabbitCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String killerRabbitCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "killer_rabbit.money.amount", category = "mobs")
 	public String killerRabbitPrize = "200";
 	@ConfigField(name = "killer_rabbit.money.chance", category = "mobs")
@@ -870,13 +870,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "killer_rabbit.head.chance", category = "mobs")
 	public double killerRabbitHeadDropChance = 0.25;
 	@ConfigField(name = "killer_rabbit.head.message", category = "mobs")
-	public String killerRabbitHeadMessage = "You got a Killer Rabbit skull";
+	public String killerRabbitHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Magma Cube============================================
 	@ConfigField(name = "magma_cube.enabled", category = "mobs")
 	public boolean magmaCubeEnabled = true;
 	@ConfigField(name = "magma_cube.message", category = "mobs")
-	public String magmaCubeCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String magmaCubeCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "magma_cube.money.amount", category = "mobs")
 	public String magmaCubePrize = "10:20";
 	@ConfigField(name = "magma_cube.money.chance", category = "mobs")
@@ -897,13 +897,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "magma_cube.head.chance", category = "mobs")
 	public double magmaCubeHeadDropChance = 0.10;
 	@ConfigField(name = "magma_cube.head.message", category = "mobs")
-	public String magmaCubeHeadMessage = "You got a Magma Cube skull";
+	public String magmaCubeHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Polar Bear============================================
 	@ConfigField(name = "polar_bear.enabled", category = "mobs")
 	public boolean polarBearEnabled = true;
 	@ConfigField(name = "polar_bear.message", category = "mobs")
-	public String polarBearCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String polarBearCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "polar_bear.money.amount", category = "mobs")
 	public String polarBearPrize = "25";
 	@ConfigField(name = "polar_bear.money.chance", category = "mobs")
@@ -924,13 +924,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "polar_bear.head.chance", category = "mobs")
 	public double polarBearHeadDropChance = 0.25;
 	@ConfigField(name = "polar_bear.head.message", category = "mobs")
-	public String polarBearHeadMessage = "You got a Polar Bear skull";
+	public String polarBearHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Slime============================================
 	@ConfigField(name = "slime.enabled", category = "mobs")
 	public boolean slimeEnabled = true;
 	@ConfigField(name = "slime.message", category = "mobs")
-	public String slimeCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String slimeCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "slime.money.amount", category = "mobs")
 	public String slimePrize = "25";
 	@ConfigField(name = "slime.money.chance", category = "mobs")
@@ -951,13 +951,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "slime.head.chance", category = "mobs")
 	public double slimeHeadDropChance = 0.05;
 	@ConfigField(name = "slime.head.message", category = "mobs")
-	public String slimeHeadMessage = "You got a Slime skull";
+	public String slimeHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Shulker============================================
 	@ConfigField(name = "shulker.enabled", category = "mobs")
 	public boolean shulkerEnabled = true;
 	@ConfigField(name = "shulker.message", category = "mobs")
-	public String shulkerCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String shulkerCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "shulker.money.amount", category = "mobs")
 	public String shulkerPrize = "25";
 	@ConfigField(name = "shulker.money.chance", category = "mobs")
@@ -978,13 +978,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "shulker.head.chance", category = "mobs")
 	public double shulkerHeadDropChance = 0.50;
 	@ConfigField(name = "shulker.head.message", category = "mobs")
-	public String shulkerHeadMessage = "You got a Shulker skull";
+	public String shulkerHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Silverfish============================================
 	@ConfigField(name = "silverfish.enabled", category = "mobs")
 	public boolean silverfishEnabled = true;
 	@ConfigField(name = "silverfish.message", category = "mobs")
-	public String silverfishCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String silverfishCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "silverfish.money.amount", category = "mobs")
 	public String silverfishPrize = "10";
 	@ConfigField(name = "silverfish.money.chance", category = "mobs")
@@ -1005,13 +1005,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "silverfish.head.chance", category = "mobs")
 	public double silverfishHeadDropChance = 0.20;
 	@ConfigField(name = "silverfish.head.message", category = "mobs")
-	public String silverfishHeadMessage = "You got a Silverfish skull";
+	public String silverfishHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Skeleton============================================
 	@ConfigField(name = "skeleton.enabled", category = "mobs")
 	public boolean skeletonEnabled = true;
 	@ConfigField(name = "skeleton.message", category = "mobs")
-	public String skeletonCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String skeletonCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "skeleton.money.amount", category = "mobs")
 	public String skeletonPrize = "10:30";
 	@ConfigField(name = "skeleton.money.chance", category = "mobs")
@@ -1032,13 +1032,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "skeleton.head.chance", category = "mobs")
 	public double skeletonHeadDropChance = 0.05;
 	@ConfigField(name = "skeleton.head.message", category = "mobs")
-	public String skeletonHeadMessage = "You got a Skeleton skull";
+	public String skeletonHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Spider============================================
 	@ConfigField(name = "spider.enabled", category = "mobs")
 	public boolean spiderEnabled = true;
 	@ConfigField(name = "spider.message", category = "mobs")
-	public String spiderMessage = "The {killed} dropped {prize} {rewardname}";
+	public String spiderMessage = "You killed a {killed}";
 	@ConfigField(name = "spider.money.amount", category = "mobs")
 	public String spiderMoney = "5.5:10.5";
 	@ConfigField(name = "spider.money.chance", category = "mobs")
@@ -1059,13 +1059,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "spider.head.chance", category = "mobs")
 	public double spiderHeadDropChance = 0.05;
 	@ConfigField(name = "spider.head.message", category = "mobs")
-	public String spiderHeadMessage = "You got a Spider skull";
+	public String spiderHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Stray============================================
 	@ConfigField(name = "stray.enabled", category = "mobs")
 	public boolean strayEnabled = true;
 	@ConfigField(name = "stray.message", category = "mobs")
-	public String strayCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String strayCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "stray.money.amount", category = "mobs")
 	public String strayPrize = "15:35";
 	@ConfigField(name = "stray.money.chance", category = "mobs")
@@ -1086,13 +1086,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "stray.head.chance", category = "mobs")
 	public double strayHeadDropChance = 0.20;
 	@ConfigField(name = "stray.head.message", category = "mobs")
-	public String strayHeadMessage = "You got a Stray skull";
+	public String strayHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Zombie============================================
 	@ConfigField(name = "zombie.enabled", category = "mobs")
 	public boolean zombieEnabled = true;
 	@ConfigField(name = "zombie.message", category = "mobs")
-	public String zombieCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String zombieCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "zombie.money.amount", category = "mobs")
 	public String zombiePrize = "7:11";
 	@ConfigField(name = "zombie.money.chance", category = "mobs")
@@ -1113,13 +1113,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "zombie.head.chance", category = "mobs")
 	public double zombieHeadDropChance = 0.005;
 	@ConfigField(name = "zombie.head.message", category = "mobs")
-	public String zombieHeadMessage = "You got a Zombie skull";
+	public String zombieHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Zombie Pigman============================================
 	@ConfigField(name = "zombie_pigman.enabled", category = "mobs")
 	public boolean zombiePigmanEnabled = true;
 	@ConfigField(name = "zombie_pigman.message", category = "mobs")
-	public String zombiePigmanCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String zombiePigmanCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "zombie_pigman.money.amount", category = "mobs")
 	public String zombiePigmanPrize = "4:8";
 	@ConfigField(name = "zombie_pigman.money.chance", category = "mobs")
@@ -1140,13 +1140,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "zombie_pigman.head.chance", category = "mobs")
 	public double zombiePigmanHeadDropChance = 0.10;
 	@ConfigField(name = "zombie_pigman.head.message", category = "mobs")
-	public String zombiePigmanHeadMessage = "You got a Zombie Pigman skull";
+	public String zombiePigmanHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Vex============================================
 	@ConfigField(name = "vex.enabled", category = "mobs")
 	public boolean vexEnabled = true;
 	@ConfigField(name = "vex.message", category = "mobs")
-	public String vexCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String vexCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "vex.money.amount", category = "mobs")
 	public String vexPrize = "10:15";
 	@ConfigField(name = "vex.money.chance", category = "mobs")
@@ -1167,13 +1167,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "vex.head.chance", category = "mobs")
 	public double vexHeadDropChance = 0.50;
 	@ConfigField(name = "vex.head.message", category = "mobs")
-	public String vexHeadMessage = "You got a Vex skull";
+	public String vexHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Witch============================================
 	@ConfigField(name = "witch.enabled", category = "mobs")
 	public boolean witchEnabled = true;
 	@ConfigField(name = "witch.message", category = "mobs")
-	public String witchCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String witchCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "witch.money.amount", category = "mobs")
 	public String witchPrize = "10:15";
 	@ConfigField(name = "witch.money.chance", category = "mobs")
@@ -1194,13 +1194,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "witch.head.chance", category = "mobs")
 	public double witchHeadDropChance = 0.05;
 	@ConfigField(name = "witch.head.message", category = "mobs")
-	public String witchHeadMessage = "You got a Witch skull";
+	public String witchHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Wither Skeleton============================================
 	@ConfigField(name = "wither_skeleton.enabled", category = "mobs")
 	public boolean witherSkeletonEnabled = true;
 	@ConfigField(name = "wither_skeleton.message", category = "mobs")
-	public String witherSkeletonCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String witherSkeletonCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "wither_skeleton.money.amount", category = "mobs")
 	public String witherSkeletonPrize = "30:50";
 	@ConfigField(name = "wither_skeleton.money.chance", category = "mobs")
@@ -1221,7 +1221,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "wither_skeleton.head.chance", category = "mobs")
 	public double witherSkeletonHeadDropChance = 0.10;
 	@ConfigField(name = "wither_skeleton.head.message", category = "mobs")
-	public String witherSkeletonHeadMessage = "You got a Wither Skeleton skull";
+	public String witherSkeletonHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// #####################################################################################
 	// Bosses
@@ -1230,7 +1230,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "wither.enabled", category = "boss")
 	public boolean witherEnabled = true;
 	@ConfigField(name = "wither.message", category = "boss")
-	public String witherCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String witherCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "wither.money.amount", category = "boss")
 	public String witherPrize = "1000:2000";
 	@ConfigField(name = "wither.money.chance", category = "boss")
@@ -1257,13 +1257,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "wither.head.chance", category = "boss")
 	public double witherHeadDropChance = 0.50;
 	@ConfigField(name = "wither.head.message", category = "boss")
-	public String witherHeadMessage = "You got a Wither skull";
+	public String witherHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Ender Dragon============================================
 	@ConfigField(name = "ender_dragon.enabled", category = "boss")
 	public boolean enderDragonEnabled = true;
 	@ConfigField(name = "ender_dragon.message", category = "boss")
-	public String enderDragonCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String enderDragonCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "ender_dragon.money.amount", category = "boss")
 	public String enderDragonPrize = "2000.0:5000.0";
 	@ConfigField(name = "ender_dragon.money.chance", category = "boss")
@@ -1289,7 +1289,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "ender_dragon.head.chance", category = "boss")
 	public double enderDragonHeadDropChance = 0.5;
 	@ConfigField(name = "ender_dragon.head.message", category = "boss")
-	public String enderDragonHeadMessage = "You got a Ender Dragon skull";
+	public String enderDragonHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// Usage: /summon <EntityName> [x] [y] [z] [dataTag]
 	// Try this!!!! /summon Minecart ~ ~ ~20 {Riding:{id:EnderDragon}}
@@ -1309,7 +1309,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "blacksmith.enabled", category = "villager")
 	public boolean blacksmithEnabled = true;
 	@ConfigField(name = "blacksmith.message", category = "villager")
-	public String blacksmithCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String blacksmithCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "blacksmith.money.amount", category = "villager")
 	public String blacksmithPrize = "1:2";
 	@ConfigField(name = "blacksmith.money.chance", category = "villager")
@@ -1330,13 +1330,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "blacksmith.head.chance", category = "villager")
 	public double blacksmithHeadDropChance = 0.10;
 	@ConfigField(name = "blacksmith.head.message", category = "villager")
-	public String blacksmithHeadMessage = "You got a Blacksmith skull";
+	public String blacksmithHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Butcher============================================
 	@ConfigField(name = "butcher.enabled", category = "villager")
 	public boolean butcherEnabled = true;
 	@ConfigField(name = "butcher.message", category = "villager")
-	public String butcherCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String butcherCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "butcher.money.amount", category = "villager")
 	public String butcherPrize = "1:2";
 	@ConfigField(name = "butcher.money.chance", category = "villager")
@@ -1357,13 +1357,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "butcher.head.chance", category = "villager")
 	public double butcherHeadDropChance = 0.10;
 	@ConfigField(name = "butcher.head.message", category = "villager")
-	public String butcherHeadMessage = "You got a Butcher skull";
+	public String butcherHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Evoker============================================
 	@ConfigField(name = "evoker.enabled", category = "villager")
 	public boolean evokerEnabled = true;
 	@ConfigField(name = "evoker.message", category = "villager")
-	public String evokerCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String evokerCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "evoker.money.amount", category = "villager")
 	public String evokerPrize = "10";
 	@ConfigField(name = "evoker.money.chance", category = "villager")
@@ -1384,13 +1384,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "evoker.head.chance", category = "villager")
 	public double evokerHeadDropChance = 0.50;
 	@ConfigField(name = "evoker.head.message", category = "villager")
-	public String evokerHeadMessage = "You got a Evoker skull";
+	public String evokerHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Farmer============================================
 	@ConfigField(name = "farmer.enabled", category = "villager")
 	public boolean farmerEnabled = true;
 	@ConfigField(name = "farmer.message", category = "villager")
-	public String farmerCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String farmerCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "farmer.money.amount", category = "villager")
 	public String farmerPrize = "1:2";
 	@ConfigField(name = "farmer.money.chance", category = "villager")
@@ -1411,13 +1411,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "farmer.head.chance", category = "villager")
 	public double farmerHeadDropChance = 0.10;
 	@ConfigField(name = "farmer.head.message", category = "villager")
-	public String farmerHeadMessage = "You got a Farmer skull";
+	public String farmerHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Illusioner============================================
 	@ConfigField(name = "illusioner.enabled", category = "villager")
 	public boolean illusionerEnabled = true;
 	@ConfigField(name = "illusioner.message", category = "villager")
-	public String illusionerCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String illusionerCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "illusioner.money.amount", category = "villager")
 	public String illusionerPrize = "30:50";
 	@ConfigField(name = "illusioner.money.chance", category = "villager")
@@ -1438,13 +1438,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "illusioner.head.chance", category = "villager")
 	public double illusionerHeadDropChance = 0.10;
 	@ConfigField(name = "illusioner.head.message", category = "villager")
-	public String illusionerHeadMessage = "You got a Illusioner skull";
+	public String illusionerHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Librarian============================================
 	@ConfigField(name = "librarian.enabled", category = "villager")
 	public boolean librarianEnabled = true;
 	@ConfigField(name = "librarian.message", category = "villager")
-	public String librarianCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String librarianCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "librarian.money.amount", category = "villager")
 	public String librarianPrize = "1:2";
 	@ConfigField(name = "librarian.money.chance", category = "villager")
@@ -1465,13 +1465,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "librarian.head.chance", category = "villager")
 	public double librarianHeadDropChance = 0.50;
 	@ConfigField(name = "librarian.head.message", category = "villager")
-	public String librarianHeadMessage = "You got a Librarian skull";
+	public String librarianHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Nitwit============================================
 	@ConfigField(name = "nitwit.enabled", category = "villager")
 	public boolean nitwitEnabled = true;
 	@ConfigField(name = "nitwit.message", category = "villager")
-	public String nitwitCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String nitwitCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "nitwit.money.amount", category = "villager")
 	public String nitwitPrize = "1:2";
 	@ConfigField(name = "nitwit.money.chance", category = "villager")
@@ -1492,13 +1492,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "nitwit.head.chance", category = "villager")
 	public double nitwitHeadDropChance = 0.5;
 	@ConfigField(name = "nitwit.head.message", category = "villager")
-	public String nitwitHeadMessage = "You got a Nitwit skull";
+	public String nitwitHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Priest============================================
 	@ConfigField(name = "priest.enabled", category = "villager")
 	public boolean priestEnabled = true;
 	@ConfigField(name = "priest.message", category = "villager")
-	public String priestCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String priestCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "priest.money.amount", category = "villager")
 	public String priestPrize = "1:2";
 	@ConfigField(name = "priest.money.chance", category = "villager")
@@ -1519,13 +1519,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "priest.head.chance", category = "villager")
 	public double priestHeadDropChance = 0.50;
 	@ConfigField(name = "priest.head.message", category = "villager")
-	public String priestHeadMessage = "You got a Priest skull";
+	public String priestHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Villager============================================
 	@ConfigField(name = "villager.enabled", category = "villager")
 	public boolean villagerEnabled = true;
 	@ConfigField(name = "villager.message", category = "villager")
-	public String villagerCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String villagerCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "villager.money.amount", category = "villager")
 	public String villagerPrize = "1";
 	@ConfigField(name = "villager.money.chance", category = "villager")
@@ -1546,13 +1546,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "villager.head.chance", category = "villager")
 	public double villagerHeadDropChance = 0.30;
 	@ConfigField(name = "villager.head.message", category = "villager")
-	public String villagerHeadMessage = "You got a Villager skull";
+	public String villagerHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Vindicator============================================
 	@ConfigField(name = "vindicator.enabled", category = "villager")
 	public boolean vindicatorEnabled = true;
 	@ConfigField(name = "vindicator.message", category = "villager")
-	public String vindicatorCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String vindicatorCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "vindicator.money.amount", category = "villager")
 	public String vindicatorPrize = "10:15";
 	@ConfigField(name = "vindicator.money.chance", category = "villager")
@@ -1573,13 +1573,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "vindicator.head.chance", category = "villager")
 	public double vindicatorHeadDropChance = 0.05;
 	@ConfigField(name = "vindicator.head.message", category = "villager")
-	public String vindicatorHeadMessage = "You got a Vindicator skull";
+	public String vindicatorHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Zombie Villager============================================
 	@ConfigField(name = "zombie_villager.enabled", category = "villager")
 	public boolean zombieVillagerEnabled = true;
 	@ConfigField(name = "zombie_villager.message", category = "villager")
-	public String zombieVillagerCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String zombieVillagerCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "zombie_villager.money.amount", category = "villager")
 	public String zombieVillagerPrize = "1:2";
 	@ConfigField(name = "zombie_villager.money.chance", category = "villager")
@@ -1600,7 +1600,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "zombie_villager.head.chance", category = "villager")
 	public double zombieVillagerHeadDropChance = 0.05;
 	@ConfigField(name = "zombie_villager.head.message", category = "villager")
-	public String zombieVillagerHeadMessage = "You got a Zombie Villager skull";
+	public String zombieVillagerHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// #####################################################################################
 	// Passive Mobs
@@ -1609,7 +1609,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "bat.enabled", category = "passive")
 	public boolean batEnabled = true;
 	@ConfigField(name = "bat.message", category = "passive")
-	public String batCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String batCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "bat.money.amount", category = "passive")
 	public String batPrize = "0";
 	@ConfigField(name = "bat.money.chance", category = "passive")
@@ -1630,13 +1630,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "bat.head.chance", category = "passive")
 	public double batHeadDropChance = 0.05;
 	@ConfigField(name = "bat.head.message", category = "passive")
-	public String batHeadMessage = "You got a Bat skull";
+	public String batHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Chicken============================================
 	@ConfigField(name = "chicken.enabled", category = "passive")
 	public boolean chickenEnabled = true;
 	@ConfigField(name = "chicken.message", category = "passive")
-	public String chickenCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String chickenCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "chicken.money.amount", category = "passive")
 	public String chickenPrize = "0";
 	@ConfigField(name = "chicken.money.chance", category = "passive")
@@ -1657,13 +1657,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "chicken.head.chance", category = "passive")
 	public double chickenHeadDropChance = 0.05;
 	@ConfigField(name = "chicken.head.message", category = "passive")
-	public String chickenHeadMessage = "You got a Chicken skull";
+	public String chickenHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Cow============================================
 	@ConfigField(name = "cow.enabled", category = "passive")
 	public boolean cowEnabled = true;
 	@ConfigField(name = "cow.message", category = "passive")
-	public String cowCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String cowCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "cow.money.amount", category = "passive")
 	public String cowPrize = "0";
 	@ConfigField(name = "cow.money.chance", category = "passive")
@@ -1684,13 +1684,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "cow.head.chance", category = "passive")
 	public double cowHeadDropChance = 0.05;
 	@ConfigField(name = "cow.head.message", category = "passive")
-	public String cowHeadMessage = "You got a Cow skull";
+	public String cowHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Donkey============================================
 	@ConfigField(name = "donkey.enabled", category = "passive")
 	public boolean donkeyEnabled = true;
 	@ConfigField(name = "donkey.message", category = "passive")
-	public String donkeyCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String donkeyCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "donkey.money.amount", category = "passive")
 	public String donkeyPrize = "5";
 	@ConfigField(name = "donkey.money.chance", category = "passive")
@@ -1711,13 +1711,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "donkey.head.chance", category = "passive")
 	public double donkeyHeadDropChance = 0.05;
 	@ConfigField(name = "donkey.head.message", category = "passive")
-	public String donkeyHeadMessage = "You got a Donkey skull";
+	public String donkeyHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Horse============================================
 	@ConfigField(name = "horse.enabled", category = "passive")
 	public boolean horseEnabled = true;
 	@ConfigField(name = "horse.message", category = "passive")
-	public String horseCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String horseCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "horse.money.amount", category = "passive")
 	public String horsePrize = "0";
 	@ConfigField(name = "horse.money.chance", category = "passive")
@@ -1738,13 +1738,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "horse.head.chance", category = "passive")
 	public double horseHeadDropChance = 0.05;
 	@ConfigField(name = "horse.head.message", category = "passive")
-	public String horseHeadMessage = "You got a Horse skull";
+	public String horseHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Llama============================================
 	@ConfigField(name = "llama.enabled", category = "passive")
 	public boolean llamaEnabled = true;
 	@ConfigField(name = "llama.message", category = "passive")
-	public String llamaCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String llamaCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "llama.money.amount", category = "passive")
 	public String llamaPrize = "0";
 	@ConfigField(name = "llama.money.chance", category = "passive")
@@ -1765,13 +1765,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "llama.head.chance", category = "passive")
 	public double llamaHeadDropChance = 0.05;
 	@ConfigField(name = "llama.head.message", category = "passive")
-	public String llamaHeadMessage = "You got a Llama skull";
+	public String llamaHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Mule============================================
 	@ConfigField(name = "mule.enabled", category = "passive")
 	public boolean muleEnabled = true;
 	@ConfigField(name = "mule.message", category = "passive")
-	public String muleCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String muleCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "mule.money.amount", category = "passive")
 	public String mulePrize = "0";
 	@ConfigField(name = "mule.money.chance", category = "passive")
@@ -1792,13 +1792,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "mule.head.chance", category = "passive")
 	public double muleHeadDropChance = 0.05;
 	@ConfigField(name = "mule.head.message", category = "passive")
-	public String muleHeadMessage = "You got a Mule skull";
+	public String muleHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Mushroom Cow============================================
 	@ConfigField(name = "mushroom_cow.enabled", category = "passive")
 	public boolean mushroomCowEnabled = true;
 	@ConfigField(name = "mushroom_cow.message", category = "passive")
-	public String mushroomCowCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String mushroomCowCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "mushroom_cow.money.amount", category = "passive")
 	public String mushroomCowPrize = "0";
 	@ConfigField(name = "mushroom_cow.money.chance", category = "passive")
@@ -1819,13 +1819,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "mushroom_cow.head.chance", category = "passive")
 	public double mushroomCowHeadDropChance = 0.05;
 	@ConfigField(name = "mushroom_cow.head.message", category = "passive")
-	public String mushroomCowHeadMessage = "You got a Mushroom Cow skull";
+	public String mushroomCowHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Ocelot============================================
 	@ConfigField(name = "ocelot.enabled", category = "passive")
 	public boolean ocelotEnabled = true;
 	@ConfigField(name = "ocelot.message", category = "passive")
-	public String ocelotCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String ocelotCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "ocelot.money.amount", category = "passive")
 	public String ocelotPrize = "0";
 	@ConfigField(name = "ocelot.money.chance", category = "passive")
@@ -1846,13 +1846,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "ocelot.head.chance", category = "passive")
 	public double ocelotHeadDropChance = 0.05;
 	@ConfigField(name = "ocelot.head.message", category = "passive")
-	public String ocelotHeadMessage = "You got a Ocelot skull";
+	public String ocelotHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Parrot============================================
 	@ConfigField(name = "parrot.enabled", category = "passive")
 	public boolean parrotEnabled = true;
 	@ConfigField(name = "parrot.message", category = "passive")
-	public String parrotCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String parrotCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "parrot.money.amount", category = "passive")
 	public String parrotPrize = "2";
 	@ConfigField(name = "parrot.money.chance", category = "passive")
@@ -1873,13 +1873,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "parrot.head.chance", category = "passive")
 	public double parrotHeadDropChance = 0.10;
 	@ConfigField(name = "parrot.head.message", category = "passive")
-	public String parrotHeadMessage = "You got a Parrot skull";
+	public String parrotHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Pig============================================
 	@ConfigField(name = "pig.enabled", category = "passive")
 	public boolean pigEnabled = true;
 	@ConfigField(name = "pig.message", category = "passive")
-	public String pigCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String pigCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "pig.money.amount", category = "passive")
 	public String pigPrize = "0";
 	@ConfigField(name = "pig.money.chance", category = "passive")
@@ -1900,13 +1900,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "pig.head.chance", category = "passive")
 	public double pigHeadDropChance = 0.05;
 	@ConfigField(name = "pig.head.message", category = "passive")
-	public String pigHeadMessage = "You got a Pig skull";
+	public String pigHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Rabbit============================================
 	@ConfigField(name = "rabbit.enabled", category = "passive")
 	public boolean rabbitEnabled = true;
 	@ConfigField(name = "rabbit.message", category = "passive")
-	public String rabbitCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String rabbitCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "rabbit.money.amount", category = "passive")
 	public String rabbitPrize = "0";
 	@ConfigField(name = "rabbit.money.chance", category = "passive")
@@ -1927,13 +1927,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "rabbit.head.chance", category = "passive")
 	public double rabbitHeadDropChance = 0.05;
 	@ConfigField(name = "rabbit.head.message", category = "passive")
-	public String rabbitHeadMessage = "You got a Rabbit skull";
+	public String rabbitHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Sheep============================================
 	@ConfigField(name = "sheep.enabled", category = "passive")
 	public boolean sheepEnabled = true;
 	@ConfigField(name = "sheep.message", category = "passive")
-	public String sheepCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String sheepCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "sheep.money.amount", category = "passive")
 	public String sheepPrize = "0";
 	@ConfigField(name = "sheep.money.chance", category = "passive")
@@ -1954,13 +1954,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "sheep.head.chance", category = "passive")
 	public double sheepHeadDropChance = 0.05;
 	@ConfigField(name = "sheep.head.message", category = "passive")
-	public String sheepHeadMessage = "You got a Sheep skull";
+	public String sheepHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Skeleton Horse============================================
 	@ConfigField(name = "skeleton_horse.enabled", category = "passive")
 	public boolean skeletonHorseEnabled = true;
 	@ConfigField(name = "skeleton_horse.message", category = "passive")
-	public String skeletonHorseCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String skeletonHorseCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "skeleton_horse.money.amount", category = "passive")
 	public String skeletonHorsePrize = "10";
 	@ConfigField(name = "skeleton_horse.money.chance", category = "passive")
@@ -1981,13 +1981,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "skeleton_horse.head.chance", category = "passive")
 	public double skeletonHorseHeadDropChance = 0.05;
 	@ConfigField(name = "skeleton_horse.head.message", category = "passive")
-	public String skeletonHorseHeadMessage = "You got a Skeleton Horse skull";
+	public String skeletonHorseHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Snowman============================================
 	@ConfigField(name = "snowman.enabled", category = "passive")
 	public boolean snowmanEnabled = true;
 	@ConfigField(name = "snowman.message", category = "passive")
-	public String snowmanCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String snowmanCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "snowman.money.amount", category = "passive")
 	public String snowmanPrize = "0";
 	@ConfigField(name = "snowman.money.chance", category = "passive")
@@ -2008,13 +2008,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "snowman.head.chance", category = "passive")
 	public double snowmanHeadDropChance = 0.05;
 	@ConfigField(name = "snowman.head.message", category = "passive")
-	public String snowmanHeadMessage = "You got a Snowman skull";
+	public String snowmanHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Squid============================================
 	@ConfigField(name = "squid.enabled", category = "passive")
 	public boolean squidEnabled = true;
 	@ConfigField(name = "squid.message", category = "passive")
-	public String squidCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String squidCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "squid.money.amount", category = "passive")
 	public String squidPrize = "0";
 	@ConfigField(name = "squid.money.chance", category = "passive")
@@ -2035,13 +2035,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "squid.head.chance", category = "passive")
 	public double squidHeadDropChance = 0.05;
 	@ConfigField(name = "squid.head.message", category = "passive")
-	public String squidHeadMessage = "You got a Squid skull";
+	public String squidHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Wolf============================================
 	@ConfigField(name = "wolf.enabled", category = "passive")
 	public boolean wolfEnabled = true;
 	@ConfigField(name = "wolf.message", category = "passive")
-	public String wolfCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String wolfCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "wolf.money.amount", category = "passive")
 	public String wolfPrize = "-10";
 	@ConfigField(name = "wolf.money.chance", category = "passive")
@@ -2062,13 +2062,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "wolf.head.chance", category = "passive")
 	public double wolfHeadDropChance = 0.05;
 	@ConfigField(name = "wolf.head.message", category = "passive")
-	public String wolfHeadMessage = "You got a Wolf skull";
+	public String wolfHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Zombie Horse============================================
 	@ConfigField(name = "zombie_horse.enabled", category = "passive")
 	public boolean zombieHorseEnabled = true;
 	@ConfigField(name = "zombie_horse.message", category = "passive")
-	public String zombieHorseCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String zombieHorseCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "zombie_horse.money.amount", category = "passive")
 	public String zombieHorsePrize = "-10";
 	@ConfigField(name = "zombie_horse.money.chance", category = "passive")
@@ -2089,7 +2089,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "zombie_horse.head.chance", category = "passive")
 	public double zombieHorseHeadDropChance = 0.25;
 	@ConfigField(name = "zombie_horse.head.message", category = "passive")
-	public String zombieHorseHeadMessage = "You got a Zombie Horse skull";
+	public String zombieHorseHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// #####################################################################################
 	// Fish / Fishing
@@ -2102,7 +2102,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "raw_fish.enabled", category = "fishing")
 	public boolean rawFishEnabled = true;
 	@ConfigField(name = "raw_fish.message", category = "fishing")
-	public String rawFishCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String rawFishCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "raw_fish.money.amount", category = "fishing")
 	public String rawFishPrize = "1:3";
 	@ConfigField(name = "raw_fish.money.chance", category = "fishing")
@@ -2123,13 +2123,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "raw_fish.head.chance", category = "fishing")
 	public double rawFishHeadDropChance = 0.05;
 	@ConfigField(name = "raw_fish.head.message", category = "fishing")
-	public String rawFishHeadMessage = "You got a Raw Fish skull";
+	public String rawFishHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Raw Salmon============================================
 	@ConfigField(name = "raw_salmon.enabled", category = "fishing")
 	public boolean rawSalmonEnabled = true;
 	@ConfigField(name = "raw_salmon.message", category = "fishing")
-	public String rawSalmonCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String rawSalmonCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "raw_salmon.money.amount", category = "fishing")
 	public String rawSalmonPrize = "2:8";
 	@ConfigField(name = "raw_salmon.money.chance", category = "fishing")
@@ -2150,13 +2150,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "raw_salmon.head.chance", category = "fishing")
 	public double rawSalmonHeadDropChance = 0.10;
 	@ConfigField(name = "raw_salmon.head.message", category = "fishing")
-	public String rawSalmonHeadMessage = "You got a Raw Salmon skull";
+	public String rawSalmonHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Clownfish============================================
 	@ConfigField(name = "clownfish.enabled", category = "fishing")
 	public boolean clownfishEnabled = true;
 	@ConfigField(name = "clownfish.message", category = "fishing")
-	public String clownfishCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String clownfishCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "clownfish.money.amount", category = "fishing")
 	public String clownfishPrize = "20:40";
 	@ConfigField(name = "clownfish.money.chance", category = "fishing")
@@ -2177,13 +2177,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "clownfish.head.chance", category = "fishing")
 	public double clownfishHeadDropChance = 0.5;
 	@ConfigField(name = "clownfish.head.message", category = "fishing")
-	public String clownfishHeadMessage = "You got a Clownfish skull";
+	public String clownfishHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// =====Pufferfish============================================
 	@ConfigField(name = "pufferfish.enabled", category = "fishing")
 	public boolean pufferfishEnabled = true;
 	@ConfigField(name = "pufferfish.message", category = "fishing")
-	public String pufferfishCmdDesc = "The {killed} dropped {prize} {rewardname}";
+	public String pufferfishCmdDesc = "You killed a {killed}";
 	@ConfigField(name = "pufferfish.money.amount", category = "fishing")
 	public String pufferfishPrize = "5:15";
 	@ConfigField(name = "pufferfish.money.chance", category = "fishing")
@@ -2204,7 +2204,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "pufferfish.head.chance", category = "fishing")
 	public double pufferfishHeadDropChance = 0.40;
 	@ConfigField(name = "pufferfish.head.message", category = "fishing")
-	public String pufferfishHeadMessage = "You got a Pufferfish skull";
+	public String pufferfishHeadMessage = "The {killed} dropped a skull on the ground";
 
 	// #####################################################################################
 	// PVP
@@ -2238,7 +2238,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "chance", category = "pvp.player.head")
 	public double pvpHeadDropChance = 1;
 	@ConfigField(name = "message", category = "pvp.player.head")
-	public String pvpHeadMessage = "You got {player}'s skull";
+	public String pvpHeadMessage = "You got {killed}'s skull";
 
 	// #####################################################################################
 	// Specials / Achievements
@@ -3662,7 +3662,7 @@ public class ConfigManager extends AutoConfig {
 		this.blazeHeadDropHead = convertDropHeadEnabled(mConfig0.blazeCmd);
 		this.blazeHeadPrize = mConfig0.blazeHeadPrize;
 		this.blazeHeadDropChance = mConfig0.blazeCmdRunChance;
-		this.blazeHeadMessage = "You got a skull";
+		this.blazeHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.caveSpiderPrize = mConfig0.caveSpiderPrize;
 		this.caveSpiderCmdNew = convertCommands(mConfig0.caveSpiderCmd, mConfig0.caveSpiderRunChance);
@@ -3671,7 +3671,7 @@ public class ConfigManager extends AutoConfig {
 		this.caveSpiderHeadDropHead = convertDropHeadEnabled(mConfig0.caveSpiderCmd);
 		this.caveSpiderHeadPrize = mConfig0.caveSpiderHeadPrize;
 		this.caveSpiderHeadDropChance = mConfig0.caveSpiderRunChance;
-		this.caveSpiderHeadMessage = "You got a skull";
+		this.caveSpiderHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.creeperPrize = mConfig0.creeperPrize;
 		this.creeperCmdNew = convertCommands(mConfig0.creeperCmd, mConfig0.creeperCmdRunChance);
@@ -3680,7 +3680,7 @@ public class ConfigManager extends AutoConfig {
 		this.creeperHeadDropHead = convertDropHeadEnabled(mConfig0.creeperCmd);
 		this.creeperHeadPrize = mConfig0.creeperHeadPrize;
 		this.creeperHeadDropChance = mConfig0.creeperCmdRunChance;
-		this.creeperHeadMessage = "You got a skull";
+		this.creeperHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.elderGuardianPrize = mConfig0.elderGuardianPrize;
 		this.elderGuardianCmdNew = convertCommands(mConfig0.elderGuardianCmd, mConfig0.elderGuardianCmdRunChance);
@@ -3689,7 +3689,7 @@ public class ConfigManager extends AutoConfig {
 		this.elderGuardianHeadDropHead = convertDropHeadEnabled(mConfig0.elderGuardianCmd);
 		this.elderGuardianHeadPrize = mConfig0.elderGuardianHeadPrize;
 		this.elderGuardianHeadDropChance = mConfig0.elderGuardianCmdRunChance;
-		this.elderGuardianHeadMessage = "You got a skull";
+		this.elderGuardianHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.endermanPrize = mConfig0.endermanPrize;
 		this.endermanCmdNew = convertCommands(mConfig0.endermanCmd, mConfig0.endermanCmdRunChance);
@@ -3698,7 +3698,7 @@ public class ConfigManager extends AutoConfig {
 		this.endermanHeadDropHead = convertDropHeadEnabled(mConfig0.endermanCmd);
 		this.endermanHeadPrize = mConfig0.endermanHeadPrize;
 		this.endermanHeadDropChance = mConfig0.endermanCmdRunChance;
-		this.endermanHeadMessage = "You got a skull";
+		this.endermanHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.endermitePrize = mConfig0.endermitePrize;
 		this.endermiteCmdNew = convertCommands(mConfig0.endermiteCmd, mConfig0.endermiteCmdRunChance);
@@ -3707,7 +3707,7 @@ public class ConfigManager extends AutoConfig {
 		this.endermiteHeadDropHead = convertDropHeadEnabled(mConfig0.endermiteCmd);
 		this.endermiteHeadPrize = mConfig0.endermiteHeadPrize;
 		this.endermiteHeadDropChance = mConfig0.endermiteCmdRunChance;
-		this.endermiteHeadMessage = "You got a skull";
+		this.endermiteHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.ghastPrize = mConfig0.ghastPrize;
 		this.ghastCmdNew = convertCommands(mConfig0.ghastCmd, mConfig0.ghastCmdRunChance);
@@ -3716,7 +3716,7 @@ public class ConfigManager extends AutoConfig {
 		this.ghastHeadDropHead = convertDropHeadEnabled(mConfig0.ghastCmd);
 		this.ghastHeadPrize = mConfig0.ghastHeadPrize;
 		this.ghastHeadDropChance = mConfig0.ghastCmdRunChance;
-		this.ghastHeadMessage = "You got a skull";
+		this.ghastHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.giantPrize = mConfig0.giantPrize;
 		this.giantCmdNew = convertCommands(mConfig0.giantCmd, mConfig0.giantCmdRunChance);
@@ -3725,7 +3725,7 @@ public class ConfigManager extends AutoConfig {
 		this.giantHeadDropHead = convertDropHeadEnabled(mConfig0.giantCmd);
 		this.giantHeadPrize = mConfig0.giantHeadPrize;
 		this.giantHeadDropChance = mConfig0.giantCmdRunChance;
-		this.giantHeadMessage = "You got a skull";
+		this.giantHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.ironGolemPrize = mConfig0.ironGolemPrize;
 		this.ironGolemCmdNew = convertCommands(mConfig0.ironGolemCmd, mConfig0.ironGolemCmdRunChance);
@@ -3734,7 +3734,7 @@ public class ConfigManager extends AutoConfig {
 		this.ironGolemHeadDropHead = convertDropHeadEnabled(mConfig0.ironGolemCmd);
 		this.ironGolemHeadPrize = mConfig0.ironGolemHeadPrize;
 		this.ironGolemHeadDropChance = mConfig0.ironGolemCmdRunChance;
-		this.ironGolemHeadMessage = "You got a skull";
+		this.ironGolemHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.guardianPrize = mConfig0.guardianPrize;
 		this.guardianCmdNew = convertCommands(mConfig0.guardianCmd, mConfig0.guardianCmdRunChance);
@@ -3743,7 +3743,7 @@ public class ConfigManager extends AutoConfig {
 		this.guardianHeadDropHead = convertDropHeadEnabled(mConfig0.guardianCmd);
 		this.guardianHeadPrize = mConfig0.guardianHeadPrize;
 		this.ironGolemHeadDropChance = mConfig0.ironGolemCmdRunChance;
-		this.ironGolemHeadMessage = "You got a skull";
+		this.ironGolemHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.huskPrize = mConfig0.huskPrize;
 		this.huskCmdNew = convertCommands(mConfig0.huskCmd, mConfig0.huskCmdRunChance);
@@ -3752,7 +3752,7 @@ public class ConfigManager extends AutoConfig {
 		this.huskHeadDropHead = convertDropHeadEnabled(mConfig0.huskCmd);
 		this.huskHeadPrize = mConfig0.huskHeadPrize;
 		this.huskHeadDropChance = mConfig0.huskCmdRunChance;
-		this.huskHeadMessage = "You got a skull";
+		this.huskHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.killerRabbitPrize = mConfig0.killerrabbitPrize;
 		this.killerRabbitCmdNew = convertCommands(mConfig0.killerrabbitCmd, mConfig0.killerrabbitCmdRunChance);
@@ -3761,7 +3761,7 @@ public class ConfigManager extends AutoConfig {
 		this.killerRabbitHeadDropHead = convertDropHeadEnabled(mConfig0.killerrabbitCmd);
 		this.killerRabbitHeadPrize = mConfig0.killerrabbitHeadPrize;
 		this.killerRabbitHeadDropChance = mConfig0.killerrabbitCmdRunChance;
-		this.killerRabbitHeadMessage = "You got a skull";
+		this.killerRabbitHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.magmaCubePrize = mConfig0.magmaCubePrize;
 		this.magmaCubeCmdNew = convertCommands(mConfig0.magmaCubeCmd, mConfig0.magmaCubeCmdRunChance);
@@ -3770,7 +3770,7 @@ public class ConfigManager extends AutoConfig {
 		this.magmaCubeHeadDropHead = convertDropHeadEnabled(mConfig0.magmaCubeCmd);
 		this.magmaCubeHeadPrize = mConfig0.magmaCubeHeadPrize;
 		this.magmaCubeHeadDropChance = mConfig0.magmaCubeCmdRunChance;
-		this.magmaCubeHeadMessage = "You got a skull";
+		this.magmaCubeHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.polarBearPrize = mConfig0.polarBearPrize;
 		this.polarBearCmdNew = convertCommands(mConfig0.polarBearCmd, mConfig0.polarBearCmdRunChance);
@@ -3779,7 +3779,7 @@ public class ConfigManager extends AutoConfig {
 		this.polarBearHeadDropHead = convertDropHeadEnabled(mConfig0.polarBearCmd);
 		this.polarBearHeadPrize = mConfig0.polarBearHeadPrize;
 		this.polarBearHeadDropChance = mConfig0.polarBearCmdRunChance;
-		this.polarBearHeadMessage = "You got a skull";
+		this.polarBearHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.slimePrize = mConfig0.slimeTinyPrize;
 		this.slimeCmdNew = convertCommands(mConfig0.slimeCmd, mConfig0.slimeCmdRunChance);
@@ -3788,7 +3788,7 @@ public class ConfigManager extends AutoConfig {
 		this.slimeHeadDropHead = convertDropHeadEnabled(mConfig0.slimeCmd);
 		this.slimeHeadPrize = mConfig0.slimeHeadPrize;
 		this.slimeHeadDropChance = mConfig0.slimeCmdRunChance;
-		this.slimeHeadMessage = "You got a skull";
+		this.slimeHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.strayPrize = mConfig0.strayPrize;
 		this.strayCmdNew = convertCommands(mConfig0.strayCmd, mConfig0.strayCmdRunChance);
@@ -3797,7 +3797,7 @@ public class ConfigManager extends AutoConfig {
 		this.strayHeadDropHead = convertDropHeadEnabled(mConfig0.strayCmd);
 		this.strayHeadPrize = mConfig0.strayHeadPrize;
 		this.strayHeadDropChance = mConfig0.strayCmdRunChance;
-		this.strayHeadMessage = "You got a skull";
+		this.strayHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.silverfishPrize = mConfig0.silverfishPrize;
 		this.silverfishCmdNew = convertCommands(mConfig0.silverfishCmd, mConfig0.silverfishCmdRunChance);
@@ -3806,7 +3806,7 @@ public class ConfigManager extends AutoConfig {
 		this.silverfishHeadDropHead = convertDropHeadEnabled(mConfig0.silverfishCmd);
 		this.silverfishHeadPrize = mConfig0.silverfishHeadPrize;
 		this.silverfishHeadDropChance = mConfig0.silverfishCmdRunChance;
-		this.silverfishHeadMessage = "You got a skull";
+		this.silverfishHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.skeletonPrize = mConfig0.skeletonPrize;
 		this.skeletonCmdNew = convertCommands(mConfig0.skeletonCmd, mConfig0.skeletonCmdRunChance);
@@ -3815,7 +3815,7 @@ public class ConfigManager extends AutoConfig {
 		this.skeletonHeadDropHead = convertDropHeadEnabled(mConfig0.skeletonCmd);
 		this.skeletonHeadPrize = mConfig0.skeletonHeadPrize;
 		this.skeletonHeadDropChance = mConfig0.skeletonCmdRunChance;
-		this.skeletonHeadMessage = "You got a skull";
+		this.skeletonHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.spiderMoney = mConfig0.spiderPrize;
 		this.spiderCommands = convertCommands(mConfig0.spiderCmd, mConfig0.spiderCmdRunChance);
@@ -3833,7 +3833,7 @@ public class ConfigManager extends AutoConfig {
 		this.shulkerHeadDropHead = convertDropHeadEnabled(mConfig0.shulkerCmd);
 		this.shulkerHeadPrize = mConfig0.shulkerHeadPrize;
 		this.shulkerHeadDropChance = mConfig0.shulkerCmdRunChance;
-		this.shulkerHeadMessage = "You got a skull";
+		this.shulkerHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.zombiePrize = mConfig0.zombiePrize;
 		this.zombieCmdNew = convertCommands(mConfig0.zombieCmd, mConfig0.zombieCmdRunChance);
@@ -3842,7 +3842,7 @@ public class ConfigManager extends AutoConfig {
 		this.zombieHeadDropHead = convertDropHeadEnabled(mConfig0.zombieCmd);
 		this.zombieHeadPrize = mConfig0.zombieHeadPrize;
 		this.zombieHeadDropChance = mConfig0.zombieCmdRunChance;
-		this.zombieHeadMessage = "You got a skull";
+		this.zombieHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.zombiePigmanPrize = mConfig0.zombiePigmanPrize;
 		this.zombiePigmanCmdNew = convertCommands(mConfig0.zombiePigmanCmd, mConfig0.zombiepigmanCmdRunChance);
@@ -3851,7 +3851,7 @@ public class ConfigManager extends AutoConfig {
 		this.zombiePigmanHeadDropHead = convertDropHeadEnabled(mConfig0.zombiePigmanCmd);
 		this.zombiePigmanHeadPrize = mConfig0.zombiePigmanHeadPrize;
 		this.zombiePigmanHeadDropChance = mConfig0.zombiepigmanCmdRunChance;
-		this.zombiePigmanHeadMessage = "You got a skull";
+		this.zombiePigmanHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.vexPrize = mConfig0.vexPrize;
 		this.vexCmdNew = convertCommands(mConfig0.vexCmd, mConfig0.vexCmdRunChance);
@@ -3860,7 +3860,7 @@ public class ConfigManager extends AutoConfig {
 		this.vexHeadDropHead = convertDropHeadEnabled(mConfig0.vexCmd);
 		this.vexHeadPrize = mConfig0.vexHeadPrize;
 		this.vexHeadDropChance = mConfig0.vexCmdRunChance;
-		this.vexHeadMessage = "You got a skull";
+		this.vexHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.witchPrize = mConfig0.witchPrize;
 		this.witchCmdNew = convertCommands(mConfig0.witchCmd, mConfig0.witchCmdRunChance);
@@ -3869,7 +3869,7 @@ public class ConfigManager extends AutoConfig {
 		this.witchHeadDropHead = convertDropHeadEnabled(mConfig0.witchCmd);
 		this.witchHeadPrize = mConfig0.witchHeadPrize;
 		this.witchHeadDropChance = mConfig0.witchCmdRunChance;
-		this.witchHeadMessage = "You got a skull";
+		this.witchHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.witherSkeletonPrize = mConfig0.witherSkeletonPrize;
 		this.witherSkeletonCmdNew = convertCommands(mConfig0.witherSkeletonCmd, mConfig0.witherSkeletonCmdRunChance);
@@ -3878,7 +3878,7 @@ public class ConfigManager extends AutoConfig {
 		this.witherSkeletonHeadDropHead = convertDropHeadEnabled(mConfig0.witherSkeletonCmd);
 		this.witherSkeletonHeadPrize = mConfig0.witherSkeletonHeadPrize;
 		this.witherSkeletonHeadDropChance = mConfig0.witherSkeletonCmdRunChance;
-		this.witherSkeletonHeadMessage = "You got a skull";
+		this.witherSkeletonHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.witherPrize = mConfig0.witherPrize;
 		this.witherCmdNew = convertCommands(mConfig0.witherCmd, mConfig0.witherCmdRunChance);
@@ -3887,7 +3887,7 @@ public class ConfigManager extends AutoConfig {
 		this.witherHeadDropHead = convertDropHeadEnabled(mConfig0.witherCmd);
 		this.witherHeadPrize = mConfig0.witherHeadPrize;
 		this.witherHeadDropChance = mConfig0.witherCmdRunChance;
-		this.witherHeadMessage = "You got a skull";
+		this.witherHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.enderDragonPrize = mConfig0.enderdragonPrize;
 		this.enderDragonCmdNew = convertCommands(mConfig0.enderdragonCmd, mConfig0.enderdragonCmdRunChance);
@@ -3896,7 +3896,7 @@ public class ConfigManager extends AutoConfig {
 		this.enderDragonHeadDropHead = convertDropHeadEnabled(mConfig0.enderdragonCmd);
 		this.enderDragonHeadPrize = mConfig0.enderdragonHeadPrize;
 		this.enderDragonHeadDropChance = mConfig0.enderdragonCmdRunChance;
-		this.enderDragonHeadMessage = "You got a skull";
+		this.enderDragonHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.blacksmithPrize = mConfig0.blacksmithPrize;
 		this.blacksmithCmdNew = convertCommands(mConfig0.blacksmithCmd, mConfig0.blacksmithCmdRunChance);
@@ -3905,7 +3905,7 @@ public class ConfigManager extends AutoConfig {
 		this.blacksmithHeadDropHead = convertDropHeadEnabled(mConfig0.blacksmithCmd);
 		this.blacksmithHeadPrize = mConfig0.blacksmithHeadPrize;
 		this.blacksmithHeadDropChance = mConfig0.blacksmithCmdRunChance;
-		this.blacksmithHeadMessage = "You got a skull";
+		this.blacksmithHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.butcherPrize = mConfig0.butcherPrize;
 		this.butcherCmdNew = convertCommands(mConfig0.butcherCmd, mConfig0.butcherCmdRunChance);
@@ -3914,7 +3914,7 @@ public class ConfigManager extends AutoConfig {
 		this.butcherHeadDropHead = convertDropHeadEnabled(mConfig0.butcherCmd);
 		this.butcherHeadPrize = mConfig0.butcherHeadPrize;
 		this.butcherHeadDropChance = mConfig0.butcherCmdRunChance;
-		this.butcherHeadMessage = "You got a skull";
+		this.butcherHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.evokerPrize = mConfig0.evokerPrize;
 		this.evokerCmdNew = convertCommands(mConfig0.evokerCmd, mConfig0.evokerCmdRunChance);
@@ -3923,7 +3923,7 @@ public class ConfigManager extends AutoConfig {
 		this.evokerHeadDropHead = convertDropHeadEnabled(mConfig0.evokerCmd);
 		this.evokerHeadPrize = mConfig0.evokerHeadPrize;
 		this.evokerHeadDropChance = mConfig0.evokerCmdRunChance;
-		this.evokerHeadMessage = "You got a skull";
+		this.evokerHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.farmerPrize = mConfig0.farmerPrize;
 		this.farmerCmdNew = convertCommands(mConfig0.farmerCmd, mConfig0.farmerCmdRunChance);
@@ -3932,7 +3932,7 @@ public class ConfigManager extends AutoConfig {
 		this.farmerHeadDropHead = convertDropHeadEnabled(mConfig0.farmerCmd);
 		this.farmerHeadPrize = mConfig0.farmerHeadPrize;
 		this.farmerHeadDropChance = mConfig0.farmerCmdRunChance;
-		this.farmerHeadMessage = "You got a skull";
+		this.farmerHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.illusionerPrize = mConfig0.illusionerPrize;
 		this.illusionerCmdNew = convertCommands(mConfig0.illusionerCmd, mConfig0.illusionerCmdRunChance);
@@ -3941,7 +3941,7 @@ public class ConfigManager extends AutoConfig {
 		this.illusionerHeadDropHead = convertDropHeadEnabled(mConfig0.illusionerCmd);
 		this.illusionerHeadPrize = mConfig0.illusionerHeadPrize;
 		this.illusionerHeadDropChance = mConfig0.illusionerCmdRunChance;
-		this.illusionerHeadMessage = "You got a skull";
+		this.illusionerHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.librarianPrize = mConfig0.librarianPrize;
 		this.librarianCmdNew = convertCommands(mConfig0.librarianCmd, mConfig0.librarianCmdRunChance);
@@ -3950,7 +3950,7 @@ public class ConfigManager extends AutoConfig {
 		this.librarianHeadDropHead = convertDropHeadEnabled(mConfig0.librarianCmd);
 		this.librarianHeadPrize = mConfig0.librarianHeadPrize;
 		this.librarianHeadDropChance = mConfig0.librarianCmdRunChance;
-		this.librarianHeadMessage = "You got a skull";
+		this.librarianHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.nitwitPrize = mConfig0.nitwitPrize;
 		this.nitwitCmdNew = convertCommands(mConfig0.nitwitCmd, mConfig0.nitwitCmdRunChance);
@@ -3959,7 +3959,7 @@ public class ConfigManager extends AutoConfig {
 		this.nitwitHeadDropHead = convertDropHeadEnabled(mConfig0.nitwitCmd);
 		this.nitwitHeadPrize = mConfig0.nitwitHeadPrize;
 		this.nitwitHeadDropChance = mConfig0.nitwitCmdRunChance;
-		this.nitwitHeadMessage = "You got a skull";
+		this.nitwitHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.priestPrize = mConfig0.priestPrize;
 		this.priestCmdNew = convertCommands(mConfig0.priestCmd, mConfig0.priestCmdRunChance);
@@ -3968,7 +3968,7 @@ public class ConfigManager extends AutoConfig {
 		this.priestHeadDropHead = convertDropHeadEnabled(mConfig0.priestCmd);
 		this.priestHeadPrize = mConfig0.priestHeadPrize;
 		this.priestHeadDropChance = mConfig0.priestCmdRunChance;
-		this.priestHeadMessage = "You got a skull";
+		this.priestHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.villagerPrize = mConfig0.villagerPrize;
 		this.villagerCmdNew = convertCommands(mConfig0.villagerCmd, mConfig0.villagerCmdRunChance);
@@ -3977,7 +3977,7 @@ public class ConfigManager extends AutoConfig {
 		this.villagerHeadDropHead = convertDropHeadEnabled(mConfig0.villagerCmd);
 		this.villagerHeadPrize = mConfig0.villagerHeadPrize;
 		this.villagerHeadDropChance = mConfig0.villagerCmdRunChance;
-		this.villagerHeadMessage = "You got a skull";
+		this.villagerHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.vindicatorPrize = mConfig0.vindicatorPrize;
 		this.vindicatorCmdNew = convertCommands(mConfig0.vindicatorCmd, mConfig0.vindicatorCmdRunChance);
@@ -3986,7 +3986,7 @@ public class ConfigManager extends AutoConfig {
 		this.vindicatorHeadDropHead = convertDropHeadEnabled(mConfig0.vindicatorCmd);
 		this.vindicatorHeadPrize = mConfig0.vindicatorHeadPrize;
 		this.vindicatorHeadDropChance = mConfig0.vindicatorCmdRunChance;
-		this.vindicatorHeadMessage = "You got a skull";
+		this.vindicatorHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.zombieVillagerPrize = mConfig0.zombieVillagerPrize;
 		this.zombieVillagerCmdNew = convertCommands(mConfig0.zombieVillagerCmd, mConfig0.zombieVillagerCmdRunChance);
@@ -3995,7 +3995,7 @@ public class ConfigManager extends AutoConfig {
 		this.zombieVillagerHeadDropHead = convertDropHeadEnabled(mConfig0.zombieVillagerCmd);
 		this.zombieVillagerHeadPrize = mConfig0.zombieVillagerHeadPrize;
 		this.zombieVillagerHeadDropChance = mConfig0.zombieVillagerCmdRunChance;
-		this.zombieVillagerHeadMessage = "You got a skull";
+		this.zombieVillagerHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.batPrize = mConfig0.batPrize;
 		this.batCmdNew = convertCommands(mConfig0.batCmd, mConfig0.batCmdRunChance);
@@ -4004,7 +4004,7 @@ public class ConfigManager extends AutoConfig {
 		this.batHeadDropHead = convertDropHeadEnabled(mConfig0.batCmd);
 		this.batHeadPrize = mConfig0.batHeadPrize;
 		this.batHeadDropChance = mConfig0.batCmdRunChance;
-		this.batHeadMessage = "You got a skull";
+		this.batHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.chickenPrize = mConfig0.chickenPrize;
 		this.chickenCmdNew = convertCommands(mConfig0.chickenCmd, mConfig0.chickenCmdRunChance);
@@ -4013,7 +4013,7 @@ public class ConfigManager extends AutoConfig {
 		this.chickenHeadDropHead = convertDropHeadEnabled(mConfig0.chickenCmd);
 		this.chickenHeadPrize = mConfig0.chickenHeadPrize;
 		this.chickenHeadDropChance = mConfig0.chickenCmdRunChance;
-		this.chickenHeadMessage = "You got a skull";
+		this.chickenHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.cowPrize = mConfig0.cowPrize;
 		this.cowCmdNew = convertCommands(mConfig0.cowCmd, mConfig0.cowCmdRunChance);
@@ -4022,7 +4022,7 @@ public class ConfigManager extends AutoConfig {
 		this.cowHeadDropHead = convertDropHeadEnabled(mConfig0.cowCmd);
 		this.cowHeadPrize = mConfig0.cowHeadPrize;
 		this.cowHeadDropChance = mConfig0.cowCmdRunChance;
-		this.cowHeadMessage = "You got a skull";
+		this.cowHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.donkeyPrize = mConfig0.donkeyPrize;
 		this.donkeyCmdNew = convertCommands(mConfig0.donkeyCmd, mConfig0.donkeyCmdRunChance);
@@ -4031,7 +4031,7 @@ public class ConfigManager extends AutoConfig {
 		this.donkeyHeadDropHead = convertDropHeadEnabled(mConfig0.donkeyCmd);
 		this.donkeyHeadPrize = mConfig0.donkeyHeadPrize;
 		this.donkeyHeadDropChance = mConfig0.donkeyCmdRunChance;
-		this.donkeyHeadMessage = "You got a skull";
+		this.donkeyHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.horsePrize = mConfig0.horsePrize;
 		this.horseCmdNew = convertCommands(mConfig0.horseCmd, mConfig0.horseCmdRunChance);
@@ -4040,7 +4040,7 @@ public class ConfigManager extends AutoConfig {
 		this.horseHeadDropHead = convertDropHeadEnabled(mConfig0.horseCmd);
 		this.horseHeadPrize = mConfig0.horseHeadPrize;
 		this.horseHeadDropChance = mConfig0.horseCmdRunChance;
-		this.horseHeadMessage = "You got a skull";
+		this.horseHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.llamaPrize = mConfig0.llamaPrize;
 		this.llamaCmdNew = convertCommands(mConfig0.llamaCmd, mConfig0.llamaCmdRunChance);
@@ -4049,7 +4049,7 @@ public class ConfigManager extends AutoConfig {
 		this.llamaHeadDropHead = convertDropHeadEnabled(mConfig0.llamaCmd);
 		this.llamaHeadPrize = mConfig0.llamaHeadPrize;
 		this.llamaHeadDropChance = mConfig0.llamaCmdRunChance;
-		this.llamaHeadMessage = "You got a skull";
+		this.llamaHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.mulePrize = mConfig0.mulePrize;
 		this.muleCmdNew = convertCommands(mConfig0.muleCmd, mConfig0.muleCmdRunChance);
@@ -4058,7 +4058,7 @@ public class ConfigManager extends AutoConfig {
 		this.muleHeadDropHead = convertDropHeadEnabled(mConfig0.muleCmd);
 		this.muleHeadPrize = mConfig0.muleHeadPrize;
 		this.muleHeadDropChance = mConfig0.muleCmdRunChance;
-		this.muleHeadMessage = "You got a skull";
+		this.muleHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.mushroomCowPrize = mConfig0.mushroomCowPrize;
 		this.mushroomCowCmdNew = convertCommands(mConfig0.mushroomCowCmd, mConfig0.mushroomCowCmdRunChance);
@@ -4067,7 +4067,7 @@ public class ConfigManager extends AutoConfig {
 		this.mushroomCowHeadDropHead = convertDropHeadEnabled(mConfig0.mushroomCowCmd);
 		this.mushroomCowHeadPrize = mConfig0.mushroomCowHeadPrize;
 		this.mushroomCowHeadDropChance = mConfig0.mushroomCowCmdRunChance;
-		this.mushroomCowHeadMessage = "You got a skull";
+		this.mushroomCowHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.ocelotPrize = mConfig0.ocelotPrize;
 		this.ocelotCmdNew = convertCommands(mConfig0.ocelotCmd, mConfig0.ocelotCmdRunChance);
@@ -4076,7 +4076,7 @@ public class ConfigManager extends AutoConfig {
 		this.ocelotHeadDropHead = convertDropHeadEnabled(mConfig0.ocelotCmd);
 		this.ocelotHeadPrize = mConfig0.ocelotHeadPrize;
 		this.ocelotHeadDropChance = mConfig0.ocelotCmdRunChance;
-		this.ocelotHeadMessage = "You got a skull";
+		this.ocelotHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.parrotPrize = mConfig0.parrotPrize;
 		this.parrotCmdNew = convertCommands(mConfig0.parrotCmd, mConfig0.parrotCmdRunChance);
@@ -4085,7 +4085,7 @@ public class ConfigManager extends AutoConfig {
 		this.parrotHeadDropHead = convertDropHeadEnabled(mConfig0.parrotCmd);
 		this.parrotHeadPrize = mConfig0.parrotHeadPrize;
 		this.parrotHeadDropChance = mConfig0.parrotCmdRunChance;
-		this.parrotHeadMessage = "You got a skull";
+		this.parrotHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.pigPrize = mConfig0.pigPrize;
 		this.pigCmdNew = convertCommands(mConfig0.pigCmd, mConfig0.pigCmdRunChance);
@@ -4094,7 +4094,7 @@ public class ConfigManager extends AutoConfig {
 		this.pigHeadDropHead = convertDropHeadEnabled(mConfig0.pigCmd);
 		this.pigHeadPrize = mConfig0.pigHeadPrize;
 		this.pigHeadDropChance = mConfig0.pigCmdRunChance;
-		this.pigHeadMessage = "You got a skull";
+		this.pigHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.rabbitPrize = mConfig0.rabbitPrize;
 		this.rabbitCmdNew = convertCommands(mConfig0.rabbitCmd, mConfig0.rabbitCmdRunChance);
@@ -4103,7 +4103,7 @@ public class ConfigManager extends AutoConfig {
 		this.rabbitHeadDropHead = convertDropHeadEnabled(mConfig0.rabbitCmd);
 		this.rabbitHeadPrize = mConfig0.rabbitHeadPrize;
 		this.rabbitHeadDropChance = mConfig0.rabbitCmdRunChance;
-		this.rabbitHeadMessage = "You got a skull";
+		this.rabbitHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.sheepPrize = mConfig0.sheepPrize;
 		this.sheepCmdNew = convertCommands(mConfig0.sheepCmd, mConfig0.sheepCmdRunChance);
@@ -4112,7 +4112,7 @@ public class ConfigManager extends AutoConfig {
 		this.sheepHeadDropHead = convertDropHeadEnabled(mConfig0.sheepCmd);
 		this.sheepHeadPrize = mConfig0.sheepHeadPrize;
 		this.sheepHeadDropChance = mConfig0.sheepCmdRunChance;
-		this.sheepHeadMessage = "You got a skull";
+		this.sheepHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.skeletonHorsePrize = mConfig0.skeletonhorsePrize;
 		this.skeletonHorseCmdNew = convertCommands(mConfig0.skeletonhorseCmd, mConfig0.skeletonhorseCmdRunChance);
@@ -4121,7 +4121,7 @@ public class ConfigManager extends AutoConfig {
 		this.skeletonHorseHeadDropHead = convertDropHeadEnabled(mConfig0.skeletonhorseCmd);
 		this.skeletonHorseHeadPrize = mConfig0.skeletonHorseHeadPrize;
 		this.skeletonHorseHeadDropChance = mConfig0.skeletonhorseCmdRunChance;
-		this.skeletonHorseHeadMessage = "You got a skull";
+		this.skeletonHorseHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.snowmanPrize = mConfig0.snowmanPrize;
 		this.snowmanCmdNew = convertCommands(mConfig0.snowmanCmd, mConfig0.snowmanCmdRunChance);
@@ -4130,7 +4130,7 @@ public class ConfigManager extends AutoConfig {
 		this.snowmanHeadDropHead = convertDropHeadEnabled(mConfig0.snowmanCmd);
 		this.snowmanHeadPrize = mConfig0.snowmanHeadPrize;
 		this.snowmanHeadDropChance = mConfig0.snowmanCmdRunChance;
-		this.snowmanHeadMessage = "You got a skull";
+		this.snowmanHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.squidPrize = mConfig0.squidPrize;
 		this.squidCmdNew = convertCommands(mConfig0.squidCmd, mConfig0.squidCmdRunChance);
@@ -4139,7 +4139,7 @@ public class ConfigManager extends AutoConfig {
 		this.squidHeadDropHead = convertDropHeadEnabled(mConfig0.squidCmd);
 		this.squidHeadPrize = mConfig0.squidHeadPrize;
 		this.squidHeadDropChance = mConfig0.squidCmdRunChance;
-		this.squidHeadMessage = "You got a skull";
+		this.squidHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.wolfPrize = mConfig0.wolfPrize;
 		this.wolfCmdNew = convertCommands(mConfig0.wolfCmd, mConfig0.wolfCmdRunChance);
@@ -4148,7 +4148,7 @@ public class ConfigManager extends AutoConfig {
 		this.wolfHeadDropHead = convertDropHeadEnabled(mConfig0.wolfCmd);
 		this.wolfHeadPrize = mConfig0.wolfHeadPrize;
 		this.wolfHeadDropChance = mConfig0.wolfCmdRunChance;
-		this.wolfHeadMessage = "You got a skull";
+		this.wolfHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.zombieHorsePrize = mConfig0.zombiehorsePrize;
 		this.zombieHorseCmdNew = convertCommands(mConfig0.zombiehorseCmd, mConfig0.zombiehorseCmdRunChance);
@@ -4157,7 +4157,7 @@ public class ConfigManager extends AutoConfig {
 		this.zombieHorseHeadDropHead = convertDropHeadEnabled(mConfig0.zombiehorseCmd);
 		this.zombieHorseHeadPrize = mConfig0.zombiehorseHeadPrize;
 		this.zombieHorseHeadDropChance = mConfig0.zombiehorseCmdRunChance;
-		this.zombieHorseHeadMessage = "You got a skull";
+		this.zombieHorseHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.rawFishPrize = mConfig0.rawFishPrize;
 		this.rawFishCmdNew = convertCommands(mConfig0.rawFishCmd, mConfig0.rawFishCmdRunChance);
@@ -4166,7 +4166,7 @@ public class ConfigManager extends AutoConfig {
 		this.rawFishHeadDropHead = convertDropHeadEnabled(mConfig0.rawFishCmd);
 		this.rawFishHeadPrize = mConfig0.rawFishHeadPrize;
 		this.rawFishHeadDropChance = mConfig0.rawFishCmdRunChance;
-		this.rawFishHeadMessage = "You got a skull";
+		this.rawFishHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.rawSalmonPrize = mConfig0.rawSalmonPrize;
 		this.rawSalmonCmdNew = convertCommands(mConfig0.rawSalmonCmd, mConfig0.rawSalmonCmdRunChance);
@@ -4175,7 +4175,7 @@ public class ConfigManager extends AutoConfig {
 		this.rawSalmonHeadDropHead = convertDropHeadEnabled(mConfig0.rawSalmonCmd);
 		this.rawSalmonHeadPrize = mConfig0.rawSalmonHeadPrize;
 		this.rawSalmonHeadDropChance = mConfig0.rawSalmonCmdRunChance;
-		this.rawSalmonHeadMessage = "You got a skull";
+		this.rawSalmonHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.clownfishPrize = mConfig0.clownfishPrize;
 		this.clownfishCmdNew = convertCommands(mConfig0.clownfishCmd, mConfig0.clownfishCmdRunChance);
@@ -4184,7 +4184,7 @@ public class ConfigManager extends AutoConfig {
 		this.clownfishHeadDropHead = convertDropHeadEnabled(mConfig0.clownfishCmd);
 		this.clownfishHeadPrize = mConfig0.clownfishHeadPrize;
 		this.clownfishHeadDropChance = mConfig0.clownfishCmdRunChance;
-		this.clownfishHeadMessage = "You got a skull";
+		this.clownfishHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.pufferfishPrize = mConfig0.pufferfishPrize;
 		this.pufferfishCmdNew = convertCommands(mConfig0.pufferfishCmd, mConfig0.pufferfishCmdRunChance);
@@ -4193,7 +4193,7 @@ public class ConfigManager extends AutoConfig {
 		this.pufferfishHeadDropHead = convertDropHeadEnabled(mConfig0.pufferfishCmd);
 		this.pufferfishHeadPrize = mConfig0.pufferfishHeadPrize;
 		this.pufferfishHeadDropChance = mConfig0.pufferfishCmdRunChance;
-		this.pufferfishHeadMessage = "You got a skull";
+		this.pufferfishHeadMessage = "The {killed} dropped a skull on the ground";
 
 		this.pvpAllowed = mConfig0.pvpAllowed;
 		this.robFromVictim = mConfig0.robFromVictim;
@@ -4204,7 +4204,7 @@ public class ConfigManager extends AutoConfig {
 		this.pvpHeadDropHead = convertDropHeadEnabled(mConfig0.pvpKillCmd);
 		this.pvpHeadPrize = mConfig0.pvpHeadPrize;
 		this.pvpHeadDropChance = mConfig0.pvpKillCmdRunChance;
-		this.pvpHeadMessage = "You got a skull";
+		this.pvpHeadMessage = "{killed} dropped a skull on the ground";
 
 		this.updateCheck = mConfig0.updateCheck;
 		this.checkEvery = mConfig0.checkEvery;
