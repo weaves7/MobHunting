@@ -2043,7 +2043,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "wolf.message", category = "passive")
 	public String wolfCmdDesc = "The {killed} dropped {prize} {rewardname}";
 	@ConfigField(name = "wolf.money.amount", category = "passive")
-	public String wolfPrize = "_10";
+	public String wolfPrize = "-10";
 	@ConfigField(name = "wolf.money.chance", category = "passive")
 	public double wolfCmdRunChance = 1;
 	@ConfigField(name = "wolf.commands", category = "passive")
@@ -2070,7 +2070,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "zombie_horse.message", category = "passive")
 	public String zombieHorseCmdDesc = "The {killed} dropped {prize} {rewardname}";
 	@ConfigField(name = "zombie_horse.money.amount", category = "passive")
-	public String zombieHorsePrize = "_10";
+	public String zombieHorsePrize = "-10";
 	@ConfigField(name = "zombie_horse.money.chance", category = "passive")
 	public double zombieHorseCmdRunChance = 1;
 	@ConfigField(name = "zombie_horse.commands", category = "passive")
