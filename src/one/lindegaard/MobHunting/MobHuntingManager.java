@@ -1253,7 +1253,18 @@ public class MobHuntingManager implements Listener {
 					&& (!plugin.getGrindingManager().isGrindingArea(getPlayer(killer, killed).getLocation())
 							|| plugin.getGrindingManager().isWhitelisted(getPlayer(killer, killed).getLocation()))) {
 				// Killstreak
-				data.handleKillstreak(plugin, getPlayer(killer, killed));
+				if (killed instanceof Slime) {
+					// Tiny Slime and MagmaCube do no damage or very little damage, so Killstreak is
+					// not achieved if the mob is small
+					Slime slime = (Slime) killed;
+					if (slime.getSize() != 1)
+						data.handleKillstreak(plugin, getPlayer(killer, killed));
+				} else if (killed instanceof MagmaCube) {
+					MagmaCube magmaCube = (MagmaCube) killed;
+					if (magmaCube.getSize() != 1)
+						data.handleKillstreak(plugin, getPlayer(killer, killed));
+				} else
+					data.handleKillstreak(plugin, getPlayer(killer, killed));
 			} else {
 				// Killstreak ended. Players started to kill 4 chicken and the
 				// one mob to gain 4 x prize
@@ -1301,81 +1312,83 @@ public class MobHuntingManager implements Listener {
 			if (!plugin.getGrindingManager().isWhitelisted(loc)) {
 				// Slimes ang Magmacubes are except from grinding due to their
 				// splitting nature
-				if (!(event.getEntity() instanceof Slime || event.getEntity() instanceof MagmaCube)
-						&& !killed.hasMetadata("MH:reinforcement")) {
-					plugin.getMessages().debug("Checking if player is grinding within a range of %s blocks",
-							data.getcDampnerRange());
+				// if (!(isSlimeOrMagmaCube(event.getEntity())) &&
+				// !killed.hasMetadata("MH:reinforcement")) {
+				plugin.getMessages().debug("Checking if player is grinding within a range of %s blocks",
+						data.getcDampnerRange());
 
-					if (detectedGrindingArea != null) {
-						data.setLastKillAreaCenter(null);
-						data.setDampenedKills(data.getDampenedKills() + 1);
-						if (data.getDampenedKills() >= plugin.getConfigManager().grindingDetectionNumberOfDeath) {
-							if (plugin.getConfigManager().blacklistPlayerGrindingSpotsServerWorldWide)
-								plugin.getGrindingManager().registerKnownGrindingSpot(detectedGrindingArea);
-							cancelDrops(event, plugin.getConfigManager().disableNaturalItemDropsOnPlayerGrinding,
-									plugin.getConfigManager().disableNaturalXPDropsOnPlayerGrinding);
-							plugin.getMessages().debug(
-									"DampenedKills reached the limit %s, no rewards paid. Grinding Spot registered.",
-									plugin.getConfigManager().grindingDetectionNumberOfDeath);
-							if (plugin.getPlayerSettingsManager().getPlayerSettings(getPlayer(killer, killed))
-									.isLearningMode() || getPlayer(killer, killed).hasPermission("mobhunting.blacklist")
-									|| getPlayer(killer, killed).hasPermission("mobhunting.blacklist.show"))
-								ProtocolLibHelper.showGrindingArea(getPlayer(killer, killed), detectedGrindingArea,
-										loc);
-							plugin.getMessages();
-							plugin.getMessages().learn(getPlayer(killer, killed),
-									plugin.getMessages().getString("mobhunting.learn.grindingnotallowed"));
-							plugin.getMessages().debug("======================= kill ended (33)======================");
-							return;
-						} else {
-							plugin.getMessages().debug("DampendKills=%s", data.getDampenedKills());
-						}
+				if (detectedGrindingArea != null) {
+					data.setLastKillAreaCenter(null);
+					data.setDampenedKills(data.getDampenedKills() + 1);
+					if (data.getDampenedKills() >= (isSlimeOrMagmaCube(killed) ? 2 : 1)
+							* plugin.getConfigManager().grindingDetectionNumberOfDeath) {
+						if (plugin.getConfigManager().blacklistPlayerGrindingSpotsServerWorldWide)
+							plugin.getGrindingManager().registerKnownGrindingSpot(detectedGrindingArea);
+						cancelDrops(event, plugin.getConfigManager().disableNaturalItemDropsOnPlayerGrinding,
+								plugin.getConfigManager().disableNaturalXPDropsOnPlayerGrinding);
+						plugin.getMessages().debug(
+								"DampenedKills reached the limit %s, no rewards paid. Grinding Spot registered.",
+								(isSlimeOrMagmaCube(killed) ? 2 : 1)
+										* plugin.getConfigManager().grindingDetectionNumberOfDeath);
+						if (plugin.getPlayerSettingsManager().getPlayerSettings(getPlayer(killer, killed))
+								.isLearningMode() || getPlayer(killer, killed).hasPermission("mobhunting.blacklist")
+								|| getPlayer(killer, killed).hasPermission("mobhunting.blacklist.show"))
+							ProtocolLibHelper.showGrindingArea(getPlayer(killer, killed), detectedGrindingArea, loc);
+						plugin.getMessages();
+						plugin.getMessages().learn(getPlayer(killer, killed),
+								plugin.getMessages().getString("mobhunting.learn.grindingnotallowed"));
+						plugin.getMessages().debug("======================= kill ended (33)======================");
+						return;
 					} else {
-						if (data.getLastKillAreaCenter() != null) {
-							if (loc.getWorld().equals(data.getLastKillAreaCenter().getWorld())) {
-								if (loc.distance(data.getLastKillAreaCenter()) < data.getcDampnerRange()
-										&& !plugin.getGrindingManager().isWhitelisted(loc)) {
-									if (!MobStackerCompat.isSupported() || (MobStackerCompat.isStackedMob(killed)
-											&& !MobStackerCompat.isGrindingStackedMobsAllowed())) {
-										data.setDampenedKills(data.getDampenedKills() + 1);
-										plugin.getMessages().debug("DampendKills=%s", data.getDampenedKills());
-										if (data.getDampenedKills() >= plugin
-												.getConfigManager().grindingDetectionNumberOfDeath / 2) {
-											plugin.getMessages().debug(
-													"Warning: Grinding detected. Killings too close, adding 1 to DampenedKills.");
-											plugin.getMessages();
-											plugin.getMessages().learn(getPlayer(killer, killed), plugin.getMessages()
-													.getString("mobhunting.learn.grindingnotallowed"));
-											plugin.getMessages();
-											plugin.getMessages().playerActionBarMessage(getPlayer(killer, killed),
-													ChatColor.RED + plugin.getMessages()
-															.getString("mobhunting.grinding.detected"));
-											data.recordGrindingArea();
-											cancelDrops(event, plugin.getConfigManager().disableNaturalItemDrops,
-													plugin.getConfigManager().disableNatualXPDrops);
-										}
+						plugin.getMessages().debug("DampendKills=%s", data.getDampenedKills());
+					}
+				} else {
+					if (data.getLastKillAreaCenter() != null) {
+						if (loc.getWorld().equals(data.getLastKillAreaCenter().getWorld())) {
+							if (loc.distance(data.getLastKillAreaCenter()) < data.getcDampnerRange()
+									&& !plugin.getGrindingManager().isWhitelisted(loc)) {
+								if (!MobStackerCompat.isSupported() || (MobStackerCompat.isStackedMob(killed)
+										&& !MobStackerCompat.isGrindingStackedMobsAllowed())) {
+									data.setDampenedKills(data.getDampenedKills() + 1);
+									plugin.getMessages().debug("DampendKills=%s", data.getDampenedKills());
+									if (data.getDampenedKills() >= (isSlimeOrMagmaCube(killed) ? 2 : 1)
+											* plugin.getConfigManager().grindingDetectionNumberOfDeath / 2) {
+										plugin.getMessages().debug(
+												"Warning: Grinding detected. Killings too close, adding 1 to DampenedKills.");
+										plugin.getMessages();
+										plugin.getMessages().learn(getPlayer(killer, killed),
+												plugin.getMessages().getString("mobhunting.learn.grindingnotallowed"));
+										plugin.getMessages();
+										plugin.getMessages().playerActionBarMessage(getPlayer(killer, killed),
+												ChatColor.RED + plugin.getMessages()
+														.getString("mobhunting.grinding.detected"));
+										data.recordGrindingArea();
+										cancelDrops(event, plugin.getConfigManager().disableNaturalItemDrops,
+												plugin.getConfigManager().disableNatualXPDrops);
 									}
-								} else {
-									data.setLastKillAreaCenter(loc.clone());
-									plugin.getMessages().debug(
-											"Kill not within %s blocks from previous kill. DampendKills reset to 0",
-											data.getcDampnerRange());
-									data.setDampenedKills(0);
 								}
 							} else {
 								data.setLastKillAreaCenter(loc.clone());
-								plugin.getMessages().debug("Kill in new world. DampendKills reset to 0");
+								plugin.getMessages().debug(
+										"Kill not within %s blocks from previous kill. DampendKills reset to 0",
+										data.getcDampnerRange());
 								data.setDampenedKills(0);
 							}
 						} else {
 							data.setLastKillAreaCenter(loc.clone());
-							plugin.getMessages().debug("Last Kill Area Center was null. DampendKills reset to 0");
+							plugin.getMessages().debug("Kill in new world. DampendKills reset to 0");
 							data.setDampenedKills(0);
 						}
+					} else {
+						data.setLastKillAreaCenter(loc.clone());
+						plugin.getMessages().debug("Last Kill Area Center was null. DampendKills reset to 0");
+						data.setDampenedKills(0);
 					}
 				}
+				// }
 
-				if (data.getDampenedKills() > plugin.getConfigManager().grindingDetectionNumberOfDeath / 2 + 4
+				if (data.getDampenedKills() > (isSlimeOrMagmaCube(killed) ? 2 : 1)
+						* plugin.getConfigManager().grindingDetectionNumberOfDeath / 2 + 4
 						&& !plugin.getGrindingManager().isWhitelisted(loc)) {
 					if (data.getKillstreakLevel() != 0 && data.getKillstreakMultiplier() != 1) {
 						plugin.getMessages();
@@ -1714,7 +1727,7 @@ public class MobHuntingManager implements Listener {
 							.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
 							.replace("{prize}", plugin.getRewardManager().format(cash))
 							.replaceAll("\\{killerpos\\}", killerpos).replaceAll("\\{killedpos\\}", killedpos)
-							.replaceAll("{rewardname}", plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
+							.replaceAll("\\{rewardname\\}", plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
 					if (killed instanceof Player)
 						prizeCommand = prizeCommand.replaceAll("\\{killed_player\\}", killed.getName())
 								.replaceAll("\\{killed\\}", killed.getName());
@@ -1783,7 +1796,7 @@ public class MobHuntingManager implements Listener {
 								.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
 								.replaceAll("\\{world\\}", worldname).replaceAll("\\{killerpos\\}", killerpos)
 								.replaceAll("\\{killedpos\\}", killedpos)
-								.replaceAll("{rewardname}", plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
+								.replaceAll("\\{rewardname\\}", plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
 				if (killed instanceof Player)
 					message = message.replaceAll("\\{killed_player\\}", killed.getName()).replaceAll("\\{killed\\}",
 							killed.getName());
@@ -1823,6 +1836,10 @@ public class MobHuntingManager implements Listener {
 		}
 
 		plugin.getMessages().debug("======================= kill ended (37)=====================");
+	}
+
+	private boolean isSlimeOrMagmaCube(Entity entity) {
+		return entity instanceof Slime || entity instanceof MagmaCube;
 	}
 
 	/**

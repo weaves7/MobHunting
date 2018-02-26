@@ -708,7 +708,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "endermite.head.chance", category = "mobs")
 	public double endermiteHeadDropChance = 0.10;
 	@ConfigField(name = "endermite.head.message", category = "mobs")
-	public String endermiteHeadMessage = "You got a Enderman skull";
+	public String endermiteHeadMessage = "You got a Endermite skull";
 
 	// =====Ghast============================================
 	@ConfigField(name = "ghast.enabled", category = "mobs")
@@ -2238,7 +2238,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "chance", category = "pvp.player.head")
 	public double pvpHeadDropChance = 1;
 	@ConfigField(name = "message", category = "pvp.player.head")
-	public String pvpHeadMessage = "You got a player skull";
+	public String pvpHeadMessage = "You got {player}'s skull";
 
 	// #####################################################################################
 	// Specials / Achievements
@@ -2696,7 +2696,7 @@ public class ConfigManager extends AutoConfig {
 
 	@ConfigField(name = "critical", category = "multiplier.bonus")
 	public double bonusCritical = 2;
-	@ConfigField(name = "bonus_mob_chance", category = "multiplier.bonus", comment = "This is the chance (% chance 0_100) that a bonus mob will spawn.")
+	@ConfigField(name = "bonus_mob_chance", category = "multiplier.bonus", comment = "This is the chance (% chance 0-100) that a bonus mob will spawn.")
 	public double bonusMobChance = 0.2;
 	@ConfigField(name = "babyMultiplier", category = "multiplier.bonus", comment = "Bonus for killing a Baby mob.")
 	public double babyMultiplier = 1.2;
