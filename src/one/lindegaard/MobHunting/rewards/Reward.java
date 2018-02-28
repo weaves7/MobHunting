@@ -47,7 +47,7 @@ public class Reward {
 	public Reward(Reward reward) {
 		this.displayname = reward.getDisplayname();
 		this.money = reward.getMoney();
-		this.uuid = reward.getRewardUUID();
+		this.uuid = reward.getRewardType();
 		this.skinUUID = reward.getSkinUUID();
 		this.uniqueId = reward.getUniqueUUID();
 	}
@@ -131,7 +131,7 @@ public class Reward {
 	/**
 	 * @return the uuid
 	 */
-	public UUID getRewardUUID() {
+	public UUID getRewardType() {
 		return uuid;
 	}
 
@@ -162,7 +162,7 @@ public class Reward {
 	 * @param uuid
 	 *            the uuid to set
 	 */
-	public void setUuid(UUID uuid) {
+	public void setRewardType(UUID uuid) {
 		this.uuid = uuid;
 	}
 

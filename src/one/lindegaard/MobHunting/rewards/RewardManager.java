@@ -284,7 +284,7 @@ public class RewardManager {
 					double saldo = Misc.floor(reward.getMoney());
 					if (saldo > toBeTaken) {
 						reward.setMoney(saldo - toBeTaken);
-						is = customItems.getCustomtexture(reward.getRewardUUID(),
+						is = customItems.getCustomtexture(reward.getRewardType(),
 								plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
 								plugin.getConfigManager().dropMoneyOnGroundSkullTextureValue,
 								plugin.getConfigManager().dropMoneyOnGroundSkullTextureSignature, saldo - toBeTaken,

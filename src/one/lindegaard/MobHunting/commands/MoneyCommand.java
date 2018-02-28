@@ -450,7 +450,7 @@ public class MoneyCommand implements ICommand {
 								double saldo = Misc.floor(reward.getMoney());
 								if (saldo > toBeSold) {
 									reward.setMoney(saldo - toBeSold);
-									is = customItems.getCustomtexture(reward.getRewardUUID(),
+									is = customItems.getCustomtexture(reward.getRewardType(),
 											plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
 											plugin.getConfigManager().dropMoneyOnGroundSkullTextureValue,
 											plugin.getConfigManager().dropMoneyOnGroundSkullTextureSignature,

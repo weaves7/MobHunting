@@ -72,7 +72,7 @@ public class RewardListeners implements Listener {
 			else {
 				ItemStack is = item.getItemStack();
 				is = plugin.getRewardManager().setDisplayNameAndHiddenLores(is, reward.getDisplayname(), 0,
-						reward.getRewardUUID(), reward.getSkinUUID());
+						reward.getRewardType(), reward.getSkinUUID());
 				item.setItemStack(is);
 			}
 			if (money == 0) {
@@ -318,7 +318,7 @@ public class RewardListeners implements Listener {
 			block.removeMetadata(Reward.MH_REWARD_DATA, plugin);
 			ItemStack is;
 			if (reward.isBagOfGoldReward()) {
-				is = customItems.getCustomtexture(reward.getRewardUUID(), reward.getDisplayname(),
+				is = customItems.getCustomtexture(reward.getRewardType(), reward.getDisplayname(),
 						plugin.getConfigManager().dropMoneyOnGroundSkullTextureValue,
 						plugin.getConfigManager().dropMoneyOnGroundSkullTextureSignature, reward.getMoney(),
 						reward.getUniqueUUID(), reward.getSkinUUID());
@@ -446,7 +446,7 @@ public class RewardListeners implements Listener {
 				Reward reward1 = new Reward(imCurrent.getLore());
 				Reward reward2 = new Reward(imCursor.getLore());
 				if ((reward1.isBagOfGoldReward() || reward1.isItemReward())
-						&& reward1.getRewardUUID().equals(reward2.getRewardUUID())) {
+						&& reward1.getRewardType().equals(reward2.getRewardType())) {
 					reward2.setMoney(reward1.getMoney() + reward2.getMoney());
 
 					imCursor.setLore(reward2.getHiddenLore());
@@ -475,11 +475,11 @@ public class RewardListeners implements Listener {
 					if (currentSlotMoney >= plugin.getConfigManager().minimumReward) {
 						event.setCancelled(true);
 						isCurrentSlot = plugin.getRewardManager().setDisplayNameAndHiddenLores(isCurrentSlot.clone(),
-								reward.getDisplayname(), currentSlotMoney, reward.getRewardUUID(),
+								reward.getDisplayname(), currentSlotMoney, reward.getRewardType(),
 								reward.getSkinUUID());
 						event.setCurrentItem(isCurrentSlot);
 						isCursor = plugin.getRewardManager().setDisplayNameAndHiddenLores(isCurrentSlot.clone(),
-								reward.getDisplayname(), cursorMoney, reward.getRewardUUID(), reward.getSkinUUID());
+								reward.getDisplayname(), cursorMoney, reward.getRewardType(), reward.getSkinUUID());
 						event.setCursor(isCursor);
 						plugin.getMessages().debug("%s halfed a reward in two (%s,%s)", player.getName(),
 								plugin.getRewardManager().format(currentSlotMoney),
@@ -507,7 +507,7 @@ public class RewardListeners implements Listener {
 						saldo = saldo + currentSlot.getMoney();
 					}
 					isCursor = plugin.getRewardManager().setDisplayNameAndHiddenLores(isCursor.clone(),
-							cursor.getDisplayname(), saldo, cursor.getRewardUUID(), cursor.getSkinUUID());
+							cursor.getDisplayname(), saldo, cursor.getRewardType(), cursor.getSkinUUID());
 					event.setCursor(isCursor);
 				}
 			}
@@ -638,7 +638,7 @@ public class RewardListeners implements Listener {
 			isCurrentSlot = plugin.getRewardManager().setDisplayNameAndHiddenLores(isCurrentSlot.clone(),
 					ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 							+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName,
-					0, reward.getRewardUUID(), reward.getSkinUUID());
+					0, reward.getRewardType(), reward.getSkinUUID());
 			event.setCurrentItem(isCurrentSlot);
 			if (reward.getMoney() > 0)
 				plugin.getMessages().debug("Reward in slot %s had its value set to 0", event.getSlot());
@@ -649,7 +649,7 @@ public class RewardListeners implements Listener {
 			isCursor = plugin.getRewardManager().setDisplayNameAndHiddenLores(isCursor.clone(),
 					ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 							+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName,
-					0, reward.getRewardUUID(), reward.getSkinUUID());
+					0, reward.getRewardType(), reward.getSkinUUID());
 			event.setCursor(isCursor);
 			if (reward.getMoney() > 0)
 				plugin.getMessages().debug("Reward on the cursor had its value set to 0", event.getSlot());

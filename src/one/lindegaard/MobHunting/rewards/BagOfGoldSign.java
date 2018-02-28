@@ -156,7 +156,7 @@ public class BagOfGoldSign implements Listener {
 							if (Reward.isReward(is)) {
 								Reward hrd = Reward.getReward(is);
 								if ((hrd.isBagOfGoldReward() || hrd.isItemReward())
-										&& hrd.getRewardUUID().equals(hrd.getRewardUUID())) {
+										&& hrd.getRewardType().equals(hrd.getRewardType())) {
 									ItemMeta im = is.getItemMeta();
 									Reward newReward = Reward.getReward(is);
 									newReward.setMoney(newReward.getMoney() + moneyOnSign);

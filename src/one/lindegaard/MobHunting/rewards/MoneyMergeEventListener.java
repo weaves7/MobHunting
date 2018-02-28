@@ -33,7 +33,7 @@ public class MoneyMergeEventListener implements Listener {
 		if (Reward.isReward(item1) && Reward.isReward(item2)) {
 			Reward reward1 = Reward.getReward(item1);
 			Reward reward2 = Reward.getReward(item2);
-			if (reward1.getRewardUUID().equals(reward2.getRewardUUID())
+			if (reward1.getRewardType().equals(reward2.getRewardType())
 					&& (reward1.isBagOfGoldReward() || reward1.isItemReward())) {
 				if (reward1.getMoney() + reward2.getMoney() != 0) {
 					reward2.setMoney(reward1.getMoney() + reward2.getMoney());

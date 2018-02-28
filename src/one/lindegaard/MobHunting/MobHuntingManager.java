@@ -1583,7 +1583,7 @@ public class MobHuntingManager implements Listener {
 			if (info.getAssister() == null || plugin.getConfigManager().enableAssists == false) {
 				if (cash >= plugin.getConfigManager().minimumReward) {
 					if (plugin.getConfigManager().dropMoneyOnGroup) {
-						plugin.getRewardManager().dropMoneyOnGround_RewardManager(killer, killed, killer.getLocation(),
+						plugin.getRewardManager().dropMoneyOnGround_RewardManager(killer, killed, killed.getLocation(),
 								cash);
 					} else {
 						plugin.getRewardManager().depositPlayer(killer, cash);
