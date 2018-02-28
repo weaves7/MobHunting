@@ -1142,7 +1142,7 @@ public class MobHuntingManager implements Listener {
 
 		// There is no reward and no penalty for this kill
 		if (basic_prize == 0 && (plugin.getRewardManager().getKillConsoleCmd(killed) == null
-				|| plugin.getRewardManager().getKillConsoleCmd(killed).isEmpty())) {
+				|| plugin.getRewardManager().getKillConsoleCmd(killed).isEmpty()) && !plugin.getRewardManager().getHeadDropHead(killed)) {
 			plugin.getMessages().debug(
 					"KillBlocked %s(%d): There is no reward and no penalty for this Mob/Player and is not counted as kill/achievement.",
 					mob.getMobName(), killed.getEntityId());
