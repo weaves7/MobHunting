@@ -56,7 +56,7 @@ public class RewardListeners implements Listener {
 		this.plugin = plugin;
 	}
 
-	@EventHandler(priority = EventPriority.NORMAL)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerDropReward(PlayerDropItemEvent event) {
 		if (event.isCancelled())
 			return;
@@ -127,7 +127,7 @@ public class RewardListeners implements Listener {
 		}
 	}
 
-	@EventHandler(priority = EventPriority.NORMAL)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onInventoryPickupRewardEvent(InventoryPickupItemEvent event) {
 		if (event.isCancelled())
 			return;
@@ -150,7 +150,7 @@ public class RewardListeners implements Listener {
 		}
 	}
 
-	@EventHandler(priority = EventPriority.NORMAL)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerMoveOverRewardEvent(PlayerMoveEvent event) {
 		if (event.isCancelled())
 			return;
@@ -258,7 +258,7 @@ public class RewardListeners implements Listener {
 		}
 	}
 
-	@EventHandler(priority = EventPriority.NORMAL)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onProjectileHitRewardEvent(ProjectileHitEvent event) {
 		Projectile projectile = event.getEntity();
 		Entity targetEntity = null;
@@ -360,7 +360,7 @@ public class RewardListeners implements Listener {
 
 	}
 
-	@EventHandler(priority = EventPriority.NORMAL)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onInventoryCloseEvent(InventoryCloseEvent event) {
 		Player player = (Player) event.getPlayer();
 		Inventory inventory = event.getInventory();
@@ -392,7 +392,7 @@ public class RewardListeners implements Listener {
 	}
 
 	@SuppressWarnings("deprecation")
-	@EventHandler(priority = EventPriority.NORMAL)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onInventoryClickReward(InventoryClickEvent event) {
 		if (event.isCancelled() || event.getInventory() == null)
 			return;
@@ -605,7 +605,7 @@ public class RewardListeners implements Listener {
 		}
 	}
 
-	@EventHandler(priority = EventPriority.NORMAL)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onInventoryCreative(InventoryCreativeEvent event) {
 
 		if (event.isCancelled() || event.getInventory() == null)
