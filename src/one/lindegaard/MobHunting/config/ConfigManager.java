@@ -534,7 +534,7 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values3 = new HashMap<String, String>();
 		values3.put("cmd", "say {player} killed an {killed}");
 		values3.put("chance", "1");
-		values3.put("message", "You killed an {killed}");
+		values3.put("message", "You killed an §1{killed}");
 		defaultCommands.add(values3);
 
 	}
@@ -546,7 +546,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "chance", category = "example.mobname.head", comment = "The chance to drop a head (a number between 0 and 1")
 	public double defaultHeadChance = 0.5;
 	@ConfigField(name = "message", category = "example.mobname.head", comment = "The message you want when a head is dropped")
-	public String defaultHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String defaultHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Blaze============================================
 	@ConfigField(name = "blaze.enabled", category = "mobs")
@@ -573,7 +573,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "blaze.head.chance", category = "mobs")
 	public double blazeHeadDropChance = 0.10;
 	@ConfigField(name = "blaze.head.message", category = "mobs")
-	public String blazeHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String blazeHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Cave Spider============================================
 	@ConfigField(name = "cave_spider.enabled", category = "mobs")
@@ -600,7 +600,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "cave_spider.head.chance", category = "mobs")
 	public double caveSpiderHeadDropChance = 0.1;
 	@ConfigField(name = "cave_spider.head.message", category = "mobs")
-	public String caveSpiderHeadMessage = "The {killed} §adropped a skull on the ground.";
+	public String caveSpiderHeadMessage = "§aThe §1{killed} §adropped a skull on the ground.";
 
 	// =====Creeper============================================
 	@ConfigField(name = "creeper.enabled", category = "mobs")
@@ -627,7 +627,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "creeper.head.chance", category = "mobs")
 	public double creeperHeadDropChance = 0.05;
 	@ConfigField(name = "creeper.head.message", category = "mobs")
-	public String creeperHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String creeperHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Elder Guardian============================================
 	@ConfigField(name = "elder_guardian.enabled", category = "mobs")
@@ -654,7 +654,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "elder_guardian.head.chance", category = "mobs")
 	public double elderGuardianHeadDropChance = 0.33;
 	@ConfigField(name = "elder_guardian.head.message", category = "mobs")
-	public String elderGuardianHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String elderGuardianHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Enderman============================================
 	@ConfigField(name = "enderman.enabled", category = "mobs")
@@ -681,7 +681,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "enderman.head.chance", category = "mobs")
 	public double endermanHeadDropChance = 0.33;
 	@ConfigField(name = "enderman.head.message", category = "mobs")
-	public String endermanHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String endermanHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Endermite============================================
 	@ConfigField(name = "endermite.enabled", category = "mobs")
@@ -708,7 +708,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "endermite.head.chance", category = "mobs")
 	public double endermiteHeadDropChance = 0.10;
 	@ConfigField(name = "endermite.head.message", category = "mobs")
-	public String endermiteHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String endermiteHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Ghast============================================
 	@ConfigField(name = "ghast.enabled", category = "mobs")
@@ -735,7 +735,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "ghast.head.chance", category = "mobs")
 	public double ghastHeadDropChance = 0.10;
 	@ConfigField(name = "ghast.head.message", category = "mobs")
-	public String ghastHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String ghastHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Giant============================================
 	@ConfigField(name = "giant.enabled", category = "mobs")
@@ -762,7 +762,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "giant.head.chance", category = "mobs")
 	public double giantHeadDropChance = 0.10;
 	@ConfigField(name = "giant.head.message", category = "mobs")
-	public String giantHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String giantHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Iron Golem============================================
 	@ConfigField(name = "iron_golem.enabled", category = "mobs")
@@ -789,7 +789,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "iron_golem.head.chance", category = "mobs")
 	public double ironGolemHeadDropChance = 0.10;
 	@ConfigField(name = "iron_golem.head.message", category = "mobs")
-	public String ironGolemHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String ironGolemHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Guardian============================================
 	@ConfigField(name = "guardian.enabled", category = "mobs")
@@ -816,7 +816,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "guardian.head.chance", category = "mobs")
 	public double guardianHeadDropChance = 0.10;
 	@ConfigField(name = "guardian.head.message", category = "mobs")
-	public String guardianHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String guardianHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Husk============================================
 	@ConfigField(name = "husk.enabled", category = "mobs")
@@ -843,7 +843,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "husk.head.chance", category = "mobs")
 	public double huskHeadDropChance = 0.20;
 	@ConfigField(name = "husk.head.message", category = "mobs")
-	public String huskHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String huskHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Killer Rabbit============================================
 	@ConfigField(name = "killer_rabbit.enabled", category = "mobs")
@@ -870,7 +870,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "killer_rabbit.head.chance", category = "mobs")
 	public double killerRabbitHeadDropChance = 0.25;
 	@ConfigField(name = "killer_rabbit.head.message", category = "mobs")
-	public String killerRabbitHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String killerRabbitHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Magma Cube============================================
 	@ConfigField(name = "magma_cube.enabled", category = "mobs")
@@ -897,7 +897,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "magma_cube.head.chance", category = "mobs")
 	public double magmaCubeHeadDropChance = 0.10;
 	@ConfigField(name = "magma_cube.head.message", category = "mobs")
-	public String magmaCubeHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String magmaCubeHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Polar Bear============================================
 	@ConfigField(name = "polar_bear.enabled", category = "mobs")
@@ -924,7 +924,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "polar_bear.head.chance", category = "mobs")
 	public double polarBearHeadDropChance = 0.25;
 	@ConfigField(name = "polar_bear.head.message", category = "mobs")
-	public String polarBearHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String polarBearHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Slime============================================
 	@ConfigField(name = "slime.enabled", category = "mobs")
@@ -951,7 +951,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "slime.head.chance", category = "mobs")
 	public double slimeHeadDropChance = 0.05;
 	@ConfigField(name = "slime.head.message", category = "mobs")
-	public String slimeHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String slimeHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Shulker============================================
 	@ConfigField(name = "shulker.enabled", category = "mobs")
@@ -978,7 +978,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "shulker.head.chance", category = "mobs")
 	public double shulkerHeadDropChance = 0.50;
 	@ConfigField(name = "shulker.head.message", category = "mobs")
-	public String shulkerHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String shulkerHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Silverfish============================================
 	@ConfigField(name = "silverfish.enabled", category = "mobs")
@@ -1005,7 +1005,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "silverfish.head.chance", category = "mobs")
 	public double silverfishHeadDropChance = 0.20;
 	@ConfigField(name = "silverfish.head.message", category = "mobs")
-	public String silverfishHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String silverfishHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Skeleton============================================
 	@ConfigField(name = "skeleton.enabled", category = "mobs")
@@ -1032,7 +1032,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "skeleton.head.chance", category = "mobs")
 	public double skeletonHeadDropChance = 0.05;
 	@ConfigField(name = "skeleton.head.message", category = "mobs")
-	public String skeletonHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String skeletonHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Spider============================================
 	@ConfigField(name = "spider.enabled", category = "mobs")
@@ -1059,7 +1059,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "spider.head.chance", category = "mobs")
 	public double spiderHeadDropChance = 0.05;
 	@ConfigField(name = "spider.head.message", category = "mobs")
-	public String spiderHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String spiderHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Stray============================================
 	@ConfigField(name = "stray.enabled", category = "mobs")
@@ -1086,7 +1086,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "stray.head.chance", category = "mobs")
 	public double strayHeadDropChance = 0.20;
 	@ConfigField(name = "stray.head.message", category = "mobs")
-	public String strayHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String strayHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Zombie============================================
 	@ConfigField(name = "zombie.enabled", category = "mobs")
@@ -1113,7 +1113,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "zombie.head.chance", category = "mobs")
 	public double zombieHeadDropChance = 0.005;
 	@ConfigField(name = "zombie.head.message", category = "mobs")
-	public String zombieHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String zombieHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Zombie Pigman============================================
 	@ConfigField(name = "zombie_pigman.enabled", category = "mobs")
@@ -1140,7 +1140,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "zombie_pigman.head.chance", category = "mobs")
 	public double zombiePigmanHeadDropChance = 0.10;
 	@ConfigField(name = "zombie_pigman.head.message", category = "mobs")
-	public String zombiePigmanHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String zombiePigmanHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Vex============================================
 	@ConfigField(name = "vex.enabled", category = "mobs")
@@ -1167,7 +1167,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "vex.head.chance", category = "mobs")
 	public double vexHeadDropChance = 0.50;
 	@ConfigField(name = "vex.head.message", category = "mobs")
-	public String vexHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String vexHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Witch============================================
 	@ConfigField(name = "witch.enabled", category = "mobs")
@@ -1194,7 +1194,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "witch.head.chance", category = "mobs")
 	public double witchHeadDropChance = 0.05;
 	@ConfigField(name = "witch.head.message", category = "mobs")
-	public String witchHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String witchHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Wither Skeleton============================================
 	@ConfigField(name = "wither_skeleton.enabled", category = "mobs")
@@ -1221,7 +1221,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "wither_skeleton.head.chance", category = "mobs")
 	public double witherSkeletonHeadDropChance = 0.10;
 	@ConfigField(name = "wither_skeleton.head.message", category = "mobs")
-	public String witherSkeletonHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String witherSkeletonHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// #####################################################################################
 	// Bosses
@@ -1257,7 +1257,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "wither.head.chance", category = "boss")
 	public double witherHeadDropChance = 0.50;
 	@ConfigField(name = "wither.head.message", category = "boss")
-	public String witherHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String witherHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Ender Dragon============================================
 	@ConfigField(name = "ender_dragon.enabled", category = "boss")
@@ -1289,7 +1289,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "ender_dragon.head.chance", category = "boss")
 	public double enderDragonHeadDropChance = 0.5;
 	@ConfigField(name = "ender_dragon.head.message", category = "boss")
-	public String enderDragonHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String enderDragonHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// Usage: /summon <EntityName> [x] [y] [z] [dataTag]
 	// Try this!!!! /summon Minecart ~ ~ ~20 {Riding:{id:EnderDragon}}
@@ -1330,7 +1330,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "blacksmith.head.chance", category = "villager")
 	public double blacksmithHeadDropChance = 0.10;
 	@ConfigField(name = "blacksmith.head.message", category = "villager")
-	public String blacksmithHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String blacksmithHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Butcher============================================
 	@ConfigField(name = "butcher.enabled", category = "villager")
@@ -1357,7 +1357,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "butcher.head.chance", category = "villager")
 	public double butcherHeadDropChance = 0.10;
 	@ConfigField(name = "butcher.head.message", category = "villager")
-	public String butcherHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String butcherHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Evoker============================================
 	@ConfigField(name = "evoker.enabled", category = "villager")
@@ -1384,7 +1384,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "evoker.head.chance", category = "villager")
 	public double evokerHeadDropChance = 0.50;
 	@ConfigField(name = "evoker.head.message", category = "villager")
-	public String evokerHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String evokerHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Farmer============================================
 	@ConfigField(name = "farmer.enabled", category = "villager")
@@ -1411,7 +1411,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "farmer.head.chance", category = "villager")
 	public double farmerHeadDropChance = 0.10;
 	@ConfigField(name = "farmer.head.message", category = "villager")
-	public String farmerHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String farmerHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Illusioner============================================
 	@ConfigField(name = "illusioner.enabled", category = "villager")
@@ -1438,7 +1438,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "illusioner.head.chance", category = "villager")
 	public double illusionerHeadDropChance = 0.10;
 	@ConfigField(name = "illusioner.head.message", category = "villager")
-	public String illusionerHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String illusionerHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Librarian============================================
 	@ConfigField(name = "librarian.enabled", category = "villager")
@@ -1465,7 +1465,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "librarian.head.chance", category = "villager")
 	public double librarianHeadDropChance = 0.50;
 	@ConfigField(name = "librarian.head.message", category = "villager")
-	public String librarianHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String librarianHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Nitwit============================================
 	@ConfigField(name = "nitwit.enabled", category = "villager")
@@ -1492,7 +1492,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "nitwit.head.chance", category = "villager")
 	public double nitwitHeadDropChance = 0.5;
 	@ConfigField(name = "nitwit.head.message", category = "villager")
-	public String nitwitHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String nitwitHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Priest============================================
 	@ConfigField(name = "priest.enabled", category = "villager")
@@ -1519,7 +1519,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "priest.head.chance", category = "villager")
 	public double priestHeadDropChance = 0.50;
 	@ConfigField(name = "priest.head.message", category = "villager")
-	public String priestHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String priestHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Villager============================================
 	@ConfigField(name = "villager.enabled", category = "villager")
@@ -1546,7 +1546,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "villager.head.chance", category = "villager")
 	public double villagerHeadDropChance = 0.30;
 	@ConfigField(name = "villager.head.message", category = "villager")
-	public String villagerHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String villagerHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Vindicator============================================
 	@ConfigField(name = "vindicator.enabled", category = "villager")
@@ -1573,7 +1573,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "vindicator.head.chance", category = "villager")
 	public double vindicatorHeadDropChance = 0.05;
 	@ConfigField(name = "vindicator.head.message", category = "villager")
-	public String vindicatorHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String vindicatorHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Zombie Villager============================================
 	@ConfigField(name = "zombie_villager.enabled", category = "villager")
@@ -1600,7 +1600,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "zombie_villager.head.chance", category = "villager")
 	public double zombieVillagerHeadDropChance = 0.05;
 	@ConfigField(name = "zombie_villager.head.message", category = "villager")
-	public String zombieVillagerHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String zombieVillagerHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// #####################################################################################
 	// Passive Mobs
@@ -1630,7 +1630,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "bat.head.chance", category = "passive")
 	public double batHeadDropChance = 0.05;
 	@ConfigField(name = "bat.head.message", category = "passive")
-	public String batHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String batHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Chicken============================================
 	@ConfigField(name = "chicken.enabled", category = "passive")
@@ -1657,7 +1657,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "chicken.head.chance", category = "passive")
 	public double chickenHeadDropChance = 0.05;
 	@ConfigField(name = "chicken.head.message", category = "passive")
-	public String chickenHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String chickenHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Cow============================================
 	@ConfigField(name = "cow.enabled", category = "passive")
@@ -1684,7 +1684,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "cow.head.chance", category = "passive")
 	public double cowHeadDropChance = 0.05;
 	@ConfigField(name = "cow.head.message", category = "passive")
-	public String cowHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String cowHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Donkey============================================
 	@ConfigField(name = "donkey.enabled", category = "passive")
@@ -1711,7 +1711,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "donkey.head.chance", category = "passive")
 	public double donkeyHeadDropChance = 0.05;
 	@ConfigField(name = "donkey.head.message", category = "passive")
-	public String donkeyHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String donkeyHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Horse============================================
 	@ConfigField(name = "horse.enabled", category = "passive")
@@ -1738,7 +1738,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "horse.head.chance", category = "passive")
 	public double horseHeadDropChance = 0.05;
 	@ConfigField(name = "horse.head.message", category = "passive")
-	public String horseHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String horseHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Llama============================================
 	@ConfigField(name = "llama.enabled", category = "passive")
@@ -1765,7 +1765,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "llama.head.chance", category = "passive")
 	public double llamaHeadDropChance = 0.05;
 	@ConfigField(name = "llama.head.message", category = "passive")
-	public String llamaHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String llamaHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Mule============================================
 	@ConfigField(name = "mule.enabled", category = "passive")
@@ -1792,7 +1792,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "mule.head.chance", category = "passive")
 	public double muleHeadDropChance = 0.05;
 	@ConfigField(name = "mule.head.message", category = "passive")
-	public String muleHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String muleHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Mushroom Cow============================================
 	@ConfigField(name = "mushroom_cow.enabled", category = "passive")
@@ -1819,7 +1819,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "mushroom_cow.head.chance", category = "passive")
 	public double mushroomCowHeadDropChance = 0.05;
 	@ConfigField(name = "mushroom_cow.head.message", category = "passive")
-	public String mushroomCowHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String mushroomCowHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Ocelot============================================
 	@ConfigField(name = "ocelot.enabled", category = "passive")
@@ -1846,7 +1846,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "ocelot.head.chance", category = "passive")
 	public double ocelotHeadDropChance = 0.05;
 	@ConfigField(name = "ocelot.head.message", category = "passive")
-	public String ocelotHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String ocelotHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Parrot============================================
 	@ConfigField(name = "parrot.enabled", category = "passive")
@@ -1873,7 +1873,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "parrot.head.chance", category = "passive")
 	public double parrotHeadDropChance = 0.10;
 	@ConfigField(name = "parrot.head.message", category = "passive")
-	public String parrotHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String parrotHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Pig============================================
 	@ConfigField(name = "pig.enabled", category = "passive")
@@ -1900,7 +1900,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "pig.head.chance", category = "passive")
 	public double pigHeadDropChance = 0.05;
 	@ConfigField(name = "pig.head.message", category = "passive")
-	public String pigHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String pigHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Rabbit============================================
 	@ConfigField(name = "rabbit.enabled", category = "passive")
@@ -1927,7 +1927,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "rabbit.head.chance", category = "passive")
 	public double rabbitHeadDropChance = 0.05;
 	@ConfigField(name = "rabbit.head.message", category = "passive")
-	public String rabbitHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String rabbitHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Sheep============================================
 	@ConfigField(name = "sheep.enabled", category = "passive")
@@ -1954,7 +1954,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "sheep.head.chance", category = "passive")
 	public double sheepHeadDropChance = 0.05;
 	@ConfigField(name = "sheep.head.message", category = "passive")
-	public String sheepHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String sheepHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Skeleton Horse============================================
 	@ConfigField(name = "skeleton_horse.enabled", category = "passive")
@@ -1981,7 +1981,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "skeleton_horse.head.chance", category = "passive")
 	public double skeletonHorseHeadDropChance = 0.05;
 	@ConfigField(name = "skeleton_horse.head.message", category = "passive")
-	public String skeletonHorseHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String skeletonHorseHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Snowman============================================
 	@ConfigField(name = "snowman.enabled", category = "passive")
@@ -2008,7 +2008,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "snowman.head.chance", category = "passive")
 	public double snowmanHeadDropChance = 0.05;
 	@ConfigField(name = "snowman.head.message", category = "passive")
-	public String snowmanHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String snowmanHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Squid============================================
 	@ConfigField(name = "squid.enabled", category = "passive")
@@ -2035,7 +2035,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "squid.head.chance", category = "passive")
 	public double squidHeadDropChance = 0.05;
 	@ConfigField(name = "squid.head.message", category = "passive")
-	public String squidHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String squidHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Wolf============================================
 	@ConfigField(name = "wolf.enabled", category = "passive")
@@ -2062,7 +2062,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "wolf.head.chance", category = "passive")
 	public double wolfHeadDropChance = 0.05;
 	@ConfigField(name = "wolf.head.message", category = "passive")
-	public String wolfHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String wolfHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Zombie Horse============================================
 	@ConfigField(name = "zombie_horse.enabled", category = "passive")
@@ -2089,7 +2089,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "zombie_horse.head.chance", category = "passive")
 	public double zombieHorseHeadDropChance = 0.25;
 	@ConfigField(name = "zombie_horse.head.message", category = "passive")
-	public String zombieHorseHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String zombieHorseHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// #####################################################################################
 	// Fish / Fishing
@@ -2123,7 +2123,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "raw_fish.head.chance", category = "fishing")
 	public double rawFishHeadDropChance = 0.05;
 	@ConfigField(name = "raw_fish.head.message", category = "fishing")
-	public String rawFishHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String rawFishHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Raw Salmon============================================
 	@ConfigField(name = "raw_salmon.enabled", category = "fishing")
@@ -2150,7 +2150,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "raw_salmon.head.chance", category = "fishing")
 	public double rawSalmonHeadDropChance = 0.10;
 	@ConfigField(name = "raw_salmon.head.message", category = "fishing")
-	public String rawSalmonHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String rawSalmonHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Clownfish============================================
 	@ConfigField(name = "clownfish.enabled", category = "fishing")
@@ -2177,7 +2177,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "clownfish.head.chance", category = "fishing")
 	public double clownfishHeadDropChance = 0.5;
 	@ConfigField(name = "clownfish.head.message", category = "fishing")
-	public String clownfishHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String clownfishHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Pufferfish============================================
 	@ConfigField(name = "pufferfish.enabled", category = "fishing")
@@ -2204,7 +2204,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "pufferfish.head.chance", category = "fishing")
 	public double pufferfishHeadDropChance = 0.40;
 	@ConfigField(name = "pufferfish.head.message", category = "fishing")
-	public String pufferfishHeadMessage = "The {killed} §adropped a skull on the ground";
+	public String pufferfishHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// #####################################################################################
 	// PVP
@@ -3662,7 +3662,7 @@ public class ConfigManager extends AutoConfig {
 		this.blazeHeadDropHead = convertDropHeadEnabled(mConfig0.blazeCmd);
 		this.blazeHeadPrize = mConfig0.blazeHeadPrize;
 		this.blazeHeadDropChance = mConfig0.blazeCmdRunChance;
-		this.blazeHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.blazeHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.caveSpiderPrize = mConfig0.caveSpiderPrize;
 		this.caveSpiderCmdNew = convertCommands(mConfig0.caveSpiderCmd, mConfig0.caveSpiderRunChance);
@@ -3671,7 +3671,7 @@ public class ConfigManager extends AutoConfig {
 		this.caveSpiderHeadDropHead = convertDropHeadEnabled(mConfig0.caveSpiderCmd);
 		this.caveSpiderHeadPrize = mConfig0.caveSpiderHeadPrize;
 		this.caveSpiderHeadDropChance = mConfig0.caveSpiderRunChance;
-		this.caveSpiderHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.caveSpiderHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.creeperPrize = mConfig0.creeperPrize;
 		this.creeperCmdNew = convertCommands(mConfig0.creeperCmd, mConfig0.creeperCmdRunChance);
@@ -3680,7 +3680,7 @@ public class ConfigManager extends AutoConfig {
 		this.creeperHeadDropHead = convertDropHeadEnabled(mConfig0.creeperCmd);
 		this.creeperHeadPrize = mConfig0.creeperHeadPrize;
 		this.creeperHeadDropChance = mConfig0.creeperCmdRunChance;
-		this.creeperHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.creeperHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.elderGuardianPrize = mConfig0.elderGuardianPrize;
 		this.elderGuardianCmdNew = convertCommands(mConfig0.elderGuardianCmd, mConfig0.elderGuardianCmdRunChance);
@@ -3689,7 +3689,7 @@ public class ConfigManager extends AutoConfig {
 		this.elderGuardianHeadDropHead = convertDropHeadEnabled(mConfig0.elderGuardianCmd);
 		this.elderGuardianHeadPrize = mConfig0.elderGuardianHeadPrize;
 		this.elderGuardianHeadDropChance = mConfig0.elderGuardianCmdRunChance;
-		this.elderGuardianHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.elderGuardianHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.endermanPrize = mConfig0.endermanPrize;
 		this.endermanCmdNew = convertCommands(mConfig0.endermanCmd, mConfig0.endermanCmdRunChance);
@@ -3698,7 +3698,7 @@ public class ConfigManager extends AutoConfig {
 		this.endermanHeadDropHead = convertDropHeadEnabled(mConfig0.endermanCmd);
 		this.endermanHeadPrize = mConfig0.endermanHeadPrize;
 		this.endermanHeadDropChance = mConfig0.endermanCmdRunChance;
-		this.endermanHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.endermanHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.endermitePrize = mConfig0.endermitePrize;
 		this.endermiteCmdNew = convertCommands(mConfig0.endermiteCmd, mConfig0.endermiteCmdRunChance);
@@ -3707,7 +3707,7 @@ public class ConfigManager extends AutoConfig {
 		this.endermiteHeadDropHead = convertDropHeadEnabled(mConfig0.endermiteCmd);
 		this.endermiteHeadPrize = mConfig0.endermiteHeadPrize;
 		this.endermiteHeadDropChance = mConfig0.endermiteCmdRunChance;
-		this.endermiteHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.endermiteHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.ghastPrize = mConfig0.ghastPrize;
 		this.ghastCmdNew = convertCommands(mConfig0.ghastCmd, mConfig0.ghastCmdRunChance);
@@ -3716,7 +3716,7 @@ public class ConfigManager extends AutoConfig {
 		this.ghastHeadDropHead = convertDropHeadEnabled(mConfig0.ghastCmd);
 		this.ghastHeadPrize = mConfig0.ghastHeadPrize;
 		this.ghastHeadDropChance = mConfig0.ghastCmdRunChance;
-		this.ghastHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.ghastHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.giantPrize = mConfig0.giantPrize;
 		this.giantCmdNew = convertCommands(mConfig0.giantCmd, mConfig0.giantCmdRunChance);
@@ -3725,7 +3725,7 @@ public class ConfigManager extends AutoConfig {
 		this.giantHeadDropHead = convertDropHeadEnabled(mConfig0.giantCmd);
 		this.giantHeadPrize = mConfig0.giantHeadPrize;
 		this.giantHeadDropChance = mConfig0.giantCmdRunChance;
-		this.giantHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.giantHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.ironGolemPrize = mConfig0.ironGolemPrize;
 		this.ironGolemCmdNew = convertCommands(mConfig0.ironGolemCmd, mConfig0.ironGolemCmdRunChance);
@@ -3734,7 +3734,7 @@ public class ConfigManager extends AutoConfig {
 		this.ironGolemHeadDropHead = convertDropHeadEnabled(mConfig0.ironGolemCmd);
 		this.ironGolemHeadPrize = mConfig0.ironGolemHeadPrize;
 		this.ironGolemHeadDropChance = mConfig0.ironGolemCmdRunChance;
-		this.ironGolemHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.ironGolemHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.guardianPrize = mConfig0.guardianPrize;
 		this.guardianCmdNew = convertCommands(mConfig0.guardianCmd, mConfig0.guardianCmdRunChance);
@@ -3743,7 +3743,7 @@ public class ConfigManager extends AutoConfig {
 		this.guardianHeadDropHead = convertDropHeadEnabled(mConfig0.guardianCmd);
 		this.guardianHeadPrize = mConfig0.guardianHeadPrize;
 		this.ironGolemHeadDropChance = mConfig0.ironGolemCmdRunChance;
-		this.ironGolemHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.ironGolemHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.huskPrize = mConfig0.huskPrize;
 		this.huskCmdNew = convertCommands(mConfig0.huskCmd, mConfig0.huskCmdRunChance);
@@ -3752,7 +3752,7 @@ public class ConfigManager extends AutoConfig {
 		this.huskHeadDropHead = convertDropHeadEnabled(mConfig0.huskCmd);
 		this.huskHeadPrize = mConfig0.huskHeadPrize;
 		this.huskHeadDropChance = mConfig0.huskCmdRunChance;
-		this.huskHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.huskHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.killerRabbitPrize = mConfig0.killerrabbitPrize;
 		this.killerRabbitCmdNew = convertCommands(mConfig0.killerrabbitCmd, mConfig0.killerrabbitCmdRunChance);
@@ -3761,7 +3761,7 @@ public class ConfigManager extends AutoConfig {
 		this.killerRabbitHeadDropHead = convertDropHeadEnabled(mConfig0.killerrabbitCmd);
 		this.killerRabbitHeadPrize = mConfig0.killerrabbitHeadPrize;
 		this.killerRabbitHeadDropChance = mConfig0.killerrabbitCmdRunChance;
-		this.killerRabbitHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.killerRabbitHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.magmaCubePrize = mConfig0.magmaCubePrize;
 		this.magmaCubeCmdNew = convertCommands(mConfig0.magmaCubeCmd, mConfig0.magmaCubeCmdRunChance);
@@ -3770,7 +3770,7 @@ public class ConfigManager extends AutoConfig {
 		this.magmaCubeHeadDropHead = convertDropHeadEnabled(mConfig0.magmaCubeCmd);
 		this.magmaCubeHeadPrize = mConfig0.magmaCubeHeadPrize;
 		this.magmaCubeHeadDropChance = mConfig0.magmaCubeCmdRunChance;
-		this.magmaCubeHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.magmaCubeHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.polarBearPrize = mConfig0.polarBearPrize;
 		this.polarBearCmdNew = convertCommands(mConfig0.polarBearCmd, mConfig0.polarBearCmdRunChance);
@@ -3779,7 +3779,7 @@ public class ConfigManager extends AutoConfig {
 		this.polarBearHeadDropHead = convertDropHeadEnabled(mConfig0.polarBearCmd);
 		this.polarBearHeadPrize = mConfig0.polarBearHeadPrize;
 		this.polarBearHeadDropChance = mConfig0.polarBearCmdRunChance;
-		this.polarBearHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.polarBearHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.slimePrize = mConfig0.slimeTinyPrize;
 		this.slimeCmdNew = convertCommands(mConfig0.slimeCmd, mConfig0.slimeCmdRunChance);
@@ -3788,7 +3788,7 @@ public class ConfigManager extends AutoConfig {
 		this.slimeHeadDropHead = convertDropHeadEnabled(mConfig0.slimeCmd);
 		this.slimeHeadPrize = mConfig0.slimeHeadPrize;
 		this.slimeHeadDropChance = mConfig0.slimeCmdRunChance;
-		this.slimeHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.slimeHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.strayPrize = mConfig0.strayPrize;
 		this.strayCmdNew = convertCommands(mConfig0.strayCmd, mConfig0.strayCmdRunChance);
@@ -3797,7 +3797,7 @@ public class ConfigManager extends AutoConfig {
 		this.strayHeadDropHead = convertDropHeadEnabled(mConfig0.strayCmd);
 		this.strayHeadPrize = mConfig0.strayHeadPrize;
 		this.strayHeadDropChance = mConfig0.strayCmdRunChance;
-		this.strayHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.strayHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.silverfishPrize = mConfig0.silverfishPrize;
 		this.silverfishCmdNew = convertCommands(mConfig0.silverfishCmd, mConfig0.silverfishCmdRunChance);
@@ -3806,7 +3806,7 @@ public class ConfigManager extends AutoConfig {
 		this.silverfishHeadDropHead = convertDropHeadEnabled(mConfig0.silverfishCmd);
 		this.silverfishHeadPrize = mConfig0.silverfishHeadPrize;
 		this.silverfishHeadDropChance = mConfig0.silverfishCmdRunChance;
-		this.silverfishHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.silverfishHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.skeletonPrize = mConfig0.skeletonPrize;
 		this.skeletonCmdNew = convertCommands(mConfig0.skeletonCmd, mConfig0.skeletonCmdRunChance);
@@ -3815,7 +3815,7 @@ public class ConfigManager extends AutoConfig {
 		this.skeletonHeadDropHead = convertDropHeadEnabled(mConfig0.skeletonCmd);
 		this.skeletonHeadPrize = mConfig0.skeletonHeadPrize;
 		this.skeletonHeadDropChance = mConfig0.skeletonCmdRunChance;
-		this.skeletonHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.skeletonHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.spiderMoney = mConfig0.spiderPrize;
 		this.spiderCommands = convertCommands(mConfig0.spiderCmd, mConfig0.spiderCmdRunChance);
@@ -3833,7 +3833,7 @@ public class ConfigManager extends AutoConfig {
 		this.shulkerHeadDropHead = convertDropHeadEnabled(mConfig0.shulkerCmd);
 		this.shulkerHeadPrize = mConfig0.shulkerHeadPrize;
 		this.shulkerHeadDropChance = mConfig0.shulkerCmdRunChance;
-		this.shulkerHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.shulkerHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.zombiePrize = mConfig0.zombiePrize;
 		this.zombieCmdNew = convertCommands(mConfig0.zombieCmd, mConfig0.zombieCmdRunChance);
@@ -3842,7 +3842,7 @@ public class ConfigManager extends AutoConfig {
 		this.zombieHeadDropHead = convertDropHeadEnabled(mConfig0.zombieCmd);
 		this.zombieHeadPrize = mConfig0.zombieHeadPrize;
 		this.zombieHeadDropChance = mConfig0.zombieCmdRunChance;
-		this.zombieHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.zombieHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.zombiePigmanPrize = mConfig0.zombiePigmanPrize;
 		this.zombiePigmanCmdNew = convertCommands(mConfig0.zombiePigmanCmd, mConfig0.zombiepigmanCmdRunChance);
@@ -3851,7 +3851,7 @@ public class ConfigManager extends AutoConfig {
 		this.zombiePigmanHeadDropHead = convertDropHeadEnabled(mConfig0.zombiePigmanCmd);
 		this.zombiePigmanHeadPrize = mConfig0.zombiePigmanHeadPrize;
 		this.zombiePigmanHeadDropChance = mConfig0.zombiepigmanCmdRunChance;
-		this.zombiePigmanHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.zombiePigmanHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.vexPrize = mConfig0.vexPrize;
 		this.vexCmdNew = convertCommands(mConfig0.vexCmd, mConfig0.vexCmdRunChance);
@@ -3860,7 +3860,7 @@ public class ConfigManager extends AutoConfig {
 		this.vexHeadDropHead = convertDropHeadEnabled(mConfig0.vexCmd);
 		this.vexHeadPrize = mConfig0.vexHeadPrize;
 		this.vexHeadDropChance = mConfig0.vexCmdRunChance;
-		this.vexHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.vexHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.witchPrize = mConfig0.witchPrize;
 		this.witchCmdNew = convertCommands(mConfig0.witchCmd, mConfig0.witchCmdRunChance);
@@ -3869,7 +3869,7 @@ public class ConfigManager extends AutoConfig {
 		this.witchHeadDropHead = convertDropHeadEnabled(mConfig0.witchCmd);
 		this.witchHeadPrize = mConfig0.witchHeadPrize;
 		this.witchHeadDropChance = mConfig0.witchCmdRunChance;
-		this.witchHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.witchHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.witherSkeletonPrize = mConfig0.witherSkeletonPrize;
 		this.witherSkeletonCmdNew = convertCommands(mConfig0.witherSkeletonCmd, mConfig0.witherSkeletonCmdRunChance);
@@ -3878,7 +3878,7 @@ public class ConfigManager extends AutoConfig {
 		this.witherSkeletonHeadDropHead = convertDropHeadEnabled(mConfig0.witherSkeletonCmd);
 		this.witherSkeletonHeadPrize = mConfig0.witherSkeletonHeadPrize;
 		this.witherSkeletonHeadDropChance = mConfig0.witherSkeletonCmdRunChance;
-		this.witherSkeletonHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.witherSkeletonHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.witherPrize = mConfig0.witherPrize;
 		this.witherCmdNew = convertCommands(mConfig0.witherCmd, mConfig0.witherCmdRunChance);
@@ -3887,7 +3887,7 @@ public class ConfigManager extends AutoConfig {
 		this.witherHeadDropHead = convertDropHeadEnabled(mConfig0.witherCmd);
 		this.witherHeadPrize = mConfig0.witherHeadPrize;
 		this.witherHeadDropChance = mConfig0.witherCmdRunChance;
-		this.witherHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.witherHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.enderDragonPrize = mConfig0.enderdragonPrize;
 		this.enderDragonCmdNew = convertCommands(mConfig0.enderdragonCmd, mConfig0.enderdragonCmdRunChance);
@@ -3896,7 +3896,7 @@ public class ConfigManager extends AutoConfig {
 		this.enderDragonHeadDropHead = convertDropHeadEnabled(mConfig0.enderdragonCmd);
 		this.enderDragonHeadPrize = mConfig0.enderdragonHeadPrize;
 		this.enderDragonHeadDropChance = mConfig0.enderdragonCmdRunChance;
-		this.enderDragonHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.enderDragonHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.blacksmithPrize = mConfig0.blacksmithPrize;
 		this.blacksmithCmdNew = convertCommands(mConfig0.blacksmithCmd, mConfig0.blacksmithCmdRunChance);
@@ -3905,7 +3905,7 @@ public class ConfigManager extends AutoConfig {
 		this.blacksmithHeadDropHead = convertDropHeadEnabled(mConfig0.blacksmithCmd);
 		this.blacksmithHeadPrize = mConfig0.blacksmithHeadPrize;
 		this.blacksmithHeadDropChance = mConfig0.blacksmithCmdRunChance;
-		this.blacksmithHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.blacksmithHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.butcherPrize = mConfig0.butcherPrize;
 		this.butcherCmdNew = convertCommands(mConfig0.butcherCmd, mConfig0.butcherCmdRunChance);
@@ -3914,7 +3914,7 @@ public class ConfigManager extends AutoConfig {
 		this.butcherHeadDropHead = convertDropHeadEnabled(mConfig0.butcherCmd);
 		this.butcherHeadPrize = mConfig0.butcherHeadPrize;
 		this.butcherHeadDropChance = mConfig0.butcherCmdRunChance;
-		this.butcherHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.butcherHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.evokerPrize = mConfig0.evokerPrize;
 		this.evokerCmdNew = convertCommands(mConfig0.evokerCmd, mConfig0.evokerCmdRunChance);
@@ -3923,7 +3923,7 @@ public class ConfigManager extends AutoConfig {
 		this.evokerHeadDropHead = convertDropHeadEnabled(mConfig0.evokerCmd);
 		this.evokerHeadPrize = mConfig0.evokerHeadPrize;
 		this.evokerHeadDropChance = mConfig0.evokerCmdRunChance;
-		this.evokerHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.evokerHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.farmerPrize = mConfig0.farmerPrize;
 		this.farmerCmdNew = convertCommands(mConfig0.farmerCmd, mConfig0.farmerCmdRunChance);
@@ -3932,7 +3932,7 @@ public class ConfigManager extends AutoConfig {
 		this.farmerHeadDropHead = convertDropHeadEnabled(mConfig0.farmerCmd);
 		this.farmerHeadPrize = mConfig0.farmerHeadPrize;
 		this.farmerHeadDropChance = mConfig0.farmerCmdRunChance;
-		this.farmerHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.farmerHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.illusionerPrize = mConfig0.illusionerPrize;
 		this.illusionerCmdNew = convertCommands(mConfig0.illusionerCmd, mConfig0.illusionerCmdRunChance);
@@ -3941,7 +3941,7 @@ public class ConfigManager extends AutoConfig {
 		this.illusionerHeadDropHead = convertDropHeadEnabled(mConfig0.illusionerCmd);
 		this.illusionerHeadPrize = mConfig0.illusionerHeadPrize;
 		this.illusionerHeadDropChance = mConfig0.illusionerCmdRunChance;
-		this.illusionerHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.illusionerHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.librarianPrize = mConfig0.librarianPrize;
 		this.librarianCmdNew = convertCommands(mConfig0.librarianCmd, mConfig0.librarianCmdRunChance);
@@ -3950,7 +3950,7 @@ public class ConfigManager extends AutoConfig {
 		this.librarianHeadDropHead = convertDropHeadEnabled(mConfig0.librarianCmd);
 		this.librarianHeadPrize = mConfig0.librarianHeadPrize;
 		this.librarianHeadDropChance = mConfig0.librarianCmdRunChance;
-		this.librarianHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.librarianHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.nitwitPrize = mConfig0.nitwitPrize;
 		this.nitwitCmdNew = convertCommands(mConfig0.nitwitCmd, mConfig0.nitwitCmdRunChance);
@@ -3959,7 +3959,7 @@ public class ConfigManager extends AutoConfig {
 		this.nitwitHeadDropHead = convertDropHeadEnabled(mConfig0.nitwitCmd);
 		this.nitwitHeadPrize = mConfig0.nitwitHeadPrize;
 		this.nitwitHeadDropChance = mConfig0.nitwitCmdRunChance;
-		this.nitwitHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.nitwitHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.priestPrize = mConfig0.priestPrize;
 		this.priestCmdNew = convertCommands(mConfig0.priestCmd, mConfig0.priestCmdRunChance);
@@ -3968,7 +3968,7 @@ public class ConfigManager extends AutoConfig {
 		this.priestHeadDropHead = convertDropHeadEnabled(mConfig0.priestCmd);
 		this.priestHeadPrize = mConfig0.priestHeadPrize;
 		this.priestHeadDropChance = mConfig0.priestCmdRunChance;
-		this.priestHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.priestHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.villagerPrize = mConfig0.villagerPrize;
 		this.villagerCmdNew = convertCommands(mConfig0.villagerCmd, mConfig0.villagerCmdRunChance);
@@ -3977,7 +3977,7 @@ public class ConfigManager extends AutoConfig {
 		this.villagerHeadDropHead = convertDropHeadEnabled(mConfig0.villagerCmd);
 		this.villagerHeadPrize = mConfig0.villagerHeadPrize;
 		this.villagerHeadDropChance = mConfig0.villagerCmdRunChance;
-		this.villagerHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.villagerHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.vindicatorPrize = mConfig0.vindicatorPrize;
 		this.vindicatorCmdNew = convertCommands(mConfig0.vindicatorCmd, mConfig0.vindicatorCmdRunChance);
@@ -3986,7 +3986,7 @@ public class ConfigManager extends AutoConfig {
 		this.vindicatorHeadDropHead = convertDropHeadEnabled(mConfig0.vindicatorCmd);
 		this.vindicatorHeadPrize = mConfig0.vindicatorHeadPrize;
 		this.vindicatorHeadDropChance = mConfig0.vindicatorCmdRunChance;
-		this.vindicatorHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.vindicatorHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.zombieVillagerPrize = mConfig0.zombieVillagerPrize;
 		this.zombieVillagerCmdNew = convertCommands(mConfig0.zombieVillagerCmd, mConfig0.zombieVillagerCmdRunChance);
@@ -3995,7 +3995,7 @@ public class ConfigManager extends AutoConfig {
 		this.zombieVillagerHeadDropHead = convertDropHeadEnabled(mConfig0.zombieVillagerCmd);
 		this.zombieVillagerHeadPrize = mConfig0.zombieVillagerHeadPrize;
 		this.zombieVillagerHeadDropChance = mConfig0.zombieVillagerCmdRunChance;
-		this.zombieVillagerHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.zombieVillagerHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.batPrize = mConfig0.batPrize;
 		this.batCmdNew = convertCommands(mConfig0.batCmd, mConfig0.batCmdRunChance);
@@ -4004,7 +4004,7 @@ public class ConfigManager extends AutoConfig {
 		this.batHeadDropHead = convertDropHeadEnabled(mConfig0.batCmd);
 		this.batHeadPrize = mConfig0.batHeadPrize;
 		this.batHeadDropChance = mConfig0.batCmdRunChance;
-		this.batHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.batHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.chickenPrize = mConfig0.chickenPrize;
 		this.chickenCmdNew = convertCommands(mConfig0.chickenCmd, mConfig0.chickenCmdRunChance);
@@ -4013,7 +4013,7 @@ public class ConfigManager extends AutoConfig {
 		this.chickenHeadDropHead = convertDropHeadEnabled(mConfig0.chickenCmd);
 		this.chickenHeadPrize = mConfig0.chickenHeadPrize;
 		this.chickenHeadDropChance = mConfig0.chickenCmdRunChance;
-		this.chickenHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.chickenHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.cowPrize = mConfig0.cowPrize;
 		this.cowCmdNew = convertCommands(mConfig0.cowCmd, mConfig0.cowCmdRunChance);
@@ -4022,7 +4022,7 @@ public class ConfigManager extends AutoConfig {
 		this.cowHeadDropHead = convertDropHeadEnabled(mConfig0.cowCmd);
 		this.cowHeadPrize = mConfig0.cowHeadPrize;
 		this.cowHeadDropChance = mConfig0.cowCmdRunChance;
-		this.cowHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.cowHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.donkeyPrize = mConfig0.donkeyPrize;
 		this.donkeyCmdNew = convertCommands(mConfig0.donkeyCmd, mConfig0.donkeyCmdRunChance);
@@ -4031,7 +4031,7 @@ public class ConfigManager extends AutoConfig {
 		this.donkeyHeadDropHead = convertDropHeadEnabled(mConfig0.donkeyCmd);
 		this.donkeyHeadPrize = mConfig0.donkeyHeadPrize;
 		this.donkeyHeadDropChance = mConfig0.donkeyCmdRunChance;
-		this.donkeyHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.donkeyHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.horsePrize = mConfig0.horsePrize;
 		this.horseCmdNew = convertCommands(mConfig0.horseCmd, mConfig0.horseCmdRunChance);
@@ -4040,7 +4040,7 @@ public class ConfigManager extends AutoConfig {
 		this.horseHeadDropHead = convertDropHeadEnabled(mConfig0.horseCmd);
 		this.horseHeadPrize = mConfig0.horseHeadPrize;
 		this.horseHeadDropChance = mConfig0.horseCmdRunChance;
-		this.horseHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.horseHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.llamaPrize = mConfig0.llamaPrize;
 		this.llamaCmdNew = convertCommands(mConfig0.llamaCmd, mConfig0.llamaCmdRunChance);
@@ -4049,7 +4049,7 @@ public class ConfigManager extends AutoConfig {
 		this.llamaHeadDropHead = convertDropHeadEnabled(mConfig0.llamaCmd);
 		this.llamaHeadPrize = mConfig0.llamaHeadPrize;
 		this.llamaHeadDropChance = mConfig0.llamaCmdRunChance;
-		this.llamaHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.llamaHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.mulePrize = mConfig0.mulePrize;
 		this.muleCmdNew = convertCommands(mConfig0.muleCmd, mConfig0.muleCmdRunChance);
@@ -4058,7 +4058,7 @@ public class ConfigManager extends AutoConfig {
 		this.muleHeadDropHead = convertDropHeadEnabled(mConfig0.muleCmd);
 		this.muleHeadPrize = mConfig0.muleHeadPrize;
 		this.muleHeadDropChance = mConfig0.muleCmdRunChance;
-		this.muleHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.muleHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.mushroomCowPrize = mConfig0.mushroomCowPrize;
 		this.mushroomCowCmdNew = convertCommands(mConfig0.mushroomCowCmd, mConfig0.mushroomCowCmdRunChance);
@@ -4067,7 +4067,7 @@ public class ConfigManager extends AutoConfig {
 		this.mushroomCowHeadDropHead = convertDropHeadEnabled(mConfig0.mushroomCowCmd);
 		this.mushroomCowHeadPrize = mConfig0.mushroomCowHeadPrize;
 		this.mushroomCowHeadDropChance = mConfig0.mushroomCowCmdRunChance;
-		this.mushroomCowHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.mushroomCowHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.ocelotPrize = mConfig0.ocelotPrize;
 		this.ocelotCmdNew = convertCommands(mConfig0.ocelotCmd, mConfig0.ocelotCmdRunChance);
@@ -4076,7 +4076,7 @@ public class ConfigManager extends AutoConfig {
 		this.ocelotHeadDropHead = convertDropHeadEnabled(mConfig0.ocelotCmd);
 		this.ocelotHeadPrize = mConfig0.ocelotHeadPrize;
 		this.ocelotHeadDropChance = mConfig0.ocelotCmdRunChance;
-		this.ocelotHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.ocelotHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.parrotPrize = mConfig0.parrotPrize;
 		this.parrotCmdNew = convertCommands(mConfig0.parrotCmd, mConfig0.parrotCmdRunChance);
@@ -4085,7 +4085,7 @@ public class ConfigManager extends AutoConfig {
 		this.parrotHeadDropHead = convertDropHeadEnabled(mConfig0.parrotCmd);
 		this.parrotHeadPrize = mConfig0.parrotHeadPrize;
 		this.parrotHeadDropChance = mConfig0.parrotCmdRunChance;
-		this.parrotHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.parrotHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.pigPrize = mConfig0.pigPrize;
 		this.pigCmdNew = convertCommands(mConfig0.pigCmd, mConfig0.pigCmdRunChance);
@@ -4094,7 +4094,7 @@ public class ConfigManager extends AutoConfig {
 		this.pigHeadDropHead = convertDropHeadEnabled(mConfig0.pigCmd);
 		this.pigHeadPrize = mConfig0.pigHeadPrize;
 		this.pigHeadDropChance = mConfig0.pigCmdRunChance;
-		this.pigHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.pigHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.rabbitPrize = mConfig0.rabbitPrize;
 		this.rabbitCmdNew = convertCommands(mConfig0.rabbitCmd, mConfig0.rabbitCmdRunChance);
@@ -4103,7 +4103,7 @@ public class ConfigManager extends AutoConfig {
 		this.rabbitHeadDropHead = convertDropHeadEnabled(mConfig0.rabbitCmd);
 		this.rabbitHeadPrize = mConfig0.rabbitHeadPrize;
 		this.rabbitHeadDropChance = mConfig0.rabbitCmdRunChance;
-		this.rabbitHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.rabbitHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.sheepPrize = mConfig0.sheepPrize;
 		this.sheepCmdNew = convertCommands(mConfig0.sheepCmd, mConfig0.sheepCmdRunChance);
@@ -4112,7 +4112,7 @@ public class ConfigManager extends AutoConfig {
 		this.sheepHeadDropHead = convertDropHeadEnabled(mConfig0.sheepCmd);
 		this.sheepHeadPrize = mConfig0.sheepHeadPrize;
 		this.sheepHeadDropChance = mConfig0.sheepCmdRunChance;
-		this.sheepHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.sheepHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.skeletonHorsePrize = mConfig0.skeletonhorsePrize;
 		this.skeletonHorseCmdNew = convertCommands(mConfig0.skeletonhorseCmd, mConfig0.skeletonhorseCmdRunChance);
@@ -4121,7 +4121,7 @@ public class ConfigManager extends AutoConfig {
 		this.skeletonHorseHeadDropHead = convertDropHeadEnabled(mConfig0.skeletonhorseCmd);
 		this.skeletonHorseHeadPrize = mConfig0.skeletonHorseHeadPrize;
 		this.skeletonHorseHeadDropChance = mConfig0.skeletonhorseCmdRunChance;
-		this.skeletonHorseHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.skeletonHorseHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.snowmanPrize = mConfig0.snowmanPrize;
 		this.snowmanCmdNew = convertCommands(mConfig0.snowmanCmd, mConfig0.snowmanCmdRunChance);
@@ -4130,7 +4130,7 @@ public class ConfigManager extends AutoConfig {
 		this.snowmanHeadDropHead = convertDropHeadEnabled(mConfig0.snowmanCmd);
 		this.snowmanHeadPrize = mConfig0.snowmanHeadPrize;
 		this.snowmanHeadDropChance = mConfig0.snowmanCmdRunChance;
-		this.snowmanHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.snowmanHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.squidPrize = mConfig0.squidPrize;
 		this.squidCmdNew = convertCommands(mConfig0.squidCmd, mConfig0.squidCmdRunChance);
@@ -4139,7 +4139,7 @@ public class ConfigManager extends AutoConfig {
 		this.squidHeadDropHead = convertDropHeadEnabled(mConfig0.squidCmd);
 		this.squidHeadPrize = mConfig0.squidHeadPrize;
 		this.squidHeadDropChance = mConfig0.squidCmdRunChance;
-		this.squidHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.squidHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.wolfPrize = mConfig0.wolfPrize;
 		this.wolfCmdNew = convertCommands(mConfig0.wolfCmd, mConfig0.wolfCmdRunChance);
@@ -4148,7 +4148,7 @@ public class ConfigManager extends AutoConfig {
 		this.wolfHeadDropHead = convertDropHeadEnabled(mConfig0.wolfCmd);
 		this.wolfHeadPrize = mConfig0.wolfHeadPrize;
 		this.wolfHeadDropChance = mConfig0.wolfCmdRunChance;
-		this.wolfHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.wolfHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.zombieHorsePrize = mConfig0.zombiehorsePrize;
 		this.zombieHorseCmdNew = convertCommands(mConfig0.zombiehorseCmd, mConfig0.zombiehorseCmdRunChance);
@@ -4157,7 +4157,7 @@ public class ConfigManager extends AutoConfig {
 		this.zombieHorseHeadDropHead = convertDropHeadEnabled(mConfig0.zombiehorseCmd);
 		this.zombieHorseHeadPrize = mConfig0.zombiehorseHeadPrize;
 		this.zombieHorseHeadDropChance = mConfig0.zombiehorseCmdRunChance;
-		this.zombieHorseHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.zombieHorseHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.rawFishPrize = mConfig0.rawFishPrize;
 		this.rawFishCmdNew = convertCommands(mConfig0.rawFishCmd, mConfig0.rawFishCmdRunChance);
@@ -4166,7 +4166,7 @@ public class ConfigManager extends AutoConfig {
 		this.rawFishHeadDropHead = convertDropHeadEnabled(mConfig0.rawFishCmd);
 		this.rawFishHeadPrize = mConfig0.rawFishHeadPrize;
 		this.rawFishHeadDropChance = mConfig0.rawFishCmdRunChance;
-		this.rawFishHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.rawFishHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.rawSalmonPrize = mConfig0.rawSalmonPrize;
 		this.rawSalmonCmdNew = convertCommands(mConfig0.rawSalmonCmd, mConfig0.rawSalmonCmdRunChance);
@@ -4175,7 +4175,7 @@ public class ConfigManager extends AutoConfig {
 		this.rawSalmonHeadDropHead = convertDropHeadEnabled(mConfig0.rawSalmonCmd);
 		this.rawSalmonHeadPrize = mConfig0.rawSalmonHeadPrize;
 		this.rawSalmonHeadDropChance = mConfig0.rawSalmonCmdRunChance;
-		this.rawSalmonHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.rawSalmonHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.clownfishPrize = mConfig0.clownfishPrize;
 		this.clownfishCmdNew = convertCommands(mConfig0.clownfishCmd, mConfig0.clownfishCmdRunChance);
@@ -4184,7 +4184,7 @@ public class ConfigManager extends AutoConfig {
 		this.clownfishHeadDropHead = convertDropHeadEnabled(mConfig0.clownfishCmd);
 		this.clownfishHeadPrize = mConfig0.clownfishHeadPrize;
 		this.clownfishHeadDropChance = mConfig0.clownfishCmdRunChance;
-		this.clownfishHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.clownfishHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.pufferfishPrize = mConfig0.pufferfishPrize;
 		this.pufferfishCmdNew = convertCommands(mConfig0.pufferfishCmd, mConfig0.pufferfishCmdRunChance);
@@ -4193,7 +4193,7 @@ public class ConfigManager extends AutoConfig {
 		this.pufferfishHeadDropHead = convertDropHeadEnabled(mConfig0.pufferfishCmd);
 		this.pufferfishHeadPrize = mConfig0.pufferfishHeadPrize;
 		this.pufferfishHeadDropChance = mConfig0.pufferfishCmdRunChance;
-		this.pufferfishHeadMessage = "The {killed} §adropped a skull on the ground";
+		this.pufferfishHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.pvpAllowed = mConfig0.pvpAllowed;
 		this.robFromVictim = mConfig0.robFromVictim;
@@ -4204,7 +4204,7 @@ public class ConfigManager extends AutoConfig {
 		this.pvpHeadDropHead = convertDropHeadEnabled(mConfig0.pvpKillCmd);
 		this.pvpHeadPrize = mConfig0.pvpHeadPrize;
 		this.pvpHeadDropChance = mConfig0.pvpKillCmdRunChance;
-		this.pvpHeadMessage = "{killed} §adropped a skull on the ground";
+		this.pvpHeadMessage = "§1{killed} §adropped a skull on the ground";
 
 		this.updateCheck = mConfig0.updateCheck;
 		this.checkEvery = mConfig0.checkEvery;
