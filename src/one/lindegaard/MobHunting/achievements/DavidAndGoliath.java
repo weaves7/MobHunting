@@ -42,7 +42,7 @@ public class DavidAndGoliath implements Achievement, Listener {
 		if (SmartGiantsCompat.isSmartGiants(event.getKilledEntity())
 				&& event.getDamageInfo().getWeapon().getType() == Material.STONE_BUTTON
 				&& !(plugin.getRewardManager().getBaseKillPrize(event.getKilledEntity()) == 0
-						&& plugin.getRewardManager().getKillConsoleCmd(event.getKilledEntity()).isEmpty()))
+						&& plugin.getRewardManager().getKillCommands(event.getKilledEntity()).isEmpty()))
 			plugin.getAchievementManager().awardAchievement(this, event.getPlayer(),
 					plugin.getExtendedMobManager().getExtendedMobFromEntity(event.getKilledEntity()));
 	}

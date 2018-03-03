@@ -161,7 +161,7 @@ public class FishingManager implements Listener {
 
 			// Pay the reward to player and assister
 			if (cash >= plugin.getConfigManager().minimumReward || cash <= -plugin.getConfigManager().minimumReward
-					|| !plugin.getRewardManager().getKillConsoleCmd(fish).isEmpty()) {
+					|| !plugin.getRewardManager().getKillCommands(fish).isEmpty()) {
 
 				// Handle MobHuntFishingEvent
 				MobHuntFishingEvent event2 = new MobHuntFishingEvent(player, fish, cash, multiplierList);
@@ -254,7 +254,7 @@ public class FishingManager implements Listener {
 						+ player.getLocation().getBlockZ();
 
 				List<HashMap<String, String>> fishCommands = new ArrayList<HashMap<String, String>>();
-				fishCommands = plugin.getRewardManager().getKillConsoleCmd(fish);
+				fishCommands = plugin.getRewardManager().getKillCommands(fish);
 
 				Iterator<HashMap<String, String>> itr = fishCommands.iterator();
 				while (itr.hasNext()) {
@@ -270,7 +270,7 @@ public class FishingManager implements Listener {
 								.replaceAll("\\{killerpos\\}", fishermanPos)
 								.replaceAll("{rewardname}", plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
 						plugin.getMessages().debug("command to be run is:" + prizeCommand);
-						if (!plugin.getRewardManager().getKillConsoleCmd(fish).equals("")) {
+						if (!plugin.getRewardManager().getKillCommands(fish).equals("")) {
 							String str = prizeCommand;
 							do {
 								if (str.contains("|")) {

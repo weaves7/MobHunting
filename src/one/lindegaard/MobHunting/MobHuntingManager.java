@@ -1134,15 +1134,15 @@ public class MobHuntingManager implements Listener {
 
 		// Calculate basic the reward
 		double cash = plugin.getRewardManager().getBaseKillPrize(killed);
-		if (plugin.mRand.nextDouble() > plugin.getRewardManager().getCmdRunChance(killed))
+		if (plugin.mRand.nextDouble() > plugin.getRewardManager().getMoneyChance(killed))
 			cash = 0;
 		double basic_prize = cash;
 		plugin.getMessages().debug("Basic Prize=%s for killing a %s", plugin.getRewardManager().format(cash),
 				mob.getMobName());
 
 		// There is no reward and no penalty for this kill
-		if (basic_prize == 0 && (plugin.getRewardManager().getKillConsoleCmd(killed) == null
-				|| plugin.getRewardManager().getKillConsoleCmd(killed).isEmpty()) && !plugin.getRewardManager().getHeadDropHead(killed)) {
+		if (basic_prize == 0 && (plugin.getRewardManager().getKillCommands(killed) == null
+				|| plugin.getRewardManager().getKillCommands(killed).isEmpty()) && !plugin.getRewardManager().getHeadDropHead(killed)) {
 			plugin.getMessages().debug(
 					"KillBlocked %s(%d): There is no reward and no penalty for this Mob/Player and is not counted as kill/achievement.",
 					mob.getMobName(), killed.getEntityId());
@@ -1285,8 +1285,8 @@ public class MobHuntingManager implements Listener {
 
 		// Grinding detection
 		if (cash != 0 && plugin.getConfigManager().grindingDetectionEnabled
-				&& plugin.getRewardManager().getKillConsoleCmd(killed) != null
-				&& !plugin.getRewardManager().getKillConsoleCmd(killed).isEmpty()) {
+				&& plugin.getRewardManager().getKillCommands(killed) != null
+				&& !plugin.getRewardManager().getKillCommands(killed).isEmpty()) {
 			// Check if the location is marked as a Grinding Area. Whitelist
 			// overrules blacklist.
 
@@ -1493,8 +1493,8 @@ public class MobHuntingManager implements Listener {
 
 		// Check if there is a reward for this kill
 		if (cash >= plugin.getConfigManager().minimumReward || cash <= -plugin.getConfigManager().minimumReward
-				|| (plugin.getRewardManager().getKillConsoleCmd(killed) != null
-						&& !plugin.getRewardManager().getKillConsoleCmd(killed).isEmpty())
+				|| (plugin.getRewardManager().getKillCommands(killed) != null
+						&& !plugin.getRewardManager().getKillCommands(killed).isEmpty())
 				|| (killer != null && McMMOCompat.isSupported() && plugin.getConfigManager().enableMcMMOLevelRewards)
 				|| plugin.getRewardManager().getHeadDropHead(killed)) {
 
@@ -1566,7 +1566,7 @@ public class MobHuntingManager implements Listener {
 			boolean robbing = killer != null && killed instanceof Player && !CitizensCompat.isNPC(killed)
 					&& plugin.getConfigManager().pvpAllowed && plugin.getConfigManager().robFromVictim;
 			if (robbing) {
-				plugin.getMessages().debug("PVP kill reward is '%s'", plugin.getConfigManager().pvpKillPrize);
+				plugin.getMessages().debug("PVP kill reward is '%s'", plugin.getConfigManager().pvpKillMoney);
 				plugin.getRewardManager().withdrawPlayer((Player) killed, cash);
 				// plugin.getMessages().debug("RecordCash: %s killed a %s (%s) Cash=%s",
 				// killer.getName(), mob.getName(),
@@ -1738,7 +1738,7 @@ public class MobHuntingManager implements Listener {
 		// Run console commands as a reward
 		if (data.getDampenedKills() < 10) {
 
-			Iterator<HashMap<String, String>> itr = plugin.getRewardManager().getKillConsoleCmd(killed).iterator();
+			Iterator<HashMap<String, String>> itr = plugin.getRewardManager().getKillCommands(killed).iterator();
 			while (itr.hasNext()) {
 				HashMap<String, String> cmd = itr.next();
 				double random = plugin.mRand.nextDouble();
@@ -1970,7 +1970,7 @@ public class MobHuntingManager implements Listener {
 
 		if (!isHuntEnabledInWorld(event.getLocation().getWorld())
 				|| (plugin.getRewardManager().getBaseKillPrize(event.getEntity()) == 0
-						&& plugin.getRewardManager().getKillConsoleCmd(event.getEntity()).equals(""))
+						&& plugin.getRewardManager().getKillCommands(event.getEntity()).equals(""))
 				|| event.getSpawnReason() != SpawnReason.NATURAL)
 			return;
 
@@ -1993,7 +1993,7 @@ public class MobHuntingManager implements Listener {
 
 		if (!isHuntEnabledInWorld(event.getLocation().getWorld())
 				|| (plugin.getRewardManager().getBaseKillPrize(event.getEntity()) == 0)
-						&& plugin.getRewardManager().getKillConsoleCmd(event.getEntity()).equals(""))
+						&& plugin.getRewardManager().getKillCommands(event.getEntity()).equals(""))
 			return;
 
 		if (event.getSpawnReason() == SpawnReason.SPAWNER || event.getSpawnReason() == SpawnReason.SPAWNER_EGG
@@ -2018,7 +2018,7 @@ public class MobHuntingManager implements Listener {
 
 		if (!isHuntEnabledInWorld(event.getLocation().getWorld())
 				|| (plugin.getRewardManager().getBaseKillPrize(mob) <= 0)
-						&& plugin.getRewardManager().getKillConsoleCmd(mob).equals(""))
+						&& plugin.getRewardManager().getKillCommands(mob).equals(""))
 			return;
 
 		event.getEntity().setMetadata("MH:reinforcement", new FixedMetadataValue(plugin, true));

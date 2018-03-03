@@ -552,7 +552,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "blaze.enabled", category = "mobs")
 	public boolean blazeEnabled = true;
 	@ConfigField(name = "blaze.message", category = "mobs")
-	public String blazeMessage = "You killed a {killed}";
+	public String blazeMessage = "You killed a §1{killed}";
 	@ConfigField(name = "blaze.money.amount", category = "mobs")
 	public String blazeMoney = "10.0";
 	@ConfigField(name = "blaze.money.chance", category = "mobs")
@@ -579,19 +579,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "cave_spider.enabled", category = "mobs")
 	public boolean caveSpiderEnabled = true;
 	@ConfigField(name = "cave_spider.message", category = "mobs")
-	public String caveSpiderCmdDesc = "You killed a {killed}";
+	public String caveSpiderMessage = "You killed a §1{killed}";
 	@ConfigField(name = "cave_spider.money.amount", category = "mobs")
-	public String caveSpiderPrize = "10:20";
+	public String caveSpiderMoney = "10:20";
 	@ConfigField(name = "cave_spider.money.chance", category = "mobs")
-	public double caveSpiderRunChance = 1;
+	public double caveSpiderMoneyChance = 1;
 	@ConfigField(name = "cave_spider.commands", category = "mobs")
-	public List<HashMap<String, String>> caveSpiderCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> caveSpiderCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.10");
 		values1.put("message", "");
-		caveSpiderCmdNew.add(values1);
+		caveSpiderCommands.add(values1);
 	}
 	@ConfigField(name = "cave_spider.head.drophead", category = "mobs")
 	public boolean caveSpiderHeadDropHead = true;
@@ -606,19 +606,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "creeper.enabled", category = "mobs")
 	public boolean creeperEnabled = true;
 	@ConfigField(name = "creeper.message", category = "mobs")
-	public String creeperCmdDesc = "You killed a {killed}";
+	public String creeperMessage = "You killed a §1{killed}";
 	@ConfigField(name = "creeper.money.amount", category = "mobs")
-	public String creeperPrize = "10.0";
+	public String creeperMoney = "10.0";
 	@ConfigField(name = "creeper.money.chance", category = "mobs")
-	public double creeperCmdRunChance = 1;
+	public double creeperMoneyChance = 1;
 	@ConfigField(name = "creeper.commands", category = "mobs")
-	public List<HashMap<String, String>> creeperCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> creeperCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
 		values1.put("message", "");
-		creeperCmdNew.add(values1);
+		creeperCommands.add(values1);
 	}
 	@ConfigField(name = "creeper.head.drophead", category = "mobs")
 	public boolean creeperHeadDropHead = true;
@@ -633,19 +633,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "elder_guardian.enabled", category = "mobs")
 	public boolean elderGuardianEnabled = true;
 	@ConfigField(name = "elder_guardian.message", category = "mobs")
-	public String elderGuardianCmdDesc = "You killed a {killed}";
+	public String elderGuardianMessage = "You killed a §1{killed}";
 	@ConfigField(name = "elder_guardian.money.amount", category = "mobs")
-	public String elderGuardianPrize = "40:80";
+	public String elderGuardianMoney = "40:80";
 	@ConfigField(name = "elder_guardian.money.chance", category = "mobs")
-	public double elderGuardianCmdRunChance = 1;
+	public double elderGuardianMoneyChance = 1;
 	@ConfigField(name = "elder_guardian.commands", category = "mobs")
-	public List<HashMap<String, String>> elderGuardianCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> elderGuardianCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.33");
 		values1.put("message", "");
-		elderGuardianCmdNew.add(values1);
+		elderGuardianCommands.add(values1);
 	}
 	@ConfigField(name = "elder_guardian.head.drophead", category = "mobs")
 	public boolean elderGuardianHeadDropHead = true;
@@ -660,19 +660,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "enderman.enabled", category = "mobs")
 	public boolean endermanEnabled = true;
 	@ConfigField(name = "enderman.message", category = "mobs")
-	public String endermanCmdDesc = "You killed a {killed}";
+	public String endermanMessage = "You killed a §1{killed}";
 	@ConfigField(name = "enderman.money.amount", category = "mobs")
-	public String endermanPrize = "20:40";
+	public String endermanMoney = "20:40";
 	@ConfigField(name = "enderman.money.chance", category = "mobs")
-	public double endermanCmdRunChance = 1;
+	public double endermanMoneyChance = 1;
 	@ConfigField(name = "enderman.commands", category = "mobs")
-	public List<HashMap<String, String>> endermanCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> endermanCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.33");
 		values1.put("message", "");
-		endermanCmdNew.add(values1);
+		endermanCommands.add(values1);
 	}
 	@ConfigField(name = "enderman.head.drophead", category = "mobs")
 	public boolean endermanHeadDropHead = true;
@@ -687,19 +687,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "endermite.enabled", category = "mobs")
 	public boolean endermiteEnabled = true;
 	@ConfigField(name = "enderman.message", category = "mobs")
-	public String endermiteCmdDesc = "You killed a {killed}";
+	public String endermiteMessage = "You killed a §1{killed}";
 	@ConfigField(name = "endermite.money.amount", category = "mobs")
-	public String endermitePrize = "10";
+	public String endermiteMoney = "10";
 	@ConfigField(name = "endermite.money.chance", category = "mobs")
-	public double endermiteCmdRunChance = 1;
+	public double endermiteMoneyChance = 1;
 	@ConfigField(name = "endermite.commands", category = "mobs")
-	public List<HashMap<String, String>> endermiteCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> endermiteCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.10");
 		values1.put("message", "");
-		endermiteCmdNew.add(values1);
+		endermiteCommands.add(values1);
 	}
 	@ConfigField(name = "endermite.head.drophead", category = "mobs")
 	public boolean endermiteHeadDropHead = true;
@@ -714,19 +714,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "ghast.enabled", category = "mobs")
 	public boolean ghastEnabled = true;
 	@ConfigField(name = "ghast.message", category = "mobs")
-	public String ghastCmdDesc = "You killed a {killed}";
+	public String ghastMessage = "You killed a §1{killed}";
 	@ConfigField(name = "ghast.money.amount", category = "mobs")
-	public String ghastPrize = "40:80";
+	public String ghastMoney = "40:80";
 	@ConfigField(name = "ghast.money.chance", category = "mobs")
-	public double ghastCmdRunChance = 1;
+	public double ghastMoneyChance = 1;
 	@ConfigField(name = "ghast.commands", category = "mobs")
-	public List<HashMap<String, String>> ghastCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> ghastCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.10");
 		values1.put("message", "");
-		ghastCmdNew.add(values1);
+		ghastCommands.add(values1);
 	}
 	@ConfigField(name = "ghast.head.drophead", category = "mobs")
 	public boolean ghastHeadDropHead = true;
@@ -741,19 +741,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "giant.enabled", category = "mobs")
 	public boolean giantEnabled = true;
 	@ConfigField(name = "giant.message", category = "mobs")
-	public String giantCmdDesc = "You killed a {killed}";
+	public String giantMessage = "You killed a §1{killed}";
 	@ConfigField(name = "giant.money.amount", category = "mobs")
-	public String giantPrize = "5.0";
+	public String giantMoney = "5.0";
 	@ConfigField(name = "giant.money.chance", category = "mobs")
-	public double giantCmdRunChance = 1;
+	public double giantMoneyChance = 1;
 	@ConfigField(name = "giant.commands", category = "mobs")
-	public List<HashMap<String, String>> giantCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> giantCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
 		values1.put("message", "");
-		giantCmdNew.add(values1);
+		giantCommands.add(values1);
 	}
 	@ConfigField(name = "giant.head.drophead", category = "mobs")
 	public boolean giantHeadDropHead = true;
@@ -768,19 +768,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "iron_golem.enabled", category = "mobs")
 	public boolean ironGolemEnabled = true;
 	@ConfigField(name = "iron_golem.message", category = "mobs")
-	public String ironGolemCmdDesc = "You killed a {killed}";
+	public String ironGolemMessage = "You killed a §1{killed}";
 	@ConfigField(name = "iron_golem.money.amount", category = "mobs")
-	public String ironGolemPrize = "20:40";
+	public String ironGolemMoney = "20:40";
 	@ConfigField(name = "iron_golem.money.chance", category = "mobs")
-	public double ironGolemCmdRunChance = 1;
+	public double ironGolemMoneyChance = 1;
 	@ConfigField(name = "iron_golem.commands", category = "mobs")
-	public List<HashMap<String, String>> ironGolemCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> ironGolemCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.10");
 		values1.put("message", "");
-		ironGolemCmdNew.add(values1);
+		ironGolemCommands.add(values1);
 	}
 	@ConfigField(name = "iron_golem.head.drophead", category = "mobs")
 	public boolean ironGolemHeadDropHead = true;
@@ -795,19 +795,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "guardian.enabled", category = "mobs")
 	public boolean guardianEnabled = true;
 	@ConfigField(name = "guardian.message", category = "mobs")
-	public String guardianCmdDesc = "You killed a {killed}";
+	public String guardianMessge = "You killed a §1{killed}";
 	@ConfigField(name = "guardian.money.amount", category = "mobs")
-	public String guardianPrize = "20:40";
+	public String guardianMoney = "20:40";
 	@ConfigField(name = "guardian.money.chance", category = "mobs")
-	public double guardianCmdRunChance = 1;
+	public double guardianMoneyChance = 1;
 	@ConfigField(name = "guardian.commands", category = "mobs")
-	public List<HashMap<String, String>> guardianCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> guardianCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.1");
 		values1.put("message", "");
-		guardianCmdNew.add(values1);
+		guardianCommands.add(values1);
 	}
 	@ConfigField(name = "guardian.head.drophead", category = "mobs")
 	public boolean guardianHeadDropHead = true;
@@ -822,19 +822,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "husk.enabled", category = "mobs")
 	public boolean huskEnabled = true;
 	@ConfigField(name = "husk.message", category = "mobs")
-	public String huskCmdDesc = "You killed a {killed}";
+	public String huskMessage = "You killed a §1{killed}";
 	@ConfigField(name = "husk.money.amount", category = "mobs")
-	public String huskPrize = "9:13";
+	public String huskMoney = "9:13";
 	@ConfigField(name = "husk.money.chance", category = "mobs")
-	public double huskCmdRunChance = 1;
+	public double huskMoneyChance = 1;
 	@ConfigField(name = "husk.commands", category = "mobs")
-	public List<HashMap<String, String>> huskCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> huskCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.20");
 		values1.put("message", "");
-		huskCmdNew.add(values1);
+		huskCommands.add(values1);
 	}
 	@ConfigField(name = "husk.head.drophead", category = "mobs")
 	public boolean huskHeadDropHead = true;
@@ -849,19 +849,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "killer_rabbit.enabled", category = "mobs")
 	public boolean killerRabbitEnabled = true;
 	@ConfigField(name = "killer_rabbit.message", category = "mobs")
-	public String killerRabbitCmdDesc = "You killed a {killed}";
+	public String killerRabbitMessage = "You killed a §1{killed}";
 	@ConfigField(name = "killer_rabbit.money.amount", category = "mobs")
-	public String killerRabbitPrize = "200";
+	public String killerRabbitMoney = "200";
 	@ConfigField(name = "killer_rabbit.money.chance", category = "mobs")
-	public double killerRabbitCmdRunChance = 1;
+	public double killerRabbitMoneyChance = 1;
 	@ConfigField(name = "killer_rabbit.commands", category = "mobs")
-	public List<HashMap<String, String>> killerRabbitCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> killerRabbitCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.25");
 		values1.put("message", "");
-		killerRabbitCmdNew.add(values1);
+		killerRabbitCommands.add(values1);
 	}
 	@ConfigField(name = "killer_rabbit.head.drophead", category = "mobs")
 	public boolean killerRabbitHeadDropHead = true;
@@ -876,19 +876,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "magma_cube.enabled", category = "mobs")
 	public boolean magmaCubeEnabled = true;
 	@ConfigField(name = "magma_cube.message", category = "mobs")
-	public String magmaCubeCmdDesc = "You killed a {killed}";
+	public String magmaCubeMessage = "You killed a §1{killed}";
 	@ConfigField(name = "magma_cube.money.amount", category = "mobs")
-	public String magmaCubePrize = "10:20";
+	public String magmaCubeMoney = "10:20";
 	@ConfigField(name = "magma_cube.money.chance", category = "mobs")
-	public double magmaCubeCmdRunChance = 1;
+	public double magmaCubeMoneyChance = 1;
 	@ConfigField(name = "magma_cube.commands", category = "mobs")
-	public List<HashMap<String, String>> magmaCubeCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> magmaCubeCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.10");
 		values1.put("message", "");
-		magmaCubeCmdNew.add(values1);
+		magmaCubeCommands.add(values1);
 	}
 	@ConfigField(name = "magma_cube.head.drophead", category = "mobs")
 	public boolean magmaCubeHeadDropHead = true;
@@ -903,19 +903,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "polar_bear.enabled", category = "mobs")
 	public boolean polarBearEnabled = true;
 	@ConfigField(name = "polar_bear.message", category = "mobs")
-	public String polarBearCmdDesc = "You killed a {killed}";
+	public String polarBearMessage = "You killed a §1{killed}";
 	@ConfigField(name = "polar_bear.money.amount", category = "mobs")
-	public String polarBearPrize = "25";
+	public String polarBearMoney = "25";
 	@ConfigField(name = "polar_bear.money.chance", category = "mobs")
-	public double polarBearCmdRunChance = 1;
+	public double polarBearMoneyChance = 1;
 	@ConfigField(name = "polar_bear.commands", category = "mobs")
-	public List<HashMap<String, String>> polarBearCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> polarBearCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.25");
 		values1.put("message", "");
-		polarBearCmdNew.add(values1);
+		polarBearCommands.add(values1);
 	}
 	@ConfigField(name = "polar_bear.head.drophead", category = "mobs")
 	public boolean polarBearHeadDropHead = true;
@@ -930,19 +930,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "slime.enabled", category = "mobs")
 	public boolean slimeEnabled = true;
 	@ConfigField(name = "slime.message", category = "mobs")
-	public String slimeCmdDesc = "You killed a {killed}";
+	public String slimeMessage = "You killed a §1{killed}";
 	@ConfigField(name = "slime.money.amount", category = "mobs")
-	public String slimePrize = "25";
+	public String slimeMoney = "25";
 	@ConfigField(name = "slime.money.chance", category = "mobs")
-	public double slimeCmdRunChance = 1;
+	public double slimeMoneyChance = 1;
 	@ConfigField(name = "slime.commands", category = "mobs")
-	public List<HashMap<String, String>> slimeCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> slimeCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
 		values1.put("message", "");
-		slimeCmdNew.add(values1);
+		slimeCommands.add(values1);
 	}
 	@ConfigField(name = "slime.head.drophead", category = "mobs")
 	public boolean slimeHeadDropHead = true;
@@ -957,19 +957,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "shulker.enabled", category = "mobs")
 	public boolean shulkerEnabled = true;
 	@ConfigField(name = "shulker.message", category = "mobs")
-	public String shulkerCmdDesc = "You killed a {killed}";
+	public String shulkerMessage = "You killed a §1{killed}";
 	@ConfigField(name = "shulker.money.amount", category = "mobs")
-	public String shulkerPrize = "25";
+	public String shulkerMoney = "25";
 	@ConfigField(name = "shulker.money.chance", category = "mobs")
-	public double shulkerCmdRunChance = 1;
+	public double shulkerMoneyChance = 1;
 	@ConfigField(name = "shulker.commands", category = "mobs")
-	public List<HashMap<String, String>> shulkerCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> shulkerCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.50");
 		values1.put("message", "");
-		shulkerCmdNew.add(values1);
+		shulkerCommands.add(values1);
 	}
 	@ConfigField(name = "shulker.head.drophead", category = "mobs")
 	public boolean shulkerHeadDropHead = true;
@@ -984,19 +984,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "silverfish.enabled", category = "mobs")
 	public boolean silverfishEnabled = true;
 	@ConfigField(name = "silverfish.message", category = "mobs")
-	public String silverfishCmdDesc = "You killed a {killed}";
+	public String silverfishMessage = "You killed a §1{killed}";
 	@ConfigField(name = "silverfish.money.amount", category = "mobs")
-	public String silverfishPrize = "10";
+	public String silverfishMoney = "10";
 	@ConfigField(name = "silverfish.money.chance", category = "mobs")
-	public double silverfishCmdRunChance = 1;
+	public double silverfishMoneyChance = 1;
 	@ConfigField(name = "silverfish.commands", category = "mobs")
-	public List<HashMap<String, String>> silverfishCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> silverfishCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.20");
 		values1.put("message", "");
-		silverfishCmdNew.add(values1);
+		silverfishCommands.add(values1);
 	}
 	@ConfigField(name = "silverfish.head.drophead", category = "mobs")
 	public boolean silverfishHeadDropHead = true;
@@ -1011,19 +1011,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "skeleton.enabled", category = "mobs")
 	public boolean skeletonEnabled = true;
 	@ConfigField(name = "skeleton.message", category = "mobs")
-	public String skeletonCmdDesc = "You killed a {killed}";
+	public String skeletonMessage = "You killed a §1{killed}";
 	@ConfigField(name = "skeleton.money.amount", category = "mobs")
-	public String skeletonPrize = "10:30";
+	public String skeletonMoney = "10:30";
 	@ConfigField(name = "skeleton.money.chance", category = "mobs")
-	public double skeletonCmdRunChance = 1;
+	public double skeletonMoneyChance = 1;
 	@ConfigField(name = "skeleton.commands", category = "mobs")
-	public List<HashMap<String, String>> skeletonCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> skeletonCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
 		values1.put("message", "");
-		skeletonCmdNew.add(values1);
+		skeletonCommands.add(values1);
 	}
 	@ConfigField(name = "skeleton.head.drophead", category = "mobs")
 	public boolean skeletonHeadDropHead = true;
@@ -1038,7 +1038,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "spider.enabled", category = "mobs")
 	public boolean spiderEnabled = true;
 	@ConfigField(name = "spider.message", category = "mobs")
-	public String spiderMessage = "You killed a {killed}";
+	public String spiderMessage = "You killed a §1{killed}";
 	@ConfigField(name = "spider.money.amount", category = "mobs")
 	public String spiderMoney = "5.5:10.5";
 	@ConfigField(name = "spider.money.chance", category = "mobs")
@@ -1065,19 +1065,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "stray.enabled", category = "mobs")
 	public boolean strayEnabled = true;
 	@ConfigField(name = "stray.message", category = "mobs")
-	public String strayCmdDesc = "You killed a {killed}";
+	public String strayMessage = "You killed a §1{killed}";
 	@ConfigField(name = "stray.money.amount", category = "mobs")
-	public String strayPrize = "15:35";
+	public String strayMoney = "15:35";
 	@ConfigField(name = "stray.money.chance", category = "mobs")
-	public double strayCmdRunChance = 1;
+	public double strayMoneyChance = 1;
 	@ConfigField(name = "stray.commands", category = "mobs")
-	public List<HashMap<String, String>> strayCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> strayCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.20");
 		values1.put("message", "");
-		strayCmdNew.add(values1);
+		strayCommands.add(values1);
 	}
 	@ConfigField(name = "stray.head.drophead", category = "mobs")
 	public boolean strayHeadDropHead = true;
@@ -1092,19 +1092,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "zombie.enabled", category = "mobs")
 	public boolean zombieEnabled = true;
 	@ConfigField(name = "zombie.message", category = "mobs")
-	public String zombieCmdDesc = "You killed a {killed}";
+	public String zombieMessage = "You killed a §1{killed}";
 	@ConfigField(name = "zombie.money.amount", category = "mobs")
-	public String zombiePrize = "7:11";
+	public String zombieMoney = "7:11";
 	@ConfigField(name = "zombie.money.chance", category = "mobs")
-	public double zombieCmdRunChance = 1;
+	public double zombieMoneyChance = 1;
 	@ConfigField(name = "zombie.commands", category = "mobs")
-	public List<HashMap<String, String>> zombieCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> zombieCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.005");
 		values1.put("message", "");
-		zombieCmdNew.add(values1);
+		zombieCommands.add(values1);
 	}
 	@ConfigField(name = "zombie.head.drophead", category = "mobs")
 	public boolean zombieHeadDropHead = true;
@@ -1119,19 +1119,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "zombie_pigman.enabled", category = "mobs")
 	public boolean zombiePigmanEnabled = true;
 	@ConfigField(name = "zombie_pigman.message", category = "mobs")
-	public String zombiePigmanCmdDesc = "You killed a {killed}";
+	public String zombiePigmanMessage = "You killed a §1{killed}";
 	@ConfigField(name = "zombie_pigman.money.amount", category = "mobs")
-	public String zombiePigmanPrize = "4:8";
+	public String zombiePigmanMoney = "4:8";
 	@ConfigField(name = "zombie_pigman.money.chance", category = "mobs")
-	public double zombiePigmanCmdRunChance = 1;
+	public double zombiePigmanMoneyChance = 1;
 	@ConfigField(name = "zombie_pigman.commands", category = "mobs")
-	public List<HashMap<String, String>> zombiePigmanCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> zombiePigmanCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.10");
 		values1.put("message", "");
-		zombiePigmanCmdNew.add(values1);
+		zombiePigmanCommands.add(values1);
 	}
 	@ConfigField(name = "zombie_pigman.head.drophead", category = "mobs")
 	public boolean zombiePigmanHeadDropHead = true;
@@ -1146,19 +1146,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "vex.enabled", category = "mobs")
 	public boolean vexEnabled = true;
 	@ConfigField(name = "vex.message", category = "mobs")
-	public String vexCmdDesc = "You killed a {killed}";
+	public String vexMessage = "You killed a §1{killed}";
 	@ConfigField(name = "vex.money.amount", category = "mobs")
-	public String vexPrize = "10:15";
+	public String vexMoney = "10:15";
 	@ConfigField(name = "vex.money.chance", category = "mobs")
-	public double vexCmdRunChance = 1;
+	public double vexMoneyChance = 1;
 	@ConfigField(name = "vex.commands", category = "mobs")
-	public List<HashMap<String, String>> vexCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> vexCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.50");
 		values1.put("message", "");
-		vexCmdNew.add(values1);
+		vexCommands.add(values1);
 	}
 	@ConfigField(name = "vex.head.drophead", category = "mobs")
 	public boolean vexHeadDropHead = true;
@@ -1173,19 +1173,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "witch.enabled", category = "mobs")
 	public boolean witchEnabled = true;
 	@ConfigField(name = "witch.message", category = "mobs")
-	public String witchCmdDesc = "You killed a {killed}";
+	public String witchMessage = "You killed a §1{killed}";
 	@ConfigField(name = "witch.money.amount", category = "mobs")
-	public String witchPrize = "10:15";
+	public String witchMoney = "10:15";
 	@ConfigField(name = "witch.money.chance", category = "mobs")
-	public double witchCmdRunChance = 1;
+	public double witchMoneyChance = 1;
 	@ConfigField(name = "witch.commands", category = "mobs")
-	public List<HashMap<String, String>> witchCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> witchCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
 		values1.put("message", "");
-		witchCmdNew.add(values1);
+		witchCommands.add(values1);
 	}
 	@ConfigField(name = "witch.head.drophead", category = "mobs")
 	public boolean witchHeadDropHead = true;
@@ -1200,19 +1200,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "wither_skeleton.enabled", category = "mobs")
 	public boolean witherSkeletonEnabled = true;
 	@ConfigField(name = "wither_skeleton.message", category = "mobs")
-	public String witherSkeletonCmdDesc = "You killed a {killed}";
+	public String witherSkeletonMessage = "You killed a §1{killed}";
 	@ConfigField(name = "wither_skeleton.money.amount", category = "mobs")
-	public String witherSkeletonPrize = "30:50";
+	public String witherSkeletonMoney = "30:50";
 	@ConfigField(name = "wither_skeleton.money.chance", category = "mobs")
-	public double witherSkeletonCmdRunChance = 1;
+	public double witherSkeletonMoneyChance = 1;
 	@ConfigField(name = "wither_skeleton.commands", category = "mobs")
-	public List<HashMap<String, String>> witherSkeletonCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> witherSkeletonCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.10");
 		values1.put("message", "");
-		witherSkeletonCmdNew.add(values1);
+		witherSkeletonCommands.add(values1);
 	}
 	@ConfigField(name = "wither_skeleton.head.drophead", category = "mobs")
 	public boolean witherSkeletonHeadDropHead = true;
@@ -1230,25 +1230,25 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "wither.enabled", category = "boss")
 	public boolean witherEnabled = true;
 	@ConfigField(name = "wither.message", category = "boss")
-	public String witherCmdDesc = "You killed a {killed}";
+	public String witherMessage = "You killed a §1{killed}";
 	@ConfigField(name = "wither.money.amount", category = "boss")
-	public String witherPrize = "1000:2000";
+	public String witherMoney = "1000:2000";
 	@ConfigField(name = "wither.money.chance", category = "boss")
-	public double witherCmdRunChance = 1;
+	public double witherMoneyChance = 1;
 	@ConfigField(name = "wither.commands", category = "boss")
-	public List<HashMap<String, String>> witherCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> witherCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} gold_ingot 1");
 		values1.put("chance", "0.50");
 		values1.put("message", "");
-		witherCmdNew.add(values1);
+		witherCommands.add(values1);
 
 		HashMap<String, String> values2 = new HashMap<String, String>();
 		values2.put("cmd", "give {player} diamond 10");
 		values2.put("chance", "0.50");
 		values2.put("message", "");
-		witherCmdNew.add(values2);
+		witherCommands.add(values2);
 	}
 	@ConfigField(name = "wither.head.drophead", category = "boss")
 	public boolean witherHeadDropHead = true;
@@ -1263,24 +1263,24 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "ender_dragon.enabled", category = "boss")
 	public boolean enderDragonEnabled = true;
 	@ConfigField(name = "ender_dragon.message", category = "boss")
-	public String enderDragonCmdDesc = "You killed a {killed}";
+	public String enderDragonMessage = "You killed a §1{killed}";
 	@ConfigField(name = "ender_dragon.money.amount", category = "boss")
-	public String enderDragonPrize = "2000.0:5000.0";
+	public String enderDragonMoney = "2000.0:5000.0";
 	@ConfigField(name = "ender_dragon.money.chance", category = "boss")
-	public double enderDragonCmdRunChance = 0.10;
+	public double enderDragonMoneyChance = 0.10;
 	@ConfigField(name = "ender_dragon.commands", category = "boss")
-	public List<HashMap<String, String>> enderDragonCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> enderDragonCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.5");
 		values1.put("message", "You got an Iron Ingot.");
-		enderDragonCmdNew.add(values1);
+		enderDragonCommands.add(values1);
 		HashMap<String, String> values2 = new HashMap<String, String>();
 		values2.put("cmd", "give {player} diamond 10");
 		values2.put("chance", "0.5");
 		values2.put("message", "You got ten Diamonds.");
-		enderDragonCmdNew.add(values2);
+		enderDragonCommands.add(values2);
 	}
 	@ConfigField(name = "ender_dragon.head.drophead", category = "boss")
 	public boolean enderDragonHeadDropHead = true;
@@ -1309,19 +1309,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "blacksmith.enabled", category = "villager")
 	public boolean blacksmithEnabled = true;
 	@ConfigField(name = "blacksmith.message", category = "villager")
-	public String blacksmithCmdDesc = "You killed a {killed}";
+	public String blacksmithMessage = "You killed a §1{killed}";
 	@ConfigField(name = "blacksmith.money.amount", category = "villager")
-	public String blacksmithPrize = "1:2";
+	public String blacksmithMoney = "1:2";
 	@ConfigField(name = "blacksmith.money.chance", category = "villager")
-	public double blacksmithCmdRunChance = 1;
+	public double blacksmithMoneyChance = 1;
 	@ConfigField(name = "blacksmith.commands", category = "villager")
-	public List<HashMap<String, String>> blacksmithCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> blacksmithCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.10");
 		values1.put("message", "");
-		blacksmithCmdNew.add(values1);
+		blacksmithCommands.add(values1);
 	}
 	@ConfigField(name = "blacksmith.head.drophead", category = "villager")
 	public boolean blacksmithHeadDropHead = true;
@@ -1336,19 +1336,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "butcher.enabled", category = "villager")
 	public boolean butcherEnabled = true;
 	@ConfigField(name = "butcher.message", category = "villager")
-	public String butcherCmdDesc = "You killed a {killed}";
+	public String butcherMessage = "You killed a §1{killed}";
 	@ConfigField(name = "butcher.money.amount", category = "villager")
-	public String butcherPrize = "1:2";
+	public String butcherMoney = "1:2";
 	@ConfigField(name = "butcher.money.chance", category = "villager")
-	public double butcherCmdRunChance = 1;
+	public double butcherMoneyChance = 1;
 	@ConfigField(name = "butcher.commands", category = "villager")
-	public List<HashMap<String, String>> butcherCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> butcherCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.10");
 		values1.put("message", "");
-		butcherCmdNew.add(values1);
+		butcherCommands.add(values1);
 	}
 	@ConfigField(name = "butcher.head.drophead", category = "villager")
 	public boolean butcherHeadDropHead = true;
@@ -1363,19 +1363,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "evoker.enabled", category = "villager")
 	public boolean evokerEnabled = true;
 	@ConfigField(name = "evoker.message", category = "villager")
-	public String evokerCmdDesc = "You killed a {killed}";
+	public String evokerMessage = "You killed a §1{killed}";
 	@ConfigField(name = "evoker.money.amount", category = "villager")
-	public String evokerPrize = "10";
+	public String evokerMoney = "10";
 	@ConfigField(name = "evoker.money.chance", category = "villager")
 	public double evokerCmdRunChance = 0.50;
 	@ConfigField(name = "evoker.commands", category = "villager")
-	public List<HashMap<String, String>> evokerCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> evokerCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.1");
 		values1.put("message", "");
-		evokerCmdNew.add(values1);
+		evokerCommands.add(values1);
 	}
 	@ConfigField(name = "evoker.head.drophead", category = "villager")
 	public boolean evokerHeadDropHead = true;
@@ -1390,19 +1390,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "farmer.enabled", category = "villager")
 	public boolean farmerEnabled = true;
 	@ConfigField(name = "farmer.message", category = "villager")
-	public String farmerCmdDesc = "You killed a {killed}";
+	public String farmerMessage = "You killed a §1{killed}";
 	@ConfigField(name = "farmer.money.amount", category = "villager")
-	public String farmerPrize = "1:2";
+	public String farmerMoney = "1:2";
 	@ConfigField(name = "farmer.money.chance", category = "villager")
 	public double farmerCmdRunChance = 1;
 	@ConfigField(name = "farmer.commands", category = "villager")
-	public List<HashMap<String, String>> farmerCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> farmerCommnds = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.1");
 		values1.put("message", "");
-		farmerCmdNew.add(values1);
+		farmerCommnds.add(values1);
 	}
 	@ConfigField(name = "farmer.head.drophead", category = "villager")
 	public boolean farmerHeadDropHead = true;
@@ -1417,19 +1417,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "illusioner.enabled", category = "villager")
 	public boolean illusionerEnabled = true;
 	@ConfigField(name = "illusioner.message", category = "villager")
-	public String illusionerCmdDesc = "You killed a {killed}";
+	public String illusionerMessage = "You killed a §1{killed}";
 	@ConfigField(name = "illusioner.money.amount", category = "villager")
-	public String illusionerPrize = "30:50";
+	public String illusionerMoney = "30:50";
 	@ConfigField(name = "illusioner.money.chance", category = "villager")
 	public double illusionerCmdRunChance = 0.10;
 	@ConfigField(name = "illusioner.commands", category = "villager")
-	public List<HashMap<String, String>> illusionerCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> illusionerCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.10");
 		values1.put("message", "");
-		illusionerCmdNew.add(values1);
+		illusionerCommands.add(values1);
 	}
 	@ConfigField(name = "illusioner.head.drophead", category = "villager")
 	public boolean illusionerHeadDropHead = true;
@@ -1444,19 +1444,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "librarian.enabled", category = "villager")
 	public boolean librarianEnabled = true;
 	@ConfigField(name = "librarian.message", category = "villager")
-	public String librarianCmdDesc = "You killed a {killed}";
+	public String librarianMessage = "You killed a §1{killed}";
 	@ConfigField(name = "librarian.money.amount", category = "villager")
-	public String librarianPrize = "1:2";
+	public String librarianMoney = "1:2";
 	@ConfigField(name = "librarian.money.chance", category = "villager")
 	public double librarianCmdRunChance = 1;
 	@ConfigField(name = "librarian.commands", category = "villager")
-	public List<HashMap<String, String>> librarianCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> librarianCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.5");
 		values1.put("message", "");
-		librarianCmdNew.add(values1);
+		librarianCommands.add(values1);
 	}
 	@ConfigField(name = "librarian.head.drophead", category = "villager")
 	public boolean librarianHeadDropHead = true;
@@ -1471,19 +1471,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "nitwit.enabled", category = "villager")
 	public boolean nitwitEnabled = true;
 	@ConfigField(name = "nitwit.message", category = "villager")
-	public String nitwitCmdDesc = "You killed a {killed}";
+	public String nitwitMessage = "You killed a §1{killed}";
 	@ConfigField(name = "nitwit.money.amount", category = "villager")
-	public String nitwitPrize = "1:2";
+	public String nitwitMoney = "1:2";
 	@ConfigField(name = "nitwit.money.chance", category = "villager")
 	public double nitwitCmdRunChance = 1;
 	@ConfigField(name = "nitwit.commands", category = "villager")
-	public List<HashMap<String, String>> nitwitCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> nitwitCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.5");
 		values1.put("message", "");
-		nitwitCmdNew.add(values1);
+		nitwitCommands.add(values1);
 	}
 	@ConfigField(name = "nitwit.head.drophead", category = "villager")
 	public boolean nitwitHeadDropHead = true;
@@ -1498,19 +1498,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "priest.enabled", category = "villager")
 	public boolean priestEnabled = true;
 	@ConfigField(name = "priest.message", category = "villager")
-	public String priestCmdDesc = "You killed a {killed}";
+	public String priestMessage = "You killed a §1{killed}";
 	@ConfigField(name = "priest.money.amount", category = "villager")
-	public String priestPrize = "1:2";
+	public String priestMoney = "1:2";
 	@ConfigField(name = "priest.money.chance", category = "villager")
 	public double priestCmdRunChance = 1;
 	@ConfigField(name = "priest.commands", category = "villager")
-	public List<HashMap<String, String>> priestCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> priestCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.5");
 		values1.put("message", "");
-		priestCmdNew.add(values1);
+		priestCommands.add(values1);
 	}
 	@ConfigField(name = "priest.head.drophead", category = "villager")
 	public boolean priestHeadDropHead = true;
@@ -1525,19 +1525,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "villager.enabled", category = "villager")
 	public boolean villagerEnabled = true;
 	@ConfigField(name = "villager.message", category = "villager")
-	public String villagerCmdDesc = "You killed a {killed}";
+	public String villagerMessage = "You killed a §1{killed}";
 	@ConfigField(name = "villager.money.amount", category = "villager")
-	public String villagerPrize = "1";
+	public String villagerMoney = "1";
 	@ConfigField(name = "villager.money.chance", category = "villager")
 	public double villagerCmdRunChance = 1;
 	@ConfigField(name = "villager.commands", category = "villager")
-	public List<HashMap<String, String>> villagerCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> villagerCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.3");
 		values1.put("message", "");
-		villagerCmdNew.add(values1);
+		villagerCommands.add(values1);
 	}
 	@ConfigField(name = "villager.head.drophead", category = "villager")
 	public boolean villagerHeadDropHead = true;
@@ -1552,19 +1552,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "vindicator.enabled", category = "villager")
 	public boolean vindicatorEnabled = true;
 	@ConfigField(name = "vindicator.message", category = "villager")
-	public String vindicatorCmdDesc = "You killed a {killed}";
+	public String vindicatorMessage = "You killed a §1{killed}";
 	@ConfigField(name = "vindicator.money.amount", category = "villager")
-	public String vindicatorPrize = "10:15";
+	public String vindicatorMoney = "10:15";
 	@ConfigField(name = "vindicator.money.chance", category = "villager")
 	public double vindicatorCmdRunChance = 1;
 	@ConfigField(name = "vindicator.commands", category = "villager")
-	public List<HashMap<String, String>> vindicatorCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> vindicatorCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
 		values1.put("message", "");
-		vindicatorCmdNew.add(values1);
+		vindicatorCommands.add(values1);
 	}
 	@ConfigField(name = "vindicator.head.drophead", category = "villager")
 	public boolean vindicatorHeadDropHead = true;
@@ -1579,19 +1579,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "zombie_villager.enabled", category = "villager")
 	public boolean zombieVillagerEnabled = true;
 	@ConfigField(name = "zombie_villager.message", category = "villager")
-	public String zombieVillagerCmdDesc = "You killed a {killed}";
+	public String zombieVillagerMessage = "You killed a §1{killed}";
 	@ConfigField(name = "zombie_villager.money.amount", category = "villager")
-	public String zombieVillagerPrize = "1:2";
+	public String zombieVillagerMoney = "1:2";
 	@ConfigField(name = "zombie_villager.money.chance", category = "villager")
 	public double zombieVillagerCmdRunChance = 1;
 	@ConfigField(name = "zombie_villager.commands", category = "villager")
-	public List<HashMap<String, String>> zombieVillagerCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> zombieVillagerCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
 		values1.put("message", "");
-		zombieVillagerCmdNew.add(values1);
+		zombieVillagerCommands.add(values1);
 	}
 	@ConfigField(name = "zombie_villager.head.drophead", category = "villager")
 	public boolean zombieVillagerHeadDropHead = true;
@@ -1609,19 +1609,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "bat.enabled", category = "passive")
 	public boolean batEnabled = true;
 	@ConfigField(name = "bat.message", category = "passive")
-	public String batCmdDesc = "You killed a {killed}";
+	public String batMessage = "You killed a §1{killed}";
 	@ConfigField(name = "bat.money.amount", category = "passive")
-	public String batPrize = "0";
+	public String batMoney = "0";
 	@ConfigField(name = "bat.money.chance", category = "passive")
 	public double batCmdRunChance = 0.05;
 	@ConfigField(name = "bat.commands", category = "passive")
-	public List<HashMap<String, String>> batCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> batCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
 		values1.put("message", "");
-		batCmdNew.add(values1);
+		batCommands.add(values1);
 	}
 	@ConfigField(name = "bat.head.drophead", category = "passive")
 	public boolean batHeadDropHead = true;
@@ -1636,19 +1636,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "chicken.enabled", category = "passive")
 	public boolean chickenEnabled = true;
 	@ConfigField(name = "chicken.message", category = "passive")
-	public String chickenCmdDesc = "You killed a {killed}";
+	public String chickenMessage = "You killed a §1{killed}";
 	@ConfigField(name = "chicken.money.amount", category = "passive")
-	public String chickenPrize = "0";
+	public String chickenMoney = "0";
 	@ConfigField(name = "chicken.money.chance", category = "passive")
 	public double chickenCmdRunChance = 1;
 	@ConfigField(name = "chicken.commands", category = "passive")
-	public List<HashMap<String, String>> chickenCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> chickenCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
 		values1.put("message", "");
-		chickenCmdNew.add(values1);
+		chickenCommands.add(values1);
 	}
 	@ConfigField(name = "chicken.head.drophead", category = "passive")
 	public boolean chickenHeadDropHead = true;
@@ -1663,7 +1663,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "cow.enabled", category = "passive")
 	public boolean cowEnabled = true;
 	@ConfigField(name = "cow.message", category = "passive")
-	public String cowCmdDesc = "You killed a {killed}";
+	public String cowCmdDesc = "You killed a §1{killed}";
 	@ConfigField(name = "cow.money.amount", category = "passive")
 	public String cowPrize = "0";
 	@ConfigField(name = "cow.money.chance", category = "passive")
@@ -1690,19 +1690,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "donkey.enabled", category = "passive")
 	public boolean donkeyEnabled = true;
 	@ConfigField(name = "donkey.message", category = "passive")
-	public String donkeyCmdDesc = "You killed a {killed}";
+	public String donkeyMessage = "You killed a §1{killed}";
 	@ConfigField(name = "donkey.money.amount", category = "passive")
-	public String donkeyPrize = "5";
+	public String donkeyMoney = "5";
 	@ConfigField(name = "donkey.money.chance", category = "passive")
 	public double donkeyCmdRunChance = 1;
 	@ConfigField(name = "donkey.commands", category = "passive")
-	public List<HashMap<String, String>> donkeyCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> donkeyCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
 		values1.put("message", "");
-		donkeyCmdNew.add(values1);
+		donkeyCommands.add(values1);
 	}
 	@ConfigField(name = "donkey.head.drophead", category = "passive")
 	public boolean donkeyHeadDropHead = true;
@@ -1717,19 +1717,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "horse.enabled", category = "passive")
 	public boolean horseEnabled = true;
 	@ConfigField(name = "horse.message", category = "passive")
-	public String horseCmdDesc = "You killed a {killed}";
+	public String horseMessage = "You killed a §1{killed}";
 	@ConfigField(name = "horse.money.amount", category = "passive")
-	public String horsePrize = "0";
+	public String horseMoney = "0";
 	@ConfigField(name = "horse.money.chance", category = "passive")
 	public double horseCmdRunChance = 0.05;
 	@ConfigField(name = "horse.commands", category = "passive")
-	public List<HashMap<String, String>> horseCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> horseCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.1");
 		values1.put("message", "");
-		horseCmdNew.add(values1);
+		horseCommands.add(values1);
 	}
 	@ConfigField(name = "horse.head.drophead", category = "passive")
 	public boolean horseHeadDropHead = true;
@@ -1744,19 +1744,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "llama.enabled", category = "passive")
 	public boolean llamaEnabled = true;
 	@ConfigField(name = "llama.message", category = "passive")
-	public String llamaCmdDesc = "You killed a {killed}";
+	public String llamaMessage = "You killed a §1{killed}";
 	@ConfigField(name = "llama.money.amount", category = "passive")
-	public String llamaPrize = "0";
+	public String llamaMoney = "0";
 	@ConfigField(name = "llama.money.chance", category = "passive")
 	public double llamaCmdRunChance = 1;
 	@ConfigField(name = "llama.commands", category = "passive")
-	public List<HashMap<String, String>> llamaCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> llamaCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
 		values1.put("message", "");
-		llamaCmdNew.add(values1);
+		llamaCommands.add(values1);
 	}
 	@ConfigField(name = "llama.head.drophead", category = "passive")
 	public boolean llamaHeadDropHead = true;
@@ -1771,19 +1771,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "mule.enabled", category = "passive")
 	public boolean muleEnabled = true;
 	@ConfigField(name = "mule.message", category = "passive")
-	public String muleCmdDesc = "You killed a {killed}";
+	public String muleMessage = "You killed a §1{killed}";
 	@ConfigField(name = "mule.money.amount", category = "passive")
-	public String mulePrize = "0";
+	public String muleMoney = "0";
 	@ConfigField(name = "mule.money.chance", category = "passive")
 	public double muleCmdRunChance = 1;
 	@ConfigField(name = "mule.commands", category = "passive")
-	public List<HashMap<String, String>> muleCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> muleCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
 		values1.put("message", "");
-		muleCmdNew.add(values1);
+		muleCommands.add(values1);
 	}
 	@ConfigField(name = "mule.head.drophead", category = "passive")
 	public boolean muleHeadDropHead = true;
@@ -1798,19 +1798,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "mushroom_cow.enabled", category = "passive")
 	public boolean mushroomCowEnabled = true;
 	@ConfigField(name = "mushroom_cow.message", category = "passive")
-	public String mushroomCowCmdDesc = "You killed a {killed}";
+	public String mushroomCowMessage = "You killed a §1{killed}";
 	@ConfigField(name = "mushroom_cow.money.amount", category = "passive")
-	public String mushroomCowPrize = "0";
+	public String mushroomCowMoney = "0";
 	@ConfigField(name = "mushroom_cow.money.chance", category = "passive")
 	public double mushroomCowCmdRunChance = 1;
 	@ConfigField(name = "mushroom_cow.commands", category = "passive")
-	public List<HashMap<String, String>> mushroomCowCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> mushroomCowCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
 		values1.put("message", "");
-		mushroomCowCmdNew.add(values1);
+		mushroomCowCommands.add(values1);
 	}
 	@ConfigField(name = "mushroom_cow.head.drophead", category = "passive")
 	public boolean mushroomCowHeadDropHead = true;
@@ -1825,19 +1825,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "ocelot.enabled", category = "passive")
 	public boolean ocelotEnabled = true;
 	@ConfigField(name = "ocelot.message", category = "passive")
-	public String ocelotCmdDesc = "You killed a {killed}";
+	public String ocelotMessage = "You killed a §1{killed}";
 	@ConfigField(name = "ocelot.money.amount", category = "passive")
-	public String ocelotPrize = "0";
+	public String ocelotMoney = "0";
 	@ConfigField(name = "ocelot.money.chance", category = "passive")
 	public double ocelotCmdRunChance = 1;
 	@ConfigField(name = "ocelot.commands", category = "passive")
-	public List<HashMap<String, String>> ocelotCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> ocelotCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
 		values1.put("message", "");
-		ocelotCmdNew.add(values1);
+		ocelotCommands.add(values1);
 	}
 	@ConfigField(name = "ocelot.head.drophead", category = "passive")
 	public boolean ocelotHeadDropHead = true;
@@ -1852,19 +1852,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "parrot.enabled", category = "passive")
 	public boolean parrotEnabled = true;
 	@ConfigField(name = "parrot.message", category = "passive")
-	public String parrotCmdDesc = "You killed a {killed}";
+	public String parrotMessage = "You killed a §1{killed}";
 	@ConfigField(name = "parrot.money.amount", category = "passive")
-	public String parrotPrize = "2";
+	public String parrotMoney = "2";
 	@ConfigField(name = "parrot.money.chance", category = "passive")
 	public double parrotCmdRunChance = 1;
 	@ConfigField(name = "parrot.commands", category = "passive")
-	public List<HashMap<String, String>> parrotCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> parrotCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.1");
 		values1.put("message", "");
-		parrotCmdNew.add(values1);
+		parrotCommands.add(values1);
 	}
 	@ConfigField(name = "parrot.head.drophead", category = "passive")
 	public boolean parrotHeadDropHead = true;
@@ -1879,19 +1879,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "pig.enabled", category = "passive")
 	public boolean pigEnabled = true;
 	@ConfigField(name = "pig.message", category = "passive")
-	public String pigCmdDesc = "You killed a {killed}";
+	public String pigMessage = "You killed a §1{killed}";
 	@ConfigField(name = "pig.money.amount", category = "passive")
-	public String pigPrize = "0";
+	public String pigMoney = "0";
 	@ConfigField(name = "pig.money.chance", category = "passive")
 	public double pigCmdRunChance = 1;
 	@ConfigField(name = "pig.commands", category = "passive")
-	public List<HashMap<String, String>> pigCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> pigCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
 		values1.put("message", "");
-		pigCmdNew.add(values1);
+		pigCommands.add(values1);
 	}
 	@ConfigField(name = "pig.head.drophead", category = "passive")
 	public boolean pigHeadDropHead = true;
@@ -1906,19 +1906,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "rabbit.enabled", category = "passive")
 	public boolean rabbitEnabled = true;
 	@ConfigField(name = "rabbit.message", category = "passive")
-	public String rabbitCmdDesc = "You killed a {killed}";
+	public String rabbitMessage = "You killed a §1{killed}";
 	@ConfigField(name = "rabbit.money.amount", category = "passive")
-	public String rabbitPrize = "0";
+	public String rabbitMoney = "0";
 	@ConfigField(name = "rabbit.money.chance", category = "passive")
 	public double rabbitCmdRunChance = 1;
 	@ConfigField(name = "rabbit.commands", category = "passive")
-	public List<HashMap<String, String>> rabbitCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> rabbitCommads = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
 		values1.put("message", "");
-		rabbitCmdNew.add(values1);
+		rabbitCommads.add(values1);
 	}
 	@ConfigField(name = "rabbit.head.drophead", category = "passive")
 	public boolean rabbitHeadDropHead = true;
@@ -1933,19 +1933,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "sheep.enabled", category = "passive")
 	public boolean sheepEnabled = true;
 	@ConfigField(name = "sheep.message", category = "passive")
-	public String sheepCmdDesc = "You killed a {killed}";
+	public String sheepMessage = "You killed a §1{killed}";
 	@ConfigField(name = "sheep.money.amount", category = "passive")
-	public String sheepPrize = "0";
+	public String sheepMoney = "0";
 	@ConfigField(name = "sheep.money.chance", category = "passive")
 	public double sheepCmdRunChance = 1;
 	@ConfigField(name = "sheep.commands", category = "passive")
-	public List<HashMap<String, String>> sheepCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> sheepCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
 		values1.put("message", "");
-		sheepCmdNew.add(values1);
+		sheepCommands.add(values1);
 	}
 	@ConfigField(name = "sheep.head.drophead", category = "passive")
 	public boolean sheepHeadDropHead = true;
@@ -1960,19 +1960,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "skeleton_horse.enabled", category = "passive")
 	public boolean skeletonHorseEnabled = true;
 	@ConfigField(name = "skeleton_horse.message", category = "passive")
-	public String skeletonHorseCmdDesc = "You killed a {killed}";
+	public String skeletonHorseMessage = "You killed a §1{killed}";
 	@ConfigField(name = "skeleton_horse.money.amount", category = "passive")
-	public String skeletonHorsePrize = "10";
+	public String skeletonHorseMoney = "10";
 	@ConfigField(name = "skeleton_horse.money.chance", category = "passive")
 	public double skeletonHorseCmdRunChance = 1;
 	@ConfigField(name = "skeleton_horse.commands", category = "passive")
-	public List<HashMap<String, String>> skeletonHorseCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> skeletonHorseCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
 		values1.put("message", "");
-		skeletonHorseCmdNew.add(values1);
+		skeletonHorseCommands.add(values1);
 	}
 	@ConfigField(name = "skeleton_horse.head.drophead", category = "passive")
 	public boolean skeletonHorseHeadDropHead = true;
@@ -1987,19 +1987,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "snowman.enabled", category = "passive")
 	public boolean snowmanEnabled = true;
 	@ConfigField(name = "snowman.message", category = "passive")
-	public String snowmanCmdDesc = "You killed a {killed}";
+	public String snowmanMessage = "You killed a §1{killed}";
 	@ConfigField(name = "snowman.money.amount", category = "passive")
-	public String snowmanPrize = "0";
+	public String snowmanMoney = "0";
 	@ConfigField(name = "snowman.money.chance", category = "passive")
 	public double snowmanCmdRunChance = 0;
 	@ConfigField(name = "snowman.commands", category = "passive")
-	public List<HashMap<String, String>> snowmanCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> snowmanCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
 		values1.put("message", "");
-		snowmanCmdNew.add(values1);
+		snowmanCommands.add(values1);
 	}
 	@ConfigField(name = "snowman.head.drophead", category = "passive")
 	public boolean snowmanHeadDropHead = true;
@@ -2014,19 +2014,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "squid.enabled", category = "passive")
 	public boolean squidEnabled = true;
 	@ConfigField(name = "squid.message", category = "passive")
-	public String squidCmdDesc = "You killed a {killed}";
+	public String squidMessage = "You killed a §1{killed}";
 	@ConfigField(name = "squid.money.amount", category = "passive")
-	public String squidPrize = "0";
+	public String squidMoney = "0";
 	@ConfigField(name = "squid.money.chance", category = "passive")
 	public double squidCmdRunChance = 1;
 	@ConfigField(name = "squid.commands", category = "passive")
-	public List<HashMap<String, String>> squidCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> squidCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
 		values1.put("message", "");
-		squidCmdNew.add(values1);
+		squidCommands.add(values1);
 	}
 	@ConfigField(name = "squid.head.drophead", category = "passive")
 	public boolean squidHeadDropHead = true;
@@ -2041,19 +2041,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "wolf.enabled", category = "passive")
 	public boolean wolfEnabled = true;
 	@ConfigField(name = "wolf.message", category = "passive")
-	public String wolfCmdDesc = "You killed a {killed}";
+	public String wolfMessage = "You killed a §1{killed}";
 	@ConfigField(name = "wolf.money.amount", category = "passive")
-	public String wolfPrize = "-10";
+	public String wolfMoney = "-10";
 	@ConfigField(name = "wolf.money.chance", category = "passive")
 	public double wolfCmdRunChance = 1;
 	@ConfigField(name = "wolf.commands", category = "passive")
-	public List<HashMap<String, String>> wolfCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> wolfCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
 		values1.put("message", "");
-		wolfCmdNew.add(values1);
+		wolfCommands.add(values1);
 	}
 	@ConfigField(name = "wolf.head.drophead", category = "passive")
 	public boolean wolfHeadDropHead = true;
@@ -2068,19 +2068,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "zombie_horse.enabled", category = "passive")
 	public boolean zombieHorseEnabled = true;
 	@ConfigField(name = "zombie_horse.message", category = "passive")
-	public String zombieHorseCmdDesc = "You killed a {killed}";
+	public String zombieHorseMessage = "You killed a §1{killed}";
 	@ConfigField(name = "zombie_horse.money.amount", category = "passive")
-	public String zombieHorsePrize = "-10";
+	public String zombieHorseMoney = "-10";
 	@ConfigField(name = "zombie_horse.money.chance", category = "passive")
 	public double zombieHorseCmdRunChance = 1;
 	@ConfigField(name = "zombie_horse.commands", category = "passive")
-	public List<HashMap<String, String>> zombieHorseCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> zombieHorseCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.25");
 		values1.put("message", "");
-		zombieHorseCmdNew.add(values1);
+		zombieHorseCommands.add(values1);
 	}
 	@ConfigField(name = "zombie_horse.head.drophead", category = "passive")
 	public boolean zombieHorseHeadDropHead = true;
@@ -2102,19 +2102,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "raw_fish.enabled", category = "fishing")
 	public boolean rawFishEnabled = true;
 	@ConfigField(name = "raw_fish.message", category = "fishing")
-	public String rawFishCmdDesc = "You killed a {killed}";
+	public String rawFishMessage = "You killed a §1{killed}";
 	@ConfigField(name = "raw_fish.money.amount", category = "fishing")
-	public String rawFishPrize = "1:3";
+	public String rawFishMoney = "1:3";
 	@ConfigField(name = "raw_fish.money.chance", category = "fishing")
 	public double rawFishCmdRunChance = 1;
 	@ConfigField(name = "raw_fish.commands", category = "fishing")
-	public List<HashMap<String, String>> rawFishCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> rawFishCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
 		values1.put("message", "");
-		rawFishCmdNew.add(values1);
+		rawFishCommands.add(values1);
 	}
 	@ConfigField(name = "raw_fish.head.drophead", category = "fishing")
 	public boolean rawFishHeadDropHead = true;
@@ -2129,19 +2129,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "raw_salmon.enabled", category = "fishing")
 	public boolean rawSalmonEnabled = true;
 	@ConfigField(name = "raw_salmon.message", category = "fishing")
-	public String rawSalmonCmdDesc = "You killed a {killed}";
+	public String rawSalmonMessage = "You killed a §1{killed}";
 	@ConfigField(name = "raw_salmon.money.amount", category = "fishing")
-	public String rawSalmonPrize = "2:8";
+	public String rawSalmonMoney = "2:8";
 	@ConfigField(name = "raw_salmon.money.chance", category = "fishing")
 	public double rawSalmonCmdRunChance = 1;
 	@ConfigField(name = "raw_salmon.commands", category = "fishing")
-	public List<HashMap<String, String>> rawSalmonCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> rawSalmonCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.1");
 		values1.put("message", "");
-		rawSalmonCmdNew.add(values1);
+		rawSalmonCommands.add(values1);
 	}
 	@ConfigField(name = "raw_salmon.head.drophead", category = "fishing")
 	public boolean rawSalmonHeadDropHead = true;
@@ -2156,19 +2156,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "clownfish.enabled", category = "fishing")
 	public boolean clownfishEnabled = true;
 	@ConfigField(name = "clownfish.message", category = "fishing")
-	public String clownfishCmdDesc = "You killed a {killed}";
+	public String clownfishMessage = "You killed a §1{killed}";
 	@ConfigField(name = "clownfish.money.amount", category = "fishing")
-	public String clownfishPrize = "20:40";
+	public String clownfishMoney = "20:40";
 	@ConfigField(name = "clownfish.money.chance", category = "fishing")
 	public double clownfishCmdRunChance = 1;
 	@ConfigField(name = "clownfish.commands", category = "fishing")
-	public List<HashMap<String, String>> clownfishCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> clownfishCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.5");
 		values1.put("message", "");
-		clownfishCmdNew.add(values1);
+		clownfishCommands.add(values1);
 	}
 	@ConfigField(name = "clownfish.head.drophead", category = "fishing")
 	public boolean clownfishHeadDropHead = true;
@@ -2183,19 +2183,19 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "pufferfish.enabled", category = "fishing")
 	public boolean pufferfishEnabled = true;
 	@ConfigField(name = "pufferfish.message", category = "fishing")
-	public String pufferfishCmdDesc = "You killed a {killed}";
+	public String pufferfishMessage = "You killed a §1{killed}";
 	@ConfigField(name = "pufferfish.money.amount", category = "fishing")
-	public String pufferfishPrize = "5:15";
+	public String pufferfishMoney = "5:15";
 	@ConfigField(name = "pufferfish.money.chance", category = "fishing")
 	public double pufferfishCmdRunChance = 1;
 	@ConfigField(name = "pufferfish.commands", category = "fishing")
-	public List<HashMap<String, String>> pufferfishCmdNew = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> pufferfishCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.4");
 		values1.put("message", "");
-		pufferfishCmdNew.add(values1);
+		pufferfishCommands.add(values1);
 	}
 	@ConfigField(name = "pufferfish.head.drophead", category = "fishing")
 	public boolean pufferfishHeadDropHead = true;
@@ -2217,11 +2217,11 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "message", category = "pvp.player")
 	public String pvpCmdDesc = "";
 	@ConfigField(name = "amount", category = "pvp.player.money")
-	public String pvpKillPrize = "1.0%";
+	public String pvpKillMoney = "1.0%";
 	@ConfigField(name = "chance", category = "pvp.player.money.")
 	public double pvpCmdRunChance = 1;
 	@ConfigField(name = "message", category = "pvp.player", comment = "Write the message to the killer, describing the reward / console commands")
-	public String pvpKillCmdDesc = "You got {killed_player}\'s skull";
+	public String pvpKillMessage = "You got {killed_player}\'s skull";
 	@ConfigField(name = "commands", category = "pvp.player", comment = "One or more console commands to be run when a player kills another player.")
 	public List<HashMap<String, String>> pvpCmdNew = new ArrayList<HashMap<String, String>>();
 	{
@@ -3658,160 +3658,142 @@ public class ConfigManager extends AutoConfig {
 		this.blazeMoney = mConfig0.blazePrize;
 		this.blazeCommands = convertCommands(mConfig0.blazeCmd, mConfig0.blazeCmdRunChance);
 		this.blazeMessage = mConfig0.blazeCmdDesc;
-		this.blazeMoneyChance = 1;
 		this.blazeHeadDropHead = convertDropHeadEnabled(mConfig0.blazeCmd);
 		this.blazeHeadPrize = mConfig0.blazeHeadPrize;
 		this.blazeHeadDropChance = mConfig0.blazeCmdRunChance;
 		this.blazeHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.caveSpiderPrize = mConfig0.caveSpiderPrize;
-		this.caveSpiderCmdNew = convertCommands(mConfig0.caveSpiderCmd, mConfig0.caveSpiderRunChance);
-		this.caveSpiderCmdDesc = mConfig0.caveSpiderCmdDesc;
-		this.caveSpiderRunChance = 1;
+		this.caveSpiderMoney = mConfig0.caveSpiderPrize;
+		this.caveSpiderCommands = convertCommands(mConfig0.caveSpiderCmd, mConfig0.caveSpiderRunChance);
+		this.caveSpiderMessage = mConfig0.caveSpiderCmdDesc;
 		this.caveSpiderHeadDropHead = convertDropHeadEnabled(mConfig0.caveSpiderCmd);
 		this.caveSpiderHeadPrize = mConfig0.caveSpiderHeadPrize;
 		this.caveSpiderHeadDropChance = mConfig0.caveSpiderRunChance;
 		this.caveSpiderHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.creeperPrize = mConfig0.creeperPrize;
-		this.creeperCmdNew = convertCommands(mConfig0.creeperCmd, mConfig0.creeperCmdRunChance);
-		this.creeperCmdDesc = mConfig0.creeperCmdDesc;
-		this.creeperCmdRunChance = 1;
+		this.creeperMoney = mConfig0.creeperPrize;
+		this.creeperCommands = convertCommands(mConfig0.creeperCmd, mConfig0.creeperCmdRunChance);
+		this.creeperMessage = mConfig0.creeperCmdDesc;
 		this.creeperHeadDropHead = convertDropHeadEnabled(mConfig0.creeperCmd);
 		this.creeperHeadPrize = mConfig0.creeperHeadPrize;
 		this.creeperHeadDropChance = mConfig0.creeperCmdRunChance;
 		this.creeperHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.elderGuardianPrize = mConfig0.elderGuardianPrize;
-		this.elderGuardianCmdNew = convertCommands(mConfig0.elderGuardianCmd, mConfig0.elderGuardianCmdRunChance);
-		this.elderGuardianCmdDesc = mConfig0.elderGuardianCmdDesc;
-		this.elderGuardianCmdRunChance = 1;
+		this.elderGuardianMoney = mConfig0.elderGuardianPrize;
+		this.elderGuardianCommands = convertCommands(mConfig0.elderGuardianCmd, mConfig0.elderGuardianCmdRunChance);
+		this.elderGuardianMessage = mConfig0.elderGuardianCmdDesc;
 		this.elderGuardianHeadDropHead = convertDropHeadEnabled(mConfig0.elderGuardianCmd);
 		this.elderGuardianHeadPrize = mConfig0.elderGuardianHeadPrize;
 		this.elderGuardianHeadDropChance = mConfig0.elderGuardianCmdRunChance;
 		this.elderGuardianHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.endermanPrize = mConfig0.endermanPrize;
-		this.endermanCmdNew = convertCommands(mConfig0.endermanCmd, mConfig0.endermanCmdRunChance);
-		this.endermanCmdDesc = mConfig0.endermanCmdDesc;
-		this.endermanCmdRunChance = 1;
+		this.endermanMoney = mConfig0.endermanPrize;
+		this.endermanCommands = convertCommands(mConfig0.endermanCmd, mConfig0.endermanCmdRunChance);
+		this.endermanMessage = mConfig0.endermanCmdDesc;
 		this.endermanHeadDropHead = convertDropHeadEnabled(mConfig0.endermanCmd);
 		this.endermanHeadPrize = mConfig0.endermanHeadPrize;
 		this.endermanHeadDropChance = mConfig0.endermanCmdRunChance;
 		this.endermanHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.endermitePrize = mConfig0.endermitePrize;
-		this.endermiteCmdNew = convertCommands(mConfig0.endermiteCmd, mConfig0.endermiteCmdRunChance);
-		this.endermiteCmdDesc = mConfig0.endermiteCmdDesc;
-		this.endermiteCmdRunChance = 1;
+		this.endermiteMoney = mConfig0.endermitePrize;
+		this.endermiteCommands = convertCommands(mConfig0.endermiteCmd, mConfig0.endermiteCmdRunChance);
+		this.endermiteMessage = mConfig0.endermiteCmdDesc;
 		this.endermiteHeadDropHead = convertDropHeadEnabled(mConfig0.endermiteCmd);
 		this.endermiteHeadPrize = mConfig0.endermiteHeadPrize;
 		this.endermiteHeadDropChance = mConfig0.endermiteCmdRunChance;
 		this.endermiteHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.ghastPrize = mConfig0.ghastPrize;
-		this.ghastCmdNew = convertCommands(mConfig0.ghastCmd, mConfig0.ghastCmdRunChance);
-		this.ghastCmdDesc = mConfig0.ghastCmdDesc;
-		this.ghastCmdRunChance = 1;
+		this.ghastMoney = mConfig0.ghastPrize;
+		this.ghastCommands = convertCommands(mConfig0.ghastCmd, mConfig0.ghastCmdRunChance);
+		this.ghastMessage = mConfig0.ghastCmdDesc;
 		this.ghastHeadDropHead = convertDropHeadEnabled(mConfig0.ghastCmd);
 		this.ghastHeadPrize = mConfig0.ghastHeadPrize;
 		this.ghastHeadDropChance = mConfig0.ghastCmdRunChance;
 		this.ghastHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.giantPrize = mConfig0.giantPrize;
-		this.giantCmdNew = convertCommands(mConfig0.giantCmd, mConfig0.giantCmdRunChance);
-		this.giantCmdDesc = mConfig0.giantCmdDesc;
-		this.giantCmdRunChance = 1;
+		this.giantMoney = mConfig0.giantPrize;
+		this.giantCommands = convertCommands(mConfig0.giantCmd, mConfig0.giantCmdRunChance);
+		this.giantMessage = mConfig0.giantCmdDesc;
 		this.giantHeadDropHead = convertDropHeadEnabled(mConfig0.giantCmd);
 		this.giantHeadPrize = mConfig0.giantHeadPrize;
 		this.giantHeadDropChance = mConfig0.giantCmdRunChance;
 		this.giantHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.ironGolemPrize = mConfig0.ironGolemPrize;
-		this.ironGolemCmdNew = convertCommands(mConfig0.ironGolemCmd, mConfig0.ironGolemCmdRunChance);
-		this.ironGolemCmdDesc = mConfig0.ironGolemCmdDesc;
-		this.ironGolemCmdRunChance = 1;
+		this.ironGolemMoney = mConfig0.ironGolemPrize;
+		this.ironGolemCommands = convertCommands(mConfig0.ironGolemCmd, mConfig0.ironGolemCmdRunChance);
+		this.ironGolemMessage = mConfig0.ironGolemCmdDesc;
 		this.ironGolemHeadDropHead = convertDropHeadEnabled(mConfig0.ironGolemCmd);
 		this.ironGolemHeadPrize = mConfig0.ironGolemHeadPrize;
 		this.ironGolemHeadDropChance = mConfig0.ironGolemCmdRunChance;
 		this.ironGolemHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.guardianPrize = mConfig0.guardianPrize;
-		this.guardianCmdNew = convertCommands(mConfig0.guardianCmd, mConfig0.guardianCmdRunChance);
-		this.guardianCmdDesc = mConfig0.guardianCmdDesc;
-		this.guardianCmdRunChance = 1;
+		this.guardianMoney = mConfig0.guardianPrize;
+		this.guardianCommands = convertCommands(mConfig0.guardianCmd, mConfig0.guardianCmdRunChance);
+		this.guardianMessge = mConfig0.guardianCmdDesc;
 		this.guardianHeadDropHead = convertDropHeadEnabled(mConfig0.guardianCmd);
 		this.guardianHeadPrize = mConfig0.guardianHeadPrize;
 		this.ironGolemHeadDropChance = mConfig0.ironGolemCmdRunChance;
 		this.ironGolemHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.huskPrize = mConfig0.huskPrize;
-		this.huskCmdNew = convertCommands(mConfig0.huskCmd, mConfig0.huskCmdRunChance);
-		this.huskCmdDesc = mConfig0.huskCmdDesc;
-		this.huskCmdRunChance = 1;
+		this.huskMoney = mConfig0.huskPrize;
+		this.huskCommands = convertCommands(mConfig0.huskCmd, mConfig0.huskCmdRunChance);
+		this.huskMessage = mConfig0.huskCmdDesc;
 		this.huskHeadDropHead = convertDropHeadEnabled(mConfig0.huskCmd);
 		this.huskHeadPrize = mConfig0.huskHeadPrize;
 		this.huskHeadDropChance = mConfig0.huskCmdRunChance;
 		this.huskHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.killerRabbitPrize = mConfig0.killerrabbitPrize;
-		this.killerRabbitCmdNew = convertCommands(mConfig0.killerrabbitCmd, mConfig0.killerrabbitCmdRunChance);
-		this.killerRabbitCmdDesc = mConfig0.killerrabbitCmdDesc;
-		this.killerRabbitCmdRunChance = 1;
+		this.killerRabbitMoney = mConfig0.killerrabbitPrize;
+		this.killerRabbitCommands = convertCommands(mConfig0.killerrabbitCmd, mConfig0.killerrabbitCmdRunChance);
+		this.killerRabbitMessage = mConfig0.killerrabbitCmdDesc;
 		this.killerRabbitHeadDropHead = convertDropHeadEnabled(mConfig0.killerrabbitCmd);
 		this.killerRabbitHeadPrize = mConfig0.killerrabbitHeadPrize;
 		this.killerRabbitHeadDropChance = mConfig0.killerrabbitCmdRunChance;
 		this.killerRabbitHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.magmaCubePrize = mConfig0.magmaCubePrize;
-		this.magmaCubeCmdNew = convertCommands(mConfig0.magmaCubeCmd, mConfig0.magmaCubeCmdRunChance);
-		this.magmaCubeCmdDesc = mConfig0.magmaCubeCmdDesc;
-		this.magmaCubeCmdRunChance = 1;
+		this.magmaCubeMoney = mConfig0.magmaCubePrize;
+		this.magmaCubeCommands = convertCommands(mConfig0.magmaCubeCmd, mConfig0.magmaCubeCmdRunChance);
+		this.magmaCubeMessage = mConfig0.magmaCubeCmdDesc;
 		this.magmaCubeHeadDropHead = convertDropHeadEnabled(mConfig0.magmaCubeCmd);
 		this.magmaCubeHeadPrize = mConfig0.magmaCubeHeadPrize;
 		this.magmaCubeHeadDropChance = mConfig0.magmaCubeCmdRunChance;
 		this.magmaCubeHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.polarBearPrize = mConfig0.polarBearPrize;
-		this.polarBearCmdNew = convertCommands(mConfig0.polarBearCmd, mConfig0.polarBearCmdRunChance);
-		this.polarBearCmdDesc = mConfig0.polarBearCmdDesc;
-		this.polarBearCmdRunChance = 1;
+		this.polarBearMoney = mConfig0.polarBearPrize;
+		this.polarBearCommands = convertCommands(mConfig0.polarBearCmd, mConfig0.polarBearCmdRunChance);
+		this.polarBearMessage = mConfig0.polarBearCmdDesc;
 		this.polarBearHeadDropHead = convertDropHeadEnabled(mConfig0.polarBearCmd);
 		this.polarBearHeadPrize = mConfig0.polarBearHeadPrize;
 		this.polarBearHeadDropChance = mConfig0.polarBearCmdRunChance;
 		this.polarBearHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.slimePrize = mConfig0.slimeTinyPrize;
-		this.slimeCmdNew = convertCommands(mConfig0.slimeCmd, mConfig0.slimeCmdRunChance);
-		this.slimeCmdDesc = mConfig0.slimeCmdDesc;
-		this.slimeCmdRunChance = 1;
+		this.slimeMoney = mConfig0.slimeTinyPrize;
+		this.slimeCommands = convertCommands(mConfig0.slimeCmd, mConfig0.slimeCmdRunChance);
+		this.slimeMessage = mConfig0.slimeCmdDesc;
 		this.slimeHeadDropHead = convertDropHeadEnabled(mConfig0.slimeCmd);
 		this.slimeHeadPrize = mConfig0.slimeHeadPrize;
 		this.slimeHeadDropChance = mConfig0.slimeCmdRunChance;
 		this.slimeHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.strayPrize = mConfig0.strayPrize;
-		this.strayCmdNew = convertCommands(mConfig0.strayCmd, mConfig0.strayCmdRunChance);
-		this.strayCmdDesc = mConfig0.strayCmdDesc;
-		this.strayCmdRunChance = 1;
+		this.strayMoney = mConfig0.strayPrize;
+		this.strayCommands = convertCommands(mConfig0.strayCmd, mConfig0.strayCmdRunChance);
+		this.strayMessage = mConfig0.strayCmdDesc;
 		this.strayHeadDropHead = convertDropHeadEnabled(mConfig0.strayCmd);
 		this.strayHeadPrize = mConfig0.strayHeadPrize;
 		this.strayHeadDropChance = mConfig0.strayCmdRunChance;
 		this.strayHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.silverfishPrize = mConfig0.silverfishPrize;
-		this.silverfishCmdNew = convertCommands(mConfig0.silverfishCmd, mConfig0.silverfishCmdRunChance);
-		this.silverfishCmdDesc = mConfig0.silverfishCmdDesc;
-		this.silverfishCmdRunChance = 1;
+		this.silverfishMoney = mConfig0.silverfishPrize;
+		this.silverfishCommands = convertCommands(mConfig0.silverfishCmd, mConfig0.silverfishCmdRunChance);
+		this.silverfishMessage = mConfig0.silverfishCmdDesc;
 		this.silverfishHeadDropHead = convertDropHeadEnabled(mConfig0.silverfishCmd);
 		this.silverfishHeadPrize = mConfig0.silverfishHeadPrize;
 		this.silverfishHeadDropChance = mConfig0.silverfishCmdRunChance;
 		this.silverfishHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.skeletonPrize = mConfig0.skeletonPrize;
-		this.skeletonCmdNew = convertCommands(mConfig0.skeletonCmd, mConfig0.skeletonCmdRunChance);
-		this.skeletonCmdDesc = mConfig0.skeletonCmdDesc;
-		this.skeletonCmdRunChance = 1;
+		this.skeletonMoney = mConfig0.skeletonPrize;
+		this.skeletonCommands = convertCommands(mConfig0.skeletonCmd, mConfig0.skeletonCmdRunChance);
+		this.skeletonMessage = mConfig0.skeletonCmdDesc;
 		this.skeletonHeadDropHead = convertDropHeadEnabled(mConfig0.skeletonCmd);
 		this.skeletonHeadPrize = mConfig0.skeletonHeadPrize;
 		this.skeletonHeadDropChance = mConfig0.skeletonCmdRunChance;
@@ -3820,196 +3802,176 @@ public class ConfigManager extends AutoConfig {
 		this.spiderMoney = mConfig0.spiderPrize;
 		this.spiderCommands = convertCommands(mConfig0.spiderCmd, mConfig0.spiderCmdRunChance);
 		this.spiderMessage = mConfig0.spiderCmdDesc;
-		this.spiderMoneyChance = 1;
 		this.spiderHeadDropHead = convertDropHeadEnabled(mConfig0.spiderCmd);
 		this.spiderHeadPrize = mConfig0.spiderHeadPrize;
 		this.spiderHeadDropChance = mConfig0.spiderCmdRunChance;
 		this.spiderHeadMessage = "You got a skull";
 
-		this.shulkerPrize = mConfig0.shulkerPrize;
-		this.shulkerCmdNew = convertCommands(mConfig0.shulkerCmd, mConfig0.shulkerCmdRunChance);
-		this.shulkerCmdDesc = mConfig0.shulkerCmdDesc;
-		this.shulkerCmdRunChance = 1;
+		this.shulkerMoney = mConfig0.shulkerPrize;
+		this.shulkerCommands = convertCommands(mConfig0.shulkerCmd, mConfig0.shulkerCmdRunChance);
+		this.shulkerMessage = mConfig0.shulkerCmdDesc;
 		this.shulkerHeadDropHead = convertDropHeadEnabled(mConfig0.shulkerCmd);
 		this.shulkerHeadPrize = mConfig0.shulkerHeadPrize;
 		this.shulkerHeadDropChance = mConfig0.shulkerCmdRunChance;
 		this.shulkerHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.zombiePrize = mConfig0.zombiePrize;
-		this.zombieCmdNew = convertCommands(mConfig0.zombieCmd, mConfig0.zombieCmdRunChance);
-		this.zombieCmdDesc = mConfig0.zombieCmdDesc;
-		this.zombieCmdRunChance = 1;
+		this.zombieMoney = mConfig0.zombiePrize;
+		this.zombieCommands = convertCommands(mConfig0.zombieCmd, mConfig0.zombieCmdRunChance);
+		this.zombieMessage = mConfig0.zombieCmdDesc;
 		this.zombieHeadDropHead = convertDropHeadEnabled(mConfig0.zombieCmd);
 		this.zombieHeadPrize = mConfig0.zombieHeadPrize;
 		this.zombieHeadDropChance = mConfig0.zombieCmdRunChance;
 		this.zombieHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.zombiePigmanPrize = mConfig0.zombiePigmanPrize;
-		this.zombiePigmanCmdNew = convertCommands(mConfig0.zombiePigmanCmd, mConfig0.zombiepigmanCmdRunChance);
-		this.zombiePigmanCmdDesc = mConfig0.zombiePigmanCmdDesc;
-		this.zombiePigmanCmdRunChance = 1;
+		this.zombiePigmanMoney = mConfig0.zombiePigmanPrize;
+		this.zombiePigmanCommands = convertCommands(mConfig0.zombiePigmanCmd, mConfig0.zombiepigmanCmdRunChance);
+		this.zombiePigmanMessage = mConfig0.zombiePigmanCmdDesc;
+		this.zombiePigmanMoneyChance = 1;
 		this.zombiePigmanHeadDropHead = convertDropHeadEnabled(mConfig0.zombiePigmanCmd);
 		this.zombiePigmanHeadPrize = mConfig0.zombiePigmanHeadPrize;
 		this.zombiePigmanHeadDropChance = mConfig0.zombiepigmanCmdRunChance;
 		this.zombiePigmanHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.vexPrize = mConfig0.vexPrize;
-		this.vexCmdNew = convertCommands(mConfig0.vexCmd, mConfig0.vexCmdRunChance);
-		this.vexCmdDesc = mConfig0.vexCmdDesc;
-		this.vexCmdRunChance = 1;
+		this.vexMoney = mConfig0.vexPrize;
+		this.vexCommands = convertCommands(mConfig0.vexCmd, mConfig0.vexCmdRunChance);
+		this.vexMessage = mConfig0.vexCmdDesc;
+		this.vexMoneyChance = 1;
 		this.vexHeadDropHead = convertDropHeadEnabled(mConfig0.vexCmd);
 		this.vexHeadPrize = mConfig0.vexHeadPrize;
 		this.vexHeadDropChance = mConfig0.vexCmdRunChance;
 		this.vexHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.witchPrize = mConfig0.witchPrize;
-		this.witchCmdNew = convertCommands(mConfig0.witchCmd, mConfig0.witchCmdRunChance);
-		this.witchCmdDesc = mConfig0.witchCmdDesc;
-		this.witchCmdRunChance = 1;
+		this.witchMoney = mConfig0.witchPrize;
+		this.witchCommands = convertCommands(mConfig0.witchCmd, mConfig0.witchCmdRunChance);
+		this.witchMessage = mConfig0.witchCmdDesc;
 		this.witchHeadDropHead = convertDropHeadEnabled(mConfig0.witchCmd);
 		this.witchHeadPrize = mConfig0.witchHeadPrize;
 		this.witchHeadDropChance = mConfig0.witchCmdRunChance;
 		this.witchHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.witherSkeletonPrize = mConfig0.witherSkeletonPrize;
-		this.witherSkeletonCmdNew = convertCommands(mConfig0.witherSkeletonCmd, mConfig0.witherSkeletonCmdRunChance);
-		this.witherSkeletonCmdDesc = mConfig0.witherSkeletonCmdDesc;
-		this.witherSkeletonCmdRunChance = 1;
+		this.witherSkeletonMoney = mConfig0.witherSkeletonPrize;
+		this.witherSkeletonCommands = convertCommands(mConfig0.witherSkeletonCmd, mConfig0.witherSkeletonCmdRunChance);
+		this.witherSkeletonMessage = mConfig0.witherSkeletonCmdDesc;
 		this.witherSkeletonHeadDropHead = convertDropHeadEnabled(mConfig0.witherSkeletonCmd);
 		this.witherSkeletonHeadPrize = mConfig0.witherSkeletonHeadPrize;
 		this.witherSkeletonHeadDropChance = mConfig0.witherSkeletonCmdRunChance;
 		this.witherSkeletonHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.witherPrize = mConfig0.witherPrize;
-		this.witherCmdNew = convertCommands(mConfig0.witherCmd, mConfig0.witherCmdRunChance);
-		this.witherCmdDesc = mConfig0.witherCmdDesc;
-		this.witherCmdRunChance = 1;
+		this.witherMoney = mConfig0.witherPrize;
+		this.witherCommands = convertCommands(mConfig0.witherCmd, mConfig0.witherCmdRunChance);
+		this.witherMessage = mConfig0.witherCmdDesc;
 		this.witherHeadDropHead = convertDropHeadEnabled(mConfig0.witherCmd);
 		this.witherHeadPrize = mConfig0.witherHeadPrize;
 		this.witherHeadDropChance = mConfig0.witherCmdRunChance;
 		this.witherHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.enderDragonPrize = mConfig0.enderdragonPrize;
-		this.enderDragonCmdNew = convertCommands(mConfig0.enderdragonCmd, mConfig0.enderdragonCmdRunChance);
-		this.enderDragonCmdDesc = mConfig0.enderdragonCmdDesc;
-		this.enderDragonCmdRunChance = 1;
+		this.enderDragonMoney = mConfig0.enderdragonPrize;
+		this.enderDragonCommands = convertCommands(mConfig0.enderdragonCmd, mConfig0.enderdragonCmdRunChance);
+		this.enderDragonMessage = mConfig0.enderdragonCmdDesc;
 		this.enderDragonHeadDropHead = convertDropHeadEnabled(mConfig0.enderdragonCmd);
 		this.enderDragonHeadPrize = mConfig0.enderdragonHeadPrize;
 		this.enderDragonHeadDropChance = mConfig0.enderdragonCmdRunChance;
 		this.enderDragonHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.blacksmithPrize = mConfig0.blacksmithPrize;
-		this.blacksmithCmdNew = convertCommands(mConfig0.blacksmithCmd, mConfig0.blacksmithCmdRunChance);
-		this.blacksmithCmdDesc = mConfig0.blacksmithCmdDesc;
-		this.blacksmithCmdRunChance = 1;
+		this.blacksmithMoney = mConfig0.blacksmithPrize;
+		this.blacksmithCommands = convertCommands(mConfig0.blacksmithCmd, mConfig0.blacksmithCmdRunChance);
+		this.blacksmithMessage = mConfig0.blacksmithCmdDesc;
 		this.blacksmithHeadDropHead = convertDropHeadEnabled(mConfig0.blacksmithCmd);
 		this.blacksmithHeadPrize = mConfig0.blacksmithHeadPrize;
 		this.blacksmithHeadDropChance = mConfig0.blacksmithCmdRunChance;
 		this.blacksmithHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.butcherPrize = mConfig0.butcherPrize;
-		this.butcherCmdNew = convertCommands(mConfig0.butcherCmd, mConfig0.butcherCmdRunChance);
-		this.butcherCmdDesc = mConfig0.butcherCmdDesc;
-		this.butcherCmdRunChance = 1;
+		this.butcherMoney = mConfig0.butcherPrize;
+		this.butcherCommands = convertCommands(mConfig0.butcherCmd, mConfig0.butcherCmdRunChance);
+		this.butcherMessage = mConfig0.butcherCmdDesc;
 		this.butcherHeadDropHead = convertDropHeadEnabled(mConfig0.butcherCmd);
 		this.butcherHeadPrize = mConfig0.butcherHeadPrize;
 		this.butcherHeadDropChance = mConfig0.butcherCmdRunChance;
 		this.butcherHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.evokerPrize = mConfig0.evokerPrize;
-		this.evokerCmdNew = convertCommands(mConfig0.evokerCmd, mConfig0.evokerCmdRunChance);
-		this.evokerCmdDesc = mConfig0.evokerCmdDesc;
-		this.evokerCmdRunChance = 1;
+		this.evokerMoney = mConfig0.evokerPrize;
+		this.evokerCommands = convertCommands(mConfig0.evokerCmd, mConfig0.evokerCmdRunChance);
+		this.evokerMessage = mConfig0.evokerCmdDesc;
 		this.evokerHeadDropHead = convertDropHeadEnabled(mConfig0.evokerCmd);
 		this.evokerHeadPrize = mConfig0.evokerHeadPrize;
 		this.evokerHeadDropChance = mConfig0.evokerCmdRunChance;
 		this.evokerHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.farmerPrize = mConfig0.farmerPrize;
-		this.farmerCmdNew = convertCommands(mConfig0.farmerCmd, mConfig0.farmerCmdRunChance);
-		this.farmerCmdDesc = mConfig0.farmerCmdDesc;
-		this.farmerCmdRunChance = 1;
+		this.farmerMoney = mConfig0.farmerPrize;
+		this.farmerCommnds = convertCommands(mConfig0.farmerCmd, mConfig0.farmerCmdRunChance);
+		this.farmerMessage = mConfig0.farmerCmdDesc;
 		this.farmerHeadDropHead = convertDropHeadEnabled(mConfig0.farmerCmd);
 		this.farmerHeadPrize = mConfig0.farmerHeadPrize;
 		this.farmerHeadDropChance = mConfig0.farmerCmdRunChance;
 		this.farmerHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.illusionerPrize = mConfig0.illusionerPrize;
-		this.illusionerCmdNew = convertCommands(mConfig0.illusionerCmd, mConfig0.illusionerCmdRunChance);
-		this.illusionerCmdDesc = mConfig0.illusionerCmdDesc;
-		this.illusionerCmdRunChance = 1;
+		this.illusionerMoney = mConfig0.illusionerPrize;
+		this.illusionerCommands = convertCommands(mConfig0.illusionerCmd, mConfig0.illusionerCmdRunChance);
+		this.illusionerMessage = mConfig0.illusionerCmdDesc;
 		this.illusionerHeadDropHead = convertDropHeadEnabled(mConfig0.illusionerCmd);
 		this.illusionerHeadPrize = mConfig0.illusionerHeadPrize;
 		this.illusionerHeadDropChance = mConfig0.illusionerCmdRunChance;
 		this.illusionerHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.librarianPrize = mConfig0.librarianPrize;
-		this.librarianCmdNew = convertCommands(mConfig0.librarianCmd, mConfig0.librarianCmdRunChance);
-		this.librarianCmdDesc = mConfig0.librarianCmdDesc;
-		this.librarianCmdRunChance = 1;
+		this.librarianMoney = mConfig0.librarianPrize;
+		this.librarianCommands = convertCommands(mConfig0.librarianCmd, mConfig0.librarianCmdRunChance);
+		this.librarianMessage = mConfig0.librarianCmdDesc;
 		this.librarianHeadDropHead = convertDropHeadEnabled(mConfig0.librarianCmd);
 		this.librarianHeadPrize = mConfig0.librarianHeadPrize;
 		this.librarianHeadDropChance = mConfig0.librarianCmdRunChance;
 		this.librarianHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.nitwitPrize = mConfig0.nitwitPrize;
-		this.nitwitCmdNew = convertCommands(mConfig0.nitwitCmd, mConfig0.nitwitCmdRunChance);
-		this.nitwitCmdDesc = mConfig0.nitwitCmdDesc;
-		this.nitwitCmdRunChance = 1;
+		this.nitwitMoney = mConfig0.nitwitPrize;
+		this.nitwitCommands = convertCommands(mConfig0.nitwitCmd, mConfig0.nitwitCmdRunChance);
+		this.nitwitMessage = mConfig0.nitwitCmdDesc;
 		this.nitwitHeadDropHead = convertDropHeadEnabled(mConfig0.nitwitCmd);
 		this.nitwitHeadPrize = mConfig0.nitwitHeadPrize;
 		this.nitwitHeadDropChance = mConfig0.nitwitCmdRunChance;
 		this.nitwitHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.priestPrize = mConfig0.priestPrize;
-		this.priestCmdNew = convertCommands(mConfig0.priestCmd, mConfig0.priestCmdRunChance);
-		this.priestCmdDesc = mConfig0.priestCmdDesc;
-		this.priestCmdRunChance = 1;
+		this.priestMoney = mConfig0.priestPrize;
+		this.priestCommands = convertCommands(mConfig0.priestCmd, mConfig0.priestCmdRunChance);
+		this.priestMessage = mConfig0.priestCmdDesc;
 		this.priestHeadDropHead = convertDropHeadEnabled(mConfig0.priestCmd);
 		this.priestHeadPrize = mConfig0.priestHeadPrize;
 		this.priestHeadDropChance = mConfig0.priestCmdRunChance;
 		this.priestHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.villagerPrize = mConfig0.villagerPrize;
-		this.villagerCmdNew = convertCommands(mConfig0.villagerCmd, mConfig0.villagerCmdRunChance);
-		this.villagerCmdDesc = mConfig0.villagerCmdDesc;
-		this.villagerCmdRunChance = 1;
+		this.villagerMoney = mConfig0.villagerPrize;
+		this.villagerCommands = convertCommands(mConfig0.villagerCmd, mConfig0.villagerCmdRunChance);
+		this.villagerMessage = mConfig0.villagerCmdDesc;
 		this.villagerHeadDropHead = convertDropHeadEnabled(mConfig0.villagerCmd);
 		this.villagerHeadPrize = mConfig0.villagerHeadPrize;
 		this.villagerHeadDropChance = mConfig0.villagerCmdRunChance;
 		this.villagerHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.vindicatorPrize = mConfig0.vindicatorPrize;
-		this.vindicatorCmdNew = convertCommands(mConfig0.vindicatorCmd, mConfig0.vindicatorCmdRunChance);
-		this.vindicatorCmdDesc = mConfig0.vindicatorCmdDesc;
-		this.vindicatorCmdRunChance = 1;
+		this.vindicatorMoney = mConfig0.vindicatorPrize;
+		this.vindicatorCommands = convertCommands(mConfig0.vindicatorCmd, mConfig0.vindicatorCmdRunChance);
+		this.vindicatorMessage = mConfig0.vindicatorCmdDesc;
 		this.vindicatorHeadDropHead = convertDropHeadEnabled(mConfig0.vindicatorCmd);
 		this.vindicatorHeadPrize = mConfig0.vindicatorHeadPrize;
 		this.vindicatorHeadDropChance = mConfig0.vindicatorCmdRunChance;
 		this.vindicatorHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.zombieVillagerPrize = mConfig0.zombieVillagerPrize;
-		this.zombieVillagerCmdNew = convertCommands(mConfig0.zombieVillagerCmd, mConfig0.zombieVillagerCmdRunChance);
-		this.zombieVillagerCmdDesc = mConfig0.zombieVillagerCmdDesc;
-		this.zombieVillagerCmdRunChance = 1;
+		this.zombieVillagerMoney = mConfig0.zombieVillagerPrize;
+		this.zombieVillagerCommands = convertCommands(mConfig0.zombieVillagerCmd, mConfig0.zombieVillagerCmdRunChance);
+		this.zombieVillagerMessage = mConfig0.zombieVillagerCmdDesc;
 		this.zombieVillagerHeadDropHead = convertDropHeadEnabled(mConfig0.zombieVillagerCmd);
 		this.zombieVillagerHeadPrize = mConfig0.zombieVillagerHeadPrize;
 		this.zombieVillagerHeadDropChance = mConfig0.zombieVillagerCmdRunChance;
 		this.zombieVillagerHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.batPrize = mConfig0.batPrize;
-		this.batCmdNew = convertCommands(mConfig0.batCmd, mConfig0.batCmdRunChance);
-		this.batCmdDesc = mConfig0.batCmdDesc;
-		this.batCmdRunChance = 1;
+		this.batMoney = mConfig0.batPrize;
+		this.batCommands = convertCommands(mConfig0.batCmd, mConfig0.batCmdRunChance);
+		this.batMessage = mConfig0.batCmdDesc;
 		this.batHeadDropHead = convertDropHeadEnabled(mConfig0.batCmd);
 		this.batHeadPrize = mConfig0.batHeadPrize;
 		this.batHeadDropChance = mConfig0.batCmdRunChance;
 		this.batHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.chickenPrize = mConfig0.chickenPrize;
-		this.chickenCmdNew = convertCommands(mConfig0.chickenCmd, mConfig0.chickenCmdRunChance);
-		this.chickenCmdDesc = mConfig0.chickenCmdDesc;
-		this.chickenCmdRunChance = 1;
+		this.chickenMoney = mConfig0.chickenPrize;
+		this.chickenCommands = convertCommands(mConfig0.chickenCmd, mConfig0.chickenCmdRunChance);
+		this.chickenMessage = mConfig0.chickenCmdDesc;
 		this.chickenHeadDropHead = convertDropHeadEnabled(mConfig0.chickenCmd);
 		this.chickenHeadPrize = mConfig0.chickenHeadPrize;
 		this.chickenHeadDropChance = mConfig0.chickenCmdRunChance;
@@ -4024,172 +3986,153 @@ public class ConfigManager extends AutoConfig {
 		this.cowHeadDropChance = mConfig0.cowCmdRunChance;
 		this.cowHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.donkeyPrize = mConfig0.donkeyPrize;
-		this.donkeyCmdNew = convertCommands(mConfig0.donkeyCmd, mConfig0.donkeyCmdRunChance);
-		this.donkeyCmdDesc = mConfig0.donkeyCmdDesc;
-		this.donkeyCmdRunChance = 1;
+		this.donkeyMoney = mConfig0.donkeyPrize;
+		this.donkeyCommands = convertCommands(mConfig0.donkeyCmd, mConfig0.donkeyCmdRunChance);
+		this.donkeyMessage = mConfig0.donkeyCmdDesc;
 		this.donkeyHeadDropHead = convertDropHeadEnabled(mConfig0.donkeyCmd);
 		this.donkeyHeadPrize = mConfig0.donkeyHeadPrize;
 		this.donkeyHeadDropChance = mConfig0.donkeyCmdRunChance;
 		this.donkeyHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.horsePrize = mConfig0.horsePrize;
-		this.horseCmdNew = convertCommands(mConfig0.horseCmd, mConfig0.horseCmdRunChance);
-		this.horseCmdDesc = mConfig0.horseCmdDesc;
-		this.horseCmdRunChance = 1;
+		this.horseMoney = mConfig0.horsePrize;
+		this.horseCommands = convertCommands(mConfig0.horseCmd, mConfig0.horseCmdRunChance);
+		this.horseMessage = mConfig0.horseCmdDesc;
 		this.horseHeadDropHead = convertDropHeadEnabled(mConfig0.horseCmd);
 		this.horseHeadPrize = mConfig0.horseHeadPrize;
 		this.horseHeadDropChance = mConfig0.horseCmdRunChance;
 		this.horseHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.llamaPrize = mConfig0.llamaPrize;
-		this.llamaCmdNew = convertCommands(mConfig0.llamaCmd, mConfig0.llamaCmdRunChance);
-		this.llamaCmdDesc = mConfig0.llamaCmdDesc;
-		this.llamaCmdRunChance = 1;
+		this.llamaMoney = mConfig0.llamaPrize;
+		this.llamaCommands = convertCommands(mConfig0.llamaCmd, mConfig0.llamaCmdRunChance);
+		this.llamaMessage = mConfig0.llamaCmdDesc;
 		this.llamaHeadDropHead = convertDropHeadEnabled(mConfig0.llamaCmd);
 		this.llamaHeadPrize = mConfig0.llamaHeadPrize;
 		this.llamaHeadDropChance = mConfig0.llamaCmdRunChance;
 		this.llamaHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.mulePrize = mConfig0.mulePrize;
-		this.muleCmdNew = convertCommands(mConfig0.muleCmd, mConfig0.muleCmdRunChance);
-		this.muleCmdDesc = mConfig0.muleCmdDesc;
-		this.muleCmdRunChance = 1;
+		this.muleMoney = mConfig0.mulePrize;
+		this.muleCommands = convertCommands(mConfig0.muleCmd, mConfig0.muleCmdRunChance);
+		this.muleMessage = mConfig0.muleCmdDesc;
 		this.muleHeadDropHead = convertDropHeadEnabled(mConfig0.muleCmd);
 		this.muleHeadPrize = mConfig0.muleHeadPrize;
 		this.muleHeadDropChance = mConfig0.muleCmdRunChance;
 		this.muleHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.mushroomCowPrize = mConfig0.mushroomCowPrize;
-		this.mushroomCowCmdNew = convertCommands(mConfig0.mushroomCowCmd, mConfig0.mushroomCowCmdRunChance);
-		this.mushroomCowCmdDesc = mConfig0.mushroomCowCmdDesc;
-		this.mushroomCowCmdRunChance = 1;
+		this.mushroomCowMoney = mConfig0.mushroomCowPrize;
+		this.mushroomCowCommands = convertCommands(mConfig0.mushroomCowCmd, mConfig0.mushroomCowCmdRunChance);
+		this.mushroomCowMessage = mConfig0.mushroomCowCmdDesc;
 		this.mushroomCowHeadDropHead = convertDropHeadEnabled(mConfig0.mushroomCowCmd);
 		this.mushroomCowHeadPrize = mConfig0.mushroomCowHeadPrize;
 		this.mushroomCowHeadDropChance = mConfig0.mushroomCowCmdRunChance;
 		this.mushroomCowHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.ocelotPrize = mConfig0.ocelotPrize;
-		this.ocelotCmdNew = convertCommands(mConfig0.ocelotCmd, mConfig0.ocelotCmdRunChance);
-		this.ocelotCmdDesc = mConfig0.ocelotCmdDesc;
-		this.ocelotCmdRunChance = 1;
+		this.ocelotMoney = mConfig0.ocelotPrize;
+		this.ocelotCommands = convertCommands(mConfig0.ocelotCmd, mConfig0.ocelotCmdRunChance);
+		this.ocelotMessage = mConfig0.ocelotCmdDesc;
 		this.ocelotHeadDropHead = convertDropHeadEnabled(mConfig0.ocelotCmd);
 		this.ocelotHeadPrize = mConfig0.ocelotHeadPrize;
 		this.ocelotHeadDropChance = mConfig0.ocelotCmdRunChance;
 		this.ocelotHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.parrotPrize = mConfig0.parrotPrize;
-		this.parrotCmdNew = convertCommands(mConfig0.parrotCmd, mConfig0.parrotCmdRunChance);
-		this.parrotCmdDesc = mConfig0.parrotCmdDesc;
-		this.parrotCmdRunChance = 1;
+		this.parrotMoney = mConfig0.parrotPrize;
+		this.parrotCommands = convertCommands(mConfig0.parrotCmd, mConfig0.parrotCmdRunChance);
+		this.parrotMessage = mConfig0.parrotCmdDesc;
 		this.parrotHeadDropHead = convertDropHeadEnabled(mConfig0.parrotCmd);
 		this.parrotHeadPrize = mConfig0.parrotHeadPrize;
 		this.parrotHeadDropChance = mConfig0.parrotCmdRunChance;
 		this.parrotHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.pigPrize = mConfig0.pigPrize;
-		this.pigCmdNew = convertCommands(mConfig0.pigCmd, mConfig0.pigCmdRunChance);
-		this.pigCmdDesc = mConfig0.pigCmdDesc;
-		this.pigCmdRunChance = 1;
+		this.pigMoney = mConfig0.pigPrize;
+		this.pigCommands = convertCommands(mConfig0.pigCmd, mConfig0.pigCmdRunChance);
+		this.pigMessage = mConfig0.pigCmdDesc;
 		this.pigHeadDropHead = convertDropHeadEnabled(mConfig0.pigCmd);
 		this.pigHeadPrize = mConfig0.pigHeadPrize;
 		this.pigHeadDropChance = mConfig0.pigCmdRunChance;
 		this.pigHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.rabbitPrize = mConfig0.rabbitPrize;
-		this.rabbitCmdNew = convertCommands(mConfig0.rabbitCmd, mConfig0.rabbitCmdRunChance);
-		this.rabbitCmdDesc = mConfig0.rabbitCmdDesc;
-		this.rabbitCmdRunChance = 1;
+		this.rabbitMoney = mConfig0.rabbitPrize;
+		this.rabbitCommads = convertCommands(mConfig0.rabbitCmd, mConfig0.rabbitCmdRunChance);
+		this.rabbitMessage = mConfig0.rabbitCmdDesc;
 		this.rabbitHeadDropHead = convertDropHeadEnabled(mConfig0.rabbitCmd);
 		this.rabbitHeadPrize = mConfig0.rabbitHeadPrize;
 		this.rabbitHeadDropChance = mConfig0.rabbitCmdRunChance;
 		this.rabbitHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.sheepPrize = mConfig0.sheepPrize;
-		this.sheepCmdNew = convertCommands(mConfig0.sheepCmd, mConfig0.sheepCmdRunChance);
-		this.sheepCmdDesc = mConfig0.sheepCmdDesc;
-		this.sheepCmdRunChance = 1;
+		this.sheepMoney = mConfig0.sheepPrize;
+		this.sheepCommands = convertCommands(mConfig0.sheepCmd, mConfig0.sheepCmdRunChance);
+		this.sheepMessage = mConfig0.sheepCmdDesc;
 		this.sheepHeadDropHead = convertDropHeadEnabled(mConfig0.sheepCmd);
 		this.sheepHeadPrize = mConfig0.sheepHeadPrize;
 		this.sheepHeadDropChance = mConfig0.sheepCmdRunChance;
 		this.sheepHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.skeletonHorsePrize = mConfig0.skeletonhorsePrize;
-		this.skeletonHorseCmdNew = convertCommands(mConfig0.skeletonhorseCmd, mConfig0.skeletonhorseCmdRunChance);
-		this.skeletonHorseCmdDesc = mConfig0.skeletonhorseCmdDesc;
-		this.skeletonHorseCmdRunChance = 1;
+		this.skeletonHorseMoney = mConfig0.skeletonhorsePrize;
+		this.skeletonHorseCommands = convertCommands(mConfig0.skeletonhorseCmd, mConfig0.skeletonhorseCmdRunChance);
+		this.skeletonHorseMessage = mConfig0.skeletonhorseCmdDesc;
 		this.skeletonHorseHeadDropHead = convertDropHeadEnabled(mConfig0.skeletonhorseCmd);
 		this.skeletonHorseHeadPrize = mConfig0.skeletonHorseHeadPrize;
 		this.skeletonHorseHeadDropChance = mConfig0.skeletonhorseCmdRunChance;
 		this.skeletonHorseHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.snowmanPrize = mConfig0.snowmanPrize;
-		this.snowmanCmdNew = convertCommands(mConfig0.snowmanCmd, mConfig0.snowmanCmdRunChance);
-		this.snowmanCmdDesc = mConfig0.snowmanCmdDesc;
-		this.snowmanCmdRunChance = 1;
+		this.snowmanMoney = mConfig0.snowmanPrize;
+		this.snowmanCommands = convertCommands(mConfig0.snowmanCmd, mConfig0.snowmanCmdRunChance);
+		this.snowmanMessage = mConfig0.snowmanCmdDesc;
 		this.snowmanHeadDropHead = convertDropHeadEnabled(mConfig0.snowmanCmd);
 		this.snowmanHeadPrize = mConfig0.snowmanHeadPrize;
 		this.snowmanHeadDropChance = mConfig0.snowmanCmdRunChance;
 		this.snowmanHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.squidPrize = mConfig0.squidPrize;
-		this.squidCmdNew = convertCommands(mConfig0.squidCmd, mConfig0.squidCmdRunChance);
-		this.squidCmdDesc = mConfig0.squidCmdDesc;
-		this.squidCmdRunChance = 1;
+		this.squidMoney = mConfig0.squidPrize;
+		this.squidCommands = convertCommands(mConfig0.squidCmd, mConfig0.squidCmdRunChance);
+		this.squidMessage = mConfig0.squidCmdDesc;
 		this.squidHeadDropHead = convertDropHeadEnabled(mConfig0.squidCmd);
 		this.squidHeadPrize = mConfig0.squidHeadPrize;
 		this.squidHeadDropChance = mConfig0.squidCmdRunChance;
 		this.squidHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.wolfPrize = mConfig0.wolfPrize;
-		this.wolfCmdNew = convertCommands(mConfig0.wolfCmd, mConfig0.wolfCmdRunChance);
-		this.wolfCmdDesc = mConfig0.wolfCmdDesc;
-		this.wolfCmdRunChance = 1;
+		this.wolfMoney = mConfig0.wolfPrize;
+		this.wolfCommands = convertCommands(mConfig0.wolfCmd, mConfig0.wolfCmdRunChance);
+		this.wolfMessage = mConfig0.wolfCmdDesc;
 		this.wolfHeadDropHead = convertDropHeadEnabled(mConfig0.wolfCmd);
 		this.wolfHeadPrize = mConfig0.wolfHeadPrize;
 		this.wolfHeadDropChance = mConfig0.wolfCmdRunChance;
 		this.wolfHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.zombieHorsePrize = mConfig0.zombiehorsePrize;
-		this.zombieHorseCmdNew = convertCommands(mConfig0.zombiehorseCmd, mConfig0.zombiehorseCmdRunChance);
-		this.zombieHorseCmdDesc = mConfig0.zombiehorseCmdDesc;
-		this.zombieHorseCmdRunChance = 1;
+		this.zombieHorseMoney = mConfig0.zombiehorsePrize;
+		this.zombieHorseCommands = convertCommands(mConfig0.zombiehorseCmd, mConfig0.zombiehorseCmdRunChance);
+		this.zombieHorseMessage = mConfig0.zombiehorseCmdDesc;
 		this.zombieHorseHeadDropHead = convertDropHeadEnabled(mConfig0.zombiehorseCmd);
 		this.zombieHorseHeadPrize = mConfig0.zombiehorseHeadPrize;
 		this.zombieHorseHeadDropChance = mConfig0.zombiehorseCmdRunChance;
 		this.zombieHorseHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.rawFishPrize = mConfig0.rawFishPrize;
-		this.rawFishCmdNew = convertCommands(mConfig0.rawFishCmd, mConfig0.rawFishCmdRunChance);
-		this.rawFishCmdDesc = mConfig0.rawFishCmdDesc;
-		this.rawFishCmdRunChance = 1;
+		this.rawFishMoney = mConfig0.rawFishPrize;
+		this.rawFishCommands = convertCommands(mConfig0.rawFishCmd, mConfig0.rawFishCmdRunChance);
+		this.rawFishMessage = mConfig0.rawFishCmdDesc;
 		this.rawFishHeadDropHead = convertDropHeadEnabled(mConfig0.rawFishCmd);
 		this.rawFishHeadPrize = mConfig0.rawFishHeadPrize;
 		this.rawFishHeadDropChance = mConfig0.rawFishCmdRunChance;
 		this.rawFishHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.rawSalmonPrize = mConfig0.rawSalmonPrize;
-		this.rawSalmonCmdNew = convertCommands(mConfig0.rawSalmonCmd, mConfig0.rawSalmonCmdRunChance);
-		this.rawSalmonCmdDesc = mConfig0.rawSalmonCmdDesc;
-		this.rawSalmonCmdRunChance = 1;
+		this.rawSalmonMoney = mConfig0.rawSalmonPrize;
+		this.rawSalmonCommands = convertCommands(mConfig0.rawSalmonCmd, mConfig0.rawSalmonCmdRunChance);
+		this.rawSalmonMessage = mConfig0.rawSalmonCmdDesc;
 		this.rawSalmonHeadDropHead = convertDropHeadEnabled(mConfig0.rawSalmonCmd);
 		this.rawSalmonHeadPrize = mConfig0.rawSalmonHeadPrize;
 		this.rawSalmonHeadDropChance = mConfig0.rawSalmonCmdRunChance;
 		this.rawSalmonHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.clownfishPrize = mConfig0.clownfishPrize;
-		this.clownfishCmdNew = convertCommands(mConfig0.clownfishCmd, mConfig0.clownfishCmdRunChance);
-		this.clownfishCmdDesc = mConfig0.clownfishCmdDesc;
-		this.clownfishCmdRunChance = 1;
+		this.clownfishMoney = mConfig0.clownfishPrize;
+		this.clownfishCommands = convertCommands(mConfig0.clownfishCmd, mConfig0.clownfishCmdRunChance);
+		this.clownfishMessage = mConfig0.clownfishCmdDesc;
 		this.clownfishHeadDropHead = convertDropHeadEnabled(mConfig0.clownfishCmd);
 		this.clownfishHeadPrize = mConfig0.clownfishHeadPrize;
 		this.clownfishHeadDropChance = mConfig0.clownfishCmdRunChance;
 		this.clownfishHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.pufferfishPrize = mConfig0.pufferfishPrize;
-		this.pufferfishCmdNew = convertCommands(mConfig0.pufferfishCmd, mConfig0.pufferfishCmdRunChance);
-		this.pufferfishCmdDesc = mConfig0.pufferfishCmdDesc;
-		this.pufferfishCmdRunChance = 1;
+		this.pufferfishMoney = mConfig0.pufferfishPrize;
+		this.pufferfishCommands = convertCommands(mConfig0.pufferfishCmd, mConfig0.pufferfishCmdRunChance);
+		this.pufferfishMessage = mConfig0.pufferfishCmdDesc;
 		this.pufferfishHeadDropHead = convertDropHeadEnabled(mConfig0.pufferfishCmd);
 		this.pufferfishHeadPrize = mConfig0.pufferfishHeadPrize;
 		this.pufferfishHeadDropChance = mConfig0.pufferfishCmdRunChance;
@@ -4197,9 +4140,8 @@ public class ConfigManager extends AutoConfig {
 
 		this.pvpAllowed = mConfig0.pvpAllowed;
 		this.robFromVictim = mConfig0.robFromVictim;
-		this.pvpKillCmdDesc = mConfig0.pvpKillCmdDesc;
-		this.pvpKillPrize = mConfig0.pvpKillPrize;
-		this.pvpCmdRunChance = 1;
+		this.pvpKillMessage = mConfig0.pvpKillCmdDesc;
+		this.pvpKillMoney = mConfig0.pvpKillPrize;
 		this.pvpCmdNew = convertCommands(mConfig0.pvpKillCmd, mConfig0.pvpKillCmdRunChance);
 		this.pvpHeadDropHead = convertDropHeadEnabled(mConfig0.pvpKillCmd);
 		this.pvpHeadPrize = mConfig0.pvpHeadPrize;
@@ -4663,11 +4605,13 @@ public class ConfigManager extends AutoConfig {
 		if (!str.equals("")) {
 			String[] commands = str.split("\\|");
 			for (int n = commands.length; n > 0; n--) {
-				HashMap<String, String> cmd = new HashMap<String, String>();
-				cmd.put("cmd", commands[n - 1]);
-				cmd.put("chance", String.valueOf(chance));
-				cmd.put("message", "");
-				result.add(cmd);
+				if (!commands[n - 1].contains("head give")) {
+					HashMap<String, String> cmd = new HashMap<String, String>();
+					cmd.put("cmd", commands[n - 1]);
+					cmd.put("chance", String.valueOf(chance));
+					cmd.put("message", "");
+					result.add(cmd);
+				}
 			}
 		}
 		return result;

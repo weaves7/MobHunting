@@ -41,7 +41,7 @@ public class TheHuntBegins implements Achievement, Listener {
 	public void onKill(MobHuntKillEvent event) {
 		Entity killedEntity = event.getKilledEntity();
 		if (plugin.getRewardManager().getBaseKillPrize(killedEntity) != 0
-				|| !plugin.getRewardManager().getKillConsoleCmd(killedEntity).isEmpty())
+				|| !plugin.getRewardManager().getKillCommands(killedEntity).isEmpty())
 			plugin.getAchievementManager().awardAchievement(this, event.getPlayer(),
 					plugin.getExtendedMobManager().getExtendedMobFromEntity(killedEntity));
 	}
