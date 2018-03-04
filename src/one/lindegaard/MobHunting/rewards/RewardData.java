@@ -159,7 +159,7 @@ public class RewardData {
 		section.set("money.chance", chance);
 		section.set("message", message);
 
-		section.set("commands", consoleRunCommand);
+		section.set("commands", consoleRunCommand != null ? consoleRunCommand : new ArrayList<>());
 
 		section.set("mcmmo.chance", mcMMOSkillRewardChance);
 		section.set("mcmmo.xp", mcMMOSkillRewardAmount);
@@ -173,7 +173,7 @@ public class RewardData {
 		mobName = section.getString("mobName");
 
 		if (section.get("enabled") != null) {
-			mobEnabled = section.getBoolean("enabled",true);
+			mobEnabled = section.getBoolean("enabled", true);
 			money = section.getString("money.amount", "5");
 			chance = section.getDouble("money.chance", 1);
 			message = section.getString("message", "You got a reward");
@@ -184,7 +184,7 @@ public class RewardData {
 			mcMMOSkillRewardAmount = section.getInt("mcmmo.xp", 1);
 
 			progressAchievementLevel1 = section.getInt("achivement_level1", PROGRESS_ACHIEVEMENT_LEVEL1);
-		} else { 
+		} else {
 			// enabled is missing, convert data
 			mobEnabled = true;
 			money = section.getString("rewardPrize");
@@ -196,14 +196,14 @@ public class RewardData {
 				chance = propability / propabilityBase;
 			}
 			message = section.getString("rewardDescription", "");
-			
+
 			if (section.get("consoleRunCommand") instanceof String)
 				consoleRunCommand = ConfigManager.convertCommands((String) section.get("consoleRunCommand"),
 						Double.valueOf(chance));
-			
+
 			mcMMOSkillRewardChance = section.getDouble("mcmmo_chance", 0.02);
 			mcMMOSkillRewardAmount = section.getInt("mcmmo_xp", 1);
-			
+
 			progressAchievementLevel1 = section.getInt("achivement_level1", PROGRESS_ACHIEVEMENT_LEVEL1);
 		}
 	}

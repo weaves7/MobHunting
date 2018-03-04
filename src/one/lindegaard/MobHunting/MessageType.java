@@ -1,7 +1,7 @@
 package one.lindegaard.MobHunting;
 
 public enum MessageType {
-	Chat("Chat"), ActionBar("ActionBar"), BossBar("BossBar");
+	Chat("Chat"), ActionBar("ActionBar"), BossBar("BossBar"), Title("Title"), Subtitle("Subtitle");
 
 	private final String name;
 
