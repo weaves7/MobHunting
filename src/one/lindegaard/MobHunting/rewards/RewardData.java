@@ -178,7 +178,7 @@ public class RewardData {
 			chance = section.getDouble("money.chance", 1);
 			message = section.getString("message", "You got a reward");
 
-			if (section.get("command") != null)
+			if (section.get("commands") != null)
 				consoleRunCommand = (List<HashMap<String, String>>) section.get("commands");
 			else
 				consoleRunCommand = new ArrayList<>();
