@@ -1141,8 +1141,8 @@ public class MobHuntingManager implements Listener {
 				mob.getMobName());
 
 		// There is no reward and no penalty for this kill
-		if (basic_prize == 0 && (plugin.getRewardManager().getKillCommands(killed) == null
-				|| plugin.getRewardManager().getKillCommands(killed).isEmpty()) && !plugin.getRewardManager().getHeadDropHead(killed)) {
+		if (basic_prize == 0 && plugin.getRewardManager().getKillCommands(killed).isEmpty()
+				&& !plugin.getRewardManager().getHeadDropHead(killed)) {
 			plugin.getMessages().debug(
 					"KillBlocked %s(%d): There is no reward and no penalty for this Mob/Player and is not counted as kill/achievement.",
 					mob.getMobName(), killed.getEntityId());
@@ -1285,7 +1285,6 @@ public class MobHuntingManager implements Listener {
 
 		// Grinding detection
 		if (cash != 0 && plugin.getConfigManager().grindingDetectionEnabled
-				&& plugin.getRewardManager().getKillCommands(killed) != null
 				&& !plugin.getRewardManager().getKillCommands(killed).isEmpty()) {
 			// Check if the location is marked as a Grinding Area. Whitelist
 			// overrules blacklist.
@@ -1493,8 +1492,7 @@ public class MobHuntingManager implements Listener {
 
 		// Check if there is a reward for this kill
 		if (cash >= plugin.getConfigManager().minimumReward || cash <= -plugin.getConfigManager().minimumReward
-				|| (plugin.getRewardManager().getKillCommands(killed) != null
-						&& !plugin.getRewardManager().getKillCommands(killed).isEmpty())
+				|| !plugin.getRewardManager().getKillCommands(killed).isEmpty()
 				|| (killer != null && McMMOCompat.isSupported() && plugin.getConfigManager().enableMcMMOLevelRewards)
 				|| plugin.getRewardManager().getHeadDropHead(killed)) {
 
@@ -1745,8 +1743,7 @@ public class MobHuntingManager implements Listener {
 				if (random < Double.valueOf(cmd.get("chance"))) {
 					String prizeCommand = cmd.get("cmd").replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
 							.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
-							.replaceAll("\\{killed\\}", mob.getFriendlyName())
-							.replaceAll("\\{world\\}", worldname)
+							.replaceAll("\\{killed\\}", mob.getFriendlyName()).replaceAll("\\{world\\}", worldname)
 							.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
 							.replace("{prize}", plugin.getRewardManager().format(cash))
 							.replaceAll("\\{killerpos\\}", killerpos).replaceAll("\\{killedpos\\}", killedpos)
@@ -1830,8 +1827,8 @@ public class MobHuntingManager implements Listener {
 				}
 				plugin.getMessages().debug("%s killed a %s and a head was dropped", killer.getName(), killed.getName());
 				if (!plugin.getRewardManager().getHeadDropMessage(killed).isEmpty())
-					plugin.getMessages().playerSendMessage(killer,ChatColor.GREEN +
-							plugin.getRewardManager().getHeadDropMessage(killed)
+					plugin.getMessages().playerSendMessage(killer,
+							ChatColor.GREEN + plugin.getRewardManager().getHeadDropMessage(killed)
 									.replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
 									.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
 									.replaceAll("\\{killed\\}", mob.getFriendlyName())
@@ -1970,7 +1967,7 @@ public class MobHuntingManager implements Listener {
 
 		if (!isHuntEnabledInWorld(event.getLocation().getWorld())
 				|| (plugin.getRewardManager().getBaseKillPrize(event.getEntity()) == 0
-						&& plugin.getRewardManager().getKillCommands(event.getEntity()).equals(""))
+						&& plugin.getRewardManager().getKillCommands(event.getEntity()).isEmpty())
 				|| event.getSpawnReason() != SpawnReason.NATURAL)
 			return;
 
@@ -1993,7 +1990,7 @@ public class MobHuntingManager implements Listener {
 
 		if (!isHuntEnabledInWorld(event.getLocation().getWorld())
 				|| (plugin.getRewardManager().getBaseKillPrize(event.getEntity()) == 0)
-						&& plugin.getRewardManager().getKillCommands(event.getEntity()).equals(""))
+						&& plugin.getRewardManager().getKillCommands(event.getEntity()).isEmpty())
 			return;
 
 		if (event.getSpawnReason() == SpawnReason.SPAWNER || event.getSpawnReason() == SpawnReason.SPAWNER_EGG
@@ -2018,7 +2015,7 @@ public class MobHuntingManager implements Listener {
 
 		if (!isHuntEnabledInWorld(event.getLocation().getWorld())
 				|| (plugin.getRewardManager().getBaseKillPrize(mob) <= 0)
-						&& plugin.getRewardManager().getKillCommands(mob).equals(""))
+						&& plugin.getRewardManager().getKillCommands(mob).isEmpty())
 			return;
 
 		event.getEntity().setMetadata("MH:reinforcement", new FixedMetadataValue(plugin, true));

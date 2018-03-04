@@ -1,3 +1,5 @@
+V5.5.1
+* Fixed NPE error, when there is no commands to run.
 V5.5.0
 * The configuration file config.yml has been completely redesigned and extra features has been added. Individual mobs can be enabled/disabled. Each command has its own chance to run and its own message. Also DropHead is a new feature, which can be enabled/disabled and has its own chance and message. All settings will be autoconverted to the new format, but you should check the settings after first run.
 * Fixed Grinding for Slimes and Magma Cubes.

@@ -270,7 +270,7 @@ public class FishingManager implements Listener {
 								.replaceAll("\\{killerpos\\}", fishermanPos)
 								.replaceAll("{rewardname}", plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
 						plugin.getMessages().debug("command to be run is:" + prizeCommand);
-						if (!plugin.getRewardManager().getKillCommands(fish).equals("")) {
+						if (!plugin.getRewardManager().getKillCommands(fish).isEmpty()) {
 							String str = prizeCommand;
 							do {
 								if (str.contains("|")) {
