@@ -178,7 +178,10 @@ public class RewardData {
 			chance = section.getDouble("money.chance", 1);
 			message = section.getString("message", "You got a reward");
 
-			consoleRunCommand = (List<HashMap<String, String>>) section.get("commands");
+			if (section.get("command") != null)
+				consoleRunCommand = (List<HashMap<String, String>>) section.get("commands");
+			else
+				consoleRunCommand = new ArrayList<>();
 
 			mcMMOSkillRewardChance = section.getDouble("mcmmo.chance", 0.02);
 			mcMMOSkillRewardAmount = section.getInt("mcmmo.xp", 1);
