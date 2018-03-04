@@ -1,5 +1,8 @@
 package one.lindegaard.MobHunting.compatibility;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -61,7 +64,7 @@ public class MythicMobsV251Compat implements Listener {
 			MythicMobsCompat.getMobRewardData().put(mobtype,
 					new RewardData(MobPlugin.MythicMobs, mobtype, event.getMobType().getDisplayName(), 
 							true,"10", 1, "You killed a Mythic mob",
-							null, 1, 0.02));
+							new ArrayList<HashMap<String,String>>(), 1, 0.02));
 			MythicMobsCompat.saveMythicMobsData(mobtype);
 			MobHunting.getInstance().getStoreManager().insertMissingMythicMobs(mobtype);
 			// Update mob loaded into memory

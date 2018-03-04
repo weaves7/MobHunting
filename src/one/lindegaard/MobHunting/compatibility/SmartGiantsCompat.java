@@ -2,6 +2,7 @@ package one.lindegaard.MobHunting.compatibility;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -121,7 +122,7 @@ public class SmartGiantsCompat implements Listener {
 				String monster = "SmartGiant";
 				mMobRewardData.put(monster, new RewardData(MobPlugin.SmartGiants, monster, monster,
 						true,"100:200",1,"You killed a SmartGiant",
-						null, 1, 0.02));
+						new ArrayList<HashMap<String,String>>(), 1, 0.02));
 				saveSmartGiantsData(mMobRewardData.get(monster).getMobType());
 				return;
 			}
@@ -218,7 +219,7 @@ public class SmartGiantsCompat implements Listener {
 				MobHunting.getInstance().getMessages().debug("New SmartGiants mob found=%s (%s)", mobtype, mobtype.toString());
 				mMobRewardData.put(mobtype, new RewardData(MobPlugin.SmartGiants, mobtype, mobtype, 
 						true,"100:200",1,"You killed a SmartGiant",
-						null, 1, 0.02));
+						new ArrayList<HashMap<String,String>>(), 1, 0.02));
 				saveSmartGiantsData(mobtype);
 				MobHunting.getInstance().getStoreManager().insertSmartGiants(mobtype);
 				// Update mob loaded into memory

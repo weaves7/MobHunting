@@ -2,6 +2,7 @@ package one.lindegaard.MobHunting.npc;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -322,7 +323,7 @@ public class MasterMobHunterManager implements Listener {
 						MasterMobHunter masterMobHunter = new MasterMobHunter(plugin, npc);
 						CitizensCompat.getMasterMobHunterManager().put(npc.getId(), masterMobHunter);
 						RewardData rewardData = new RewardData(MobPlugin.Citizens, "npc", npc.getFullName(), true,"0",1,"You killed a Citizen",
-								null, 1, 0.02);
+								new ArrayList<HashMap<String,String>>(), 1, 0.02);
 						CitizensCompat.getMobRewardData().put(String.valueOf(npc.getId()), rewardData);
 						npc.getEntity().setMetadata(CitizensCompat.MH_CITIZENS,
 								new FixedMetadataValue(plugin, rewardData));

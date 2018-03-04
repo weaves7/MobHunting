@@ -2,6 +2,7 @@ package one.lindegaard.MobHunting.compatibility;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -246,7 +247,7 @@ public class CitizensCompat implements Listener {
 					mMobRewardData.put(String.valueOf(npc.getId()),
 							new RewardData(MobPlugin.Citizens, "npc", npc.getFullName(), 
 									true, "10",1,"You killed a Citizen",
-									null,  1, 0.02));
+									new ArrayList<HashMap<String,String>>(),  1, 0.02));
 					saveCitizensData(String.valueOf(npc.getId()));
 				}
 			}
@@ -257,7 +258,7 @@ public class CitizensCompat implements Listener {
 					RewardData rewardData = new RewardData(MobPlugin.Citizens, 
 							"npc", npc.getFullName(), 
 							true,"0",1, "You killed a Citizen",
-							null,  1, 0.02);
+							new ArrayList<HashMap<String,String>>(),  1, 0.02);
 					CitizensCompat.getMobRewardData().put(String.valueOf(npc.getId()), rewardData);
 					npc.getEntity().setMetadata(CitizensCompat.MH_CITIZENS,
 							new FixedMetadataValue(MobHunting.getInstance(), rewardData));

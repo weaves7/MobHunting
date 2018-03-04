@@ -49,7 +49,7 @@ public class RewardData {
 		this.chance = chance;
 		this.message = message;
 
-		this.consoleRunCommand = cmd;
+		this.consoleRunCommand = cmd != null ? cmd : new ArrayList<HashMap<String, String>>();
 		this.setMcMMOSkillRewardAmount(mcmmo_xp);
 		this.setMcMMOSkillRewardChance(mcmmo_chance);
 	}

@@ -2,6 +2,7 @@ package one.lindegaard.MobHunting.compatibility;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
@@ -105,8 +106,10 @@ public class TARDISWeepingAngelsCompat implements Listener {
 		try {
 			if (!file.exists()) {
 				for (Monster monster : Monster.getValues()) {
-					mMobRewardData.put(monster.name(), new RewardData(MobPlugin.TARDISWeepingAngels, monster.name(),
-							monster.getName(), true, "40:60", 1, "You killed a TRADIS Mob", null, 1, 0.02));
+					mMobRewardData.put(monster.name(),
+							new RewardData(MobPlugin.TARDISWeepingAngels, monster.name(), monster.getName(), true,
+									"40:60", 1, "You killed a TRADIS Mob", new ArrayList<HashMap<String, String>>(), 1,
+									0.02));
 					saveTARDISWeepingAngelsMobsData(mMobRewardData.get(monster.name()).getMobType());
 					MobHunting.getInstance().getStoreManager().insertTARDISWeepingAngelsMobs(monster.name);
 				}
@@ -204,8 +207,9 @@ public class TARDISWeepingAngelsCompat implements Listener {
 		if (mMobRewardData != null && !mMobRewardData.containsKey(monster.name())) {
 			MobHunting.getInstance().getMessages().debug("New TARDIS mob found=%s (%s)", monster.name(),
 					monster.getName());
-			mMobRewardData.put(monster.name(), new RewardData(MobPlugin.TARDISWeepingAngels, monster.name(),
-					monster.getName(), true, "40:60", 1, "You killed a TARDIS Mob", null, 1, 0.02));
+			mMobRewardData.put(monster.name(),
+					new RewardData(MobPlugin.TARDISWeepingAngels, monster.name(), monster.getName(), true, "40:60", 1,
+							"You killed a TARDIS Mob", new ArrayList<HashMap<String, String>>(), 1, 0.02));
 			saveTARDISWeepingAngelsMobsData(monster.name());
 			MobHunting.getInstance().getStoreManager().insertTARDISWeepingAngelsMobs(monster.name);
 			// Update mob loaded into memory

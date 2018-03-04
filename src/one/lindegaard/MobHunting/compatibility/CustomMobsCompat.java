@@ -2,6 +2,7 @@ package one.lindegaard.MobHunting.compatibility;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -78,7 +79,7 @@ public class CustomMobsCompat implements Listener {
 					} else
 						mob = new RewardData(MobPlugin.CustomMobs, CustomMobsAPI.getCustomMob(key).getName(),
 								CustomMobsAPI.getCustomMob(key).getDisplayName(), true,"10",1,"You killed a CustomMob",
-								null, 1, 0.02);
+								new ArrayList<HashMap<String,String>>(), 1, 0.02);
 
 					mMobRewardData.put(key, mob);
 					MobHunting.getInstance().getStoreManager().insertCustomMobs(key);
@@ -229,7 +230,7 @@ public class CustomMobsCompat implements Listener {
 			String name = mob.getDisplayName() == null ? mob.getName() : mob.getDisplayName();
 			mMobRewardData.put(mob.getName(), new RewardData(MobPlugin.CustomMobs, mob.getName(), name, 
 					true, "10", 1, "You killed a CustomMob",
-					null, 1, 0.02));
+					new ArrayList<HashMap<String,String>>(), 1, 0.02));
 			saveCustomMobsData(mob.getName());
 			MobHunting.getInstance().getStoreManager().insertCustomMobs(mob.getName());
 			// Update mob loaded into memory

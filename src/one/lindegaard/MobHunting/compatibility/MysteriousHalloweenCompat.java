@@ -2,6 +2,7 @@ package one.lindegaard.MobHunting.compatibility;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
@@ -114,7 +115,7 @@ public class MysteriousHalloweenCompat implements Listener {
 							new RewardData(MobPlugin.MysteriousHalloween, monster.name(),
 									MysteriousHalloweenAPI.getMobTypeName(monster),
 									true,"40:60",1,"You killed a MysteriousHalloween mob",
-									null, 1, 0.02));
+									new ArrayList<HashMap<String,String>>(), 1, 0.02));
 					saveMysteriousHalloweenMobsData(mMobRewardData.get(monster.name()).getMobType());
 				}
 				return;
@@ -217,7 +218,7 @@ public class MysteriousHalloweenCompat implements Listener {
 						new RewardData(MobPlugin.MysteriousHalloween, monster.name(),
 								MysteriousHalloweenAPI.getMobTypeName(monster), 
 								true,"40:60",1,"You killed a MysteriousHalloween mob",
-								null, 1, 0.02));
+								new ArrayList<HashMap<String,String>>(), 1, 0.02));
 				saveMysteriousHalloweenMobsData(monster.name());
 				MobHunting.getInstance().getStoreManager().insertMysteriousHalloweenMobs(monster.name());
 				// Update mob loaded into memory
