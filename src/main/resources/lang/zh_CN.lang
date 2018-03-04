@@ -227,6 +227,7 @@ mobhunting.commands.npc.unknown_rank=Rank (§b${rank}§f)grather 必须大于0�
 mobhunting.commands.npc.unknown_stattype=未知的数据类型e §b${stattype}
 mobhunting.commands.npc.unknown_timeperiod=未知的时间段 §b${period}
 mobhunting.commands.npc.updating=更新全部 MasterMobHunters.
+mobhunting.commands.npc.removed=NPC ${npcname} (${npcid}) removed.
 mobhunting.commands.region.description=Add/remove 自定义 WorldGuard 旗 mobhunting allow/deny 在一个地区里
 mobhunting.commands.region.noWorldguardSupport=Worldguard 禁用或未加载
 mobhunting.commands.region.specifyRegionId=请指定区域

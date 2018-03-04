@@ -144,6 +144,9 @@ public class NpcCommand implements ICommand, Listener {
 				if (CitizensCompat.getMasterMobHunterManager().contains(npc.getId())) {
 					CitizensCompat.getMasterMobHunterManager().remove(npc.getId());
 				}
+
+				plugin.getMessages().senderSendMessage(sender, plugin.getMessages()
+						.getString("mobhunting.commands.npc.removed", "npcid", npc.getId(), "npcname", npc.getName()));
 				npc.destroy();
 				return true;
 
@@ -174,7 +177,8 @@ public class NpcCommand implements ICommand, Listener {
 				return true;
 
 			} else if (args.length == 1 && args[0].equalsIgnoreCase("update")) {
-				plugin.getMessages().senderSendMessage(sender, plugin.getMessages().getString("mobhunting.commands.npc.updating"));
+				plugin.getMessages().senderSendMessage(sender,
+						plugin.getMessages().getString("mobhunting.commands.npc.updating"));
 				CitizensCompat.getMasterMobHunterManager().forceUpdate();
 				return true;
 
@@ -191,14 +195,14 @@ public class NpcCommand implements ICommand, Listener {
 			} else if (args.length == 4 && args[0].equalsIgnoreCase("create")) {
 				StatType statType = StatType.parseStat(args[1]);
 				if (statType == null) {
-					plugin.getMessages().senderSendMessage(sender, ChatColor.RED
-							+ plugin.getMessages().getString("mobhunting.commands.base.unknown_stattype", "stattype", args[1]));
+					plugin.getMessages().senderSendMessage(sender, ChatColor.RED + plugin.getMessages()
+							.getString("mobhunting.commands.base.unknown_stattype", "stattype", args[1]));
 					return true;
 				}
 				TimePeriod period = TimePeriod.parsePeriod(args[2]);
 				if (period == null) {
-					plugin.getMessages().senderSendMessage(sender, ChatColor.RED
-							+ plugin.getMessages().getString("mobhunting.commands.base.unknown_timeperiod", "period", args[2]));
+					plugin.getMessages().senderSendMessage(sender, ChatColor.RED + plugin.getMessages()
+							.getString("mobhunting.commands.base.unknown_timeperiod", "period", args[2]));
 					return true;
 				}
 				int rank = Integer.valueOf(args[3]);
@@ -214,8 +218,8 @@ public class NpcCommand implements ICommand, Listener {
 						new MasterMobHunter(plugin, npc.getId(), statType, period, 0, rank));
 				npc.spawn(p.getLocation());
 				CitizensCompat.getMasterMobHunterManager().update(npc);
-				plugin.getMessages().senderSendMessage(sender,
-						ChatColor.GREEN + plugin.getMessages().getString("mobhunting.commands.npc.created", "npcid", npc.getId()));
+				plugin.getMessages().senderSendMessage(sender, ChatColor.GREEN
+						+ plugin.getMessages().getString("mobhunting.commands.npc.created", "npcid", npc.getId()));
 				plugin.getMessages().debug("Creating MasterMobHunter: id=%s,stat=%s,per=%s,rank=%s", npc.getId(),
 						statType.translateName(), period, rank);
 				return true;

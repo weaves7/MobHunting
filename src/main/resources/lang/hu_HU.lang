@@ -228,6 +228,7 @@ mobhunting.commands.npc.no_npc_selected=Nem választottad ki a MasterMobHunter p
 mobhunting.commands.npc.updating=Az összes MasterMobHunters frissítése.
 mobhunting.commands.npc.home_set=Otthon beállítva.
 mobhunting.commands.npc.selected=Az NPC ${npcname} (${npcid}) kiválasztva.
+mobhunting.commands.npc.removed=NPC ${npcname} (${npcid}) removed.
 mobhunting.commands.npc.not_selected=Az NPC nem lett kiválasztva. Menj közelebb és nézd meg az npc-t.
 mobhunting.commands.region.description=Egyéni WorldGuard zászló hozzáadása/eltávolítása engedélyezése/tiltása egy régióban 
 mobhunting.commands.region.specifyRegionId=Kérjük, add meg a régiót 

@@ -228,6 +228,7 @@ mobhunting.commands.npc.no_npc_selected=You have not selected a MasterMobHunter.
 mobhunting.commands.npc.updating=Updating all MasterMobHunters.
 mobhunting.commands.npc.home_set=Home set.
 mobhunting.commands.npc.selected=NPC ${npcname} (${npcid}) selected.
+mobhunting.commands.npc.removed=NPC ${npcname} (${npcid}) removed.
 mobhunting.commands.npc.not_selected=NPC was not selected. Move closer and look at the npc.
 mobhunting.commands.region.description=Add/remove a custom WorldGuard flag mobhunting allow/deny in  a region 
 mobhunting.commands.region.specifyRegionId=Please specify region 

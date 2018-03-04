@@ -3805,7 +3805,7 @@ public class ConfigManager extends AutoConfig {
 		this.spiderHeadDropHead = convertDropHeadEnabled(mConfig0.spiderCmd);
 		this.spiderHeadPrize = mConfig0.spiderHeadPrize;
 		this.spiderHeadDropChance = mConfig0.spiderCmdRunChance;
-		this.spiderHeadMessage = "You got a skull";
+		this.spiderHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.shulkerMoney = mConfig0.shulkerPrize;
 		this.shulkerCommands = convertCommands(mConfig0.shulkerCmd, mConfig0.shulkerCmdRunChance);
