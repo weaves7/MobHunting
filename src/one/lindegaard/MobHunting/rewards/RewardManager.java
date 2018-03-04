@@ -801,13 +801,13 @@ public class RewardManager {
 					.containsKey(TARDISWeepingAngelsCompat.getWeepingAngelMonsterType(mob).name()))
 				return TARDISWeepingAngelsCompat.getMobRewardData()
 						.get(TARDISWeepingAngelsCompat.getWeepingAngelMonsterType(mob).name()).getConsoleRunCommand();
-			return null;
+			return new ArrayList<>();
 
 		} else if (MythicMobsCompat.isMythicMob(mob)) {
 			if (MythicMobsCompat.getMobRewardData().containsKey(MythicMobsCompat.getMythicMobType(mob)))
 				return MythicMobsCompat.getMobRewardData().get(MythicMobsCompat.getMythicMobType(mob))
 						.getConsoleRunCommand();
-			return null;
+			return new ArrayList<>();
 
 		} else if (CitizensCompat.isNPC(mob) && CitizensCompat.isSentryOrSentinelOrSentries(mob)) {
 			NPC npc = CitizensAPI.getNPCRegistry().getNPC(mob);
@@ -815,7 +815,7 @@ public class RewardManager {
 			if (CitizensCompat.getMobRewardData().containsKey(key)) {
 				return CitizensCompat.getMobRewardData().get(key).getConsoleRunCommand();
 			}
-			return null;
+			return new ArrayList<>();
 
 		} else if (CustomMobsCompat.isCustomMob(mob)) {
 			if (mob.hasMetadata(CustomMobsCompat.MH_CUSTOMMOBS)) {
@@ -826,14 +826,14 @@ public class RewardManager {
 			} else if (CustomMobsCompat.getMobRewardData().containsKey(CustomMobsCompat.getCustomMobType(mob)))
 				return CustomMobsCompat.getMobRewardData().get(CustomMobsCompat.getCustomMobType(mob))
 						.getConsoleRunCommand();
-			return null;
+			return new ArrayList<>();
 
 		} else if (MysteriousHalloweenCompat.isMysteriousHalloween(mob)) {
 			if (MysteriousHalloweenCompat.getMobRewardData()
 					.containsKey(MysteriousHalloweenCompat.getMysteriousHalloweenType(mob).name()))
 				return MysteriousHalloweenCompat.getMobRewardData()
 						.get(MysteriousHalloweenCompat.getMysteriousHalloweenType(mob).name()).getConsoleRunCommand();
-			return null;
+			return new ArrayList<>();
 
 		} else if (SmartGiantsCompat.isSmartGiants(mob)) {
 			if (SmartGiantsCompat.getMobRewardData().containsKey(SmartGiantsCompat.getSmartGiantsMobType(mob)))
@@ -845,7 +845,7 @@ public class RewardManager {
 			if (HerobrineCompat.getMobRewardData().containsKey(HerobrineCompat.getHerobrineMobType(mob)))
 				return HerobrineCompat.getMobRewardData().get(HerobrineCompat.getHerobrineMobType(mob))
 						.getConsoleRunCommand();
-			return null;
+			return new ArrayList<>();
 
 		} else if (MyPetCompat.isMyPet(mob)) {
 			return plugin.getConfigManager().wolfCommands;
@@ -1006,7 +1006,7 @@ public class RewardManager {
 			}
 
 		}
-		return null;
+		return new ArrayList<>();
 	}
 
 	/**
