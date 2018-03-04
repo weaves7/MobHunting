@@ -1,5 +1,9 @@
+V5.5.3
+* Added permission to run commands
+* Fishing rewards works again
+* Run Messages: and Permission: nodes can be delteted from config.yml if they are empty 
 V5.5.2
-*
+* Bug fixing 
 V5.5.1
 * Fixed NPE error, when there is no commands to run. (https://www.spigotmc.org/threads/mobhunting.46937/page-158#post-2913466)
 V5.5.0

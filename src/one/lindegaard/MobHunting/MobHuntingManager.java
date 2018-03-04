@@ -1542,8 +1542,8 @@ public class MobHuntingManager implements Listener {
 					.replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
 					.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
 					.replaceAll("\\{killed\\}", mob.getFriendlyName())
-					.replace("{prize}", plugin.getRewardManager().format(cash))
-					.replace("\\{prize\\}", plugin.getRewardManager().format(cash)).replaceAll("\\{world\\}", worldname)
+					//.replaceAll("{prize}", plugin.getRewardManager().format(cash))
+					.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash)).replaceAll("\\{world\\}", worldname)
 					.replaceAll("\\{killerpos\\}", killerpos).replaceAll("\\{killedpos\\}", killedpos)
 					.replaceAll("\\{rewardname\\}", plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
 			if (killed instanceof Player)
@@ -1745,8 +1745,8 @@ public class MobHuntingManager implements Listener {
 								.replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
 								.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
 								.replaceAll("\\{killed\\}", mob.getFriendlyName()).replaceAll("\\{world\\}", worldname)
-								.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
-								.replace("{prize}", plugin.getRewardManager().format(cash))
+								.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash))
+								//.replace("{prize}", plugin.getRewardManager().format(cash))
 								.replaceAll("\\{killerpos\\}", killerpos).replaceAll("\\{killedpos\\}", killedpos)
 								.replaceAll("\\{rewardname\\}",
 										plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
@@ -1790,8 +1790,8 @@ public class MobHuntingManager implements Listener {
 								.replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
 								.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
 								.replaceAll("\\{killed\\}", mob.getFriendlyName()).replaceAll("\\{world\\}", worldname)
-								.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
-								.replace("{prize}", plugin.getRewardManager().format(cash))
+								.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash))
+								//.replace("{prize}", plugin.getRewardManager().format(cash))
 								.replaceAll("\\{killerpos\\}", killerpos).replaceAll("\\{killedpos\\}", killedpos)
 								.replaceAll("\\{rewardname\\}",
 										plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
@@ -1850,8 +1850,8 @@ public class MobHuntingManager implements Listener {
 									.replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
 									.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
 									.replaceAll("\\{killed\\}", mob.getFriendlyName())
-									.replace("{prize}", plugin.getRewardManager().format(cash))
-									.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
+									//.replaceAll("{prize}", plugin.getRewardManager().format(cash))
+									.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash))
 									.replaceAll("\\{world\\}", worldname).replaceAll("\\{killerpos\\}", killerpos)
 									.replaceAll("\\{killedpos\\}", killedpos).replaceAll("\\{rewardname\\}",
 											plugin.getConfigManager().dropMoneyOnGroundSkullRewardName));

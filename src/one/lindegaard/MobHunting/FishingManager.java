@@ -40,7 +40,7 @@ public class FishingManager implements Listener {
 
 	public FishingManager(MobHunting plugin) {
 		this.plugin = plugin;
-		if (!plugin.getConfigManager().enableFishingRewards) {
+		if (plugin.getConfigManager().enableFishingRewards) {
 			registerFishingModifiers();
 			Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
 		}
@@ -268,9 +268,10 @@ public class FishingManager implements Listener {
 							String worldname = player.getWorld().getName();
 							String prizeCommand = cmd.get("cmd").replaceAll("\\{player\\}", player.getName())
 									.replaceAll("\\{killer\\}", player.getName()).replaceAll("\\{world\\}", worldname)
-									.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
-									.replace("{prize}", plugin.getRewardManager().format(cash))
-									.replaceAll("\\{killerpos\\}", fishermanPos).replaceAll("{rewardname}",
+									.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash))
+									//.replace("{prize}", plugin.getRewardManager().format(cash))
+									.replaceAll("\\{killerpos\\}", fishermanPos)
+									.replaceAll("\\{rewardname\\}",
 											plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
 							plugin.getMessages().debug("command to be run is:" + prizeCommand);
 							if (!plugin.getRewardManager().getKillCommands(fish).isEmpty()) {
@@ -293,7 +294,7 @@ public class FishingManager implements Listener {
 									.replaceAll("\\{killed\\}", extendedMob.getFriendlyName())
 									.replaceAll("\\{world\\}", worldname)
 									.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash))
-									.replaceAll("{prize}", plugin.getRewardManager().format(cash))
+									//.replaceAll("{prize}", plugin.getRewardManager().format(cash))
 									.replaceAll("\\{world\\}", player.getWorld().getName())
 									.replaceAll("\\{killerpos\\}", fishermanPos).replaceAll("\\{rewardname\\}",
 											plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
@@ -318,10 +319,9 @@ public class FishingManager implements Listener {
 										+ message.replaceAll("\\{player\\}", player.getName())
 												.replaceAll("\\{killer\\}", player.getName())
 												.replaceAll("\\{killed\\}", extendedMob.getFriendlyName())
-												.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
-												.replace("{prize}", plugin.getRewardManager().format(cash))
+												.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash))
 												.replaceAll("\\{world\\}", player.getWorld().getName())
-												.replaceAll("{rewardname}",
+												.replaceAll("\\{rewardname\\}",
 														plugin.getConfigManager().dropMoneyOnGroundSkullRewardName));
 					}
 				}

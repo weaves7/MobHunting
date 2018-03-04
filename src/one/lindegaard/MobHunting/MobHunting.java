@@ -58,6 +58,7 @@ public class MobHunting extends JavaPlugin {
 
 	private static MobHunting instance;
 	public Random mRand = new Random();
+	private File mFile = new File(getDataFolder(), "config.yml");
 
 	private Messages mMessages;
 	private ConfigManagerOld mConfig0;
@@ -95,10 +96,10 @@ public class MobHunting extends JavaPlugin {
 
 		mMessages = new Messages(this);
 
-		if (new File(getDataFolder(), "config.yml").exists()) {
+		if (mFile.exists()) {
 			// check if config file is old
-			mConfig0 = new ConfigManagerOld(this, new File(getDataFolder(), "config.yml"));
-			mConfig = new ConfigManager(this, new File(getDataFolder(), "config.yml"));
+			mConfig0 = new ConfigManagerOld(this, mFile);
+			mConfig = new ConfigManager(this, mFile);
 			if (mConfig0.loadConfig() && mConfig0.configVersion == 0) {
 				if (mConfig.convertConfig(mConfig0)) {
 					getMessages().debug("Config.yml converted to version 1");
@@ -106,9 +107,10 @@ public class MobHunting extends JavaPlugin {
 				}
 			}
 		} else {
-			mConfig = new ConfigManager(this, new File(getDataFolder(), "config.yml"));
+			mConfig = new ConfigManager(this, mFile);
 		}
 		if (mConfig.loadConfig()) {
+			mConfig.backupConfig(mFile);
 			mConfig.saveConfig();
 		} else
 			throw new RuntimeException(getMessages().getString(pluginName + ".config.fail"));
@@ -277,7 +279,7 @@ public class MobHunting extends JavaPlugin {
 		mAchievementManager = new AchievementManager(this);
 
 		mMobHuntingManager = new MobHuntingManager(this);
-		if (!mConfig.enableFishingRewards)
+		if (mConfig.enableFishingRewards)
 			mFishingManager = new FishingManager(this);
 
 		if (!mConfig.enablePlayerBounties)
@@ -340,7 +342,7 @@ public class MobHunting extends JavaPlugin {
 			PlaceholderAPICompat.shutdown();
 		}
 		getMobHuntingManager().getHuntingModifiers().clear();
-		if (!mConfig.enableFishingRewards)
+		if (mConfig.enableFishingRewards)
 			getFishingManager().getFishingModifiers().clear();
 
 		try {
