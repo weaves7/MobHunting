@@ -509,44 +509,53 @@ public class ConfigManager extends AutoConfig {
 	// Mobs
 	// #####################################################################################
 	@ConfigField(name = "enabled", category = "example.mobname", comment = "Enable MobHunting rewards for this mob (true or false)")
-	public boolean defaultEnabled = true;
+	public boolean exampleEnabled = true;
 	@ConfigField(name = "message", category = "example.mobname", comment = "The message you want when this mob is killed")
-	public String defaultMessage = "The Mobname dropped {prize} BagOfGold.";
+	public String exampleMessage = "The Mobname dropped {prize} BagOfGold.";
 	@ConfigField(name = "amount", category = "example.mobname.money", comment = "The amount of money you want to be dropped / paid")
-	public String defaultMoney = "10.0";
+	public String exampleMoney = "10.0";
 	@ConfigField(name = "chance", category = "example.mobname.money", comment = "The chance to drop/pay the amount of money (0-1)")
-	public double defaultMoneyChance = 1;
-	@ConfigField(name = "commands", category = "example.mobname", comment = "You can use any command you want.")
-	public List<HashMap<String, String>> defaultCommands = new ArrayList<HashMap<String, String>>();
+	public double exampleMoneyChance = 1;
+	@ConfigField(name = "commands", category = "example.mobname", 
+			comment = "You can use any command you want, each command has some options."
+			+"\n 'cmd:' and 'chance:' is mandatory fields, 'message:' and 'permission:' is optional")
+	public List<HashMap<String, String>> exampleCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "pex user {player} add any.permission {world}");
 		values1.put("chance", "0.5");
 		values1.put("message", "You got permission to do ..... ");
-		defaultCommands.add(values1);
+		exampleCommands.add(values1);
 
 		HashMap<String, String> values2 = new HashMap<String, String>();
 		values2.put("cmd", "give {player} Iron_ingot 1");
 		values2.put("chance", "0.2");
 		values2.put("message", "You got an iron ingot!");
-		defaultCommands.add(values2);
+		exampleCommands.add(values2);
 
 		HashMap<String, String> values3 = new HashMap<String, String>();
 		values3.put("cmd", "say {player} killed an {killed}");
 		values3.put("chance", "1");
 		values3.put("message", "You killed an §1{killed}");
-		defaultCommands.add(values3);
+		exampleCommands.add(values3);
+
+		HashMap<String, String> values4 = new HashMap<String, String>();
+		values4.put("cmd", "Say {player} killed an {killed}");
+		values4.put("chance", "1");
+		values4.put("message", "You shout to all other players.");
+		values4.put("permission", "any.permission");
+		exampleCommands.add(values4);
 
 	}
 
 	@ConfigField(name = "drophead", category = "example.mobname.head", comment = "Set to true or false if you want a head to be dropped as a reward")
-	public boolean defaultHeadDropHead = true;
+	public boolean exampleHeadDropHead = true;
 	@ConfigField(name = "value", category = "example.mobname.head", comment = "The value you want the head to have when dropped")
-	public String defaultHeadValue = "5";
+	public String exampleHeadValue = "5";
 	@ConfigField(name = "chance", category = "example.mobname.head", comment = "The chance to drop a head (a number between 0 and 1")
-	public double defaultHeadChance = 0.5;
+	public double exampleHeadChance = 0.5;
 	@ConfigField(name = "message", category = "example.mobname.head", comment = "The message you want when a head is dropped")
-	public String defaultHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
+	public String exampleHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Blaze============================================
 	@ConfigField(name = "blaze.enabled", category = "mobs")
@@ -563,7 +572,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.10");
-		values1.put("message", "");
 		blazeCommands.add(values1);
 	}
 	@ConfigField(name = "blaze.head.drophead", category = "mobs")
@@ -590,7 +598,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.10");
-		values1.put("message", "");
 		caveSpiderCommands.add(values1);
 	}
 	@ConfigField(name = "cave_spider.head.drophead", category = "mobs")
@@ -617,7 +624,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		creeperCommands.add(values1);
 	}
 	@ConfigField(name = "creeper.head.drophead", category = "mobs")
@@ -644,7 +650,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.33");
-		values1.put("message", "");
 		elderGuardianCommands.add(values1);
 	}
 	@ConfigField(name = "elder_guardian.head.drophead", category = "mobs")
@@ -671,7 +676,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.33");
-		values1.put("message", "");
 		endermanCommands.add(values1);
 	}
 	@ConfigField(name = "enderman.head.drophead", category = "mobs")
@@ -698,7 +702,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.10");
-		values1.put("message", "");
 		endermiteCommands.add(values1);
 	}
 	@ConfigField(name = "endermite.head.drophead", category = "mobs")
@@ -725,7 +728,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.10");
-		values1.put("message", "");
 		ghastCommands.add(values1);
 	}
 	@ConfigField(name = "ghast.head.drophead", category = "mobs")
@@ -752,7 +754,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		giantCommands.add(values1);
 	}
 	@ConfigField(name = "giant.head.drophead", category = "mobs")
@@ -779,7 +780,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.10");
-		values1.put("message", "");
 		ironGolemCommands.add(values1);
 	}
 	@ConfigField(name = "iron_golem.head.drophead", category = "mobs")
@@ -806,7 +806,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.1");
-		values1.put("message", "");
 		guardianCommands.add(values1);
 	}
 	@ConfigField(name = "guardian.head.drophead", category = "mobs")
@@ -833,7 +832,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.20");
-		values1.put("message", "");
 		huskCommands.add(values1);
 	}
 	@ConfigField(name = "husk.head.drophead", category = "mobs")
@@ -887,7 +885,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.10");
-		values1.put("message", "");
 		magmaCubeCommands.add(values1);
 	}
 	@ConfigField(name = "magma_cube.head.drophead", category = "mobs")
@@ -941,7 +938,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		slimeCommands.add(values1);
 	}
 	@ConfigField(name = "slime.head.drophead", category = "mobs")
@@ -995,7 +991,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.20");
-		values1.put("message", "");
 		silverfishCommands.add(values1);
 	}
 	@ConfigField(name = "silverfish.head.drophead", category = "mobs")
@@ -1022,7 +1017,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		skeletonCommands.add(values1);
 	}
 	@ConfigField(name = "skeleton.head.drophead", category = "mobs")
@@ -1049,7 +1043,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		spiderCommands.add(values1);
 	}
 	@ConfigField(name = "spider.head.drophead", category = "mobs")
@@ -1076,7 +1069,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.20");
-		values1.put("message", "");
 		strayCommands.add(values1);
 	}
 	@ConfigField(name = "stray.head.drophead", category = "mobs")
@@ -1103,7 +1095,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.005");
-		values1.put("message", "");
 		zombieCommands.add(values1);
 	}
 	@ConfigField(name = "zombie.head.drophead", category = "mobs")
@@ -1130,7 +1121,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.10");
-		values1.put("message", "");
 		zombiePigmanCommands.add(values1);
 	}
 	@ConfigField(name = "zombie_pigman.head.drophead", category = "mobs")
@@ -1157,7 +1147,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.50");
-		values1.put("message", "");
 		vexCommands.add(values1);
 	}
 	@ConfigField(name = "vex.head.drophead", category = "mobs")
@@ -1184,7 +1173,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		witchCommands.add(values1);
 	}
 	@ConfigField(name = "witch.head.drophead", category = "mobs")
@@ -1211,7 +1199,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.10");
-		values1.put("message", "");
 		witherSkeletonCommands.add(values1);
 	}
 	@ConfigField(name = "wither_skeleton.head.drophead", category = "mobs")
@@ -1241,13 +1228,11 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} gold_ingot 1");
 		values1.put("chance", "0.50");
-		values1.put("message", "");
 		witherCommands.add(values1);
 
 		HashMap<String, String> values2 = new HashMap<String, String>();
 		values2.put("cmd", "give {player} diamond 10");
 		values2.put("chance", "0.50");
-		values2.put("message", "");
 		witherCommands.add(values2);
 	}
 	@ConfigField(name = "wither.head.drophead", category = "boss")
@@ -1320,7 +1305,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.10");
-		values1.put("message", "");
 		blacksmithCommands.add(values1);
 	}
 	@ConfigField(name = "blacksmith.head.drophead", category = "villager")
@@ -1347,7 +1331,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.10");
-		values1.put("message", "");
 		butcherCommands.add(values1);
 	}
 	@ConfigField(name = "butcher.head.drophead", category = "villager")
@@ -1374,7 +1357,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.1");
-		values1.put("message", "");
 		evokerCommands.add(values1);
 	}
 	@ConfigField(name = "evoker.head.drophead", category = "villager")
@@ -1401,7 +1383,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.1");
-		values1.put("message", "");
 		farmerCommnds.add(values1);
 	}
 	@ConfigField(name = "farmer.head.drophead", category = "villager")
@@ -1428,7 +1409,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.10");
-		values1.put("message", "");
 		illusionerCommands.add(values1);
 	}
 	@ConfigField(name = "illusioner.head.drophead", category = "villager")
@@ -1455,7 +1435,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.5");
-		values1.put("message", "");
 		librarianCommands.add(values1);
 	}
 	@ConfigField(name = "librarian.head.drophead", category = "villager")
@@ -1482,7 +1461,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.5");
-		values1.put("message", "");
 		nitwitCommands.add(values1);
 	}
 	@ConfigField(name = "nitwit.head.drophead", category = "villager")
@@ -1509,7 +1487,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.5");
-		values1.put("message", "");
 		priestCommands.add(values1);
 	}
 	@ConfigField(name = "priest.head.drophead", category = "villager")
@@ -1536,7 +1513,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.3");
-		values1.put("message", "");
 		villagerCommands.add(values1);
 	}
 	@ConfigField(name = "villager.head.drophead", category = "villager")
@@ -1563,7 +1539,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		vindicatorCommands.add(values1);
 	}
 	@ConfigField(name = "vindicator.head.drophead", category = "villager")
@@ -1590,7 +1565,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		zombieVillagerCommands.add(values1);
 	}
 	@ConfigField(name = "zombie_villager.head.drophead", category = "villager")
@@ -1620,7 +1594,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		batCommands.add(values1);
 	}
 	@ConfigField(name = "bat.head.drophead", category = "passive")
@@ -1647,7 +1620,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		chickenCommands.add(values1);
 	}
 	@ConfigField(name = "chicken.head.drophead", category = "passive")
@@ -1701,7 +1673,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		donkeyCommands.add(values1);
 	}
 	@ConfigField(name = "donkey.head.drophead", category = "passive")
@@ -1728,7 +1699,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.1");
-		values1.put("message", "");
 		horseCommands.add(values1);
 	}
 	@ConfigField(name = "horse.head.drophead", category = "passive")
@@ -1755,7 +1725,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		llamaCommands.add(values1);
 	}
 	@ConfigField(name = "llama.head.drophead", category = "passive")
@@ -1782,7 +1751,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		muleCommands.add(values1);
 	}
 	@ConfigField(name = "mule.head.drophead", category = "passive")
@@ -1809,7 +1777,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		mushroomCowCommands.add(values1);
 	}
 	@ConfigField(name = "mushroom_cow.head.drophead", category = "passive")
@@ -1836,7 +1803,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		ocelotCommands.add(values1);
 	}
 	@ConfigField(name = "ocelot.head.drophead", category = "passive")
@@ -1863,7 +1829,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.1");
-		values1.put("message", "");
 		parrotCommands.add(values1);
 	}
 	@ConfigField(name = "parrot.head.drophead", category = "passive")
@@ -1890,7 +1855,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		pigCommands.add(values1);
 	}
 	@ConfigField(name = "pig.head.drophead", category = "passive")
@@ -1917,7 +1881,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		rabbitCommads.add(values1);
 	}
 	@ConfigField(name = "rabbit.head.drophead", category = "passive")
@@ -1944,7 +1907,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		sheepCommands.add(values1);
 	}
 	@ConfigField(name = "sheep.head.drophead", category = "passive")
@@ -1971,7 +1933,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		skeletonHorseCommands.add(values1);
 	}
 	@ConfigField(name = "skeleton_horse.head.drophead", category = "passive")
@@ -1998,7 +1959,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		snowmanCommands.add(values1);
 	}
 	@ConfigField(name = "snowman.head.drophead", category = "passive")
@@ -2025,7 +1985,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		squidCommands.add(values1);
 	}
 	@ConfigField(name = "squid.head.drophead", category = "passive")
@@ -2052,7 +2011,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		wolfCommands.add(values1);
 	}
 	@ConfigField(name = "wolf.head.drophead", category = "passive")
@@ -2079,7 +2037,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.25");
-		values1.put("message", "");
 		zombieHorseCommands.add(values1);
 	}
 	@ConfigField(name = "zombie_horse.head.drophead", category = "passive")
@@ -2113,7 +2070,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		values1.put("message", "");
 		rawFishCommands.add(values1);
 	}
 	@ConfigField(name = "raw_fish.head.drophead", category = "fishing")
@@ -2140,7 +2096,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.1");
-		values1.put("message", "");
 		rawSalmonCommands.add(values1);
 	}
 	@ConfigField(name = "raw_salmon.head.drophead", category = "fishing")
@@ -2167,7 +2122,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.5");
-		values1.put("message", "");
 		clownfishCommands.add(values1);
 	}
 	@ConfigField(name = "clownfish.head.drophead", category = "fishing")
@@ -2194,7 +2148,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.4");
-		values1.put("message", "");
 		pufferfishCommands.add(values1);
 	}
 	@ConfigField(name = "pufferfish.head.drophead", category = "fishing")
@@ -2228,7 +2181,6 @@ public class ConfigManager extends AutoConfig {
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "");
 		values1.put("chance", "0.5");
-		values1.put("message", "");
 		pvpCmdNew.add(values1);
 	}
 	@ConfigField(name = "drophead", category = "pvp.player.head")

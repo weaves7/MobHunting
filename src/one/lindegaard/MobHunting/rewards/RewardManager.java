@@ -1015,7 +1015,7 @@ public class RewardManager {
 	 * @param mob
 	 * @return String
 	 */
-	public String getKillRewardDescription(Entity mob) {
+	public String getKillMessage(Entity mob) {
 		if (TARDISWeepingAngelsCompat.isWeepingAngelMonster(mob)) {
 			if (TARDISWeepingAngelsCompat.getMobRewardData()
 					.containsKey(TARDISWeepingAngelsCompat.getWeepingAngelMonsterType(mob).name()))

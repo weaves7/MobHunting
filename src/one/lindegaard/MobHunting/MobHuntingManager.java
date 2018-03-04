@@ -1537,17 +1537,15 @@ public class MobHuntingManager implements Listener {
 				+ killed.getLocation().getBlockZ();
 
 		// send a message to the player
-		if (!plugin.getRewardManager().getKillRewardDescription(killed).trim().isEmpty() && !killer_muted) {
-			String message = ChatColor.GREEN + "" + ChatColor.ITALIC
-					+ plugin.getRewardManager().getKillRewardDescription(killed).trim()
-							.replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
-							.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
-							.replaceAll("\\{killed\\}", mob.getFriendlyName())
-							.replace("{prize}", plugin.getRewardManager().format(cash))
-							.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
-							.replaceAll("\\{world\\}", worldname).replaceAll("\\{killerpos\\}", killerpos)
-							.replaceAll("\\{killedpos\\}", killedpos)
-							.replaceAll("\\{rewardname\\}", plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
+		if (!plugin.getRewardManager().getKillMessage(killed).trim().isEmpty() && !killer_muted) {
+			String message = ChatColor.GREEN + plugin.getRewardManager().getKillMessage(killed).trim()
+					.replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
+					.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
+					.replaceAll("\\{killed\\}", mob.getFriendlyName())
+					.replace("{prize}", plugin.getRewardManager().format(cash))
+					.replace("\\{prize\\}", plugin.getRewardManager().format(cash)).replaceAll("\\{world\\}", worldname)
+					.replaceAll("\\{killerpos\\}", killerpos).replaceAll("\\{killedpos\\}", killedpos)
+					.replaceAll("\\{rewardname\\}", plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
 			if (killed instanceof Player)
 				message = message.replaceAll("\\{killed_player\\}", killed.getName()).replaceAll("\\{killed\\}",
 						killed.getName());
@@ -1739,56 +1737,76 @@ public class MobHuntingManager implements Listener {
 			Iterator<HashMap<String, String>> itr = plugin.getRewardManager().getKillCommands(killed).iterator();
 			while (itr.hasNext()) {
 				HashMap<String, String> cmd = itr.next();
-				double random = plugin.mRand.nextDouble();
-				if (random < Double.valueOf(cmd.get("chance"))) {
-					String prizeCommand = cmd.get("cmd").replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
-							.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
-							.replaceAll("\\{killed\\}", mob.getFriendlyName()).replaceAll("\\{world\\}", worldname)
-							.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
-							.replace("{prize}", plugin.getRewardManager().format(cash))
-							.replaceAll("\\{killerpos\\}", killerpos).replaceAll("\\{killedpos\\}", killedpos)
-							.replaceAll("\\{rewardname\\}", plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
-					if (killed instanceof Player)
-						prizeCommand = prizeCommand.replaceAll("\\{killed_player\\}", killed.getName())
-								.replaceAll("\\{killed\\}", killed.getName());
-					else
-						prizeCommand = prizeCommand.replaceAll("\\{killed_player\\}", mob.getMobName())
-								.replaceAll("\\{killed\\}", mob.getMobName());
-					plugin.getMessages().debug("Command to be run:" + prizeCommand);
-					if (!cmd.get("cmd").equals("")) {
-						String str = prizeCommand;
-						do {
-							if (str.contains("|")) {
-								int n = str.indexOf("|");
-								try {
-									Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),
-											str.substring(0, n));
-								} catch (CommandException e) {
-									Bukkit.getConsoleSender()
-											.sendMessage(ChatColor.RED + "[MobHunting][ERROR] Could not run cmd:\""
-													+ str.substring(0, n) + "\" when Mob:" + mob.getMobName()
-													+ " was killed by " + getPlayer(killer, killed).getName());
-									Bukkit.getConsoleSender()
-											.sendMessage(ChatColor.RED + "Command:" + str.substring(0, n));
+				String perm = cmd.getOrDefault("permission", "");
+				if (perm.isEmpty() || getPlayer(killer, killed).hasPermission(perm)) {
+					double random = plugin.mRand.nextDouble();
+					if (random < Double.valueOf(cmd.get("chance"))) {
+						String commandCmd = cmd.get("cmd")
+								.replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
+								.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
+								.replaceAll("\\{killed\\}", mob.getFriendlyName()).replaceAll("\\{world\\}", worldname)
+								.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
+								.replace("{prize}", plugin.getRewardManager().format(cash))
+								.replaceAll("\\{killerpos\\}", killerpos).replaceAll("\\{killedpos\\}", killedpos)
+								.replaceAll("\\{rewardname\\}",
+										plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
+						if (killed instanceof Player)
+							commandCmd = commandCmd.replaceAll("\\{killed_player\\}", killed.getName())
+									.replaceAll("\\{killed\\}", killed.getName());
+						else
+							commandCmd = commandCmd.replaceAll("\\{killed_player\\}", mob.getMobName())
+									.replaceAll("\\{killed\\}", mob.getMobName());
+						plugin.getMessages().debug("Command to be run:" + commandCmd);
+						if (!commandCmd.isEmpty()) {
+							String str = commandCmd;
+							do {
+								if (str.contains("|")) {
+									int n = str.indexOf("|");
+									try {
+										Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),
+												str.substring(0, n));
+									} catch (CommandException e) {
+										Bukkit.getConsoleSender()
+												.sendMessage(ChatColor.RED + "[MobHunting][ERROR] Could not run cmd:\""
+														+ str.substring(0, n) + "\" when Mob:" + mob.getMobName()
+														+ " was killed by " + getPlayer(killer, killed).getName());
+										Bukkit.getConsoleSender()
+												.sendMessage(ChatColor.RED + "Command:" + str.substring(0, n));
+									}
+									str = str.substring(n + 1, str.length());
 								}
-								str = str.substring(n + 1, str.length());
+							} while (str.contains("|"));
+							try {
+								Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), str);
+							} catch (CommandException e) {
+								Bukkit.getConsoleSender()
+										.sendMessage(ChatColor.RED + "[MobHunting][ERROR] Could not run cmd:\"" + str
+												+ "\" when Mob:" + mob.getMobName() + " was killed by "
+												+ getPlayer(killer, killed).getName());
+								Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Command:" + str);
 							}
-						} while (str.contains("|"));
-						try {
-							Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), str);
-						} catch (CommandException e) {
-							Bukkit.getConsoleSender()
-									.sendMessage(ChatColor.RED + "[MobHunting][ERROR] Could not run cmd:\"" + str
-											+ "\" when Mob:" + mob.getMobName() + " was killed by "
-											+ getPlayer(killer, killed).getName());
-							Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Command:" + str);
 						}
-					}
-				} else
-					plugin.getMessages().debug(
-							"The command did not run because random number (%s) was bigger than chance (%s)", random,
-							cmd.get("chance"));
-				itr.remove();
+						String message = cmd.get("message")
+								.replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
+								.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
+								.replaceAll("\\{killed\\}", mob.getFriendlyName()).replaceAll("\\{world\\}", worldname)
+								.replace("\\{prize\\}", plugin.getRewardManager().format(cash))
+								.replace("{prize}", plugin.getRewardManager().format(cash))
+								.replaceAll("\\{killerpos\\}", killerpos).replaceAll("\\{killedpos\\}", killedpos)
+								.replaceAll("\\{rewardname\\}",
+										plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
+						if (!message.isEmpty() && !killer_muted) {
+							plugin.getMessages().playerSendMessage(getPlayer(killer, killed), message);
+						}
+					} else
+						plugin.getMessages().debug(
+								"The command did not run because random number (%s) was bigger than chance (%s)",
+								random, cmd.get("chance"));
+					itr.remove();
+				} else {
+					plugin.getMessages().debug("%s has not permission (%s) to run command: %s",
+							getPlayer(killer, killed).getName(), cmd.get("permission"), cmd.get("cmd"));
+				}
 			}
 
 			// Update PlaceHolderData

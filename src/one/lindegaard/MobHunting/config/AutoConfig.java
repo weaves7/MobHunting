@@ -13,6 +13,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -238,7 +239,7 @@ public abstract class AutoConfig {
 
 			// Add all the category comments
 			comments.putAll(mCategoryComments);
-			
+
 			// Add all the values
 			for (Field field : getClass().getDeclaredFields()) {
 				ConfigField configField = field.getAnnotation(ConfigField.class);
@@ -257,14 +258,26 @@ public abstract class AutoConfig {
 				if (!configField.category().isEmpty() && !config.contains(configField.category()))
 					config.createSection(configField.category());
 
+				// List!
 				if (field.getType().equals(List.class)) {
-					config.set(path, field.get(this));
-				} else if (field.getType().equals(ArrayList.class)) {
-					if (field.getType().getComponentType().equals(HashMap.class)) {
-						config.createSection(path, (HashMap<String, String>) Arrays.asList(field.get(this)));
-					} else
-						throw new IllegalArgumentException("SaveConfig ArrayList - Cannot use type "
-								+ field.getType().getSimpleName() + " for AutoConfiguration (is it an ArrayList)");
+					if (field.getName().equalsIgnoreCase("disable_achievements_in_worlds")
+							|| field.getName().equalsIgnoreCase("disable_grinding_detection_in_worlds")
+							|| field.getName().equalsIgnoreCase("disabled_in_worlds")) {
+						config.set(path, Arrays.asList(field.get(this)));
+					} else {
+						List<HashMap<String, String>> commands = (List<HashMap<String, String>>) field.get(this);
+						Iterator<HashMap<String, String>> itr = commands.iterator();
+						while (itr.hasNext()) {
+							HashMap<String, String> cmd = itr.next();
+							if (cmd.get("message") == null || cmd.get("message").isEmpty())
+								cmd.remove("message");
+							else if(cmd.get("permission") == null || cmd.get("permission").isEmpty())
+								cmd.remove("permission");
+								
+						}
+						config.set(path, commands);
+					}
+
 				} else
 
 				if (field.getType().isArray()) {
