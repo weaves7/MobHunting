@@ -180,7 +180,7 @@ public class BountyManager implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onPlayerJoin(final PlayerJoinEvent event) {
-		if (plugin.getConfigManager().enablePlayerBounties)
+		if (!plugin.getConfigManager().enablePlayerBounties)
 			return;
 
 		Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {

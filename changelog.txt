@@ -1,3 +1,6 @@
+V5.5.6
+* Fixed bug: Bounties was not enabled on server start
+* Fixed bug: mob.*.message: '' is not deleted anymore 
 V5.5.5
 * There is a chance that a fish head is dropped in the water, when a fish is caught
 * Convert Messages is improved (only when you run V5.5.5 first time)  

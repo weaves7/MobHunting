@@ -1442,7 +1442,7 @@ public class MobHuntingManager implements Listener {
 
 		// Handle Bounty Kills
 		double reward = 0;
-		if (!plugin.getConfigManager().enablePlayerBounties && killed instanceof Player) {
+		if (plugin.getConfigManager().enablePlayerBounties && killed instanceof Player) {
 			plugin.getMessages().debug("This was a PVP kill (killed=%s), number of bounties=%s", killed.getName(),
 					plugin.getBountyManager().getAllBounties().size());
 			OfflinePlayer wantedPlayer = (OfflinePlayer) killed;

@@ -247,9 +247,9 @@ public abstract class AutoConfig {
 							HashMap<String, String> cmd = itr.next();
 							if (cmd.get("message") == null || cmd.get("message").isEmpty())
 								cmd.remove("message");
-							else if(cmd.get("permission") == null || cmd.get("permission").isEmpty())
+							else if (cmd.get("permission") == null || cmd.get("permission").isEmpty())
 								cmd.remove("permission");
-								
+
 						}
 						config.set(path, commands);
 					}
@@ -284,8 +284,6 @@ public abstract class AutoConfig {
 
 					// String
 					else if (field.getType().getComponentType().equals(String.class)) {
-						// String[] str = (String[]) field.get(this);
-						// if (str.length != 0)
 						config.set(path, Arrays.asList((String[]) field.get(this)));
 
 						// HashMap
@@ -331,11 +329,7 @@ public abstract class AutoConfig {
 
 					// String
 					else if (field.getType().equals(String.class)) {
-						String str = (String) field.get(this);
-						if (!str.isEmpty() && !str.equals("\'\'"))
-							config.set(path, field.get(this));
-						else
-							config.set(path, null);
+						config.set(path, field.get(this));
 					}
 					// HashMap
 					else if (field.getType().equals(HashMap.class)) {

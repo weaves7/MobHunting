@@ -208,8 +208,7 @@ public class MetricsManager {
 						valueMap.put("Holographic Leaderboards",
 								plugin.getLeaderboardManager().getHologramManager().getHolograms().size());
 						valueMap.put("MasterMobHunters", CitizensCompat.getMasterMobHunterManager().getAll().size());
-						valueMap.put("PlayerBounties", plugin.getConfigManager().enablePlayerBounties ? 0
-								: plugin.getBountyManager().getAllBounties().size());
+						valueMap.put("PlayerBounties", plugin.getConfigManager().enablePlayerBounties ? plugin.getBountyManager().getAllBounties().size():0);
 						return valueMap;
 					}
 

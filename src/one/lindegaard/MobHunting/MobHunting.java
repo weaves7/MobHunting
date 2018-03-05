@@ -282,7 +282,7 @@ public class MobHunting extends JavaPlugin {
 		mCommandDispatcher.registerCommand(new UpdateCommand(this));
 		mCommandDispatcher.registerCommand(new VersionCommand(this));
 		mCommandDispatcher.registerCommand(new DebugCommand(this));
-		if (!mConfig.enablePlayerBounties)
+		if (mConfig.enablePlayerBounties)
 			mCommandDispatcher.registerCommand(new BountyCommand(this));
 		mCommandDispatcher.registerCommand(new HappyHourCommand(this));
 		mCommandDispatcher.registerCommand(new MoneyCommand(this));
@@ -295,7 +295,7 @@ public class MobHunting extends JavaPlugin {
 		if (mConfig.enableFishingRewards)
 			mFishingManager = new FishingManager(this);
 
-		if (!mConfig.enablePlayerBounties)
+		if (mConfig.enablePlayerBounties)
 			mBountyManager = new BountyManager(this);
 
 		// Check for new MobHuntig updates using Spiget.org
@@ -303,9 +303,9 @@ public class MobHunting extends JavaPlugin {
 
 		if (!Misc.isGlowstoneServer()) {
 			mMetricsManager = new MetricsManager(this);
+			mMetricsManager.startBStatsMetrics();
 			// MCStats.org is unstable
 			// mMetricsManager.startMetrics();
-			mMetricsManager.startBStatsMetrics();
 		}
 
 		Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
@@ -320,7 +320,7 @@ public class MobHunting extends JavaPlugin {
 			for (Player player : Misc.getOnlinePlayers()) {
 				mPlayerSettingsManager.load(player);
 				mAchievementManager.load(player);
-				if (!mConfig.enablePlayerBounties)
+				if (mConfig.enablePlayerBounties)
 					mBountyManager.load(player);
 				mMobHuntingManager.setHuntEnabled(player, true);
 			}
