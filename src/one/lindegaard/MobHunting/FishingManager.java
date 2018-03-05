@@ -19,6 +19,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerFishEvent.State;
+import org.bukkit.inventory.ItemStack;
 
 import com.gmail.nossr50.datatypes.skills.SkillType;
 
@@ -26,11 +27,13 @@ import one.lindegaard.MobHunting.compatibility.FactionsHelperCompat;
 import one.lindegaard.MobHunting.compatibility.McMMOCompat;
 import one.lindegaard.MobHunting.events.MobHuntFishingEvent;
 import one.lindegaard.MobHunting.mobs.ExtendedMob;
+import one.lindegaard.MobHunting.mobs.MinecraftMob;
 import one.lindegaard.MobHunting.modifier.DifficultyBonus;
 import one.lindegaard.MobHunting.modifier.FactionWarZoneBonus;
 import one.lindegaard.MobHunting.modifier.HappyHourBonus;
 import one.lindegaard.MobHunting.modifier.IModifier;
 import one.lindegaard.MobHunting.modifier.RankBonus;
+import one.lindegaard.MobHunting.rewards.CustomItems;
 import one.lindegaard.MobHunting.util.Misc;
 
 public class FishingManager implements Listener {
@@ -186,6 +189,11 @@ public class FishingManager implements Listener {
 				// Record Fishing Achievement is done using
 				// SeventhHuntAchievement.java (onFishingCompleted)
 
+				String fishermanPos = player.getLocation().getBlockX() + " " + player.getLocation().getBlockY() + " "
+						+ player.getLocation().getBlockZ();
+				String killedpos = fish.getLocation().getBlockX() + " " + fish.getLocation().getBlockY() + " "
+						+ fish.getLocation().getBlockZ();
+
 				// Record the kill in the Database
 				if (player != null) {
 					plugin.getMessages().debug("RecordFishing: %s caught a %s (%s)", player.getName(),
@@ -252,9 +260,6 @@ public class FishingManager implements Listener {
 					}
 				}
 
-				String fishermanPos = player.getLocation().getBlockX() + " " + player.getLocation().getBlockY() + " "
-						+ player.getLocation().getBlockZ();
-
 				List<HashMap<String, String>> fishCommands = new ArrayList<HashMap<String, String>>();
 				fishCommands = plugin.getRewardManager().getKillCommands(fish);
 
@@ -269,9 +274,8 @@ public class FishingManager implements Listener {
 							String prizeCommand = cmd.get("cmd").replaceAll("\\{player\\}", player.getName())
 									.replaceAll("\\{killer\\}", player.getName()).replaceAll("\\{world\\}", worldname)
 									.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash))
-									//.replace("{prize}", plugin.getRewardManager().format(cash))
-									.replaceAll("\\{killerpos\\}", fishermanPos)
-									.replaceAll("\\{rewardname\\}",
+									// .replace("{prize}", plugin.getRewardManager().format(cash))
+									.replaceAll("\\{killerpos\\}", fishermanPos).replaceAll("\\{rewardname\\}",
 											plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
 							plugin.getMessages().debug("command to be run is:" + prizeCommand);
 							if (!plugin.getRewardManager().getKillCommands(fish).isEmpty()) {
@@ -294,7 +298,7 @@ public class FishingManager implements Listener {
 									.replaceAll("\\{killed\\}", extendedMob.getFriendlyName())
 									.replaceAll("\\{world\\}", worldname)
 									.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash))
-									//.replaceAll("{prize}", plugin.getRewardManager().format(cash))
+									// .replaceAll("{prize}", plugin.getRewardManager().format(cash))
 									.replaceAll("\\{world\\}", player.getWorld().getName())
 									.replaceAll("\\{killerpos\\}", fishermanPos).replaceAll("\\{rewardname\\}",
 											plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
@@ -323,6 +327,38 @@ public class FishingManager implements Listener {
 												.replaceAll("\\{world\\}", player.getWorld().getName())
 												.replaceAll("\\{rewardname\\}",
 														plugin.getConfigManager().dropMoneyOnGroundSkullRewardName));
+					}
+				}
+
+				// drop a head if allowed
+				if (plugin.getRewardManager().getHeadDropHead(fish)) {
+					double random = plugin.mRand.nextDouble();
+					if (random < plugin.getRewardManager().getHeadDropChance(fish)) {
+						MinecraftMob minecraftMob = MinecraftMob.getMinecraftMobType(fish);
+						ItemStack head = new CustomItems(plugin).getCustomHead(minecraftMob,
+								minecraftMob.getFriendlyName(), 1, plugin.getRewardManager().getHeadValue(fish),
+								minecraftMob.getPlayerUUID());
+						plugin.getRewardManager().setDisplayNameAndHiddenLores(head, minecraftMob.getFriendlyName(),
+								plugin.getRewardManager().getHeadValue(fish), minecraftMob.getPlayerUUID(),
+								minecraftMob.getPlayerUUID());
+						fish.getWorld().dropItem(fish.getLocation(), head);
+						plugin.getMessages().debug("%s caught a %s and a head was dropped in the water",
+								player.getName(), fish.getName());
+						if (!plugin.getRewardManager().getHeadDropMessage(fish).isEmpty())
+							plugin.getMessages().playerSendMessage(player,
+									ChatColor.GREEN + plugin.getRewardManager().getHeadDropMessage(fish)
+											.replaceAll("\\{player\\}", player.getName())
+											.replaceAll("\\{killer\\}", player.getName())
+											.replaceAll("\\{killed\\}", minecraftMob.getFriendlyName())
+											// .replaceAll("{prize}", plugin.getRewardManager().format(cash))
+											.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash))
+											.replaceAll("\\{world\\}", player.getWorld().getName())
+											.replaceAll("\\{killerpos\\}", fishermanPos)
+											.replaceAll("\\{killedpos\\}", killedpos).replaceAll("\\{rewardname\\}",
+													plugin.getConfigManager().dropMoneyOnGroundSkullRewardName));
+					} else {
+						plugin.getMessages().debug("Did not drop a head: random(%s)>chance(%s)", random,
+								plugin.getRewardManager().getHeadDropChance(fish));
 					}
 				}
 			}

@@ -2085,7 +2085,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "raw_fish.head.chance", category = "fishing")
 	public double rawFishHeadDropChance = 0.05;
 	@ConfigField(name = "raw_fish.head.message", category = "fishing")
-	public String rawFishHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
+	public String rawFishHeadMessage = "§aThe §1{killed} §adropped a fish head in the water";
 
 	// =====Raw Salmon============================================
 	@ConfigField(name = "raw_salmon.enabled", category = "fishing")
@@ -2111,7 +2111,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "raw_salmon.head.chance", category = "fishing")
 	public double rawSalmonHeadDropChance = 0.10;
 	@ConfigField(name = "raw_salmon.head.message", category = "fishing")
-	public String rawSalmonHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
+	public String rawSalmonHeadMessage = "§aThe §1{killed} §adropped a fish head in the water";
 
 	// =====Clownfish============================================
 	@ConfigField(name = "clownfish.enabled", category = "fishing")
@@ -2137,7 +2137,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "clownfish.head.chance", category = "fishing")
 	public double clownfishHeadDropChance = 0.5;
 	@ConfigField(name = "clownfish.head.message", category = "fishing")
-	public String clownfishHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
+	public String clownfishHeadMessage = "§aThe §1{killed} §adropped a fish head in the water";
 
 	// =====Pufferfish============================================
 	@ConfigField(name = "pufferfish.enabled", category = "fishing")
@@ -2163,7 +2163,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "pufferfish.head.chance", category = "fishing")
 	public double pufferfishHeadDropChance = 0.40;
 	@ConfigField(name = "pufferfish.head.message", category = "fishing")
-	public String pufferfishHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
+	public String pufferfishHeadMessage = "§aThe §1{killed} §adropped a fish head in the water";
 
 	// #####################################################################################
 	// PVP
@@ -3615,7 +3615,6 @@ public class ConfigManager extends AutoConfig {
 		plugin.getMessages().debug("blazePrize=%s old=%s", this.blazeMoney, mConfig0.blazePrize);
 		this.blazeMoney = mConfig0.blazePrize;
 		this.blazeCommands = convertCommands(mConfig0.blazeCmd, mConfig0.blazeCmdRunChance);
-		this.blazeMessage = mConfig0.blazeCmdDesc;
 		this.blazeHeadDropHead = convertDropHeadEnabled(mConfig0.blazeCmd);
 		this.blazeHeadPrize = mConfig0.blazeHeadPrize;
 		this.blazeHeadDropChance = mConfig0.blazeCmdRunChance;
@@ -3623,7 +3622,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.caveSpiderMoney = mConfig0.caveSpiderPrize;
 		this.caveSpiderCommands = convertCommands(mConfig0.caveSpiderCmd, mConfig0.caveSpiderRunChance);
-		this.caveSpiderMessage = mConfig0.caveSpiderCmdDesc;
 		this.caveSpiderHeadDropHead = convertDropHeadEnabled(mConfig0.caveSpiderCmd);
 		this.caveSpiderHeadPrize = mConfig0.caveSpiderHeadPrize;
 		this.caveSpiderHeadDropChance = mConfig0.caveSpiderRunChance;
@@ -3631,7 +3629,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.creeperMoney = mConfig0.creeperPrize;
 		this.creeperCommands = convertCommands(mConfig0.creeperCmd, mConfig0.creeperCmdRunChance);
-		this.creeperMessage = mConfig0.creeperCmdDesc;
 		this.creeperHeadDropHead = convertDropHeadEnabled(mConfig0.creeperCmd);
 		this.creeperHeadPrize = mConfig0.creeperHeadPrize;
 		this.creeperHeadDropChance = mConfig0.creeperCmdRunChance;
@@ -3639,7 +3636,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.elderGuardianMoney = mConfig0.elderGuardianPrize;
 		this.elderGuardianCommands = convertCommands(mConfig0.elderGuardianCmd, mConfig0.elderGuardianCmdRunChance);
-		this.elderGuardianMessage = mConfig0.elderGuardianCmdDesc;
 		this.elderGuardianHeadDropHead = convertDropHeadEnabled(mConfig0.elderGuardianCmd);
 		this.elderGuardianHeadPrize = mConfig0.elderGuardianHeadPrize;
 		this.elderGuardianHeadDropChance = mConfig0.elderGuardianCmdRunChance;
@@ -3647,7 +3643,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.endermanMoney = mConfig0.endermanPrize;
 		this.endermanCommands = convertCommands(mConfig0.endermanCmd, mConfig0.endermanCmdRunChance);
-		this.endermanMessage = mConfig0.endermanCmdDesc;
 		this.endermanHeadDropHead = convertDropHeadEnabled(mConfig0.endermanCmd);
 		this.endermanHeadPrize = mConfig0.endermanHeadPrize;
 		this.endermanHeadDropChance = mConfig0.endermanCmdRunChance;
@@ -3655,7 +3650,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.endermiteMoney = mConfig0.endermitePrize;
 		this.endermiteCommands = convertCommands(mConfig0.endermiteCmd, mConfig0.endermiteCmdRunChance);
-		this.endermiteMessage = mConfig0.endermiteCmdDesc;
 		this.endermiteHeadDropHead = convertDropHeadEnabled(mConfig0.endermiteCmd);
 		this.endermiteHeadPrize = mConfig0.endermiteHeadPrize;
 		this.endermiteHeadDropChance = mConfig0.endermiteCmdRunChance;
@@ -3663,7 +3657,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.ghastMoney = mConfig0.ghastPrize;
 		this.ghastCommands = convertCommands(mConfig0.ghastCmd, mConfig0.ghastCmdRunChance);
-		this.ghastMessage = mConfig0.ghastCmdDesc;
 		this.ghastHeadDropHead = convertDropHeadEnabled(mConfig0.ghastCmd);
 		this.ghastHeadPrize = mConfig0.ghastHeadPrize;
 		this.ghastHeadDropChance = mConfig0.ghastCmdRunChance;
@@ -3671,7 +3664,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.giantMoney = mConfig0.giantPrize;
 		this.giantCommands = convertCommands(mConfig0.giantCmd, mConfig0.giantCmdRunChance);
-		this.giantMessage = mConfig0.giantCmdDesc;
 		this.giantHeadDropHead = convertDropHeadEnabled(mConfig0.giantCmd);
 		this.giantHeadPrize = mConfig0.giantHeadPrize;
 		this.giantHeadDropChance = mConfig0.giantCmdRunChance;
@@ -3679,7 +3671,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.ironGolemMoney = mConfig0.ironGolemPrize;
 		this.ironGolemCommands = convertCommands(mConfig0.ironGolemCmd, mConfig0.ironGolemCmdRunChance);
-		this.ironGolemMessage = mConfig0.ironGolemCmdDesc;
 		this.ironGolemHeadDropHead = convertDropHeadEnabled(mConfig0.ironGolemCmd);
 		this.ironGolemHeadPrize = mConfig0.ironGolemHeadPrize;
 		this.ironGolemHeadDropChance = mConfig0.ironGolemCmdRunChance;
@@ -3687,7 +3678,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.guardianMoney = mConfig0.guardianPrize;
 		this.guardianCommands = convertCommands(mConfig0.guardianCmd, mConfig0.guardianCmdRunChance);
-		this.guardianMessge = mConfig0.guardianCmdDesc;
 		this.guardianHeadDropHead = convertDropHeadEnabled(mConfig0.guardianCmd);
 		this.guardianHeadPrize = mConfig0.guardianHeadPrize;
 		this.ironGolemHeadDropChance = mConfig0.ironGolemCmdRunChance;
@@ -3695,7 +3685,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.huskMoney = mConfig0.huskPrize;
 		this.huskCommands = convertCommands(mConfig0.huskCmd, mConfig0.huskCmdRunChance);
-		this.huskMessage = mConfig0.huskCmdDesc;
 		this.huskHeadDropHead = convertDropHeadEnabled(mConfig0.huskCmd);
 		this.huskHeadPrize = mConfig0.huskHeadPrize;
 		this.huskHeadDropChance = mConfig0.huskCmdRunChance;
@@ -3703,7 +3692,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.killerRabbitMoney = mConfig0.killerrabbitPrize;
 		this.killerRabbitCommands = convertCommands(mConfig0.killerrabbitCmd, mConfig0.killerrabbitCmdRunChance);
-		this.killerRabbitMessage = mConfig0.killerrabbitCmdDesc;
 		this.killerRabbitHeadDropHead = convertDropHeadEnabled(mConfig0.killerrabbitCmd);
 		this.killerRabbitHeadPrize = mConfig0.killerrabbitHeadPrize;
 		this.killerRabbitHeadDropChance = mConfig0.killerrabbitCmdRunChance;
@@ -3711,7 +3699,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.magmaCubeMoney = mConfig0.magmaCubePrize;
 		this.magmaCubeCommands = convertCommands(mConfig0.magmaCubeCmd, mConfig0.magmaCubeCmdRunChance);
-		this.magmaCubeMessage = mConfig0.magmaCubeCmdDesc;
 		this.magmaCubeHeadDropHead = convertDropHeadEnabled(mConfig0.magmaCubeCmd);
 		this.magmaCubeHeadPrize = mConfig0.magmaCubeHeadPrize;
 		this.magmaCubeHeadDropChance = mConfig0.magmaCubeCmdRunChance;
@@ -3719,7 +3706,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.polarBearMoney = mConfig0.polarBearPrize;
 		this.polarBearCommands = convertCommands(mConfig0.polarBearCmd, mConfig0.polarBearCmdRunChance);
-		this.polarBearMessage = mConfig0.polarBearCmdDesc;
 		this.polarBearHeadDropHead = convertDropHeadEnabled(mConfig0.polarBearCmd);
 		this.polarBearHeadPrize = mConfig0.polarBearHeadPrize;
 		this.polarBearHeadDropChance = mConfig0.polarBearCmdRunChance;
@@ -3727,7 +3713,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.slimeMoney = mConfig0.slimeTinyPrize;
 		this.slimeCommands = convertCommands(mConfig0.slimeCmd, mConfig0.slimeCmdRunChance);
-		this.slimeMessage = mConfig0.slimeCmdDesc;
 		this.slimeHeadDropHead = convertDropHeadEnabled(mConfig0.slimeCmd);
 		this.slimeHeadPrize = mConfig0.slimeHeadPrize;
 		this.slimeHeadDropChance = mConfig0.slimeCmdRunChance;
@@ -3735,7 +3720,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.strayMoney = mConfig0.strayPrize;
 		this.strayCommands = convertCommands(mConfig0.strayCmd, mConfig0.strayCmdRunChance);
-		this.strayMessage = mConfig0.strayCmdDesc;
 		this.strayHeadDropHead = convertDropHeadEnabled(mConfig0.strayCmd);
 		this.strayHeadPrize = mConfig0.strayHeadPrize;
 		this.strayHeadDropChance = mConfig0.strayCmdRunChance;
@@ -3743,7 +3727,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.silverfishMoney = mConfig0.silverfishPrize;
 		this.silverfishCommands = convertCommands(mConfig0.silverfishCmd, mConfig0.silverfishCmdRunChance);
-		this.silverfishMessage = mConfig0.silverfishCmdDesc;
 		this.silverfishHeadDropHead = convertDropHeadEnabled(mConfig0.silverfishCmd);
 		this.silverfishHeadPrize = mConfig0.silverfishHeadPrize;
 		this.silverfishHeadDropChance = mConfig0.silverfishCmdRunChance;
@@ -3751,7 +3734,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.skeletonMoney = mConfig0.skeletonPrize;
 		this.skeletonCommands = convertCommands(mConfig0.skeletonCmd, mConfig0.skeletonCmdRunChance);
-		this.skeletonMessage = mConfig0.skeletonCmdDesc;
 		this.skeletonHeadDropHead = convertDropHeadEnabled(mConfig0.skeletonCmd);
 		this.skeletonHeadPrize = mConfig0.skeletonHeadPrize;
 		this.skeletonHeadDropChance = mConfig0.skeletonCmdRunChance;
@@ -3759,7 +3741,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.spiderMoney = mConfig0.spiderPrize;
 		this.spiderCommands = convertCommands(mConfig0.spiderCmd, mConfig0.spiderCmdRunChance);
-		this.spiderMessage = mConfig0.spiderCmdDesc;
 		this.spiderHeadDropHead = convertDropHeadEnabled(mConfig0.spiderCmd);
 		this.spiderHeadPrize = mConfig0.spiderHeadPrize;
 		this.spiderHeadDropChance = mConfig0.spiderCmdRunChance;
@@ -3767,7 +3748,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.shulkerMoney = mConfig0.shulkerPrize;
 		this.shulkerCommands = convertCommands(mConfig0.shulkerCmd, mConfig0.shulkerCmdRunChance);
-		this.shulkerMessage = mConfig0.shulkerCmdDesc;
 		this.shulkerHeadDropHead = convertDropHeadEnabled(mConfig0.shulkerCmd);
 		this.shulkerHeadPrize = mConfig0.shulkerHeadPrize;
 		this.shulkerHeadDropChance = mConfig0.shulkerCmdRunChance;
@@ -3775,7 +3755,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.zombieMoney = mConfig0.zombiePrize;
 		this.zombieCommands = convertCommands(mConfig0.zombieCmd, mConfig0.zombieCmdRunChance);
-		this.zombieMessage = mConfig0.zombieCmdDesc;
 		this.zombieHeadDropHead = convertDropHeadEnabled(mConfig0.zombieCmd);
 		this.zombieHeadPrize = mConfig0.zombieHeadPrize;
 		this.zombieHeadDropChance = mConfig0.zombieCmdRunChance;
@@ -3783,8 +3762,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.zombiePigmanMoney = mConfig0.zombiePigmanPrize;
 		this.zombiePigmanCommands = convertCommands(mConfig0.zombiePigmanCmd, mConfig0.zombiepigmanCmdRunChance);
-		this.zombiePigmanMessage = mConfig0.zombiePigmanCmdDesc;
-		this.zombiePigmanMoneyChance = 1;
 		this.zombiePigmanHeadDropHead = convertDropHeadEnabled(mConfig0.zombiePigmanCmd);
 		this.zombiePigmanHeadPrize = mConfig0.zombiePigmanHeadPrize;
 		this.zombiePigmanHeadDropChance = mConfig0.zombiepigmanCmdRunChance;
@@ -3792,8 +3769,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.vexMoney = mConfig0.vexPrize;
 		this.vexCommands = convertCommands(mConfig0.vexCmd, mConfig0.vexCmdRunChance);
-		this.vexMessage = mConfig0.vexCmdDesc;
-		this.vexMoneyChance = 1;
 		this.vexHeadDropHead = convertDropHeadEnabled(mConfig0.vexCmd);
 		this.vexHeadPrize = mConfig0.vexHeadPrize;
 		this.vexHeadDropChance = mConfig0.vexCmdRunChance;
@@ -3801,7 +3776,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.witchMoney = mConfig0.witchPrize;
 		this.witchCommands = convertCommands(mConfig0.witchCmd, mConfig0.witchCmdRunChance);
-		this.witchMessage = mConfig0.witchCmdDesc;
 		this.witchHeadDropHead = convertDropHeadEnabled(mConfig0.witchCmd);
 		this.witchHeadPrize = mConfig0.witchHeadPrize;
 		this.witchHeadDropChance = mConfig0.witchCmdRunChance;
@@ -3809,7 +3783,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.witherSkeletonMoney = mConfig0.witherSkeletonPrize;
 		this.witherSkeletonCommands = convertCommands(mConfig0.witherSkeletonCmd, mConfig0.witherSkeletonCmdRunChance);
-		this.witherSkeletonMessage = mConfig0.witherSkeletonCmdDesc;
 		this.witherSkeletonHeadDropHead = convertDropHeadEnabled(mConfig0.witherSkeletonCmd);
 		this.witherSkeletonHeadPrize = mConfig0.witherSkeletonHeadPrize;
 		this.witherSkeletonHeadDropChance = mConfig0.witherSkeletonCmdRunChance;
@@ -3817,7 +3790,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.witherMoney = mConfig0.witherPrize;
 		this.witherCommands = convertCommands(mConfig0.witherCmd, mConfig0.witherCmdRunChance);
-		this.witherMessage = mConfig0.witherCmdDesc;
 		this.witherHeadDropHead = convertDropHeadEnabled(mConfig0.witherCmd);
 		this.witherHeadPrize = mConfig0.witherHeadPrize;
 		this.witherHeadDropChance = mConfig0.witherCmdRunChance;
@@ -3825,7 +3797,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.enderDragonMoney = mConfig0.enderdragonPrize;
 		this.enderDragonCommands = convertCommands(mConfig0.enderdragonCmd, mConfig0.enderdragonCmdRunChance);
-		this.enderDragonMessage = mConfig0.enderdragonCmdDesc;
 		this.enderDragonHeadDropHead = convertDropHeadEnabled(mConfig0.enderdragonCmd);
 		this.enderDragonHeadPrize = mConfig0.enderdragonHeadPrize;
 		this.enderDragonHeadDropChance = mConfig0.enderdragonCmdRunChance;
@@ -3833,7 +3804,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.blacksmithMoney = mConfig0.blacksmithPrize;
 		this.blacksmithCommands = convertCommands(mConfig0.blacksmithCmd, mConfig0.blacksmithCmdRunChance);
-		this.blacksmithMessage = mConfig0.blacksmithCmdDesc;
 		this.blacksmithHeadDropHead = convertDropHeadEnabled(mConfig0.blacksmithCmd);
 		this.blacksmithHeadPrize = mConfig0.blacksmithHeadPrize;
 		this.blacksmithHeadDropChance = mConfig0.blacksmithCmdRunChance;
@@ -3841,7 +3811,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.butcherMoney = mConfig0.butcherPrize;
 		this.butcherCommands = convertCommands(mConfig0.butcherCmd, mConfig0.butcherCmdRunChance);
-		this.butcherMessage = mConfig0.butcherCmdDesc;
 		this.butcherHeadDropHead = convertDropHeadEnabled(mConfig0.butcherCmd);
 		this.butcherHeadPrize = mConfig0.butcherHeadPrize;
 		this.butcherHeadDropChance = mConfig0.butcherCmdRunChance;
@@ -3849,7 +3818,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.evokerMoney = mConfig0.evokerPrize;
 		this.evokerCommands = convertCommands(mConfig0.evokerCmd, mConfig0.evokerCmdRunChance);
-		this.evokerMessage = mConfig0.evokerCmdDesc;
 		this.evokerHeadDropHead = convertDropHeadEnabled(mConfig0.evokerCmd);
 		this.evokerHeadPrize = mConfig0.evokerHeadPrize;
 		this.evokerHeadDropChance = mConfig0.evokerCmdRunChance;
@@ -3857,7 +3825,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.farmerMoney = mConfig0.farmerPrize;
 		this.farmerCommnds = convertCommands(mConfig0.farmerCmd, mConfig0.farmerCmdRunChance);
-		this.farmerMessage = mConfig0.farmerCmdDesc;
 		this.farmerHeadDropHead = convertDropHeadEnabled(mConfig0.farmerCmd);
 		this.farmerHeadPrize = mConfig0.farmerHeadPrize;
 		this.farmerHeadDropChance = mConfig0.farmerCmdRunChance;
@@ -3865,7 +3832,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.illusionerMoney = mConfig0.illusionerPrize;
 		this.illusionerCommands = convertCommands(mConfig0.illusionerCmd, mConfig0.illusionerCmdRunChance);
-		this.illusionerMessage = mConfig0.illusionerCmdDesc;
 		this.illusionerHeadDropHead = convertDropHeadEnabled(mConfig0.illusionerCmd);
 		this.illusionerHeadPrize = mConfig0.illusionerHeadPrize;
 		this.illusionerHeadDropChance = mConfig0.illusionerCmdRunChance;
@@ -3873,7 +3839,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.librarianMoney = mConfig0.librarianPrize;
 		this.librarianCommands = convertCommands(mConfig0.librarianCmd, mConfig0.librarianCmdRunChance);
-		this.librarianMessage = mConfig0.librarianCmdDesc;
 		this.librarianHeadDropHead = convertDropHeadEnabled(mConfig0.librarianCmd);
 		this.librarianHeadPrize = mConfig0.librarianHeadPrize;
 		this.librarianHeadDropChance = mConfig0.librarianCmdRunChance;
@@ -3881,7 +3846,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.nitwitMoney = mConfig0.nitwitPrize;
 		this.nitwitCommands = convertCommands(mConfig0.nitwitCmd, mConfig0.nitwitCmdRunChance);
-		this.nitwitMessage = mConfig0.nitwitCmdDesc;
 		this.nitwitHeadDropHead = convertDropHeadEnabled(mConfig0.nitwitCmd);
 		this.nitwitHeadPrize = mConfig0.nitwitHeadPrize;
 		this.nitwitHeadDropChance = mConfig0.nitwitCmdRunChance;
@@ -3889,7 +3853,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.priestMoney = mConfig0.priestPrize;
 		this.priestCommands = convertCommands(mConfig0.priestCmd, mConfig0.priestCmdRunChance);
-		this.priestMessage = mConfig0.priestCmdDesc;
 		this.priestHeadDropHead = convertDropHeadEnabled(mConfig0.priestCmd);
 		this.priestHeadPrize = mConfig0.priestHeadPrize;
 		this.priestHeadDropChance = mConfig0.priestCmdRunChance;
@@ -3897,7 +3860,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.villagerMoney = mConfig0.villagerPrize;
 		this.villagerCommands = convertCommands(mConfig0.villagerCmd, mConfig0.villagerCmdRunChance);
-		this.villagerMessage = mConfig0.villagerCmdDesc;
 		this.villagerHeadDropHead = convertDropHeadEnabled(mConfig0.villagerCmd);
 		this.villagerHeadPrize = mConfig0.villagerHeadPrize;
 		this.villagerHeadDropChance = mConfig0.villagerCmdRunChance;
@@ -3905,7 +3867,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.vindicatorMoney = mConfig0.vindicatorPrize;
 		this.vindicatorCommands = convertCommands(mConfig0.vindicatorCmd, mConfig0.vindicatorCmdRunChance);
-		this.vindicatorMessage = mConfig0.vindicatorCmdDesc;
 		this.vindicatorHeadDropHead = convertDropHeadEnabled(mConfig0.vindicatorCmd);
 		this.vindicatorHeadPrize = mConfig0.vindicatorHeadPrize;
 		this.vindicatorHeadDropChance = mConfig0.vindicatorCmdRunChance;
@@ -3913,7 +3874,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.zombieVillagerMoney = mConfig0.zombieVillagerPrize;
 		this.zombieVillagerCommands = convertCommands(mConfig0.zombieVillagerCmd, mConfig0.zombieVillagerCmdRunChance);
-		this.zombieVillagerMessage = mConfig0.zombieVillagerCmdDesc;
 		this.zombieVillagerHeadDropHead = convertDropHeadEnabled(mConfig0.zombieVillagerCmd);
 		this.zombieVillagerHeadPrize = mConfig0.zombieVillagerHeadPrize;
 		this.zombieVillagerHeadDropChance = mConfig0.zombieVillagerCmdRunChance;
@@ -3921,7 +3881,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.batMoney = mConfig0.batPrize;
 		this.batCommands = convertCommands(mConfig0.batCmd, mConfig0.batCmdRunChance);
-		this.batMessage = mConfig0.batCmdDesc;
 		this.batHeadDropHead = convertDropHeadEnabled(mConfig0.batCmd);
 		this.batHeadPrize = mConfig0.batHeadPrize;
 		this.batHeadDropChance = mConfig0.batCmdRunChance;
@@ -3929,7 +3888,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.chickenMoney = mConfig0.chickenPrize;
 		this.chickenCommands = convertCommands(mConfig0.chickenCmd, mConfig0.chickenCmdRunChance);
-		this.chickenMessage = mConfig0.chickenCmdDesc;
 		this.chickenHeadDropHead = convertDropHeadEnabled(mConfig0.chickenCmd);
 		this.chickenHeadPrize = mConfig0.chickenHeadPrize;
 		this.chickenHeadDropChance = mConfig0.chickenCmdRunChance;
@@ -3937,8 +3895,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.cowPrize = mConfig0.cowPrize;
 		this.cowCmdNew = convertCommands(mConfig0.cowCmd, mConfig0.cowCmdRunChance);
-		this.cowCmdDesc = mConfig0.cowCmdDesc;
-		this.cowCmdRunChance = 1;
 		this.cowHeadDropHead = convertDropHeadEnabled(mConfig0.cowCmd);
 		this.cowHeadPrize = mConfig0.cowHeadPrize;
 		this.cowHeadDropChance = mConfig0.cowCmdRunChance;
@@ -3946,7 +3902,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.donkeyMoney = mConfig0.donkeyPrize;
 		this.donkeyCommands = convertCommands(mConfig0.donkeyCmd, mConfig0.donkeyCmdRunChance);
-		this.donkeyMessage = mConfig0.donkeyCmdDesc;
 		this.donkeyHeadDropHead = convertDropHeadEnabled(mConfig0.donkeyCmd);
 		this.donkeyHeadPrize = mConfig0.donkeyHeadPrize;
 		this.donkeyHeadDropChance = mConfig0.donkeyCmdRunChance;
@@ -3954,7 +3909,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.horseMoney = mConfig0.horsePrize;
 		this.horseCommands = convertCommands(mConfig0.horseCmd, mConfig0.horseCmdRunChance);
-		this.horseMessage = mConfig0.horseCmdDesc;
 		this.horseHeadDropHead = convertDropHeadEnabled(mConfig0.horseCmd);
 		this.horseHeadPrize = mConfig0.horseHeadPrize;
 		this.horseHeadDropChance = mConfig0.horseCmdRunChance;
@@ -3962,7 +3916,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.llamaMoney = mConfig0.llamaPrize;
 		this.llamaCommands = convertCommands(mConfig0.llamaCmd, mConfig0.llamaCmdRunChance);
-		this.llamaMessage = mConfig0.llamaCmdDesc;
 		this.llamaHeadDropHead = convertDropHeadEnabled(mConfig0.llamaCmd);
 		this.llamaHeadPrize = mConfig0.llamaHeadPrize;
 		this.llamaHeadDropChance = mConfig0.llamaCmdRunChance;
@@ -3970,7 +3923,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.muleMoney = mConfig0.mulePrize;
 		this.muleCommands = convertCommands(mConfig0.muleCmd, mConfig0.muleCmdRunChance);
-		this.muleMessage = mConfig0.muleCmdDesc;
 		this.muleHeadDropHead = convertDropHeadEnabled(mConfig0.muleCmd);
 		this.muleHeadPrize = mConfig0.muleHeadPrize;
 		this.muleHeadDropChance = mConfig0.muleCmdRunChance;
@@ -3978,7 +3930,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.mushroomCowMoney = mConfig0.mushroomCowPrize;
 		this.mushroomCowCommands = convertCommands(mConfig0.mushroomCowCmd, mConfig0.mushroomCowCmdRunChance);
-		this.mushroomCowMessage = mConfig0.mushroomCowCmdDesc;
 		this.mushroomCowHeadDropHead = convertDropHeadEnabled(mConfig0.mushroomCowCmd);
 		this.mushroomCowHeadPrize = mConfig0.mushroomCowHeadPrize;
 		this.mushroomCowHeadDropChance = mConfig0.mushroomCowCmdRunChance;
@@ -3986,7 +3937,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.ocelotMoney = mConfig0.ocelotPrize;
 		this.ocelotCommands = convertCommands(mConfig0.ocelotCmd, mConfig0.ocelotCmdRunChance);
-		this.ocelotMessage = mConfig0.ocelotCmdDesc;
 		this.ocelotHeadDropHead = convertDropHeadEnabled(mConfig0.ocelotCmd);
 		this.ocelotHeadPrize = mConfig0.ocelotHeadPrize;
 		this.ocelotHeadDropChance = mConfig0.ocelotCmdRunChance;
@@ -3994,7 +3944,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.parrotMoney = mConfig0.parrotPrize;
 		this.parrotCommands = convertCommands(mConfig0.parrotCmd, mConfig0.parrotCmdRunChance);
-		this.parrotMessage = mConfig0.parrotCmdDesc;
 		this.parrotHeadDropHead = convertDropHeadEnabled(mConfig0.parrotCmd);
 		this.parrotHeadPrize = mConfig0.parrotHeadPrize;
 		this.parrotHeadDropChance = mConfig0.parrotCmdRunChance;
@@ -4002,7 +3951,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.pigMoney = mConfig0.pigPrize;
 		this.pigCommands = convertCommands(mConfig0.pigCmd, mConfig0.pigCmdRunChance);
-		this.pigMessage = mConfig0.pigCmdDesc;
 		this.pigHeadDropHead = convertDropHeadEnabled(mConfig0.pigCmd);
 		this.pigHeadPrize = mConfig0.pigHeadPrize;
 		this.pigHeadDropChance = mConfig0.pigCmdRunChance;
@@ -4010,7 +3958,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.rabbitMoney = mConfig0.rabbitPrize;
 		this.rabbitCommads = convertCommands(mConfig0.rabbitCmd, mConfig0.rabbitCmdRunChance);
-		this.rabbitMessage = mConfig0.rabbitCmdDesc;
 		this.rabbitHeadDropHead = convertDropHeadEnabled(mConfig0.rabbitCmd);
 		this.rabbitHeadPrize = mConfig0.rabbitHeadPrize;
 		this.rabbitHeadDropChance = mConfig0.rabbitCmdRunChance;
@@ -4018,7 +3965,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.sheepMoney = mConfig0.sheepPrize;
 		this.sheepCommands = convertCommands(mConfig0.sheepCmd, mConfig0.sheepCmdRunChance);
-		this.sheepMessage = mConfig0.sheepCmdDesc;
 		this.sheepHeadDropHead = convertDropHeadEnabled(mConfig0.sheepCmd);
 		this.sheepHeadPrize = mConfig0.sheepHeadPrize;
 		this.sheepHeadDropChance = mConfig0.sheepCmdRunChance;
@@ -4026,7 +3972,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.skeletonHorseMoney = mConfig0.skeletonhorsePrize;
 		this.skeletonHorseCommands = convertCommands(mConfig0.skeletonhorseCmd, mConfig0.skeletonhorseCmdRunChance);
-		this.skeletonHorseMessage = mConfig0.skeletonhorseCmdDesc;
 		this.skeletonHorseHeadDropHead = convertDropHeadEnabled(mConfig0.skeletonhorseCmd);
 		this.skeletonHorseHeadPrize = mConfig0.skeletonHorseHeadPrize;
 		this.skeletonHorseHeadDropChance = mConfig0.skeletonhorseCmdRunChance;
@@ -4034,7 +3979,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.snowmanMoney = mConfig0.snowmanPrize;
 		this.snowmanCommands = convertCommands(mConfig0.snowmanCmd, mConfig0.snowmanCmdRunChance);
-		this.snowmanMessage = mConfig0.snowmanCmdDesc;
 		this.snowmanHeadDropHead = convertDropHeadEnabled(mConfig0.snowmanCmd);
 		this.snowmanHeadPrize = mConfig0.snowmanHeadPrize;
 		this.snowmanHeadDropChance = mConfig0.snowmanCmdRunChance;
@@ -4042,7 +3986,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.squidMoney = mConfig0.squidPrize;
 		this.squidCommands = convertCommands(mConfig0.squidCmd, mConfig0.squidCmdRunChance);
-		this.squidMessage = mConfig0.squidCmdDesc;
 		this.squidHeadDropHead = convertDropHeadEnabled(mConfig0.squidCmd);
 		this.squidHeadPrize = mConfig0.squidHeadPrize;
 		this.squidHeadDropChance = mConfig0.squidCmdRunChance;
@@ -4050,7 +3993,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.wolfMoney = mConfig0.wolfPrize;
 		this.wolfCommands = convertCommands(mConfig0.wolfCmd, mConfig0.wolfCmdRunChance);
-		this.wolfMessage = mConfig0.wolfCmdDesc;
 		this.wolfHeadDropHead = convertDropHeadEnabled(mConfig0.wolfCmd);
 		this.wolfHeadPrize = mConfig0.wolfHeadPrize;
 		this.wolfHeadDropChance = mConfig0.wolfCmdRunChance;
@@ -4058,7 +4000,6 @@ public class ConfigManager extends AutoConfig {
 
 		this.zombieHorseMoney = mConfig0.zombiehorsePrize;
 		this.zombieHorseCommands = convertCommands(mConfig0.zombiehorseCmd, mConfig0.zombiehorseCmdRunChance);
-		this.zombieHorseMessage = mConfig0.zombiehorseCmdDesc;
 		this.zombieHorseHeadDropHead = convertDropHeadEnabled(mConfig0.zombiehorseCmd);
 		this.zombieHorseHeadPrize = mConfig0.zombiehorseHeadPrize;
 		this.zombieHorseHeadDropChance = mConfig0.zombiehorseCmdRunChance;
@@ -4066,39 +4007,34 @@ public class ConfigManager extends AutoConfig {
 
 		this.rawFishMoney = mConfig0.rawFishPrize;
 		this.rawFishCommands = convertCommands(mConfig0.rawFishCmd, mConfig0.rawFishCmdRunChance);
-		this.rawFishMessage = mConfig0.rawFishCmdDesc;
 		this.rawFishHeadDropHead = convertDropHeadEnabled(mConfig0.rawFishCmd);
 		this.rawFishHeadPrize = mConfig0.rawFishHeadPrize;
 		this.rawFishHeadDropChance = mConfig0.rawFishCmdRunChance;
-		this.rawFishHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
+		this.rawFishHeadMessage = "§aThe §1{killed} §adropped a fish head in the water";
 
 		this.rawSalmonMoney = mConfig0.rawSalmonPrize;
 		this.rawSalmonCommands = convertCommands(mConfig0.rawSalmonCmd, mConfig0.rawSalmonCmdRunChance);
-		this.rawSalmonMessage = mConfig0.rawSalmonCmdDesc;
 		this.rawSalmonHeadDropHead = convertDropHeadEnabled(mConfig0.rawSalmonCmd);
 		this.rawSalmonHeadPrize = mConfig0.rawSalmonHeadPrize;
 		this.rawSalmonHeadDropChance = mConfig0.rawSalmonCmdRunChance;
-		this.rawSalmonHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
+		this.rawSalmonHeadMessage = "§aThe §1{killed} §adropped a fish head in the water";
 
 		this.clownfishMoney = mConfig0.clownfishPrize;
 		this.clownfishCommands = convertCommands(mConfig0.clownfishCmd, mConfig0.clownfishCmdRunChance);
-		this.clownfishMessage = mConfig0.clownfishCmdDesc;
 		this.clownfishHeadDropHead = convertDropHeadEnabled(mConfig0.clownfishCmd);
 		this.clownfishHeadPrize = mConfig0.clownfishHeadPrize;
 		this.clownfishHeadDropChance = mConfig0.clownfishCmdRunChance;
-		this.clownfishHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
+		this.clownfishHeadMessage = "§aThe §1{killed} §adropped a fish head in the water";
 
 		this.pufferfishMoney = mConfig0.pufferfishPrize;
 		this.pufferfishCommands = convertCommands(mConfig0.pufferfishCmd, mConfig0.pufferfishCmdRunChance);
-		this.pufferfishMessage = mConfig0.pufferfishCmdDesc;
 		this.pufferfishHeadDropHead = convertDropHeadEnabled(mConfig0.pufferfishCmd);
 		this.pufferfishHeadPrize = mConfig0.pufferfishHeadPrize;
 		this.pufferfishHeadDropChance = mConfig0.pufferfishCmdRunChance;
-		this.pufferfishHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
+		this.pufferfishHeadMessage = "§aThe §1{killed} §adropped a fish head in the water";
 
 		this.pvpAllowed = mConfig0.pvpAllowed;
 		this.robFromVictim = mConfig0.robFromVictim;
-		this.pvpKillMessage = mConfig0.pvpKillCmdDesc;
 		this.pvpKillMoney = mConfig0.pvpKillPrize;
 		this.pvpCmdNew = convertCommands(mConfig0.pvpKillCmd, mConfig0.pvpKillCmdRunChance);
 		this.pvpHeadDropHead = convertDropHeadEnabled(mConfig0.pvpKillCmd);

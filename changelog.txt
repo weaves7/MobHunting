@@ -1,3 +1,6 @@
+V5.5.5
+* There is a chance that a fish head is dropped in the water, when a fish is caught
+* Convert Messages is improved (only when you run V5.5.5 first time)  
 V5.5.4
 * Improved config.yml version detection. This should fix the reseting messages problem.
 * Improved backup of config.yml (https://github.com/Rocologo/MobHunting/issues/365)
