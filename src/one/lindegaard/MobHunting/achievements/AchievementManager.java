@@ -938,22 +938,38 @@ public class AchievementManager implements Listener {
 		if (event.getInventory() != null
 				&& (ChatColor.stripColor(event.getInventory().getName()).startsWith("Completed:"))) {
 			event.setCancelled(true);
-			event.getWhoClicked().closeInventory();
-			inventoryMapCompleted.remove(event.getWhoClicked());
-			event.getWhoClicked().openInventory(inventoryMapOngoing.get(event.getWhoClicked()));
+			
+			Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+				@Override
+				public void run() {
+					event.getWhoClicked().closeInventory();
+					inventoryMapCompleted.remove(event.getWhoClicked());
+					event.getWhoClicked().openInventory(inventoryMapOngoing.get(event.getWhoClicked()));
+				}
+			}, 1L);
 		}
 		if (event.getInventory() != null
 				&& (ChatColor.stripColor(event.getInventory().getName()).startsWith("Ongoing:"))) {
 			event.setCancelled(true);
-			event.getWhoClicked().closeInventory();
-			inventoryMapOngoing.remove(event.getWhoClicked());
-			event.getWhoClicked().openInventory(inventoryMapNotStarted.get(event.getWhoClicked()));
+			Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+				@Override
+				public void run() {
+					event.getWhoClicked().closeInventory();
+					inventoryMapOngoing.remove(event.getWhoClicked());
+					event.getWhoClicked().openInventory(inventoryMapNotStarted.get(event.getWhoClicked()));
+				}
+			}, 1L);
 		}
 		if (event.getInventory() != null
 				&& (ChatColor.stripColor(event.getInventory().getName()).startsWith("Not started:"))) {
 			event.setCancelled(true);
-			event.getWhoClicked().closeInventory();
-			inventoryMapNotStarted.remove(event.getWhoClicked());
+			Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+				@Override
+				public void run() {
+					event.getWhoClicked().closeInventory();
+					inventoryMapNotStarted.remove(event.getWhoClicked());
+				}
+			}, 1L);
 		}
 	}
 
