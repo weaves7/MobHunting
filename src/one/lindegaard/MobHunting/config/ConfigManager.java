@@ -13,6 +13,7 @@ import one.lindegaard.MobHunting.MobHunting;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 public class ConfigManager extends AutoConfig {
 
@@ -521,9 +522,9 @@ public class ConfigManager extends AutoConfig {
 	public String exampleMoney = "10.0";
 	@ConfigField(name = "chance", category = "example.mobname.money", comment = "The chance to drop/pay the amount of money (0-1)")
 	public double exampleMoneyChance = 1;
-	@ConfigField(name = "commands", category = "example.mobname", 
-			comment = "You can use any command you want, each command has some options."
-			+"\n 'cmd:' and 'chance:' is mandatory fields, 'message:' and 'permission:' is optional")
+	@ConfigField(name = "commands", category = "example.mobname", comment = "You can use any command you want, each command has some options."
+			+ "\n 'cmd:' and 'chance:' is mandatory fields, 'message:' and 'permission:' is optional"
+			+ "\nIf you add a permission, the command will only be run if the player has this permission.")
 	public List<HashMap<String, String>> exampleCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
@@ -4577,7 +4578,7 @@ public class ConfigManager extends AutoConfig {
 	private boolean convertDropHeadEnabled(String str) {
 		return str.contains("mobhunt head give") || str.contains("mh head give");
 	}
-	
+
 	public void backupConfig(File mFile) {
 		File backupFile = new File(mFile.toString());
 		int count = 0;
@@ -4599,4 +4600,11 @@ public class ConfigManager extends AutoConfig {
 			}
 	}
 
+	public static int getConfigVersion(File file) {
+		if (!file.exists())
+			return -1;
+
+		YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+		return config.getInt("general.config_version", config.contains("general.kill-debug") == true ? 0 : -1);
+	}
 }

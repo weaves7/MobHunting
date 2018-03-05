@@ -96,24 +96,37 @@ public class MobHunting extends JavaPlugin {
 
 		mMessages = new Messages(this);
 
-		if (mFile.exists()) {
-			// check if config file is old
+		int config_version = ConfigManager.getConfigVersion(mFile);
+		Bukkit.getConsoleSender().sendMessage(
+				ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET + "Your config version is " + config_version);
+		switch (config_version) {
+		case 0:
 			mConfig0 = new ConfigManagerOld(this, mFile);
 			mConfig = new ConfigManager(this, mFile);
-			if (mConfig0.loadConfig() && mConfig0.configVersion == 0) {
+			if (mConfig0.loadConfig()) {
 				if (mConfig.convertConfig(mConfig0)) {
-					getMessages().debug("Config.yml converted to version 1");
+					Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+							+ "Converting config.yml to new version 1 format");
 					mConfig.configVersion = 1;
+					mConfig.backupConfig(mFile);
+					mConfig.saveConfig();
 				}
 			}
-		} else {
+			break;
+		default:
 			mConfig = new ConfigManager(this, mFile);
+			if (config_version == -1) {
+				Bukkit.getConsoleSender()
+						.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET + "Creating new config.yml");
+				mConfig.backupConfig(mFile);
+			}
+			if (mConfig.loadConfig()) {
+				mConfig.saveConfig();
+				mConfig.backupConfig(mFile);
+			} else
+				throw new RuntimeException(getMessages().getString(pluginName + ".config.fail"));
+			break;
 		}
-		if (mConfig.loadConfig()) {
-			mConfig.backupConfig(mFile);
-			mConfig.saveConfig();
-		} else
-			throw new RuntimeException(getMessages().getString(pluginName + ".config.fail"));
 
 		if (isbStatsEnabled())
 			getMessages().debug("bStat is enabled");

@@ -1,5 +1,8 @@
+V5.5.4
+* Improved config.yml version detection. This should fix the reseting messages problem.
+* Improved backup of config.yml (https://github.com/Rocologo/MobHunting/issues/365)
 V5.5.3
-* Added permission to run commands
+* Added permission to run commands (https://www.spigotmc.org/threads/mobhunting.46937/page-160#post-2913762)
 * Fishing rewards works again
 * Run Messages: and Permission: nodes can be delteted from config.yml if they are empty 
 V5.5.2
