@@ -565,5 +565,25 @@ public class Messages {
 		message = ChatColor.stripColor(message);
 		return message.isEmpty();
 	}
+	
+	public void playerSendMessageAt(Player player, String message, MessageType mType) {
+		switch (mType) {
+		case Chat:
+			playerSendMessage(player, message);
+			break;
+		case ActionBar:
+			playerActionBarMessage(player, message);
+			break;
+		case BossBar:
+			playerBossbarMessage(player, message);
+			break;
+		case Title:
+			playerSendTitlesMessage(player, message, "", 10,50,10);
+			break;
+		case Subtitle:
+			playerSendTitlesMessage(player, "", message, 10,50,10);
+			break;
+		}
+	}
 
 }

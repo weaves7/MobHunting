@@ -523,8 +523,10 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "chance", category = "example.mobname.money", comment = "The chance to drop/pay the amount of money (0-1)")
 	public double exampleMoneyChance = 1;
 	@ConfigField(name = "commands", category = "example.mobname", comment = "You can use any command you want, each command has some options."
-			+ "\n 'cmd:' and 'chance:' is mandatory fields, 'message:' and 'permission:' is optional"
-			+ "\nIf you add a permission, the command will only be run if the player has this permission.")
+			+ "\n 'cmd:' and 'chance:' is mandatory fields, 'message:' 'message_type:' and 'permission:' is optional"
+			+ "\nIf you add a permission, the command will only be run if the player has this permission."
+			+ "\nmessage_type can be: Chat, ActionBar, BossBar, Title, Subtitle. Default/Fallback is Chat. The words"
+			+" \nare case sensitive and you you will need a supporting plugin. Ex. TitleManager,ActionBar,BossBar")
 	public List<HashMap<String, String>> exampleCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
@@ -537,6 +539,7 @@ public class ConfigManager extends AutoConfig {
 		values2.put("cmd", "give {player} Iron_ingot 1");
 		values2.put("chance", "0.2");
 		values2.put("message", "You got an iron ingot!");
+		values2.put("message_type", "ActionBar");
 		exampleCommands.add(values2);
 
 		HashMap<String, String> values3 = new HashMap<String, String>();
@@ -550,6 +553,7 @@ public class ConfigManager extends AutoConfig {
 		values4.put("chance", "1");
 		values4.put("message", "You shout to all other players.");
 		values4.put("permission", "any.permission");
+		values4.put("message_type", "Title");
 		exampleCommands.add(values4);
 
 	}

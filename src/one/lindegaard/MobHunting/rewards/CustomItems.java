@@ -340,7 +340,9 @@ public class CustomItems {
 		default:
 			ItemStack is = new ItemStack(getCustomtexture(UUID.fromString(Reward.MH_REWARD_KILLED_UUID),
 					minecraftMob.getFriendlyName(), minecraftMob.getTextureValue(), minecraftMob.getTextureSignature(),
-					money, UUID.randomUUID(), skinUUID));
+					money, 
+					//UUID.randomUUID()
+					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), skinUUID));
 			is.setAmount(amount);
 			return is;
 		}
