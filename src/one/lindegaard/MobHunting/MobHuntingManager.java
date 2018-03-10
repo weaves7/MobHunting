@@ -1309,10 +1309,6 @@ public class MobHuntingManager implements Listener {
 			}
 
 			if (!plugin.getGrindingManager().isWhitelisted(loc)) {
-				// Slimes ang Magmacubes are except from grinding due to their
-				// splitting nature
-				// if (!(isSlimeOrMagmaCube(event.getEntity())) &&
-				// !killed.hasMetadata("MH:reinforcement")) {
 				plugin.getMessages().debug("Checking if player is grinding within a range of %s blocks",
 						data.getcDampnerRange());
 
@@ -1734,7 +1730,6 @@ public class MobHuntingManager implements Listener {
 
 		// Run console commands as a reward
 		if (data.getDampenedKills() < 10) {
-
 			Iterator<HashMap<String, String>> itr = plugin.getRewardManager().getKillCommands(killed).iterator();
 			while (itr.hasNext()) {
 				HashMap<String, String> cmd = itr.next();
@@ -1747,7 +1742,6 @@ public class MobHuntingManager implements Listener {
 								.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
 								.replaceAll("\\{killed\\}", mob.getFriendlyName()).replaceAll("\\{world\\}", worldname)
 								.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash))
-								// .replace("{prize}", plugin.getRewardManager().format(cash))
 								.replaceAll("\\{killerpos\\}", killerpos).replaceAll("\\{killedpos\\}", killedpos)
 								.replaceAll("\\{rewardname\\}",
 										plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
@@ -1787,14 +1781,15 @@ public class MobHuntingManager implements Listener {
 								Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Command:" + str);
 							}
 						}
-						MessageType messageType = MessageType
-								.valueOf(cmd.get("message_type").isEmpty() ? "Chat" : cmd.get("message_type"));
+						MessageType messageType = MessageType.valueOf(
+								(cmd == null 
+								|| cmd.get("message_type") == null) 
+								? "Chat" : cmd.getOrDefault("message_type","Chat"));
 						String message = cmd.get("message")
 								.replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
 								.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
 								.replaceAll("\\{killed\\}", mob.getFriendlyName()).replaceAll("\\{world\\}", worldname)
 								.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash))
-								// .replace("{prize}", plugin.getRewardManager().format(cash))
 								.replaceAll("\\{killerpos\\}", killerpos).replaceAll("\\{killedpos\\}", killedpos)
 								.replaceAll("\\{rewardname\\}",
 										plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
@@ -1841,9 +1836,6 @@ public class MobHuntingManager implements Listener {
 				} else {
 					ItemStack head = new CustomItems(plugin).getCustomHead(minecraftMob, mob.getFriendlyName(), 1,
 							plugin.getRewardManager().getHeadValue(killed), minecraftMob.getPlayerUUID());
-					//plugin.getRewardManager().setDisplayNameAndHiddenLores(head, mob.getFriendlyName(),
-					//		plugin.getRewardManager().getHeadValue(killed), minecraftMob.getPlayerUUID(),
-					//		minecraftMob.getPlayerUUID());
 					killer.getWorld().dropItem(killed.getLocation(), head);
 				}
 				plugin.getMessages().debug("%s killed a %s and a head was dropped", killer.getName(), killed.getName());
@@ -1853,7 +1845,6 @@ public class MobHuntingManager implements Listener {
 									.replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
 									.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
 									.replaceAll("\\{killed\\}", mob.getFriendlyName())
-									// .replaceAll("{prize}", plugin.getRewardManager().format(cash))
 									.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash))
 									.replaceAll("\\{world\\}", worldname).replaceAll("\\{killerpos\\}", killerpos)
 									.replaceAll("\\{killedpos\\}", killedpos).replaceAll("\\{rewardname\\}",

@@ -274,7 +274,6 @@ public class FishingManager implements Listener {
 							String prizeCommand = cmd.get("cmd").replaceAll("\\{player\\}", player.getName())
 									.replaceAll("\\{killer\\}", player.getName()).replaceAll("\\{world\\}", worldname)
 									.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash))
-									// .replace("{prize}", plugin.getRewardManager().format(cash))
 									.replaceAll("\\{killerpos\\}", fishermanPos).replaceAll("\\{rewardname\\}",
 											plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
 							plugin.getMessages().debug("command to be run is:" + prizeCommand);
@@ -292,18 +291,21 @@ public class FishingManager implements Listener {
 							}
 
 							// send the command message to the player
+							MessageType messageType = MessageType
+									.valueOf((cmd == null 
+									|| cmd.get("message_type") == null) 
+											? "Chat" : cmd.getOrDefault("message_type","Chat"));
 							String message = plugin.getRewardManager().getKillMessage(fish)
 									.replaceAll("\\{player\\}", player.getName())
 									.replaceAll("\\{killer\\}", player.getName())
 									.replaceAll("\\{killed\\}", extendedMob.getFriendlyName())
 									.replaceAll("\\{world\\}", worldname)
 									.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash))
-									// .replaceAll("{prize}", plugin.getRewardManager().format(cash))
 									.replaceAll("\\{world\\}", player.getWorld().getName())
 									.replaceAll("\\{killerpos\\}", fishermanPos).replaceAll("\\{rewardname\\}",
 											plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
 							if (!message.isEmpty()) {
-								plugin.getMessages().playerSendMessage(player, message);
+								plugin.getMessages().playerSendMessageAt(player, message, messageType);
 							}
 
 						} else
@@ -350,7 +352,6 @@ public class FishingManager implements Listener {
 											.replaceAll("\\{player\\}", player.getName())
 											.replaceAll("\\{killer\\}", player.getName())
 											.replaceAll("\\{killed\\}", minecraftMob.getFriendlyName())
-											// .replaceAll("{prize}", plugin.getRewardManager().format(cash))
 											.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash))
 											.replaceAll("\\{world\\}", player.getWorld().getName())
 											.replaceAll("\\{killerpos\\}", fishermanPos)

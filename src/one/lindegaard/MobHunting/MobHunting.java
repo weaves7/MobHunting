@@ -108,7 +108,8 @@ public class MobHunting extends JavaPlugin {
 					Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
 							+ "Converting config.yml to new version 1 format");
 					mConfig.configVersion = 1;
-					mConfig.backupConfig(mFile);
+					if (mConfig.backup)
+						mConfig.backupConfig(mFile);
 					mConfig.saveConfig();
 				}
 			}

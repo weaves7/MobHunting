@@ -3556,6 +3556,9 @@ public class ConfigManager extends AutoConfig {
 
 	@ConfigField(name = "debug", category = "general", comment = "If kills are not being registered in mob hunting. Enable this to see why they arent")
 	public boolean killDebug = false;
+	
+	@ConfigField(name = "backup", category = "general", comment = "Backup config on each server start / reload")
+	public boolean backup = true;
 
 	@ConfigField(name = "reward_rounding", category = "general", comment = "Rounding of rewards when you uses a range or %. (ex creeperPrize=10:30) the reward."
 			+ "\nAll numbers except 0 can be used. "
