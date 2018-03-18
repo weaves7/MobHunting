@@ -1,6 +1,9 @@
 V5.5.7
 * Fixed bug. Could not sell dropped heads. (https://github.com/Rocologo/MobHunting/issues/368)
 * Fixed NPE bug (https://github.com/Rocologo/MobHunting/issues/373) 
+* Fixed bug. mh_Bounties was not created.
+* Fixed grinding detection.
+* MobHunting Heads and BagOfGold can now be dropped using the mouse.
 V5.5.6
 * Fixed bug: Bounties was not enabled on server start
 * Fixed bug: mob.*.message: '' is not deleted anymore

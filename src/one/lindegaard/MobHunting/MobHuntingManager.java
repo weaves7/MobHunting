@@ -1284,8 +1284,8 @@ public class MobHuntingManager implements Listener {
 		Location loc = killed.getLocation();
 
 		// Grinding detection
-		if (cash != 0 && plugin.getConfigManager().grindingDetectionEnabled
-				&& !plugin.getRewardManager().getKillCommands(killed).isEmpty()) {
+		if (plugin.getConfigManager().grindingDetectionEnabled && !(cash == 0 
+				&& plugin.getRewardManager().getKillCommands(killed).isEmpty())) {
 			// Check if the location is marked as a Grinding Area. Whitelist
 			// overrules blacklist.
 
@@ -1300,7 +1300,7 @@ public class MobHuntingManager implements Listener {
 								|| getPlayer(killer, killed).hasPermission("mobhunting.blacklist")
 								|| getPlayer(killer, killed).hasPermission("mobhunting.blacklist.show"))
 							ProtocolLibHelper.showGrindingArea(killer, detectedGrindingArea, killed.getLocation());
-					plugin.getMessages();
+					plugin.getMessages().debug("Grinding detected : %s", getPlayer(killer, killed));
 					plugin.getMessages().learn(getPlayer(killer, killed),
 							plugin.getMessages().getString("mobhunting.learn.grindingnotallowed"));
 					plugin.getMessages().debug("======================= kill ended (32)=====================");
@@ -1308,9 +1308,9 @@ public class MobHuntingManager implements Listener {
 				}
 			}
 
+			plugin.getMessages().debug("Checking if player is grinding within a range of %s blocks",
+					data.getcDampnerRange());
 			if (!plugin.getGrindingManager().isWhitelisted(loc)) {
-				plugin.getMessages().debug("Checking if player is grinding within a range of %s blocks",
-						data.getcDampnerRange());
 
 				if (detectedGrindingArea != null) {
 					data.setLastKillAreaCenter(null);
@@ -1329,9 +1329,9 @@ public class MobHuntingManager implements Listener {
 								.isLearningMode() || getPlayer(killer, killed).hasPermission("mobhunting.blacklist")
 								|| getPlayer(killer, killed).hasPermission("mobhunting.blacklist.show"))
 							ProtocolLibHelper.showGrindingArea(getPlayer(killer, killed), detectedGrindingArea, loc);
-						plugin.getMessages();
 						plugin.getMessages().learn(getPlayer(killer, killed),
 								plugin.getMessages().getString("mobhunting.learn.grindingnotallowed"));
+						plugin.getMessages().debug("1)Dampenedkilles=%s", data.getDampenedKills());
 						plugin.getMessages().debug("======================= kill ended (33)======================");
 						return;
 					} else {
@@ -1394,7 +1394,11 @@ public class MobHuntingManager implements Listener {
 					data.setKillStreak(0);
 				}
 				data.putHuntDataToPlayer(getPlayer(killer, killed));
+			} else {
+				plugin.getMessages().debug("Area is whitelisted. Grinding not detected.");
 			}
+		} else {
+			plugin.getMessages().debug("No no no");
 		}
 
 		// Apply the modifiers to Basic reward

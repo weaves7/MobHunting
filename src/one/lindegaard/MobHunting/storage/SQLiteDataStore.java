@@ -83,8 +83,8 @@ public class SQLiteDataStore extends DatabaseDataStore {
 							+ "VALUES(?,?,(SELECT IFNULL(MAX(PLAYER_ID),0)+1 FROM mh_Players),?,?,?,?);");
 			break;
 		case UPDATE_PLAYER_SETTINGS:
-			mUpdatePlayerSettings = connection
-					.prepareStatement("UPDATE mh_Players SET LEARNING_MODE=?,MUTE_MODE=?,TEXTURE=?,SIGNATURE=? WHERE UUID=?;");
+			mUpdatePlayerSettings = connection.prepareStatement(
+					"UPDATE mh_Players SET LEARNING_MODE=?,MUTE_MODE=?,TEXTURE=?,SIGNATURE=? WHERE UUID=?;");
 			break;
 		case GET_BOUNTIES:
 			mGetBounties = connection.prepareStatement(
@@ -215,7 +215,8 @@ public class SQLiteDataStore extends DatabaseDataStore {
 					+ " inner join mh_Mobs using (MOB_ID) WHERE PLAYER_ID!=0 AND NAME IS NOT NULL " + wherepart
 					+ " GROUP BY PLAYER_ID ORDER BY "
 					+ ((type.getDBColumn().equalsIgnoreCase("total_cash") || plugins_cash.contains(type.getDBColumn()))
-							? "CASH" : "AMOUNT")
+							? "CASH"
+							: "AMOUNT")
 					+ " DESC LIMIT " + count;
 			// plugin.getMessages().debug("Load str=%s",exestr);
 			ResultSet results = statement.executeQuery(exestr);
@@ -399,16 +400,14 @@ public class SQLiteDataStore extends DatabaseDataStore {
 				+ "(PLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, ACHIEVEMENT TEXT NOT NULL, "
 				+ "DATE INTEGER NOT NULL, PROGRESS INTEGER NOT NULL, PRIMARY KEY(PLAYER_ID, ACHIEVEMENT), "
 				+ "FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID))");
-		if (!plugin.getConfigManager().enablePlayerBounties)
-			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("
-					+ "BOUNTYOWNER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, " + "MOBTYPE TEXT, "
-					+ "WANTEDPLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID), " + "NPC_ID INTEGER, "
-					+ "MOB_ID TEXT, " + "WORLDGROUP TEXT NOT NULL, " + "CREATED_DATE INTEGER NOT NULL, "
-					+ "END_DATE INTEGER NOT NULL, " + "PRIZE FLOAT NOT NULL, " + "MESSAGE TEXT, "
-					+ "STATUS INTEGER NOT NULL DEFAULT 0, "
-					+ "PRIMARY KEY(WORLDGROUP, WANTEDPLAYER_ID, BOUNTYOWNER_ID), "
-					+ "FOREIGN KEY(BOUNTYOWNER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE, "
-					+ "FOREIGN KEY(WANTEDPLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE" + ")");
+		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("
+				+ "BOUNTYOWNER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, " + "MOBTYPE TEXT, "
+				+ "WANTEDPLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID), " + "NPC_ID INTEGER, " + "MOB_ID TEXT, "
+				+ "WORLDGROUP TEXT NOT NULL, " + "CREATED_DATE INTEGER NOT NULL, " + "END_DATE INTEGER NOT NULL, "
+				+ "PRIZE FLOAT NOT NULL, " + "MESSAGE TEXT, " + "STATUS INTEGER NOT NULL DEFAULT 0, "
+				+ "PRIMARY KEY(WORLDGROUP, WANTEDPLAYER_ID, BOUNTYOWNER_ID), "
+				+ "FOREIGN KEY(BOUNTYOWNER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE, "
+				+ "FOREIGN KEY(WANTEDPLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE" + ")");
 
 		create.close();
 		connection.commit();
@@ -1116,17 +1115,14 @@ public class SQLiteDataStore extends DatabaseDataStore {
 				+ " PRIMARY KEY(PLAYER_ID, ACHIEVEMENT), "
 				+ " FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID))");
 
-		if (!plugin.getConfigManager().enablePlayerBounties) {
-			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("
-					+ "BOUNTYOWNER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, " + "MOBTYPE TEXT, "
-					+ "WANTEDPLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID), " + "NPC_ID INTEGER, "
-					+ "MOB_ID TEXT, " + "WORLDGROUP TEXT NOT NULL, " + "CREATED_DATE INTEGER NOT NULL, "
-					+ "END_DATE INTEGER NOT NULL, " + "PRIZE FLOAT NOT NULL, " + "MESSAGE TEXT, "
-					+ "STATUS INTEGER NOT NULL DEFAULT 0, "
-					+ "PRIMARY KEY(WORLDGROUP, WANTEDPLAYER_ID, BOUNTYOWNER_ID), "
-					+ "FOREIGN KEY(BOUNTYOWNER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE, "
-					+ "FOREIGN KEY(WANTEDPLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE" + ")");
-		}
+		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("
+				+ "BOUNTYOWNER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, " + "MOBTYPE TEXT, "
+				+ "WANTEDPLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID), " + "NPC_ID INTEGER, " + "MOB_ID TEXT, "
+				+ "WORLDGROUP TEXT NOT NULL, " + "CREATED_DATE INTEGER NOT NULL, " + "END_DATE INTEGER NOT NULL, "
+				+ "PRIZE FLOAT NOT NULL, " + "MESSAGE TEXT, " + "STATUS INTEGER NOT NULL DEFAULT 0, "
+				+ "PRIMARY KEY(WORLDGROUP, WANTEDPLAYER_ID, BOUNTYOWNER_ID), "
+				+ "FOREIGN KEY(BOUNTYOWNER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE, "
+				+ "FOREIGN KEY(WANTEDPLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE" + ")");
 
 		// Setup Database triggers
 		create.executeUpdate("DROP TRIGGER IF EXISTS `mh_DailyInsert`");
@@ -1290,17 +1286,14 @@ public class SQLiteDataStore extends DatabaseDataStore {
 				+ " PROGRESS INTEGER NOT NULL," + " PRIMARY KEY(PLAYER_ID, ACHIEVEMENT), "
 				+ " FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID))");
 
-		if (!plugin.getConfigManager().enablePlayerBounties) {
-			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("
-					+ "BOUNTYOWNER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, " + "MOBTYPE TEXT, "
-					+ "WANTEDPLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID), " + "NPC_ID INTEGER, "
-					+ "MOB_ID TEXT, " + "WORLDGROUP TEXT NOT NULL, " + "CREATED_DATE INTEGER NOT NULL, "
-					+ "END_DATE INTEGER NOT NULL, " + "PRIZE FLOAT NOT NULL, " + "MESSAGE TEXT, "
-					+ "STATUS INTEGER NOT NULL DEFAULT 0, "
-					+ "PRIMARY KEY(WORLDGROUP, WANTEDPLAYER_ID, BOUNTYOWNER_ID), "
-					+ "FOREIGN KEY(BOUNTYOWNER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE, "
-					+ "FOREIGN KEY(WANTEDPLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE" + ")");
-		}
+		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("
+				+ "BOUNTYOWNER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, " + "MOBTYPE TEXT, "
+				+ "WANTEDPLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID), " + "NPC_ID INTEGER, " + "MOB_ID TEXT, "
+				+ "WORLDGROUP TEXT NOT NULL, " + "CREATED_DATE INTEGER NOT NULL, " + "END_DATE INTEGER NOT NULL, "
+				+ "PRIZE FLOAT NOT NULL, " + "MESSAGE TEXT, " + "STATUS INTEGER NOT NULL DEFAULT 0, "
+				+ "PRIMARY KEY(WORLDGROUP, WANTEDPLAYER_ID, BOUNTYOWNER_ID), "
+				+ "FOREIGN KEY(BOUNTYOWNER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE, "
+				+ "FOREIGN KEY(WANTEDPLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE" + ")");
 
 		// Setup Database triggers
 		create.executeUpdate("DROP TRIGGER IF EXISTS `mh_DailyInsert`");
@@ -1469,17 +1462,14 @@ public class SQLiteDataStore extends DatabaseDataStore {
 				+ " PROGRESS INTEGER NOT NULL," + " PRIMARY KEY(PLAYER_ID, ACHIEVEMENT), "
 				+ " FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID))");
 
-		if (!plugin.getConfigManager().enablePlayerBounties) {
-			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("
-					+ "BOUNTYOWNER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, " + "MOBTYPE TEXT, "
-					+ "WANTEDPLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID), " + "NPC_ID INTEGER, "
-					+ "MOB_ID TEXT, " + "WORLDGROUP TEXT NOT NULL, " + "CREATED_DATE INTEGER NOT NULL, "
-					+ "END_DATE INTEGER NOT NULL, " + "PRIZE FLOAT NOT NULL, " + "MESSAGE TEXT, "
-					+ "STATUS INTEGER NOT NULL DEFAULT 0, "
-					+ "PRIMARY KEY(WORLDGROUP, WANTEDPLAYER_ID, BOUNTYOWNER_ID), "
-					+ "FOREIGN KEY(BOUNTYOWNER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE, "
-					+ "FOREIGN KEY(WANTEDPLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE" + ")");
-		}
+		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("
+				+ "BOUNTYOWNER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, " + "MOBTYPE TEXT, "
+				+ "WANTEDPLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID), " + "NPC_ID INTEGER, " + "MOB_ID TEXT, "
+				+ "WORLDGROUP TEXT NOT NULL, " + "CREATED_DATE INTEGER NOT NULL, " + "END_DATE INTEGER NOT NULL, "
+				+ "PRIZE FLOAT NOT NULL, " + "MESSAGE TEXT, " + "STATUS INTEGER NOT NULL DEFAULT 0, "
+				+ "PRIMARY KEY(WORLDGROUP, WANTEDPLAYER_ID, BOUNTYOWNER_ID), "
+				+ "FOREIGN KEY(BOUNTYOWNER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE, "
+				+ "FOREIGN KEY(WANTEDPLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE" + ")");
 
 		// Setup Database triggers
 		create.executeUpdate("DROP TRIGGER IF EXISTS `mh_DailyInsert`");
@@ -1490,8 +1480,6 @@ public class SQLiteDataStore extends DatabaseDataStore {
 
 	}
 
-	
-	
 	// *******************************************************************************
 	// V6 DATABASE SETUP / MIGRATION
 	// *******************************************************************************
@@ -1582,17 +1570,14 @@ public class SQLiteDataStore extends DatabaseDataStore {
 				+ " PROGRESS INTEGER NOT NULL," + " PRIMARY KEY(PLAYER_ID, ACHIEVEMENT), "
 				+ " FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID))");
 
-		if (!plugin.getConfigManager().enablePlayerBounties) {
-			create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("
-					+ "BOUNTYOWNER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, " + "MOBTYPE TEXT, "
-					+ "WANTEDPLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID), " + "NPC_ID INTEGER, "
-					+ "MOB_ID TEXT, " + "WORLDGROUP TEXT NOT NULL, " + "CREATED_DATE INTEGER NOT NULL, "
-					+ "END_DATE INTEGER NOT NULL, " + "PRIZE FLOAT NOT NULL, " + "MESSAGE TEXT, "
-					+ "STATUS INTEGER NOT NULL DEFAULT 0, "
-					+ "PRIMARY KEY(WORLDGROUP, WANTEDPLAYER_ID, BOUNTYOWNER_ID), "
-					+ "FOREIGN KEY(BOUNTYOWNER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE, "
-					+ "FOREIGN KEY(WANTEDPLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE" + ")");
-		}
+		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("
+				+ "BOUNTYOWNER_ID INTEGER REFERENCES mh_Players(PLAYER_ID) NOT NULL, " + "MOBTYPE TEXT, "
+				+ "WANTEDPLAYER_ID INTEGER REFERENCES mh_Players(PLAYER_ID), " + "NPC_ID INTEGER, " + "MOB_ID TEXT, "
+				+ "WORLDGROUP TEXT NOT NULL, " + "CREATED_DATE INTEGER NOT NULL, " + "END_DATE INTEGER NOT NULL, "
+				+ "PRIZE FLOAT NOT NULL, " + "MESSAGE TEXT, " + "STATUS INTEGER NOT NULL DEFAULT 0, "
+				+ "PRIMARY KEY(WORLDGROUP, WANTEDPLAYER_ID, BOUNTYOWNER_ID), "
+				+ "FOREIGN KEY(BOUNTYOWNER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE, "
+				+ "FOREIGN KEY(WANTEDPLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE" + ")");
 
 		// Setup Database triggers
 		create.executeUpdate("DROP TRIGGER IF EXISTS `mh_DailyInsert`");
@@ -1629,7 +1614,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 	}
 
 	protected void migrateDatabaseLayoutFromV6ToV7(Connection mConnection) throws DataStoreException {
-		//There is noting to do if the plugin uses Sqlite
+		// There is noting to do if the plugin uses Sqlite
 	}
-	
+
 }

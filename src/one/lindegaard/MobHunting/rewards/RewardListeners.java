@@ -92,14 +92,15 @@ public class RewardListeners implements Listener {
 							+ reward.getDisplayname() + " (" + plugin.getRewardManager().format(money) + ")");
 
 				plugin.getRewardManager().getDroppedMoney().put(item.getEntityId(), money);
-				if (!plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency)
+				if (!plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency
+						&& !plugin.getConfigManager().dropMoneyOnGroup)
 					plugin.getRewardManager().getEconomy().withdrawPlayer(player, money);
 
 				plugin.getMessages().debug("%s dropped %s money. (# of rewards left=%s)", player.getName(),
 						plugin.getRewardManager().format(money), plugin.getRewardManager().getDroppedMoney().size());
 				plugin.getMessages().playerActionBarMessage(player,
-						plugin.getMessages().getString("mobhunting.moneydrop", "money", plugin.getRewardManager().format(money),
-								"rewardname",
+						plugin.getMessages().getString("mobhunting.moneydrop", "money",
+								plugin.getRewardManager().format(money), "rewardname",
 								ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 										+ (plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
 												? plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim()
@@ -121,8 +122,12 @@ public class RewardListeners implements Listener {
 		if (Reward.isReward(event.getEntity())) {
 			if (plugin.getRewardManager().getDroppedMoney().containsKey(event.getEntity().getEntityId())) {
 				plugin.getRewardManager().getDroppedMoney().remove(event.getEntity().getEntityId());
-				plugin.getMessages().debug("The reward was lost - despawned (# of rewards left=%s)",
-						plugin.getRewardManager().getDroppedMoney().size());
+				if (event.getEntity().getLastDamageCause() != null)
+					plugin.getMessages().debug("The reward was destroyed by %s",
+							event.getEntity().getLastDamageCause().toString());
+				else
+					plugin.getMessages().debug("The reward despawned (# of rewards left=%s)",
+							plugin.getRewardManager().getDroppedMoney().size());
 			}
 		}
 	}
@@ -231,8 +236,8 @@ public class RewardListeners implements Listener {
 									ProtocolLibHelper.pickupMoney(player, item);
 
 								if (reward.getMoney() == 0) {
-									plugin.getMessages().debug("%s picked up a %s (# of rewards left=%s)", player.getName(),
-											reward.getDisplayname(),
+									plugin.getMessages().debug("%s picked up a %s (# of rewards left=%s)",
+											player.getName(), reward.getDisplayname(),
 											plugin.getRewardManager().getDroppedMoney().size());
 								} else {
 									plugin.getMessages().debug(
@@ -269,8 +274,8 @@ public class RewardListeners implements Listener {
 				if (plugin.getRewardManager().getDroppedMoney().containsKey(targetEntity.getEntityId()))
 					plugin.getRewardManager().getDroppedMoney().remove(targetEntity.getEntityId());
 				targetEntity.remove();
-				plugin.getMessages().debug("The reward was hit by %s and removed. (# of rewards left=%s)", projectile.getType(),
-						plugin.getRewardManager().getDroppedMoney().size());
+				plugin.getMessages().debug("The reward was hit by %s and removed. (# of rewards left=%s)",
+						projectile.getType(), plugin.getRewardManager().getDroppedMoney().size());
 			}
 		}
 	}
@@ -287,11 +292,13 @@ public class RewardListeners implements Listener {
 			Reward reward = Reward.getReward(is);
 			if (event.getPlayer().getGameMode() != GameMode.SURVIVAL) {
 				reward.setMoney(0);
-				plugin.getMessages().learn(event.getPlayer(), plugin.getMessages().getString("mobhunting.learn.no-duplication"));
+				plugin.getMessages().learn(event.getPlayer(),
+						plugin.getMessages().getString("mobhunting.learn.no-duplication"));
 			}
 			if (reward.getMoney() == 0)
 				reward.setUniqueId(UUID.randomUUID());
-			plugin.getMessages().debug("%s placed a reward block: %s", player.getName(), ChatColor.stripColor(reward.toString()));
+			plugin.getMessages().debug("%s placed a reward block: %s", player.getName(),
+					ChatColor.stripColor(reward.toString()));
 			block.setMetadata(Reward.MH_REWARD_DATA, new FixedMetadataValue(plugin, reward));
 			plugin.getRewardManager().getLocations().put(reward.getUniqueUUID(), reward);
 			plugin.getRewardManager().getReward().put(reward.getUniqueUUID(), block.getLocation());
@@ -369,7 +376,8 @@ public class RewardListeners implements Listener {
 			if (Reward.isReward(helmet)) {
 				Reward reward = Reward.getReward(helmet);
 				if (reward.isBagOfGoldReward()) {
-					plugin.getMessages().learn(player, plugin.getMessages().getString("mobhunting.learn.rewards.no-helmet"));
+					plugin.getMessages().learn(player,
+							plugin.getMessages().getString("mobhunting.learn.rewards.no-helmet"));
 					event.getPlayer().getEquipment().setHelmet(new ItemStack(Material.AIR));
 					if (!plugin.getRewardManager().addBagOfGoldPlayer_RewardManager(player, reward.getMoney()))
 						plugin.getRewardManager().dropMoneyOnGround_RewardManager(player, null, player.getLocation(),
@@ -403,25 +411,25 @@ public class RewardListeners implements Listener {
 		Player player = (Player) event.getWhoClicked();
 		SlotType slotType = event.getSlotType();
 
-		// Inventory inventory = event.getInventory();
-		// if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
-		// plugin.getMessages().debug("action=%s, InventoryType=%s, slottype=%s, slotno=%s,
-		// current=%s, cursor=%s, view=%s",
-		// action, inventory.getType(), slotType, event.getSlot(),
-		// isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
-		// isCursor == null ? "null" : isCursor.getType(), event.getView().getType());
-		// }
+		//Inventory inventory = event.getInventory();
+		//if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
+		//	plugin.getMessages().debug(
+		//			"action=%s, InventoryType=%s, slottype=%s, slotno=%s, current=%s, cursor=%s, view=%s", action,
+		//			inventory.getType(), slotType, event.getSlot(),
+		//			isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
+		//			isCursor == null ? "null" : isCursor.getType(), event.getView().getType());
+		//}
 
 		if (action == InventoryAction.NOTHING)
 			return;
 
-		if (!(slotType == SlotType.CONTAINER || slotType == SlotType.QUICKBAR
+		if (!(slotType == SlotType.CONTAINER || slotType == SlotType.QUICKBAR || slotType == SlotType.OUTSIDE
 				|| (slotType == SlotType.ARMOR && event.getSlot() == 39))) {
 			if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
 				Reward reward = Reward.isReward(isCurrentSlot) ? Reward.getReward(isCurrentSlot)
 						: Reward.getReward(isCursor);
-				plugin.getMessages().learn(player,
-						plugin.getMessages().getString("mobhunting.learn.rewards.no-use", "rewardname", reward.getDisplayname()));
+				plugin.getMessages().learn(player, plugin.getMessages().getString("mobhunting.learn.rewards.no-use",
+						"rewardname", reward.getDisplayname()));
 				event.setCancelled(true);
 				return;
 			}
@@ -431,8 +439,8 @@ public class RewardListeners implements Listener {
 			if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
 				Reward reward = Reward.isReward(isCurrentSlot) ? Reward.getReward(isCurrentSlot)
 						: Reward.getReward(isCursor);
-				plugin.getMessages().learn(player,
-						plugin.getMessages().getString("mobhunting.learn.rewards.no-clone", "rewardname", reward.getDisplayname()));
+				plugin.getMessages().learn(player, plugin.getMessages().getString("mobhunting.learn.rewards.no-clone",
+						"rewardname", reward.getDisplayname()));
 				event.setCancelled(true);
 				return;
 			}
@@ -626,9 +634,9 @@ public class RewardListeners implements Listener {
 			// isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
 			// isCursor == null ? "null" : isCursor.getType(), event.getView().getType());
 
-			if ( //(Reward.isReward(isCursor) && Reward.getReward(isCursor).getMoney() > 0)
-					//||
-					(Reward.isReward(isCurrentSlot) && Reward.getReward(isCurrentSlot).getMoney() > 0))
+			if ( // (Reward.isReward(isCursor) && Reward.getReward(isCursor).getMoney() > 0)
+					// ||
+			(Reward.isReward(isCurrentSlot) && Reward.getReward(isCurrentSlot).getMoney() > 0))
 				plugin.getMessages().learn(player, plugin.getMessages().getString("mobhunting.learn.rewards.creative"));
 
 		}
