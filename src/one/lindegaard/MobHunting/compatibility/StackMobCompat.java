@@ -45,7 +45,6 @@ public class StackMobCompat implements Listener {
 		return supported;
 	}
 
-	@SuppressWarnings("unused")
 	private static boolean isEnabledInConfig() {
 		return MobHunting.getInstance().getConfigManager().enableIntegrationStackMob;
 	}
