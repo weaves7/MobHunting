@@ -499,6 +499,7 @@ public class Messages {
 
 	HashMap<Long, MessageQueue> messageQueue = new HashMap<Long, MessageQueue>();
 	BukkitTask taskId;
+
 	public void playerActionBarMessageQueue(Player player, String message) {
 		if (isEmpty(message))
 			return;
@@ -513,13 +514,15 @@ public class Messages {
 							key = Math.min(key, k.getKey());
 					}
 					MessageQueue msg = messageQueue.get(key);
-					playerActionBarMessageNow(msg.getPlayer(), msg.getMessage());
-					messageQueue.remove(key);
-					// wait 1.5 sec before sending next message
-					try {
-						Thread.sleep(1500L);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
+					if (msg != null) {
+						playerActionBarMessageNow(msg.getPlayer(), msg.getMessage());
+						messageQueue.remove(key);
+						// wait 1.5 sec before sending next message
+						try {
+							Thread.sleep(1500L);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 					}
 				}
 				Bukkit.getScheduler().cancelTask(taskId.getTaskId());

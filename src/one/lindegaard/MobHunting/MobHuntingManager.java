@@ -1348,7 +1348,7 @@ public class MobHuntingManager implements Listener {
 						plugin.getMessages().debug("======================= kill ended (33)======================");
 						return;
 					} else {
-						plugin.getMessages().debug("DampendKills=%s", data.getDampenedKills());
+						plugin.getMessages().debug("DampenedKills=%s", data.getDampenedKills());
 					}
 				} else {
 					if (data.getLastKillAreaCenter() != null) {
@@ -1358,7 +1358,7 @@ public class MobHuntingManager implements Listener {
 								if (!MobStackerCompat.isSupported() || (MobStackerCompat.isStackedMob(killed)
 										&& !MobStackerCompat.isGrindingStackedMobsAllowed())) {
 									data.setDampenedKills(data.getDampenedKills() + 1);
-									plugin.getMessages().debug("DampendKills=%s", data.getDampenedKills());
+									plugin.getMessages().debug("DampenedKills=%s", data.getDampenedKills());
 									if (data.getDampenedKills() >= (isSlimeOrMagmaCube(killed) ? 2 : 1)
 											* plugin.getConfigManager().grindingDetectionNumberOfDeath / 2) {
 										plugin.getMessages().debug(
@@ -1378,18 +1378,18 @@ public class MobHuntingManager implements Listener {
 							} else {
 								data.setLastKillAreaCenter(loc.clone());
 								plugin.getMessages().debug(
-										"Kill not within %s blocks from previous kill. DampendKills reset to 0",
+										"Kill not within %s blocks from previous kill. DampenedKills reset to 0",
 										data.getcDampnerRange());
 								data.setDampenedKills(0);
 							}
 						} else {
 							data.setLastKillAreaCenter(loc.clone());
-							plugin.getMessages().debug("Kill in new world. DampendKills reset to 0");
+							plugin.getMessages().debug("Kill in new world. DampenedKills reset to 0");
 							data.setDampenedKills(0);
 						}
 					} else {
 						data.setLastKillAreaCenter(loc.clone());
-						plugin.getMessages().debug("Last Kill Area Center was null. DampendKills reset to 0");
+						plugin.getMessages().debug("Last Kill Area Center was null. DampenedKills reset to 0");
 						data.setDampenedKills(0);
 					}
 				}
