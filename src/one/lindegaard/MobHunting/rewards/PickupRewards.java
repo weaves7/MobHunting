@@ -37,7 +37,7 @@ public class PickupRewards {
 					// If not Gringotts
 					done = plugin.getRewardManager().depositPlayer(player, reward.getMoney()).transactionSuccess();
 				} else {
-					done = plugin.getRewardManager().addBagOfGoldPlayer_RewardManager(player, reward.getMoney());
+					done = plugin.getRewardManager().addBagOfGoldPlayer(player, reward.getMoney());
 				}
 			}
 			if (done) {
@@ -59,7 +59,7 @@ public class PickupRewards {
 									: reward.getDisplayname(),
 							plugin.getRewardManager().format(Misc.round(reward.getMoney())),
 							plugin.getRewardManager().getDroppedMoney().size());
-					plugin.getMessages().playerActionBarMessage(player,
+					plugin.getMessages().playerActionBarMessageQueue(player,
 							plugin.getMessages().getString("mobhunting.moneypickup", "money",
 									plugin.getRewardManager().format(reward.getMoney()), "rewardname",
 									ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)

@@ -140,7 +140,7 @@ public class MyPetCompat implements Listener {
 
 		if (Reward.isReward(item)) {
 			Reward reward = Reward.getReward(item);
-			MobHunting.getInstance().getMessages().playerActionBarMessage(player,
+			MobHunting.getInstance().getMessages().playerActionBarMessageQueue(player,
 					MobHunting.getInstance().getMessages().getString("mobhunting.reward.mypet_pickup", "rewardname",
 							ChatColor.valueOf(MobHunting.getInstance().getConfigManager().dropMoneyOnGroundTextColor)
 									+ reward.getDisplayname(),

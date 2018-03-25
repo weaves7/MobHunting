@@ -98,7 +98,7 @@ public class RewardListeners implements Listener {
 
 				plugin.getMessages().debug("%s dropped %s money. (# of rewards left=%s)", player.getName(),
 						plugin.getRewardManager().format(money), plugin.getRewardManager().getDroppedMoney().size());
-				plugin.getMessages().playerActionBarMessage(player,
+				plugin.getMessages().playerActionBarMessageQueue(player,
 						plugin.getMessages().getString("mobhunting.moneydrop", "money",
 								plugin.getRewardManager().format(money), "rewardname",
 								ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
@@ -181,7 +181,7 @@ public class RewardListeners implements Listener {
 							boolean done = false;
 							if (BagOfGoldCompat.isSupported()) {
 								if (player.getGameMode() == GameMode.SURVIVAL) {
-									done = plugin.getRewardManager().addBagOfGoldPlayer_RewardManager(player,
+									done = plugin.getRewardManager().addBagOfGoldPlayer(player,
 											reward.getMoney());
 									PlayerSettings ps = BagOfGold.getApi().getPlayerSettingsManager()
 											.getPlayerSettings(player);
@@ -245,7 +245,7 @@ public class RewardListeners implements Listener {
 											player.getName(), reward.getDisplayname(),
 											plugin.getRewardManager().format(Misc.round(reward.getMoney())),
 											plugin.getRewardManager().getDroppedMoney().size());
-									plugin.getMessages().playerActionBarMessage(player, plugin.getMessages().getString(
+									plugin.getMessages().playerActionBarMessageQueue(player, plugin.getMessages().getString(
 											"mobhunting.moneypickup", "money",
 											plugin.getRewardManager().format(reward.getMoney()), "rewardname",
 											ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
@@ -379,7 +379,7 @@ public class RewardListeners implements Listener {
 					plugin.getMessages().learn(player,
 							plugin.getMessages().getString("mobhunting.learn.rewards.no-helmet"));
 					event.getPlayer().getEquipment().setHelmet(new ItemStack(Material.AIR));
-					if (!plugin.getRewardManager().addBagOfGoldPlayer_RewardManager(player, reward.getMoney()))
+					if (!plugin.getRewardManager().addBagOfGoldPlayer(player, reward.getMoney()))
 						plugin.getRewardManager().dropMoneyOnGround_RewardManager(player, null, player.getLocation(),
 								reward.getMoney());
 				}
@@ -543,11 +543,11 @@ public class RewardListeners implements Listener {
 		if (Reward.hasReward(block)) {
 			Reward reward = Reward.getReward(block);
 			if (reward.getMoney() == 0)
-				plugin.getMessages().playerActionBarMessage(player,
+				plugin.getMessages().playerActionBarMessageQueue(player,
 						ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 								+ reward.getDisplayname());
 			else
-				plugin.getMessages().playerActionBarMessage(player,
+				plugin.getMessages().playerActionBarMessageQueue(player,
 						ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 								+ (plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
 										? plugin.getRewardManager().format(reward.getMoney())
@@ -560,50 +560,50 @@ public class RewardListeners implements Listener {
 				if (Misc.isMC19OrNewer()) {
 					OfflinePlayer owner = skullState.getOwningPlayer();
 					if (owner != null && owner.getName() != null) {
-						plugin.getMessages().playerActionBarMessage(player,
+						plugin.getMessages().playerActionBarMessageQueue(player,
 								ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 										+ owner.getName());
 					} else
-						plugin.getMessages().playerActionBarMessage(player,
+						plugin.getMessages().playerActionBarMessageQueue(player,
 								ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 										+ plugin.getMessages().getString("mobhunting.reward.customtexture"));
 				} else if (skullState.hasOwner()) {
 					@SuppressWarnings("deprecation")
 					String owner = skullState.getOwner();
 					if (!owner.equalsIgnoreCase("")) {
-						plugin.getMessages().playerActionBarMessage(player,
+						plugin.getMessages().playerActionBarMessageQueue(player,
 								ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + owner);
 					} else
-						plugin.getMessages().playerActionBarMessage(player,
+						plugin.getMessages().playerActionBarMessageQueue(player,
 								ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 										+ plugin.getMessages().getString("mobhunting.reward.customtexture"));
 				} else
-					plugin.getMessages().playerActionBarMessage(player,
+					plugin.getMessages().playerActionBarMessageQueue(player,
 							ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 									+ plugin.getMessages().getString("mobhunting.reward.steve"));
 				break;
 			case CREEPER:
-				plugin.getMessages().playerActionBarMessage(player,
+				plugin.getMessages().playerActionBarMessageQueue(player,
 						ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 								+ plugin.getMessages().getString("mobs.Creeper.name"));
 				break;
 			case SKELETON:
-				plugin.getMessages().playerActionBarMessage(player,
+				plugin.getMessages().playerActionBarMessageQueue(player,
 						ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 								+ plugin.getMessages().getString("mobs.Skeleton.name"));
 				break;
 			case WITHER:
-				plugin.getMessages().playerActionBarMessage(player,
+				plugin.getMessages().playerActionBarMessageQueue(player,
 						ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 								+ plugin.getMessages().getString("mobs.Wither.name"));
 				break;
 			case ZOMBIE:
-				plugin.getMessages().playerActionBarMessage(player,
+				plugin.getMessages().playerActionBarMessageQueue(player,
 						ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 								+ plugin.getMessages().getString("mobs.Zombie.name"));
 				break;
 			case DRAGON:
-				plugin.getMessages().playerActionBarMessage(player,
+				plugin.getMessages().playerActionBarMessageQueue(player,
 						ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 								+ plugin.getMessages().getString("mobs.EnderDragon.name"));
 				break;

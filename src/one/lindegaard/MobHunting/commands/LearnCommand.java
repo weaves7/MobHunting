@@ -82,7 +82,7 @@ public class LearnCommand implements ICommand {
 				}
 				return true;
 			} else {
-				plugin.getMessages().senderSendMessage(sender,ChatColor.RED + "Player " + args[0] + " is not online.");
+				plugin.getMessages().senderSendMessage(sender, ChatColor.RED + "Player " + args[0] + " is not online.");
 				return false;
 			}
 		}
@@ -90,17 +90,15 @@ public class LearnCommand implements ICommand {
 	}
 
 	private void togglePlayerLearningMode(Player player) {
-		DataStoreManager ds = plugin.getDataStoreManager();
-		boolean mm = plugin.getPlayerSettingsManager().getPlayerSettings(player).isMuted();
 		PlayerSettings ps = plugin.getPlayerSettingsManager().getPlayerSettings(player);
-		if (ps.isLearningMode()) {
-			ds.updatePlayerSettings(player, false, mm);
-			plugin.getPlayerSettingsManager().setPlayerSettings(player, new PlayerSettings(player, false, mm));
-			player.sendMessage(plugin.getMessages().getString("mobhunting.commands.learn.disabled", "player", player.getName()));
-		} else {
-			plugin.getPlayerSettingsManager().setPlayerSettings(player, new PlayerSettings(player, true, mm));
-			player.sendMessage(plugin.getMessages().getString("mobhunting.commands.learn.enabled", "player", player.getName()));
-		}
+		ps.setLearningMode(!ps.isLearningMode());
+		plugin.getPlayerSettingsManager().setPlayerSettings(player, ps);
+		if (ps.isLearningMode())
+			player.sendMessage(
+					plugin.getMessages().getString("mobhunting.commands.learn.disabled", "player", player.getName()));
+		else
+			player.sendMessage(
+					plugin.getMessages().getString("mobhunting.commands.learn.enabled", "player", player.getName()));
 	}
 
 }

@@ -224,7 +224,7 @@ public class RewardManager {
 		return amountInInventory;
 	}
 
-	public boolean addBagOfGoldPlayer_RewardManager(Player player, double amount) {
+	public boolean addBagOfGoldPlayer(Player player, double amount) {
 		boolean found = false;
 		for (int slot = 0; slot < player.getInventory().getSize(); slot++) {
 			ItemStack is = player.getInventory().getItem(slot);
@@ -271,7 +271,7 @@ public class RewardManager {
 		return false;
 	}
 
-	public double removeBagOfGoldPlayer_RewardManager(Player player, double amount) {
+	public double removeBagOfGoldPlayer(Player player, double amount) {
 		MobHunting mPlugin = (MobHunting) Bukkit.getPluginManager().getPlugin("MobHunting");
 		double taken = 0;
 		double toBeTaken = Misc.floor(amount);

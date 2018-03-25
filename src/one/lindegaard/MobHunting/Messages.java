@@ -25,6 +25,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitTask;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import one.lindegaard.MobHunting.compatibility.ActionAnnouncerCompat;
@@ -118,7 +119,8 @@ public class Messages {
 				writer.append("\n" + entry.getKey() + "=" + entry.getValue());
 			}
 			writer.close();
-			// Bukkit.getServer().getConsoleSender().sendMessage(PREFIX + " Sorted " +
+			// Bukkit.getServer().getConsoleSender().sendMessage(PREFIX + "
+			// Sorted " +
 			// onDisk.getName() +
 			// " translation");
 
@@ -419,8 +421,8 @@ public class Messages {
 	}
 
 	/**
-	 * Broadcast message to all players except Player using the ActionBar. if the no
-	 * plugins for the actionbar is available the chat will be used.
+	 * Broadcast message to all players except Player using the ActionBar. if
+	 * the no plugins for the actionbar is available the chat will be used.
 	 * 
 	 * @param message
 	 * @param except
@@ -435,7 +437,7 @@ public class Messages {
 				continue;
 
 			if (plugin.getConfigManager().useActionBarforBroadcasts)
-				playerActionBarMessage(player, message);
+				playerActionBarMessageQueue(player, message);
 			else if (isEmpty(message)) {
 				player.sendMessage(PlaceholderAPICompat.setPlaceholders(player, message));
 			}
@@ -495,18 +497,58 @@ public class Messages {
 		}
 	}
 
+	HashMap<Long, MessageQueue> messageQueue = new HashMap<Long, MessageQueue>();
+	BukkitTask taskId;
+	public void playerActionBarMessageQueue(Player player, String message) {
+		if (isEmpty(message))
+			return;
+
+		Runnable messageTask = new Runnable() {
+			@Override
+			public void run() {
+				while (!messageQueue.isEmpty()) {
+					Long key = System.currentTimeMillis() + 3600000L;
+					for (Entry<Long, MessageQueue> k : messageQueue.entrySet()) {
+						if (k.getValue().getPlayer().equals(player))
+							key = Math.min(key, k.getKey());
+					}
+					MessageQueue msg = messageQueue.get(key);
+					playerActionBarMessageNow(msg.getPlayer(), msg.getMessage());
+					messageQueue.remove(key);
+					// wait 1.5 sec before sending next message
+					try {
+						Thread.sleep(1500L);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				Bukkit.getScheduler().cancelTask(taskId.getTaskId());
+			};
+		};
+
+		message = PlaceholderAPICompat.setPlaceholders(player, message);
+		messageQueue.put(System.currentTimeMillis() + 5000L, new MessageQueue(player, message));
+		if (taskId == null || !Bukkit.getScheduler().isCurrentlyRunning(taskId.getTaskId())
+				|| !Bukkit.getScheduler().isQueued(taskId.getTaskId())) {
+			taskId = Bukkit.getScheduler().runTaskAsynchronously(plugin, messageTask);
+		}
+	}
+
 	/**
 	 * Show message to the player using the ActionBar
 	 * 
 	 * @param player
 	 * @param message
 	 */
-	public void playerActionBarMessage(final Player player, String message) {
+	public void playerActionBarMessageNow(Player player, String message) {
 		if (isEmpty(message))
 			return;
 
 		message = PlaceholderAPICompat.setPlaceholders(player, message);
 
+		if (messageQueue.isEmpty()) {
+
+		}
 		if (TitleManagerCompat.isSupported()) {
 			TitleManagerCompat.setActionBar(player, message);
 		} else if (ActionbarCompat.isSupported()) {
@@ -521,13 +563,13 @@ public class Messages {
 		}
 	}
 
-	public void playerSendMessage(final Player player, String message) {
+	public void playerSendMessage(Player player, String message) {
 		if (isEmpty(message))
 			return;
 		player.sendMessage(PlaceholderAPICompat.setPlaceholders(player, message));
 	}
 
-	public void senderSendMessage(final CommandSender sender, String message) {
+	public void senderSendMessage(CommandSender sender, String message) {
 		if (isEmpty(message))
 			return;
 		if (sender instanceof Player)
@@ -565,23 +607,23 @@ public class Messages {
 		message = ChatColor.stripColor(message);
 		return message.isEmpty();
 	}
-	
+
 	public void playerSendMessageAt(Player player, String message, MessageType mType) {
 		switch (mType) {
 		case Chat:
 			playerSendMessage(player, message);
 			break;
 		case ActionBar:
-			playerActionBarMessage(player, message);
+			playerActionBarMessageQueue(player, message);
 			break;
 		case BossBar:
 			playerBossbarMessage(player, message);
 			break;
 		case Title:
-			playerSendTitlesMessage(player, message, "", 10,50,10);
+			playerSendTitlesMessage(player, message, "", 10, 50, 10);
 			break;
 		case Subtitle:
-			playerSendTitlesMessage(player, "", message, 10,50,10);
+			playerSendTitlesMessage(player, "", message, 10, 50, 10);
 			break;
 		}
 	}

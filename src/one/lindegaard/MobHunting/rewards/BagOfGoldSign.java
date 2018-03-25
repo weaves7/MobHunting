@@ -227,7 +227,7 @@ public class BagOfGoldSign implements Listener {
 						if (plugin.getRewardManager().getEconomy().hasBankSupport()
 								&& plugin.getRewardManager().getEconomy()
 										.isBankOwner(player.getUniqueId().toString(), player).transactionSuccess()) {
-							plugin.getMessages().playerActionBarMessage(player,
+							plugin.getMessages().playerActionBarMessageQueue(player,
 									plugin.getMessages().getString("mobhunting.bagofgoldsign.balance2", "balance",
 											plugin.getRewardManager().getEconomy()
 													.format(plugin.getRewardManager().getEconomy().getBalance(player)),
@@ -236,7 +236,7 @@ public class BagOfGoldSign implements Listener {
 													.format(plugin.getRewardManager().getEconomy()
 															.bankBalance(player.getUniqueId().toString()).balance)));
 						} else {
-							plugin.getMessages().playerActionBarMessage(player,
+							plugin.getMessages().playerActionBarMessageQueue(player,
 									plugin.getMessages().getString("mobhunting.bagofgoldsign.balance1", "balance",
 											plugin.getRewardManager().getEconomy().format(
 													plugin.getRewardManager().getEconomy().getBalance(player))));
@@ -252,7 +252,7 @@ public class BagOfGoldSign implements Listener {
 									amountInInventory = amountInInventory + reward.getMoney();
 							}
 						}
-						plugin.getMessages().playerActionBarMessage(player,
+						plugin.getMessages().playerActionBarMessageQueue(player,
 								plugin.getMessages().getString("mobhunting.bagofgoldsign.balance1", "balance",
 										plugin.getRewardManager().getEconomy().format(amountInInventory)));
 					}

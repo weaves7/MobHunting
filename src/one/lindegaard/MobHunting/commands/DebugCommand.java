@@ -9,10 +9,10 @@ import one.lindegaard.MobHunting.MobHunting;
 
 public class DebugCommand implements ICommand {
 
-private MobHunting plugin;
-	
+	private MobHunting plugin;
+
 	public DebugCommand(MobHunting plugin) {
-		this.plugin=plugin;
+		this.plugin = plugin;
 	}
 
 	// Used case
@@ -69,15 +69,14 @@ private MobHunting plugin;
 
 	private void toggledebugMode(CommandSender sender) {
 		boolean debug = plugin.getConfigManager().killDebug;
-		if (debug) {
-			plugin.getConfigManager().killDebug = false;
-			plugin.getMessages().senderSendMessage(sender,"[MobHunting] " + plugin.getMessages().getString("mobhunting.commands.debug.disabled"));
-			plugin.getConfigManager().saveConfig();
-		} else {
-			plugin.getConfigManager().killDebug = true;
-			plugin.getMessages().senderSendMessage(sender,"[MobHunting] " + plugin.getMessages().getString("mobhunting.commands.debug.enabled"));
-			plugin.getConfigManager().saveConfig();
-		}
+		plugin.getConfigManager().killDebug = !debug;
+		if (debug)
+			plugin.getMessages().senderSendMessage(sender,
+					"[MobHunting] " + plugin.getMessages().getString("mobhunting.commands.debug.disabled"));
+		else
+			plugin.getMessages().senderSendMessage(sender,
+					"[MobHunting] " + plugin.getMessages().getString("mobhunting.commands.debug.enabled"));
+		plugin.getConfigManager().saveConfig();
 
 	}
 

@@ -197,7 +197,7 @@ public class MasterMobHunterManager implements Listener {
 				update(npc);
 				MasterMobHunter mmh = mMasterMobHunter.get(npc.getId());
 				mmh.update();
-				plugin.getMessages().playerActionBarMessage(event.getClicker(),
+				plugin.getMessages().playerActionBarMessageQueue(event.getClicker(),
 						MobHunting.getInstance().getMessages().getString("mobhunting.npc.clickednpc", "killer",
 								CitizensAPI.getNPCRegistry().getById(npc.getId()).getName(), "rank", mmh.getRank(),
 								"numberofkills", mmh.getNumberOfKills(), "stattype", mmh.getStatType().translateName(),
@@ -265,7 +265,7 @@ public class MasterMobHunterManager implements Listener {
 			update(npc);
 			MasterMobHunter mmh = mMasterMobHunter.get(npc.getId());
 			mmh.update();
-			plugin.getMessages().playerActionBarMessage(event.getClicker(),
+			plugin.getMessages().playerActionBarMessageQueue(event.getClicker(),
 					MobHunting.getInstance().getMessages().getString("mobhunting.npc.clickednpc", "killer",
 							CitizensAPI.getNPCRegistry().getById(npc.getId()).getName(), "rank", mmh.getRank(),
 							"numberofkills", mmh.getNumberOfKills(), "stattype", mmh.getStatType().translateName(),

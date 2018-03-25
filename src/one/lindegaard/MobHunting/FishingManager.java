@@ -213,12 +213,12 @@ public class FishingManager implements Listener {
 				if (!fisherman_muted)
 					if (extraString.trim().isEmpty()) {
 						if (cash >= plugin.getConfigManager().minimumReward) {
-							plugin.getMessages().playerActionBarMessage(player,
+							plugin.getMessages().playerActionBarMessageQueue(player,
 									ChatColor.GREEN + "" + ChatColor.ITALIC
 											+ plugin.getMessages().getString("mobhunting.fishcaught.reward", "prize",
 													plugin.getRewardManager().format(cash)));
 						} else if (cash <= -plugin.getConfigManager().minimumReward) {
-							plugin.getMessages().playerActionBarMessage(player,
+							plugin.getMessages().playerActionBarMessageQueue(player,
 									ChatColor.RED + "" + ChatColor.ITALIC
 											+ plugin.getMessages().getString("mobhunting.fishcaught.penalty", "prize",
 													plugin.getRewardManager().format(cash)));
@@ -231,12 +231,12 @@ public class FishingManager implements Listener {
 									+ plugin.getMessages().getString("mobhunting.fishcaught.reward.bonuses", "prize",
 											plugin.getRewardManager().format(cash), "bonuses", extraString.trim(),
 											"multipliers", plugin.getRewardManager().format(multipliers)));
-							plugin.getMessages().playerActionBarMessage(player, ChatColor.GREEN + "" + ChatColor.ITALIC
+							plugin.getMessages().playerActionBarMessageQueue(player, ChatColor.GREEN + "" + ChatColor.ITALIC
 									+ plugin.getMessages().getString("mobhunting.fishcaught.reward.bonuses", "prize",
 											plugin.getRewardManager().format(cash), "bonuses", extraString.trim(),
 											"multipliers", plugin.getRewardManager().format(multipliers)));
 						} else if (cash <= -plugin.getConfigManager().minimumReward) {
-							plugin.getMessages().playerActionBarMessage(player, ChatColor.RED + "" + ChatColor.ITALIC
+							plugin.getMessages().playerActionBarMessageQueue(player, ChatColor.RED + "" + ChatColor.ITALIC
 									+ plugin.getMessages().getString("mobhunting.fishcaught.penalty.bonuses", "prize",
 											plugin.getRewardManager().format(cash), "bonuses", extraString.trim(),
 											"multipliers", plugin.getRewardManager().format(multipliers)));
@@ -312,7 +312,6 @@ public class FishingManager implements Listener {
 							plugin.getMessages().debug(
 									"The command did not run because random number (%s) was bigger than chance (%s)",
 									random, cmd.get("chance"));
-						itr.remove();
 					} else {
 						plugin.getMessages().debug("%s has not permission (%s) to run command: %s", player.getName(),
 								cmd.get("permission"), cmd.get("cmd"));

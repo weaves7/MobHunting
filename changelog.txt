@@ -1,5 +1,7 @@
 V5.5.8
-* Shutdown process uptimized
+* Added MessageQueue for ActionBar messages.
+* Shutdown process optimized
+* Fixed bug where commands was not run second time the mob was killed.
 V5.5.7
 * Fixed bug. Could not sell dropped heads. (https://github.com/Rocologo/MobHunting/issues/368)
 * Fixed NPE bug (https://github.com/Rocologo/MobHunting/issues/373) 

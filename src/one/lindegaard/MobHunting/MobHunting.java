@@ -552,8 +552,4 @@ public class MobHunting extends JavaPlugin {
 		return mSpigetUpdater;
 	}
 
-	// public CustomItemsLib getCustomItemsLib() {
-	// return mCustomItemsLib;
-	// }
-
 }

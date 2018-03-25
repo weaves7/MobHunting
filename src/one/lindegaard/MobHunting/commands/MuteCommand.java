@@ -82,7 +82,7 @@ public class MuteCommand implements ICommand {
 				}
 				return true;
 			} else {
-				plugin.getMessages().senderSendMessage(sender,ChatColor.RED + "Player " + args[0] + " is not online.");
+				plugin.getMessages().senderSendMessage(sender, ChatColor.RED + "Player " + args[0] + " is not online.");
 				return false;
 			}
 		}
@@ -90,17 +90,14 @@ public class MuteCommand implements ICommand {
 	}
 
 	private void togglePlayerMuteMode(Player player) {
-		DataStoreManager ds = plugin.getDataStoreManager();
 		PlayerSettings ps = plugin.getPlayerSettingsManager().getPlayerSettings(player);
-		boolean lm = ps.isLearningMode();
-		if (ps.isMuted()) {
-			ds.updatePlayerSettings(player, lm, false);
-			plugin.getPlayerSettingsManager().setPlayerSettings(player, new PlayerSettings(player, lm, false));
-			player.sendMessage(plugin.getMessages().getString("mobhunting.commands.mute.unmuted", "player", player.getName()));
-		} else {
-			ds.updatePlayerSettings(player, lm, true);
-			plugin.getPlayerSettingsManager().setPlayerSettings(player, new PlayerSettings(player, lm, true));
-			player.sendMessage(plugin.getMessages().getString("mobhunting.commands.mute.muted", "player", player.getName()));
-		}
+		ps.setMuteMode(!ps.isMuted());
+		plugin.getPlayerSettingsManager().setPlayerSettings(player, ps);
+		if (ps.isMuted())
+			player.sendMessage(
+					plugin.getMessages().getString("mobhunting.commands.mute.unmuted", "player", player.getName()));
+		else
+			player.sendMessage(
+					plugin.getMessages().getString("mobhunting.commands.mute.muted", "player", player.getName()));
 	}
 }

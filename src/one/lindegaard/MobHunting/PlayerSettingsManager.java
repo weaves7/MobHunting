@@ -64,6 +64,7 @@ public class PlayerSettingsManager implements Listener {
 	 */
 	public void setPlayerSettings(OfflinePlayer player, PlayerSettings playerSettings) {
 		mPlayerSettings.put(player.getUniqueId(), playerSettings);
+		plugin.getDataStoreManager().updatePlayerSettings(player, playerSettings);
 	}
 
 	/**
@@ -101,7 +102,7 @@ public class PlayerSettingsManager implements Listener {
 	@EventHandler(priority = EventPriority.NORMAL)
 	private void onPlayerQuit(PlayerQuitEvent event) {
 		final Player player = event.getPlayer();
-		save(player);
+		plugin.getDataStoreManager().updatePlayerSettings(player, getPlayerSettings(player));
 	}
 
 	/**
@@ -141,16 +142,6 @@ public class PlayerSettingsManager implements Listener {
 										: 0));
 			}
 		});
-	}
-
-	/**
-	 * Write PlayerSettings to Database
-	 * 
-	 * @param player
-	 */
-	public void save(final OfflinePlayer player) {
-		plugin.getDataStoreManager().updatePlayerSettings(player, getPlayerSettings(player).isLearningMode(),
-				getPlayerSettings(player).isMuted());
 	}
 
 	/**

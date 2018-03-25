@@ -334,10 +334,10 @@ public class MasterMobHunterSign implements Listener {
 					int id = getNPCIdOnSign(event.getClickedBlock());
 					if (id != -1) {
 						if (power > 0)
-							plugin.getMessages().playerActionBarMessage(event.getPlayer(),
+							plugin.getMessages().playerActionBarMessageQueue(event.getPlayer(),
 									MobHunting.getInstance().getMessages().getString("mobhunting.npc.clickednpcsignpowered", "npcid", id));
 						else
-							plugin.getMessages().playerActionBarMessage(event.getPlayer(),
+							plugin.getMessages().playerActionBarMessageQueue(event.getPlayer(),
 									MobHunting.getInstance().getMessages().getString("mobhunting.npc.clickednpcsign", "npcid", id));
 
 						NPC npc = CitizensAPI.getNPCRegistry().getById(id);
@@ -434,7 +434,7 @@ public class MasterMobHunterSign implements Listener {
 									((org.bukkit.block.Sign) sb.getState()).getLine(0)));
 							mmh.putSignLocation(sb.getLocation());
 							CitizensCompat.getMasterMobHunterManager().put(id, mmh);
-							plugin.getMessages().playerActionBarMessage(player,
+							plugin.getMessages().playerActionBarMessageQueue(player,
 									player.getName() + " placed a MobHunting Sign (ID=" + id + ")");
 						}
 
