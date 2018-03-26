@@ -389,6 +389,51 @@ public abstract class DatabaseDataStore implements IDataStore {
 		}
 	}
 
+	@Override
+	public void resetStatistics() throws DataStoreException {
+		try {
+			Connection mConnection = setupConnection();
+			Statement statement = mConnection.createStatement();
+
+			plugin.getMessages().debug("Deleting statistics data from the database");
+			int result;
+			result = statement.executeUpdate("DELETE FROM mh_Achievements;");
+			plugin.getMessages().debug("%s rows was deleted from Mh_Achievements", result);
+			result = statement.executeUpdate("DELETE FROM mh_AllTime;");
+			plugin.getMessages().debug("%s rows was deleted from Mh_AllTime", result);
+			result = statement.executeUpdate("DELETE FROM mh_Daily;");
+			plugin.getMessages().debug("%s rows was deleted from Mh_Daily", result);
+			result = statement.executeUpdate("DELETE FROM mh_Monthly;");
+			plugin.getMessages().debug("%s rows was deleted from Mh_Monthly", result);
+			result = statement.executeUpdate("DELETE FROM mh_Weekly;");
+			plugin.getMessages().debug("%s rows was deleted from Mh_Weekly", result);
+			result = statement.executeUpdate("DELETE FROM mh_Yearly;");
+			plugin.getMessages().debug("%s rows was deleted from Mh_Yearly", result);
+			statement.close();
+			mConnection.commit();
+			mConnection.close();
+		} catch (SQLException | DataStoreException e) {
+			throw new DataStoreException(e);
+		}
+	}
+
+	@Override
+	public void resetBounties() throws DataStoreException {
+		try {
+			Connection mConnection = setupConnection();
+			Statement statement = mConnection.createStatement();
+			plugin.getMessages().debug("Deleting bounties from the database");
+			int result;
+			result = statement.executeUpdate("DELETE FROM mh_Bounties;");
+			plugin.getMessages().debug("%s rows was deleted from mh_Bounties", result);
+			statement.close();
+			mConnection.commit();
+			mConnection.close();
+		} catch (SQLException | DataStoreException e) {
+			throw new DataStoreException(e);
+		}
+	}
+
 	// ******************************************************************
 	// V2 To V3 Database migration
 	// ******************************************************************

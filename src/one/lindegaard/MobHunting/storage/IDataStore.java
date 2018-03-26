@@ -121,6 +121,22 @@ public interface IDataStore {
 	void databaseFixLeaderboard() throws DataStoreException;
 	
 	/**
+	 * Delete all statistics data from the database
+	 * 
+	 * @throws SQLException
+	 * @throws DataStoreException 
+	 */
+	void resetStatistics() throws DataStoreException;
+	
+	/**
+	 * Delete all bounties from the database
+	 * 
+	 * @throws SQLException
+	 * @throws DataStoreException 
+	 */
+	void resetBounties() throws DataStoreException;
+	
+	/**
 	 * Convert all tables to use UTF-8 character set.
 	 * @param database_name
 	 * @throws DataStoreException

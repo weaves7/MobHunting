@@ -61,7 +61,8 @@ public class DatabaseCommand implements ICommand, Listener {
 		if (args.length == 1) {
 			items.add("fixLeaderboard");
 			items.add("convert-to-utf8");
-			// items.add("reset-statictics");
+			items.add("reset-statictics");
+			items.add("reset-bounties");
 			// items.add("backup");
 			// items.add("restore");
 			// items.add("deletebackup");
@@ -84,6 +85,22 @@ public class DatabaseCommand implements ICommand, Listener {
 				e.printStackTrace();
 			}
 			return true;
+		} else if (args.length == 1 && args[0].equalsIgnoreCase("reset-statistics")) {
+			try {
+				plugin.getStoreManager().resetStatistics();
+			} catch (DataStoreException e) {
+				e.printStackTrace();
+			}
+			return true;
+
+		} else if (args[1].equalsIgnoreCase("reset-bounties")) {
+			try {
+				plugin.getStoreManager().resetBounties();
+			} catch (DataStoreException e) {
+				e.printStackTrace();
+			}
+			return true;	
+			
 		} else if (args.length == 2 && (args[0].equalsIgnoreCase("convert-to-utf8"))) {
 			String database_name = args[1];
 			try {
@@ -94,17 +111,16 @@ public class DatabaseCommand implements ICommand, Listener {
 			return true;
 		} else if (args.length == 1 && args[0].equalsIgnoreCase("backup")) {
 			// TODO: create a backup
-			plugin.getMessages().senderSendMessage(sender,"Backup feature is not implemented yet.");
+			plugin.getMessages().senderSendMessage(sender, "Backup feature is not implemented yet.");
 			return true;
 		} else if (args.length == 1 && args[0].equalsIgnoreCase("restore")) {
 			// TODO: restore a backup
-			plugin.getMessages().senderSendMessage(sender,"Restore feature is not implemented yet.");
+			plugin.getMessages().senderSendMessage(sender, "Restore feature is not implemented yet.");
 			return true;
 		} else if (args.length == 1 && args[0].equalsIgnoreCase("deletebackup")) {
 			// TODO: restore a backup
-			plugin.getMessages().senderSendMessage(sender,"Deletebackup feature is not implemented yet.");
+			plugin.getMessages().senderSendMessage(sender, "Deletebackup feature is not implemented yet.");
 			return true;
 		}
 		return false;
-	}
-}
+	}}
