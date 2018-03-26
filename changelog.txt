@@ -1,5 +1,5 @@
 V5.6.1
-* Added new commands "/mh database reset-achievements" to delete all achiemhvements data from database.
+* Added new commands "/mh database reset-achievements" to delete all achievements data from database.
 * Added new commands "/mh database reset-statistics" to delete all statistics data from database.
 * Added new commands "/mh database reset-bounties" to delete all bounties from database.
 V5.6.0

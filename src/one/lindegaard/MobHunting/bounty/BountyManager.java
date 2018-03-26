@@ -56,6 +56,11 @@ public class BountyManager implements Listener {
 		return mOpenBounties;
 	}
 
+	public Set<Bounty> deleteAllBounties() {
+		return mOpenBounties = new HashSet<Bounty>();
+	}
+
+	
 	public Set<OfflinePlayer> getWantedPlayers() {
 		Set<OfflinePlayer> wantedPlayers = new HashSet<>();
 		for (Bounty b : mOpenBounties) {

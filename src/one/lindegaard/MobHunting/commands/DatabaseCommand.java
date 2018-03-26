@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.storage.DataStoreException;
+import one.lindegaard.MobHunting.util.Misc;
 
 public class DatabaseCommand implements ICommand, Listener {
 
@@ -61,7 +63,7 @@ public class DatabaseCommand implements ICommand, Listener {
 		if (args.length == 1) {
 			items.add("fixLeaderboard");
 			items.add("convert-to-utf8");
-				items.add("reset-achievements");
+			items.add("reset-achievements");
 			items.add("reset-statistics");
 			items.add("reset-bounties");
 			// items.add("backup");
@@ -97,19 +99,25 @@ public class DatabaseCommand implements ICommand, Listener {
 		} else if (args[0].equalsIgnoreCase("reset-bounties")) {
 			try {
 				plugin.getStoreManager().resetBounties();
+				plugin.getBountyManager().deleteAllBounties();
+				for (Player player : Misc.getOnlinePlayers())
+					plugin.getBountyManager().load(player);
 			} catch (DataStoreException e) {
 				e.printStackTrace();
 			}
-			return true;	
-			
+			return true;
+
 		} else if (args[0].equalsIgnoreCase("reset-achievements")) {
 			try {
 				plugin.getStoreManager().resetAchievements();
+				plugin.getAchievementManager().deleteAllAchivements();
+				for (Player player : Misc.getOnlinePlayers())
+					plugin.getAchievementManager().load(player);
 			} catch (DataStoreException e) {
 				e.printStackTrace();
 			}
-			return true;	
-			
+			return true;
+
 		} else if (args.length == 2 && (args[0].equalsIgnoreCase("convert-to-utf8"))) {
 			String database_name = args[1];
 			try {
@@ -132,4 +140,5 @@ public class DatabaseCommand implements ICommand, Listener {
 			return true;
 		}
 		return false;
-	}}
+	}
+}

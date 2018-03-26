@@ -74,6 +74,11 @@ public class AchievementManager implements Listener {
 
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
+	
+	public void deleteAllAchivements(){
+		mAchievements = new HashMap<String, Achievement>();
+		mStorage = new WeakHashMap<UUID, PlayerStorage>();
+	}
 
 	public Achievement getAchievement(String id) {
 		if (id == null)
