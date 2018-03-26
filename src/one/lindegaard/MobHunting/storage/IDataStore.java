@@ -121,6 +121,14 @@ public interface IDataStore {
 	void databaseFixLeaderboard() throws DataStoreException;
 	
 	/**
+	 * Delete all achievements data from the database
+	 * 
+	 * @throws SQLException
+	 * @throws DataStoreException 
+	 */
+	void resetAchievements() throws DataStoreException;
+	
+	/**
 	 * Delete all statistics data from the database
 	 * 
 	 * @throws SQLException

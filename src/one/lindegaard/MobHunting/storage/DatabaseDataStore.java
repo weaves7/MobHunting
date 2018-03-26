@@ -390,6 +390,24 @@ public abstract class DatabaseDataStore implements IDataStore {
 	}
 
 	@Override
+	public void resetAchievements() throws DataStoreException {
+		try {
+			Connection mConnection = setupConnection();
+			Statement statement = mConnection.createStatement();
+
+			plugin.getMessages().debug("Deleting achievements data from the database");
+			int result;
+			result = statement.executeUpdate("DELETE FROM mh_Achievements;");
+			plugin.getMessages().debug("%s rows was deleted from Mh_Achievements", result);
+			statement.close();
+			mConnection.commit();
+			mConnection.close();
+		} catch (SQLException | DataStoreException e) {
+			throw new DataStoreException(e);
+		}
+	}
+
+	@Override
 	public void resetStatistics() throws DataStoreException {
 		try {
 			Connection mConnection = setupConnection();
@@ -397,8 +415,6 @@ public abstract class DatabaseDataStore implements IDataStore {
 
 			plugin.getMessages().debug("Deleting statistics data from the database");
 			int result;
-			result = statement.executeUpdate("DELETE FROM mh_Achievements;");
-			plugin.getMessages().debug("%s rows was deleted from Mh_Achievements", result);
 			result = statement.executeUpdate("DELETE FROM mh_AllTime;");
 			plugin.getMessages().debug("%s rows was deleted from Mh_AllTime", result);
 			result = statement.executeUpdate("DELETE FROM mh_Daily;");

@@ -61,7 +61,8 @@ public class DatabaseCommand implements ICommand, Listener {
 		if (args.length == 1) {
 			items.add("fixLeaderboard");
 			items.add("convert-to-utf8");
-			items.add("reset-statictics");
+				items.add("reset-achievements");
+			items.add("reset-statistics");
 			items.add("reset-bounties");
 			// items.add("backup");
 			// items.add("restore");
@@ -93,9 +94,17 @@ public class DatabaseCommand implements ICommand, Listener {
 			}
 			return true;
 
-		} else if (args[1].equalsIgnoreCase("reset-bounties")) {
+		} else if (args[0].equalsIgnoreCase("reset-bounties")) {
 			try {
 				plugin.getStoreManager().resetBounties();
+			} catch (DataStoreException e) {
+				e.printStackTrace();
+			}
+			return true;	
+			
+		} else if (args[0].equalsIgnoreCase("reset-achievements")) {
+			try {
+				plugin.getStoreManager().resetAchievements();
 			} catch (DataStoreException e) {
 				e.printStackTrace();
 			}
