@@ -701,16 +701,20 @@ public class MobHuntingManager implements Listener {
 							return;
 						}
 						plugin.getMessages().debug("================== Farm detection Ended (2)=================");
-					}
-					else if (killed.getLastDamageCause().getCause() == DamageCause.ENTITY_ATTACK) {
-						//plugin.getMessages().debug("A mob died in an attack: (%s,%s,%s in %s)",
-						//				killed.getLocation().getX(), killed.getLocation().getY(), killed.getLocation().getZ(),
-						//				killed.getWorld().getName());
+					} else if (killed.getLastDamageCause().getCause() == DamageCause.ENTITY_ATTACK) {
+						// plugin.getMessages().debug("A mob died in an attack:
+						// (%s,%s,%s in %s)",
+						// killed.getLocation().getX(),
+						// killed.getLocation().getY(),
+						// killed.getLocation().getZ(),
+						// killed.getWorld().getName());
 					}
 				} else {
-					//plugin.getMessages().debug("A mob died in a whitelisted area: (%s,%s,%s in %s)",
-					//		killed.getLocation().getX(), killed.getLocation().getY(), killed.getLocation().getZ(),
-					//		killed.getWorld().getName());
+					// plugin.getMessages().debug("A mob died in a whitelisted
+					// area: (%s,%s,%s in %s)",
+					// killed.getLocation().getX(), killed.getLocation().getY(),
+					// killed.getLocation().getZ(),
+					// killed.getWorld().getName());
 				}
 			} else {
 				// plugin.getMessages().debug("The %s (%s) died without a
@@ -1691,16 +1695,16 @@ public class MobHuntingManager implements Listener {
 						if (!plugin.getConfigManager().dropMoneyOnGroup) {
 							plugin.getMessages();
 							plugin.getMessages();
-							plugin.getMessages().playerActionBarMessageQueue(getPlayer(killer, killed), ChatColor.GREEN + ""
-									+ ChatColor.ITALIC
+							plugin.getMessages().playerActionBarMessageQueue(getPlayer(killer, killed), ChatColor.GREEN
+									+ "" + ChatColor.ITALIC
 									+ plugin.getMessages().getString("mobhunting.moneygain.bonuses", "basic_prize",
 											plugin.getRewardManager().format(basic_prize), "prize",
 											plugin.getRewardManager().format(cash), "bonuses", extraString.trim(),
 											"multipliers", plugin.getRewardManager().format(multipliers), "killed",
 											mob.getFriendlyName()));
 						} else
-							plugin.getMessages().playerActionBarMessageQueue(getPlayer(killer, killed), ChatColor.GREEN + ""
-									+ ChatColor.ITALIC
+							plugin.getMessages().playerActionBarMessageQueue(getPlayer(killer, killed), ChatColor.GREEN
+									+ "" + ChatColor.ITALIC
 									+ plugin.getMessages().getString("mobhunting.moneygain.bonuses.drop", "basic_prize",
 											plugin.getRewardManager().format(basic_prize), "prize",
 											plugin.getRewardManager().format(cash), "bonuses", extraString.trim(),
@@ -1806,16 +1810,18 @@ public class MobHuntingManager implements Listener {
 						}
 						MessageType messageType = MessageType.valueOf((cmd == null || cmd.get("message_type") == null)
 								? "Chat" : cmd.getOrDefault("message_type", "Chat"));
-						String message = cmd.get("message")
-								.replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
-								.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
-								.replaceAll("\\{killed\\}", mob.getFriendlyName()).replaceAll("\\{world\\}", worldname)
-								.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash))
-								.replaceAll("\\{killerpos\\}", killerpos).replaceAll("\\{killedpos\\}", killedpos)
-								.replaceAll("\\{rewardname\\}",
-										plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
-						if (!message.isEmpty() && !killer_muted) {
-							plugin.getMessages().playerSendMessageAt(getPlayer(killer, killed), message, messageType);
+						String message = cmd.get("message");
+						if (message != null && !killer_muted) {
+							plugin.getMessages().playerSendMessageAt(getPlayer(killer, killed),
+									message.replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
+											.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
+											.replaceAll("\\{killed\\}", mob.getFriendlyName())
+											.replaceAll("\\{world\\}", worldname)
+											.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash))
+											.replaceAll("\\{killerpos\\}", killerpos)
+											.replaceAll("\\{killedpos\\}", killedpos).replaceAll("\\{rewardname\\}",
+													plugin.getConfigManager().dropMoneyOnGroundSkullRewardName),
+									messageType);
 						}
 					} else
 						plugin.getMessages().debug(
@@ -1896,13 +1902,15 @@ public class MobHuntingManager implements Listener {
 		if (killer != null)
 			return killer;
 
-		Player p = MyPetCompat.getMyPetOwner(killed);
-		if (p != null)
-			return p;
+		Player owner = MyPetCompat.getMyPetOwner(killed);
+		if (owner != null)
+			return owner;
 
 		DamageInformation damageInformation = mDamageHistory.get(killed);
 		if (damageInformation != null && damageInformation.isCrackShotWeaponUsed())
 			return damageInformation.getAttacker();
+
+		plugin.getMessages().debug("Name was not found: Killer=%s, killed=%s", killer, killed);
 
 		return null;
 
