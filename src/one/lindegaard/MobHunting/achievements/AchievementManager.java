@@ -76,7 +76,6 @@ public class AchievementManager implements Listener {
 	}
 	
 	public void deleteAllAchivements(){
-		mAchievements = new HashMap<String, Achievement>();
 		mStorage = new WeakHashMap<UUID, PlayerStorage>();
 	}
 
