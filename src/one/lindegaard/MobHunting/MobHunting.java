@@ -123,7 +123,8 @@ public class MobHunting extends JavaPlugin {
 			}
 			if (mConfig.loadConfig()) {
 				mConfig.saveConfig();
-				mConfig.backupConfig(mFile);
+				if (mConfig.backup)
+					mConfig.backupConfig(mFile);
 			} else
 				throw new RuntimeException(getMessages().getString(pluginName + ".config.fail"));
 			break;
