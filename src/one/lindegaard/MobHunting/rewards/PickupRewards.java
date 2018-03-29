@@ -28,10 +28,10 @@ public class PickupRewards {
 				callBack.setCancelled(true);
 				if (BagOfGoldCompat.isSupported()) {
 					if (player.getGameMode() == GameMode.SURVIVAL) {
-						done = BagOfGold.getApi().getEconomyManager().depositPlayer(player, reward.getMoney())
+						done = BagOfGold.getAPI().getEconomyManager().depositPlayer(player, reward.getMoney())
 								.transactionSuccess();
 					} else if (reward.getMoney() == 0) {
-						done = BagOfGold.getApi().getEconomyManager().depositPlayer(player, 0).transactionSuccess();
+						done = BagOfGold.getAPI().getEconomyManager().depositPlayer(player, 0).transactionSuccess();
 					}
 				} else if (reward.getMoney() != 0 && !plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
 					// If not Gringotts

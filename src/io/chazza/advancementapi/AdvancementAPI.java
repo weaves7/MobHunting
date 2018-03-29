@@ -172,7 +172,7 @@ public class AdvancementAPI {
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             revoke(players);
             remove();
-        }, 20L);
+        }, 5*20L);
         return this;
     }
 

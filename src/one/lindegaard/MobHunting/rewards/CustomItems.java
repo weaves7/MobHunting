@@ -116,7 +116,6 @@ public class CustomItems {
 				ps.setTexture(skinCache[0]);
 				ps.setSignature(skinCache[1]);
 				plugin.getPlayerSettingsManager().setPlayerSettings(offlinePlayer, ps);
-				plugin.getDataStoreManager().updatePlayerSettings(offlinePlayer, ps);
 			} else {
 				plugin.getMessages().debug("Empty skin");
 				return skull;
@@ -132,7 +131,6 @@ public class CustomItems {
 						ps.setTexture(skinOnline[0]);
 						ps.setSignature(skinOnline[1]);
 						plugin.getPlayerSettingsManager().setPlayerSettings(offlinePlayer, ps);
-						plugin.getDataStoreManager().updatePlayerSettings(offlinePlayer, ps);
 					}
 				}
 			}

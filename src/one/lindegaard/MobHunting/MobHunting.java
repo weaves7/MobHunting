@@ -332,6 +332,14 @@ public class MobHunting extends JavaPlugin {
 		if (!getConfigManager().disableMobHuntingAdvancements && Misc.isMC112OrNewer()) {
 			mAdvancementManager = new AdvancementManager(this);
 			mAdvancementManager.getAdvancementsFromAchivements();
+			
+			Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+				public void run() {
+					getMessages().debug("Reloading advancements");
+					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "minecraft:reload");
+				}
+			}, 20 * 15);
+			
 		}
 
 		// for (int i = 0; i < 2; i++)

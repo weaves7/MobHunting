@@ -136,14 +136,18 @@ public abstract class DatabaseDataStore implements IDataStore {
 	protected abstract void setupV6Tables(Connection connection) throws SQLException;
 
 	/**
-	 * Setup / Migrate from database version 5 to version 6 tables for MobHunting
-	 * @throws DataStoreException 
+	 * Setup / Migrate from database version 5 to version 6 tables for
+	 * MobHunting
+	 * 
+	 * @throws DataStoreException
 	 */
 	protected abstract void migrateDatabaseLayoutFromV5ToV6(Connection connection) throws DataStoreException;
 
 	/**
-	 * Setup / Migrate from database version 6 to version 7 tables for MobHunting
-	 * @throws DataStoreException 
+	 * Setup / Migrate from database version 6 to version 7 tables for
+	 * MobHunting
+	 * 
+	 * @throws DataStoreException
 	 */
 	protected abstract void migrateDatabaseLayoutFromV6ToV7(Connection connection) throws DataStoreException;
 
@@ -163,8 +167,8 @@ public abstract class DatabaseDataStore implements IDataStore {
 
 	/**
 	 * Initialize the connection. Must be called after Opening of initial
-	 * connection. Open Prepared statements for batch processing large selections of
-	 * players. Batches will be performed in batches of 10,5,2,1
+	 * connection. Open Prepared statements for batch processing large
+	 * selections of players. Batches will be performed in batches of 10,5,2,1
 	 */
 	@Override
 	public void initialize() throws DataStoreException {
@@ -194,7 +198,8 @@ public abstract class DatabaseDataStore implements IDataStore {
 						try {
 							ResultSet rs = statement.executeQuery("SELECT TOTAL_CASH FROM mh_Daily LIMIT 0");
 							rs.close();
-							// The TABLE Coloumn TOTAL_CASH only exists in Database
+							// The TABLE Coloumn TOTAL_CASH only exists in
+							// Database
 							// layout V4
 							plugin.getConfigManager().databaseVersion = 4;
 							plugin.getConfigManager().saveConfig();
@@ -202,7 +207,8 @@ public abstract class DatabaseDataStore implements IDataStore {
 							try {
 								ResultSet rs = statement.executeQuery("SELECT MOB_ID FROM mh_Mobs LIMIT 0");
 								rs.close();
-								// The TABLE mh_Mobs created for V3 and does only
+								// The TABLE mh_Mobs created for V3 and does
+								// only
 								// contain
 								// data after migration
 								plugin.getConfigManager().databaseVersion = 3;
@@ -215,7 +221,8 @@ public abstract class DatabaseDataStore implements IDataStore {
 									plugin.getConfigManager().databaseVersion = 2;
 									plugin.getConfigManager().saveConfig();
 								} catch (SQLException e2) {
-									// database if from before Minecraft 1.7.9 R1
+									// database if from before Minecraft 1.7.9
+									// R1
 									// (No
 									// UUID)
 									// = V1
@@ -226,7 +233,8 @@ public abstract class DatabaseDataStore implements IDataStore {
 										plugin.getConfigManager().databaseVersion = 1;
 										plugin.getConfigManager().saveConfig();
 									} catch (SQLException e1) {
-										// DATABASE DOES NOT EXIST AT ALL, CREATE
+										// DATABASE DOES NOT EXIST AT ALL,
+										// CREATE
 										// NEW
 										// EMPTY
 										// V3 DATABASE
@@ -349,8 +357,8 @@ public abstract class DatabaseDataStore implements IDataStore {
 
 	/**
 	 * databaseFixLeaderboard - tries to fix inconsistens in the database. Will
-	 * later be used for cleaning the database; deleting old data or so. This is not
-	 * implemented yet.
+	 * later be used for cleaning the database; deleting old data or so. This is
+	 * not implemented yet.
 	 * 
 	 * @throws DataStoreException
 	 */
@@ -1133,7 +1141,7 @@ public abstract class DatabaseDataStore implements IDataStore {
 		ResultSet result = mGetPlayerData.executeQuery();
 		if (result.next()) {
 			PlayerSettings ps = new PlayerSettings(offlinePlayer, result.getBoolean("LEARNING_MODE"),
-					result.getBoolean("MUTE_MODE"),result.getString("TEXTURE"),result.getString("SIGNATURE"));
+					result.getBoolean("MUTE_MODE"), result.getString("TEXTURE"), result.getString("SIGNATURE"));
 			int id = result.getInt("PLAYER_ID");
 			if (id != 0)
 				ps.setPlayerId(id);
@@ -1200,13 +1208,13 @@ public abstract class DatabaseDataStore implements IDataStore {
 				mConnection.commit();
 				mConnection.close();
 
+				plugin.getMessages().debug("PlayerSettings saved.");
+
 				for (PlayerSettings playerData : playerDataSet) {
 					if (plugin.getPlayerSettingsManager().containsKey(playerData.getPlayer())
 							&& !playerData.getPlayer().isOnline())
 						plugin.getPlayerSettingsManager().removePlayerSettings((Player) playerData.getPlayer());
 				}
-
-				plugin.getMessages().debug("PlayerSettings saved.");
 
 			} catch (SQLException e) {
 				rollback(mConnection);
@@ -1710,5 +1718,4 @@ public abstract class DatabaseDataStore implements IDataStore {
 		connection.commit();
 	}
 
-		
 }

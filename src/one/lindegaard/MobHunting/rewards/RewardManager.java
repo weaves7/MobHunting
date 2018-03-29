@@ -478,7 +478,7 @@ public class RewardManager {
 		} else if (plugin.getConfigManager().mobKillsPlayerPenalty.trim().endsWith("%")) {
 			double prize = 0;
 			if (BagOfGoldCompat.isSupported()) {
-				PlayerSettings ps = BagOfGold.getApi().getPlayerSettingsManager().getPlayerSettings(playerToBeRobbed);
+				PlayerSettings ps = BagOfGold.getAPI().getPlayerSettingsManager().getPlayerSettings(playerToBeRobbed);
 				prize = Math.round(Double
 						.valueOf(plugin.getConfigManager().mobKillsPlayerPenalty.trim().substring(0,
 								plugin.getConfigManager().mobKillsPlayerPenalty.trim().length() - 1))
@@ -650,7 +650,7 @@ public class RewardManager {
 				if (plugin.getConfigManager().pvpKillMoney.trim().endsWith("%")) {
 					double prize = 0;
 					if (BagOfGoldCompat.isSupported()) {
-						PlayerSettings ps = BagOfGold.getApi().getPlayerSettingsManager()
+						PlayerSettings ps = BagOfGold.getAPI().getPlayerSettingsManager()
 								.getPlayerSettings((Player) mob);
 						prize = Math.round(Double
 								.valueOf(plugin.getConfigManager().pvpKillMoney.trim().substring(0,

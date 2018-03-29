@@ -1,11 +1,14 @@
 package io.chazza.advancementapi;
 
 import java.util.ArrayList;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import org.bukkit.advancement.Advancement;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.achievements.Achievement;
 import one.lindegaard.MobHunting.achievements.ProgressAchievement;
@@ -126,7 +129,6 @@ public class AdvancementManager {
 			Achievement achievement = plugin.getAchievementManager()
 					.getAchievement(api.getId().getKey().split("/")[1]);
 			if (plugin.getAchievementManager().hasAchievement(achievement, player)) {
-				//plugin.getMessages().debug("AdvancementManager: granting %s to player:%s", achievement.getID(), player.getName());
 				api.grant(player);
 			}
 		}
@@ -146,5 +148,28 @@ public class AdvancementManager {
 			}
 		}
 	}
-
+	
+	public boolean checkAdvancement(String adv) {
+        NamespacedKey nsk = new NamespacedKey(MobHunting.getInstance(), "hunter/"   + adv);
+        Advancement a = Bukkit.getServer().getAdvancement(nsk);
+        if (a != null) {
+            plugin.getMessages().debug("Advancement 'mobhunting:hunter/" + adv + "' exists :)");
+            return true;
+        } else {
+        	plugin.getMessages().debug("There is no advancement with that key, try reloading - /minecraft:reload");
+            return false;
+        }
+	}
+	
+	//DOES NOT WORK
+	public void showAdvancement(Player player, String message){
+		AdvancementAPI huntbegins;
+		huntbegins = AdvancementAPI.builder(new NamespacedKey(MobHunting.getInstance(), "hunter/temp"))
+				.title("MobHunting").description(message).icon("minecraft:bow")
+				.trigger(Trigger.builder(Trigger.TriggerType.IMPOSSIBLE, "default")
+						.condition(Condition.builder("elytra", new ItemStack(Material.STONE, 1))))
+				.hidden(false).toast(true).background(Background.STONE.toString()).frame(FrameType.CHALLENGE).build();
+		huntbegins.show(plugin, player);
+	}
+	
 }

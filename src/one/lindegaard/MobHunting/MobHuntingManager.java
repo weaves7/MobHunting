@@ -83,6 +83,7 @@ public class MobHuntingManager implements Listener {
 				}
 			}.runTaskLater(plugin, 20L);
 		}
+		//plugin.getAdvancementManager().showAdvancement(player, "Testing");
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = false)
@@ -336,7 +337,7 @@ public class MobHuntingManager implements Listener {
 
 				if (playerKilledByMobPenalty != 0) {
 					if (BagOfGoldCompat.isSupported()) {
-						BagOfGold.getApi().getEconomyManager().withdrawPlayer(killed, playerKilledByMobPenalty);
+						BagOfGold.getAPI().getEconomyManager().withdrawPlayer(killed, playerKilledByMobPenalty);
 					} else if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
 						plugin.getRewardManager().withdrawPlayer(killed, playerKilledByMobPenalty);
 					} else {
@@ -370,7 +371,7 @@ public class MobHuntingManager implements Listener {
 								items.remove();
 								if (reward.getMoney() > toberemoved) {
 									if (BagOfGoldCompat.isSupported()) {
-										BagOfGold.getApi().getEconomyManager().removeMoneyFromBalance(killed,
+										BagOfGold.getAPI().getEconomyManager().removeMoneyFromBalance(killed,
 												reward.getMoney() - toberemoved);
 									}
 									plugin.getRewardManager().dropMoneyOnGround_RewardManager(killed, null,
@@ -378,7 +379,7 @@ public class MobHuntingManager implements Listener {
 									toberemoved = 0;
 								} else {
 									if (BagOfGoldCompat.isSupported()) {
-										BagOfGold.getApi().getEconomyManager().removeMoneyFromBalance(killed,
+										BagOfGold.getAPI().getEconomyManager().removeMoneyFromBalance(killed,
 												reward.getMoney() - toberemoved);
 									}
 									toberemoved = toberemoved - reward.getMoney();
@@ -389,12 +390,12 @@ public class MobHuntingManager implements Listener {
 				}
 
 			} else if (killer != null && BagOfGoldCompat.isSupported()) {
-				PlayerSettings ps = BagOfGold.getApi().getPlayerSettingsManager().getPlayerSettings(killed);
+				PlayerSettings ps = BagOfGold.getAPI().getPlayerSettingsManager().getPlayerSettings(killed);
 				double balance = ps.getBalance() + ps.getBalanceChanges();
 				if (balance != 0) {
 					plugin.getMessages().debug("%s dropped %s because of his death, killed by %s", killed.getName(),
 							plugin.getRewardManager().format(balance), killer.getName());
-					BagOfGold.getApi().getEconomyManager().removeMoneyFromBalance(killed, balance);
+					BagOfGold.getAPI().getEconomyManager().removeMoneyFromBalance(killed, balance);
 
 				}
 			}

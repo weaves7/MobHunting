@@ -86,8 +86,8 @@ public class PlayerSettingsManager implements Listener {
 	private void onPlayerJoin(PlayerJoinEvent event) {
 		final Player player = event.getPlayer();
 		if (containsKey(player))
-			plugin.getMessages().debug("Using cached playersettings for %s. Balance=%s", player.getName(),
-					plugin.getRewardManager().getBalance(player));
+			plugin.getMessages().debug("Using cached player settings for %s. Balance=%s", player.getName(),
+					plugin.getRewardManager().format(plugin.getRewardManager().getBalance(player)));
 		else {
 			load(player);
 		}
@@ -115,15 +115,12 @@ public class PlayerSettingsManager implements Listener {
 
 			@Override
 			public void onCompleted(PlayerSettings ps) {
+				mPlayerSettings.put(player.getUniqueId(), ps);
+
 				if (ps.isMuted())
 					plugin.getMessages().debug("%s isMuted()", player.getName());
 				if (ps.isLearningMode())
 					plugin.getMessages().debug("%s is in LearningMode()", player.getName());
-				mPlayerSettings.put(player.getUniqueId(), ps);
-				// get Balance to check if balance in DB is the same as in
-				// player inventory
-				double balance = plugin.getRewardManager().getBalance(player);
-				plugin.getMessages().debug("%s balance=%s", player.getName(), balance);
 
 				if (ps.getTexture() == null || ps.getTexture().equals("")) {
 					plugin.getMessages().debug("Store %s skin in MobHunting Skin Cache", player.getName());

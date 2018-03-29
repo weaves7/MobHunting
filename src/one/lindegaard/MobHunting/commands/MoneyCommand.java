@@ -292,9 +292,9 @@ public class MoneyCommand implements ICommand {
 					if (BagOfGoldCompat.isSupported()) {
 						plugin.getMessages().debug("BagOfGold supported, using depositPlayer");
 						if (offlinePlayer.isOnline() && ((Player) offlinePlayer).getGameMode() != GameMode.SURVIVAL)
-							BagOfGold.getApi().getEconomyManager().depositPlayer(offlinePlayer, 0);
+							BagOfGold.getAPI().getEconomyManager().depositPlayer(offlinePlayer, 0);
 						else
-							BagOfGold.getApi().getEconomyManager().depositPlayer(offlinePlayer, amount);
+							BagOfGold.getAPI().getEconomyManager().depositPlayer(offlinePlayer, amount);
 					} else {
 						if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
 							if (offlinePlayer.isOnline()) {
@@ -364,9 +364,9 @@ public class MoneyCommand implements ICommand {
 						plugin.getMessages().debug("BagOfGold supported, using withdrawPlayer");
 
 						if (offlinePlayer.isOnline() && ((Player) offlinePlayer).getGameMode() != GameMode.SURVIVAL)
-							BagOfGold.getApi().getEconomyManager().withdrawPlayer(offlinePlayer, 0);
+							BagOfGold.getAPI().getEconomyManager().withdrawPlayer(offlinePlayer, 0);
 						else
-							BagOfGold.getApi().getEconomyManager().withdrawPlayer(offlinePlayer, rest);
+							BagOfGold.getAPI().getEconomyManager().withdrawPlayer(offlinePlayer, rest);
 
 					} else if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
 						if (Bukkit.getServer().getOfflinePlayer(args[1]).isOnline()) {
@@ -570,10 +570,10 @@ public class MoneyCommand implements ICommand {
 				}
 				Player player = (Player) sender;
 				if (BagOfGoldCompat.isSupported()) {
-					PlayerSettings ps = BagOfGold.getApi().getPlayerSettingsManager().getPlayerSettings(player);
+					PlayerSettings ps = BagOfGold.getAPI().getPlayerSettingsManager().getPlayerSettings(player);
 					for (Iterator<NPC> npcList = CitizensAPI.getNPCRegistry().iterator(); npcList.hasNext();) {
 						NPC npc = npcList.next();
-						if (BagOfGold.getApi().getBankManager().isBagOfGoldBanker(npc.getEntity())) {
+						if (BagOfGold.getAPI().getBankManager().isBagOfGoldBanker(npc.getEntity())) {
 							if (npc.getEntity().getLocation().distance(player.getLocation()) < 3) {
 								if (args.length == 1) {
 									ItemStack is = player.getItemInHand();
@@ -586,21 +586,21 @@ public class MoneyCommand implements ICommand {
 															"itemname", reward.getDisplayname()));
 											return true;
 										}
-										BagOfGold.getApi().getEconomyManager()
+										BagOfGold.getAPI().getEconomyManager()
 												.bankDeposit(player.getUniqueId().toString(), reward.getMoney());
-										BagOfGold.getApi().getEconomyManager().withdrawPlayer(player,
+										BagOfGold.getAPI().getEconomyManager().withdrawPlayer(player,
 												reward.getMoney());
-										BagOfGold.getApi().getBankManager().sendBankerMessage(player);
+										BagOfGold.getAPI().getBankManager().sendBankerMessage(player);
 									}
 								} else {
 									double to_be_removed = args[1].equalsIgnoreCase("all")
 											? ps.getBalance() + ps.getBalanceChanges()
 											: Double.valueOf(args[1]);
-									double sold = BagOfGold.getApi().getEconomyManager().withdrawPlayer(player,
+									double sold = BagOfGold.getAPI().getEconomyManager().withdrawPlayer(player,
 											to_be_removed).amount;
-									BagOfGold.getApi().getEconomyManager().bankDeposit(player.getUniqueId().toString(),
+									BagOfGold.getAPI().getEconomyManager().bankDeposit(player.getUniqueId().toString(),
 											sold);
-									BagOfGold.getApi().getBankManager().sendBankerMessage(player);
+									BagOfGold.getAPI().getBankManager().sendBankerMessage(player);
 								}
 								break;
 							} else {
@@ -627,20 +627,20 @@ public class MoneyCommand implements ICommand {
 				if (args.length == 2 && (args[1].matches("\\d+(\\.\\d+)?") || args[1].equalsIgnoreCase("all"))) {
 					Player player = (Player) sender;
 					if (BagOfGoldCompat.isSupported()) {
-						PlayerSettings ps = BagOfGold.getApi().getPlayerSettingsManager().getPlayerSettings(player);
+						PlayerSettings ps = BagOfGold.getAPI().getPlayerSettingsManager().getPlayerSettings(player);
 						double amount = args[1].equalsIgnoreCase("all")
 								? ps.getBankBalance() + ps.getBankBalanceChanges()
 								: Double.valueOf(args[1]);
 						for (Iterator<NPC> npcList = CitizensAPI.getNPCRegistry().iterator(); npcList.hasNext();) {
 							NPC npc = npcList.next();
-							if (BagOfGold.getApi().getBankManager().isBagOfGoldBanker(npc.getEntity())) {
+							if (BagOfGold.getAPI().getBankManager().isBagOfGoldBanker(npc.getEntity())) {
 								if (npc.getEntity().getLocation().distance(player.getLocation()) < 3) {
 									if (ps.getBankBalance() + ps.getBankBalanceChanges() >= amount) {
 
-										BagOfGold.getApi().getEconomyManager()
+										BagOfGold.getAPI().getEconomyManager()
 												.bankWithdraw(player.getUniqueId().toString(), amount);
-										BagOfGold.getApi().getEconomyManager().depositPlayer(player, amount);
-										BagOfGold.getApi().getBankManager().sendBankerMessage(player);
+										BagOfGold.getAPI().getEconomyManager().depositPlayer(player, amount);
+										BagOfGold.getAPI().getBankManager().sendBankerMessage(player);
 
 									} else {
 										plugin.getMessages().playerActionBarMessageQueue(player,

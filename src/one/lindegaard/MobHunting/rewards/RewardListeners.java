@@ -107,7 +107,7 @@ public class RewardListeners implements Listener {
 												: reward.getDisplayname())));
 				if (BagOfGoldCompat.isSupported() && player.getGameMode() == GameMode.SURVIVAL
 						&& (reward.isBagOfGoldReward() || reward.isItemReward())) {
-					BagOfGold.getApi().getEconomyManager().removeMoneyFromBalance(player, money);
+					BagOfGold.getAPI().getEconomyManager().removeMoneyFromBalance(player, money);
 				}
 			}
 			item.setCustomNameVisible(true);
@@ -183,11 +183,11 @@ public class RewardListeners implements Listener {
 								if (player.getGameMode() == GameMode.SURVIVAL) {
 									done = plugin.getRewardManager().addBagOfGoldPlayer(player,
 											reward.getMoney());
-									PlayerSettings ps = BagOfGold.getApi().getPlayerSettingsManager()
+									PlayerSettings ps = BagOfGold.getAPI().getPlayerSettingsManager()
 											.getPlayerSettings(player);
 									ps.setBalance(Misc.round(ps.getBalance() + reward.getMoney()));
-									BagOfGold.getApi().getPlayerSettingsManager().setPlayerSettings(player, ps);
-									BagOfGold.getApi().getDataStoreManager().updatePlayerSettings(player, ps);
+									BagOfGold.getAPI().getPlayerSettingsManager().setPlayerSettings(player, ps);
+									BagOfGold.getAPI().getDataStoreManager().updatePlayerSettings(player, ps);
 									done = true;
 								}
 							} else if (reward.getMoney() != 0
@@ -305,7 +305,7 @@ public class RewardListeners implements Listener {
 			plugin.getRewardManager().saveReward(reward.getUniqueUUID());
 			if (BagOfGoldCompat.isSupported() && (reward.isBagOfGoldReward() || reward.isItemReward())
 					&& player.getGameMode() == GameMode.SURVIVAL) {
-				BagOfGold.getApi().getEconomyManager().removeMoneyFromBalance(player, reward.getMoney());
+				BagOfGold.getAPI().getEconomyManager().removeMoneyFromBalance(player, reward.getMoney());
 			}
 		}
 	}
@@ -386,13 +386,13 @@ public class RewardListeners implements Listener {
 			}
 		}
 		if (BagOfGoldCompat.isSupported() && player.getGameMode() == GameMode.SURVIVAL) {
-			PlayerSettings ps = BagOfGold.getApi().getPlayerSettingsManager().getPlayerSettings(player);
+			PlayerSettings ps = BagOfGold.getAPI().getPlayerSettingsManager().getPlayerSettings(player);
 			double amountInInventory = plugin.getRewardManager().getAmountInInventory(player);
 			if (Misc.round(amountInInventory) != Misc.round(ps.getBalance() + ps.getBalanceChanges())) {
 				ps.setBalance(amountInInventory);
 				ps.setBalanceChanges(0);
-				BagOfGold.getApi().getPlayerSettingsManager().setPlayerSettings(player, ps);
-				BagOfGold.getApi().getDataStoreManager().updatePlayerSettings(player, ps);
+				BagOfGold.getAPI().getPlayerSettingsManager().setPlayerSettings(player, ps);
+				BagOfGold.getAPI().getDataStoreManager().updatePlayerSettings(player, ps);
 			}
 			plugin.getMessages().debug("%s closed inventory: new balance is %s", player.getName(),
 					plugin.getRewardManager().getEconomy().getBalance(player));

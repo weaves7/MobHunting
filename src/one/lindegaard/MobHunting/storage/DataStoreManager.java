@@ -297,7 +297,7 @@ public class DataStoreManager {
 					}
 					mTaskThread.addTask(new StoreTask(mWaiting), null);
 
-					Bukkit.getScheduler().runTask(MobHunting.getInstance(), new Runnable() {
+					Bukkit.getScheduler().runTask(plugin, new Runnable() {
 						@Override
 						public void run() {
 							plugin.getGrindingManager().saveData();
