@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -14,19 +15,20 @@ import com.earth2me.essentials.User;
 
 import one.lindegaard.MobHunting.MobHunting;
 
-public class EssentialsCompat{
+public class EssentialsCompat {
 
 	private static Essentials mPlugin;
 	private static boolean supported = false;
 
 	public EssentialsCompat() {
 		if (!isEnabledInConfig()) {
-			Bukkit.getLogger().info("[MobHunting] Compatibility with Essentials is disabled in config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with Essentials is disabled in config.yml");
 		} else {
 			mPlugin = (Essentials) Bukkit.getPluginManager().getPlugin(CompatPlugin.Essentials.getName());
 
-			Bukkit.getLogger().info("[MobHunting] Enabling compatibility with Essentials ("
-					+ getEssentials().getDescription().getVersion() + ")");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Enabling compatibility with Essentials (" + getEssentials().getDescription().getVersion() + ")");
 			supported = true;
 		}
 	}
@@ -114,9 +116,5 @@ public class EssentialsCompat{
 			}
 		}
 	}
-
-	// **************************************************************************
-	// EVENTS
-	// **************************************************************************
 
 }

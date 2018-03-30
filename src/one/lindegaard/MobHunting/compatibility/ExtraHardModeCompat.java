@@ -1,6 +1,7 @@
 package one.lindegaard.MobHunting.compatibility;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
@@ -19,15 +20,18 @@ public class ExtraHardModeCompat implements Listener {
 
 	public ExtraHardModeCompat() {
 		if (!isEnabledInConfig()) {
-			Bukkit.getLogger().info("[MobHunting] Compatibility with ExtraHardMode is disabled in config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with ExtraHardMode is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.ExtraHardMode.getName());
 
-			Bukkit.getLogger().info("[MobHunting] Enabling compatibility with ExtraHardMode ("
-					+ mPlugin.getDescription().getVersion() + ").");
-			if (!MobHunting.getInstance().getConfigManager().difficultyMultiplier.containsKey("difficulty.multiplier.extrahard")) {
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Enabling compatibility with ExtraHardMode (" + mPlugin.getDescription().getVersion() + ").");
+			if (!MobHunting.getInstance().getConfigManager().difficultyMultiplier
+					.containsKey("difficulty.multiplier.extrahard")) {
 				MobHunting.getInstance().getMessages().debug("Adding extrahard difficulty to config.yml");
-				MobHunting.getInstance().getConfigManager().difficultyMultiplier.put("difficulty.multiplier.extrahard", "2.5");
+				MobHunting.getInstance().getConfigManager().difficultyMultiplier.put("difficulty.multiplier.extrahard",
+						"2.5");
 				MobHunting.getInstance().getConfigManager().saveConfig();
 			}
 			supported = true;

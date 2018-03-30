@@ -2,7 +2,6 @@ package one.lindegaard.MobHunting.compatibility;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.ConsoleCommandSender;
 
 import net.citizensnpcs.api.CitizensAPI;
 import one.lindegaard.BagOfGold.BagOfGold;
@@ -19,15 +18,17 @@ public class BagOfGoldCompat {
 	public BagOfGoldCompat() {
 		mPlugin = (BagOfGold) Bukkit.getPluginManager().getPlugin(CompatPlugin.BagOfGold.getName());
 
-		if (mPlugin.getDescription().getVersion().compareTo("1.0.8") >= 0) {
-			Bukkit.getLogger().info("[MobHunting] Enabling compatibility with BagOfGold ("
-					+ getBagOfGoldAPI().getDescription().getVersion() + ")");
+		if (mPlugin.getDescription().getVersion().compareTo("1.0.9") >= 0) {
+			Bukkit.getServer().getConsoleSender()
+					.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+							+ "Enabling compatibility with BagOfGold ("
+							+ getBagOfGoldAPI().getDescription().getVersion() + ")");
 			supported = true;
 		} else {
-			ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-			console.sendMessage(ChatColor.RED + "[MobHunting/BagOfGold] Your current version of BagOfGold ("
-					+ mPlugin.getDescription().getVersion()
-					+ ") is outdated. Please upgrade to 1.0.8 or newer.");
+			Bukkit.getServer().getConsoleSender()
+					.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RED
+							+ "Your current version of BagOfGold (" + mPlugin.getDescription().getVersion()
+							+ ") is outdated. Please upgrade to 1.0.9 or newer.");
 			Bukkit.getPluginManager().disablePlugin(mPlugin);
 		}
 
@@ -52,12 +53,12 @@ public class BagOfGoldCompat {
 	public String getBagOfGoldFormat() {
 		return BagOfGold.getInstance().getConfigManager().numberFormat;
 	}
-	
-	public EconomyManager getEconomyManager(){
+
+	public EconomyManager getEconomyManager() {
 		return BagOfGold.getInstance().getEconomyManager();
 	}
-	
-	public PlayerSettingsManager getPlayerSettingsManager(){
+
+	public PlayerSettingsManager getPlayerSettingsManager() {
 		return BagOfGold.getInstance().getPlayerSettingsManager();
 	}
 
@@ -68,7 +69,7 @@ public class BagOfGoldCompat {
 	public BankManager getBankManager() {
 		return BagOfGold.getInstance().getBankManager();
 	}
-	
+
 	public static boolean isNPC(Integer id) {
 		if (isSupported())
 			return CitizensAPI.getNPCRegistry().getById(id) != null;

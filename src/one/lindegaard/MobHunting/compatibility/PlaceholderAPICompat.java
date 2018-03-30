@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
@@ -27,20 +26,23 @@ public class PlaceholderAPICompat {
 
 	public PlaceholderAPICompat() {
 		if (!isEnabledInConfig()) {
-			Bukkit.getLogger().info("[MobHunting] Compatibility with PlaceholderAPI is disabled in config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with PlaceholderAPI is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.PlaceholderAPI.getName());
 			if (mPlugin.getDescription().getVersion().compareTo("2.0.6") >= 0 && Misc.isMC18OrNewer()) {
-				Bukkit.getLogger().info("[MobHunting] Enabling compatibility with PlaceholderAPI ("
-						+ mPlugin.getDescription().getVersion() + ").");
+				Bukkit.getConsoleSender()
+						.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+								+ "Enabling compatibility with PlaceholderAPI (" + mPlugin.getDescription().getVersion()
+								+ ").");
 				new MobHuntingPlaceholderHook(MobHunting.getInstance()).hook();
 				mPlaceHolderManager = new PlaceHolderManager(MobHunting.getInstance());
 				supported = true;
 			} else {
-				ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-				console.sendMessage(ChatColor.RED + "[MobHunting] Your current version of PlaceholderAPI ("
-						+ mPlugin.getDescription().getVersion()
-						+ ") is not supported by MobHunting, please upgrade to 2.0.6 or newer.");
+				Bukkit.getConsoleSender()
+						.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RED
+								+ "Your current version of PlaceholderAPI (" + mPlugin.getDescription().getVersion()
+								+ ") is not supported by MobHunting, please upgrade to 2.0.6 or newer.");
 			}
 		}
 	}

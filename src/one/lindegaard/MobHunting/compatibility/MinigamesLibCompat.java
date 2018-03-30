@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -28,12 +29,13 @@ public class MinigamesLibCompat implements Listener {
 	public MinigamesLibCompat() {
 
 		if (!isEnabledInConfig()) {
-			Bukkit.getLogger().info("[MobHunting] Compatibility with MinigamesLib is disabled in config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with MinigamesLib is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.MinigamesLib.getName());
 			Bukkit.getPluginManager().registerEvents(this, MobHunting.getInstance());
-			Bukkit.getLogger().info("[MobHunting] Enabling compatibility with MinigamesLib (v"
-					+ mPlugin.getDescription().getVersion() + ")");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Enabling compatibility with MinigamesLib (v" + mPlugin.getDescription().getVersion() + ")");
 			supported = true;
 		}
 	}

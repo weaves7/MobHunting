@@ -72,7 +72,7 @@
 		<factions.version>2.12.1</factions.version>
 		<factionsuuid.version>1.6.9.5-U0.2.1-SNAPSHOT</factionsuuid.version>
 		<factionsuuid.jar.version>FactionsUUID-1.6.9.5-B52.jar</factionsuuid.jar.version>
-		
+
 		<ActionBarAPI.version>1.5.2</ActionBarAPI.version>
 		<ActionAnnouncer.version>1.10.0</ActionAnnouncer.version>
 		<EssentialsX.version>2.0.1</EssentialsX.version>
@@ -321,7 +321,7 @@
 			<id>placeholderapi</id>
 			<url>http://repo.extendedclip.com/content/repositories/placeholderapi/</url>
 		</repository>
-		
+
 		<!-- FactionsUUID repository -->
 		<repository>
 			<id>factionsuuid-repo</id>
@@ -722,6 +722,13 @@
 			<version>${hologramdisplays.version}</version>
 		</dependency>
 
+		<!-- CMI Holograms -->
+		<dependency>
+			<groupId>com.Zrips.CMI.CMI</groupId>
+			<artifactId>CMI</artifactId>
+			<version>7.1.3.0</version>
+		</dependency>
+
 		<!-- Minigames -->
 		<dependency>
 			<groupId>au.com.mineauz</groupId>
@@ -748,7 +755,7 @@
 			<scope>compile</scope>
 		</dependency>
 
-		
+
 		<!-- MassiveCore / Factions -->
 		<dependency>
 			<groupId>com.massivecraft.massivecore</groupId>
@@ -766,15 +773,11 @@
 			<version>${factionsuuid.jar.version}</version>
 			<scope>system</scope>
 			<systemPath>${project.basedir}/lib/${factionsuuid.jar.version}</systemPath>
-		</dependency>  
-		<!-- Does not work???
-		<dependency>
-			<groupId>com.massivecraft</groupId>
-			<artifactId>Factions</artifactId>
-			<version>${factionsuuid.version}</version>
 		</dependency>
-		 -->
-		
+		<!-- Does not work??? <dependency> <groupId>com.massivecraft</groupId> 
+			<artifactId>Factions</artifactId> <version>${factionsuuid.version}</version> 
+			</dependency> -->
+
 		<!-- Towny -->
 		<dependency>
 			<groupId>Towny</groupId>

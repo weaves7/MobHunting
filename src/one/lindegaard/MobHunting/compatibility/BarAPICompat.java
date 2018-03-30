@@ -17,16 +17,17 @@ public class BarAPICompat {
 
 	public BarAPICompat() {
 		if (!isEnabledInConfig()) {
-			Bukkit.getConsoleSender().sendMessage("[MobHunting] Compatibility with BarAPI is disabled in config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with BarAPI is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.BarApi.getName());
 			if (mPlugin.getDescription().getVersion().compareTo("3.0") < 0) {
-				Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[MobHunting] Your current version of BarAPI ("
-						+ mPlugin.getDescription().getVersion()
+				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RED
+						+ "Your current version of BarAPI (" + mPlugin.getDescription().getVersion()
 						+ ") is not supported by MobHunting. Mobhunting does only support version 3.0 or newer.");
 			} else {
-				Bukkit.getConsoleSender().sendMessage("[MobHunting] Enabling compatibility with BarAPI ("
-						+ getBarAPI().getDescription().getVersion() + ")");
+				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+						+ "Enabling compatibility with BarAPI (" + getBarAPI().getDescription().getVersion() + ")");
 				supported = true;
 			}
 		}

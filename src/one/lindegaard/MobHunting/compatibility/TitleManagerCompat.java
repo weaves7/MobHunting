@@ -2,7 +2,6 @@ package one.lindegaard.MobHunting.compatibility;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
@@ -22,17 +21,18 @@ public class TitleManagerCompat {
 
 	public TitleManagerCompat() {
 		if (!isEnabledInConfig()) {
-			Bukkit.getLogger().info("[MobHunting] Compatibility with TitleManager is disabled in config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with TitleManager is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.TitleManager.getName());
-			Bukkit.getLogger().info("[MobHunting] Enabling compatibility with TitleManager ("
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Enabling compatibility with TitleManager ("
 					+ mPlugin.getDescription().getVersion() + ")");
 			if (mPlugin.getDescription().getVersion().compareTo("2.0") >= 0)
 				api = getTitleManagerAPI();
 			else {
-				ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-				console.sendMessage(ChatColor.RED
-						+ "[MobHunting] You are using an old version of TitleManager. Consider updating.");
+				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RED
+						+ "You are using an old version of TitleManager. Consider updating.");
 			}
 			supported = true;
 		}

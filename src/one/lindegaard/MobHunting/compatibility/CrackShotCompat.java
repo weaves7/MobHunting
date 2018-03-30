@@ -25,14 +25,15 @@ public class CrackShotCompat implements Listener {
 
 	public CrackShotCompat() {
 		if (!isEnabledInConfig()) {
-			Bukkit.getLogger().info("[MobHunting] Compatibility with CrackShot is disabled in config.yml");
+			Bukkit.getLogger().info(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with CrackShot is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.CrackShot.getName());
 
 			if (mPlugin.getDescription().getVersion().compareTo("0.98.5") >= 0) {
 
-				Bukkit.getConsoleSender().sendMessage("[MobHunting] Enabling compatibility with CrackShot ("
-						+ mPlugin.getDescription().getVersion() + ")");
+				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+						+ "Enabling compatibility with CrackShot (" + mPlugin.getDescription().getVersion() + ")");
 
 				supported = true;
 
@@ -40,8 +41,8 @@ public class CrackShotCompat implements Listener {
 
 			} else {
 				Bukkit.getConsoleSender()
-						.sendMessage(ChatColor.RED + "[MobHunting] Your current version of CrackShot ("
-								+ mPlugin.getDescription().getVersion()
+						.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RED
+								+ "Your current version of CrackShot (" + mPlugin.getDescription().getVersion()
 								+ ") has no API implemented. Please update to V0.98.5 or newer.");
 			}
 		}
@@ -97,9 +98,10 @@ public class CrackShotCompat implements Listener {
 
 	public static boolean isCrackShotUsed(Entity entity) {
 		if (MobHunting.getInstance().getMobHuntingManager().getDamageHistory().containsKey(entity))
-			return MobHunting.getInstance().getMobHuntingManager().getDamageHistory().get(entity).getCrackShotWeaponUsed() != null 
-					&& !MobHunting.getInstance().getMobHuntingManager().getDamageHistory().get(entity).getCrackShotWeaponUsed()
-							.isEmpty();
+			return MobHunting.getInstance().getMobHuntingManager().getDamageHistory().get(entity)
+					.getCrackShotWeaponUsed() != null
+					&& !MobHunting.getInstance().getMobHuntingManager().getDamageHistory().get(entity)
+							.getCrackShotWeaponUsed().isEmpty();
 		return false;
 	}
 
@@ -111,7 +113,8 @@ public class CrackShotCompat implements Listener {
 	@EventHandler(priority = EventPriority.LOW)
 	public void onWeaponDamageEntityEvent(WeaponDamageEntityEvent event) {
 		if (event.getVictim() instanceof LivingEntity) {
-			DamageInformation info = MobHunting.getInstance().getMobHuntingManager().getDamageHistory().get(event.getVictim());
+			DamageInformation info = MobHunting.getInstance().getMobHuntingManager().getDamageHistory()
+					.get(event.getVictim());
 			if (info == null)
 				info = new DamageInformation();
 			info.setTime(System.currentTimeMillis());
@@ -119,7 +122,8 @@ public class CrackShotCompat implements Listener {
 			info.setAttackerPosition(event.getPlayer().getLocation().clone());
 			info.setCrackShotWeapon(getCrackShotWeapon(event.getPlayer().getItemInHand()));
 			info.setCrackShotPlayer(event.getPlayer());
-			MobHunting.getInstance().getMobHuntingManager().getDamageHistory().put((LivingEntity) event.getVictim(), info);
+			MobHunting.getInstance().getMobHuntingManager().getDamageHistory().put((LivingEntity) event.getVictim(),
+					info);
 		}
 	}
 

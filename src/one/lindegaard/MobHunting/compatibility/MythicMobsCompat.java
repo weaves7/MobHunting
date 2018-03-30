@@ -37,28 +37,29 @@ public class MythicMobsCompat {
 
 	public MythicMobsCompat() {
 		if (!isEnabledInConfig()) {
-			Bukkit.getLogger().info("[MobHunting] Compatibility with MythicMobs is disabled in config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with MythicMobs is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.MythicMobs.getName());
 			if (mPlugin.getDescription().getVersion().compareTo("4.0.0") >= 0) {
 
-				Bukkit.getLogger().info("[MobHunting] Enabling compatibility with MythicMobs ("
-						+ mPlugin.getDescription().getVersion() + ")");
+				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+						+ "Enabling compatibility with MythicMobs (" + mPlugin.getDescription().getVersion() + ")");
 				mmVersion = MythicMobVersion.MYTHICMOBS_V400;
 				supported = true;
 				Bukkit.getPluginManager().registerEvents(new MythicMobsV400Compat(), MobHunting.getInstance());
 
 			} else if (mPlugin.getDescription().getVersion().compareTo("2.5.1") >= 0) {
-				Bukkit.getLogger().info("[MobHunting] Enabling compatibility with MythicMobs ("
-						+ mPlugin.getDescription().getVersion() + ")");
+				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+						+ "Enabling compatibility with MythicMobs (" + mPlugin.getDescription().getVersion() + ")");
 				mmVersion = MythicMobVersion.MYTHICMOBS_V251;
 				supported = true;
 				Bukkit.getPluginManager().registerEvents(new MythicMobsV251Compat(), MobHunting.getInstance());
 
 			} else {
 				ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-				console.sendMessage(ChatColor.RED
-						+ "[MobHunting] MythicMobs is outdated. Please update to V2.5.1 or newer. Integration will be disabled");
+				console.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+						+ "MythicMobs is outdated. Please update to V2.5.1 or newer. Integration will be disabled");
 				return;
 			}
 			MythicMobsCompat.loadMythicMobsData();
@@ -140,7 +141,8 @@ public class MythicMobsCompat {
 					MobHunting.getInstance().getStoreManager().insertMissingMythicMobs(key);
 					n++;
 				} else {
-					MobHunting.getInstance().getMessages().debug("The mob=%s can't be found in MythicMobs configuration files", key);
+					MobHunting.getInstance().getMessages()
+							.debug("The mob=%s can't be found in MythicMobs configuration files", key);
 				}
 			}
 			MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
@@ -170,7 +172,8 @@ public class MythicMobsCompat {
 				StatType.values()[n + 2] = new StatType(mob.getMobType() + "_assist", mob.getMobName());
 				MobHunting.getInstance().getStoreManager().insertMissingMythicMobs(key);
 			} else {
-				MobHunting.getInstance().getMessages().debug("The mob=%s can't be found in MythicMobs configuration files", key);
+				MobHunting.getInstance().getMessages()
+						.debug("The mob=%s can't be found in MythicMobs configuration files", key);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -210,7 +213,8 @@ public class MythicMobsCompat {
 				MobHunting.getInstance().getMessages().debug("Saving Mobhunting extra MythicMobs data.");
 				config.save(file);
 			} else {
-				MobHunting.getInstance().getMessages().debug("ERROR! MythicMobs ID (%s) is not found in mMobRewardData", key);
+				MobHunting.getInstance().getMessages().debug("ERROR! MythicMobs ID (%s) is not found in mMobRewardData",
+						key);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

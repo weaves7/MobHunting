@@ -1,6 +1,7 @@
 package one.lindegaard.MobHunting.compatibility;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
@@ -13,13 +14,13 @@ public class BossBarAPICompat {
 
 	public BossBarAPICompat() {
 		if (!isEnabledInConfig()) {
-			Bukkit.getConsoleSender()
-					.sendMessage("[MobHunting] Compatibility with BossBarAPI is disabled in config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with BossBarAPI is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.BossBarApi.getName());
 
-			Bukkit.getConsoleSender().sendMessage("[MobHunting] Enabling compatibility with BossBarAPI ("
-					+ getBossBarAPI().getDescription().getVersion() + ")");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Enabling compatibility with BossBarAPI (" + getBossBarAPI().getDescription().getVersion() + ")");
 			supported = true;
 		}
 	}

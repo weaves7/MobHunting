@@ -26,10 +26,10 @@ public class BossShopHelper {
 			return false;
 		}
 
-		BSBuy buy = BossShopCompat.getBossShop().getAPI().createBSBuy(BSBuyType.Shop, BSPriceType.Free, "item_shop",
-				null, null, 15, "OpenShop.Item_Shop");
-		BSBuy sell = BossShopCompat.getBossShop().getAPI().createBSBuy(BSBuyType.Money, BSPriceType.Money, "item_shop",
-				10, "bought bag of gold", 17, null);
+		BSBuy buy = BossShopCompat.getBossShop().getAPI().createBSBuy(BSBuyType.Money, BSPriceType.Free, 0,
+				null, null, 3, null);
+		BSBuy sell = BossShopCompat.getBossShop().getAPI().createBSBuy(BSBuyType.Money, BSPriceType.Money, 1,
+				10, "bought bag of gold", 4, null);
 		
 		BossShopCompat.getBossShop().getAPI().openShop(p, shop);
 

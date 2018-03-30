@@ -1,6 +1,7 @@
 package one.lindegaard.MobHunting.compatibility;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import com.connorlinfoot.titleapi.TitleAPI;
@@ -14,12 +15,13 @@ public class TitleAPICompat {
 
 	public TitleAPICompat() {
 		if (!isEnabledInConfig()) {
-			Bukkit.getLogger().info("[MobHunting] Compatibility with TitelAPI is disabled in config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with TitelAPI is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.TitleAPI.getName());
 
-			Bukkit.getLogger().info("[MobHunting] Enabling compatibility with TitleAPI ("
-					+ getTitleAPI().getDescription().getVersion() + ")");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Enabling compatibility with TitleAPI (" + getTitleAPI().getDescription().getVersion() + ")");
 			supported = true;
 		}
 	}

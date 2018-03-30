@@ -1,6 +1,7 @@
 package one.lindegaard.MobHunting.compatibility;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
@@ -16,13 +17,13 @@ public class ActionbarCompat {
 
 	public ActionbarCompat() {
 		if (!isEnabledInConfig()) {
-			Bukkit.getConsoleSender()
-					.sendMessage("[MobHunting] Compatibility with Actionbar is disabled in config.yml ");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with Actionbar is disabled in config.yml ");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.Actionbar.getName());
 
-			Bukkit.getConsoleSender().sendMessage("[MobHunting] Enabling compatibility with Actionbar ("
-					+ getActionbar().getDescription().getVersion() + ")");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Enabling compatibility with Actionbar (" + getActionbar().getDescription().getVersion() + ")");
 			supported = true;
 		}
 	}

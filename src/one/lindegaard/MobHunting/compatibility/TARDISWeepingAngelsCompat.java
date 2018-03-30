@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -35,13 +36,16 @@ public class TARDISWeepingAngelsCompat implements Listener {
 
 	public TARDISWeepingAngelsCompat() {
 		if (!isEnabledInConfig()) {
-			Bukkit.getLogger().info("[MobHunting] Compatibility with TARDISWeepingAngels is disabled in config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with TARDISWeepingAngels is disabled in config.yml");
 		} else {
 			mPlugin = (TARDISWeepingAngels) Bukkit.getPluginManager()
 					.getPlugin(CompatPlugin.TARDISWeepingAngels.getName());
 
-			Bukkit.getLogger().info("[MobHunting] Enabling compatibility with TARDISWeepingAngelsAPI ("
-					+ mPlugin.getDescription().getVersion() + ")");
+			Bukkit.getConsoleSender()
+					.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+							+ "Enabling compatibility with TARDISWeepingAngelsAPI ("
+							+ mPlugin.getDescription().getVersion() + ")");
 
 			supported = true;
 

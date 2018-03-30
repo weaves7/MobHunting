@@ -707,11 +707,11 @@ public class AchievementManager implements Listener {
 			final boolean self) {
 
 		final Inventory inventoryCompleted = Bukkit.createInventory(null, 54,
-				ChatColor.BLUE + "" + ChatColor.BOLD + "Completed:" + player.getName());
+				ChatColor.GREEN + "" + ChatColor.BOLD + "Completed:" + ChatColor.GRAY + player.getName());
 		final Inventory inventoryOngoing = Bukkit.createInventory(null, 54,
-				ChatColor.BLUE + "" + ChatColor.BOLD + "Ongoing:" + player.getName());
+				ChatColor.YELLOW + "" + ChatColor.BOLD + "Ongoing:" + ChatColor.GRAY + player.getName());
 		final Inventory inventoryNotStarted = Bukkit.createInventory(null, 54,
-				ChatColor.BLUE + "" + ChatColor.BOLD + "Not started:" + player.getName());
+				ChatColor.RED + "" + ChatColor.BOLD + "Not started:" + ChatColor.GRAY + player.getName());
 
 		requestCompletedAchievements(player, new IDataCallback<List<Entry<Achievement, Integer>>>() {
 

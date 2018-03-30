@@ -1,6 +1,7 @@
 package one.lindegaard.MobHunting.compatibility;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.kitteh.vanish.VanishPlugin;
@@ -14,15 +15,19 @@ public class VanishNoPacketCompat implements Listener {
 
 	public VanishNoPacketCompat() {
 		if (!isEnabledInConfig()) {
-			Bukkit.getLogger().info("[MobHunting] Compatibility with VanishNoPacket is disabled in config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with VanishNoPacket is disabled in config.yml");
 		} else {
 
-			mPlugin = (VanishPlugin) Bukkit.getServer().getPluginManager().getPlugin(CompatPlugin.VanishNoPacket.getName());
+			mPlugin = (VanishPlugin) Bukkit.getServer().getPluginManager()
+					.getPlugin(CompatPlugin.VanishNoPacket.getName());
 
 			Bukkit.getPluginManager().registerEvents(this, MobHunting.getInstance());
 
-			Bukkit.getLogger().info("[MobHunting] Enabling compatibility with VanishNoPacket ("
-					+ getVanishNoPacket().getDescription().getVersion() + ")");
+			Bukkit.getConsoleSender()
+					.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+							+ "Enabling compatibility with VanishNoPacket ("
+							+ getVanishNoPacket().getDescription().getVersion() + ")");
 			supported = true;
 		}
 	}

@@ -2,7 +2,6 @@ package one.lindegaard.MobHunting.compatibility;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.Plugin;
 
 import one.lindegaard.MobHunting.MobHunting;
@@ -17,17 +16,18 @@ public class ProtocolLibCompat {
 
 	public ProtocolLibCompat() {
 		if (!isEnabledInConfig()) {
-			Bukkit.getLogger().info("[MobHunting] Compatibility with ProtocolLib is disabled in config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with ProtocolLib is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.ProtocolLib.getName());
 			if (mPlugin.getDescription().getVersion().compareTo("4.1.0") < 0 && Misc.isMC18OrNewer()) {
-				ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-				console.sendMessage(ChatColor.RED + "[MobHunting] Your current version of ProtocolLib ("
-						+ mPlugin.getDescription().getVersion()
-						+ ") is not supported by MobHunting, please upgrade to 4.1.0 or newer.");
+				Bukkit.getServer().getConsoleSender()
+						.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RED
+								+ "Your current version of ProtocolLib (" + mPlugin.getDescription().getVersion()
+								+ ") is not supported by MobHunting, please upgrade to 4.1.0 or newer.");
 			} else {
-				Bukkit.getLogger().info("[MobHunting] Enabling compatibility with ProtocolLib ("
-						+ mPlugin.getDescription().getVersion() + ").");
+				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+						+ "Enabling compatibility with ProtocolLib (" + mPlugin.getDescription().getVersion() + ").");
 				ProtocolLibHelper.enableProtocolLib();
 				supported = true;
 			}

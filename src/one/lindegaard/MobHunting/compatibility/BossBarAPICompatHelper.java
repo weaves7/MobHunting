@@ -24,8 +24,8 @@ public class BossBarAPICompatHelper {
 			} catch (ClassNotFoundException
 					// | NoSuchMethodException
 					| SecurityException e) {
-				Bukkit.getConsoleSender().sendMessage(
-						ChatColor.RED + "[MobHunting] Your version of BossBarAPI is not compatible with MobHunting.");
+				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RED
+						+ "Your version of BossBarAPI is not compatible with MobHunting.");
 				player.sendMessage(text);
 				BossBarAPICompat.setSupported(false);
 			}

@@ -26,12 +26,13 @@ public class MyPetCompat implements Listener {
 
 	public MyPetCompat() {
 		if (!MobHunting.getInstance().getConfigManager().enableIntegrationMyPet) {
-			Bukkit.getLogger().info("[MobHunting] Compatibility with MyPet is disabled in config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with MyPet is disabled in config.yml");
 		} else {
 			mPlugin = (MyPetPlugin) Bukkit.getPluginManager().getPlugin(CompatPlugin.MyPet.getName());
 			Bukkit.getPluginManager().registerEvents(this, MobHunting.getInstance());
-			Bukkit.getLogger().info("[MobHunting] Enabling compatibility with MyPet ("
-					+ getMyPetPlugin().getDescription().getVersion() + ")");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Enabling compatibility with MyPet (" + getMyPetPlugin().getDescription().getVersion() + ")");
 			supported = true;
 		}
 	}
@@ -146,14 +147,15 @@ public class MyPetCompat implements Listener {
 									+ reward.getDisplayname(),
 							"petname", pet.getPetName(), "money",
 							MobHunting.getInstance().getRewardManager().getEconomy().format(reward.getMoney())));
-			MobHunting.getInstance().getMessages().debug("%s owned by %s picked up %s %s.", pet.getPetName(), player.getName(),
+			MobHunting.getInstance().getMessages().debug("%s owned by %s picked up %s %s.", pet.getPetName(),
+					player.getName(),
 					MobHunting.getInstance().getRewardManager().getEconomy().format(reward.getMoney()),
 					reward.getDisplayname());
 			if (reward.isBagOfGoldReward() || reward.isItemReward()) {
 				if (!MobHunting.getInstance().getConfigManager().dropMoneyOnGroundUseAsCurrency) {
 					event.setCancelled(true);
 					item.remove();
-					MobHunting.getInstance().getRewardManager().depositPlayer(player,reward.getMoney());
+					MobHunting.getInstance().getRewardManager().depositPlayer(player, reward.getMoney());
 				}
 			}
 		}

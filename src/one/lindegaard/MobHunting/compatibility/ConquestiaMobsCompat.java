@@ -26,19 +26,21 @@ public class ConquestiaMobsCompat implements Listener {
 
 	public ConquestiaMobsCompat() {
 		if (!isEnabledInConfig()) {
-			Bukkit.getLogger().info("[MobHunting] Compatibility with ConquestiaMobs is disabled in config.yml");
+			Bukkit.getLogger().info(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with ConquestiaMobs is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.ConquestiaMobs.getName());
 
 			if (mPlugin.getDescription().getVersion().compareTo("3.3.3") >= 0) {
 				Bukkit.getPluginManager().registerEvents(this, MobHunting.getInstance());
-				Bukkit.getConsoleSender().sendMessage("[MobHunting] Enabling Compatibility with ConquestiaMobs ("
-						+ getCustomMobs().getDescription().getVersion() + ")");
+				Bukkit.getConsoleSender()
+						.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+								+ "Enabling Compatibility with ConquestiaMobs ("
+								+ getCustomMobs().getDescription().getVersion() + ")");
 				supported = true;
 			} else {
-				Bukkit.getConsoleSender().sendMessage(ChatColor.RED
-						+ "[MobHunting] Your current version of ConqustiaMobs ("
-						+ mPlugin.getDescription().getVersion()
+				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RED
+						+ "Your current version of ConqustiaMobs (" + mPlugin.getDescription().getVersion()
 						+ ") is not supported by MobHunting. Please update ConquestiaMobs to version 3.3.3 or newer.");
 			}
 		}
@@ -87,7 +89,8 @@ public class ConquestiaMobsCompat implements Listener {
 		Entity entity = event.getEntity();
 		if (CqMobs.isLeveledMob(entity)) {
 			int level = CqMobs.getMobLevel(entity);
-			//Messages.debug("ConquestiaMobSpawnEvent: MinecraftMobtype=%s Level=%s", entity.getType(), level);
+			// Messages.debug("ConquestiaMobSpawnEvent: MinecraftMobtype=%s
+			// Level=%s", entity.getType(), level);
 			entity.setMetadata(MH_CONQUESTIAMOBS, new FixedMetadataValue(mPlugin, level));
 		}
 	}

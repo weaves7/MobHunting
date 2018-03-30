@@ -27,20 +27,23 @@ public class McMMOCompat implements Listener {
 
 	public McMMOCompat() {
 		if (!isEnabledInConfig()) {
-			Bukkit.getLogger().info("[MobHunting] Compatibility with McMMO is disabled in config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with McMMO is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.mcMMO.getName());
 
 			if (mPlugin.getDescription().getVersion().compareTo("1.5.00") >= 0) {
 				Bukkit.getPluginManager().registerEvents(this, MobHunting.getInstance());
-				Bukkit.getLogger().info("[MobHunting] Enabling compatibility with McMMO ("
-						+ getMcMmoAPI().getDescription().getVersion() + ")");
-				Bukkit.getLogger().info("[MobHunting] McMMO Level rewards is "
-						+ (MobHunting.getInstance().getConfigManager().enableMcMMOLevelRewards ? "enabled" : "disabled"));
+				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+						+ "Enabling compatibility with McMMO (" + getMcMmoAPI().getDescription().getVersion() + ")");
+				Bukkit.getConsoleSender()
+						.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET + "McMMO Level rewards is "
+								+ (MobHunting.getInstance().getConfigManager().enableMcMMOLevelRewards ? "enabled"
+										: "disabled"));
 				supported = true;
 			} else {
 				ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-				console.sendMessage(ChatColor.RED + "[MobHunting] Your current version of McMMO ("
+				console.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RED + "Your current version of McMMO ("
 						+ mPlugin.getDescription().getVersion()
 						+ ") is not supported by MobHunting. Please update McMMO to version 1.5.00 or newer.");
 			}
@@ -98,7 +101,8 @@ public class McMMOCompat implements Listener {
 	public void Fish4(McMMOPlayerMagicHunterEvent event) {
 		Player p = event.getPlayer();
 		ItemStack is = event.getTreasure();
-		MobHunting.getInstance().getMessages().debug("McMMO-FishingEvent3: %s, Treasure = %s", p.getName(), is.getType());
+		MobHunting.getInstance().getMessages().debug("McMMO-FishingEvent3: %s, Treasure = %s", p.getName(),
+				is.getType());
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = false)

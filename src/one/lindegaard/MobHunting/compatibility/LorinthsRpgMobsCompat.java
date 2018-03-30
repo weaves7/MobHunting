@@ -27,19 +27,21 @@ public class LorinthsRpgMobsCompat implements Listener {
 
 	public LorinthsRpgMobsCompat() {
 		if (!isEnabledInConfig()) {
-			Bukkit.getLogger().info("[MobHunting] Compatibility with LorinthsRpgMobs is disabled in config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with LorinthsRpgMobs is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.LorinthsRpgMobs.getName());
 
 			if (mPlugin.getDescription().getVersion().compareTo("1.0.2") >= 0) {
 				Bukkit.getPluginManager().registerEvents(this, MobHunting.getInstance());
-				Bukkit.getConsoleSender().sendMessage("[MobHunting] Enabling Compatibility with LorinthsRpgMobs ("
-						+ getLorinthsRpgMobs().getDescription().getVersion() + ")");
+				Bukkit.getConsoleSender()
+						.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+								+ "Enabling Compatibility with LorinthsRpgMobs ("
+								+ getLorinthsRpgMobs().getDescription().getVersion() + ")");
 				supported = true;
 			} else {
-				Bukkit.getConsoleSender().sendMessage(ChatColor.RED
-						+ "[MobHunting] Your current version of LorinthsRpgMobs ("
-						+ mPlugin.getDescription().getVersion()
+				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RED
+						+ "Your current version of LorinthsRpgMobs (" + mPlugin.getDescription().getVersion()
 						+ ") is not supported by MobHunting. Please update LorinthsRpgMobs to version 1.0.2 or newer.");
 			}
 		}
@@ -95,7 +97,8 @@ public class LorinthsRpgMobsCompat implements Listener {
 			Entity entity = event.getEntity();
 			if (isLorinthsRpgMobs(entity)) {
 				int level = getLorinthsRpgMobsLevel(entity);
-				//Messages.debug("LorinthsRpgMobsSpawnEvent: MinecraftMobtype=%s Level=%s", entity.getType(), level);
+				// Messages.debug("LorinthsRpgMobsSpawnEvent:
+				// MinecraftMobtype=%s Level=%s", entity.getType(), level);
 				entity.setMetadata(MH_LORINTHS_RPG_MOBS, new FixedMetadataValue(mPlugin, level));
 			}
 		}

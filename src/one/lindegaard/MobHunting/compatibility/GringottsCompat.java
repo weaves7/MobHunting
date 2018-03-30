@@ -1,6 +1,8 @@
 package one.lindegaard.MobHunting.compatibility;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+
 import one.lindegaard.MobHunting.MobHunting;
 
 import org.gestern.gringotts.Gringotts;
@@ -15,12 +17,13 @@ public class GringottsCompat {
 
 	public GringottsCompat() {
 		if (!isEnabledInConfig()) {
-			Bukkit.getLogger().info("[MobHunting] Compatibility with Gringotts is disabled in config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with Gringotts is disabled in config.yml");
 		} else {
 			mPlugin = (Gringotts) Bukkit.getPluginManager().getPlugin(CompatPlugin.Gringotts.getName());
 
-			Bukkit.getLogger().info("[MobHunting] Enabling Compatibility with Gringotts ("
-					+ getGringotts().getDescription().getVersion() + ")");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Enabling Compatibility with Gringotts (" + getGringotts().getDescription().getVersion() + ")");
 			supported = true;
 		}
 	}

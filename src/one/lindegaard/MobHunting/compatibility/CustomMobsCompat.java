@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -41,15 +42,15 @@ public class CustomMobsCompat implements Listener {
 
 	public CustomMobsCompat() {
 		if (!isEnabledInConfig()) {
-			Bukkit.getConsoleSender()
-					.sendMessage("[MobHunting] Compatibility with CustomMobs is disabled in config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with CustomMobs is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.CustomMobs.getName());
 
 			Bukkit.getPluginManager().registerEvents(this, MobHunting.getInstance());
 
-			Bukkit.getConsoleSender().sendMessage("[MobHunting] Enabling Compatibility with CustomMobs ("
-					+ getCustomMobs().getDescription().getVersion() + ")");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Enabling Compatibility with CustomMobs (" + getCustomMobs().getDescription().getVersion() + ")");
 
 			supported = true;
 
@@ -78,8 +79,8 @@ public class CustomMobsCompat implements Listener {
 							mob.setMobName(mob.getMobType());
 					} else
 						mob = new RewardData(MobPlugin.CustomMobs, CustomMobsAPI.getCustomMob(key).getName(),
-								CustomMobsAPI.getCustomMob(key).getDisplayName(), true,"10",1,"You killed a CustomMob",
-								new ArrayList<HashMap<String,String>>(), 1, 0.02);
+								CustomMobsAPI.getCustomMob(key).getDisplayName(), true, "10", 1,
+								"You killed a CustomMob", new ArrayList<HashMap<String, String>>(), 1, 0.02);
 
 					mMobRewardData.put(key, mob);
 					MobHunting.getInstance().getStoreManager().insertCustomMobs(key);
@@ -110,7 +111,8 @@ public class CustomMobsCompat implements Listener {
 				mMobRewardData.put(key, mob);
 				MobHunting.getInstance().getStoreManager().insertCustomMobs(key);
 			} else {
-				MobHunting.getInstance().getMessages().debug("The mob=%s cant be found in CustomMobs configuration file", key);
+				MobHunting.getInstance().getMessages()
+						.debug("The mob=%s cant be found in CustomMobs configuration file", key);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -150,7 +152,8 @@ public class CustomMobsCompat implements Listener {
 				MobHunting.getInstance().getMessages().debug("Saving Mobhunting extra CustomMobs data.");
 				config.save(file);
 			} else {
-				MobHunting.getInstance().getMessages().debug("ERROR! CustomMobs ID (%s) is not found in mMobRewardData", key);
+				MobHunting.getInstance().getMessages().debug("ERROR! CustomMobs ID (%s) is not found in mMobRewardData",
+						key);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -215,22 +218,24 @@ public class CustomMobsCompat implements Listener {
 		// The LivingEntity instance that was spawned.
 		LivingEntity entity = event.getEntity();
 
-		MobHunting.getInstance().getMessages().debug("CustomMobSpawnEvent: MinecraftMobtype=%s CustomMobName=%s", entity.getType(), mob.getName());
+		MobHunting.getInstance().getMessages().debug("CustomMobSpawnEvent: MinecraftMobtype=%s CustomMobName=%s",
+				entity.getType(), mob.getName());
 
 		// Specific reason why the mob was spawned
 		CustomMobSpawnEvent.SpawnReason reason = event.getReason();
-		if (reason.equals(SpawnReason.SPAWNER) && !MobHunting.getInstance().getConfigManager().allowCustomMobsSpawners) {
+		if (reason.equals(SpawnReason.SPAWNER)
+				&& !MobHunting.getInstance().getConfigManager().allowCustomMobsSpawners) {
 			entity.setMetadata("MH:blocked", new FixedMetadataValue(MobHunting.getInstance(), true));
 			// Block spawner = event.getSpawner();
 			// Is only defined when the spawnReason is SPAWNER.
 		}
 
 		if (mMobRewardData != null && !mMobRewardData.containsKey(mob.getName())) {
-			MobHunting.getInstance().getMessages().debug("New CustomMobName found=%s,%s", mob.getName(), mob.getDisplayName());
+			MobHunting.getInstance().getMessages().debug("New CustomMobName found=%s,%s", mob.getName(),
+					mob.getDisplayName());
 			String name = mob.getDisplayName() == null ? mob.getName() : mob.getDisplayName();
-			mMobRewardData.put(mob.getName(), new RewardData(MobPlugin.CustomMobs, mob.getName(), name, 
-					true, "10", 1, "You killed a CustomMob",
-					new ArrayList<HashMap<String,String>>(), 1, 0.02));
+			mMobRewardData.put(mob.getName(), new RewardData(MobPlugin.CustomMobs, mob.getName(), name, true, "10", 1,
+					"You killed a CustomMob", new ArrayList<HashMap<String, String>>(), 1, 0.02));
 			saveCustomMobsData(mob.getName());
 			MobHunting.getInstance().getStoreManager().insertCustomMobs(mob.getName());
 			// Update mob loaded into memory

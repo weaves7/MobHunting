@@ -1,6 +1,7 @@
 package one.lindegaard.MobHunting.compatibility;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -17,8 +18,8 @@ public class WorldEditCompat {
 	public WorldEditCompat() {
 		mPlugin = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin(CompatPlugin.WorldEdit.getName());
 
-		Bukkit.getLogger()
-				.info("[MobHunting] Enabling compatibility with WorldEdit (" + getWorldEdit().getDescription().getVersion() + ")");
+		Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+				+ "Enabling compatibility with WorldEdit (" + getWorldEdit().getDescription().getVersion() + ")");
 		supported = true;
 	}
 

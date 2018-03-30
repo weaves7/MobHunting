@@ -509,7 +509,9 @@ public class Messages {
 			public void run() {
 				while (!messageQueue.isEmpty()) {
 					Long key = System.currentTimeMillis() + 3600000L;
-					for (Entry<Long, MessageQueue> k : messageQueue.entrySet()) {
+					Iterator<Entry<Long, MessageQueue>> itr = messageQueue.entrySet().iterator();
+					while (itr.hasNext()) {
+						Entry<Long, MessageQueue> k = itr.next();
 						if (k.getValue().getPlayer().equals(player))
 							key = Math.min(key, k.getKey());
 					}

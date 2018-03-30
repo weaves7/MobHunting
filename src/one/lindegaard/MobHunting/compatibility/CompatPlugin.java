@@ -48,7 +48,8 @@ public enum CompatPlugin {
 	PreciousStones("PreciousStones", 46), //
 	BagOfGold("BagOfGold", 47), //
 	MobHunting("MobHunting", 48), //
-	LorinthsRpgMobs("LorinthsRpgMobs", 49);
+	LorinthsRpgMobs("LorinthsRpgMobs", 49), //
+	CMI("CMI",50); // CMI Holograms
 
 	private final String name;
 	private final Integer id;

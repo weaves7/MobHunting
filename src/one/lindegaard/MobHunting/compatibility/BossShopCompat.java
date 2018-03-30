@@ -2,6 +2,7 @@ package one.lindegaard.MobHunting.compatibility;
 
 import org.black_ixx.bossshop.BossShop;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 
@@ -17,7 +18,8 @@ public class BossShopCompat implements Listener {
 
 	public BossShopCompat() {
 		if (!isEnabledInConfig()) {
-			Bukkit.getConsoleSender().sendMessage("[MobHunting] Compatibility with BossShop is disabled in config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with BossShop is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.BossShop.getName());
 
@@ -25,8 +27,8 @@ public class BossShopCompat implements Listener {
 
 			Bukkit.getPluginManager().registerEvents(this, MobHunting.getInstance());
 
-			Bukkit.getConsoleSender().sendMessage(
-					"[MobHunting] Enabling compatibility with BossShop (" + bs.getDescription().getVersion() + ").");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Enabling compatibility with BossShop (" + bs.getDescription().getVersion() + ").");
 			supported = true;
 		}
 	}

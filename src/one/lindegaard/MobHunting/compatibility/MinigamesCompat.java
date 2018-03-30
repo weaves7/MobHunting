@@ -1,6 +1,7 @@
 package one.lindegaard.MobHunting.compatibility;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -11,17 +12,17 @@ import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.events.MobHuntEnableCheckEvent;
 
 public class MinigamesCompat implements Listener {
-	
+
 	private static boolean supported = false;
-	
+
 	public MinigamesCompat() {
 		if (!isEnabledInConfig()) {
-			Bukkit.getLogger().info(
-					"[MobHunting] Compatibility with MiniGames is disabled in config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with MiniGames is disabled in config.yml");
 		} else {
 			Bukkit.getPluginManager().registerEvents(this, MobHunting.getInstance());
-			Bukkit.getLogger().info(
-					"[MobHunting] Enabling compatibility with Minigames");
+			Bukkit.getConsoleSender().sendMessage(
+					ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET + "Enabling compatibility with Minigames");
 			supported = true;
 		}
 	}
@@ -43,8 +44,7 @@ public class MinigamesCompat implements Listener {
 	@EventHandler(priority = EventPriority.NORMAL)
 	private void onPlayerJoinMinigame(MobHuntEnableCheckEvent event) {
 		MobHunting.getInstance().getMessages().debug("onPlayerJoinMinigame was run...");
-		MinigamePlayer player = Minigames.plugin.pdata.getMinigamePlayer(event
-				.getPlayer());
+		MinigamePlayer player = Minigames.plugin.pdata.getMinigamePlayer(event.getPlayer());
 		if (player != null && player.isInMinigame())
 			event.setEnabled(false);
 	}

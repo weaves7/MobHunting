@@ -1,6 +1,7 @@
 package one.lindegaard.MobHunting.compatibility;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
 
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
@@ -15,13 +16,15 @@ public class HolographicDisplaysCompat {
 
 	public HolographicDisplaysCompat() {
 		if (!isEnabledInConfig()) {
-			Bukkit.getConsoleSender()
-					.sendMessage("[MobHunting] Compatibility with Holographic Displays is disabled in config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with Holographic Displays is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.HolographicDisplays.getName());
 
-			Bukkit.getConsoleSender().sendMessage("[MobHunting] Enabling compatibility with Holographic Displays ("
-					+ mPlugin.getDescription().getVersion() + ").");
+			Bukkit.getConsoleSender()
+					.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+							+ "Enabling compatibility with Holographic Displays ("
+							+ mPlugin.getDescription().getVersion() + ").");
 			supported = true;
 		}
 	}
@@ -39,11 +42,11 @@ public class HolographicDisplaysCompat {
 	}
 
 	public static boolean isEnabledInConfig() {
-		return MobHunting.getInstance().getConfigManager().enableIntegrationHolographicDisplays ;
+		return MobHunting.getInstance().getConfigManager().enableIntegrationHolographicDisplays;
 	}
 
-	public static HologramsAPI getHologramsAPI(){
+	public static HologramsAPI getHologramsAPI() {
 		return ((HologramsAPI) mPlugin);
 	}
-	
+
 }

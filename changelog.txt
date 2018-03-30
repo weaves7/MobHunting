@@ -5,6 +5,7 @@ V5.6.1
 * Fixed ticket 387 (https://github.com/Rocologo/MobHunting/issues/387)
 * Fixed ticket 386 (https://github.com/Rocologo/MobHunting/issues/386)
 * Reloading Minecraft Advancements after 15 seconds.
+* Fixed Ticket 389 - ConcurrentModificationException (https://github.com/Rocologo/MobHunting/issues/389)
 V5.6.0
 * Fixed NPE error in MobHuntingManager.java:1810
 V5.5.9

@@ -3,28 +3,26 @@ package one.lindegaard.MobHunting.compatibility;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
-
-import com.sainttx.holograms.api.HologramManager;
-import com.sainttx.holograms.api.HologramPlugin;
+import com.Zrips.CMI.CMI;
 
 import one.lindegaard.MobHunting.MobHunting;
 
-public class HologramsCompat {
+public class CMIHologramsCompat {
 
 	private static Plugin mPlugin;
 	private static boolean supported = false;
 
-	// https://www.spigotmc.org/resources/holograms.4924/
+	// https://www.spigotmc.org/resources/cmi-ranks-kits-portals-essentials-mysql-sqlite-bungeecord.3742/
 
-	public HologramsCompat() {
+	public CMIHologramsCompat() {
 		if (!isEnabledInConfig()) {
 			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
-					+ "Compatibility with Holograms is disabled in config.yml");
+					+ "Compatibility with CMI is disabled in config.yml");
 		} else {
-			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.Holograms.getName());
+			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.CMI.getName());
 
 			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
-					+ "Enabling compatibility with Holograms (" + mPlugin.getDescription().getVersion() + ").");
+					+ "Enabling compatibility with CMI (" + mPlugin.getDescription().getVersion() + ").");
 
 			supported = true;
 		}
@@ -34,8 +32,8 @@ public class HologramsCompat {
 	// OTHER
 	// **************************************************************************
 
-	public Plugin getHologramsPlugin() {
-		return mPlugin;
+	public CMI getCMIPlugin() {
+		return (CMI) mPlugin;
 	}
 
 	public static boolean isSupported() {
@@ -46,8 +44,12 @@ public class HologramsCompat {
 		return MobHunting.getInstance().getConfigManager().enableIntegrationHolograms;
 	}
 
-	public static HologramManager getHologramManager() {
-		return ((HologramPlugin) mPlugin).getHologramManager();
+	public String getManager() {
+		return "test";
 	}
+
+	// public static HologramManager getHologramManager() {
+	// return ((HologramPlugin) mPlugin).getHologramManager();
+	// }
 
 }
