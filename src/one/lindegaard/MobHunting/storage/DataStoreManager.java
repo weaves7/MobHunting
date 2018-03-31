@@ -51,8 +51,8 @@ public class DataStoreManager {
 		int savePeriod = plugin.getConfigManager().savePeriod;
 		if (savePeriod < 1200) {
 			savePeriod = 1200;
-			Bukkit.getConsoleSender().sendMessage(ChatColor.RED
-					+ "[MobHunting][Warning] save-period in your config.yml is too low. Please raise it to 1200 or higher");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD
+					+ "[MobHunting]"+ChatColor.RED+"[Warning] save-period in your config.yml is too low. Please raise it to 1200 or higher");
 		}
 		mStoreThread = new StoreThread(savePeriod);
 	}

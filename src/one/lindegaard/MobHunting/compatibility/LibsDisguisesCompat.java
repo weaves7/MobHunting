@@ -12,6 +12,7 @@ import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.util.Misc;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -44,7 +45,7 @@ public class LibsDisguisesCompat implements Listener {
 		if (Misc.isMC19OrNewer()) {
 			aggresiveList[n++] = DisguiseType.SHULKER;
 		}
-		if (Misc.isMC18OrNewer()){
+		if (Misc.isMC18OrNewer()) {
 			aggresiveList[n++] = DisguiseType.GUARDIAN;
 			aggresiveList[n++] = DisguiseType.ENDERMITE;
 			aggresiveList[n++] = DisguiseType.ELDER_GUARDIAN;
@@ -135,12 +136,15 @@ public class LibsDisguisesCompat implements Listener {
 
 	public LibsDisguisesCompat() {
 		if (MobHunting.getInstance().getConfigManager().enableIntegrationLibsDisguises) {
-			Bukkit.getLogger().info("[MobHunting] Compatibility with LibsDisguises is disabled in config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with LibsDisguises is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getServer().getPluginManager().getPlugin(CompatPlugin.LibsDisguises.getName());
 
-			Bukkit.getLogger().info("[MobHunting] Enabling compatibility with LibsDisguises ("
-					+ getLibsDisguises().getDescription().getVersion() + ")");
+			Bukkit.getConsoleSender()
+					.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+							+ "Enabling compatibility with LibsDisguises ("
+							+ getLibsDisguises().getDescription().getVersion() + ")");
 
 			Bukkit.getPluginManager().registerEvents(this, MobHunting.getInstance());
 

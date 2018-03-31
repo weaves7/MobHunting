@@ -91,7 +91,6 @@ public class MobHuntingManager implements Listener {
 		Player player = event.getPlayer();
 		HuntData data = new HuntData(player);
 		if (data.getKillstreakLevel() != 0 && data.getKillstreakMultiplier() != 1) {
-			plugin.getMessages();
 			plugin.getMessages().playerActionBarMessageQueue(player, ChatColor.RED + "" + ChatColor.ITALIC
 					+ plugin.getMessages().getString("mobhunting.killstreak.ended"));
 		}
@@ -280,7 +279,6 @@ public class MobHuntingManager implements Listener {
 
 		HuntData data = new HuntData(killed);
 		if (data.getKillstreakLevel() != 0 && data.getKillstreakMultiplier() != 1) {
-			plugin.getMessages();
 			plugin.getMessages().playerActionBarMessageQueue((Player) event.getEntity(), ChatColor.RED + ""
 					+ ChatColor.ITALIC + plugin.getMessages().getString("mobhunting.killstreak.ended"));
 		}
@@ -347,7 +345,6 @@ public class MobHuntingManager implements Listener {
 					if (plugin.getPlayerSettingsManager().containsKey(killed))
 						killed_muted = plugin.getPlayerSettingsManager().getPlayerSettings(killed).isMuted();
 					if (!killed_muted) {
-						plugin.getMessages();
 						plugin.getMessages().playerActionBarMessageQueue(killed,
 								ChatColor.RED + "" + ChatColor.ITALIC
 										+ plugin.getMessages().getString("mobhunting.moneylost", "prize",
@@ -413,7 +410,6 @@ public class MobHuntingManager implements Listener {
 		Player player = (Player) event.getEntity();
 		HuntData data = new HuntData(player);
 		if (data.getKillstreakLevel() != 0 && data.getKillstreakMultiplier() != 1) {
-			plugin.getMessages();
 			plugin.getMessages().playerActionBarMessageQueue(player, ChatColor.RED + "" + ChatColor.ITALIC
 					+ plugin.getMessages().getString("mobhunting.killstreak.ended"));
 		}
@@ -597,12 +593,10 @@ public class MobHuntingManager implements Listener {
 								cause.getName());
 					if (plugin.getConfigManager().removeDisguiseWhenAttacking) {
 						DisguisesHelper.undisguiseEntity(cause);
-						plugin.getMessages();
 						// if (cause instanceof Player)
 						plugin.getMessages().playerActionBarMessageQueue(cause, ChatColor.GREEN + "" + ChatColor.ITALIC
 								+ plugin.getMessages().getString("bonus.undercover.message", "cause", cause.getName()));
 						if (damaged instanceof Player) {
-							plugin.getMessages();
 							plugin.getMessages().playerActionBarMessageQueue((Player) damaged,
 									ChatColor.GREEN + "" + ChatColor.ITALIC + plugin.getMessages()
 											.getString("bonus.undercover.message", "cause", cause.getName()));
@@ -622,13 +616,11 @@ public class MobHuntingManager implements Listener {
 					if (plugin.getConfigManager().removeDisguiseWhenAttacked) {
 						DisguisesHelper.undisguiseEntity(damaged);
 						if (damaged instanceof Player) {
-							plugin.getMessages();
 							plugin.getMessages().playerActionBarMessageQueue((Player) damaged,
 									ChatColor.GREEN + "" + ChatColor.ITALIC + plugin.getMessages()
 											.getString("bonus.coverblown.message", "damaged", damaged.getName()));
 						}
 						if (cause instanceof Player) {
-							plugin.getMessages();
 							plugin.getMessages().playerActionBarMessageQueue(cause,
 									ChatColor.GREEN + "" + ChatColor.ITALIC + plugin.getMessages()
 											.getString("bonus.coverblown.message", "damaged", damaged.getName()));
@@ -673,7 +665,6 @@ public class MobHuntingManager implements Listener {
 													plugin.getConfigManager().rangeToSearchForGrinding,
 													plugin.getConfigManager().numberOfDeathsWhenSearchingForGringding),
 											killed.getLocation());
-								plugin.getMessages();
 								plugin.getMessages().learn(getPlayer(killer, killed),
 										plugin.getMessages().getString("mobhunting.learn.grindingfarm"));
 							}
@@ -695,7 +686,6 @@ public class MobHuntingManager implements Listener {
 													plugin.getConfigManager().rangeToSearchForGrinding,
 													plugin.getConfigManager().numberOfDeathsWhenSearchingForGringding),
 											killed.getLocation());
-								plugin.getMessages();
 								plugin.getMessages().learn(getPlayer(killer, killed),
 										plugin.getMessages().getString("mobhunting.learn.grindingfarm"));
 							}
@@ -745,7 +735,6 @@ public class MobHuntingManager implements Listener {
 		if (killer == null && MyPetCompat.isKilledByMyPet(killed) && plugin.getConfigManager().enableAssists == false) {
 			Player owner = MyPetCompat.getMyPetOwner(killed);
 			plugin.getMessages().debug("KillBlocked: %s - Assisted kill is disabled", owner.getName());
-			plugin.getMessages();
 			plugin.getMessages().learn(owner,
 					plugin.getMessages().getString("mobhunting.learn.assisted-kill-is-disabled"));
 			plugin.getMessages().debug("======================= kill ended (1)======================");
@@ -821,7 +810,6 @@ public class MobHuntingManager implements Listener {
 				if (!WorldGuardHelper.isAllowedByWorldGuard(killer, killed, DefaultFlag.MOB_DAMAGE, true)) {
 					plugin.getMessages().debug("KillBlocked: %s is hiding in WG region with mob-damage=DENY",
 							killer.getName());
-					plugin.getMessages();
 					plugin.getMessages().learn(player,
 							plugin.getMessages().getString("mobhunting.learn.mob-damage-flag"));
 					cancelDrops(event, plugin.getConfigManager().disableNaturalItemDrops,
@@ -832,7 +820,6 @@ public class MobHuntingManager implements Listener {
 						true)) {
 					plugin.getMessages().debug("KillBlocked: %s is in a protected region mobhunting=DENY",
 							killer.getName());
-					plugin.getMessages();
 					plugin.getMessages().learn(player,
 							plugin.getMessages().getString("mobhunting.learn.mobhunting-deny"));
 					cancelDrops(event, plugin.getConfigManager().disableNaturalItemDrops,
@@ -847,7 +834,6 @@ public class MobHuntingManager implements Listener {
 			Player player = getPlayer(killer, killed);
 			plugin.getMessages().debug("KillBlocked: %s is hiding in PreciousStone Field with prevent-mob-damage flag",
 					player.getName());
-			plugin.getMessages();
 			plugin.getMessages().learn(player,
 					plugin.getMessages().getString("mobhunting.learn.prevent-mob-damage-flag"));
 			cancelDrops(event, plugin.getConfigManager().disableNaturalItemDrops,
@@ -862,7 +848,6 @@ public class MobHuntingManager implements Listener {
 				Player player = getPlayer(killer, killed);
 				if (FactionsHelperCompat.isInSafeZone(player)) {
 					plugin.getMessages().debug("KillBlocked: %s is hiding in Factions SafeZone", player.getName());
-					plugin.getMessages();
 					plugin.getMessages().learn(getPlayer(killer, killed),
 							plugin.getMessages().getString("mobhunting.learn.factions-no-rewards-in-safezone"));
 					cancelDrops(event, plugin.getConfigManager().disableNaturalItemDrops,
@@ -880,7 +865,6 @@ public class MobHuntingManager implements Listener {
 				Player player = getPlayer(killer, killed);
 				if (plugin.getConfigManager().disableRewardsInHomeTown && TownyCompat.isInHomeTome(player)) {
 					plugin.getMessages().debug("KillBlocked: %s is hiding in his home town", player.getName());
-					plugin.getMessages();
 					plugin.getMessages().learn(getPlayer(killer, killed),
 							plugin.getMessages().getString("mobhunting.learn.towny-no-rewards-in-home-town"));
 					cancelDrops(event, plugin.getConfigManager().disableNaturallyRewardsInHomeTown,
@@ -899,7 +883,6 @@ public class MobHuntingManager implements Listener {
 				Player player = getPlayer(killer, killed);
 				if (plugin.getConfigManager().disableRewardsInHomeResidence && ResidenceCompat.isProtected(player)) {
 					plugin.getMessages().debug("KillBlocked: %s is hiding in a protected residence", player.getName());
-					plugin.getMessages();
 					plugin.getMessages().learn(getPlayer(killer, killed),
 							plugin.getMessages().getString("mobhunting.learn.residence-no-rewards-in-protected-area"));
 					cancelDrops(event, plugin.getConfigManager().disableNaturallyRewardsInProtectedResidence,
@@ -918,7 +901,6 @@ public class MobHuntingManager implements Listener {
 							false)) {
 						plugin.getMessages().debug("KillBlocked %s: Mobhunting disabled in world '%s'",
 								getPlayer(killer, killed).getName(), killer.getWorld().getName());
-						plugin.getMessages();
 						plugin.getMessages().learn(getPlayer(killer, killed),
 								plugin.getMessages().getString("mobhunting.learn.disabled"));
 						plugin.getMessages().debug("======================= kill ended (9)======================");
@@ -926,7 +908,6 @@ public class MobHuntingManager implements Listener {
 					} else {
 						plugin.getMessages().debug("KillBlocked %s: Mobhunting disabled in world '%s'",
 								getPlayer(killer, killed).getName(), killer.getWorld().getName());
-						plugin.getMessages();
 						plugin.getMessages().learn(getPlayer(killer, killed),
 								plugin.getMessages().getString("mobhunting.learn.disabled"));
 						plugin.getMessages().debug("======================= kill ended (10)======================");
@@ -942,7 +923,6 @@ public class MobHuntingManager implements Listener {
 				// MobHunting is NOT allowed in this world,
 				plugin.getMessages().debug("KillBlocked %s: Mobhunting disabled in world '%s'",
 						getPlayer(killer, killed).getName(), getPlayer(killer, killed).getWorld().getName());
-				plugin.getMessages();
 				plugin.getMessages().learn(getPlayer(killer, killed),
 						plugin.getMessages().getString("mobhunting.learn.disabled"));
 				plugin.getMessages().debug("======================= kill ended (12)=====================");
@@ -965,7 +945,6 @@ public class MobHuntingManager implements Listener {
 			// MobArena
 			if (MobArenaCompat.isPlayingMobArena((Player) killed) && !plugin.getConfigManager().mobarenaGetRewards) {
 				plugin.getMessages().debug("KillBlocked: %s was killed while playing MobArena.", mob.getMobName());
-				plugin.getMessages();
 				plugin.getMessages().learn(getPlayer(killer, killed),
 						plugin.getMessages().getString("mobhunting.learn.mobarena"));
 				plugin.getMessages().debug("======================= kill ended (13)=====================");
@@ -975,7 +954,6 @@ public class MobHuntingManager implements Listener {
 			} else if (PVPArenaCompat.isPlayingPVPArena((Player) killed)
 					&& !plugin.getConfigManager().pvparenaGetRewards) {
 				plugin.getMessages().debug("KillBlocked: %s was killed while playing PvpArena.", mob.getMobName());
-				plugin.getMessages();
 				plugin.getMessages().learn(getPlayer(killer, killed),
 						plugin.getMessages().getString("mobhunting.learn.pvparena"));
 				plugin.getMessages().debug("======================= kill ended (14)=====================");
@@ -984,7 +962,6 @@ public class MobHuntingManager implements Listener {
 				// BattleArena
 			} else if (BattleArenaCompat.isPlayingBattleArena((Player) killed)) {
 				plugin.getMessages().debug("KillBlocked: %s was killed while playing BattleArena.", mob.getMobName());
-				plugin.getMessages();
 				plugin.getMessages().learn(getPlayer(killer, killed),
 						plugin.getMessages().getString("mobhunting.learn.battlearena"));
 				plugin.getMessages().debug("======================= kill ended (15)=====================");
@@ -993,7 +970,6 @@ public class MobHuntingManager implements Listener {
 				// MiniGamesLib
 			} else if (MinigamesLibCompat.isPlayingMinigame((Player) killed)) {
 				plugin.getMessages().debug("KillBlocked: %s was killed while playing a MiniGame.", mob.getMobName());
-				plugin.getMessages();
 				plugin.getMessages().learn(getPlayer(killer, killed),
 						plugin.getMessages().getString("mobhunting.learn.minigameslib"));
 				plugin.getMessages().debug("======================= kill ended (16)=====================");
@@ -1004,13 +980,11 @@ public class MobHuntingManager implements Listener {
 				Player player = getPlayer(killer, killed);
 				plugin.getMessages().debug("KillBlocked: %s is hiding in PreciousStone Field with prevent-pvp flag",
 						player.getName());
-				plugin.getMessages();
 				plugin.getMessages().learn(player, plugin.getMessages().getString("mobhunting.learn.prevent-pvp-flag"));
 				plugin.getMessages().debug("======================= kill ended (16.5)======================");
 				return;
 			} else if (killer != null) {
 				if (killed.equals(killer)) {
-					plugin.getMessages();
 					// Suicide
 					plugin.getMessages().learn(getPlayer(killer, killed),
 							plugin.getMessages().getString("mobhunting.learn.suiside"));
@@ -1020,7 +994,6 @@ public class MobHuntingManager implements Listener {
 					return;
 					// PVP
 				} else if (!plugin.getConfigManager().pvpAllowed) {
-					plugin.getMessages();
 					// PVP
 					plugin.getMessages().learn(getPlayer(killer, killed),
 							plugin.getMessages().getString("mobhunting.learn.nopvp"));
@@ -1041,7 +1014,6 @@ public class MobHuntingManager implements Listener {
 				&& !plugin.getConfigManager().mobarenaGetRewards) {
 			plugin.getMessages().debug("KillBlocked: %s is currently playing MobArena.",
 					getPlayer(killer, killed).getName());
-			plugin.getMessages();
 			plugin.getMessages().learn(getPlayer(killer, killed),
 					plugin.getMessages().getString("mobhunting.learn.mobarena"));
 			plugin.getMessages().debug("======================= kill ended (19)=====================");
@@ -1050,7 +1022,6 @@ public class MobHuntingManager implements Listener {
 				&& !plugin.getConfigManager().pvparenaGetRewards) {
 			plugin.getMessages().debug("KillBlocked: %s is currently playing PvpArena.",
 					getPlayer(killer, killed).getName());
-			plugin.getMessages();
 			plugin.getMessages().learn(getPlayer(killer, killed),
 					plugin.getMessages().getString("mobhunting.learn.pvparena"));
 			plugin.getMessages().debug("======================= kill ended (20)=====================");
@@ -1058,14 +1029,12 @@ public class MobHuntingManager implements Listener {
 		} else if (BattleArenaCompat.isPlayingBattleArena(getPlayer(killer, killed))) {
 			plugin.getMessages().debug("KillBlocked: %s is currently playing BattleArena.",
 					getPlayer(killer, killed).getName());
-			plugin.getMessages();
 			plugin.getMessages().learn(getPlayer(killer, killed),
 					plugin.getMessages().getString("mobhunting.learn.battlearena"));
 			plugin.getMessages().debug("======================= kill ended (21)=====================");
 			return;
 		} else if (EssentialsCompat.isGodModeEnabled(getPlayer(killer, killed))) {
 			plugin.getMessages().debug("KillBlocked: %s is in God mode", getPlayer(killer, killed).getName());
-			plugin.getMessages();
 			plugin.getMessages().learn(getPlayer(killer, killed),
 					plugin.getMessages().getString("mobhunting.learn.godmode"));
 			cancelDrops(event, plugin.getConfigManager().disableNaturalItemDrops,
@@ -1074,14 +1043,12 @@ public class MobHuntingManager implements Listener {
 			return;
 		} else if (EssentialsCompat.isVanishedModeEnabled(getPlayer(killer, killed))) {
 			plugin.getMessages().debug("KillBlocked: %s is in Vanished mode", getPlayer(killer, killed).getName());
-			plugin.getMessages();
 			plugin.getMessages().learn(getPlayer(killer, killed),
 					plugin.getMessages().getString("mobhunting.learn.vanished"));
 			plugin.getMessages().debug("======================= kill ended (23)=====================");
 			return;
 		} else if (VanishNoPacketCompat.isVanishedModeEnabled(getPlayer(killer, killed))) {
 			plugin.getMessages().debug("KillBlocked: %s is in Vanished mode", getPlayer(killer, killed).getName());
-			plugin.getMessages();
 			plugin.getMessages().learn(getPlayer(killer, killed),
 					plugin.getMessages().getString("mobhunting.learn.vanished"));
 			plugin.getMessages().debug("======================= kill ended (24)=====================");
@@ -1091,7 +1058,6 @@ public class MobHuntingManager implements Listener {
 		if (!hasPermissionToKillMob(getPlayer(killer, killed), killed)) {
 			plugin.getMessages().debug("KillBlocked: %s has not permission to kill %s.",
 					getPlayer(killer, killed).getName(), mob.getMobName());
-			plugin.getMessages();
 			plugin.getMessages().learn(getPlayer(killer, killed),
 					plugin.getMessages().getString("mobhunting.learn.no-permission", "killed-mob", mob.getMobName()));
 			plugin.getMessages().debug("======================= kill ended (25a)=====================");
@@ -1100,7 +1066,6 @@ public class MobHuntingManager implements Listener {
 
 		if (!plugin.getRewardManager().getMobEnabled(killed)) {
 			plugin.getMessages().debug("KillBlocked: %s is disabled in config.yml", mob.getMobName());
-			plugin.getMessages();
 			plugin.getMessages().learn(getPlayer(killer, killed),
 					plugin.getMessages().getString("mobhunting.learn.mob-disabled", "killed-mob", mob.getMobName()));
 			plugin.getMessages().debug("======================= kill ended (25b)=====================");
@@ -1114,7 +1079,6 @@ public class MobHuntingManager implements Listener {
 					plugin.getMessages().debug(
 							"KillBlocked %s(%d): Mob has MH:blocked meta (probably spawned from a mob spawner, an egg or a egg-dispenser )",
 							event.getEntity().getType(), killed.getEntityId());
-					plugin.getMessages();
 					plugin.getMessages().learn(getPlayer(killer, killed),
 							plugin.getMessages().getString("mobhunting.learn.mobspawner", "killed", mob.getMobName()));
 					cancelDrops(event,
@@ -1130,7 +1094,6 @@ public class MobHuntingManager implements Listener {
 		if (!isHuntEnabled(getPlayer(killer, killed))) {
 			plugin.getMessages().debug("KillBlocked: %s Hunting is disabled for player",
 					getPlayer(killer, killed).getName());
-			plugin.getMessages();
 			plugin.getMessages().learn(getPlayer(killer, killed),
 					plugin.getMessages().getString("mobhunting.learn.huntdisabled"));
 			plugin.getMessages().debug("======================= kill ended (27)======================");
@@ -1140,7 +1103,6 @@ public class MobHuntingManager implements Listener {
 		// The player is in Creative mode
 		if (getPlayer(killer, killed).getGameMode() == GameMode.CREATIVE) {
 			plugin.getMessages().debug("KillBlocked: %s is in creative mode", getPlayer(killer, killed).getName());
-			plugin.getMessages();
 			plugin.getMessages().learn(getPlayer(killer, killed),
 					plugin.getMessages().getString("mobhunting.learn.creative"));
 			cancelDrops(event, plugin.getConfigManager().tryToCancelNaturalDropsWhenInCreative,
@@ -1163,7 +1125,6 @@ public class MobHuntingManager implements Listener {
 			plugin.getMessages().debug(
 					"KillBlocked %s(%d): There is no reward and no penalty for this Mob/Player and is not counted as kill/achievement.",
 					mob.getMobName(), killed.getEntityId());
-			plugin.getMessages();
 			plugin.getMessages().learn(getPlayer(killer, killed),
 					plugin.getMessages().getString("mobhunting.learn.no-reward", "killed", mob.getMobName()));
 			plugin.getMessages().debug("======================= kill ended (29)=====================");
@@ -1229,13 +1190,11 @@ public class MobHuntingManager implements Listener {
 				} else if (plugin.getConfigManager().removeDisguiseWhenAttacking) {
 					DisguisesHelper.undisguiseEntity(getPlayer(killer, killed));
 					if (getPlayer(killer, killed) != null && !killer_muted) {
-						plugin.getMessages();
 						plugin.getMessages().playerActionBarMessageQueue(getPlayer(killer, killed),
 								ChatColor.GREEN + "" + ChatColor.ITALIC + plugin.getMessages().getString(
 										"bonus.undercover.message", "cause", getPlayer(killer, killed).getName()));
 					}
 					if (killed instanceof Player && !killed_muted) {
-						plugin.getMessages();
 						plugin.getMessages().playerActionBarMessageQueue((Player) killed,
 								ChatColor.GREEN + "" + ChatColor.ITALIC + plugin.getMessages().getString(
 										"bonus.undercover.message", "cause", getPlayer(killer, killed).getName()));
@@ -1250,13 +1209,11 @@ public class MobHuntingManager implements Listener {
 				if (plugin.getConfigManager().removeDisguiseWhenAttacked) {
 					DisguisesHelper.undisguiseEntity(killed);
 					if (killed instanceof Player && !killed_muted) {
-						plugin.getMessages();
 						plugin.getMessages().playerActionBarMessageQueue((Player) killed,
 								ChatColor.GREEN + "" + ChatColor.ITALIC + plugin.getMessages()
 										.getString("bonus.coverblown.message", "damaged", mob.getMobName()));
 					}
 					if (getPlayer(killer, killed) != null && !killer_muted) {
-						plugin.getMessages();
 						plugin.getMessages().playerActionBarMessageQueue(getPlayer(killer, killed),
 								ChatColor.GREEN + "" + ChatColor.ITALIC + plugin.getMessages()
 										.getString("bonus.coverblown.message", "damaged", mob.getMobName()));
@@ -1287,7 +1244,6 @@ public class MobHuntingManager implements Listener {
 				// Killstreak ended. Players started to kill 4 chicken and the
 				// one mob to gain 4 x prize
 				if (data.getKillstreakLevel() != 0 && data.getKillstreakMultiplier() != 1) {
-					plugin.getMessages();
 					plugin.getMessages().playerActionBarMessageQueue(getPlayer(killer, killed), ChatColor.RED + ""
 							+ ChatColor.ITALIC + plugin.getMessages().getString("mobhunting.killstreak.ended"));
 				}
@@ -1368,10 +1324,8 @@ public class MobHuntingManager implements Listener {
 											* plugin.getConfigManager().grindingDetectionNumberOfDeath / 2) {
 										plugin.getMessages().debug(
 												"Warning: Grinding detected. Killings too close, adding 1 to DampenedKills.");
-										plugin.getMessages();
 										plugin.getMessages().learn(getPlayer(killer, killed),
 												plugin.getMessages().getString("mobhunting.learn.grindingnotallowed"));
-										plugin.getMessages();
 										plugin.getMessages().playerActionBarMessageQueue(getPlayer(killer, killed),
 												ChatColor.RED + plugin.getMessages()
 														.getString("mobhunting.grinding.detected"));
@@ -1404,7 +1358,6 @@ public class MobHuntingManager implements Listener {
 						* plugin.getConfigManager().grindingDetectionNumberOfDeath / 2 + 4
 						&& !plugin.getGrindingManager().isWhitelisted(loc)) {
 					if (data.getKillstreakLevel() != 0 && data.getKillstreakMultiplier() != 1) {
-						plugin.getMessages();
 						plugin.getMessages().playerActionBarMessageQueue(getPlayer(killer, killed),
 								ChatColor.RED + plugin.getMessages().getString("mobhunting.killstreak.lost"));
 					}
@@ -1481,7 +1434,6 @@ public class MobHuntingManager implements Listener {
 					OfflinePlayer bountyOwner = b.getBountyOwner();
 					plugin.getBountyManager().delete(b);
 					if (bountyOwner != null && bountyOwner.isOnline()) {
-						plugin.getMessages();
 						plugin.getMessages().playerActionBarMessageQueue(Misc.getOnlinePlayer(bountyOwner),
 								plugin.getMessages().getString("mobhunting.bounty.bounty-claimed", "killer",
 										getPlayer(killer, killed).getName(), "prize",
@@ -1490,7 +1442,6 @@ public class MobHuntingManager implements Listener {
 					b.setStatus(BountyStatus.completed);
 					plugin.getDataStoreManager().updateBounty(b);
 				}
-				plugin.getMessages();
 				plugin.getMessages().playerActionBarMessageQueue(getPlayer(killer, killed),
 						plugin.getMessages().getString("mobhunting.moneygain-for-killing", "money",
 								plugin.getRewardManager().format(reward), "killed", killed.getName()));
@@ -1669,8 +1620,6 @@ public class MobHuntingManager implements Listener {
 				if (extraString.trim().isEmpty()) {
 					if (cash >= plugin.getConfigManager().minimumReward) {
 						if (!plugin.getConfigManager().dropMoneyOnGroup) {
-							plugin.getMessages();
-							plugin.getMessages();
 							plugin.getMessages().playerActionBarMessageQueue(getPlayer(killer, killed),
 									ChatColor.GREEN + "" + ChatColor.ITALIC
 											+ plugin.getMessages().getString("mobhunting.moneygain", "prize",
@@ -1683,7 +1632,6 @@ public class MobHuntingManager implements Listener {
 													plugin.getRewardManager().format(cash), "killed",
 													mob.getFriendlyName()));
 					} else if (cash <= -plugin.getConfigManager().minimumReward) {
-						plugin.getMessages();
 						plugin.getMessages().playerActionBarMessageQueue(getPlayer(killer, killed),
 								ChatColor.RED + "" + ChatColor.ITALIC
 										+ plugin.getMessages().getString("mobhunting.moneylost", "prize",
@@ -1694,8 +1642,6 @@ public class MobHuntingManager implements Listener {
 				} else {
 					if (cash >= plugin.getConfigManager().minimumReward) {
 						if (!plugin.getConfigManager().dropMoneyOnGroup) {
-							plugin.getMessages();
-							plugin.getMessages();
 							plugin.getMessages().playerActionBarMessageQueue(getPlayer(killer, killed), ChatColor.GREEN
 									+ "" + ChatColor.ITALIC
 									+ plugin.getMessages().getString("mobhunting.moneygain.bonuses", "basic_prize",
@@ -1712,7 +1658,6 @@ public class MobHuntingManager implements Listener {
 											"multipliers", plugin.getRewardManager().format(multipliers), "killed",
 											mob.getFriendlyName()));
 					} else if (cash <= -plugin.getConfigManager().minimumReward) {
-						plugin.getMessages();
 						plugin.getMessages().playerActionBarMessageQueue(getPlayer(killer, killed),
 								ChatColor.RED + "" + ChatColor.ITALIC
 										+ plugin.getMessages().getString("mobhunting.moneylost.bonuses", "basic_prize",
@@ -1749,7 +1694,6 @@ public class MobHuntingManager implements Listener {
 					McMMOCompat.addLevel(killer, skilltype.getName(), level);
 					plugin.getMessages().debug("%s was rewarded with %s McMMO Levels for %s", killer.getName(),
 							plugin.getRewardManager().getMcMMOLevel(killed), skilltype.getName());
-					plugin.getMessages();
 					killer.sendMessage(plugin.getMessages().getString("mobhunting.mcmmo.skilltype_level", "mcmmo_level",
 							level, "skilltype", skilltype));
 				}
@@ -1983,7 +1927,6 @@ public class MobHuntingManager implements Listener {
 						ChatColor.GREEN + "" + ChatColor.ITALIC + plugin.getMessages().getString(
 								"mobhunting.moneygain.assist", "prize", plugin.getRewardManager().format(cash)));
 			else {
-				plugin.getMessages();
 				plugin.getMessages().playerActionBarMessageQueue(player,
 						ChatColor.GREEN + "" + ChatColor.ITALIC
 								+ plugin.getMessages().getString("mobhunting.moneygain.assist.bonuses", "prize",

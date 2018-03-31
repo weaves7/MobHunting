@@ -346,7 +346,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 	@Override
 	public void databaseConvertToUtf8(String database_name) throws DataStoreException {
 		ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-		console.sendMessage(ChatColor.RED + "[MobHunting] this command is only for MySQL");
+		console.sendMessage(ChatColor.GOLD + "[MobHunting]"+ChatColor.RED+" This command is only for MySQL");
 	}
 
 	// *******************************************************************************

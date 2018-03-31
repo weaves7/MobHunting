@@ -58,8 +58,8 @@ public class LeaderboardManager implements Listener {
 		int leaderboardUpdatePeriod = plugin.getConfigManager().leaderboardUpdatePeriod;
 		if (leaderboardUpdatePeriod < 1200) {
 			leaderboardUpdatePeriod = 1200;
-			Bukkit.getConsoleSender().sendMessage(ChatColor.RED
-					+ "[MobHunting][Warning] leaderboard-update-period: in your config.yml is too low. Please raise it to 1200 or higher. Reccommended is 6000. ");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD
+					+ "[MobHunting]"+ChatColor.RED+"[Warning] leaderboard-update-period: in your config.yml is too low. Please raise it to 1200 or higher. Reccommended is 6000. ");
 			plugin.getConfigManager().leaderboardUpdatePeriod=1200;
 			plugin.getConfigManager().saveConfig();
 		}
@@ -216,8 +216,8 @@ public class LeaderboardManager implements Listener {
 		try {
 			config.load(file);
 		} catch (IOException | InvalidConfigurationException e) {
-			Bukkit.getConsoleSender().sendMessage(
-					ChatColor.RED + "[MobHunting] Could not read world leaderboard file: boards-" + world.getName() + ".yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD
+					+ "[MobHunting]"+ChatColor.RED+"Could not read world leaderboard file: boards-" + world.getName() + ".yml");
 			if (plugin.getConfigManager().killDebug)
 				e.printStackTrace();
 		}

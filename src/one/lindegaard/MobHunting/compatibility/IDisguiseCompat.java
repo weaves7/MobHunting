@@ -11,6 +11,7 @@ import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.util.Misc;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -44,7 +45,7 @@ public class IDisguiseCompat implements Listener {
 		if (Misc.isMC19OrNewer()) {
 			aggresiveList[n++] = DisguiseType.SHULKER;
 		}
-		if (Misc.isMC18OrNewer()){
+		if (Misc.isMC18OrNewer()) {
 			aggresiveList[n++] = DisguiseType.GUARDIAN;
 			aggresiveList[n++] = DisguiseType.ENDERMITE;
 			aggresiveList[n++] = DisguiseType.ELDER_GUARDIAN;
@@ -111,15 +112,16 @@ public class IDisguiseCompat implements Listener {
 
 	public IDisguiseCompat() {
 		if (MobHunting.getInstance().getConfigManager().enableIntegrationIDisguise) {
-			Bukkit.getLogger().info("[MobHunting] Compatibility with iDisguise is disabled in config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with iDisguise is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getServer().getPluginManager().getPlugin(CompatPlugin.iDisguise.getName());
 			api = Bukkit.getServicesManager().getRegistration(DisguiseAPI.class).getProvider();
 
 			Bukkit.getPluginManager().registerEvents(this, MobHunting.getInstance());
 
-			Bukkit.getLogger().info("[MobHunting] Enabling compatibility with iDisguise ("
-					+ getiDisguise().getDescription().getVersion() + ")");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Enabling compatibility with iDisguise (" + getiDisguise().getDescription().getVersion() + ")");
 			supported = true;
 		}
 	}

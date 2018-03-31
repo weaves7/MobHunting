@@ -133,18 +133,20 @@ public class MobHunting extends JavaPlugin {
 		if (isbStatsEnabled())
 			getMessages().debug("bStat is enabled");
 		else {
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting]" + ChatColor.RED
+					+ "=====================WARNING=============================");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting]" + ChatColor.RED
+					+ "The statistics collection is disabled. As developer I need the");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting]" + ChatColor.RED
+					+ "statistics from bStats.org. The statistics is 100% anonymous.");
 			Bukkit.getConsoleSender().sendMessage(
-					ChatColor.RED + "[Mobhunting]=====================WARNING=============================");
-			Bukkit.getConsoleSender()
-					.sendMessage(ChatColor.RED + "The statistics collection is disabled. As developer I need the");
-			Bukkit.getConsoleSender()
-					.sendMessage(ChatColor.RED + "statistics from bStats.org. The statistics is 100% anonymous.");
-			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "https://bstats.org/plugin/bukkit/MobHunting");
+					ChatColor.GOLD + "[MobHunting]" + ChatColor.RED + "https://bstats.org/plugin/bukkit/MobHunting");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting]" + ChatColor.RED
+					+ "Please enable this in /plugins/bStats/config.yml and get rid of this");
 			Bukkit.getConsoleSender().sendMessage(
-					ChatColor.RED + "Please enable this in /plugins/bStats/config.yml and get rid of this");
-			Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "message. Loading will continue in 15 sec.");
-			Bukkit.getConsoleSender().sendMessage(
-					ChatColor.RED + "[Mobhunting]=========================================================");
+					ChatColor.GOLD + "[MobHunting]" + ChatColor.RED + "message. Loading will continue in 15 sec.");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting]" + ChatColor.RED
+					+ "=========================================================");
 			long now = System.currentTimeMillis();
 			while (System.currentTimeMillis() < now + 15000L) {
 				try {
@@ -333,14 +335,14 @@ public class MobHunting extends JavaPlugin {
 		if (!getConfigManager().disableMobHuntingAdvancements && Misc.isMC112OrNewer()) {
 			mAdvancementManager = new AdvancementManager(this);
 			mAdvancementManager.getAdvancementsFromAchivements();
-			
+
 			Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
 				public void run() {
 					getMessages().debug("Reloading advancements");
 					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "minecraft:reload");
 				}
 			}, 20 * 15);
-			
+
 		}
 
 		// for (int i = 0; i < 2; i++)
@@ -381,7 +383,8 @@ public class MobHunting extends JavaPlugin {
 		CitizensCompat.shutdown();
 		getMessages().debug("Shutdown WorldGroupManager");
 		mWorldGroupManager.save();
-		getMessages().debug("MobHunting disabled.");
+		Bukkit.getConsoleSender()
+				.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET + "MobHunting disabled.");
 	}
 
 	private boolean isbStatsEnabled() {
