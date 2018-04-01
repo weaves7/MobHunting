@@ -219,13 +219,13 @@ public class BountyManager implements Listener {
 		if (ChatColor.stripColor(event.getInventory().getName()).startsWith("MostWanted:")
 				|| ChatColor.stripColor(event.getInventory().getName()).startsWith("Wanted:")) {
 			event.setCancelled(true);
-			Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
-				@Override
-				public void run() {
+			//Bukkit.getScheduler().runTask(plugin, new Runnable() {
+			//	@Override
+			//	public void run() {
 					event.getWhoClicked().closeInventory();
 					inventoryMap.remove(event.getWhoClicked());
-				}
-			}, 1L);
+			//	}
+			//});
 		}
 	}
 

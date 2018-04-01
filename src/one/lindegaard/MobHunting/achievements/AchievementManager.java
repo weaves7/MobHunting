@@ -945,43 +945,42 @@ public class AchievementManager implements Listener {
 
 	}
 
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = false)
+	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
 	public void onInventoryClick(InventoryClickEvent event) {
-		if (event.getInventory() != null
-				&& (ChatColor.stripColor(event.getInventory().getName()).startsWith("Completed:"))) {
+		
+		if (event.getInventory() == null)
+			return; 
+		
+		if (ChatColor.stripColor(event.getInventory().getName()).startsWith("Completed:")) {
 			event.setCancelled(true);
 
-			Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
-				@Override
-				public void run() {
+			//Bukkit.getScheduler().runTask(plugin, new Runnable() {
+			//	@Override
+			//	public void run() {
 					event.getWhoClicked().closeInventory();
 					inventoryMapCompleted.remove(event.getWhoClicked());
 					event.getWhoClicked().openInventory(inventoryMapOngoing.get(event.getWhoClicked()));
-				}
-			}, 1L);
-		}
-		if (event.getInventory() != null
-				&& (ChatColor.stripColor(event.getInventory().getName()).startsWith("Ongoing:"))) {
+			//	}
+			//});
+		} else if (ChatColor.stripColor(event.getInventory().getName()).startsWith("Ongoing:")) {
 			event.setCancelled(true);
-			Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
-				@Override
-				public void run() {
+			//Bukkit.getScheduler().runTask(plugin, new Runnable() {
+			//	@Override
+			//	public void run() {
 					event.getWhoClicked().closeInventory();
 					inventoryMapOngoing.remove(event.getWhoClicked());
 					event.getWhoClicked().openInventory(inventoryMapNotStarted.get(event.getWhoClicked()));
-				}
-			}, 1L);
-		}
-		if (event.getInventory() != null
-				&& (ChatColor.stripColor(event.getInventory().getName()).startsWith("Not started:"))) {
+			//	}
+			//});
+		} else if (ChatColor.stripColor(event.getInventory().getName()).startsWith("Not started:")) {
 			event.setCancelled(true);
-			Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
-				@Override
-				public void run() {
+			//Bukkit.getScheduler().runTask(plugin, new Runnable() {
+			//	@Override
+			//	public void run() {
 					event.getWhoClicked().closeInventory();
 					inventoryMapNotStarted.remove(event.getWhoClicked());
-				}
-			}, 1L);
+			//	}
+			//});
 		}
 	}
 
