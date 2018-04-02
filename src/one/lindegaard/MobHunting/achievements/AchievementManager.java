@@ -946,41 +946,54 @@ public class AchievementManager implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
-	public void onInventoryClick(InventoryClickEvent event) {
-		
+	public void onInventoryClickCompleted(InventoryClickEvent event) {
+
 		if (event.getInventory() == null)
-			return; 
-		
+			return;
+
 		if (ChatColor.stripColor(event.getInventory().getName()).startsWith("Completed:")) {
 			event.setCancelled(true);
-
-			//Bukkit.getScheduler().runTask(plugin, new Runnable() {
-			//	@Override
-			//	public void run() {
-					event.getWhoClicked().closeInventory();
-					inventoryMapCompleted.remove(event.getWhoClicked());
+			event.getWhoClicked().closeInventory();
+			inventoryMapCompleted.remove(event.getWhoClicked());
+			Bukkit.getScheduler().runTask(plugin, new Runnable() {
+				@Override
+				public void run() {
 					event.getWhoClicked().openInventory(inventoryMapOngoing.get(event.getWhoClicked()));
-			//	}
-			//});
-		} else if (ChatColor.stripColor(event.getInventory().getName()).startsWith("Ongoing:")) {
+
+				}
+			});
+		}
+	}
+
+	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
+	public void onInventoryClickOnGoing(InventoryClickEvent event) {
+
+		if (event.getInventory() == null)
+			return;
+
+		if (ChatColor.stripColor(event.getInventory().getName()).startsWith("Ongoing:")) {
 			event.setCancelled(true);
-			//Bukkit.getScheduler().runTask(plugin, new Runnable() {
-			//	@Override
-			//	public void run() {
-					event.getWhoClicked().closeInventory();
-					inventoryMapOngoing.remove(event.getWhoClicked());
+			event.getWhoClicked().closeInventory();
+			inventoryMapOngoing.remove(event.getWhoClicked());
+			Bukkit.getScheduler().runTask(plugin, new Runnable() {
+				@Override
+				public void run() {
 					event.getWhoClicked().openInventory(inventoryMapNotStarted.get(event.getWhoClicked()));
-			//	}
-			//});
-		} else if (ChatColor.stripColor(event.getInventory().getName()).startsWith("Not started:")) {
+				}
+			});
+		}
+	}
+
+	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
+	public void onInventoryClickNotStarted(InventoryClickEvent event) {
+
+		if (event.getInventory() == null)
+			return;
+
+		if (ChatColor.stripColor(event.getInventory().getName()).startsWith("Not started:")) {
 			event.setCancelled(true);
-			//Bukkit.getScheduler().runTask(plugin, new Runnable() {
-			//	@Override
-			//	public void run() {
-					event.getWhoClicked().closeInventory();
-					inventoryMapNotStarted.remove(event.getWhoClicked());
-			//	}
-			//});
+			event.getWhoClicked().closeInventory();
+			inventoryMapNotStarted.remove(event.getWhoClicked());
 		}
 	}
 
