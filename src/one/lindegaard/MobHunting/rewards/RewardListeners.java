@@ -447,7 +447,7 @@ public class RewardListeners implements Listener {
 				} else if (skullState.hasOwner()) {
 					@SuppressWarnings("deprecation")
 					String owner = skullState.getOwner();
-					if (!owner.equalsIgnoreCase("")) {
+					if (owner!=null && !owner.equalsIgnoreCase("")) {
 						plugin.getMessages().playerActionBarMessageQueue(player,
 								ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + owner);
 					} else
