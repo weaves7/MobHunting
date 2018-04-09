@@ -65,7 +65,7 @@ public class MasterMobHunterManager implements Listener {
 	}
 
 	public void forceUpdate() {
-		mUpdater = Bukkit.getScheduler().runTaskAsynchronously(plugin, new Updater());
+		mUpdater = Bukkit.getScheduler().runTask(plugin, new Updater());
 	}
 
 	private class Updater implements Runnable {
@@ -213,7 +213,7 @@ public class MasterMobHunterManager implements Listener {
 			NPC npc = CitizensCompat.getNPC(event.getEntity().getKiller());
 			final Player player = (Player) event.getEntity();
 			final NPC npc1 = npc;
-			Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, new Runnable() {
+			Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
 				public void run() {
 					MobHunting.getInstance().getMessages().debug("NPC %s (ID=%s) killed %s - return to home", npc1.getName(), npc1.getId(),
 							player.getName());
@@ -231,7 +231,7 @@ public class MasterMobHunterManager implements Listener {
 					&& npc.getStoredLocation().distance(mMasterMobHunter.get(npc.getId()).getHome()) > 0.2) {
 				MobHunting.getInstance().getMessages().debug("NPC %s (ID=%s) return to home", npc.getName(), npc.getId());
 				final NPC npc1 = npc;
-				Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, new Runnable() {
+				Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
 					public void run() {
 						npc1.teleport(mMasterMobHunter.get(npc1.getId()).getHome(), TeleportCause.PLUGIN);
 					}
