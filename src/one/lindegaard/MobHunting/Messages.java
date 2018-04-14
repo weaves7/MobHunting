@@ -28,6 +28,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
 import me.clip.placeholderapi.PlaceholderAPI;
+import one.lindegaard.MobHunting.bounty.Bounty;
+import one.lindegaard.MobHunting.bounty.BountyStatus;
 import one.lindegaard.MobHunting.compatibility.ActionAnnouncerCompat;
 import one.lindegaard.MobHunting.compatibility.ActionBarAPICompat;
 import one.lindegaard.MobHunting.compatibility.ActionbarCompat;
@@ -48,6 +50,10 @@ public class Messages {
 	public Messages(MobHunting plugin) {
 		this.plugin = plugin;
 		exportDefaultLanguages(plugin);
+
+		// Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+		//
+		// }, 600, 7200);
 	}
 
 	private static Map<String, String> mTranslationTable;
@@ -497,47 +503,66 @@ public class Messages {
 		}
 	}
 
-	HashMap<Long, MessageQueue> messageQueue = new HashMap<Long, MessageQueue>();
-	BukkitTask taskId;
+	HashMap<Player, HashMap<Long, MessageQueue>> messageQueue = new HashMap<Player, HashMap<Long, MessageQueue>>();
+	HashMap<Player, BukkitTask> taskId = new HashMap<Player, BukkitTask>();
 
 	public void playerActionBarMessageQueue(Player player, String message) {
 		if (isEmpty(message))
 			return;
 
+		message = PlaceholderAPICompat.setPlaceholders(player, message);
+
+		HashMap<Long, MessageQueue> messagesToBeDisplayed = new HashMap<Long, MessageQueue>();
+		if (messageQueue.containsKey(player))
+			messagesToBeDisplayed = messageQueue.get(player);
+		messagesToBeDisplayed.put(System.currentTimeMillis() + 5000L, new MessageQueue(player, message));
+		messageQueue.put(player, messagesToBeDisplayed);
+		//debug("message=%s", message);
+		//debug("messageQueue(player).size=%s", messageQueue.get(player).size());
+
 		Runnable messageTask = new Runnable() {
 			@Override
 			public void run() {
-				while (!messageQueue.isEmpty()) {
+
+				while (!messageQueue.get(player).isEmpty()) {
 					Long key = System.currentTimeMillis() + 3600000L;
-					Iterator<Entry<Long, MessageQueue>> itr = messageQueue.entrySet().iterator();
+					Iterator<Entry<Long, MessageQueue>> itr = messageQueue.get(player).entrySet().iterator();
 					while (itr.hasNext()) {
 						Entry<Long, MessageQueue> k = itr.next();
 						if (k.getValue().getPlayer().equals(player))
 							key = Math.min(key, k.getKey());
-						itr.remove();
 					}
-					MessageQueue msg = messageQueue.get(key);
+					MessageQueue msg = messageQueue.get(player).get(key);
 					if (msg != null) {
 						playerActionBarMessageNow(msg.getPlayer(), msg.getMessage());
-						messageQueue.remove(key);
+						HashMap<Long, MessageQueue> msg1 = messageQueue.get(player);
+						msg1.remove(key);
+						messageQueue.put(player, msg1);
 						// wait 1.5 sec before sending next message
-						try {
-							Thread.sleep(1500L);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
+						if (messageQueue.get(player).size() > 0)
+							try {
+								Thread.sleep(1500L);
+								//Thread.sleep(10000L);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
 					}
 				}
-				Bukkit.getScheduler().cancelTask(taskId.getTaskId());
+				//debug("cancel task");
+				Bukkit.getScheduler().cancelTask(taskId.get(player).getTaskId());
+				taskId.remove(player);
 			};
 		};
 
-		message = PlaceholderAPICompat.setPlaceholders(player, message);
-		messageQueue.put(System.currentTimeMillis() + 5000L, new MessageQueue(player, message));
-		if (taskId == null || !Bukkit.getScheduler().isCurrentlyRunning(taskId.getTaskId())
-				|| !Bukkit.getScheduler().isQueued(taskId.getTaskId())) {
-			taskId = Bukkit.getScheduler().runTaskAsynchronously(plugin, messageTask);
-		}
+		//debug("taskId.containsKey(player)=%s", taskId.containsKey(player));
+
+		if (!taskId.containsKey(player))
+			
+			if (taskId.get(player)==null || !Bukkit.getScheduler().isCurrentlyRunning(taskId.get(player).getTaskId())
+					|| !Bukkit.getScheduler().isQueued(taskId.get(player).getTaskId())) {
+				//debug("start task");
+				taskId.put(player, Bukkit.getScheduler().runTaskAsynchronously(plugin, messageTask));
+			}
 	}
 
 	/**
