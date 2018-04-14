@@ -514,6 +514,7 @@ public class Messages {
 						Entry<Long, MessageQueue> k = itr.next();
 						if (k.getValue().getPlayer().equals(player))
 							key = Math.min(key, k.getKey());
+						itr.remove();
 					}
 					MessageQueue msg = messageQueue.get(key);
 					if (msg != null) {

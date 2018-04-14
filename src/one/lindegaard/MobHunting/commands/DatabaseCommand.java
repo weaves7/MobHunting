@@ -38,7 +38,10 @@ public class DatabaseCommand implements ICommand, Listener {
 	@Override
 	public String[] getUsageString(String label, CommandSender sender) {
 		return new String[] { ChatColor.GOLD + label + ChatColor.GREEN + " fixLeaderboard",
-				ChatColor.GOLD + label + ChatColor.GREEN + " convert-to-utf8" };
+				ChatColor.GOLD + label + ChatColor.GREEN + " convert-to-utf8",
+				ChatColor.GOLD + label + ChatColor.GREEN + " reset-achievements",
+				ChatColor.GOLD + label + ChatColor.GREEN + " reset-statistics",
+				ChatColor.GOLD + label + ChatColor.GREEN + " reset-bounties" };
 	}
 
 	@Override
