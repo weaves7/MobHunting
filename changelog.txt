@@ -1,3 +1,5 @@
+V5.6.3
+* Added support for CMIHolograms
 V5.6.2
 * Fixed ticket 391 (https://github.com/Rocologo/MobHunting/issues/391)
 * Removed runTaskLaterAsynchronously from MasterMobHunter

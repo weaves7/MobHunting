@@ -1,43 +1,52 @@
 package one.lindegaard.MobHunting.compatibility;
 
+import java.util.List;
+
 import org.bukkit.inventory.ItemStack;
-import com.sainttx.holograms.api.Hologram;
-import com.sainttx.holograms.api.line.ItemLine;
-import com.sainttx.holograms.api.line.TextLine;
+
+import com.Zrips.CMI.CMI;
+import com.Zrips.CMI.Modules.Holograms.CMIHologram;
 
 import one.lindegaard.MobHunting.leaderboard.HologramLeaderboard;
 
 public class CMIHologramsHelper {
 
 	public static void createHologram(HologramLeaderboard board) {
-		HologramsCompat.getHologramManager().addActiveHologram(new Hologram(board.getHologramName(), board.getLocation())); 
+		CMI.getInstance().getHologramManager()
+				.addHologram(new CMIHologram(board.getHologramName(), board.getLocation()));
 	}
 
-	public static void addTextLine(Hologram hologram, String text) {
-		hologram.addLine(new TextLine(hologram, text));
+	public static void addTextLine(CMIHologram hologram, String text) {
+		List<String> lines = hologram.getLinesAsList();
+		lines.add(lines.size()-1, text);
+		hologram.setLines(lines);
 	}
 
-	public static void removeLine(Hologram hologram, int i) {
-		hologram.removeLine(hologram.getLine(i));
+	public static void removeLine(CMIHologram hologram, int i) {
+		List<String> lines = hologram.getLinesAsList();
+		if (lines.size() > i)
+			lines.remove(i);
+		hologram.setLines(lines);
 	}
 
-	public static void editTextLine(Hologram hologram, String text, int i) {
-		if (hologram.getLines().size()>i)
-			hologram.getLines().remove(i);
-		hologram.addLine(new TextLine(hologram, text), i);
+	public static void editTextLine(CMIHologram hologram, String text, int i) {
+		List<String> lines = hologram.getLinesAsList();
+		if (lines.size() > i)
+			lines.remove(i);
+		lines.add(i, text);
+		hologram.setLines(lines);
 	}
 
-	public static void addItemLine(Hologram hologram, ItemStack itemstack) {
-		hologram.addLine(new ItemLine(hologram, itemstack));
+	public static void addItemLine(CMIHologram hologram, ItemStack itemstack) {
+		//hologram.addLine(new ItemLine(hologram, itemstack));
 	}
 
-	public static void deleteHologram(Hologram hologram) {
-		HologramsCompat.getHologramManager().deleteHologram(hologram);
+	public static void deleteHologram(CMIHologram hologram) {
+		CMI.getInstance().getHologramManager().removeHolo(hologram);
 	}
 
-	public static void hideHologram(Hologram hologram) {
-		hologram.despawn();
-		HologramsCompat.getHologramManager().removeActiveHologram(hologram);
+	public static void hideHologram(CMIHologram hologram) {
+		CMI.getInstance().getHologramManager().hideHoloForAllPlayers(hologram);
 	}
 
 }
