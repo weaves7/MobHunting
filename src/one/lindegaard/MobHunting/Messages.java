@@ -28,8 +28,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
 import me.clip.placeholderapi.PlaceholderAPI;
-import one.lindegaard.MobHunting.bounty.Bounty;
-import one.lindegaard.MobHunting.bounty.BountyStatus;
 import one.lindegaard.MobHunting.compatibility.ActionAnnouncerCompat;
 import one.lindegaard.MobHunting.compatibility.ActionBarAPICompat;
 import one.lindegaard.MobHunting.compatibility.ActionbarCompat;

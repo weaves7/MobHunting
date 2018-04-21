@@ -83,7 +83,7 @@ public class MobHuntingManager implements Listener {
 				}
 			}.runTaskLater(plugin, 20L);
 		}
-		//plugin.getAdvancementManager().showAdvancement(player, "Testing");
+		// plugin.getAdvancementManager().showAdvancement(player, "Testing");
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = false)
@@ -282,6 +282,7 @@ public class MobHuntingManager implements Listener {
 			plugin.getMessages().playerActionBarMessageQueue((Player) event.getEntity(), ChatColor.RED + ""
 					+ ChatColor.ITALIC + plugin.getMessages().getString("mobhunting.killstreak.ended"));
 		}
+		plugin.getMessages().debug("%s died - Killstreak ended", killed.getName());
 		data.resetKillStreak(killed);
 
 		if (CitizensCompat.isNPC(killed))
@@ -413,6 +414,7 @@ public class MobHuntingManager implements Listener {
 			plugin.getMessages().playerActionBarMessageQueue(player, ChatColor.RED + "" + ChatColor.ITALIC
 					+ plugin.getMessages().getString("mobhunting.killstreak.ended"));
 		}
+		plugin.getMessages().debug("%s was hit - Killstreak ended", player.getName());
 		data.resetKillStreak(player);
 	}
 
@@ -1247,6 +1249,7 @@ public class MobHuntingManager implements Listener {
 					plugin.getMessages().playerActionBarMessageQueue(getPlayer(killer, killed), ChatColor.RED + ""
 							+ ChatColor.ITALIC + plugin.getMessages().getString("mobhunting.killstreak.ended"));
 				}
+				//plugin.getMessages().debug("%s - Killstreak ended", player.getName());
 				data.resetKillStreak(getPlayer(killer, killed));
 			}
 		} else {
@@ -1369,7 +1372,7 @@ public class MobHuntingManager implements Listener {
 				plugin.getMessages().debug("Area is whitelisted. Grinding not detected.");
 			}
 		} else {
-			plugin.getMessages().debug("No no no");
+			plugin.getMessages().debug("Grinding detection is disabled in config.yml");
 		}
 
 		// Apply the modifiers to Basic reward
@@ -1487,9 +1490,15 @@ public class MobHuntingManager implements Listener {
 				plugin.getDataStoreManager().recordKill(getPlayer(killer, killed), mob,
 						killed.hasMetadata("MH:hasBonus"), cash);
 			} else {
-				plugin.getMessages().debug("RecordAssistedKill: %s killed a %s (%s) Cash=%s",
-						getPlayer(killer, killed).getName() + "/" + info.getAssister().getName(), mob.getMobName(),
-						mob.getMobPlugin().name(), plugin.getRewardManager().format(cash));
+				if (MyPetCompat.isKilledByMyPet(killed))
+					plugin.getMessages().debug("RecordAssistedKill: %s killed a %s (%s) Cash=%s",
+							getPlayer(killer, killed).getName() + "/" + MyPetCompat.getMyPet(killed).getName(),
+							mob.getMobName(), mob.getMobPlugin().name(), plugin.getRewardManager().format(cash));
+
+				else
+					plugin.getMessages().debug("RecordAssistedKill: %s killed a %s (%s) Cash=%s",
+							getPlayer(killer, killed).getName() + "/" + info.getAssister().getName(), mob.getMobName(),
+							mob.getMobPlugin().name(), plugin.getRewardManager().format(cash));
 				plugin.getDataStoreManager().recordAssist(getPlayer(killer, killed), killer, mob,
 						killed.hasMetadata("MH:hasBonus"), cash);
 			}
@@ -1600,9 +1609,14 @@ public class MobHuntingManager implements Listener {
 
 						if (!MyPetCompat.isKilledByMyPet(killed) && !CitizensCompat.isNPC(killer))
 							onAssist(getPlayer(killer, killed), killer, killed, info.getLastAssistTime());
-						plugin.getMessages().debug("%s was assisted by %s. Reward/Penalty is only ½ (%s)",
-								getPlayer(killer, killed).getName(), getKillerName(killer, killed),
-								plugin.getRewardManager().format(cash));
+						if (MyPetCompat.isKilledByMyPet(killed))
+							plugin.getMessages().debug("%s was assisted by %s. Reward/Penalty is only ½ (%s)",
+									getPlayer(killer, killed).getName(), MyPetCompat.getMyPet(killed).getName(),
+									plugin.getRewardManager().format(cash));
+						else
+							plugin.getMessages().debug("%s was assisted by %s. Reward/Penalty is only ½ (%s)",
+									getPlayer(killer, killed).getName(), getKillerName(killer, killed),
+									plugin.getRewardManager().format(cash));
 					}
 				} else if (cash <= -plugin.getConfigManager().minimumReward) {
 					plugin.getRewardManager().withdrawPlayer(getPlayer(killer, killed), -cash);

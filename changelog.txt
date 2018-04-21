@@ -3,6 +3,7 @@ V5.6.2
 * Removed runTaskLaterAsynchronously from MasterMobHunter
 * Add missing commands in /mh database (https://github.com/Rocologo/MobHunting/issues/391) 
 * Fixed Ticket 389 - ConcurrentModificationException (https://github.com/Rocologo/MobHunting/issues/389)
+* MyPet can now pickup BagOfGold
 V5.6.1
 * Fixed BagOfGold duplication reported and tested by Instantout. Thanks! 
 * Added new commands "/mh database reset-achievements" to delete all achievements data from database.

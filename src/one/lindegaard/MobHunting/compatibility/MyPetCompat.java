@@ -130,7 +130,7 @@ public class MyPetCompat implements Listener {
 			MobHunting.getInstance().getMessages().debug("MyPetInventoryActionEvent=%s", event.getAction().name());
 	}
 
-	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = false)
+	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
 	private void onMyPetPickupItem(MyPetPickupItemEvent event) {
 		if (event.isCancelled())
 			return;

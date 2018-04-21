@@ -7,6 +7,9 @@ public class PlaceHolderData {
 	int total_assists=0;
 	double total_cash=0;
 	
+	int total_killed_players=0;
+		int total_killed_mobs;
+	
 
 	public PlaceHolderData() {
 		
@@ -52,5 +55,35 @@ public class PlaceHolderData {
 		this.total_cash = total_cash;
 	}
 
+	/**
+	 * @return the total_killed_players
+	 */
+	public int getTotal_killed_players() {
+		return total_killed_players;
+	}
+
+
+	/**
+	 * @param total_killed_players the total_killed_players to set
+	 */
+	public void setTotal_killed_players(int total_killed_players) {
+		this.total_killed_players = total_killed_players;
+	}
+
+
+	/**
+	 * @return the total_killed_mobs
+	 */
+	public int getTotal_killed_mobs() {
+		return total_killed_mobs;
+	}
+
+
+	/**
+	 * @param total_killed_mobs the total_killed_mobs to set
+	 */
+	public void setTotal_killed_mobs(int total_killed_mobs) {
+		this.total_killed_mobs = total_killed_mobs;
+	}
 	
 }
