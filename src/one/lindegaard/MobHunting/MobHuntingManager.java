@@ -413,8 +413,8 @@ public class MobHuntingManager implements Listener {
 		if (data.getKillstreakLevel() != 0 && data.getKillstreakMultiplier() != 1) {
 			plugin.getMessages().playerActionBarMessageQueue(player, ChatColor.RED + "" + ChatColor.ITALIC
 					+ plugin.getMessages().getString("mobhunting.killstreak.ended"));
+			plugin.getMessages().debug("%s was hit - Killstreak ended", player.getName());
 		}
-		plugin.getMessages().debug("%s was hit - Killstreak ended", player.getName());
 		data.resetKillStreak(player);
 	}
 
@@ -1249,7 +1249,8 @@ public class MobHuntingManager implements Listener {
 					plugin.getMessages().playerActionBarMessageQueue(getPlayer(killer, killed), ChatColor.RED + ""
 							+ ChatColor.ITALIC + plugin.getMessages().getString("mobhunting.killstreak.ended"));
 				}
-				//plugin.getMessages().debug("%s - Killstreak ended", player.getName());
+				// plugin.getMessages().debug("%s - Killstreak ended",
+				// player.getName());
 				data.resetKillStreak(getPlayer(killer, killed));
 			}
 		} else {

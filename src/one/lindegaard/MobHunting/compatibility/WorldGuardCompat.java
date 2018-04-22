@@ -2,7 +2,6 @@ package one.lindegaard.MobHunting.compatibility;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import one.lindegaard.MobHunting.MobHunting;
 
@@ -24,9 +23,6 @@ public class WorldGuardCompat {
 								+ "Your current version of WorldGuard (" + mPlugin.getDescription().getVersion()
 								+ ") is not supported by MobHunting. Mobhunting does only support 6.0+");
 			} else {
-
-				WorldGuardHelper.addMobHuntingFlag();
-
 				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
 						+ "Enabling compatibility with WorldGuard (" + mPlugin.getDescription().getVersion() + ")");
 				supported = true;
@@ -49,5 +45,6 @@ public class WorldGuardCompat {
 	public static boolean isEnabledInConfig() {
 		return MobHunting.getInstance().getConfigManager().enableIntegrationWorldGuard;
 	}
+
 
 }

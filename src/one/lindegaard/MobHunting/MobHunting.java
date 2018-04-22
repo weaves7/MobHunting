@@ -47,6 +47,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.*;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.chazza.advancementapi.AdvancementManager;
@@ -81,20 +82,24 @@ public class MobHunting extends JavaPlugin {
 	private CommandDispatcher mCommandDispatcher;
 	private CompatibilityManager mCompatibilityManager;
 	private SpigetUpdater mSpigetUpdater;
-	// private CustomItemsLib mCustomItemsLib;
 
 	private boolean mInitialized = false;
 
 	@Override
 	public void onLoad() {
+
+		instance = this;
+		
+		mMessages = new Messages(this);
+
+		// Check what happen if WorldGuard is installed and register MobHuting Flag 
+		Plugin wg = Bukkit.getPluginManager().getPlugin("WorldGuard");
+		if (wg != null) 
+			WorldGuardHelper.registerFlag();
 	}
 
 	@Override
 	public void onEnable() {
-
-		instance = this;
-
-		mMessages = new Messages(this);
 
 		int config_version = ConfigManager.getConfigVersion(mFile);
 		Bukkit.getConsoleSender().sendMessage(
