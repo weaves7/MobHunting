@@ -20,8 +20,8 @@ public class CMIHologramsCompat {
 			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
 					+ "Compatibility with CMI is disabled in config.yml");
 		} else {
+			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.CMI.getName());
 			if (mPlugin.getDescription().getVersion().compareTo("7.6.2.0") >= 0) {
-				mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.CMI.getName());
 				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
 						+ "Enabling compatibility with CMI (" + mPlugin.getDescription().getVersion() + ").");
 				supported = true;
