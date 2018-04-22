@@ -124,7 +124,6 @@ public class RegionCommand implements ICommand {
 		return items;
 	}
 
-	
 	@Override
 	public boolean onCommand(CommandSender sender, String label, String[] args) {
 		if (args.length == 0)
@@ -134,19 +133,23 @@ public class RegionCommand implements ICommand {
 			if (sender instanceof Player) {
 				RegionQuery query = WorldGuardHelper.getRegionContainer().createQuery();
 				ApplicableRegionSet set = query.getApplicableRegions(((Player) sender).getLocation());
+				plugin.getMessages().debug("set.size()=%s", set.size());
+				plugin.getMessages().debug("args.length=%s", args.length);
+
 				if (set.size() == 1) {
 					// player is standing on a location with single region
 					ProtectedRegion region = set.getRegions().iterator().next();
-					if ((args.length == 1) && args[0].equalsIgnoreCase("mobhunting"))
-						return WorldGuardHelper.removeCurrentRegionFlag(sender, region,
-								WorldGuardHelper.getMobHuntingFlag());
-					else if ((args.length >= 2) && args[0].equalsIgnoreCase("mobhunting"))
-						return WorldGuardHelper.setCurrentRegionFlag(sender, region,
-								WorldGuardHelper.getMobHuntingFlag(), args[1]);
-				} else {
-					// player is standing on a location with more than one
-					// region
-					if ((args.length == 2) && args[1].equalsIgnoreCase("mobhunting")) {
+					if ((args.length == 1)) {
+						if (args[0].equalsIgnoreCase("mobhunting"))
+							return WorldGuardHelper.removeCurrentRegionFlag(sender, region,
+									WorldGuardHelper.getMobHuntingFlag());
+						else {
+							plugin.getMessages().senderSendMessage(sender, ChatColor.RED + plugin.getMessages()
+									.getString("mobhunting.commands.region.unknownFlag", "flag", args[0]));
+							return true;
+						}
+					} else if (args.length == 2 && args[1].equalsIgnoreCase("mobhunting")
+							&& args[1].equalsIgnoreCase("mobhunting")) {
 						Iterator<ProtectedRegion> i = set.getRegions().iterator();
 						while (i.hasNext()) {
 							ProtectedRegion pr = i.next();
@@ -157,32 +160,78 @@ public class RegionCommand implements ICommand {
 						}
 						plugin.getMessages().senderSendMessage(sender, ChatColor.RED + plugin.getMessages()
 								.getString("mobhunting.commands.region.unknownRegionId", "regionid", args[0]));
-					} else if ((args.length >= 3) && args[1].equalsIgnoreCase("mobhunting")) {
-						RegionManager rm = WorldGuardHelper.getRegionContainer().get(((Player) sender).getWorld());
-						Iterator<Entry<String, ProtectedRegion>> i = rm.getRegions().entrySet().iterator();
-						while (i.hasNext()) {
-							ProtectedRegion pr = i.next().getValue();
-							if (pr.getId().equalsIgnoreCase(args[0])) {
-								return WorldGuardHelper
-										.setCurrentRegionFlag(sender,
-												WorldGuardHelper.getRegionContainer().get(((Player) sender).getWorld())
-														.getRegion(args[0]),
-												WorldGuardHelper.getMobHuntingFlag(), args[2]);
+						return true;
+					} else { // args.length>2 update flag
+						if (args[0].equalsIgnoreCase("mobhunting")) {
+							return WorldGuardHelper.setCurrentRegionFlag(sender, region,
+									WorldGuardHelper.getMobHuntingFlag(), args[1]);
+						} else if (args[1].equalsIgnoreCase("mobhunting"))
+							if (region.getId().equalsIgnoreCase(args[0]))
+								return WorldGuardHelper.setCurrentRegionFlag(sender, region,
+										WorldGuardHelper.getMobHuntingFlag(), args[2]);
+							else {
+								plugin.getMessages().senderSendMessage(sender, ChatColor.RED + plugin.getMessages()
+										.getString("mobhunting.commands.region.unknownRegionId", "regionid", args[0]));
+								return true;
 							}
+						else {
+							plugin.getMessages().senderSendMessage(sender, ChatColor.RED + plugin.getMessages()
+									.getString("mobhunting.commands.region.unknownFlag", "flag", args[1]));
+							return true;
 						}
-						plugin.getMessages().senderSendMessage(sender, ChatColor.RED + plugin.getMessages()
-								.getString("mobhunting.commands.region.unknownRegionId", "regionid", args[0]));
+					}
+				} else {
+					// player is standing on a location with more than one
+					// region
+					if (args.length == 2) {
+						if (args[1].equalsIgnoreCase("mobhunting")) {
+							Iterator<ProtectedRegion> i = set.getRegions().iterator();
+							while (i.hasNext()) {
+								ProtectedRegion pr = i.next();
+								if (pr.getId().equalsIgnoreCase(args[0])) {
+									return WorldGuardHelper.removeCurrentRegionFlag(sender, pr,
+											WorldGuardHelper.getMobHuntingFlag());
+								}
+							}
+							plugin.getMessages().senderSendMessage(sender, ChatColor.RED + plugin.getMessages()
+									.getString("mobhunting.commands.region.unknownRegionId", "regionid", args[0]));
+							return true;
+						} else {
+							plugin.getMessages().senderSendMessage(sender, ChatColor.RED + plugin.getMessages()
+									.getString("mobhunting.commands.region.unknownFlag", "flag", args[1]));
+							return true;
+						}
+					} else if (args.length >= 3) {
+						if (args[1].equalsIgnoreCase("mobhunting")) {
+							RegionManager rm = WorldGuardHelper.getRegionContainer().get(((Player) sender).getWorld());
+							Iterator<Entry<String, ProtectedRegion>> i = rm.getRegions().entrySet().iterator();
+							while (i.hasNext()) {
+								ProtectedRegion pr = i.next().getValue();
+								if (pr.getId().equalsIgnoreCase(args[0])) {
+									return WorldGuardHelper.setCurrentRegionFlag(sender, pr,
+											WorldGuardHelper.getMobHuntingFlag(), args[2]);
+								}
+							}
+							plugin.getMessages().senderSendMessage(sender, ChatColor.RED + plugin.getMessages()
+									.getString("mobhunting.commands.region.unknownRegionId", "regionid", args[0]));
+							return true;
+						} else {
+							plugin.getMessages().senderSendMessage(sender, ChatColor.RED + plugin.getMessages()
+									.getString("mobhunting.commands.region.unknownFlag", "flag", args[1]));
+							return true;
+						}
 					} else {
-						plugin.getMessages().senderSendMessage(sender,
-								ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.region.specifyRegionId"));
+						plugin.getMessages().senderSendMessage(sender, ChatColor.RED
+								+ plugin.getMessages().getString("mobhunting.commands.region.specifyRegionId"));
+						return true;
 					}
 				}
-			} else {
-				plugin.getMessages().senderSendMessage(sender,
-						ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.region.noWorldguardSupport"));
 			}
+		} else {
+			plugin.getMessages().senderSendMessage(sender,
+					ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.region.noWorldguardSupport"));
+			return true;
 		}
-
 		return false;
 	}
 }

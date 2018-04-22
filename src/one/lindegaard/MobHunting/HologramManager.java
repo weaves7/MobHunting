@@ -15,7 +15,7 @@ import com.Zrips.CMI.Modules.Holograms.CMIHologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import com.sainttx.holograms.api.Hologram;
 
-import one.lindegaard.MobHunting.compatibility.CMIHologramsCompat;
+import one.lindegaard.MobHunting.compatibility.CMICompat;
 import one.lindegaard.MobHunting.compatibility.CMIHologramsHelper;
 import one.lindegaard.MobHunting.compatibility.HologramsCompat;
 import one.lindegaard.MobHunting.compatibility.HologramsHelper;
@@ -43,7 +43,7 @@ public class HologramManager {
 			HologramsHelper.createHologram(hologramLeaderboard);
 		else if (HolographicDisplaysCompat.isSupported())
 			HolographicDisplaysHelper.createHologram(hologramLeaderboard);
-		else if (CMIHologramsCompat.isSupported())
+		else if (CMICompat.isSupported())
 			CMIHologramsHelper.createHologram(hologramLeaderboard);
 		hologramLeaderboard.update();
 	}
@@ -59,8 +59,8 @@ public class HologramManager {
 					break;
 				}
 			}
-		} else if (CMIHologramsCompat.isSupported()) {
-			CMIHologram hologram = CMIHologramsCompat.getHologramManager().getByName(hologramName);
+		} else if (CMICompat.isSupported()) {
+			CMIHologram hologram = CMICompat.getHologramManager().getByName(hologramName);
 			CMIHologramsHelper.deleteHologram(hologram);
 		}
 		holograms.remove(hologramName);
@@ -69,7 +69,7 @@ public class HologramManager {
 	public String listHolographicLeaderboard() {
 		String str = "";
 		if (HologramsCompat.isSupported() || HolographicDisplaysCompat.isSupported()
-				|| CMIHologramsCompat.isSupported()) {
+				|| CMICompat.isSupported()) {
 			if (holograms.size() == 0) {
 				str = plugin.getMessages().getString("mobhunting.holograms.no-holograms");
 			} else {
@@ -85,7 +85,7 @@ public class HologramManager {
 
 	public void updateHolographicLeaderboard(String hologramName) {
 		if (HologramsCompat.isSupported() || HolographicDisplaysCompat.isSupported()
-				|| CMIHologramsCompat.isSupported()) {
+				|| CMICompat.isSupported()) {
 			holograms.get(hologramName).update();
 		}
 	}

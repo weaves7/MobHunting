@@ -13,6 +13,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.util.Vector;
 
+import com.Zrips.CMI.Modules.Holograms.CMIHologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import com.sainttx.holograms.api.Hologram;
 import com.sainttx.holograms.api.line.HologramLine;
@@ -20,6 +21,8 @@ import com.sainttx.holograms.api.line.TextualHologramLine;
 
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.StatType;
+import one.lindegaard.MobHunting.compatibility.CMICompat;
+import one.lindegaard.MobHunting.compatibility.CMIHologramsHelper;
 import one.lindegaard.MobHunting.compatibility.HologramsCompat;
 import one.lindegaard.MobHunting.compatibility.HologramsHelper;
 import one.lindegaard.MobHunting.compatibility.HolographicDisplaysCompat;
@@ -165,6 +168,31 @@ public class HologramLeaderboard implements IDataCallback<List<StatStore>> {
 									n + 1);
 						else
 							HolographicDisplaysHelper.editTextLine(hologram, String.format(mRow_format_integer, n + 1,
+									mData.get(n).getPlayer().getName(), mData.get(n).getAmount()), n + 1);
+
+					}
+					break;
+				} else {
+
+				}
+			}
+		} else if (CMICompat.isSupported()) {
+			for (CMIHologram hologram : CMICompat.getHologramManager().getHolograms().values()) {
+				if (hologram.getName().equalsIgnoreCase(plugin.getLeaderboardManager().getHologramManager().getHolograms()
+						.get(mHologramName).getHologramName())) {
+					//hologram.clearLines();
+					if (hologram.getLines().length == 0)
+						CMIHologramsHelper.addTextLine(hologram, 
+								mFormat_title.replace("[StatType]", mType[mTypeIndex].longTranslateName())
+										.replace("[Period]", mPeriod[mPeriodIndex].translateNameFriendly()));
+					for (int n = 0; n < mHeight && n < mData.size(); n++) {
+						if (getStatType().getDBColumn().endsWith("_cash"))
+							CMIHologramsHelper.editTextLine(hologram,
+									String.format(mRow_format_money, n + 1, mData.get(n).getPlayer().getName(),
+											plugin.getRewardManager().format(mData.get(n).getCash())),
+									n + 1);
+						else
+							CMIHologramsHelper.editTextLine(hologram, String.format(mRow_format_integer, n + 1,
 									mData.get(n).getPlayer().getName(), mData.get(n).getAmount()), n + 1);
 
 					}

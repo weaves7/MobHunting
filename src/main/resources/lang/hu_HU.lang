@@ -233,6 +233,7 @@ mobhunting.commands.npc.not_selected=Az NPC nem lett kiválasztva. Menj közeleb
 mobhunting.commands.region.description=Egyéni WorldGuard zászló hozzáadása/eltávolítása engedélyezése/tiltása egy régióban 
 mobhunting.commands.region.specifyRegionId=Kérjük, add meg a régiót 
 mobhunting.commands.region.unknownRegionId=Ismeretlen régió §4${regionid}
+mobhunting.commands.region.unknownFlag=Unknown flag §4${flag}
 mobhunting.commands.region.noWorldguardSupport=A Worldguard letiltott vagy nem töltődik be
 mobhunting.commands.reload.description=Újratölti a konfigurációt
 mobhunting.commands.reload.reload-complete=A konfiguráció újratöltve

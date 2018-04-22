@@ -202,7 +202,7 @@ public class MobHunting extends JavaPlugin {
 		mCompatibilityManager.registerPlugin(WorldGuardCompat.class, CompatPlugin.WorldGuard);
 		mCompatibilityManager.registerPlugin(HologramsCompat.class, CompatPlugin.Holograms);
 		mCompatibilityManager.registerPlugin(HolographicDisplaysCompat.class, CompatPlugin.HolographicDisplays);
-		mCompatibilityManager.registerPlugin(CMIHologramsCompat.class, CompatPlugin.CMI);
+		mCompatibilityManager.registerPlugin(CMICompat.class, CompatPlugin.CMI);
 		mCompatibilityManager.registerPlugin(FactionsHelperCompat.class, CompatPlugin.Factions);
 		mCompatibilityManager.registerPlugin(TownyCompat.class, CompatPlugin.Towny);
 		mCompatibilityManager.registerPlugin(ResidenceCompat.class, CompatPlugin.Residence);
@@ -271,7 +271,7 @@ public class MobHunting extends JavaPlugin {
 		mCommandDispatcher.registerCommand(new DatabaseCommand(this));
 		mCommandDispatcher.registerCommand(new HeadCommand(this));
 		mCommandDispatcher.registerCommand(new LeaderboardCommand(this));
-		if (HolographicDisplaysCompat.isSupported() || HologramsCompat.isSupported() || CMIHologramsCompat.isSupported())
+		if (HolographicDisplaysCompat.isSupported() || HologramsCompat.isSupported() || CMICompat.isSupported())
 			mCommandDispatcher.registerCommand(new HologramCommand(this));
 		mCommandDispatcher.registerCommand(new LearnCommand(this));
 		mCommandDispatcher.registerCommand(new MuteCommand(this));

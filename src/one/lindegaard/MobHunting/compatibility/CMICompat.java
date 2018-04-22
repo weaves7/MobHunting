@@ -8,27 +8,27 @@ import com.Zrips.CMI.Modules.Holograms.HologramManager;
 
 import one.lindegaard.MobHunting.MobHunting;
 
-public class CMIHologramsCompat {
+public class CMICompat {
 
 	private static Plugin mPlugin;
 	private static boolean supported = false;
 
 	// https://www.spigotmc.org/resources/cmi-ranks-kits-portals-essentials-mysql-sqlite-bungeecord.3742/
 
-	public CMIHologramsCompat() {
+	public CMICompat() {
 		if (!isEnabledInConfig()) {
 			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
 					+ "Compatibility with CMI is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.CMI.getName());
-			if (mPlugin.getDescription().getVersion().compareTo("7.6.2.0") >= 0) {
+			if (mPlugin.getDescription().getVersion().compareTo("7.6") >= 0) {
 				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
 						+ "Enabling compatibility with CMI (" + mPlugin.getDescription().getVersion() + ").");
 				supported = true;
 			} else
 				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RED
 						+ "Your current version of CMI (" + mPlugin.getDescription().getVersion()
-						+ ") is not supported by MobHunting. Mobhunting does only support version 7.6.2.0 or newer.");
+						+ ") is not supported by MobHunting. Mobhunting does only support version 7.6 or newer.");
 
 		}
 	}

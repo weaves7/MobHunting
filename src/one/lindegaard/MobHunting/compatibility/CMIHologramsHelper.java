@@ -2,6 +2,7 @@ package one.lindegaard.MobHunting.compatibility;
 
 import java.util.List;
 
+import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
 
 import com.Zrips.CMI.Modules.Holograms.CMIHologram;
@@ -11,18 +12,14 @@ import one.lindegaard.MobHunting.leaderboard.HologramLeaderboard;
 public class CMIHologramsHelper {
 
 	public static void createHologram(HologramLeaderboard board) {
-		//MobHunting.getAPI().getMessages().debug("Hologram=%s @ %s", board.getHologramName(),board.getLocation().toString());
-		CMIHologram hologram = new CMIHologram(board.getHologramName(), board.getLocation());
-		//MobHunting.getAPI().getMessages().debug("new Hologram=%s",hologram.getName());
-		CMIHologramsCompat.
-		getHologramManager()
-				.addHologram(
-						hologram);
+		Location loc = board.getLocation().subtract(0, 1, 0);
+		CMIHologram hologram = new CMIHologram(board.getHologramName(), loc );
+		CMICompat.getHologramManager().addHologram(hologram);
 	}
 
 	public static void addTextLine(CMIHologram hologram, String text) {
 		List<String> lines = hologram.getLinesAsList();
-		lines.add(lines.size()-1, text);
+		lines.add(lines.size(), text);
 		hologram.setLines(lines);
 	}
 
@@ -42,19 +39,15 @@ public class CMIHologramsHelper {
 	}
 
 	public static void addItemLine(CMIHologram hologram, ItemStack itemstack) {
-		//hologram.addLine(new ItemLine(hologram, itemstack));
+		// hologram.addLine(new ItemLine(hologram, itemstack));
 	}
 
 	public static void deleteHologram(CMIHologram hologram) {
-		CMIHologramsCompat.
-		getHologramManager()
-		.removeHolo(hologram);
+		CMICompat.getHologramManager().removeHolo(hologram);
 	}
 
 	public static void hideHologram(CMIHologram hologram) {
-		CMIHologramsCompat.
-		getHologramManager()
-		.hideHoloForAllPlayers(hologram);
+		CMICompat.getHologramManager().hideHoloForAllPlayers(hologram);
 	}
 
 }

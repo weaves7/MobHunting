@@ -97,15 +97,15 @@ public class MyPetCompat implements Listener {
 		return killer.getOwner().getPlayer();
 	}
 
-	public void getInv(Player player) {
-		// mPlugin.getMyPetManager().getMyPet(player).getSkilltree();
-	}
-
 	// **************************************************************************
 	// EVENTS
 	// **************************************************************************
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	private void onMyPetKillMob(EntityDeathEvent event) {
+		//MobHunting is not started initialized yet...
+		if (MobHunting.getInstance().getMobHuntingManager()==null)
+			return ;
+		
 		if (!MobHunting.getInstance().getMobHuntingManager().isHuntEnabledInWorld(event.getEntity().getWorld())
 				|| !(event.getEntity().getLastDamageCause() instanceof EntityDamageByEntityEvent))
 			return;

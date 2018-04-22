@@ -233,6 +233,7 @@ mobhunting.commands.npc.not_selected=NPC was not selected. Move closer and look 
 mobhunting.commands.region.description=Add/remove a custom WorldGuard flag mobhunting allow/deny in  a region 
 mobhunting.commands.region.specifyRegionId=Please specify region 
 mobhunting.commands.region.unknownRegionId=Unknown region §4${regionid}
+mobhunting.commands.region.unknownFlag=Unknown flag §4${flag}
 mobhunting.commands.region.noWorldguardSupport=Worldguard is disabled or not loaded
 mobhunting.commands.reload.description=Reloads the configuration
 mobhunting.commands.reload.reload-complete=Configuration Reloaded

@@ -25,7 +25,7 @@ public class WorldGuardCompat {
 								+ ") is not supported by MobHunting. Mobhunting does only support 6.0+");
 			} else {
 
-				WorldGuardHelper.addMobHuningFlag();
+				WorldGuardHelper.addMobHuntingFlag();
 
 				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
 						+ "Enabling compatibility with WorldGuard (" + mPlugin.getDescription().getVersion() + ")");
