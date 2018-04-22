@@ -271,7 +271,7 @@ public class MobHunting extends JavaPlugin {
 		mCommandDispatcher.registerCommand(new DatabaseCommand(this));
 		mCommandDispatcher.registerCommand(new HeadCommand(this));
 		mCommandDispatcher.registerCommand(new LeaderboardCommand(this));
-		if (HolographicDisplaysCompat.isSupported() || HologramsCompat.isSupported())
+		if (HolographicDisplaysCompat.isSupported() || HologramsCompat.isSupported() || CMIHologramsCompat.isSupported())
 			mCommandDispatcher.registerCommand(new HologramCommand(this));
 		mCommandDispatcher.registerCommand(new LearnCommand(this));
 		mCommandDispatcher.registerCommand(new MuteCommand(this));

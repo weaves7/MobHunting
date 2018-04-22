@@ -56,6 +56,8 @@ public class WorldGuardHelper implements Listener {
 			field.setAccessible(true);
 			@SuppressWarnings("deprecation")
 			List<Flag<?>> flags = new ArrayList<Flag<?>>(Arrays.asList(DefaultFlag.getFlags()));
+			if (flags.contains(MOBHUNTINGFLAG))
+				flags.remove(MOBHUNTINGFLAG);
 			flags.add(MOBHUNTINGFLAG);
 			field.set(null, flags.toArray(new Flag[flags.size()]));
 			WorldGuardPlugin.class.cast(Bukkit.getPluginManager().getPlugin("WorldGuard")).getGlobalStateManager()

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.bukkit.inventory.ItemStack;
 
-import com.Zrips.CMI.CMI;
 import com.Zrips.CMI.Modules.Holograms.CMIHologram;
 
 import one.lindegaard.MobHunting.leaderboard.HologramLeaderboard;
@@ -12,8 +11,13 @@ import one.lindegaard.MobHunting.leaderboard.HologramLeaderboard;
 public class CMIHologramsHelper {
 
 	public static void createHologram(HologramLeaderboard board) {
-		CMI.getInstance().getHologramManager()
-				.addHologram(new CMIHologram(board.getHologramName(), board.getLocation()));
+		//MobHunting.getAPI().getMessages().debug("Hologram=%s @ %s", board.getHologramName(),board.getLocation().toString());
+		CMIHologram hologram = new CMIHologram(board.getHologramName(), board.getLocation());
+		//MobHunting.getAPI().getMessages().debug("new Hologram=%s",hologram.getName());
+		CMIHologramsCompat.
+		getHologramManager()
+				.addHologram(
+						hologram);
 	}
 
 	public static void addTextLine(CMIHologram hologram, String text) {
@@ -42,11 +46,15 @@ public class CMIHologramsHelper {
 	}
 
 	public static void deleteHologram(CMIHologram hologram) {
-		CMI.getInstance().getHologramManager().removeHolo(hologram);
+		CMIHologramsCompat.
+		getHologramManager()
+		.removeHolo(hologram);
 	}
 
 	public static void hideHologram(CMIHologram hologram) {
-		CMI.getInstance().getHologramManager().hideHoloForAllPlayers(hologram);
+		CMIHologramsCompat.
+		getHologramManager()
+		.hideHoloForAllPlayers(hologram);
 	}
 
 }

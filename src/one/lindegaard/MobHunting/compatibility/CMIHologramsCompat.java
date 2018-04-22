@@ -37,7 +37,7 @@ public class CMIHologramsCompat {
 	// OTHER
 	// **************************************************************************
 
-	public CMI getCMIPlugin() {
+	public static CMI getCMIPlugin() {
 		return (CMI) mPlugin;
 	}
 
@@ -50,7 +50,7 @@ public class CMIHologramsCompat {
 	}
 
 	public static HologramManager getHologramManager() {
-		return CMI.getInstance().getHologramManager();
+		return getCMIPlugin().getHologramManager();
 	}
 
 }
