@@ -1,5 +1,6 @@
 V5.6.3
 * Added support for CMIHolograms
+* Fixed when when MythicMobs has been deleted from MythicMob config files. (https://github.com/Rocologo/MobHunting/issues/394) 
 V5.6.2
 * Fixed ticket 391 (https://github.com/Rocologo/MobHunting/issues/391)
 * Removed runTaskLaterAsynchronously from MasterMobHunter

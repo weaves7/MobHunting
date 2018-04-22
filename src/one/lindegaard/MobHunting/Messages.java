@@ -173,9 +173,14 @@ public class Messages {
 						k = "mobs." + key.getValue().getMobPlugin().name() + "_" + key.getValue().getMobtype()
 								+ ".name";
 					if (!dest.containsKey(k)) {
-						Bukkit.getServer().getConsoleSender().sendMessage(
-								PREFIX + " Creating missing key (" + k + ") in language file " + onDisk.getName());
-						newEntries.put(k, key.getValue().getMobName());
+						if (!key.getValue().getMobName().isEmpty()) {
+							Bukkit.getServer().getConsoleSender().sendMessage(
+									PREFIX + " Creating missing key (" + k + ") in language file " + onDisk.getName());
+							newEntries.put(k, key.getValue().getMobName());
+						} else
+							Bukkit.getServer().getConsoleSender().sendMessage(PREFIX + ChatColor.RED
+									+ " Can't create missing key (" + k + ",'" + key.getValue().getMobName() + "')");
+
 					}
 				}
 
@@ -515,8 +520,9 @@ public class Messages {
 			messagesToBeDisplayed = messageQueue.get(player);
 		messagesToBeDisplayed.put(System.currentTimeMillis() + 5000L, new MessageQueue(player, message));
 		messageQueue.put(player, messagesToBeDisplayed);
-		//debug("message=%s", message);
-		//debug("messageQueue(player).size=%s", messageQueue.get(player).size());
+		// debug("message=%s", message);
+		// debug("messageQueue(player).size=%s",
+		// messageQueue.get(player).size());
 
 		Runnable messageTask = new Runnable() {
 			@Override
@@ -540,25 +546,25 @@ public class Messages {
 						if (messageQueue.get(player).size() > 0)
 							try {
 								Thread.sleep(1500L);
-								//Thread.sleep(10000L);
+								// Thread.sleep(10000L);
 							} catch (InterruptedException e) {
 								e.printStackTrace();
 							}
 					}
 				}
-				//debug("cancel task");
+				// debug("cancel task");
 				Bukkit.getScheduler().cancelTask(taskId.get(player).getTaskId());
 				taskId.remove(player);
 			};
 		};
 
-		//debug("taskId.containsKey(player)=%s", taskId.containsKey(player));
+		// debug("taskId.containsKey(player)=%s", taskId.containsKey(player));
 
 		if (!taskId.containsKey(player))
-			
-			if (taskId.get(player)==null || !Bukkit.getScheduler().isCurrentlyRunning(taskId.get(player).getTaskId())
+
+			if (taskId.get(player) == null || !Bukkit.getScheduler().isCurrentlyRunning(taskId.get(player).getTaskId())
 					|| !Bukkit.getScheduler().isQueued(taskId.get(player).getTaskId())) {
-				//debug("start task");
+				// debug("start task");
 				taskId.put(player, Bukkit.getScheduler().runTaskAsynchronously(plugin, messageTask));
 			}
 	}

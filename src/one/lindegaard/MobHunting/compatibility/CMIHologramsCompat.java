@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
 import com.Zrips.CMI.CMI;
+import com.Zrips.CMI.Modules.Holograms.HologramManager;
 
 import one.lindegaard.MobHunting.MobHunting;
 
@@ -48,12 +49,8 @@ public class CMIHologramsCompat {
 		return MobHunting.getInstance().getConfigManager().enableIntegrationHolograms;
 	}
 
-	public String getManager() {
-		return "test";
+	public static HologramManager getHologramManager() {
+		return CMI.getInstance().getHologramManager();
 	}
-
-	// public static HologramManager getHologramManager() {
-	// return ((HologramPlugin) mPlugin).getHologramManager();
-	// }
 
 }
