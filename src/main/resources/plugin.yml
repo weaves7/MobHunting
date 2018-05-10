@@ -2,7 +2,7 @@ name: MobHunting
 main: one.lindegaard.MobHunting.MobHunting
 version: ${version}
 description: MobHunting adds a new level of fun to hunting monsters. Now you can get money from kills, get bonuses for skilled and creative kills, and get special achievements.
-dev-url: http://dev.bukkit.org/server-mods/mobhunting/
+dev-url: https://dev.bukkit.org/projects/mobhunting
 author: Rocologo
 depend: [Vault]
 softdepend: [Multiverse-Core, Essentials, BagOfGold, WorldEdit, WorldGuard, PreciousStones, HolographicDisplays, Holograms, CMI, Factions, Towny, Rdesidence, ProtocolLib, mcMMO, BossShop, MythicMobs, TARDISWeepingAngels, Citizens, Sentry, Sentinel, Minigames, MinigamesLib, MyPet, MobArena, PVPArena, BattleArena, LibsDisguises, DisguiseCraft, iDisguise, VanishNoPacket, BossBarAPI, BarAPI, ActionBar, TitleAPI, TitleManager, PlaceholderAPI, MobStacker, Gringotts, ActionBarAPI, ActionAnnouncer, CustomMobs, ConquestiaMobs, StackMob, MysteriousHalloween, SmartGiants, ExtraHardMode, CrackShot]
@@ -193,6 +193,3 @@ permissions:
   mobhunting.bagofgoldsign.destroy:
     description: Allows you to destroy Bag of gold signs
     default: op
-
-
-
