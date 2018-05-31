@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
 
 import com.garbagemule.MobArena.events.ArenaPlayerDeathEvent;
@@ -116,7 +117,7 @@ public class MobArenaCompat implements Listener {
 	@EventHandler(priority = EventPriority.NORMAL)
 	private void onArenaPlayerDeathEvent(ArenaPlayerDeathEvent event) {
 		Player player = event.getPlayer();
-		if (!playersPlayingMobArena.remove(player.getUniqueId())) {
+		if (playersPlayingMobArena.remove(player.getUniqueId())) {
 			MobHunting.getInstance().getMessages().debug("Player: %s died while playing MobArena", player.getName());
 		}
 	}
@@ -151,5 +152,15 @@ public class MobArenaCompat implements Listener {
 	@EventHandler(priority = EventPriority.NORMAL)
 	private void onNewWareEvent(NewWaveEvent event) {
 	}
+	
+	@EventHandler(priority = EventPriority.NORMAL)
+	private void onPlayerQuitEvent(PlayerQuitEvent event) {
+		Player player = event.getPlayer();
+		if (playersPlayingMobArena.remove(player.getUniqueId())) {
+			MobHunting.getInstance().getMessages().debug("Player: %s left the game while playing MobArena", player.getName());
+		}
+	}
+	
+	
 
 }
