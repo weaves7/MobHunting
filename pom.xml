@@ -44,9 +44,9 @@
 		<craftbukkit18R1.version>1.8-R1</craftbukkit18R1.version>
 		<spongeapi.version>5.1.0-SNAPSHOT</spongeapi.version>
 		<javacompiler.version>1.8</javacompiler.version>
-		<mavenCompilerPlugin.version>3.6.1</mavenCompilerPlugin.version>
-		<mavenJarPlugin.version>3.0.2</mavenJarPlugin.version>
-		<mavenShadePlugin.version>3.0.2</mavenShadePlugin.version>
+		<mavenCompilerPlugin.version>3.7.0</mavenCompilerPlugin.version>
+		<mavenJarPlugin.version>3.1.0</mavenJarPlugin.version>
+		<mavenShadePlugin.version>3.1.1</mavenShadePlugin.version>
 
 		<mcstats.pluginname>${project.groupId}.${project.artifactId}</mcstats.pluginname>
 		<vault.version>1.6.6</vault.version>
@@ -163,7 +163,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>2.4</version>
+				<version>${mavenShadePlugin.version}</version>
 				<configuration>
 					<createDependencyReducedPom>false</createDependencyReducedPom>
 					<artifactSet>
@@ -208,19 +208,19 @@
 		<!-- MobHunhting repository -->
 		<repository>
 			<id>fractal-ext-rel</id>
-			<url>https://fractal.lindegaard.one:8187/artifactory/ext-release-local/</url>
+			<url>https://fractal.lindegaard.one:8187/ext-release-local/</url>
 		</repository>
 		<repository>
 			<id>fractal-ext-snap</id>
-			<url>https://fractal.lindegaard.one:8187/artifactory/ext-snapshot-local/</url>
+			<url>https://fractal.lindegaard.one:8187/ext-snapshot-local/</url>
 		</repository>
 		<repository>
 			<id>fractal</id>
-			<url>https://fractal.lindegaard.one:8187/artifactory/plugins-release/</url>
+			<url>https://fractal.lindegaard.one:8187/plugins-release/</url>
 		</repository>
 		<repository>
 			<id>fractal-snapshots</id>
-			<url>https://fractal.lindegaard.one:8187/artifactory/plugins-snapshots/</url>
+			<url>https://fractal.lindegaard.one:8187/plugins-snapshots/</url>
 		</repository>
 
 		<!-- SpigotMC Repository -->
@@ -857,12 +857,12 @@
 		<repository>
 			<id>central</id>
 			<name>fractal-releases</name>
-			<url>https://fractal.lindegaard.one:8187/artifactory/plugins-release-local</url>
+			<url>https://fractal.lindegaard.one:8187/plugins-release-local</url>
 		</repository>
 		<snapshotRepository>
 			<id>snapshots</id>
 			<name>fractal-snapshot</name>
-			<url>https://fractal.lindegaard.one:8187/artifactory/plugins-snapshot-local</url>
+			<url>https://fractal.lindegaard.one:8187/plugins-snapshot-local</url>
 		</snapshotRepository>
 	</distributionManagement>
 
