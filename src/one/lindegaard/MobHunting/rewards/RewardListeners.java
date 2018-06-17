@@ -164,8 +164,9 @@ public class RewardListeners implements Listener {
 
 		Player player = event.getPlayer();
 
-		if (player.getGameMode() != GameMode.SURVIVAL)
-			return;
+		if (player.getGameMode() != GameMode.SURVIVAL){
+			plugin.getMessages().debug("Can't pickup BagOfGold when NOT in Survival");
+			return;}
 
 		if (player.getInventory().firstEmpty() == -1) {
 			Iterator<Entity> entityList = ((Entity) player).getNearbyEntities(1, 1, 1).iterator();

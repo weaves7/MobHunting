@@ -902,14 +902,14 @@ public class MobHuntingManager implements Listener {
 					if (WorldGuardHelper.isAllowedByWorldGuard(killer, killed, WorldGuardHelper.getMobHuntingFlag(),
 							false)) {
 						plugin.getMessages().debug("KillBlocked %s: Mobhunting disabled in world '%s'",
-								getPlayer(killer, killed).getName(), killer.getWorld().getName());
+								getPlayer(killer, killed).getName(), getPlayer(killer, killed).getWorld().getName());
 						plugin.getMessages().learn(getPlayer(killer, killed),
 								plugin.getMessages().getString("mobhunting.learn.disabled"));
 						plugin.getMessages().debug("======================= kill ended (9)======================");
 						return;
 					} else {
 						plugin.getMessages().debug("KillBlocked %s: Mobhunting disabled in world '%s'",
-								getPlayer(killer, killed).getName(), killer.getWorld().getName());
+								getPlayer(killer, killed).getName(), getPlayer(killer, killed).getWorld().getName());
 						plugin.getMessages().learn(getPlayer(killer, killed),
 								plugin.getMessages().getString("mobhunting.learn.disabled"));
 						plugin.getMessages().debug("======================= kill ended (10)======================");
@@ -1818,11 +1818,11 @@ public class MobHuntingManager implements Listener {
 				if (minecraftMob == MinecraftMob.PvpPlayer) {
 					ItemStack head = new CustomItems(plugin).getPlayerHead(killed.getUniqueId(), 1,
 							plugin.getRewardManager().getHeadValue(killed));
-					killer.getWorld().dropItem(killed.getLocation(), head);
+					getPlayer(killer, killed).getWorld().dropItem(killed.getLocation(), head);
 				} else {
 					ItemStack head = new CustomItems(plugin).getCustomHead(minecraftMob, mob.getFriendlyName(), 1,
 							plugin.getRewardManager().getHeadValue(killed), minecraftMob.getPlayerUUID());
-					killer.getWorld().dropItem(killed.getLocation(), head);
+					getPlayer(killer, killed).getWorld().dropItem(killed.getLocation(), head);
 				}
 				plugin.getMessages().debug("%s killed a %s and a head was dropped", killer.getName(), killed.getName());
 				if (!plugin.getRewardManager().getHeadDropMessage(killed).isEmpty())
