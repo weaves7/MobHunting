@@ -84,8 +84,6 @@ public class TARDISWeepingAngelsCompat implements Listener {
 		if (isSupported())
 			return entity.hasMetadata(TARDISWeepingAngelsCompat.MH_TARDISWEEPINGANGELS);
 		return false;
-		// return ((TARDISWeepingAngels)
-		// mPlugin).getWeepingAngelsAPI().isWeepingAngelMonster(entity);
 	}
 
 	/**

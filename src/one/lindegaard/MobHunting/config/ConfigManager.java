@@ -3304,6 +3304,9 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "mythicmobs.enable_integration_mythicmobs", category = "plugins", comment = "Enable/Disable integration with MythicMobs")
 	public boolean enableIntegrationMythicmobs = true;
 
+	@ConfigField(name = "elitemobs.enable_integration_elitemobs", category = "plugins", comment = "Enable/Disable integration with EliteMobs")
+	public boolean enableIntegrationEliteMobs = true;
+
 	@ConfigField(name = "mypet.enable_integration_mypet", category = "plugins", comment = "Enable/Disable integration with MyPet")
 	public boolean enableIntegrationMyPet = true;
 

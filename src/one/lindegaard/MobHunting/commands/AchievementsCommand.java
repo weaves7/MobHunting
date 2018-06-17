@@ -96,10 +96,7 @@ private MobHunting plugin;
 				String name = args[0];
 				otherPlayer = Bukkit.getOfflinePlayer(name);
 
-				if (otherPlayer == null)
-					otherPlayer = plugin.getDataStoreManager().getPlayerByName(name);
-
-				if (otherPlayer == null) {
+				if (!otherPlayer.hasPlayedBefore()) {
 					plugin.getMessages().senderSendMessage(sender,ChatColor.RED
 							+ plugin.getMessages().getString("mobhunting.commands.listachievements.player-not-exist"));
 					return true;

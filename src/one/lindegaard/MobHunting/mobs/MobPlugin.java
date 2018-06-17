@@ -6,6 +6,7 @@ import org.bukkit.command.ConsoleCommandSender;
 
 import one.lindegaard.MobHunting.compatibility.CitizensCompat;
 import one.lindegaard.MobHunting.compatibility.CustomMobsCompat;
+import one.lindegaard.MobHunting.compatibility.EliteMobsCompat;
 import one.lindegaard.MobHunting.compatibility.HerobrineCompat;
 import one.lindegaard.MobHunting.compatibility.InfernalMobsCompat;
 import one.lindegaard.MobHunting.compatibility.MysteriousHalloweenCompat;
@@ -16,7 +17,7 @@ import one.lindegaard.MobHunting.compatibility.TARDISWeepingAngelsCompat;
 public enum MobPlugin {
 	Minecraft("Minecraft", 0), MythicMobs("MythicMobs", 1), Citizens("Citizens", 2), TARDISWeepingAngels(
 			"TARDISWeepingAngels", 3), CustomMobs("CustomMobs", 4), MysteriousHalloween("MysteriousHalloween",
-					5), SmartGiants("SmartGiants", 6), InfernalMobs("InfernalMobs", 7), Herobrine("Herobrine",8);
+					5), SmartGiants("SmartGiants", 6), InfernalMobs("InfernalMobs", 7), Herobrine("Herobrine",8), EliteMobs("EliteMobs",9);
 
 	private final String name;
 	private final Integer id;
@@ -66,6 +67,8 @@ public enum MobPlugin {
 			return InfernalMobsCompat.isSupported();
 		case Herobrine:
 			return HerobrineCompat.isSupported();
+		case EliteMobs:
+			return EliteMobsCompat.isSupported();
 		default:
 			ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
 			console.sendMessage(ChatColor.RED + "[MobHunting] Missing pluginType '" + this.name() + "' in MobPlugin");

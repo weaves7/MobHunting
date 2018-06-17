@@ -6,8 +6,8 @@
 	<groupId>one.lindegaard</groupId>
 	<artifactId>MobHunting</artifactId>
 	<packaging>jar</packaging>
-	<version>5.6.4</version>
-	<!-- <version>5.6.4-SNAPSHOT-B${build.number}</version> -->
+	<!-- <version>5.6.5</version> -->
+	<version>5.6.5-SNAPSHOT-B${build.number}</version>
 	<name>MobHunting</name>
 	<url>https://www.spigotmc.org/resources/mobhunting.3582/</url>
 	<description>MobHunting adds a new level of fun to hunting monsters. Now you can get money from kills, get bonuses for skilled and creative kills, and get special achievements!</description>
@@ -46,7 +46,7 @@
 		<javacompiler.version>1.8</javacompiler.version>
 		<mavenCompilerPlugin.version>3.7.0</mavenCompilerPlugin.version>
 		<mavenJarPlugin.version>3.1.0</mavenJarPlugin.version>
-		<mavenShadePlugin.version>3.1.1</mavenShadePlugin.version>
+		<mavenShadePlugin.version>2.4</mavenShadePlugin.version>
 
 		<mcstats.pluginname>${project.groupId}.${project.artifactId}</mcstats.pluginname>
 		<vault.version>1.6.6</vault.version>
@@ -88,6 +88,7 @@
 		<ConquestiaMobs.version>3.3.3</ConquestiaMobs.version>
 		<LorinthsRpgMobs.version>1.1.2</LorinthsRpgMobs.version>
 		<MysteriousHalloween.version>1.3.5</MysteriousHalloween.version>
+		<EliteMobs.version>6.5.0</EliteMobs.version>
 		<SmartGiants.version>2.3.6</SmartGiants.version>
 		<Herobrine.version>1.7.1</Herobrine.version>
 		<towny.version>0.91.4.2</towny.version>
@@ -573,6 +574,13 @@
 			<groupId>me.F_o_F_1092.MysteriousHalloween</groupId>
 			<artifactId>MysteriousHalloween</artifactId>
 			<version>${MysteriousHalloween.version}</version>
+		</dependency>
+
+		<!-- EliteMobs -->
+		<dependency>
+			<groupId>com.magmaguy</groupId>
+			<artifactId>EliteMobs</artifactId>
+			<version>${EliteMobs.version}</version>
 		</dependency>
 
 		<!-- SmartGiants -->

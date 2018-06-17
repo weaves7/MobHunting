@@ -11,6 +11,7 @@ import net.citizensnpcs.api.npc.NPC;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.CitizensCompat;
 import one.lindegaard.MobHunting.compatibility.CustomMobsCompat;
+import one.lindegaard.MobHunting.compatibility.EliteMobsCompat;
 import one.lindegaard.MobHunting.compatibility.HerobrineCompat;
 import one.lindegaard.MobHunting.compatibility.InfernalMobsCompat;
 import one.lindegaard.MobHunting.compatibility.MysteriousHalloweenCompat;
@@ -112,6 +113,8 @@ public class ExtendedMob {
 			return "Infernal " + mobtype;
 		case Herobrine:
 			return HerobrineCompat.getMobRewardData().get(mobtype).getMobName();
+		case EliteMobs:
+			return EliteMobsCompat.getMobRewardData().get(mobtype).getMobName();
 		default:
 			ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
 			console.sendMessage(
@@ -147,6 +150,8 @@ public class ExtendedMob {
 			return InfernalMobsCompat.getProgressAchievementLevel1(mobtype);
 		case Herobrine:
 			return HerobrineCompat.getProgressAchievementLevel1(mobtype);
+		case EliteMobs:
+			return EliteMobsCompat.getProgressAchievementLevel1(mobtype);
 		default:
 			ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
 			console.sendMessage(

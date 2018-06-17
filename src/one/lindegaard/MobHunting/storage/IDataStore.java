@@ -165,40 +165,36 @@ public interface IDataStore {
 	
 	Set<ExtendedMob> loadMobs() throws DataStoreException;
 
-	void insertMissingVanillaMobs();
-	
-	void insertMissingMythicMobs();
-
-	void insertMissingCitizensMobs();
-
-	void insertTARDISWeepingAngelsMobs();
-
-	void insertMysteriousHalloweenMobs();
-	
-	void insertSmartGiants();
-
-	void insertCustomMobs();
-	
-	void insertInfernalMobs();
-
-	void insertHerobrineMobs();
-
 	void insertMobs(Set<ExtendedMob> mobs) throws DataStoreException;
 
 	void updateMobs(Set<ExtendedMob> mobs) throws DataStoreException;
 
+	void insertMissingVanillaMobs();
+	
+	void insertMissingMythicMobs();
 	void insertMissingMythicMobs(String mob);
 
+	void insertMissingCitizensMobs();
 	void insertCitizensMobs(String mob);
 
+	void insertTARDISWeepingAngelsMobs();
 	void insertTARDISWeepingAngelsMobs(String mob);
 
+	void insertMysteriousHalloweenMobs();
 	void insertMysteriousHalloweenMobs(String mob);
 	
+	void insertSmartGiants();
+	void insertSmartGiants(String mob);
+
+	void insertCustomMobs();
 	void insertCustomMobs(String mob);
 	
-	void insertSmartGiants(String mob);
-	
+	void insertInfernalMobs();
+
+	void insertHerobrineMobs();
 	void insertMissingHerobrineMobs(String mob);
 
+	void insertEliteMobs();
+	void insertEliteMobs(String mob);
+	
 }

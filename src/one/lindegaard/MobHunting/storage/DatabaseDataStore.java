@@ -18,6 +18,7 @@ import one.lindegaard.MobHunting.bounty.Bounty;
 import one.lindegaard.MobHunting.bounty.BountyStatus;
 import one.lindegaard.MobHunting.compatibility.CitizensCompat;
 import one.lindegaard.MobHunting.compatibility.CustomMobsCompat;
+import one.lindegaard.MobHunting.compatibility.EliteMobsCompat;
 import one.lindegaard.MobHunting.compatibility.HerobrineCompat;
 import one.lindegaard.MobHunting.compatibility.MysteriousHalloweenCompat;
 import one.lindegaard.MobHunting.compatibility.MythicMobsCompat;
@@ -1066,6 +1067,45 @@ public abstract class DatabaseDataStore implements IDataStore {
 				statement.executeUpdate("INSERT INTO mh_Mobs (PLUGIN_ID, MOBTYPE) VALUES (8,'" + mob + "')");
 				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
 						+ "Herobrine Mobs MobType " + mob + " was inserted to mh_Mobs");
+				statement.close();
+				mConnection.commit();
+				mConnection.close();
+			} catch (SQLException | DataStoreException e) {
+				e.printStackTrace();
+			}
+	}
+
+	@Override
+	public void insertEliteMobs() {
+		int n = 0;
+		try {
+			Connection mConnection = setupConnection();
+			Statement statement = mConnection.createStatement();
+			for (String mob : EliteMobsCompat.getMobRewardData().keySet())
+				if (getMobIdFromExtendedMobType(mob, MobPlugin.EliteMobs) == 0) {
+					statement.executeUpdate("INSERT INTO mh_Mobs (PLUGIN_ID, MOBTYPE) VALUES (9,'" + mob + "')");
+					n++;
+				}
+			if (n > 0)
+				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET + n
+						+ " EliteMob mobs was inserted to mh_Mobs");
+			statement.close();
+			mConnection.commit();
+			mConnection.close();
+		} catch (SQLException | DataStoreException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void insertEliteMobs(String mob) {
+		if (getMobIdFromExtendedMobType(mob, MobPlugin.EliteMobs) == 0)
+			try {
+				Connection mConnection = setupConnection();
+				Statement statement = mConnection.createStatement();
+				statement.executeUpdate("INSERT INTO mh_Mobs (PLUGIN_ID, MOBTYPE) VALUES (9,'" + mob + "')");
+				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+						+ "EliteMob MobType " + mob + " was inserted to mh_Mobs");
 				statement.close();
 				mConnection.commit();
 				mConnection.close();

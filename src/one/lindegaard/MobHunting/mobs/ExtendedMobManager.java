@@ -14,6 +14,7 @@ import org.bukkit.entity.Entity;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.CitizensCompat;
 import one.lindegaard.MobHunting.compatibility.CustomMobsCompat;
+import one.lindegaard.MobHunting.compatibility.EliteMobsCompat;
 import one.lindegaard.MobHunting.compatibility.HerobrineCompat;
 import one.lindegaard.MobHunting.compatibility.InfernalMobsCompat;
 import one.lindegaard.MobHunting.compatibility.MysteriousHalloweenCompat;
@@ -50,6 +51,8 @@ public class ExtendedMobManager {
 			plugin.getStoreManager().insertSmartGiants();
 		if (HerobrineCompat.isSupported())
 			plugin.getStoreManager().insertHerobrineMobs();
+		if (EliteMobsCompat.isSupported())
+			plugin.getStoreManager().insertEliteMobs();
 		// Not needed
 		// if (InfernalMobsCompat.isSupported())
 		// plugin.getStoreManager().insertInfernalMobs();
@@ -107,6 +110,11 @@ public class ExtendedMobManager {
 				
 			case Herobrine:
 				if (!HerobrineCompat.isSupported()|| !HerobrineCompat.isEnabledInConfig())
+					continue;
+				break;
+				
+			case EliteMobs:
+				if (!EliteMobsCompat.isSupported()|| !EliteMobsCompat.isEnabledInConfig())
 					continue;
 				break;
 
@@ -180,6 +188,9 @@ public class ExtendedMobManager {
 		} else if (HerobrineCompat.isHerobrineMob(entity)){
 			mobPlugin = MobPlugin.Herobrine;
 			mobtype = HerobrineCompat.getHerobrineMobType(entity);
+		} else if (EliteMobsCompat.isEliteMobs(entity)){
+			mobPlugin = MobPlugin.EliteMobs;
+			mobtype = EliteMobsCompat.getEliteMobsType(entity).name();
 		} else {
 			// StatType
 			mobPlugin = MobPlugin.Minecraft;
