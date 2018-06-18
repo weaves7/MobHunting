@@ -68,14 +68,14 @@ public class RewardListeners implements Listener {
 		if (Reward.isReward(item)) {
 			Reward reward = Reward.getReward(item);
 			double money = 0;
-			if (player.getGameMode() == GameMode.SURVIVAL)
+			//if (player.getGameMode() == GameMode.SURVIVAL)
 				money = reward.getMoney();
-			else {
-				ItemStack is = item.getItemStack();
-				is = plugin.getRewardManager().setDisplayNameAndHiddenLores(is, reward.getDisplayname(), 0,
-						reward.getRewardType(), reward.getSkinUUID());
-				item.setItemStack(is);
-			}
+			//else {
+			//	ItemStack is = item.getItemStack();
+			//	is = plugin.getRewardManager().setDisplayNameAndHiddenLores(is, reward.getDisplayname(), 0,
+			//			reward.getRewardType(), reward.getSkinUUID());
+			//	item.setItemStack(is);
+			//}
 			if (money == 0) {
 				item.setCustomName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 						+ reward.getDisplayname());
@@ -106,7 +106,8 @@ public class RewardListeners implements Listener {
 										+ (plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
 												? plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim()
 												: reward.getDisplayname())));
-				if (BagOfGoldCompat.isSupported() && player.getGameMode() == GameMode.SURVIVAL
+				if (BagOfGoldCompat.isSupported() 
+						//&& player.getGameMode() == GameMode.SURVIVAL
 						&& (reward.isBagOfGoldReward() || reward.isItemReward())) {
 					BagOfGold.getAPI().getEconomyManager().removeMoneyFromBalance(player, money);
 				}
@@ -164,9 +165,9 @@ public class RewardListeners implements Listener {
 
 		Player player = event.getPlayer();
 
-		if (player.getGameMode() != GameMode.SURVIVAL){
-			plugin.getMessages().debug("Can't pickup BagOfGold when NOT in Survival");
-			return;}
+		//if (player.getGameMode() != GameMode.SURVIVAL){
+		//	plugin.getMessages().debug("Can't pickup BagOfGold when NOT in Survival");
+		//	return;}
 
 		if (player.getInventory().firstEmpty() == -1) {
 			Iterator<Entity> entityList = ((Entity) player).getNearbyEntities(1, 1, 1).iterator();
@@ -183,14 +184,14 @@ public class RewardListeners implements Listener {
 						if (reward.isBagOfGoldReward() || reward.isItemReward()) {
 							boolean done = false;
 							if (BagOfGoldCompat.isSupported()) {
-								if (player.getGameMode() == GameMode.SURVIVAL) {
+								//if (player.getGameMode() == GameMode.SURVIVAL) {
 									done = plugin.getRewardManager().addBagOfGoldPlayer(player, reward.getMoney());
 									PlayerSettings ps = BagOfGold.getAPI().getPlayerSettingsManager()
 											.getPlayerSettings(player);
 									ps.setBalance(Misc.round(ps.getBalance() + reward.getMoney()));
 									BagOfGold.getAPI().getPlayerSettingsManager().setPlayerSettings(player, ps);
 									done = true;
-								}
+								//}
 							} else if (reward.getMoney() != 0
 									&& !plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
 								// If not Gringotts
@@ -387,7 +388,9 @@ public class RewardListeners implements Listener {
 				}
 			}
 		}
-		if (BagOfGoldCompat.isSupported() && player.getGameMode() == GameMode.SURVIVAL) {
+		if (BagOfGoldCompat.isSupported() 
+				//&& player.getGameMode() == GameMode.SURVIVAL
+				){
 			PlayerSettings ps = BagOfGold.getAPI().getPlayerSettingsManager().getPlayerSettings(player);
 			double amountInInventory = plugin.getRewardManager().getAmountInInventory(player);
 			if (Misc.round(amountInInventory) != Misc.round(ps.getBalance() + ps.getBalanceChanges())) {

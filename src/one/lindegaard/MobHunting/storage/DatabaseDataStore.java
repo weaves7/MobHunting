@@ -1088,7 +1088,7 @@ public abstract class DatabaseDataStore implements IDataStore {
 				}
 			if (n > 0)
 				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET + n
-						+ " EliteMob mobs was inserted to mh_Mobs");
+						+ " EliteMobs was inserted to mh_Mobs");
 			statement.close();
 			mConnection.commit();
 			mConnection.close();
