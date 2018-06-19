@@ -508,8 +508,6 @@ public class RewardListeners implements Listener {
 		if (!(Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)))
 			return;
 		
-		plugin.getMessages().debug("RewardListeners - InventoryClickEvent");
-		
 		InventoryAction action = event.getAction();
 		Player player = (Player) event.getWhoClicked();
 		SlotType slotType = event.getSlotType();
@@ -637,8 +635,6 @@ public class RewardListeners implements Listener {
 		ItemStack isCursor = event.getCursor();
 		if (!(Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)))
 			return;
-		
-		plugin.getMessages().debug("RewardListeners - InventoryCreativeEvent");
 		
 		//InventoryAction action = event.getAction();
 		Player player = (Player) event.getWhoClicked();

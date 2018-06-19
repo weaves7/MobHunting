@@ -1724,7 +1724,7 @@ public class MobHuntingManager implements Listener {
 				if (perm.isEmpty() || getPlayer(killer, killed).hasPermission(perm)) {
 					double random = plugin.mRand.nextDouble();
 					if (random < Double.valueOf(cmd.get("chance"))) {
-						String commandCmd = cmd.get("cmd")
+						String commandCmd = cmd.getOrDefault("cmd","")
 								.replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
 								.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
 								.replaceAll("\\{killed\\}", mob.getFriendlyName()).replaceAll("\\{world\\}", worldname)
@@ -1770,7 +1770,7 @@ public class MobHuntingManager implements Listener {
 						}
 						MessageType messageType = MessageType.valueOf((cmd == null || cmd.get("message_type") == null)
 								? "Chat" : cmd.getOrDefault("message_type", "Chat"));
-						String message = cmd.get("message");
+						String message = cmd.getOrDefault("message","");
 						if (message != null && !killer_muted) {
 							plugin.getMessages().playerSendMessageAt(getPlayer(killer, killed),
 									message.replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
