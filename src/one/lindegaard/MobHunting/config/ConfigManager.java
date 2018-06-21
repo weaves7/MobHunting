@@ -2835,7 +2835,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "enable_integration_elitemobs", category = "plugins.elitemobs", comment = "Enable/Disable integration with EliteMobs")
 	public boolean enableIntegrationEliteMobs = true;
 
-	@ConfigField(name = "maximum_multiplier", category = "plugins.infernalmobs", comment = "The reward for EliteMobs from level 50-400 will be multiplier linearly")
+	@ConfigField(name = "maximum_multiplier", category = "plugins.elitemobs", comment = "The reward for EliteMobs from level 50-400 will be multiplier linearly")
 	public double elitemobMultiplier = 2;
 
 	// #####################################################################################
