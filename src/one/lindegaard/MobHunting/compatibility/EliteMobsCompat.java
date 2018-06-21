@@ -34,6 +34,7 @@ public class EliteMobsCompat implements Listener {
 	private static HashMap<String, RewardData> mMobRewardData = new HashMap<String, RewardData>();
 	private static File file = new File(MobHunting.getInstance().getDataFolder(), "EliteMobs-rewards.yml");
 	private static YamlConfiguration config = new YamlConfiguration();
+	public static final String MH_ELITEMOBS = "MH:ELITEMOBS";
 
 	public EliteMobsCompat() {
 		if (!isEnabledInConfig()) {
@@ -48,12 +49,12 @@ public class EliteMobsCompat implements Listener {
 						.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
 								+ "Enabling Compatibility with EliteMobs ("
 								+ getEliteMobs().getDescription().getVersion() + ")");
-				
+
 				supported = true;
-				
+
 				loadEliteMobsMobsData();
 				saveEliteMobsData();
-				
+
 			} else {
 				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RED
 						+ "Your current version of EliteMobs (" + mPlugin.getDescription().getVersion()
@@ -129,12 +130,12 @@ public class EliteMobsCompat implements Listener {
 			this.id = id;
 			this.name = name;
 		}
-		
-		public String getId(){
+
+		public String getId() {
 			return id;
 		}
-		
-		public String getName(){
+
+		public String getName() {
 			return name;
 		}
 	};
@@ -194,8 +195,9 @@ public class EliteMobsCompat implements Listener {
 		try {
 			if (!file.exists()) {
 				for (Mobs monster : Mobs.values()) {
-					mMobRewardData.put(monster.getId(), new RewardData(MobPlugin.EliteMobs, monster.getId(), monster.getName(), true,
-							"10:20", 1, "You killed an EliteMob", new ArrayList<HashMap<String, String>>(), 1, 0.02));
+					mMobRewardData.put(monster.getId(),
+							new RewardData(MobPlugin.EliteMobs, monster.getId(), monster.getName(), true, "10:20", 1,
+									"You killed an EliteMob", new ArrayList<HashMap<String, String>>(), 1, 0.02));
 					saveEliteMobsData(monster.getId());
 					MobHunting.getInstance().getStoreManager().insertEliteMobs(monster.getId());
 				}
@@ -288,21 +290,26 @@ public class EliteMobsCompat implements Listener {
 	private void onEliteMobsSpawnEvent(EntitySpawnEvent event) {
 
 		Entity entity = event.getEntity();
-		Mobs monster = getEliteMobsType(entity);
 
-		if (mMobRewardData != null && !mMobRewardData.containsKey(monster.getId())) {
-			MobHunting.getInstance().getMessages().debug("New EliteMob found=%s", monster.getId());
-			mMobRewardData.put(monster.getId(), new RewardData(MobPlugin.EliteMobs, monster.getId(), monster.getName(),
-					true, "40:60", 1, "You killed an EliteMob", new ArrayList<HashMap<String, String>>(), 1, 0.02));
-			saveEliteMobsData(monster.getId());
-			MobHunting.getInstance().getStoreManager().insertEliteMobs(monster.getId());
-			// Update mob loaded into memory
-			MobHunting.getInstance().getExtendedMobManager().updateExtendedMobs();
-			MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
+		if (event.getEntity().hasMetadata(MetadataHandler.ELITE_MOB_MD)) {
+
+			Mobs monster = getEliteMobsType(entity);
+
+			if (mMobRewardData != null && !mMobRewardData.containsKey(monster.getId())) {
+				MobHunting.getInstance().getMessages().debug("New EliteMob found=%s", monster.getId());
+				mMobRewardData.put(monster.getId(),
+						new RewardData(MobPlugin.EliteMobs, monster.getId(), monster.getName(), true, "40:60", 1,
+								"You killed an EliteMob", new ArrayList<HashMap<String, String>>(), 1, 0.02));
+				saveEliteMobsData(monster.getId());
+				MobHunting.getInstance().getStoreManager().insertEliteMobs(monster.getId());
+				// Update mob loaded into memory
+				MobHunting.getInstance().getExtendedMobManager().updateExtendedMobs();
+				MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
+			}
+
+			event.getEntity().setMetadata(MH_ELITEMOBS,
+					new FixedMetadataValue(mPlugin, mMobRewardData.get(monster.getId())));
 		}
-
-		event.getEntity().setMetadata(MetadataHandler.ELITE_MOB_MD,
-				new FixedMetadataValue(mPlugin, mMobRewardData.get(monster.getId())));
 	}
 
 }

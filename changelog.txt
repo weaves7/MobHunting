@@ -1,3 +1,5 @@
+V5.6.6
+* Fix bug where all normal Minecraft mobs was detected as a Elitemob.
 V5.6.5
 * Added Support for EliteMobs
 * Removed MCstats.org Metrics completely
