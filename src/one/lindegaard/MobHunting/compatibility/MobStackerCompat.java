@@ -55,9 +55,6 @@ public class MobStackerCompat implements Listener {
 		if (isSupported())
 			return entity.hasMetadata("max-stack");
 		return false;
-		// return entity.hasMetadata("quantity"); // quantity is removed from
-		// the dead entity
-		// return StackUtils.hasRequiredData(entity);
 	}
 
 	public static int getStackSize(Entity deadEntity) {

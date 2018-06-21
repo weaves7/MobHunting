@@ -213,26 +213,29 @@ public class ConfigManager extends AutoConfig {
 						+ "\n########################################################################"
 						+ "\nHere you can chance the behavior of the grinding detection.");
 
-		setCategoryComment("grinding.area", "Area grinding detection."
-				+ "\nEnabling this prevents a player from earning too much money from using a mob grinder."
-				+ "\nSet 'enable_grinding_detection: false' to disable the grinding detection."
-				+ "\nOBS: You can whitelist an area to allow grinding using '/mobhunt whitelistarea <add|remove>'"
-				+ "\nif the area is detected as a grinding area. See also '/mobhunt checkgrinding'"
-				+ "\nFor each kill MobHunting check the number of kills within the range"
-				+ "\nIf number of kills exceeds 10, the reward will decrese with 10% until the 'number of deaths'"
-				+ "\nis reached, whereafter the reward will be zero.");
+		setCategoryComment("grinding.area",
+				"Area grinding detection."
+						+ "\nEnabling this prevents a player from earning too much money from using a mob grinder."
+						+ "\nSet 'enable_grinding_detection: false' to disable the grinding detection."
+						+ "\nOBS: You can whitelist an area to allow grinding using '/mobhunt whitelistarea <add|remove>'"
+						+ "\nif the area is detected as a grinding area. See also '/mobhunt checkgrinding'"
+						+ "\nFor each kill MobHunting check the number of kills within the range"
+						+ "\nIf number of kills exceeds 10, the reward will decrese with 10% until the 'number of deaths'"
+						+ "\nis reached, whereafter the reward will be zero.");
 
-		setCategoryComment("grinding.farms", "Detect Grinding Farms."
-				+ "\nWhen this is true, the plugin will try to detect if the players has build a Mob Grinding Farm."
-				+ "\nFarm detection can be completly disabled or you can whitelist an area using the whitelist"
-				+ "\ncommand if you want the players to harvest mobs from a farm.");
+		setCategoryComment("grinding.farms",
+				"Detect Grinding Farms."
+						+ "\nWhen this is true, the plugin will try to detect if the players has build a Mob Grinding Farm."
+						+ "\nFarm detection can be completly disabled or you can whitelist an area using the whitelist"
+						+ "\ncommand if you want the players to harvest mobs from a farm.");
 
-		setCategoryComment("grinding.nether_gold_farms", "Nether Gold Farm detection."
-				+ "\nWhen this is true, the plugin will try to detect if the players has build a Nether Gold Farm."
-				+ "\nThere is no guarantie that the plugin can detect all types of Nether Gold farms, but it has"
-				+ "\nbeen testet on this one: https://www.youtube.com/watch?v=jQWG9Q7HoUA"
-				+ "\nWhen searching for grinding the plugin measures how many mobs dies per timeframe within a range."
-				+ "\nBe careful if you chance this number there is a risk for false positives.");
+		setCategoryComment("grinding.nether_gold_farms",
+				"Nether Gold Farm detection."
+						+ "\nWhen this is true, the plugin will try to detect if the players has build a Nether Gold Farm."
+						+ "\nThere is no guarantie that the plugin can detect all types of Nether Gold farms, but it has"
+						+ "\nbeen testet on this one: https://www.youtube.com/watch?v=jQWG9Q7HoUA"
+						+ "\nWhen searching for grinding the plugin measures how many mobs dies per timeframe within a range."
+						+ "\nBe careful if you chance this number there is a risk for false positives.");
 
 		setCategoryComment("grinding.otherfarms",
 				"Other Farm detection."
@@ -325,6 +328,13 @@ public class ConfigManager extends AutoConfig {
 						+ "\n########################################################################"
 						+ "\nHere you can chance the behavior of InfernalMobs Integration, or you can disable"
 						+ "\nintegration completely." + "\nhttps://www.spigotmc.org/resources/infernal_mobs.2156/");
+
+		setCategoryComment("plugins.elitemobs",
+				"########################################################################" + "\nInfernalMobs settings"
+						+ "\n########################################################################"
+						+ "\nHere you can chance the behavior of EliteMobs Integration, or you can disable"
+						+ "\nintegration completely."
+						+ "\nhttps://www.spigotmc.org/resources/%E2%9A%94elitemobs%E2%9A%94.40090/");
 
 		setCategoryComment("plugins.levelmobs",
 				"########################################################################"
@@ -526,7 +536,7 @@ public class ConfigManager extends AutoConfig {
 			+ "\n 'cmd:' and 'chance:' is mandatory fields, 'message:' 'message_type:' and 'permission:' is optional"
 			+ "\nIf you add a permission, the command will only be run if the player has this permission."
 			+ "\nmessage_type can be: Chat, ActionBar, BossBar, Title, Subtitle. Default/Fallback is Chat. The words"
-			+" \nare case sensitive and you you will need a supporting plugin. Ex. TitleManager,ActionBar,BossBar")
+			+ " \nare case sensitive and you you will need a supporting plugin. Ex. TitleManager,ActionBar,BossBar")
 	public List<HashMap<String, String>> exampleCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
@@ -2820,6 +2830,15 @@ public class ConfigManager extends AutoConfig {
 	public double multiplierPerInfernalLevel = 1.25;
 
 	// #####################################################################################
+	// Elitemobs Settings
+	// #####################################################################################
+	@ConfigField(name = "enable_integration_elitemobs", category = "plugins.elitemobs", comment = "Enable/Disable integration with EliteMobs")
+	public boolean enableIntegrationEliteMobs = true;
+
+	@ConfigField(name = "maximum_multiplier", category = "plugins.infernalmobs", comment = "The reward for EliteMobs from level 50-400 will be multiplier linearly")
+	public double elitemobMultiplier = 2;
+
+	// #####################################################################################
 	// ConquestiaMobs / LorinthsRpgMobs Settings
 	// #####################################################################################
 	@ConfigField(name = "enable_integration_conquestiamobs", category = "plugins.levelmobs.conquestia", comment = "Enable/disable integration with ConquestiaMobs"
@@ -3304,9 +3323,6 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "mythicmobs.enable_integration_mythicmobs", category = "plugins", comment = "Enable/Disable integration with MythicMobs")
 	public boolean enableIntegrationMythicmobs = true;
 
-	@ConfigField(name = "elitemobs.enable_integration_elitemobs", category = "plugins", comment = "Enable/Disable integration with EliteMobs")
-	public boolean enableIntegrationEliteMobs = true;
-
 	@ConfigField(name = "mypet.enable_integration_mypet", category = "plugins", comment = "Enable/Disable integration with MyPet")
 	public boolean enableIntegrationMyPet = true;
 
@@ -3559,7 +3575,7 @@ public class ConfigManager extends AutoConfig {
 
 	@ConfigField(name = "debug", category = "general", comment = "If kills are not being registered in mob hunting. Enable this to see why they arent")
 	public boolean killDebug = false;
-	
+
 	@ConfigField(name = "backup", category = "general", comment = "Backup config on each server start / reload")
 	public boolean backup = true;
 

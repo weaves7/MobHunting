@@ -170,7 +170,7 @@ public class EliteMobsCompat implements Listener {
 			return MobHunting.getInstance().getMessages().getString("mobs.EliteMobs.elitemob");
 	}
 
-	public Integer getEliteMobsLevel(Entity entity) {
+	public static int getEliteMobsLevel(Entity entity) {
 		if (isEliteMobs(entity))
 			return entity.getMetadata(MetadataHandler.ELITE_MOB_MD).get(0).asInt();
 		return 0;

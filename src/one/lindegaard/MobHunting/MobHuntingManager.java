@@ -1133,6 +1133,18 @@ public class MobHuntingManager implements Listener {
 			return;
 		}
 
+		// add a multiplier for killing an EliteMob
+		if (EliteMobsCompat.isEliteMobs(killed)){
+			int level = EliteMobsCompat.getEliteMobsLevel(killed);
+			double mul = 1;
+			if (level>=50)
+				mul=plugin.getConfigManager().elitemobMultiplier*(1+(level-50)/(400-50));
+			if (level>=400)
+				mul=plugin.getConfigManager().elitemobMultiplier;
+			plugin.getMessages().debug("A level %s %s EliteMob was killed by %s. Multiplier is %s", level, mob.getMobName(), getPlayer(killer, killed), mul);
+			cash = cash*mul;
+		}
+		
 		// Update DamageInformation
 		if (killed instanceof LivingEntity && mDamageHistory.containsKey((LivingEntity) killed)) {
 			info = mDamageHistory.get(killed);
