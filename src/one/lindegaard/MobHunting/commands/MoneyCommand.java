@@ -12,7 +12,6 @@ import one.lindegaard.MobHunting.util.Misc;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -293,9 +292,6 @@ public class MoneyCommand implements ICommand {
 
 					if (BagOfGoldCompat.isSupported()) {
 						plugin.getMessages().debug("BagOfGold supported, using depositPlayer");
-						//if (offlinePlayer.isOnline() && ((Player) offlinePlayer).getGameMode() != GameMode.SURVIVAL)
-						//	BagOfGold.getAPI().getEconomyManager().depositPlayer(offlinePlayer, 0);
-						//else
 							BagOfGold.getAPI().getEconomyManager().depositPlayer(offlinePlayer, amount);
 					} else {
 						if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
@@ -364,10 +360,6 @@ public class MoneyCommand implements ICommand {
 					double taken = 0;
 					if (BagOfGoldCompat.isSupported()) {
 						plugin.getMessages().debug("BagOfGold supported, using withdrawPlayer");
-
-						//if (offlinePlayer.isOnline() && ((Player) offlinePlayer).getGameMode() != GameMode.SURVIVAL)
-						//	BagOfGold.getAPI().getEconomyManager().withdrawPlayer(offlinePlayer, 0);
-						//else
 							BagOfGold.getAPI().getEconomyManager().withdrawPlayer(offlinePlayer, rest);
 
 					} else if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {

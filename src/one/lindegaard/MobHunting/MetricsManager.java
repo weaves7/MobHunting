@@ -71,7 +71,7 @@ public class MetricsManager {
 			public void run() {
 				try {
 					// make a URL to MCStats.org
-					URL url = new URL("hhttps://bstats.org/");
+					URL url = new URL("https://bstats.org/");
 					if (HttpTools.isHomePageReachable(url)) {
 						startBStatsMetrics();
 					} else {
