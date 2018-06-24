@@ -1,8 +1,12 @@
 package one.lindegaard.MobHunting;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
+
+import org.bukkit.Bukkit;
 
 import one.lindegaard.MobHunting.compatibility.ActionAnnouncerCompat;
 import one.lindegaard.MobHunting.compatibility.ActionBarAPICompat;
@@ -61,7 +65,27 @@ public class MetricsManager {
 		this.plugin = plugin;
 	}
 
-	public void startBStatsMetrics() {
+	public void start(){
+		plugin.getMessages().debug("Metrics started");
+		Bukkit.getScheduler().runTaskTimerAsynchronously(MobHunting.getInstance(), new Runnable() {
+			public void run() {
+				try {
+					// make a URL to MCStats.org
+					URL url = new URL("hhttps://bstats.org/");
+					if (HttpTools.isHomePageReachable(url)) {
+						startBStatsMetrics();
+					} else {
+						plugin.getMessages().debug("https://bstats.org/ seems to be down");
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			}
+		}, 100, 72000);
+	}
+	
+	private void startBStatsMetrics() {
 		bStatsMetrics = new org.bstats.bukkit.Metrics(plugin);
 
 		bStatsMetrics.addCustomChart(new org.bstats.bukkit.Metrics.SimplePie("database_used_for_mobhunting",

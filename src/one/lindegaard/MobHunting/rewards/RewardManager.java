@@ -847,7 +847,7 @@ public class RewardManager {
 			if (SmartGiantsCompat.getMobRewardData().containsKey(SmartGiantsCompat.getSmartGiantsMobType(mob)))
 				return SmartGiantsCompat.getMobRewardData().get(SmartGiantsCompat.getSmartGiantsMobType(mob))
 						.getConsoleRunCommand();
-			return null;
+			return new ArrayList<>();
 
 		} else if (HerobrineCompat.isHerobrineMob(mob)) {
 			if (HerobrineCompat.getMobRewardData().containsKey(HerobrineCompat.getHerobrineMobType(mob)))
@@ -859,7 +859,7 @@ public class RewardManager {
 			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob)))
 				return EliteMobsCompat.getMobRewardData().get(EliteMobsCompat.getEliteMobsType(mob))
 						.getConsoleRunCommand();
-			return null;
+			return new ArrayList<>();
 
 		} else if (MyPetCompat.isMyPet(mob)) {
 			return plugin.getConfigManager().wolfCommands;
@@ -932,7 +932,7 @@ public class RewardManager {
 					if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
 						return plugin.getConfigManager().killerRabbitCommands;
 					else
-						return plugin.getConfigManager().rabbitCommads;
+						return plugin.getConfigManager().rabbitCommands;
 
 			if (mob instanceof Player)
 				return plugin.getConfigManager().pvpCmdNew;

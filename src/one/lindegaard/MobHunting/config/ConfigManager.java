@@ -1896,12 +1896,12 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "rabbit.money.chance", category = "passive")
 	public double rabbitCmdRunChance = 1;
 	@ConfigField(name = "rabbit.commands", category = "passive")
-	public List<HashMap<String, String>> rabbitCommads = new ArrayList<HashMap<String, String>>();
+	public List<HashMap<String, String>> rabbitCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		rabbitCommads.add(values1);
+		rabbitCommands.add(values1);
 	}
 	@ConfigField(name = "rabbit.head.drophead", category = "passive")
 	public boolean rabbitHeadDropHead = true;
@@ -3983,7 +3983,7 @@ public class ConfigManager extends AutoConfig {
 		this.pigHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 		this.rabbitMoney = mConfig0.rabbitPrize;
-		this.rabbitCommads = convertCommands(mConfig0.rabbitCmd, mConfig0.rabbitCmdRunChance);
+		this.rabbitCommands = convertCommands(mConfig0.rabbitCmd, mConfig0.rabbitCmdRunChance);
 		this.rabbitHeadDropHead = convertDropHeadEnabled(mConfig0.rabbitCmd);
 		this.rabbitHeadPrize = mConfig0.rabbitHeadPrize;
 		this.rabbitHeadDropChance = mConfig0.rabbitCmdRunChance;
