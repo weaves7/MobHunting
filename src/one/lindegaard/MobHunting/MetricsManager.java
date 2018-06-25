@@ -67,7 +67,7 @@ public class MetricsManager {
 
 	public void start(){
 		plugin.getMessages().debug("Metrics started");
-		Bukkit.getScheduler().runTaskTimerAsynchronously(MobHunting.getInstance(), new Runnable() {
+		Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, new Runnable() {
 			public void run() {
 				try {
 					// make a URL to MCStats.org
