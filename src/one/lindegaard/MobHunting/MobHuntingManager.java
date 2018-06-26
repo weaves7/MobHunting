@@ -1736,7 +1736,9 @@ public class MobHuntingManager implements Listener {
 				if (perm.isEmpty() || getPlayer(killer, killed).hasPermission(perm)) {
 					double random = plugin.mRand.nextDouble();
 					if (random < Double.valueOf(cmd.get("chance"))) {
-						String commandCmd = cmd.getOrDefault("cmd","")
+						String commandCmd = cmd.getOrDefault("cmd","");
+						if (commandCmd!=null) {
+							commandCmd=commandCmd
 								.replaceAll("\\{player\\}", getPlayer(killer, killed).getName())
 								.replaceAll("\\{killer\\}", getPlayer(killer, killed).getName())
 								.replaceAll("\\{killed\\}", mob.getFriendlyName()).replaceAll("\\{world\\}", worldname)
@@ -1779,7 +1781,7 @@ public class MobHuntingManager implements Listener {
 												+ getPlayer(killer, killed).getName());
 								Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Command:" + str);
 							}
-						}
+						}}
 						MessageType messageType = MessageType.valueOf((cmd == null || cmd.get("message_type") == null)
 								? "Chat" : cmd.getOrDefault("message_type", "Chat"));
 						String message = cmd.getOrDefault("message","");
