@@ -24,7 +24,6 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.event.inventory.InventoryPickupItemEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.inventory.InventoryType.SlotType;
@@ -67,15 +66,7 @@ public class RewardListeners implements Listener {
 
 		if (Reward.isReward(item)) {
 			Reward reward = Reward.getReward(item);
-			double money = 0;
-			//if (player.getGameMode() == GameMode.SURVIVAL)
-				money = reward.getMoney();
-			//else {
-			//	ItemStack is = item.getItemStack();
-			//	is = plugin.getRewardManager().setDisplayNameAndHiddenLores(is, reward.getDisplayname(), 0,
-			//			reward.getRewardType(), reward.getSkinUUID());
-			//	item.setItemStack(is);
-			//}
+			double money = reward.getMoney();
 			if (money == 0) {
 				item.setCustomName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 						+ reward.getDisplayname());
@@ -106,9 +97,7 @@ public class RewardListeners implements Listener {
 										+ (plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
 												? plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim()
 												: reward.getDisplayname())));
-				if (BagOfGoldCompat.isSupported() 
-						//&& player.getGameMode() == GameMode.SURVIVAL
-						&& (reward.isBagOfGoldReward() || reward.isItemReward())) {
+				if (BagOfGoldCompat.isSupported() && (reward.isBagOfGoldReward() || reward.isItemReward())) {
 					BagOfGold.getAPI().getEconomyManager().removeMoneyFromBalance(player, money);
 				}
 			}
@@ -165,10 +154,6 @@ public class RewardListeners implements Listener {
 
 		Player player = event.getPlayer();
 
-		//if (player.getGameMode() != GameMode.SURVIVAL){
-		//	plugin.getMessages().debug("Can't pickup BagOfGold when NOT in Survival");
-		//	return;}
-
 		if (player.getInventory().firstEmpty() == -1) {
 			Iterator<Entity> entityList = ((Entity) player).getNearbyEntities(1, 1, 1).iterator();
 			while (entityList.hasNext()) {
@@ -184,14 +169,12 @@ public class RewardListeners implements Listener {
 						if (reward.isBagOfGoldReward() || reward.isItemReward()) {
 							boolean done = false;
 							if (BagOfGoldCompat.isSupported()) {
-								//if (player.getGameMode() == GameMode.SURVIVAL) {
-									done = plugin.getRewardManager().addBagOfGoldPlayer(player, reward.getMoney());
-									PlayerSettings ps = BagOfGold.getAPI().getPlayerSettingsManager()
-											.getPlayerSettings(player);
-									ps.setBalance(Misc.round(ps.getBalance() + reward.getMoney()));
-									BagOfGold.getAPI().getPlayerSettingsManager().setPlayerSettings(player, ps);
-									done = true;
-								//}
+								done = plugin.getRewardManager().addBagOfGoldPlayer(player, reward.getMoney());
+								PlayerSettings ps = BagOfGold.getAPI().getPlayerSettingsManager()
+										.getPlayerSettings(player);
+								ps.setBalance(Misc.round(ps.getBalance() + reward.getMoney()));
+								BagOfGold.getAPI().getPlayerSettingsManager().setPlayerSettings(player, ps);
+								done = true;
 							} else if (reward.getMoney() != 0
 									&& !plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
 								// If not Gringotts
@@ -306,8 +289,7 @@ public class RewardListeners implements Listener {
 			plugin.getRewardManager().getLocations().put(reward.getUniqueUUID(), reward);
 			plugin.getRewardManager().getReward().put(reward.getUniqueUUID(), block.getLocation());
 			plugin.getRewardManager().saveReward(reward.getUniqueUUID());
-			if (BagOfGoldCompat.isSupported() && (reward.isBagOfGoldReward() || reward.isItemReward())
-					&& player.getGameMode() == GameMode.SURVIVAL) {
+			if (BagOfGoldCompat.isSupported() && (reward.isBagOfGoldReward() || reward.isItemReward())) {
 				BagOfGold.getAPI().getEconomyManager().removeMoneyFromBalance(player, reward.getMoney());
 			}
 		}
@@ -388,19 +370,19 @@ public class RewardListeners implements Listener {
 				}
 			}
 		}
-		if (BagOfGoldCompat.isSupported() 
-				//&& player.getGameMode() == GameMode.SURVIVAL
-				){
-			PlayerSettings ps = BagOfGold.getAPI().getPlayerSettingsManager().getPlayerSettings(player);
-			double amountInInventory = plugin.getRewardManager().getAmountInInventory(player);
-			if (Misc.round(amountInInventory) != Misc.round(ps.getBalance() + ps.getBalanceChanges())) {
-				ps.setBalance(amountInInventory);
-				ps.setBalanceChanges(0);
-				BagOfGold.getAPI().getPlayerSettingsManager().setPlayerSettings(player, ps);
-			}
-			plugin.getMessages().debug("%s closed inventory: new balance is %s", player.getName(),
-					plugin.getRewardManager().getEconomy().getBalance(player));
-		}
+		/**
+		 * if (BagOfGoldCompat.isSupported()) { PlayerSettings ps =
+		 * BagOfGold.getAPI().getPlayerSettingsManager().getPlayerSettings(player);
+		 * double amountInInventory =
+		 * plugin.getRewardManager().getAmountInInventory(player); if
+		 * (Misc.round(amountInInventory) != Misc.round(ps.getBalance() +
+		 * ps.getBalanceChanges())) { ps.setBalance(amountInInventory);
+		 * ps.setBalanceChanges(0);
+		 * BagOfGold.getAPI().getPlayerSettingsManager().setPlayerSettings(player,
+		 * ps); } plugin.getMessages().debug("%s closed inventory: new balance
+		 * is %s", player.getName(),
+		 * plugin.getRewardManager().getEconomy().getBalance(player)); }
+		 **/
 	}
 
 	@EventHandler
@@ -451,7 +433,7 @@ public class RewardListeners implements Listener {
 				} else if (skullState.hasOwner()) {
 					@SuppressWarnings("deprecation")
 					String owner = skullState.getOwner();
-					if (owner!=null && !owner.equalsIgnoreCase("")) {
+					if (owner != null && !owner.equalsIgnoreCase("")) {
 						plugin.getMessages().playerActionBarMessageQueue(player,
 								ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + owner);
 					} else
@@ -502,24 +484,26 @@ public class RewardListeners implements Listener {
 
 		if (CitizensCompat.isNPC(event.getWhoClicked()))
 			return;
-		
+
 		ItemStack isCurrentSlot = event.getCurrentItem();
 		ItemStack isCursor = event.getCursor();
 		if (!(Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)))
 			return;
-		
+
 		InventoryAction action = event.getAction();
 		Player player = (Player) event.getWhoClicked();
 		SlotType slotType = event.getSlotType();
 
-		//Inventory inventory = event.getInventory();
-		//if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
-		//plugin.getMessages().debug(
-		//		"action=%s, InventoryType=%s, slottype=%s, slotno=%s, current=%s, cursor=%s, view=%s", action,
-		//		inventory.getType(), slotType, event.getSlot(),
-		//		isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
-		//		isCursor == null ? "null" : isCursor.getType(), event.getView().getType());
-		//}
+		// Inventory inventory = event.getInventory();
+		// if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
+		// plugin.getMessages().debug(
+		// "action=%s, InventoryType=%s, slottype=%s, slotno=%s, current=%s,
+		// cursor=%s, view=%s", action,
+		// inventory.getType(), slotType, event.getSlot(),
+		// isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
+		// isCursor == null ? "null" : isCursor.getType(),
+		// event.getView().getType());
+		// }
 
 		if (action == InventoryAction.NOTHING)
 			return;
@@ -621,58 +605,6 @@ public class RewardListeners implements Listener {
 				}
 			}
 		}
-	}
-
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onInventoryCreative(InventoryCreativeEvent event) {
-		//if (event.isCancelled() || event.getInventory() == null)
-		//	return;
-
-		//if (CitizensCompat.isNPC(event.getWhoClicked()))
-		//	return;
-		
-		//ItemStack isCurrentSlot = event.getCurrentItem();
-		//ItemStack isCursor = event.getCursor();
-		//if (!(Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)))
-		//	return;
-		
-		//InventoryAction action = event.getAction();
-		//Player player = (Player) event.getWhoClicked();
-		//SlotType slotType = event.getSlotType();
-		//Inventory inventory = event.getInventory();
-		// if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
-		//plugin.getMessages().debug(
-		//		"Creative GameMode: action=%s, InventoryType=%s, slottype=%s, slotno=%s, current=%s, cursor=%s, view=%s",
-		//		action, inventory.getType(), slotType, event.getSlot(),
-		//		isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
-		//		isCursor == null ? "null" : isCursor.getType(), event.getView().getType());
-		// }
-
-		//if (Reward.isReward(isCurrentSlot) && Reward.getReward(isCurrentSlot).getMoney() > 0)
-		//	plugin.getMessages().learn(player, plugin.getMessages().getString("mobhunting.learn.rewards.creative"));
-
-		//if (Reward.isReward(isCurrentSlot)) {
-		//	Reward reward = Reward.getReward(isCurrentSlot);
-		//	isCurrentSlot = plugin.getRewardManager().setDisplayNameAndHiddenLores(isCurrentSlot.clone(),
-		//			ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
-		//					+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName,
-		//			0, reward.getRewardType(), reward.getSkinUUID());
-		//	event.setCurrentItem(isCurrentSlot);
-		//	if (reward.getMoney() > 0)
-		//		plugin.getMessages().debug("Reward in slot %s had its value set to 0", event.getSlot());
-		//}
-
-		//if (Reward.isReward(isCursor)) {
-		//	Reward reward = Reward.getReward(isCursor);
-		//	isCursor = plugin.getRewardManager().setDisplayNameAndHiddenLores(isCursor.clone(),
-		//			ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
-		//					+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName,
-		//			0, reward.getRewardType(), reward.getSkinUUID());
-		//	event.setCursor(isCursor);
-		//	if (reward.getMoney() > 0)
-		//		plugin.getMessages().debug("Reward on the cursor had its value set to 0", event.getSlot());
-		//}
-
 	}
 
 }

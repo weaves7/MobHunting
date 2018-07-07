@@ -86,8 +86,8 @@ public class PlayerSettingsManager implements Listener {
 	private void onPlayerJoin(PlayerJoinEvent event) {
 		final Player player = event.getPlayer();
 		if (containsKey(player))
-			plugin.getMessages().debug("Using cached player settings for %s. Balance=%s", player.getName(),
-					plugin.getRewardManager().format(plugin.getRewardManager().getBalance(player)));
+			plugin.getMessages().debug("Using cached player settings for %s. Balance=%s (%s)" , player.getName(),
+					plugin.getRewardManager().format(plugin.getRewardManager().getBalance(player)),player.getGameMode());
 		else {
 			load(player);
 		}

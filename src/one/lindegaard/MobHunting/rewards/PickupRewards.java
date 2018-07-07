@@ -26,12 +26,8 @@ public class PickupRewards {
 			if (reward.isBagOfGoldReward() || reward.isItemReward()) {
 				callBack.setCancelled(true);
 				if (BagOfGoldCompat.isSupported()) {
-					//if (player.getGameMode() == GameMode.SURVIVAL) {
-						done = BagOfGold.getAPI().getEconomyManager().depositPlayer(player, reward.getMoney())
-								.transactionSuccess();
-					//} else if (reward.getMoney() == 0) {
-					//	done = BagOfGold.getAPI().getEconomyManager().depositPlayer(player, 0).transactionSuccess();
-					//}
+					done = BagOfGold.getAPI().getEconomyManager().depositPlayer(player, reward.getMoney())
+							.transactionSuccess();
 				} else if (reward.getMoney() != 0 && !plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
 					// If not Gringotts
 					done = plugin.getRewardManager().depositPlayer(player, reward.getMoney()).transactionSuccess();
@@ -47,13 +43,14 @@ public class PickupRewards {
 					ProtocolLibHelper.pickupMoney(player, item);
 
 				if (reward.getMoney() == 0) {
-					plugin.getMessages().debug("%s picked up a %s (# of rewards left=%s)", player.getName(),
-							plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM") ? "ITEM"
-									: reward.getDisplayname(),
-							plugin.getRewardManager().getDroppedMoney().size());
+					plugin.getMessages()
+							.debug("%s picked up a %s (# of rewards left=%s)", player.getName(),
+									plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
+											? "ITEM" : reward.getDisplayname(),
+									plugin.getRewardManager().getDroppedMoney().size());
 				} else {
-					plugin.getMessages().debug("%s picked up a %s with a value:%s (# of rewards left=%s)(PickupRewards)",
-							player.getName(),
+					plugin.getMessages().debug(
+							"%s picked up a %s with a value:%s (# of rewards left=%s)(PickupRewards)", player.getName(),
 							plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM") ? "ITEM"
 									: reward.getDisplayname(),
 							plugin.getRewardManager().format(Misc.round(reward.getMoney())),

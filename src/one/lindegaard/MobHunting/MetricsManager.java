@@ -53,27 +53,29 @@ import one.lindegaard.MobHunting.compatibility.TownyCompat;
 import one.lindegaard.MobHunting.compatibility.VanishNoPacketCompat;
 import one.lindegaard.MobHunting.compatibility.WorldEditCompat;
 import one.lindegaard.MobHunting.compatibility.WorldGuardCompat;
+import org.bstats.bukkit.Metrics;
 
 public class MetricsManager {
 
-	// Metrics
 	private MobHunting plugin;
+	private boolean started = false;
 
-	private org.bstats.bukkit.Metrics bStatsMetrics;
+	private Metrics bStatsMetrics;
 
 	public MetricsManager(MobHunting plugin) {
 		this.plugin = plugin;
 	}
 
-	public void start(){
-		plugin.getMessages().debug("Metrics started");
+	public void start() {
 		Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, new Runnable() {
 			public void run() {
 				try {
 					// make a URL to MCStats.org
-					URL url = new URL("https://bstats.org/");
-					if (HttpTools.isHomePageReachable(url)) {
+					URL url = new URL("https://www.bstats.org/");
+					if (!started && HttpTools.isHomePageReachable(url)) {
 						startBStatsMetrics();
+						plugin.getMessages().debug("Metrics reporting to Https://bstats.org has started.");
+						started= true;
 					} else {
 						plugin.getMessages().debug("https://bstats.org/ seems to be down");
 					}
@@ -84,20 +86,19 @@ public class MetricsManager {
 			}
 		}, 100, 72000);
 	}
-	
+
 	private void startBStatsMetrics() {
-		bStatsMetrics = new org.bstats.bukkit.Metrics(plugin);
+		bStatsMetrics = new Metrics(plugin);
 
-		bStatsMetrics.addCustomChart(new org.bstats.bukkit.Metrics.SimplePie("database_used_for_mobhunting",
-				() -> plugin.getConfigManager().databaseType));
 		bStatsMetrics.addCustomChart(
-				new org.bstats.bukkit.Metrics.SimplePie("language", () -> plugin.getConfigManager().language));
+				new Metrics.SimplePie("database_used_for_mobhunting", () -> plugin.getConfigManager().databaseType));
+		bStatsMetrics.addCustomChart(new Metrics.SimplePie("language", () -> plugin.getConfigManager().language));
 
-		bStatsMetrics.addCustomChart(new org.bstats.bukkit.Metrics.SimplePie("economy_plugin",
-				() -> plugin.getRewardManager().getEconomy().getName()));
+		bStatsMetrics.addCustomChart(
+				new Metrics.SimplePie("economy_plugin", () -> plugin.getRewardManager().getEconomy().getName()));
 
-		bStatsMetrics.addCustomChart(new org.bstats.bukkit.Metrics.AdvancedPie("protection_plugin_integrations",
-				new Callable<Map<String, Integer>>() {
+		bStatsMetrics.addCustomChart(
+				new Metrics.AdvancedPie("protection_plugin_integrations", new Callable<Map<String, Integer>>() {
 					@Override
 					public Map<String, Integer> call() throws Exception {
 						Map<String, Integer> valueMap = new HashMap<>();
@@ -114,8 +115,8 @@ public class MetricsManager {
 
 				}));
 
-		bStatsMetrics.addCustomChart(new org.bstats.bukkit.Metrics.AdvancedPie("minigame_integrations",
-				new Callable<Map<String, Integer>>() {
+		bStatsMetrics
+				.addCustomChart(new Metrics.AdvancedPie("minigame_integrations", new Callable<Map<String, Integer>>() {
 					@Override
 					public Map<String, Integer> call() throws Exception {
 						Map<String, Integer> valueMap = new HashMap<>();
@@ -129,8 +130,8 @@ public class MetricsManager {
 
 				}));
 
-		bStatsMetrics.addCustomChart(new org.bstats.bukkit.Metrics.AdvancedPie("disguise_plugin_integrations",
-				new Callable<Map<String, Integer>>() {
+		bStatsMetrics.addCustomChart(
+				new Metrics.AdvancedPie("disguise_plugin_integrations", new Callable<Map<String, Integer>>() {
 					@Override
 					public Map<String, Integer> call() throws Exception {
 						Map<String, Integer> valueMap = new HashMap<>();
@@ -159,8 +160,8 @@ public class MetricsManager {
 
 				}));
 
-		bStatsMetrics.addCustomChart(
-				new org.bstats.bukkit.Metrics.AdvancedPie("other_integrations", new Callable<Map<String, Integer>>() {
+		bStatsMetrics
+				.addCustomChart(new Metrics.AdvancedPie("other_integrations", new Callable<Map<String, Integer>>() {
 					@Override
 					public Map<String, Integer> call() throws Exception {
 						Map<String, Integer> valueMap = new HashMap<>();
@@ -177,63 +178,60 @@ public class MetricsManager {
 
 				}));
 
-		bStatsMetrics.addCustomChart(
-				new org.bstats.bukkit.Metrics.AdvancedPie("special_mobs", new Callable<Map<String, Integer>>() {
-					@Override
-					public Map<String, Integer> call() throws Exception {
-						Map<String, Integer> valueMap = new HashMap<>();
-						valueMap.put("MythicMobs", MythicMobsCompat.isSupported() ? 1 : 0);
-						valueMap.put("TARDISWeepingAngels", TARDISWeepingAngelsCompat.isSupported() ? 1 : 0);
-						valueMap.put("MobStacker", MobStackerCompat.isSupported() ? 1 : 0);
-						valueMap.put("CustomMobs", CustomMobsCompat.isSupported() ? 1 : 0);
-						valueMap.put("ConquestiaMobs", ConquestiaMobsCompat.isSupported() ? 1 : 0);
-						valueMap.put("LorinthsRpgMobs", LorinthsRpgMobsCompat.isSupported() ? 1 : 0);
-						valueMap.put("StackMob", StackMobCompat.isSupported() ? 1 : 0);
-						valueMap.put("MysteriousHalloween", MysteriousHalloweenCompat.isSupported() ? 1 : 0);
-						valueMap.put("SmartGiants", SmartGiantsCompat.isSupported() ? 1 : 0);
-						valueMap.put("InfernalMobs", InfernalMobsCompat.isSupported() ? 1 : 0);
-						valueMap.put("Herobrine", HerobrineCompat.isSupported() ? 1 : 0);
-						valueMap.put("EliteMobs", EliteMobsCompat.isSupported() ? 1 : 0);
-						return valueMap;
-					}
+		bStatsMetrics.addCustomChart(new Metrics.AdvancedPie("special_mobs", new Callable<Map<String, Integer>>() {
+			@Override
+			public Map<String, Integer> call() throws Exception {
+				Map<String, Integer> valueMap = new HashMap<>();
+				valueMap.put("MythicMobs", MythicMobsCompat.isSupported() ? 1 : 0);
+				valueMap.put("TARDISWeepingAngels", TARDISWeepingAngelsCompat.isSupported() ? 1 : 0);
+				valueMap.put("MobStacker", MobStackerCompat.isSupported() ? 1 : 0);
+				valueMap.put("CustomMobs", CustomMobsCompat.isSupported() ? 1 : 0);
+				valueMap.put("ConquestiaMobs", ConquestiaMobsCompat.isSupported() ? 1 : 0);
+				valueMap.put("LorinthsRpgMobs", LorinthsRpgMobsCompat.isSupported() ? 1 : 0);
+				valueMap.put("StackMob", StackMobCompat.isSupported() ? 1 : 0);
+				valueMap.put("MysteriousHalloween", MysteriousHalloweenCompat.isSupported() ? 1 : 0);
+				valueMap.put("SmartGiants", SmartGiantsCompat.isSupported() ? 1 : 0);
+				valueMap.put("InfernalMobs", InfernalMobsCompat.isSupported() ? 1 : 0);
+				valueMap.put("Herobrine", HerobrineCompat.isSupported() ? 1 : 0);
+				valueMap.put("EliteMobs", EliteMobsCompat.isSupported() ? 1 : 0);
+				return valueMap;
+			}
 
-				}));
+		}));
 
-		bStatsMetrics.addCustomChart(
-				new org.bstats.bukkit.Metrics.AdvancedPie("titlemanagers", new Callable<Map<String, Integer>>() {
-					@Override
-					public Map<String, Integer> call() throws Exception {
-						Map<String, Integer> valueMap = new HashMap<>();
-						valueMap.put("BossBarAPI", BossBarAPICompat.isSupported() ? 1 : 0);
-						valueMap.put("TitleAPI", TitleAPICompat.isSupported() ? 1 : 0);
-						valueMap.put("BarAPI", BarAPICompat.isSupported() ? 1 : 0);
-						valueMap.put("TitleManager", TitleManagerCompat.isSupported() ? 1 : 0);
-						valueMap.put("ActionBar", ActionbarCompat.isSupported() ? 1 : 0);
-						valueMap.put("ActionBarAPI", ActionBarAPICompat.isSupported() ? 1 : 0);
-						valueMap.put("ActionAnnouncer", ActionAnnouncerCompat.isSupported() ? 1 : 0);
-						valueMap.put("Holograms", HologramsCompat.isSupported() ? 1 : 0);
-						valueMap.put("Holographic Display", HolographicDisplaysCompat.isSupported() ? 1 : 0);
-						valueMap.put("CMIHolograms", CMICompat.isSupported() ? 1 : 0);
-						return valueMap;
-					}
+		bStatsMetrics.addCustomChart(new Metrics.AdvancedPie("titlemanagers", new Callable<Map<String, Integer>>() {
+			@Override
+			public Map<String, Integer> call() throws Exception {
+				Map<String, Integer> valueMap = new HashMap<>();
+				valueMap.put("BossBarAPI", BossBarAPICompat.isSupported() ? 1 : 0);
+				valueMap.put("TitleAPI", TitleAPICompat.isSupported() ? 1 : 0);
+				valueMap.put("BarAPI", BarAPICompat.isSupported() ? 1 : 0);
+				valueMap.put("TitleManager", TitleManagerCompat.isSupported() ? 1 : 0);
+				valueMap.put("ActionBar", ActionbarCompat.isSupported() ? 1 : 0);
+				valueMap.put("ActionBarAPI", ActionBarAPICompat.isSupported() ? 1 : 0);
+				valueMap.put("ActionAnnouncer", ActionAnnouncerCompat.isSupported() ? 1 : 0);
+				valueMap.put("Holograms", HologramsCompat.isSupported() ? 1 : 0);
+				valueMap.put("Holographic Display", HolographicDisplaysCompat.isSupported() ? 1 : 0);
+				valueMap.put("CMIHolograms", CMICompat.isSupported() ? 1 : 0);
+				return valueMap;
+			}
 
-				}));
+		}));
 
-		bStatsMetrics.addCustomChart(
-				new org.bstats.bukkit.Metrics.AdvancedPie("mobhunting_usage", new Callable<Map<String, Integer>>() {
-					@Override
-					public Map<String, Integer> call() throws Exception {
-						Map<String, Integer> valueMap = new HashMap<>();
-						valueMap.put("Leaderboards", plugin.getLeaderboardManager().getWorldLeaderBoards().size());
-						valueMap.put("Holographic Leaderboards",
-								plugin.getLeaderboardManager().getHologramManager().getHolograms().size());
-						valueMap.put("MasterMobHunters", CitizensCompat.getMasterMobHunterManager().getAll().size());
-						valueMap.put("PlayerBounties", plugin.getConfigManager().enablePlayerBounties
-								? plugin.getBountyManager().getAllBounties().size() : 0);
-						return valueMap;
-					}
+		bStatsMetrics.addCustomChart(new Metrics.AdvancedPie("mobhunting_usage", new Callable<Map<String, Integer>>() {
+			@Override
+			public Map<String, Integer> call() throws Exception {
+				Map<String, Integer> valueMap = new HashMap<>();
+				valueMap.put("Leaderboards", plugin.getLeaderboardManager().getWorldLeaderBoards().size());
+				valueMap.put("Holographic Leaderboards",
+						plugin.getLeaderboardManager().getHologramManager().getHolograms().size());
+				valueMap.put("MasterMobHunters", CitizensCompat.getMasterMobHunterManager().getAll().size());
+				valueMap.put("PlayerBounties", plugin.getConfigManager().enablePlayerBounties
+						? plugin.getBountyManager().getAllBounties().size() : 0);
+				return valueMap;
+			}
 
-				}));
+		}));
 	}
 
 }

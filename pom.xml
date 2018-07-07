@@ -6,8 +6,8 @@
 	<groupId>one.lindegaard</groupId>
 	<artifactId>MobHunting</artifactId>
 	<packaging>jar</packaging>
-	<!-- <version>5.7.0</version> -->
-	<version>5.7.0-SNAPSHOT-B${build.number}</version>
+	<version>5.7.0</version>
+	<!-- <version>5.7.0-SNAPSHOT-B${build.number}</version> -->
 	<name>MobHunting</name>
 	<url>https://www.spigotmc.org/resources/mobhunting.3582/</url>
 	<description>MobHunting adds a new level of fun to hunting monsters. Now you can get money from kills, get bonuses for skilled and creative kills, and get special achievements!</description>
@@ -34,7 +34,7 @@
 		<spigotmc112.version>1.12.2-R0.1-SNAPSHOT</spigotmc112.version>
 		<bukkit113.version>18w03b-R0.1-SNAPSHOT</bukkit113.version>
 		<bukkit112.version>1.12.2-R0.1-SNAPSHOT</bukkit112.version>
-		<craftbukkit112.version>1.12.2-R1</craftbukkit112.version>
+		<craftbukkit112R1.version>1.12-R1</craftbukkit112R1.version>
 		<craftbukkit111R1.version>1.11-R1</craftbukkit111R1.version>
 		<craftbukkit110R1.version>1.10-R1</craftbukkit110R1.version>
 		<craftbukkit19R1.version>1.9-R1</craftbukkit19R1.version>
@@ -43,6 +43,7 @@
 		<craftbukkit18R2.version>1.8-R2</craftbukkit18R2.version>
 		<craftbukkit18R1.version>1.8-R1</craftbukkit18R1.version>
 		<spongeapi.version>5.1.0-SNAPSHOT</spongeapi.version>
+		
 		<javacompiler.version>1.8</javacompiler.version>
 		<mavenCompilerPlugin.version>3.7.0</mavenCompilerPlugin.version>
 		<mavenJarPlugin.version>3.1.0</mavenJarPlugin.version>
@@ -359,6 +360,14 @@
 		</dependency>
 
 		<!-- CraftBukkit -->
+		<dependency>
+			<groupId>org.craftbukkit</groupId>
+			<artifactId>craftbukkit112R1</artifactId>
+			<version>${craftbukkit112R1.version}</version>
+			<!-- <scope>provided</scope> -->
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/craftbukkit-1.12.2.jar</systemPath>
+		</dependency>
 		<dependency>
 			<groupId>org.craftbukkit</groupId>
 			<artifactId>craftbukkit111R1</artifactId>

@@ -140,6 +140,7 @@ public class RewardManager {
 		pickupRewards = new PickupRewards(plugin);
 
 		Bukkit.getPluginManager().registerEvents(new RewardListeners(plugin), plugin);
+		
 		if (Misc.isMC18OrNewer())
 			Bukkit.getPluginManager().registerEvents(new MoneyMergeEventListener(plugin), plugin);
 
@@ -147,6 +148,7 @@ public class RewardManager {
 			Bukkit.getPluginManager().registerEvents(new EntityPickupItemEventListener(pickupRewards), plugin);
 		else
 			Bukkit.getPluginManager().registerEvents(new PlayerPickupItemEventListener(pickupRewards), plugin);
+		
 		loadAllStoredRewards();
 
 		if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency)
@@ -242,7 +244,8 @@ public class RewardManager {
 							ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + displayName);
 					is.setItemMeta(im);
 					is.setAmount(1);
-					plugin.getMessages().debug("Added %s to item in slot %s, new value is %s (addBagOfGoldPlayer_RewardManager)",
+					plugin.getMessages().debug(
+							"Added %s to item in slot %s, new value is %s (addBagOfGoldPlayer_RewardManager)",
 							format(amount), slot, format(rewardInSlot.getMoney()));
 					found = true;
 					break;
@@ -473,8 +476,8 @@ public class RewardManager {
 			return 0;
 		} else if (plugin.getConfigManager().mobKillsPlayerPenalty.trim().contains(":")) {
 			String[] str1 = plugin.getConfigManager().mobKillsPlayerPenalty.trim().split(":");
-			double prize = (plugin.mRand.nextDouble()
-					* (Double.valueOf(str1[1]) - Double.valueOf(str1[0])) + Double.valueOf(str1[0]));
+			double prize = (plugin.mRand.nextDouble() * (Double.valueOf(str1[1]) - Double.valueOf(str1[0]))
+					+ Double.valueOf(str1[0]));
 			return Misc.round(prize);
 		} else if (plugin.getConfigManager().mobKillsPlayerPenalty.trim().endsWith("%")) {
 			double prize = 0;
@@ -502,8 +505,8 @@ public class RewardManager {
 			return 0;
 		} else if (str.contains(":")) {
 			String[] str1 = str.split(":");
-			double prize = (plugin.mRand.nextDouble()
-					* (Double.valueOf(str1[1]) - Double.valueOf(str1[0])) + Double.valueOf(str1[0]));
+			double prize = (plugin.mRand.nextDouble() * (Double.valueOf(str1[1]) - Double.valueOf(str1[0]))
+					+ Double.valueOf(str1[0]));
 			return Misc.round(prize);
 		} else
 			return Double.valueOf(str);
@@ -561,7 +564,8 @@ public class RewardManager {
 			if (SmartGiantsCompat.getMobRewardData().containsKey(SmartGiantsCompat.getSmartGiantsMobType(mob)))
 				return getPrice(mob, SmartGiantsCompat.getMobRewardData()
 						.get(SmartGiantsCompat.getSmartGiantsMobType(mob)).getRewardPrize());
-			plugin.getMessages().debug("SmartGiantsS %s has no reward data", SmartGiantsCompat.getSmartGiantsMobType(mob));
+			plugin.getMessages().debug("SmartGiantsS %s has no reward data",
+					SmartGiantsCompat.getSmartGiantsMobType(mob));
 			return 0;
 
 		} else if (MyPetCompat.isMyPet(mob)) {
@@ -578,9 +582,9 @@ public class RewardManager {
 
 		} else if (EliteMobsCompat.isEliteMobs(mob)) {
 			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob)))
-				return getPrice(mob, EliteMobsCompat.getMobRewardData().get(EliteMobsCompat.getEliteMobsType(mob))
-						.getRewardPrize());
-			plugin.getMessages().debug("EliteMob %s has no reward data", EliteMobsCompat.getEliteMobsType(mob));
+				return getPrice(mob,
+						EliteMobsCompat.getMobRewardData().get(EliteMobsCompat.getEliteMobsType(mob)).getRewardPrize());
+			//plugin.getMessages().debug("EliteMob %s has no reward data", EliteMobsCompat.getEliteMobsType(mob));
 			return 0;
 
 		} else {
@@ -673,8 +677,8 @@ public class RewardManager {
 					return Misc.round(prize);
 				} else if (plugin.getConfigManager().pvpKillMoney.contains(":")) {
 					String[] str1 = plugin.getConfigManager().pvpKillMoney.split(":");
-					double prize2 = (plugin.mRand.nextDouble()
-							* (Double.valueOf(str1[1]) - Double.valueOf(str1[0])) + Double.valueOf(str1[0]));
+					double prize2 = (plugin.mRand.nextDouble() * (Double.valueOf(str1[1]) - Double.valueOf(str1[0]))
+							+ Double.valueOf(str1[0]));
 					return Misc.round(Double.valueOf(prize2));
 				} else
 					return Double.valueOf(plugin.getConfigManager().pvpKillMoney.trim());
@@ -765,7 +769,8 @@ public class RewardManager {
 				}
 			}
 		}
-		// plugin.getMessages().debug("Mobhunting could not find the prize for killing this
+		// plugin.getMessages().debug("Mobhunting could not find the prize for
+		// killing this
 		// mob: %s (%s)",
 		// ExtendedMobManager.getMobName(mob), mob.getType());
 		return 0;
@@ -789,8 +794,8 @@ public class RewardManager {
 				return 0;
 		} else if (str.contains(":")) {
 			String[] str1 = str.split(":");
-			double prize = (plugin.mRand.nextDouble()
-					* (Double.valueOf(str1[1]) - Double.valueOf(str1[0])) + Double.valueOf(str1[0]));
+			double prize = (plugin.mRand.nextDouble() * (Double.valueOf(str1[1]) - Double.valueOf(str1[0]))
+					+ Double.valueOf(str1[0]));
 			return Misc.round(prize);
 		} else
 			return Double.valueOf(str);
@@ -800,8 +805,8 @@ public class RewardManager {
 	 * Get the command to be run when the player kills a Mob.
 	 * 
 	 * @param mob
-	 * @return a number of commands to be run in the console. Each command must be
-	 *         separeted by a "|"
+	 * @return a number of commands to be run in the console. Each command must
+	 *         be separeted by a "|"
 	 */
 	public List<HashMap<String, String>> getKillCommands(Entity mob) {
 		if (TARDISWeepingAngelsCompat.isWeepingAngelMonster(mob)) {
@@ -937,7 +942,7 @@ public class RewardManager {
 			if (mob instanceof Player)
 				return plugin.getConfigManager().pvpCmdNew;
 			else if (mob instanceof Blaze)
-				//TODO: Change this
+				// TODO: Change this
 				return plugin.getConfigManager().blazeCommands;
 			else if (mob instanceof Creeper)
 				return plugin.getConfigManager().creeperCommands;
@@ -1686,8 +1691,7 @@ public class RewardManager {
 				return 0;
 		} else if (str.contains(":")) {
 			String[] str1 = str.split(":");
-			Integer prize = plugin.mRand.nextInt(Integer.valueOf(str1[1]))
-					+ Integer.valueOf(str1[0]);
+			Integer prize = plugin.mRand.nextInt(Integer.valueOf(str1[1])) + Integer.valueOf(str1[0]);
 			return prize;
 		} else
 			return Integer.valueOf(str);
@@ -1908,7 +1912,7 @@ public class RewardManager {
 		}
 		return 0;
 	}
-	
+
 	public boolean getMobEnabled(Entity mob) {
 		if (TARDISWeepingAngelsCompat.isWeepingAngelMonster(mob)) {
 			if (TARDISWeepingAngelsCompat.getMobRewardData()
@@ -2124,14 +2128,15 @@ public class RewardManager {
 			if (TARDISWeepingAngelsCompat.getMobRewardData()
 					.containsKey(TARDISWeepingAngelsCompat.getWeepingAngelMonsterType(mob).name()))
 				return false;
-				//return TARDISWeepingAngelsCompat.getMobRewardData()
-				//		.get(TARDISWeepingAngelsCompat.getWeepingAngelMonsterType(killed).name()).getMobEnabled();
+			// return TARDISWeepingAngelsCompat.getMobRewardData()
+			// .get(TARDISWeepingAngelsCompat.getWeepingAngelMonsterType(killed).name()).getMobEnabled();
 			return false;
 
 		} else if (MythicMobsCompat.isMythicMob(mob)) {
 			if (MythicMobsCompat.getMobRewardData().containsKey(MythicMobsCompat.getMythicMobType(mob)))
 				return false;
-				//return MythicMobsCompat.getMobRewardData().get(MythicMobsCompat.getMythicMobType(killed)).isMobEnabled();
+			// return
+			// MythicMobsCompat.getMobRewardData().get(MythicMobsCompat.getMythicMobType(killed)).isMobEnabled();
 			return false;
 
 		} else if (CitizensCompat.isNPC(mob) && CitizensCompat.isSentryOrSentinelOrSentries(mob)) {
@@ -2140,215 +2145,220 @@ public class RewardManager {
 			String key = String.valueOf(npc.getId());
 			if (CitizensCompat.getMobRewardData().containsKey(key)) {
 				return false;
-				//return CitizensCompat.getMobRewardData().get(key).isMobEnabled();
+				// return
+				// CitizensCompat.getMobRewardData().get(key).isMobEnabled();
 			}
-			return  false;
+			return false;
 
 		} else if (CustomMobsCompat.isCustomMob(mob)) {
 			if (CustomMobsCompat.getMobRewardData().containsKey(CustomMobsCompat.getCustomMobType(mob)))
-				return  false;
-				//return CustomMobsCompat.getMobRewardData().get(CustomMobsCompat.getCustomMobType(killed)).isMobEnabled();
-			return  false;
+				return false;
+			// return
+			// CustomMobsCompat.getMobRewardData().get(CustomMobsCompat.getCustomMobType(killed)).isMobEnabled();
+			return false;
 
 		} else if (MysteriousHalloweenCompat.isMysteriousHalloween(mob)) {
 			if (MysteriousHalloweenCompat.getMobRewardData()
 					.containsKey(MysteriousHalloweenCompat.getMysteriousHalloweenType(mob).name()))
-				return  false;
-				//return MysteriousHalloweenCompat.getMobRewardData()
-				//		.get(MysteriousHalloweenCompat.getMysteriousHalloweenType(killed).name()).isMobEnabled();
-			return  false;
+				return false;
+			// return MysteriousHalloweenCompat.getMobRewardData()
+			// .get(MysteriousHalloweenCompat.getMysteriousHalloweenType(killed).name()).isMobEnabled();
+			return false;
 
 		} else if (SmartGiantsCompat.isSmartGiants(mob)) {
 			if (SmartGiantsCompat.getMobRewardData().containsKey(SmartGiantsCompat.getSmartGiantsMobType(mob)))
-				return  false;
-				//return SmartGiantsCompat.getMobRewardData().get(SmartGiantsCompat.getSmartGiantsMobType(killed))
-				//		.isMobEnabled();
-			return  false;
+				return false;
+			// return
+			// SmartGiantsCompat.getMobRewardData().get(SmartGiantsCompat.getSmartGiantsMobType(killed))
+			// .isMobEnabled();
+			return false;
 
 		} else if (HerobrineCompat.isHerobrineMob(mob)) {
 			if (HerobrineCompat.getMobRewardData().containsKey(HerobrineCompat.getHerobrineMobType(mob)))
-				return  false;
-				//return HerobrineCompat.getMobRewardData().get(HerobrineCompat.getHerobrineMobType(killed)).isMobEnabled();
-			return  false;
+				return false;
+			// return
+			// HerobrineCompat.getMobRewardData().get(HerobrineCompat.getHerobrineMobType(killed)).isMobEnabled();
+			return false;
 
 		} else if (EliteMobsCompat.isEliteMobs(mob)) {
 			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob)))
-				return  false;
-			return  false;
+				return false;
+			return false;
 
 		} else if (MyPetCompat.isMyPet(mob)) {
-			return  plugin.getConfigManager().wolfHeadDropHead;
+			return plugin.getConfigManager().wolfHeadDropHead;
 
 		} else {
 			if (Misc.isMC112OrNewer())
 				if (mob instanceof Parrot)
-					return  plugin.getConfigManager().parrotHeadDropHead;
+					return plugin.getConfigManager().parrotHeadDropHead;
 				else if (mob instanceof Illusioner)
-					return  plugin.getConfigManager().illusionerHeadDropHead;
+					return plugin.getConfigManager().illusionerHeadDropHead;
 
 			if (Misc.isMC111OrNewer())
 				if (mob instanceof Llama)
-					return  plugin.getConfigManager().llamaHeadDropHead;
+					return plugin.getConfigManager().llamaHeadDropHead;
 				else if (mob instanceof Vex)
-					return  plugin.getConfigManager().vexHeadDropHead;
+					return plugin.getConfigManager().vexHeadDropHead;
 				else if (mob instanceof Vindicator)
-					return  plugin.getConfigManager().vindicatorHeadDropHead;
+					return plugin.getConfigManager().vindicatorHeadDropHead;
 				else if (mob instanceof Evoker)
-					return  plugin.getConfigManager().evokerHeadDropHead;
+					return plugin.getConfigManager().evokerHeadDropHead;
 				else if (mob instanceof Donkey)
-					return  plugin.getConfigManager().donkeyHeadDropHead;
+					return plugin.getConfigManager().donkeyHeadDropHead;
 				else if (mob instanceof Mule)
-					return  plugin.getConfigManager().muleHeadDropHead;
+					return plugin.getConfigManager().muleHeadDropHead;
 				else if (mob instanceof SkeletonHorse)
-					return  plugin.getConfigManager().skeletonHorseHeadDropHead;
+					return plugin.getConfigManager().skeletonHorseHeadDropHead;
 				else if (mob instanceof ZombieHorse)
-					return  plugin.getConfigManager().zombieHorseHeadDropHead;
+					return plugin.getConfigManager().zombieHorseHeadDropHead;
 				else if (mob instanceof Stray)
-					return  plugin.getConfigManager().strayHeadDropHead;
+					return plugin.getConfigManager().strayHeadDropHead;
 				else if (mob instanceof Husk)
-					return  plugin.getConfigManager().huskHeadDropHead;
+					return plugin.getConfigManager().huskHeadDropHead;
 				else if (mob instanceof ZombieVillager)
-					return  plugin.getConfigManager().zombieVillagerHeadDropHead;
+					return plugin.getConfigManager().zombieVillagerHeadDropHead;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.NITWIT)
-					return  plugin.getConfigManager().nitwitHeadDropHead;
+					return plugin.getConfigManager().nitwitHeadDropHead;
 
 			if (Misc.isMC110OrNewer())
 				if (mob instanceof PolarBear)
-					return  plugin.getConfigManager().polarBearHeadDropHead;
+					return plugin.getConfigManager().polarBearHeadDropHead;
 				else if (mob instanceof Skeleton && ((Skeleton) mob).getSkeletonType() == SkeletonType.STRAY)
-					return  plugin.getConfigManager().strayHeadDropHead;
+					return plugin.getConfigManager().strayHeadDropHead;
 				else if (mob instanceof Zombie && ((Zombie) mob).getVillagerProfession() == Profession.HUSK)
-					return  plugin.getConfigManager().huskHeadDropHead;
+					return plugin.getConfigManager().huskHeadDropHead;
 
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.NORMAL)
-					return  plugin.getConfigManager().villagerHeadDropHead;
+					return plugin.getConfigManager().villagerHeadDropHead;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.PRIEST)
-					return  plugin.getConfigManager().priestHeadDropHead;
+					return plugin.getConfigManager().priestHeadDropHead;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.BUTCHER)
-					return  plugin.getConfigManager().butcherHeadDropHead;
+					return plugin.getConfigManager().butcherHeadDropHead;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.BLACKSMITH)
-					return  plugin.getConfigManager().blacksmithHeadDropHead;
+					return plugin.getConfigManager().blacksmithHeadDropHead;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.LIBRARIAN)
-					return  plugin.getConfigManager().librarianHeadDropHead;
+					return plugin.getConfigManager().librarianHeadDropHead;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.FARMER)
-					return  plugin.getConfigManager().farmerHeadDropHead;
+					return plugin.getConfigManager().farmerHeadDropHead;
 
 			if (Misc.isMC19OrNewer())
 				if (mob instanceof Shulker)
-					return  plugin.getConfigManager().shulkerHeadDropHead;
+					return plugin.getConfigManager().shulkerHeadDropHead;
 
 			if (Misc.isMC18OrNewer())
 				if (mob instanceof Guardian && ((Guardian) mob).isElder())
-					return  plugin.getConfigManager().elderGuardianHeadDropHead;
+					return plugin.getConfigManager().elderGuardianHeadDropHead;
 				else if (mob instanceof Guardian)
-					return  plugin.getConfigManager().guardianHeadDropHead;
+					return plugin.getConfigManager().guardianHeadDropHead;
 				else if (mob instanceof Endermite)
-					return  plugin.getConfigManager().endermiteHeadDropHead;
+					return plugin.getConfigManager().endermiteHeadDropHead;
 				else if (mob instanceof Rabbit)
 					if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
-						return  plugin.getConfigManager().killerRabbitHeadDropHead;
+						return plugin.getConfigManager().killerRabbitHeadDropHead;
 					else
-						return  plugin.getConfigManager().rabbitHeadDropHead;
+						return plugin.getConfigManager().rabbitHeadDropHead;
 
 			// MC1.7 or older
 			if (mob instanceof Player) {
-				return  plugin.getConfigManager().pvpHeadDropHead;
+				return plugin.getConfigManager().pvpHeadDropHead;
 			} else if (mob instanceof Blaze)
-				return  plugin.getConfigManager().blazeHeadDropHead;
+				return plugin.getConfigManager().blazeHeadDropHead;
 			else if (mob instanceof Creeper)
-				return  plugin.getConfigManager().creeperHeadDropHead;
+				return plugin.getConfigManager().creeperHeadDropHead;
 			else if (mob instanceof Silverfish)
-				return  plugin.getConfigManager().silverfishHeadDropHead;
+				return plugin.getConfigManager().silverfishHeadDropHead;
 			else if (mob instanceof Enderman)
-				return  plugin.getConfigManager().endermanHeadDropHead;
+				return plugin.getConfigManager().endermanHeadDropHead;
 			else if (mob instanceof Giant)
-				return  plugin.getConfigManager().giantHeadDropHead;
+				return plugin.getConfigManager().giantHeadDropHead;
 			else if (mob instanceof Skeleton && ((Skeleton) mob).getSkeletonType() == SkeletonType.NORMAL)
-				return  plugin.getConfigManager().skeletonHeadDropHead;
+				return plugin.getConfigManager().skeletonHeadDropHead;
 			else if (mob instanceof Skeleton && ((Skeleton) mob).getSkeletonType() == SkeletonType.WITHER)
-				return  plugin.getConfigManager().witherSkeletonHeadDropHead;
+				return plugin.getConfigManager().witherSkeletonHeadDropHead;
 			else if (mob instanceof CaveSpider)
 				// CaveSpider is a subclass of Spider
-				return  plugin.getConfigManager().caveSpiderHeadDropHead;
+				return plugin.getConfigManager().caveSpiderHeadDropHead;
 			else if (mob instanceof Spider)
-				return  plugin.getConfigManager().spiderHeadDropHead;
+				return plugin.getConfigManager().spiderHeadDropHead;
 			else if (mob instanceof Witch)
-				return  plugin.getConfigManager().witchHeadDropHead;
+				return plugin.getConfigManager().witchHeadDropHead;
 			else if (mob instanceof PigZombie)
 				// PigZombie is a subclass of Zombie.
-				return  plugin.getConfigManager().zombiePigmanHeadDropHead;
+				return plugin.getConfigManager().zombiePigmanHeadDropHead;
 			else if (mob instanceof Zombie)
-				return  plugin.getConfigManager().zombieHeadDropHead;
+				return plugin.getConfigManager().zombieHeadDropHead;
 			else if (mob instanceof Ghast)
-				return  plugin.getConfigManager().ghastHeadDropHead;
+				return plugin.getConfigManager().ghastHeadDropHead;
 			else if (mob instanceof MagmaCube)
 				// MagmaCube is a subclass of Slime
-				return  plugin.getConfigManager().magmaCubeHeadDropHead;
+				return plugin.getConfigManager().magmaCubeHeadDropHead;
 			else if (mob instanceof Slime)
-				return  plugin.getConfigManager().slimeHeadDropHead;
+				return plugin.getConfigManager().slimeHeadDropHead;
 			else if (mob instanceof EnderDragon)
-				return  plugin.getConfigManager().enderDragonHeadDropHead;
+				return plugin.getConfigManager().enderDragonHeadDropHead;
 			else if (mob instanceof Wither)
-				return  plugin.getConfigManager().witherHeadDropHead;
+				return plugin.getConfigManager().witherHeadDropHead;
 			else if (mob instanceof IronGolem)
-				return  plugin.getConfigManager().ironGolemHeadDropHead;
+				return plugin.getConfigManager().ironGolemHeadDropHead;
 
 			// Passive mobs
 			else if (mob instanceof Bat)
-				return  plugin.getConfigManager().batHeadDropHead;
+				return plugin.getConfigManager().batHeadDropHead;
 			else if (mob instanceof Chicken)
-				return  plugin.getConfigManager().chickenHeadDropHead;
+				return plugin.getConfigManager().chickenHeadDropHead;
 			else if (mob instanceof Cow)
 				if (mob instanceof MushroomCow)
 					// MushroomCow is a subclass of Cow
-					return  plugin.getConfigManager().mushroomCowHeadDropHead;
+					return plugin.getConfigManager().mushroomCowHeadDropHead;
 				else
-					return  plugin.getConfigManager().cowHeadDropHead;
+					return plugin.getConfigManager().cowHeadDropHead;
 			else if (mob instanceof Horse)
-				return  plugin.getConfigManager().horseHeadDropHead;
+				return plugin.getConfigManager().horseHeadDropHead;
 			else if (mob instanceof Ocelot)
-				return  plugin.getConfigManager().ocelotHeadDropHead;
+				return plugin.getConfigManager().ocelotHeadDropHead;
 			else if (mob instanceof Pig)
-				return  plugin.getConfigManager().pigHeadDropHead;
+				return plugin.getConfigManager().pigHeadDropHead;
 			else if (mob instanceof Sheep)
-				return  plugin.getConfigManager().sheepHeadDropHead;
+				return plugin.getConfigManager().sheepHeadDropHead;
 			else if (mob instanceof Snowman)
-				return  plugin.getConfigManager().snowmanHeadDropHead;
+				return plugin.getConfigManager().snowmanHeadDropHead;
 			else if (mob instanceof Squid)
-				return  plugin.getConfigManager().squidHeadDropHead;
+				return plugin.getConfigManager().squidHeadDropHead;
 			else if (mob instanceof Villager)
-				return  plugin.getConfigManager().villagerHeadDropHead;
+				return plugin.getConfigManager().villagerHeadDropHead;
 			else if (mob instanceof Wolf)
-				return  plugin.getConfigManager().wolfHeadDropHead;
+				return plugin.getConfigManager().wolfHeadDropHead;
 			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.RAW_FISH) {
 				ItemStack is = ((Item) mob).getItemStack();
 				if (is.getData().getData() == (byte) 0) {
-					return  plugin.getConfigManager().rawFishHeadDropHead;
+					return plugin.getConfigManager().rawFishHeadDropHead;
 				} else if (is.getData().getData() == (byte) 1) {
-					return  plugin.getConfigManager().rawSalmonHeadDropHead;
+					return plugin.getConfigManager().rawSalmonHeadDropHead;
 				} else if (is.getData().getData() == (byte) 2) {
-					return  plugin.getConfigManager().clownfishHeadDropHead;
+					return plugin.getConfigManager().clownfishHeadDropHead;
 				} else if (is.getData().getData() == (byte) 3) {
-					return  plugin.getConfigManager().pufferfishHeadDropHead;
+					return plugin.getConfigManager().pufferfishHeadDropHead;
 				}
 			}
 		}
 		return false;
 	}
-	
+
 	public double getHeadDropChance(Entity mob) {
 		if (TARDISWeepingAngelsCompat.isWeepingAngelMonster(mob)) {
 			if (TARDISWeepingAngelsCompat.getMobRewardData()
 					.containsKey(TARDISWeepingAngelsCompat.getWeepingAngelMonsterType(mob).name()))
 				return 0;
-				//return TARDISWeepingAngelsCompat.getMobRewardData()
-				//		.get(TARDISWeepingAngelsCompat.getWeepingAngelMonsterType(killed).name()).getMobEnabled();
+			// return TARDISWeepingAngelsCompat.getMobRewardData()
+			// .get(TARDISWeepingAngelsCompat.getWeepingAngelMonsterType(killed).name()).getMobEnabled();
 			return 0;
 
 		} else if (MythicMobsCompat.isMythicMob(mob)) {
 			if (MythicMobsCompat.getMobRewardData().containsKey(MythicMobsCompat.getMythicMobType(mob)))
 				return 0;
-				//return MythicMobsCompat.getMobRewardData().get(MythicMobsCompat.getMythicMobType(killed)).isMobEnabled();
+			// return
+			// MythicMobsCompat.getMobRewardData().get(MythicMobsCompat.getMythicMobType(killed)).isMobEnabled();
 			return 0;
 
 		} else if (CitizensCompat.isNPC(mob) && CitizensCompat.isSentryOrSentinelOrSentries(mob)) {
@@ -2357,216 +2367,222 @@ public class RewardManager {
 			String key = String.valueOf(npc.getId());
 			if (CitizensCompat.getMobRewardData().containsKey(key)) {
 				return 0;
-				//return CitizensCompat.getMobRewardData().get(key).isMobEnabled();
+				// return
+				// CitizensCompat.getMobRewardData().get(key).isMobEnabled();
 			}
-			return  0;
+			return 0;
 
 		} else if (CustomMobsCompat.isCustomMob(mob)) {
 			if (CustomMobsCompat.getMobRewardData().containsKey(CustomMobsCompat.getCustomMobType(mob)))
-				return  0;
-				//return CustomMobsCompat.getMobRewardData().get(CustomMobsCompat.getCustomMobType(killed)).isMobEnabled();
-			return  0;
+				return 0;
+			// return
+			// CustomMobsCompat.getMobRewardData().get(CustomMobsCompat.getCustomMobType(killed)).isMobEnabled();
+			return 0;
 
 		} else if (MysteriousHalloweenCompat.isMysteriousHalloween(mob)) {
 			if (MysteriousHalloweenCompat.getMobRewardData()
 					.containsKey(MysteriousHalloweenCompat.getMysteriousHalloweenType(mob).name()))
-				return  0;
-				//return MysteriousHalloweenCompat.getMobRewardData()
-				//		.get(MysteriousHalloweenCompat.getMysteriousHalloweenType(killed).name()).isMobEnabled();
-			return  0;
+				return 0;
+			// return MysteriousHalloweenCompat.getMobRewardData()
+			// .get(MysteriousHalloweenCompat.getMysteriousHalloweenType(killed).name()).isMobEnabled();
+			return 0;
 
 		} else if (SmartGiantsCompat.isSmartGiants(mob)) {
 			if (SmartGiantsCompat.getMobRewardData().containsKey(SmartGiantsCompat.getSmartGiantsMobType(mob)))
-				return  0;
-				//return SmartGiantsCompat.getMobRewardData().get(SmartGiantsCompat.getSmartGiantsMobType(killed))
-				//		.isMobEnabled();
-			return  0;
+				return 0;
+			// return
+			// SmartGiantsCompat.getMobRewardData().get(SmartGiantsCompat.getSmartGiantsMobType(killed))
+			// .isMobEnabled();
+			return 0;
 
 		} else if (HerobrineCompat.isHerobrineMob(mob)) {
 			if (HerobrineCompat.getMobRewardData().containsKey(HerobrineCompat.getHerobrineMobType(mob)))
-				return  0;
-				//return HerobrineCompat.getMobRewardData().get(HerobrineCompat.getHerobrineMobType(killed)).isMobEnabled();
-			return  0;
+				return 0;
+			// return
+			// HerobrineCompat.getMobRewardData().get(HerobrineCompat.getHerobrineMobType(killed)).isMobEnabled();
+			return 0;
 
 		} else if (EliteMobsCompat.isEliteMobs(mob)) {
 			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob)))
-				return  0;
-				//return HerobrineCompat.getMobRewardData().get(HerobrineCompat.getHerobrineMobType(killed)).isMobEnabled();
-			return  0;
+				return 0;
+			// return
+			// HerobrineCompat.getMobRewardData().get(HerobrineCompat.getHerobrineMobType(killed)).isMobEnabled();
+			return 0;
 
 		} else if (MyPetCompat.isMyPet(mob)) {
-			return  plugin.getConfigManager().wolfHeadDropChance;
+			return plugin.getConfigManager().wolfHeadDropChance;
 
 		} else {
 			if (Misc.isMC112OrNewer())
 				if (mob instanceof Parrot)
-					return  plugin.getConfigManager().parrotHeadDropChance;
+					return plugin.getConfigManager().parrotHeadDropChance;
 				else if (mob instanceof Illusioner)
-					return  plugin.getConfigManager().illusionerHeadDropChance;
+					return plugin.getConfigManager().illusionerHeadDropChance;
 
 			if (Misc.isMC111OrNewer())
 				if (mob instanceof Llama)
-					return  plugin.getConfigManager().llamaHeadDropChance;
+					return plugin.getConfigManager().llamaHeadDropChance;
 				else if (mob instanceof Vex)
-					return  plugin.getConfigManager().vexHeadDropChance;
+					return plugin.getConfigManager().vexHeadDropChance;
 				else if (mob instanceof Vindicator)
-					return  plugin.getConfigManager().vindicatorHeadDropChance;
+					return plugin.getConfigManager().vindicatorHeadDropChance;
 				else if (mob instanceof Evoker)
-					return  plugin.getConfigManager().evokerHeadDropChance;
+					return plugin.getConfigManager().evokerHeadDropChance;
 				else if (mob instanceof Donkey)
-					return  plugin.getConfigManager().donkeyHeadDropChance;
+					return plugin.getConfigManager().donkeyHeadDropChance;
 				else if (mob instanceof Mule)
-					return  plugin.getConfigManager().muleHeadDropChance;
+					return plugin.getConfigManager().muleHeadDropChance;
 				else if (mob instanceof SkeletonHorse)
-					return  plugin.getConfigManager().skeletonHorseHeadDropChance;
+					return plugin.getConfigManager().skeletonHorseHeadDropChance;
 				else if (mob instanceof ZombieHorse)
-					return  plugin.getConfigManager().zombieHorseHeadDropChance;
+					return plugin.getConfigManager().zombieHorseHeadDropChance;
 				else if (mob instanceof Stray)
-					return  plugin.getConfigManager().strayHeadDropChance;
+					return plugin.getConfigManager().strayHeadDropChance;
 				else if (mob instanceof Husk)
-					return  plugin.getConfigManager().huskHeadDropChance;
+					return plugin.getConfigManager().huskHeadDropChance;
 				else if (mob instanceof ZombieVillager)
-					return  plugin.getConfigManager().zombieVillagerHeadDropChance;
+					return plugin.getConfigManager().zombieVillagerHeadDropChance;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.NITWIT)
-					return  plugin.getConfigManager().nitwitHeadDropChance;
+					return plugin.getConfigManager().nitwitHeadDropChance;
 
 			if (Misc.isMC110OrNewer())
 				if (mob instanceof PolarBear)
-					return  plugin.getConfigManager().polarBearHeadDropChance;
+					return plugin.getConfigManager().polarBearHeadDropChance;
 				else if (mob instanceof Skeleton && ((Skeleton) mob).getSkeletonType() == SkeletonType.STRAY)
-					return  plugin.getConfigManager().strayHeadDropChance;
+					return plugin.getConfigManager().strayHeadDropChance;
 				else if (mob instanceof Zombie && ((Zombie) mob).getVillagerProfession() == Profession.HUSK)
-					return  plugin.getConfigManager().huskHeadDropChance;
+					return plugin.getConfigManager().huskHeadDropChance;
 
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.NORMAL)
-					return  plugin.getConfigManager().villagerHeadDropChance;
+					return plugin.getConfigManager().villagerHeadDropChance;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.PRIEST)
-					return  plugin.getConfigManager().priestHeadDropChance;
+					return plugin.getConfigManager().priestHeadDropChance;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.BUTCHER)
-					return  plugin.getConfigManager().butcherHeadDropChance;
+					return plugin.getConfigManager().butcherHeadDropChance;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.BLACKSMITH)
-					return  plugin.getConfigManager().blacksmithHeadDropChance;
+					return plugin.getConfigManager().blacksmithHeadDropChance;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.LIBRARIAN)
-					return  plugin.getConfigManager().librarianHeadDropChance;
+					return plugin.getConfigManager().librarianHeadDropChance;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.FARMER)
-					return  plugin.getConfigManager().farmerHeadDropChance;
+					return plugin.getConfigManager().farmerHeadDropChance;
 
 			if (Misc.isMC19OrNewer())
 				if (mob instanceof Shulker)
-					return  plugin.getConfigManager().shulkerHeadDropChance;
+					return plugin.getConfigManager().shulkerHeadDropChance;
 
 			if (Misc.isMC18OrNewer())
 				if (mob instanceof Guardian && ((Guardian) mob).isElder())
-					return  plugin.getConfigManager().elderGuardianHeadDropChance;
+					return plugin.getConfigManager().elderGuardianHeadDropChance;
 				else if (mob instanceof Guardian)
-					return  plugin.getConfigManager().guardianHeadDropChance;
+					return plugin.getConfigManager().guardianHeadDropChance;
 				else if (mob instanceof Endermite)
-					return  plugin.getConfigManager().endermiteHeadDropChance;
+					return plugin.getConfigManager().endermiteHeadDropChance;
 				else if (mob instanceof Rabbit)
 					if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
-						return  plugin.getConfigManager().killerRabbitHeadDropChance;
+						return plugin.getConfigManager().killerRabbitHeadDropChance;
 					else
-						return  plugin.getConfigManager().rabbitHeadDropChance;
+						return plugin.getConfigManager().rabbitHeadDropChance;
 
 			// MC1.7 or older
 			if (mob instanceof Player) {
-				return  plugin.getConfigManager().pvpHeadDropChance;
+				return plugin.getConfigManager().pvpHeadDropChance;
 			} else if (mob instanceof Blaze)
-				return  plugin.getConfigManager().blazeHeadDropChance;
+				return plugin.getConfigManager().blazeHeadDropChance;
 			else if (mob instanceof Creeper)
-				return  plugin.getConfigManager().creeperHeadDropChance;
+				return plugin.getConfigManager().creeperHeadDropChance;
 			else if (mob instanceof Silverfish)
-				return  plugin.getConfigManager().silverfishHeadDropChance;
+				return plugin.getConfigManager().silverfishHeadDropChance;
 			else if (mob instanceof Enderman)
-				return  plugin.getConfigManager().endermanHeadDropChance;
+				return plugin.getConfigManager().endermanHeadDropChance;
 			else if (mob instanceof Giant)
-				return  plugin.getConfigManager().giantHeadDropChance;
+				return plugin.getConfigManager().giantHeadDropChance;
 			else if (mob instanceof Skeleton && ((Skeleton) mob).getSkeletonType() == SkeletonType.NORMAL)
-				return  plugin.getConfigManager().skeletonHeadDropChance;
+				return plugin.getConfigManager().skeletonHeadDropChance;
 			else if (mob instanceof Skeleton && ((Skeleton) mob).getSkeletonType() == SkeletonType.WITHER)
-				return  plugin.getConfigManager().witherSkeletonHeadDropChance;
+				return plugin.getConfigManager().witherSkeletonHeadDropChance;
 			else if (mob instanceof CaveSpider)
 				// CaveSpider is a subclass of Spider
-				return  plugin.getConfigManager().caveSpiderHeadDropChance;
+				return plugin.getConfigManager().caveSpiderHeadDropChance;
 			else if (mob instanceof Spider)
-				return  plugin.getConfigManager().spiderHeadDropChance;
+				return plugin.getConfigManager().spiderHeadDropChance;
 			else if (mob instanceof Witch)
-				return  plugin.getConfigManager().witchHeadDropChance;
+				return plugin.getConfigManager().witchHeadDropChance;
 			else if (mob instanceof PigZombie)
 				// PigZombie is a subclass of Zombie.
-				return  plugin.getConfigManager().zombiePigmanHeadDropChance;
+				return plugin.getConfigManager().zombiePigmanHeadDropChance;
 			else if (mob instanceof Zombie)
-				return  plugin.getConfigManager().zombieHeadDropChance;
+				return plugin.getConfigManager().zombieHeadDropChance;
 			else if (mob instanceof Ghast)
-				return  plugin.getConfigManager().ghastHeadDropChance;
+				return plugin.getConfigManager().ghastHeadDropChance;
 			else if (mob instanceof MagmaCube)
 				// MagmaCube is a subclass of Slime
-				return  plugin.getConfigManager().magmaCubeHeadDropChance;
+				return plugin.getConfigManager().magmaCubeHeadDropChance;
 			else if (mob instanceof Slime)
-				return  plugin.getConfigManager().slimeHeadDropChance;
+				return plugin.getConfigManager().slimeHeadDropChance;
 			else if (mob instanceof EnderDragon)
-				return  plugin.getConfigManager().enderDragonHeadDropChance;
+				return plugin.getConfigManager().enderDragonHeadDropChance;
 			else if (mob instanceof Wither)
-				return  plugin.getConfigManager().witherHeadDropChance;
+				return plugin.getConfigManager().witherHeadDropChance;
 			else if (mob instanceof IronGolem)
-				return  plugin.getConfigManager().ironGolemHeadDropChance;
+				return plugin.getConfigManager().ironGolemHeadDropChance;
 
 			// Passive mobs
 			else if (mob instanceof Bat)
-				return  plugin.getConfigManager().batHeadDropChance;
+				return plugin.getConfigManager().batHeadDropChance;
 			else if (mob instanceof Chicken)
-				return  plugin.getConfigManager().chickenHeadDropChance;
+				return plugin.getConfigManager().chickenHeadDropChance;
 			else if (mob instanceof Cow)
 				if (mob instanceof MushroomCow)
 					// MushroomCow is a subclass of Cow
-					return  plugin.getConfigManager().mushroomCowHeadDropChance;
+					return plugin.getConfigManager().mushroomCowHeadDropChance;
 				else
-					return  plugin.getConfigManager().cowHeadDropChance;
+					return plugin.getConfigManager().cowHeadDropChance;
 			else if (mob instanceof Horse)
-				return  plugin.getConfigManager().horseHeadDropChance;
+				return plugin.getConfigManager().horseHeadDropChance;
 			else if (mob instanceof Ocelot)
-				return  plugin.getConfigManager().ocelotHeadDropChance;
+				return plugin.getConfigManager().ocelotHeadDropChance;
 			else if (mob instanceof Pig)
-				return  plugin.getConfigManager().pigHeadDropChance;
+				return plugin.getConfigManager().pigHeadDropChance;
 			else if (mob instanceof Sheep)
-				return  plugin.getConfigManager().sheepHeadDropChance;
+				return plugin.getConfigManager().sheepHeadDropChance;
 			else if (mob instanceof Snowman)
-				return  plugin.getConfigManager().snowmanHeadDropChance;
+				return plugin.getConfigManager().snowmanHeadDropChance;
 			else if (mob instanceof Squid)
-				return  plugin.getConfigManager().squidHeadDropChance;
+				return plugin.getConfigManager().squidHeadDropChance;
 			else if (mob instanceof Villager)
-				return  plugin.getConfigManager().villagerHeadDropChance;
+				return plugin.getConfigManager().villagerHeadDropChance;
 			else if (mob instanceof Wolf)
-				return  plugin.getConfigManager().wolfHeadDropChance;
+				return plugin.getConfigManager().wolfHeadDropChance;
 			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.RAW_FISH) {
 				ItemStack is = ((Item) mob).getItemStack();
 				if (is.getData().getData() == (byte) 0) {
-					return  plugin.getConfigManager().rawFishHeadDropChance;
+					return plugin.getConfigManager().rawFishHeadDropChance;
 				} else if (is.getData().getData() == (byte) 1) {
-					return  plugin.getConfigManager().rawSalmonHeadDropChance;
+					return plugin.getConfigManager().rawSalmonHeadDropChance;
 				} else if (is.getData().getData() == (byte) 2) {
-					return  plugin.getConfigManager().clownfishHeadDropChance;
+					return plugin.getConfigManager().clownfishHeadDropChance;
 				} else if (is.getData().getData() == (byte) 3) {
-					return  plugin.getConfigManager().pufferfishHeadDropChance;
+					return plugin.getConfigManager().pufferfishHeadDropChance;
 				}
 			}
 		}
 		return 0;
 	}
-	
+
 	public String getHeadDropMessage(Entity mob) {
 		if (TARDISWeepingAngelsCompat.isWeepingAngelMonster(mob)) {
 			if (TARDISWeepingAngelsCompat.getMobRewardData()
 					.containsKey(TARDISWeepingAngelsCompat.getWeepingAngelMonsterType(mob).name()))
 				return "";
-				//return TARDISWeepingAngelsCompat.getMobRewardData()
-				//		.get(TARDISWeepingAngelsCompat.getWeepingAngelMonsterType(killed).name()).getMobEnabled();
+			// return TARDISWeepingAngelsCompat.getMobRewardData()
+			// .get(TARDISWeepingAngelsCompat.getWeepingAngelMonsterType(killed).name()).getMobEnabled();
 			return "";
 
 		} else if (MythicMobsCompat.isMythicMob(mob)) {
 			if (MythicMobsCompat.getMobRewardData().containsKey(MythicMobsCompat.getMythicMobType(mob)))
 				return "";
-				//return MythicMobsCompat.getMobRewardData().get(MythicMobsCompat.getMythicMobType(killed)).isMobEnabled();
+			// return
+			// MythicMobsCompat.getMobRewardData().get(MythicMobsCompat.getMythicMobType(killed)).isMobEnabled();
 			return "";
 
 		} else if (CitizensCompat.isNPC(mob) && CitizensCompat.isSentryOrSentinelOrSentries(mob)) {
@@ -2575,216 +2591,222 @@ public class RewardManager {
 			String key = String.valueOf(npc.getId());
 			if (CitizensCompat.getMobRewardData().containsKey(key)) {
 				return "";
-				//return CitizensCompat.getMobRewardData().get(key).isMobEnabled();
+				// return
+				// CitizensCompat.getMobRewardData().get(key).isMobEnabled();
 			}
-			return  "";
+			return "";
 
 		} else if (CustomMobsCompat.isCustomMob(mob)) {
 			if (CustomMobsCompat.getMobRewardData().containsKey(CustomMobsCompat.getCustomMobType(mob)))
-				return  "";
-				//return CustomMobsCompat.getMobRewardData().get(CustomMobsCompat.getCustomMobType(killed)).isMobEnabled();
-			return  "";
+				return "";
+			// return
+			// CustomMobsCompat.getMobRewardData().get(CustomMobsCompat.getCustomMobType(killed)).isMobEnabled();
+			return "";
 
 		} else if (MysteriousHalloweenCompat.isMysteriousHalloween(mob)) {
 			if (MysteriousHalloweenCompat.getMobRewardData()
 					.containsKey(MysteriousHalloweenCompat.getMysteriousHalloweenType(mob).name()))
-				return  "";
-				//return MysteriousHalloweenCompat.getMobRewardData()
-				//		.get(MysteriousHalloweenCompat.getMysteriousHalloweenType(killed).name()).isMobEnabled();
-			return  "";
+				return "";
+			// return MysteriousHalloweenCompat.getMobRewardData()
+			// .get(MysteriousHalloweenCompat.getMysteriousHalloweenType(killed).name()).isMobEnabled();
+			return "";
 
 		} else if (SmartGiantsCompat.isSmartGiants(mob)) {
 			if (SmartGiantsCompat.getMobRewardData().containsKey(SmartGiantsCompat.getSmartGiantsMobType(mob)))
-				return  "";
-				//return SmartGiantsCompat.getMobRewardData().get(SmartGiantsCompat.getSmartGiantsMobType(killed))
-				//		.isMobEnabled();
-			return  "";
+				return "";
+			// return
+			// SmartGiantsCompat.getMobRewardData().get(SmartGiantsCompat.getSmartGiantsMobType(killed))
+			// .isMobEnabled();
+			return "";
 
 		} else if (HerobrineCompat.isHerobrineMob(mob)) {
 			if (HerobrineCompat.getMobRewardData().containsKey(HerobrineCompat.getHerobrineMobType(mob)))
-				return  "";
-				//return HerobrineCompat.getMobRewardData().get(HerobrineCompat.getHerobrineMobType(killed)).isMobEnabled();
-			return  "";
+				return "";
+			// return
+			// HerobrineCompat.getMobRewardData().get(HerobrineCompat.getHerobrineMobType(killed)).isMobEnabled();
+			return "";
 
 		} else if (EliteMobsCompat.isEliteMobs(mob)) {
 			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob)))
-				return  "";
-				//return HerobrineCompat.getMobRewardData().get(HerobrineCompat.getHerobrineMobType(killed)).isMobEnabled();
-			return  "";
+				return "";
+			// return
+			// HerobrineCompat.getMobRewardData().get(HerobrineCompat.getHerobrineMobType(killed)).isMobEnabled();
+			return "";
 
 		} else if (MyPetCompat.isMyPet(mob)) {
-			return  plugin.getConfigManager().wolfHeadMessage;
+			return plugin.getConfigManager().wolfHeadMessage;
 
 		} else {
 			if (Misc.isMC112OrNewer())
 				if (mob instanceof Parrot)
-					return  plugin.getConfigManager().parrotHeadMessage;
+					return plugin.getConfigManager().parrotHeadMessage;
 				else if (mob instanceof Illusioner)
-					return  plugin.getConfigManager().illusionerHeadMessage;
+					return plugin.getConfigManager().illusionerHeadMessage;
 
 			if (Misc.isMC111OrNewer())
 				if (mob instanceof Llama)
-					return  plugin.getConfigManager().llamaHeadMessage;
+					return plugin.getConfigManager().llamaHeadMessage;
 				else if (mob instanceof Vex)
-					return  plugin.getConfigManager().vexHeadMessage;
+					return plugin.getConfigManager().vexHeadMessage;
 				else if (mob instanceof Vindicator)
-					return  plugin.getConfigManager().vindicatorHeadMessage;
+					return plugin.getConfigManager().vindicatorHeadMessage;
 				else if (mob instanceof Evoker)
-					return  plugin.getConfigManager().evokerHeadMessage;
+					return plugin.getConfigManager().evokerHeadMessage;
 				else if (mob instanceof Donkey)
-					return  plugin.getConfigManager().donkeyHeadMessage;
+					return plugin.getConfigManager().donkeyHeadMessage;
 				else if (mob instanceof Mule)
-					return  plugin.getConfigManager().muleHeadMessage;
+					return plugin.getConfigManager().muleHeadMessage;
 				else if (mob instanceof SkeletonHorse)
-					return  plugin.getConfigManager().skeletonHorseHeadMessage;
+					return plugin.getConfigManager().skeletonHorseHeadMessage;
 				else if (mob instanceof ZombieHorse)
-					return  plugin.getConfigManager().zombieHorseHeadMessage;
+					return plugin.getConfigManager().zombieHorseHeadMessage;
 				else if (mob instanceof Stray)
-					return  plugin.getConfigManager().strayHeadMessage;
+					return plugin.getConfigManager().strayHeadMessage;
 				else if (mob instanceof Husk)
-					return  plugin.getConfigManager().huskHeadMessage;
+					return plugin.getConfigManager().huskHeadMessage;
 				else if (mob instanceof ZombieVillager)
-					return  plugin.getConfigManager().zombieVillagerHeadMessage;
+					return plugin.getConfigManager().zombieVillagerHeadMessage;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.NITWIT)
-					return  plugin.getConfigManager().nitwitHeadMessage;
+					return plugin.getConfigManager().nitwitHeadMessage;
 
 			if (Misc.isMC110OrNewer())
 				if (mob instanceof PolarBear)
-					return  plugin.getConfigManager().polarBearHeadMessage;
+					return plugin.getConfigManager().polarBearHeadMessage;
 				else if (mob instanceof Skeleton && ((Skeleton) mob).getSkeletonType() == SkeletonType.STRAY)
-					return  plugin.getConfigManager().strayHeadMessage;
+					return plugin.getConfigManager().strayHeadMessage;
 				else if (mob instanceof Zombie && ((Zombie) mob).getVillagerProfession() == Profession.HUSK)
-					return  plugin.getConfigManager().huskHeadMessage;
+					return plugin.getConfigManager().huskHeadMessage;
 
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.NORMAL)
-					return  plugin.getConfigManager().villagerHeadMessage;
+					return plugin.getConfigManager().villagerHeadMessage;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.PRIEST)
-					return  plugin.getConfigManager().priestHeadMessage;
+					return plugin.getConfigManager().priestHeadMessage;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.BUTCHER)
-					return  plugin.getConfigManager().butcherHeadMessage;
+					return plugin.getConfigManager().butcherHeadMessage;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.BLACKSMITH)
-					return  plugin.getConfigManager().blacksmithHeadMessage;
+					return plugin.getConfigManager().blacksmithHeadMessage;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.LIBRARIAN)
-					return  plugin.getConfigManager().librarianHeadMessage;
+					return plugin.getConfigManager().librarianHeadMessage;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.FARMER)
-					return  plugin.getConfigManager().farmerHeadMessage;
+					return plugin.getConfigManager().farmerHeadMessage;
 
 			if (Misc.isMC19OrNewer())
 				if (mob instanceof Shulker)
-					return  plugin.getConfigManager().shulkerHeadMessage;
+					return plugin.getConfigManager().shulkerHeadMessage;
 
 			if (Misc.isMC18OrNewer())
 				if (mob instanceof Guardian && ((Guardian) mob).isElder())
-					return  plugin.getConfigManager().elderGuardianHeadMessage;
+					return plugin.getConfigManager().elderGuardianHeadMessage;
 				else if (mob instanceof Guardian)
-					return  plugin.getConfigManager().guardianHeadMessage;
+					return plugin.getConfigManager().guardianHeadMessage;
 				else if (mob instanceof Endermite)
-					return  plugin.getConfigManager().endermiteHeadMessage;
+					return plugin.getConfigManager().endermiteHeadMessage;
 				else if (mob instanceof Rabbit)
 					if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
-						return  plugin.getConfigManager().killerRabbitHeadMessage;
+						return plugin.getConfigManager().killerRabbitHeadMessage;
 					else
-						return  plugin.getConfigManager().rabbitHeadMessage;
+						return plugin.getConfigManager().rabbitHeadMessage;
 
 			// MC1.7 or older
 			if (mob instanceof Player) {
-				return  plugin.getConfigManager().pvpHeadMessage;
+				return plugin.getConfigManager().pvpHeadMessage;
 			} else if (mob instanceof Blaze)
-				return  plugin.getConfigManager().blazeHeadMessage;
+				return plugin.getConfigManager().blazeHeadMessage;
 			else if (mob instanceof Creeper)
-				return  plugin.getConfigManager().creeperHeadMessage;
+				return plugin.getConfigManager().creeperHeadMessage;
 			else if (mob instanceof Silverfish)
-				return  plugin.getConfigManager().silverfishHeadMessage;
+				return plugin.getConfigManager().silverfishHeadMessage;
 			else if (mob instanceof Enderman)
-				return  plugin.getConfigManager().endermanHeadMessage;
+				return plugin.getConfigManager().endermanHeadMessage;
 			else if (mob instanceof Giant)
-				return  plugin.getConfigManager().giantHeadMessage;
+				return plugin.getConfigManager().giantHeadMessage;
 			else if (mob instanceof Skeleton && ((Skeleton) mob).getSkeletonType() == SkeletonType.NORMAL)
-				return  plugin.getConfigManager().skeletonHeadMessage;
+				return plugin.getConfigManager().skeletonHeadMessage;
 			else if (mob instanceof Skeleton && ((Skeleton) mob).getSkeletonType() == SkeletonType.WITHER)
-				return  plugin.getConfigManager().witherSkeletonHeadMessage;
+				return plugin.getConfigManager().witherSkeletonHeadMessage;
 			else if (mob instanceof CaveSpider)
 				// CaveSpider is a subclass of Spider
-				return  plugin.getConfigManager().caveSpiderHeadMessage;
+				return plugin.getConfigManager().caveSpiderHeadMessage;
 			else if (mob instanceof Spider)
-				return  plugin.getConfigManager().spiderHeadMessage;
+				return plugin.getConfigManager().spiderHeadMessage;
 			else if (mob instanceof Witch)
-				return  plugin.getConfigManager().witchHeadMessage;
+				return plugin.getConfigManager().witchHeadMessage;
 			else if (mob instanceof PigZombie)
 				// PigZombie is a subclass of Zombie.
-				return  plugin.getConfigManager().zombiePigmanHeadMessage;
+				return plugin.getConfigManager().zombiePigmanHeadMessage;
 			else if (mob instanceof Zombie)
-				return  plugin.getConfigManager().zombieHeadMessage;
+				return plugin.getConfigManager().zombieHeadMessage;
 			else if (mob instanceof Ghast)
-				return  plugin.getConfigManager().ghastHeadMessage;
+				return plugin.getConfigManager().ghastHeadMessage;
 			else if (mob instanceof MagmaCube)
 				// MagmaCube is a subclass of Slime
-				return  plugin.getConfigManager().magmaCubeHeadMessage;
+				return plugin.getConfigManager().magmaCubeHeadMessage;
 			else if (mob instanceof Slime)
-				return  plugin.getConfigManager().slimeHeadMessage;
+				return plugin.getConfigManager().slimeHeadMessage;
 			else if (mob instanceof EnderDragon)
-				return  plugin.getConfigManager().enderDragonHeadMessage;
+				return plugin.getConfigManager().enderDragonHeadMessage;
 			else if (mob instanceof Wither)
-				return  plugin.getConfigManager().witherHeadMessage;
+				return plugin.getConfigManager().witherHeadMessage;
 			else if (mob instanceof IronGolem)
-				return  plugin.getConfigManager().ironGolemHeadMessage;
+				return plugin.getConfigManager().ironGolemHeadMessage;
 
 			// Passive mobs
 			else if (mob instanceof Bat)
-				return  plugin.getConfigManager().batHeadMessage;
+				return plugin.getConfigManager().batHeadMessage;
 			else if (mob instanceof Chicken)
-				return  plugin.getConfigManager().chickenHeadMessage;
+				return plugin.getConfigManager().chickenHeadMessage;
 			else if (mob instanceof Cow)
 				if (mob instanceof MushroomCow)
 					// MushroomCow is a subclass of Cow
-					return  plugin.getConfigManager().mushroomCowHeadMessage;
+					return plugin.getConfigManager().mushroomCowHeadMessage;
 				else
-					return  plugin.getConfigManager().cowHeadMessage;
+					return plugin.getConfigManager().cowHeadMessage;
 			else if (mob instanceof Horse)
-				return  plugin.getConfigManager().horseHeadMessage;
+				return plugin.getConfigManager().horseHeadMessage;
 			else if (mob instanceof Ocelot)
-				return  plugin.getConfigManager().ocelotHeadMessage;
+				return plugin.getConfigManager().ocelotHeadMessage;
 			else if (mob instanceof Pig)
-				return  plugin.getConfigManager().pigHeadMessage;
+				return plugin.getConfigManager().pigHeadMessage;
 			else if (mob instanceof Sheep)
-				return  plugin.getConfigManager().sheepHeadMessage;
+				return plugin.getConfigManager().sheepHeadMessage;
 			else if (mob instanceof Snowman)
-				return  plugin.getConfigManager().snowmanHeadMessage;
+				return plugin.getConfigManager().snowmanHeadMessage;
 			else if (mob instanceof Squid)
-				return  plugin.getConfigManager().squidHeadMessage;
+				return plugin.getConfigManager().squidHeadMessage;
 			else if (mob instanceof Villager)
-				return  plugin.getConfigManager().villagerHeadMessage;
+				return plugin.getConfigManager().villagerHeadMessage;
 			else if (mob instanceof Wolf)
-				return  plugin.getConfigManager().wolfHeadMessage;
+				return plugin.getConfigManager().wolfHeadMessage;
 			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.RAW_FISH) {
 				ItemStack is = ((Item) mob).getItemStack();
 				if (is.getData().getData() == (byte) 0) {
-					return  plugin.getConfigManager().rawFishHeadMessage;
+					return plugin.getConfigManager().rawFishHeadMessage;
 				} else if (is.getData().getData() == (byte) 1) {
-					return  plugin.getConfigManager().rawSalmonHeadMessage;
+					return plugin.getConfigManager().rawSalmonHeadMessage;
 				} else if (is.getData().getData() == (byte) 2) {
-					return  plugin.getConfigManager().clownfishHeadMessage;
+					return plugin.getConfigManager().clownfishHeadMessage;
 				} else if (is.getData().getData() == (byte) 3) {
-					return  plugin.getConfigManager().pufferfishHeadMessage;
+					return plugin.getConfigManager().pufferfishHeadMessage;
 				}
 			}
 		}
 		return "";
 	}
-	
+
 	public double getHeadValue(Entity mob) {
 		if (TARDISWeepingAngelsCompat.isWeepingAngelMonster(mob)) {
 			if (TARDISWeepingAngelsCompat.getMobRewardData()
 					.containsKey(TARDISWeepingAngelsCompat.getWeepingAngelMonsterType(mob).name()))
 				return 0;
-				//return TARDISWeepingAngelsCompat.getMobRewardData()
-				//		.get(TARDISWeepingAngelsCompat.getWeepingAngelMonsterType(killed).name()).getMobEnabled();
+			// return TARDISWeepingAngelsCompat.getMobRewardData()
+			// .get(TARDISWeepingAngelsCompat.getWeepingAngelMonsterType(killed).name()).getMobEnabled();
 			return 0;
 
 		} else if (MythicMobsCompat.isMythicMob(mob)) {
 			if (MythicMobsCompat.getMobRewardData().containsKey(MythicMobsCompat.getMythicMobType(mob)))
 				return 0;
-				//return MythicMobsCompat.getMobRewardData().get(MythicMobsCompat.getMythicMobType(killed)).isMobEnabled();
+			// return
+			// MythicMobsCompat.getMobRewardData().get(MythicMobsCompat.getMythicMobType(killed)).isMobEnabled();
 			return 0;
 
 		} else if (CitizensCompat.isNPC(mob) && CitizensCompat.isSentryOrSentinelOrSentries(mob)) {
@@ -2793,41 +2815,46 @@ public class RewardManager {
 			String key = String.valueOf(npc.getId());
 			if (CitizensCompat.getMobRewardData().containsKey(key)) {
 				return 0;
-				//return CitizensCompat.getMobRewardData().get(key).isMobEnabled();
+				// return
+				// CitizensCompat.getMobRewardData().get(key).isMobEnabled();
 			}
 			return 0;
 
 		} else if (CustomMobsCompat.isCustomMob(mob)) {
 			if (CustomMobsCompat.getMobRewardData().containsKey(CustomMobsCompat.getCustomMobType(mob)))
 				return 0;
-				//return CustomMobsCompat.getMobRewardData().get(CustomMobsCompat.getCustomMobType(killed)).isMobEnabled();
+			// return
+			// CustomMobsCompat.getMobRewardData().get(CustomMobsCompat.getCustomMobType(killed)).isMobEnabled();
 			return 0;
 
 		} else if (MysteriousHalloweenCompat.isMysteriousHalloween(mob)) {
 			if (MysteriousHalloweenCompat.getMobRewardData()
 					.containsKey(MysteriousHalloweenCompat.getMysteriousHalloweenType(mob).name()))
 				return 0;
-				//return MysteriousHalloweenCompat.getMobRewardData()
-				//		.get(MysteriousHalloweenCompat.getMysteriousHalloweenType(killed).name()).isMobEnabled();
+			// return MysteriousHalloweenCompat.getMobRewardData()
+			// .get(MysteriousHalloweenCompat.getMysteriousHalloweenType(killed).name()).isMobEnabled();
 			return 0;
 
 		} else if (SmartGiantsCompat.isSmartGiants(mob)) {
 			if (SmartGiantsCompat.getMobRewardData().containsKey(SmartGiantsCompat.getSmartGiantsMobType(mob)))
 				return 0;
-				//return SmartGiantsCompat.getMobRewardData().get(SmartGiantsCompat.getSmartGiantsMobType(killed))
-				//		.isMobEnabled();
+			// return
+			// SmartGiantsCompat.getMobRewardData().get(SmartGiantsCompat.getSmartGiantsMobType(killed))
+			// .isMobEnabled();
 			return 0;
 
 		} else if (HerobrineCompat.isHerobrineMob(mob)) {
 			if (HerobrineCompat.getMobRewardData().containsKey(HerobrineCompat.getHerobrineMobType(mob)))
 				return 0;
-				//return HerobrineCompat.getMobRewardData().get(HerobrineCompat.getHerobrineMobType(killed)).isMobEnabled();
+			// return
+			// HerobrineCompat.getMobRewardData().get(HerobrineCompat.getHerobrineMobType(killed)).isMobEnabled();
 			return 0;
 
 		} else if (EliteMobsCompat.isEliteMobs(mob)) {
 			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob)))
 				return 0;
-				//return HerobrineCompat.getMobRewardData().get(HerobrineCompat.getHerobrineMobType(killed)).isMobEnabled();
+			// return
+			// HerobrineCompat.getMobRewardData().get(HerobrineCompat.getHerobrineMobType(killed)).isMobEnabled();
 			return 0;
 
 		} else if (MyPetCompat.isMyPet(mob)) {

@@ -118,21 +118,13 @@ public class EliteMobsCompat implements Listener {
 	}
 
 	public static enum Mobs {
-		Kraken(MetadataHandler.KRAKEN, "Kraken"), Balrog(MetadataHandler.BALROG, "Balrog"), Fae(MetadataHandler.FAE,
-				"Fae"), TheReturned(MetadataHandler.THE_RETURNED, "The_Returned"), TreasureGoblin(
-						MetadataHandler.TREASURE_GOBLIN,
-						"Treasure_Goblin"), Custom(MetadataHandler.ELITE_MOB_MD, "EliteMob");
+		Kraken(MetadataHandler.KRAKEN), Balrog(MetadataHandler.BALROG), Fae(MetadataHandler.FAE), TheReturned(MetadataHandler.THE_RETURNED), TreasureGoblin(
+						MetadataHandler.TREASURE_GOBLIN), Custom(MetadataHandler.ELITE_MOB_MD);
 
-		private String id;
 		private String name;
 
-		private Mobs(String id, String name) {
-			this.id = id;
+		private Mobs(String name) {
 			this.name = name;
-		}
-
-		public String getId() {
-			return id;
 		}
 
 		public String getName() {
@@ -195,11 +187,11 @@ public class EliteMobsCompat implements Listener {
 		try {
 			if (!file.exists()) {
 				for (Mobs monster : Mobs.values()) {
-					mMobRewardData.put(monster.getId(),
-							new RewardData(MobPlugin.EliteMobs, monster.getId(), monster.getName(), true, "10:20", 1,
+					mMobRewardData.put(monster.name(),
+							new RewardData(MobPlugin.EliteMobs, monster.name(), monster.getName(), true, "10:20", 1,
 									"You killed an EliteMob", new ArrayList<HashMap<String, String>>(), 1, 0.02));
-					saveEliteMobsData(monster.getId());
-					MobHunting.getInstance().getStoreManager().insertEliteMobs(monster.getId());
+					saveEliteMobsData(monster.name());
+					MobHunting.getInstance().getStoreManager().insertEliteMobs(monster.name());
 				}
 				MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
 				return;
@@ -295,20 +287,20 @@ public class EliteMobsCompat implements Listener {
 
 			Mobs monster = getEliteMobsType(entity);
 
-			if (mMobRewardData != null && !mMobRewardData.containsKey(monster.getId())) {
-				MobHunting.getInstance().getMessages().debug("New EliteMob found=%s", monster.getId());
-				mMobRewardData.put(monster.getId(),
-						new RewardData(MobPlugin.EliteMobs, monster.getId(), monster.getName(), true, "40:60", 1,
+			if (mMobRewardData != null && !mMobRewardData.containsKey(monster.name())) {
+				MobHunting.getInstance().getMessages().debug("New EliteMob found=%s", monster.name());
+				mMobRewardData.put(monster.name(),
+						new RewardData(MobPlugin.EliteMobs, monster.name(), monster.getName(), true, "40:60", 1,
 								"You killed an EliteMob", new ArrayList<HashMap<String, String>>(), 1, 0.02));
-				saveEliteMobsData(monster.getId());
-				MobHunting.getInstance().getStoreManager().insertEliteMobs(monster.getId());
+				saveEliteMobsData(monster.name());
+				MobHunting.getInstance().getStoreManager().insertEliteMobs(monster.name());
 				// Update mob loaded into memory
 				MobHunting.getInstance().getExtendedMobManager().updateExtendedMobs();
 				MobHunting.getInstance().getMessages().injectMissingMobNamesToLangFiles();
 			}
 
 			event.getEntity().setMetadata(MH_ELITEMOBS,
-					new FixedMetadataValue(mPlugin, mMobRewardData.get(monster.getId())));
+					new FixedMetadataValue(mPlugin, mMobRewardData.get(monster.name())));
 		}
 	}
 
