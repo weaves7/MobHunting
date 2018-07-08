@@ -32,8 +32,6 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<mainClass>${project.groupId}.${project.artifactId}</mainClass>
 		<spigotmc112.version>1.12.2-R0.1-SNAPSHOT</spigotmc112.version>
-		<bukkit113.version>18w03b-R0.1-SNAPSHOT</bukkit113.version>
-		<bukkit112.version>1.12.2-R0.1-SNAPSHOT</bukkit112.version>
 		<craftbukkit112R1.version>1.12-R1</craftbukkit112R1.version>
 		<craftbukkit111R1.version>1.11-R1</craftbukkit111R1.version>
 		<craftbukkit110R1.version>1.10-R1</craftbukkit110R1.version>
@@ -49,7 +47,7 @@
 		<mavenJarPlugin.version>3.1.0</mavenJarPlugin.version>
 		<mavenShadePlugin.version>3.1.1</mavenShadePlugin.version>
 
-		<bagofgold.version>1.1.0</bagofgold.version>
+		<bagofgold.version>1.1.4-SNAPSHOT-B78</bagofgold.version>
 		
 		<vault.version>1.6.6</vault.version>
 		<bstats.version>1.2</bstats.version>
@@ -174,9 +172,7 @@
 					<artifactSet>
 						<includes>
 							<include>org.bstats:*</include>
-							<!-- <include>org.inventivetalent:reflectionhelper**</include> -->
 							<include>org.inventivetalent.spiget-update:bukkit**</include>
-							<!-- <include>one.lindegaard.CustomItemsLib:*</include> -->
 						</includes>
 					</artifactSet>
 					<relocations>
@@ -336,21 +332,7 @@
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
-			<version>${spigotmc111R1.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.spigotmc</groupId>
-			<artifactId>spigot-api</artifactId>
 			<version>${spigotmc112.version}</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- Bukkit -->
-		<dependency>
-			<groupId>org.bukkit</groupId>
-			<artifactId>bukkit</artifactId>
-			<version>${bukkit112.version}</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -862,12 +844,12 @@
 		<repository>
 			<id>central</id>
 			<name>fractal-releases</name>
-			<url>https://fractal.lindegaard.one:8187/artifactory/plugins-release-local</url>
+			<url>https://fractal.lindegaard.one:8187/plugins-release-local</url>
 		</repository>
 		<snapshotRepository>
-			<id>snapshots</id>
+			<id>central</id>
 			<name>fractal-snapshot</name>
-			<url>https://fractal.lindegaard.one:8187/artifactory/plugins-snapshot-local</url>
+			<url>https://fractal.lindegaard.one:8187/plugins-snapshot-local</url>
 		</snapshotRepository>
 	</distributionManagement>
 
