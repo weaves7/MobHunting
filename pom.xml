@@ -47,25 +47,36 @@
 		<javacompiler.version>1.8</javacompiler.version>
 		<mavenCompilerPlugin.version>3.7.0</mavenCompilerPlugin.version>
 		<mavenJarPlugin.version>3.1.0</mavenJarPlugin.version>
-		<mavenShadePlugin.version>2.4</mavenShadePlugin.version>
+		<mavenShadePlugin.version>3.1.1</mavenShadePlugin.version>
 
-		<mcstats.pluginname>${project.groupId}.${project.artifactId}</mcstats.pluginname>
-		<vault.version>1.6.6</vault.version>
 		<bagofgold.version>1.1.0</bagofgold.version>
+		
+		<vault.version>1.6.6</vault.version>
 		<bstats.version>1.2</bstats.version>
 		<protocollib.version>4.4.0-SNAPSHOT</protocollib.version>
-		<minigames.version>1.9.0-SNAPSHOT</minigames.version>
-		<minigameslib.version>1.14.14</minigameslib.version>
-		<mypet.version>2.3.3-SNAPSHOT</mypet.version>
-		<worldedit.version>6.1.5</worldedit.version>
-		<worldguard.version>6.2</worldguard.version>
-		<PreciousStones.version>10.7.2</PreciousStones.version>
-		<citizensapi.version>2.0.22-SNAPSHOT</citizensapi.version>
-		<libsdisguises.version>9.5.1-SNAPSHOT</libsdisguises.version>
-		<battleArena.version>3.9.10.6.2</battleArena.version>
+		<EssentialsX.version>2.0.1</EssentialsX.version>
+		<spigetupdate.version>1.4.0</spigetupdate.version>
+		
 		<bossbarapi.version>2.4.1</bossbarapi.version>
 		<barapi.version>3.4</barapi.version>
 		<titlemanager.version>2.0.0</titlemanager.version>
+		<ActionBarAPI.version>1.5.2</ActionBarAPI.version>
+		<ActionAnnouncer.version>1.10.0</ActionAnnouncer.version>
+		<placeholderapi.version>2.0.8</placeholderapi.version>
+		<TitleAPI.version>1.7.5</TitleAPI.version>
+		
+		<citizensapi.version>2.0.22-SNAPSHOT</citizensapi.version>
+		<holograms.version>2.5.0-SNAPSHOT</holograms.version>
+		<hologramdisplays.version>2.2.6</hologramdisplays.version>
+		
+		<minigames.version>1.9.0-SNAPSHOT</minigames.version>
+		<minigameslib.version>1.14.14</minigameslib.version>
+		<mypet.version>2.3.4</mypet.version>
+		<worldedit.version>6.1.5</worldedit.version>
+		<worldguard.version>6.2</worldguard.version>
+		<PreciousStones.version>10.7.2</PreciousStones.version>
+		<libsdisguises.version>9.5.1-SNAPSHOT</libsdisguises.version>
+		<battleArena.version>3.9.10.6.2</battleArena.version>
 		<placeholderapi.version>2.0.6</placeholderapi.version>
 		<custommobs.version>4.16</custommobs.version>
 		<mobarena.version>0.97.1</mobarena.version>
@@ -74,17 +85,12 @@
 		<factionsuuid.version>1.6.9.5-U0.2.1-SNAPSHOT</factionsuuid.version>
 		<factionsuuid.jar.version>FactionsUUID-1.6.9.5-B52.jar</factionsuuid.jar.version>
 
-		<ActionBarAPI.version>1.5.2</ActionBarAPI.version>
-		<ActionAnnouncer.version>1.10.0</ActionAnnouncer.version>
-		<EssentialsX.version>2.0.1</EssentialsX.version>
 		<iDisguise.version>5.5.5</iDisguise.version>
 		<vanishnopacket.version>3.20</vanishnopacket.version>
 		<mcmmo.version>1.5.01-SNAPSHOT</mcmmo.version>
 		<disguisecraft.version>5.1</disguisecraft.version>
 		<crackshot.version>0.98.5</crackshot.version>
-		<placeholderapi.version>2.0.8</placeholderapi.version>
 		<PvpArena.version>1.3</PvpArena.version>
-		<TitleAPI.version>1.7.5</TitleAPI.version>
 		<TARDISWeepingAngels.version>2.4</TARDISWeepingAngels.version>
 		<ConquestiaMobs.version>3.3.3</ConquestiaMobs.version>
 		<LorinthsRpgMobs.version>1.1.2</LorinthsRpgMobs.version>
@@ -102,10 +108,7 @@
 		<StackMob.version>2.1.1</StackMob.version>
 		<InfernalMobs.version>5.3</InfernalMobs.version>
 		<minigameslib.version>1.14.15.jar</minigameslib.version>
-		<holograms.version>2.5.0-SNAPSHOT</holograms.version>
-		<hologramdisplays.version>2.2.6</hologramdisplays.version>
-		<spigetupdate.version>1.4.0</spigetupdate.version>
-
+		
 		<gringotts.version>2.10-20170805.084200-1</gringotts.version>
 		<gringotts.jar.version>Gringotts-2.10-SNAPSHOT.jar</gringotts.jar.version>
 		<extrahardmode.version>3.12.1</extrahardmode.version>
@@ -201,28 +204,14 @@
 	<!-- ********************************************************************** -->
 	<repositories>
 
+		<!-- Rocologo repository -->
 		<repository>
-			<id>MinigamesAPI-Repo</id>
-			<name>MinigamesAPI Repository</name>
-			<url>http://nexus.xworlds.eu/nexus/content/repositories/mce/</url>
-		</repository>
-
-		<!-- MobHunhting repository -->
-		<repository>
-			<id>fractal-ext-rel</id>
-			<url>https://fractal.lindegaard.one:8187/ext-release-local/</url>
-		</repository>
-		<repository>
-			<id>fractal-ext-snap</id>
-			<url>https://fractal.lindegaard.one:8187/ext-snapshot-local/</url>
-		</repository>
-		<repository>
-			<id>fractal</id>
+			<id>fractal-release</id>
 			<url>https://fractal.lindegaard.one:8187/plugins-release/</url>
 		</repository>
 		<repository>
 			<id>fractal-snapshots</id>
-			<url>https://fractal.lindegaard.one:8187/plugins-snapshots/</url>
+			<url>https://fractal.lindegaard.one:8187/plugins-snapshot/</url>
 		</repository>
 
 		<!-- SpigotMC Repository -->
@@ -328,6 +317,12 @@
 		<repository>
 			<id>factionsuuid-repo</id>
 			<url>https://ci.ender.zone/plugin/repository/everything/com/massivecraft/Factions/</url>
+		</repository>
+
+		<repository>
+			<id>MinigamesAPI-Repo</id>
+			<name>MinigamesAPI Repository</name>
+			<url>http://nexus.xworlds.eu/nexus/content/repositories/mce/</url>
 		</repository>
 
 	</repositories>
@@ -862,16 +857,17 @@
 	<!-- ********************************************************************** -->
 	<!-- ******************** Distribution Management ************************* -->
 	<!-- ********************************************************************** -->
+	<!-- This is where the plugin is deployed -->
 	<distributionManagement>
 		<repository>
 			<id>central</id>
 			<name>fractal-releases</name>
-			<url>https://fractal.lindegaard.one:8187/plugins-release-local</url>
+			<url>https://fractal.lindegaard.one:8187/artifactory/plugins-release-local</url>
 		</repository>
 		<snapshotRepository>
 			<id>snapshots</id>
 			<name>fractal-snapshot</name>
-			<url>https://fractal.lindegaard.one:8187/plugins-snapshot-local</url>
+			<url>https://fractal.lindegaard.one:8187/artifactory/plugins-snapshot-local</url>
 		</snapshotRepository>
 	</distributionManagement>
 
