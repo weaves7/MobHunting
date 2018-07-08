@@ -847,7 +847,7 @@
 			<url>https://fractal.lindegaard.one:8187/plugins-release-local</url>
 		</repository>
 		<snapshotRepository>
-			<id>central</id>
+			<id>snapshots</id>
 			<name>fractal-snapshot</name>
 			<url>https://fractal.lindegaard.one:8187/plugins-snapshot-local</url>
 		</snapshotRepository>
