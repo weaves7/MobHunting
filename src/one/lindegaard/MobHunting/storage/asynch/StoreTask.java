@@ -1,6 +1,6 @@
 package one.lindegaard.MobHunting.storage.asynch;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import one.lindegaard.MobHunting.bounty.Bounty;
@@ -11,10 +11,10 @@ import one.lindegaard.MobHunting.storage.PlayerSettings;
 import one.lindegaard.MobHunting.storage.StatStore;
 
 public class StoreTask implements IDataStoreTask<Void> {
-	private HashSet<StatStore> mWaitingPlayerStats = new HashSet<StatStore>();
-	private HashSet<AchievementStore> mWaitingAchievements = new HashSet<AchievementStore>();
-	private HashSet<PlayerSettings> mWaitingPlayerSettings = new HashSet<PlayerSettings>();
-	private HashSet<Bounty> mWaitingBounties = new HashSet<Bounty>();
+	private LinkedHashSet<StatStore> mWaitingPlayerStats = new LinkedHashSet<StatStore>();
+	private LinkedHashSet<AchievementStore> mWaitingAchievements = new LinkedHashSet<AchievementStore>();
+	private LinkedHashSet<PlayerSettings> mWaitingPlayerSettings = new LinkedHashSet<PlayerSettings>();
+	private LinkedHashSet<Bounty> mWaitingBounties = new LinkedHashSet<Bounty>();
 
 	public StoreTask(Set<Object> waiting) {
 		synchronized (waiting) {

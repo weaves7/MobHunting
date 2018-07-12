@@ -1,5 +1,6 @@
 V5.7.1
 * Fixed Ticket 409 (https://github.com/Rocologo/MobHunting/issues/409)
+* Changed how data was stored in the database (Same order as they were inserted).
 V5.7.0
 * Fixed bStarts.org redirecting 
 * BagOfGold balance fixed when changing gamemode - PerWorldInventory is mandatory if you change worlds/gamemode

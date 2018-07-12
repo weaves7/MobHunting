@@ -1,6 +1,6 @@
 package one.lindegaard.MobHunting.storage;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.BlockingQueue;
@@ -32,7 +32,7 @@ public class DataStoreManager {
 	private MobHunting plugin;
 
 	// Accessed on multiple threads
-	private final HashSet<Object> mWaiting = new HashSet<Object>();
+	private final LinkedHashSet<Object> mWaiting = new LinkedHashSet<Object>();
 
 	// Accessed only from these threads
 	private IDataStore mStore;
