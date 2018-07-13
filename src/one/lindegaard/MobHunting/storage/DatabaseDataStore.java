@@ -1208,7 +1208,7 @@ public abstract class DatabaseDataStore implements IDataStore {
 			if (id != 0)
 				ps.setPlayerId(id);
 			result.close();
-			plugin.getMessages().debug("Reading Playersettings from Database: %s", ps.toString());
+			plugin.getMessages().debug("Reading from Database: %s", ps.toString());
 			mGetPlayerData.close();
 			mConnection.close();
 			return ps;
