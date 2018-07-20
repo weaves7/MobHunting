@@ -270,7 +270,7 @@ public class MobHuntingManager implements Listener {
 	// ************************************************************************************
 	// EVENTS
 	// ************************************************************************************
-	@EventHandler(priority = EventPriority.MONITOR)
+	@EventHandler(priority = EventPriority.NORMAL)
 	private void onPlayerDeath(PlayerDeathEvent event) {
 		if (!isHuntEnabledInWorld(event.getEntity().getWorld()) || !isHuntEnabled(event.getEntity()))
 			return;
@@ -332,11 +332,15 @@ public class MobHuntingManager implements Listener {
 			if (mob != null) {
 				double playerKilledByMobPenalty = 0;
 
-				playerKilledByMobPenalty = plugin.getRewardManager().getPlayerKilledByMobPenalty(killed);
+				playerKilledByMobPenalty = plugin.getRewardManager().getPlayerKilledByMobPenalty(killed,
+						event.getDrops());
 
 				if (playerKilledByMobPenalty != 0) {
 					if (BagOfGoldCompat.isSupported()) {
-						BagOfGold.getAPI().getEconomyManager().withdrawPlayer(killed, playerKilledByMobPenalty);
+						event.getDrops().add(new ItemStack(Material.DIRT));
+						BagOfGold.getAPI().getPlayerSettingsManager().getPlayerSettings(killed).setBalanceChanges(-playerKilledByMobPenalty);
+						// BagOfGold.getAPI().getEconomyManager().withdrawPlayer(killed,
+						// playerKilledByMobPenalty);
 					} else if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
 						plugin.getRewardManager().withdrawPlayer(killed, playerKilledByMobPenalty);
 					} else {

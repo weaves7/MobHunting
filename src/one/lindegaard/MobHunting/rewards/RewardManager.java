@@ -140,7 +140,7 @@ public class RewardManager {
 		pickupRewards = new PickupRewards(plugin);
 
 		Bukkit.getPluginManager().registerEvents(new RewardListeners(plugin), plugin);
-		
+
 		if (Misc.isMC18OrNewer())
 			Bukkit.getPluginManager().registerEvents(new MoneyMergeEventListener(plugin), plugin);
 
@@ -148,7 +148,7 @@ public class RewardManager {
 			Bukkit.getPluginManager().registerEvents(new EntityPickupItemEventListener(pickupRewards), plugin);
 		else
 			Bukkit.getPluginManager().registerEvents(new PlayerPickupItemEventListener(pickupRewards), plugin);
-		
+
 		loadAllStoredRewards();
 
 		if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency)
@@ -467,7 +467,24 @@ public class RewardManager {
 		return skull;
 	}
 
-	public double getPlayerKilledByMobPenalty(Player playerToBeRobbed) {
+	public ItemStack setReward(ItemStack skull, Reward reward) {
+		ItemMeta skullMeta = skull.getItemMeta();
+		skullMeta.setLore(new ArrayList<String>(Arrays.asList("Hidden:" + reward.getDisplayname(),
+				"Hidden:" + reward.getMoney(), "Hidden:" + reward.getRewardType(),
+				reward.getMoney() == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(), "Hidden:" + reward.getSkinUUID())));
+		if (reward.getMoney() == 0)
+			skullMeta.setDisplayName(
+					ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + reward.getDisplayname());
+		else
+			skullMeta.setDisplayName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
+					+ (plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
+							? format(reward.getMoney())
+							: reward.getDisplayname() + " (" + format(reward.getMoney()) + ")"));
+		skull.setItemMeta(skullMeta);
+		return skull;
+	}
+
+	public double getPlayerKilledByMobPenalty(Player playerToBeRobbed, List<ItemStack> droplist) {
 		if (plugin.getConfigManager().mobKillsPlayerPenalty == null
 				|| plugin.getConfigManager().mobKillsPlayerPenalty.trim().equals("")
 				|| plugin.getConfigManager().mobKillsPlayerPenalty.trim().equals("0%")
@@ -476,24 +493,29 @@ public class RewardManager {
 			return 0;
 		} else if (plugin.getConfigManager().mobKillsPlayerPenalty.trim().contains(":")) {
 			String[] str1 = plugin.getConfigManager().mobKillsPlayerPenalty.trim().split(":");
-			double prize = (plugin.mRand.nextDouble() * (Double.valueOf(str1[1]) - Double.valueOf(str1[0]))
+			double penalty = (plugin.mRand.nextDouble() * (Double.valueOf(str1[1]) - Double.valueOf(str1[0]))
 					+ Double.valueOf(str1[0]));
-			return Misc.round(prize);
+			return Misc.round(penalty);
 		} else if (plugin.getConfigManager().mobKillsPlayerPenalty.trim().endsWith("%")) {
-			double prize = 0;
+			double penalty = 0;
 			if (BagOfGoldCompat.isSupported()) {
-				PlayerSettings ps = BagOfGold.getAPI().getPlayerSettingsManager().getPlayerSettings(playerToBeRobbed);
-				prize = Math.round(Double
+				double amountInInventory = 0;
+				for (ItemStack itemstack : droplist) {
+					if (Reward.isReward(itemstack)) {
+						amountInInventory = +Reward.getReward(itemstack).getMoney();
+					}
+				}
+				penalty = Math.round(Double
 						.valueOf(plugin.getConfigManager().mobKillsPlayerPenalty.trim().substring(0,
 								plugin.getConfigManager().mobKillsPlayerPenalty.trim().length() - 1))
-						* (ps.getBalance() + ps.getBalanceChanges()) / 100);
+						* amountInInventory / 100);
 			} else {
-				prize = Math.floor(Double
+				penalty = Math.floor(Double
 						.valueOf(plugin.getConfigManager().mobKillsPlayerPenalty.trim().substring(0,
 								plugin.getConfigManager().mobKillsPlayerPenalty.trim().length() - 1))
 						* getBalance(playerToBeRobbed) / 100);
 			}
-			return Misc.round(prize);
+			return Misc.round(penalty);
 		} else
 			return Double.valueOf(plugin.getConfigManager().mobKillsPlayerPenalty.trim());
 	}
@@ -584,7 +606,8 @@ public class RewardManager {
 			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob)))
 				return getPrice(mob,
 						EliteMobsCompat.getMobRewardData().get(EliteMobsCompat.getEliteMobsType(mob)).getRewardPrize());
-			//plugin.getMessages().debug("EliteMob %s has no reward data", EliteMobsCompat.getEliteMobsType(mob));
+			// plugin.getMessages().debug("EliteMob %s has no reward data",
+			// EliteMobsCompat.getEliteMobsType(mob));
 			return 0;
 
 		} else {

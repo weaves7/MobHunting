@@ -537,7 +537,7 @@ public class MasterMobHunterSign implements Listener {
 		}
 		if (isMHSign(b)) {
 			int id = getNPCIdOnSign(b);
-			if (id != -1) {
+			if (id != -1 && CitizensCompat.getMasterMobHunterManager().get(id)!= null) {
 				CitizensCompat.getMasterMobHunterManager().get(id).removeLocation(e.getBlock().getLocation());
 			}
 		}

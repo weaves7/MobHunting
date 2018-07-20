@@ -4,8 +4,15 @@ MobHunting
 
 Websites - more info
 -------------------------
-- [Bukkit Dev](http://dev.bukkit.org/bukkit-plugins/mobhunting/)
 - [SpigotMC](https://www.spigotmc.org/resources/mobhunting.3582/)
+
+You should also look at following recommended plugins:
+- [Vault](https://www.spigotmc.org/resources/vault.34315/)
+- [BagOfGold](https://www.spigotmc.org/resources/bagofgold.49332/) 
+- [Protocollib](https://www.spigotmc.org/resources/protocollib.1997/)
+- [PerWorldInventory](https://www.spigotmc.org/resources/per-world-inventory.4482/)
+
+
 
 ## Features
 * Reward Money from killing monsters.
