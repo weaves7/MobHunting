@@ -12,8 +12,6 @@ You should also look at following recommended plugins:
 - [Protocollib](https://www.spigotmc.org/resources/protocollib.1997/)
 - [PerWorldInventory](https://www.spigotmc.org/resources/per-world-inventory.4482/)
 
-
-
 ## Features
 * Reward Money from killing monsters.
 * Reward / Punish Money from killing animals. (disabled by default)
@@ -28,4 +26,5 @@ You should also look at following recommended plugins:
 * [Supports Minecraft 1.13]
 * Heavily customizable
 * Language support
+* Tested on SpigotMC, CraftBukkit, PaperSpigot/PaperClip, Glowstone and Cauldron
 * NEW Learning mode so players understand why they didn't get a reward when killing a mod.
