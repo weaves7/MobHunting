@@ -7,7 +7,7 @@
 	<artifactId>MobHunting</artifactId>
 	<packaging>jar</packaging>
 	<!-- <version>5.7.3</version> -->
-	<version>6.0.0-SNAPSHOT-B${build.number}</version>
+	<version>6.0.0-SNAPSHOT-B${build.number}</version> 
 	<name>MobHunting</name>
 	<url>https://www.spigotmc.org/resources/mobhunting.3582/</url>
 	<description>MobHunting adds a new level of fun to hunting monsters. Now you can get money from kills, get bonuses for skilled and creative kills, and get special achievements!</description>
