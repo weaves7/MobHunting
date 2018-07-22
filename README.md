@@ -25,8 +25,7 @@ You should also look at following recommended plugins:
 * MasterMobHunters (Citizens2) and Signs
 * Leaderboards
 * Mob grinder detection
-* [Supports Minecraft 1.7.9 - 1.12.2]
+* [Supports Minecraft 1.13]
 * Heavily customizable
 * Language support
-* Tested on SpigotMC, CraftBukkit, PaperSpigot/PaperClip, Glowstone and Cauldron
 * NEW Learning mode so players understand why they didn't get a reward when killing a mod.
