@@ -1,7 +1,7 @@
 package one.lindegaard.MobHunting.commands;
 
 import one.lindegaard.BagOfGold.BagOfGold;
-import one.lindegaard.BagOfGold.storage.PlayerSettings;
+import one.lindegaard.BagOfGold.PlayerBalance;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
 import one.lindegaard.MobHunting.compatibility.BossShopCompat;
@@ -564,7 +564,7 @@ public class MoneyCommand implements ICommand {
 				}
 				Player player = (Player) sender;
 				if (BagOfGoldCompat.isSupported()) {
-					PlayerSettings ps = BagOfGold.getAPI().getPlayerSettingsManager().getPlayerSettings(player);
+					PlayerBalance ps = BagOfGold.getAPI().getPlayerBalanceManager().getPlayerBalances(player);
 					for (Iterator<NPC> npcList = CitizensAPI.getNPCRegistry().iterator(); npcList.hasNext();) {
 						NPC npc = npcList.next();
 						if (BagOfGold.getAPI().getBankManager().isBagOfGoldBanker(npc.getEntity())) {
@@ -621,7 +621,7 @@ public class MoneyCommand implements ICommand {
 				if (args.length == 2 && (args[1].matches("\\d+(\\.\\d+)?") || args[1].equalsIgnoreCase("all"))) {
 					Player player = (Player) sender;
 					if (BagOfGoldCompat.isSupported()) {
-						PlayerSettings ps = BagOfGold.getAPI().getPlayerSettingsManager().getPlayerSettings(player);
+						PlayerBalance ps = BagOfGold.getAPI().getPlayerBalanceManager().getPlayerBalances(player);
 						double amount = args[1].equalsIgnoreCase("all")
 								? ps.getBankBalance() + ps.getBankBalanceChanges()
 								: Double.valueOf(args[1]);

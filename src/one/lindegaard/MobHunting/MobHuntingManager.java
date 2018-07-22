@@ -4,7 +4,7 @@ import com.gmail.nossr50.datatypes.skills.SkillType;
 import com.sk89q.worldguard.protection.flags.DefaultFlag;
 
 import one.lindegaard.BagOfGold.BagOfGold;
-import one.lindegaard.BagOfGold.storage.PlayerSettings;
+import one.lindegaard.BagOfGold.PlayerBalance;
 import one.lindegaard.MobHunting.bounty.Bounty;
 import one.lindegaard.MobHunting.bounty.BountyStatus;
 import one.lindegaard.MobHunting.compatibility.*;
@@ -338,7 +338,7 @@ public class MobHuntingManager implements Listener {
 				if (playerKilledByMobPenalty != 0) {
 					if (BagOfGoldCompat.isSupported()) {
 						event.getDrops().add(new ItemStack(Material.DIRT));
-						BagOfGold.getAPI().getPlayerSettingsManager().getPlayerSettings(killed).setBalanceChanges(-playerKilledByMobPenalty);
+						BagOfGold.getAPI().getPlayerBalanceManager().getPlayerBalances(killed).setBalanceChanges(-playerKilledByMobPenalty);
 						// BagOfGold.getAPI().getEconomyManager().withdrawPlayer(killed,
 						// playerKilledByMobPenalty);
 					} else if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
@@ -393,7 +393,7 @@ public class MobHuntingManager implements Listener {
 				}
 
 			} else if (killer != null && BagOfGoldCompat.isSupported()) {
-				PlayerSettings ps = BagOfGold.getAPI().getPlayerSettingsManager().getPlayerSettings(killed);
+				PlayerBalance ps = BagOfGold.getAPI().getPlayerBalanceManager().getPlayerBalances(killed);
 				double balance = ps.getBalance() + ps.getBalanceChanges();
 				if (balance != 0) {
 					plugin.getMessages().debug("%s dropped %s because of his death, killed by %s", killed.getName(),

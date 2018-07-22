@@ -18,7 +18,7 @@ public class BagOfGoldCompat {
 	public BagOfGoldCompat() {
 		mPlugin = (BagOfGold) Bukkit.getPluginManager().getPlugin(CompatPlugin.BagOfGold.getName());
 
-		if (mPlugin.getDescription().getVersion().compareTo("1.0.9") >= 0) {
+		if (mPlugin.getDescription().getVersion().compareTo("2.0.0") >= 0) {
 			Bukkit.getServer().getConsoleSender()
 					.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
 							+ "Enabling compatibility with BagOfGold ("
@@ -28,7 +28,7 @@ public class BagOfGoldCompat {
 			Bukkit.getServer().getConsoleSender()
 					.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RED
 							+ "Your current version of BagOfGold (" + mPlugin.getDescription().getVersion()
-							+ ") is outdated. Please upgrade to 1.0.9 or newer.");
+							+ ") is outdated. Please upgrade to 2.0.0 or newer.");
 			Bukkit.getPluginManager().disablePlugin(mPlugin);
 		}
 
@@ -44,10 +44,6 @@ public class BagOfGoldCompat {
 
 	public static boolean isSupported() {
 		return supported;
-	}
-
-	public double getStartingBalance() {
-		return BagOfGold.getInstance().getConfigManager().startingBalance;
 	}
 
 	public String getBagOfGoldFormat() {

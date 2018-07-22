@@ -39,7 +39,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.event.block.Action;
 
 import one.lindegaard.BagOfGold.BagOfGold;
-import one.lindegaard.BagOfGold.storage.PlayerSettings;
+import one.lindegaard.BagOfGold.PlayerBalance;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
 import one.lindegaard.MobHunting.compatibility.CitizensCompat;
@@ -170,10 +170,10 @@ public class RewardListeners implements Listener {
 							boolean done = false;
 							if (BagOfGoldCompat.isSupported()) {
 								done = plugin.getRewardManager().addBagOfGoldPlayer(player, reward.getMoney());
-								PlayerSettings ps = BagOfGold.getAPI().getPlayerSettingsManager()
-										.getPlayerSettings(player);
+								PlayerBalance ps = BagOfGold.getAPI().getPlayerBalanceManager()
+										.getPlayerBalances(player);
 								ps.setBalance(Misc.round(ps.getBalance() + reward.getMoney()));
-								BagOfGold.getAPI().getPlayerSettingsManager().setPlayerSettings(player, ps);
+								BagOfGold.getAPI().getPlayerBalanceManager().setPlayerBalance(player, ps);
 								done = true;
 							} else if (reward.getMoney() != 0
 									&& !plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {

@@ -12,7 +12,7 @@ public class PlayerSettings {
 	private String texture="";
 	private String signature="";
 
-	public PlayerSettings(OfflinePlayer player, double balance) {
+	public PlayerSettings(OfflinePlayer player) {
 		this.player = player;
 		this.setLearningMode(MobHunting.getInstance().getConfigManager().learningMode);
 		this.setMuteMode(false);

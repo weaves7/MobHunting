@@ -14,8 +14,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import one.lindegaard.BagOfGold.BagOfGold;
-import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
 import one.lindegaard.MobHunting.rewards.CustomItems;
 import one.lindegaard.MobHunting.storage.DataStoreException;
 import one.lindegaard.MobHunting.storage.IDataCallback;
@@ -51,7 +49,7 @@ public class PlayerSettingsManager implements Listener {
 			} catch (DataStoreException | SQLException e) {
 				plugin.getMessages().debug("%s is not in the database. (Has played before=%s)", offlinePlayer.getName(),
 						offlinePlayer.hasPlayedBefore());
-				return new PlayerSettings(offlinePlayer, 0);
+				return new PlayerSettings(offlinePlayer);
 			}
 		}
 
@@ -86,16 +84,17 @@ public class PlayerSettingsManager implements Listener {
 	private void onPlayerJoin(PlayerJoinEvent event) {
 		final Player player = event.getPlayer();
 		if (containsKey(player))
-			plugin.getMessages().debug("Using cached player settings for %s. Balance=%s (%s)" , player.getName(),
-					plugin.getRewardManager().format(plugin.getRewardManager().getBalance(player)),player.getGameMode());
+			plugin.getMessages().debug("Using cached player settings for %s. Balance=%s (%s)", player.getName(),
+					plugin.getRewardManager().format(plugin.getRewardManager().getBalance(player)),
+					player.getGameMode());
 		else {
 			load(player);
 		}
 	}
 
 	/**
-	 * Write PlayerSettings to Database when Player Quit and remove PlayerSettings
-	 * from memory
+	 * Write PlayerSettings to Database when Player Quit and remove
+	 * PlayerSettings from memory
 	 * 
 	 * @param event
 	 */
@@ -132,11 +131,7 @@ public class PlayerSettingsManager implements Listener {
 			public void onError(Throwable error) {
 				Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[MobHunting][ERROR] " + player.getName()
 						+ " is new, creating user in database.");
-				mPlayerSettings.put(player.getUniqueId(),
-						new PlayerSettings(player,
-								BagOfGoldCompat.isSupported()
-										? BagOfGold.getInstance().getConfigManager().startingBalance
-										: 0));
+				mPlayerSettings.put(player.getUniqueId(), new PlayerSettings(player));
 			}
 		});
 	}

@@ -84,7 +84,7 @@ import net.citizensnpcs.api.npc.NPCRegistry;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import one.lindegaard.BagOfGold.BagOfGold;
-import one.lindegaard.BagOfGold.storage.PlayerSettings;
+import one.lindegaard.BagOfGold.PlayerBalance;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
 import one.lindegaard.MobHunting.compatibility.CitizensCompat;
@@ -685,8 +685,7 @@ public class RewardManager {
 				if (plugin.getConfigManager().pvpKillMoney.trim().endsWith("%")) {
 					double prize = 0;
 					if (BagOfGoldCompat.isSupported()) {
-						PlayerSettings ps = BagOfGold.getAPI().getPlayerSettingsManager()
-								.getPlayerSettings((Player) mob);
+						PlayerBalance ps = BagOfGold.getAPI().getPlayerBalanceManager().getPlayerBalances((Player) mob);
 						prize = Math.round(Double
 								.valueOf(plugin.getConfigManager().pvpKillMoney.trim().substring(0,
 										plugin.getConfigManager().pvpKillMoney.trim().length() - 1))
@@ -779,7 +778,7 @@ public class RewardManager {
 				return getPrice(mob, plugin.getConfigManager().villagerMoney);
 			else if (mob instanceof Wolf) {
 				return getPrice(mob, plugin.getConfigManager().wolfMoney);
-				//TODO: is this the heads???
+				// TODO: is this the heads???
 			} else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.LEGACY_RAW_FISH) {
 				ItemStack is = ((Item) mob).getItemStack();
 				if (is.getData().getData() == (byte) 0) {
@@ -1035,7 +1034,7 @@ public class RewardManager {
 				return plugin.getConfigManager().villagerCommands;
 			else if (mob instanceof Wolf)
 				return plugin.getConfigManager().wolfCommands;
-			//TODO: HEADS????
+			// TODO: HEADS????
 			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.LEGACY_RAW_FISH) {
 				ItemStack is = ((Item) mob).getItemStack();
 				if (is.getData().getData() == (byte) 0) {
@@ -1255,7 +1254,7 @@ public class RewardManager {
 				return plugin.getConfigManager().villagerMessage;
 			else if (mob instanceof Wolf)
 				return plugin.getConfigManager().wolfMessage;
-			//TODO: HEADS????
+			// TODO: HEADS????
 			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.LEGACY_RAW_FISH) {
 				ItemStack is = ((Item) mob).getItemStack();
 				if (is.getData().getData() == (byte) 0) {
@@ -1467,7 +1466,7 @@ public class RewardManager {
 				return plugin.getConfigManager().villagerCmdRunChance;
 			else if (mob instanceof Wolf)
 				return plugin.getConfigManager().wolfCmdRunChance;
-			//TODO: Heads????
+			// TODO: Heads????
 			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.LEGACY_RAW_FISH) {
 				ItemStack is = ((Item) mob).getItemStack();
 				if (is.getData().getData() == (byte) 0) {
@@ -1684,7 +1683,7 @@ public class RewardManager {
 				return plugin.getConfigManager().villagerMcMMOSkillRewardChance;
 			else if (mob instanceof Wolf)
 				return plugin.getConfigManager().wolfMcMMOSkillRewardChance;
-			//TODO: heads????
+			// TODO: heads????
 			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.LEGACY_RAW_FISH) {
 				ItemStack is = ((Item) mob).getItemStack();
 				if (is.getData().getData() == (byte) 0) {
@@ -1925,7 +1924,7 @@ public class RewardManager {
 				return getMcMMOXP(mob, plugin.getConfigManager().villagerMcMMOSkillRewardAmount);
 			else if (mob instanceof Wolf)
 				return getMcMMOXP(mob, plugin.getConfigManager().wolfMcMMOSkillRewardAmount);
-			//TODO: heads???
+			// TODO: heads???
 			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.LEGACY_RAW_FISH) {
 				ItemStack is = ((Item) mob).getItemStack();
 				if (is.getData().getData() == (byte) 0) {
@@ -2136,7 +2135,7 @@ public class RewardManager {
 				return plugin.getConfigManager().villagerEnabled;
 			else if (mob instanceof Wolf)
 				return plugin.getConfigManager().wolfEnabled;
-			//TODO: HEADS ????
+			// TODO: HEADS ????
 			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.LEGACY_RAW_FISH) {
 				ItemStack is = ((Item) mob).getItemStack();
 				if (is.getData().getData() == (byte) 0) {
@@ -2359,7 +2358,7 @@ public class RewardManager {
 				return plugin.getConfigManager().villagerHeadDropHead;
 			else if (mob instanceof Wolf)
 				return plugin.getConfigManager().wolfHeadDropHead;
-			//TODO: HEADS ????
+			// TODO: HEADS ????
 			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.LEGACY_RAW_FISH) {
 				ItemStack is = ((Item) mob).getItemStack();
 				if (is.getData().getData() == (byte) 0) {
@@ -2584,7 +2583,7 @@ public class RewardManager {
 				return plugin.getConfigManager().villagerHeadDropChance;
 			else if (mob instanceof Wolf)
 				return plugin.getConfigManager().wolfHeadDropChance;
-			//TODO: HEADS ????
+			// TODO: HEADS ????
 			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.LEGACY_RAW_FISH) {
 				ItemStack is = ((Item) mob).getItemStack();
 				if (is.getData().getData() == (byte) 0) {
@@ -2809,7 +2808,7 @@ public class RewardManager {
 				return plugin.getConfigManager().villagerHeadMessage;
 			else if (mob instanceof Wolf)
 				return plugin.getConfigManager().wolfHeadMessage;
-			//TODO: heads ?????
+			// TODO: heads ?????
 			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.LEGACY_RAW_FISH) {
 				ItemStack is = ((Item) mob).getItemStack();
 				if (is.getData().getData() == (byte) 0) {
@@ -3034,7 +3033,7 @@ public class RewardManager {
 				return getPrice(mob, plugin.getConfigManager().villagerHeadPrize);
 			else if (mob instanceof Wolf)
 				return getPrice(mob, plugin.getConfigManager().wolfHeadPrize);
-			//TODO: heads ?????
+			// TODO: heads ?????
 			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.LEGACY_RAW_FISH) {
 				ItemStack is = ((Item) mob).getItemStack();
 				if (is.getData().getData() == (byte) 0) {
