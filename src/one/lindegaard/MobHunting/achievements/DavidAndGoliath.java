@@ -59,7 +59,8 @@ public class DavidAndGoliath implements Achievement, Listener {
 
 	@Override
 	public ItemStack getSymbol() {
-		return new ItemStack(Material.SKULL_ITEM, 1, (short) 2);
+		//TODO: Best head?????
+		return new ItemStack(Material.PLAYER_HEAD);
 	}
 
 }

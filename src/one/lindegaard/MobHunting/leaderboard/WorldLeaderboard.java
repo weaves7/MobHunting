@@ -123,11 +123,14 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 			if (!block.isEmpty()) {
 				switch (block.getType()) {
 				case SNOW:
-				case LONG_GRASS:
+					// TODO ???
+				//case LONG_GRASS:
+				case LEGACY_LONG_GRASS:
 				case FIRE:
 				case VINE:
 				case DEAD_BUSH:
-				case DOUBLE_PLANT:
+				//case DOUBLE_PLANT:
+				case LEGACY_DOUBLE_PLANT:
 					continue;
 				default:
 					break;

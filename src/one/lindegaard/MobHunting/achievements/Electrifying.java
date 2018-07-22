@@ -59,7 +59,9 @@ public class Electrifying implements Achievement, Listener {
 	@SuppressWarnings("deprecation")
 	@Override
 	public ItemStack getSymbol() {
-		ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1);
+		//TODO: Best Material?
+		//ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1);
+		ItemStack skull = new ItemStack(Material.CREEPER_HEAD);
 		SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
 		skullMeta.setOwner("MHF_Creeper");
 		skull.setItemMeta(skullMeta);

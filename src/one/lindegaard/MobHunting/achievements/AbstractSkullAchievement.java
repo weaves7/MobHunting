@@ -9,7 +9,8 @@ public abstract class AbstractSkullAchievement implements Achievement{
     @SuppressWarnings("deprecation")
 	@Override
     public ItemStack getSymbol() {
-        ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 4);
+    	//TODO: best material?
+        ItemStack skull = new ItemStack(Material.CREEPER_HEAD);
         SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
         skullMeta.setOwner("MHF_Creeper");
         skull.setItemMeta(skullMeta);

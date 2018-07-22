@@ -757,17 +757,18 @@ public enum MinecraftMob {
 		else if (this == BonusMob)
 			return entity.hasMetadata("MH:hasBonus");
 		// else
+		//TODO: fish heads????
 		if (this == RawFish)
-			return entity instanceof Item && ((Item) entity).getItemStack().getType() == Material.RAW_FISH
+			return entity instanceof Item && ((Item) entity).getItemStack().getType() == Material.LEGACY_RAW_FISH
 					&& ((Item) entity).getItemStack().getData().getData() == 0;
 		else if (this == RawSalmon)
-			return entity instanceof Item && ((Item) entity).getItemStack().getType() == Material.RAW_FISH
+			return entity instanceof Item && ((Item) entity).getItemStack().getType() == Material.LEGACY_RAW_FISH
 					&& ((Item) entity).getItemStack().getData().getData() == 1;
 		else if (this == Clownfish)
-			return entity instanceof Item && ((Item) entity).getItemStack().getType() == Material.RAW_FISH
+			return entity instanceof Item && ((Item) entity).getItemStack().getType() == Material.LEGACY_RAW_FISH
 					&& ((Item) entity).getItemStack().getData().getData() == 2;
 		else if (this == Pufferfish)
-			return entity instanceof Item && ((Item) entity).getItemStack().getType() == Material.RAW_FISH
+			return entity instanceof Item && ((Item) entity).getItemStack().getType() == Material.LEGACY_RAW_FISH
 					&& ((Item) entity).getItemStack().getData().getData() == 3;
 		else
 			return entity.getType().toString().equals(mMinecraftMobType);
@@ -839,42 +840,43 @@ public enum MinecraftMob {
 
 	}
 
+	//TODO: HEADS ??? and is this in CustomItems??? 
 	public ItemStack getCustomHead(MobHunting plugin, String name, int amount, double money) {
 		ItemStack skull;
 		switch (this) {
 		case Skeleton:
-			skull = new ItemStack(Material.SKULL_ITEM, amount, (short) 0);
+			skull = new ItemStack(Material.LEGACY_SKULL_ITEM, amount, (short) 0);
 			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, getFriendlyName(), money,
 					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), getPlayerUUID());
 			break;
 
 		case WitherSkeleton:
-			skull = new ItemStack(Material.SKULL_ITEM, amount, (short) 1);
+			skull = new ItemStack(Material.LEGACY_SKULL_ITEM, amount, (short) 1);
 			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, getFriendlyName(), money,
 					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), getPlayerUUID());
 			break;
 
 		case Zombie:
-			skull = new ItemStack(Material.SKULL_ITEM, amount, (short) 2);
+			skull = new ItemStack(Material.LEGACY_SKULL_ITEM, amount, (short) 2);
 			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, getFriendlyName(), money,
 					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), getPlayerUUID());
 			break;
 
 		case PvpPlayer:
-			skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+			skull = new ItemStack(Material.LEGACY_SKULL_ITEM, 1, (short) 3);
 			SkullMeta sm = (SkullMeta) skull.getItemMeta();
 			sm.setOwner(name);
 			skull.setItemMeta(sm);
 			break;
 
 		case Creeper:
-			skull = new ItemStack(Material.SKULL_ITEM, amount, (short) 4);
+			skull = new ItemStack(Material.LEGACY_SKULL_ITEM, amount, (short) 4);
 			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, getFriendlyName(), money,
 					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), getPlayerUUID());
 			break;
 
 		case EnderDragon:
-			skull = new ItemStack(Material.SKULL_ITEM, amount, (short) 5);
+			skull = new ItemStack(Material.LEGACY_SKULL_ITEM, amount, (short) 5);
 			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, getFriendlyName(), money,
 					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), getPlayerUUID());
 			break;

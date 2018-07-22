@@ -21,7 +21,8 @@ public class CriticalModifier implements IModifier {
 
 	private boolean isInWater(Player player) {
 		Block block = player.getLocation().getBlock();
-		return block.getType() == Material.WATER || block.getType() == Material.STATIONARY_WATER;
+		//TODO: Is the the material?
+		return block.getType() == Material.WATER || block.getType() == Material.LEGACY_STATIONARY_WATER;
 	}
 
 	private boolean isOnLadder(Player player) {

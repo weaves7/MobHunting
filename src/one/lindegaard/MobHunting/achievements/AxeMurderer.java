@@ -57,7 +57,8 @@ public class AxeMurderer implements Achievement, Listener {
 
 	@Override
 	public ItemStack getSymbol() {
-		return new ItemStack(Material.WOOD_AXE);
+		//TODO: Best material
+		return new ItemStack(Material.WOODEN_AXE);
 	}
 
 }

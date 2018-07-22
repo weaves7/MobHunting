@@ -98,7 +98,7 @@ public class BagOfGoldSign implements Listener {
 								event.getItem().setItemMeta(null);
 								event.getItem().setType(Material.AIR);
 							} else {
-								event.getPlayer().setItemInHand(new ItemStack(0));
+								event.getPlayer().setItemInHand(new ItemStack(Material.AIR));
 							}
 						} else {
 							reward.setMoney(moneyInHand - moneyOnSign);

@@ -16,7 +16,10 @@ import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.type.RedstoneWire;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -52,28 +55,51 @@ public class MasterMobHunterSign implements Listener {
 	public MasterMobHunterSign(MobHunting plugin) {
 		this.plugin = plugin;
 
-		supportedmats.add(Material.REDSTONE_COMPARATOR_OFF);
-		supportedmats.add(Material.REDSTONE_COMPARATOR_ON);
-		supportedmats.add(Material.REDSTONE_LAMP_OFF);
-		supportedmats.add(Material.REDSTONE_LAMP_ON);
-		supportedmats.add(Material.REDSTONE_TORCH_OFF);
-		supportedmats.add(Material.REDSTONE_TORCH_ON);
+		//supportedmats.add(Material.REDSTONE_COMPARATOR_OFF);
+		//supportedmats.add(Material.REDSTONE_COMPARATOR_ON);
+		//supportedmats.add(Material.REDSTONE_LAMP_OFF);
+		//supportedmats.add(Material.REDSTONE_LAMP_ON);
+		//supportedmats.add(Material.REDSTONE_TORCH_OFF);
+		//supportedmats.add(Material.REDSTONE_TORCH_ON);
+		//supportedmats.add(Material.REDSTONE_WIRE);
+		//supportedmats.add(Material.DISPENSER);
+		//supportedmats.add(Material.FURNACE);
+		//supportedmats.add(Material.POWERED_RAIL);
+		//supportedmats.add(Material.ACTIVATOR_RAIL);
+		//supportedmats.add(Material.DIODE_BLOCK_OFF);
+		//supportedmats.add(Material.DIODE_BLOCK_ON);
+		//supportedmats.add(Material.COMMAND);
+		//supportedmats.add(Material.FENCE_GATE);
+		//supportedmats.add(Material.IRON_DOOR);
+		//supportedmats.add(Material.WOODEN_DOOR);
+		//supportedmats.add(Material.JUKEBOX);
+		//supportedmats.add(Material.PISTON_BASE);
+		//supportedmats.add(Material.PISTON_STICKY_BASE);
+		//supportedmats.add(Material.TNT);
+		//supportedmats.add(Material.TRAP_DOOR);
+		
+		supportedmats.add(Material.LEGACY_REDSTONE_COMPARATOR_OFF);
+		supportedmats.add(Material.LEGACY_REDSTONE_COMPARATOR_ON);
+		supportedmats.add(Material.LEGACY_REDSTONE_LAMP_OFF);
+		supportedmats.add(Material.LEGACY_REDSTONE_LAMP_ON);
+		supportedmats.add(Material.LEGACY_REDSTONE_TORCH_OFF);
+		supportedmats.add(Material.LEGACY_REDSTONE_TORCH_ON);
 		supportedmats.add(Material.REDSTONE_WIRE);
 		supportedmats.add(Material.DISPENSER);
 		supportedmats.add(Material.FURNACE);
 		supportedmats.add(Material.POWERED_RAIL);
 		supportedmats.add(Material.ACTIVATOR_RAIL);
-		supportedmats.add(Material.DIODE_BLOCK_OFF);
-		supportedmats.add(Material.DIODE_BLOCK_ON);
-		supportedmats.add(Material.COMMAND);
-		supportedmats.add(Material.FENCE_GATE);
+		supportedmats.add(Material.LEGACY_DIODE_BLOCK_OFF);
+		supportedmats.add(Material.LEGACY_DIODE_BLOCK_ON);
+		supportedmats.add(Material.LEGACY_COMMAND);
+		supportedmats.add(Material.LEGACY_FENCE_GATE);
 		supportedmats.add(Material.IRON_DOOR);
-		supportedmats.add(Material.WOODEN_DOOR);
+		supportedmats.add(Material.LEGACY_WOODEN_DOOR);
 		supportedmats.add(Material.JUKEBOX);
-		supportedmats.add(Material.PISTON_BASE);
-		supportedmats.add(Material.PISTON_STICKY_BASE);
+		supportedmats.add(Material.LEGACY_PISTON_BASE);
+		supportedmats.add(Material.LEGACY_PISTON_STICKY_BASE);
 		supportedmats.add(Material.TNT);
-		supportedmats.add(Material.TRAP_DOOR);
+		supportedmats.add(Material.LEGACY_TRAP_DOOR);
 
 		
 	}
@@ -129,13 +155,25 @@ public class MasterMobHunterSign implements Listener {
 
 	@SuppressWarnings("deprecation")
 	private static void setMHPowerOnRedstoneWire(Block block, byte power) {
-		block.setTypeIdAndData(Material.REDSTONE_WIRE.getId(), power, true);
-		block.getState().update();
+		RedstoneWire rw = (RedstoneWire) block.getBlockData();
+		rw.setPower(0);
+		block.setBlockData(rw);
+		//block.setTypeIdAndData(Material.REDSTONE_WIRE.getId(), power, true);
+		
+		//BlockData bd = block.getBlockData();
+		//BlockState bs = block.getState();
+		//byte br = bs.getRawData();
+		//bs.setRawData(power);
+		//String bd_Str = bd.getAsString();
+		//block.setBlockData(bd);
+		//block.getState().setRawData(power);
+		//block.setBlockData(bd,true);
+		//block.getState().update(true,false);
 	}
 
 	@SuppressWarnings("deprecation")
 	private static void setPowerOnRedstoneLamp(Block lamp, byte power) {
-		if (lamp.getType().equals(Material.REDSTONE_LAMP_OFF) && isMHIndirectPoweredBySign(lamp)) {
+		if (lamp.getType().equals(Material.LEGACY_REDSTONE_LAMP_OFF) && isMHIndirectPoweredBySign(lamp)) {
 			for (BlockFace bf : possibleBlockface) {
 				Block rb = lamp.getRelative(bf);
 				if (isMHPoweredSign(rb)) {
@@ -143,13 +181,14 @@ public class MasterMobHunterSign implements Listener {
 					Sign sign = ((Sign) rb.getState());
 					MaterialData md = sign.getData();
 					String[] copyOfSigntext = sign.getLines();
-					rb.setType(Material.REDSTONE_TORCH_ON);
-					rb.setTypeIdAndData(signType.getId(), md.getData(), false);
+					rb.setType(Material.LEGACY_REDSTONE_TORCH_ON);
+					//rb.setTypeIdAndData(signType.getId(), md.getData(), false);
+					lamp.getState().setRawData(power);
 					Sign newSign = ((Sign) rb.getState());
 					for (int i = 0; i < 4; i++) {
 						newSign.setLine(i, copyOfSigntext[i]);
 					}
-					newSign.update();
+					newSign.update(true,false);
 				}
 			}
 		}
@@ -160,16 +199,19 @@ public class MasterMobHunterSign implements Listener {
 		PistonBaseMaterial pistonData = (PistonBaseMaterial) b.getState().getData();
 		if (!pistonData.isPowered()) {
 			pistonData.setPowered(true);
-			b.setData(pistonData.getData(), false);
+			
+			//b.setData(pistonData.getData(), false);
+			b.getState().setRawData(pistonData.getData());
 			b.getState().update();
 
 			BlockFace blockFace = pistonData.getFacing();
 			Block tb = b.getRelative(blockFace);
-			tb.setType(Material.PISTON_EXTENSION, false);
+			tb.setType(Material.LEGACY_PISTON_EXTENSION, false);
 			PistonExtensionMaterial pistonExtentionData = (PistonExtensionMaterial) tb.getState().getData();
 			pistonExtentionData.setFacingDirection(b.getFace(tb));
-			tb.setData(pistonExtentionData.getData(), false);
-			tb.getState().update();
+			//tb.setData(pistonExtentionData.getData(), false);
+			tb.getState().setRawData(pistonExtentionData.getData());
+			tb.getState().update(true,false);
 		}
 	}
 
@@ -178,16 +220,18 @@ public class MasterMobHunterSign implements Listener {
 		PistonBaseMaterial pistonData = (PistonBaseMaterial) b.getState().getData();
 		if (!pistonData.isPowered()) {
 			pistonData.setPowered(false);
-			b.setData(pistonData.getData(), false);
-			b.getState().update();
+			//b.setData(pistonData.getData(), false);
+			b.getState().setRawData(pistonData.getData());
+			b.getState().update(true,false);
 
 			BlockFace blockFace = pistonData.getFacing();
 			Block tb = b.getRelative(blockFace);
-			tb.setType(Material.PISTON_EXTENSION, false);
+			tb.setType(Material.LEGACY_PISTON_EXTENSION, false);
 			PistonExtensionMaterial pistonExtentionData = (PistonExtensionMaterial) tb.getState().getData();
 			pistonExtentionData.setFacingDirection(b.getFace(tb));
-			tb.setData(pistonExtentionData.getData(), false);
-			tb.getState().update();
+			//tb.setData(pistonExtentionData.getData(), false);
+			tb.getState().setRawData(pistonExtentionData.getData());
+			tb.getState().update(true,false);
 		}
 	}
 
@@ -263,20 +307,21 @@ public class MasterMobHunterSign implements Listener {
 				// !isMHPoweredSign(rb));
 				if (rb != null && isMHPowered(rb) && !isMHPoweredSign(rb) && supportedmats.contains(rb.getType())) {
 					// MobHunting.getInstance().getMessages().debug("remove power on %s", rb.getType());
-					if (rb.getType().equals(Material.REDSTONE_LAMP_ON)) {
-						rb.setType(Material.REDSTONE_LAMP_OFF);
+					if (rb.getType().equals(Material.LEGACY_REDSTONE_LAMP_ON)) {
+						rb.setType(Material.LEGACY_REDSTONE_LAMP_OFF);
 						// MobHunting.getInstance().getMessages().debug("Turn Redstone Lamp OFF");
 						// BlockRedstoneEvent bre = new BlockRedstoneEvent(rb,
 						// 15, 0);
 						// Bukkit.getServer().getPluginManager().callEvent(bre);
 					} else if (rb.getType().equals(Material.REDSTONE_WIRE)) {
-						rb.setTypeIdAndData(Material.REDSTONE_WIRE.getId(), (byte) 0, true);
+						//rb.setTypeIdAndData(Material.REDSTONE_WIRE.getId(), (byte) 0, true);
+						rb.getState().setRawData((byte) 0);
 						rb.getState().update();
 						// BlockRedstoneEvent bre = new BlockRedstoneEvent(rb,
 						// 15, 0);
 						// Bukkit.getServer().getPluginManager().callEvent(bre);
-					} else if (rb.getType().equals(Material.PISTON_BASE)
-							|| (rb.getType().equals(Material.PISTON_STICKY_BASE))) {
+					} else if (rb.getType().equals(Material.LEGACY_PISTON_BASE)
+							|| (rb.getType().equals(Material.LEGACY_PISTON_STICKY_BASE))) {
 						removePowerOnPiston(rb);
 						// BlockRedstoneEvent bre = new BlockRedstoneEvent(rb,
 						// 15, 0);
@@ -404,8 +449,9 @@ public class MasterMobHunterSign implements Listener {
 			if (isMHIndirectPoweredBySign(b)) {
 				// power on Redstone must be set immediately to work
 				setMHPower(b, POWER_FROM_SIGN);
-				b.setData(POWER_FROM_SIGN, true);
-				b.getState().update();
+				//b.setData(POWER_FROM_SIGN, true);
+				b.getState().setRawData(POWER_FROM_SIGN);
+				b.getState().update(true,false);
 			}
 		} else if ((isRedstoneLamp(b) || isPistonBase(b)) && isMHIndirectPoweredBySign(b)) {
 			// power on Redstone Lamp and Piston must be set in next tick to
@@ -513,7 +559,7 @@ public class MasterMobHunterSign implements Listener {
 		// event
 		Material c = e.getChangedType();
 
-		if (b.getType().equals(Material.REDSTONE_LAMP_ON)) {
+		if (b.getType().equals(Material.LEGACY_REDSTONE_LAMP_ON)) {
 			if (isMHIndirectPoweredBySign(b)) {
 				e.setCancelled(true);
 			}
@@ -523,7 +569,7 @@ public class MasterMobHunterSign implements Listener {
 					e.setCancelled(true);
 					setMHPowerLater(b);
 				}
-			if ((b.getType().equals(Material.PISTON_EXTENSION) && c.equals(Material.REDSTONE_WIRE))) {
+			if ((b.getType().equals(Material.LEGACY_PISTON_EXTENSION) && c.equals(Material.REDSTONE_WIRE))) {
 
 			}
 		}
@@ -555,23 +601,23 @@ public class MasterMobHunterSign implements Listener {
 	}
 
 	public static boolean isRedstoneLamp(Block block) {
-		if (block.getType().equals(Material.REDSTONE_LAMP_OFF) || block.getType().equals(Material.REDSTONE_LAMP_ON))
+		if (block.getType().equals(Material.LEGACY_REDSTONE_LAMP_OFF) || block.getType().equals(Material.LEGACY_REDSTONE_LAMP_ON))
 			return true;
 		else
 			return false;
 	}
 
 	public static boolean isPiston(Block block) {
-		if (block.getType().equals(Material.PISTON_BASE) || block.getType().equals(Material.PISTON_EXTENSION)
-				|| block.getType().equals(Material.PISTON_MOVING_PIECE)
-				|| block.getType().equals(Material.PISTON_STICKY_BASE))
+		if (block.getType().equals(Material.LEGACY_PISTON_BASE) || block.getType().equals(Material.LEGACY_PISTON_EXTENSION)
+				|| block.getType().equals(Material.LEGACY_PISTON_MOVING_PIECE)
+				|| block.getType().equals(Material.LEGACY_PISTON_STICKY_BASE))
 			return true;
 		else
 			return false;
 	}
 
 	public static boolean isPistonBase(Block block) {
-		if (block.getType().equals(Material.PISTON_BASE) || block.getType().equals(Material.PISTON_STICKY_BASE))
+		if (block.getType().equals(Material.LEGACY_PISTON_BASE) || block.getType().equals(Material.LEGACY_PISTON_STICKY_BASE))
 			return true;
 		else
 			return false;

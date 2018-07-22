@@ -329,7 +329,7 @@ public class RewardListeners implements Listener {
 					} else {
 						plugin.getLogger().warning("[MobHunting] The mobtype could not be detected from displayname:"
 								+ reward.getDisplayname());
-						is = new ItemStack(Material.SKULL_ITEM, 1);
+						is = new ItemStack(Material.PLAYER_HEAD, 1);
 					}
 				}
 			}
@@ -371,23 +371,30 @@ public class RewardListeners implements Listener {
 			}
 		}
 
-		//if (BagOfGoldCompat.isSupported()) {
-		//	PlayerSettings ps = BagOfGold.getAPI().getPlayerSettingsManager().getPlayerSettings(player);
-		//	double amountInInventory = plugin.getRewardManager().getAmountInInventory(player);
-		//	if (Misc.round(amountInInventory) != Misc.round(ps.getBalance() + ps.getBalanceChanges())) {
-		//		if (Misc.round(ps.getBalanceChanges())!=0){
-		//			if (ps.getBalanceChanges()>0)
-		//				plugin.getRewardManager().addBagOfGoldPlayer(player, ps.getBalanceChanges());
-		//			else
-		//				plugin.getRewardManager().removeBagOfGoldPlayer(player, ps.getBalanceChanges());
-		//		}
-		//		ps.setBalance(amountInInventory+ps.getBalanceChanges());
-		//		ps.setBalanceChanges(0);
-		//		BagOfGold.getAPI().getPlayerSettingsManager().setPlayerSettings(player, ps);
-		//	}
-		//	plugin.getMessages().debug("%s closed inventory: new balance is %s", player.getName(),
-		//			plugin.getRewardManager().getEconomy().getBalance(player));
-		//}
+		// if (BagOfGoldCompat.isSupported()) {
+		// PlayerSettings ps =
+		// BagOfGold.getAPI().getPlayerSettingsManager().getPlayerSettings(player);
+		// double amountInInventory =
+		// plugin.getRewardManager().getAmountInInventory(player);
+		// if (Misc.round(amountInInventory) != Misc.round(ps.getBalance() +
+		// ps.getBalanceChanges())) {
+		// if (Misc.round(ps.getBalanceChanges())!=0){
+		// if (ps.getBalanceChanges()>0)
+		// plugin.getRewardManager().addBagOfGoldPlayer(player,
+		// ps.getBalanceChanges());
+		// else
+		// plugin.getRewardManager().removeBagOfGoldPlayer(player,
+		// ps.getBalanceChanges());
+		// }
+		// ps.setBalance(amountInInventory+ps.getBalanceChanges());
+		// ps.setBalanceChanges(0);
+		// BagOfGold.getAPI().getPlayerSettingsManager().setPlayerSettings(player,
+		// ps);
+		// }
+		// plugin.getMessages().debug("%s closed inventory: new balance is %s",
+		// player.getName(),
+		// plugin.getRewardManager().getEconomy().getBalance(player));
+		// }
 
 	}
 
@@ -422,7 +429,7 @@ public class RewardListeners implements Listener {
 										? plugin.getRewardManager().format(reward.getMoney())
 										: reward.getDisplayname() + " ("
 												+ plugin.getRewardManager().format(reward.getMoney()) + ")"));
-		} else if (block.getType() == Material.SKULL) {
+		} else if (block.getType() == Material.PLAYER_HEAD) {
 			Skull skullState = (Skull) block.getState();
 			switch (skullState.getSkullType()) {
 			case PLAYER:
@@ -485,8 +492,9 @@ public class RewardListeners implements Listener {
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onInventoryClickReward(InventoryClickEvent event) {
-		if (event.isCancelled() || event.getInventory() == null)
-			return;
+		if (event.isCancelled() || event.getInventory() == null){
+			plugin.getMessages().debug("RewardListeners: Something cancelled the event");
+			return;}
 
 		if (CitizensCompat.isNPC(event.getWhoClicked()))
 			return;
@@ -500,27 +508,26 @@ public class RewardListeners implements Listener {
 		Player player = (Player) event.getWhoClicked();
 		SlotType slotType = event.getSlotType();
 
-		// Inventory inventory = event.getInventory();
-		// if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
-		// plugin.getMessages().debug(
-		// "action=%s, InventoryType=%s, slottype=%s, slotno=%s, current=%s,
-		// cursor=%s, view=%s", action,
-		// inventory.getType(), slotType, event.getSlot(),
-		// isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
-		// isCursor == null ? "null" : isCursor.getType(),
-		// event.getView().getType());
-		// }
+		Inventory inventory = event.getInventory();
+		if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
+			plugin.getMessages().debug(
+					"action=%s, InventoryType=%s, slottype=%s, slotno=%s, current=%s, cursor=%s, view=%s", action,
+					inventory.getType(), slotType, event.getSlot(),
+					isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
+					isCursor == null ? "null" : isCursor.getType(), event.getView().getType());
+		}
 
 		if (action == InventoryAction.NOTHING)
 			return;
 
-		if (!(slotType == SlotType.CONTAINER || slotType == SlotType.QUICKBAR || slotType == SlotType.OUTSIDE
+		if (!(slotType == SlotType.CONTAINER || slotType == SlotType.QUICKBAR || slotType == SlotType.OUTSIDE || slotType == SlotType.RESULT
 				|| (slotType == SlotType.ARMOR && event.getSlot() == 39))) {
 			if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
 				Reward reward = Reward.isReward(isCurrentSlot) ? Reward.getReward(isCurrentSlot)
 						: Reward.getReward(isCursor);
 				plugin.getMessages().learn(player, plugin.getMessages().getString("mobhunting.learn.rewards.no-use",
 						"rewardname", reward.getDisplayname()));
+				plugin.getMessages().debug("RewardListerner: cancel 1");
 				event.setCancelled(true);
 				return;
 			}
@@ -532,6 +539,7 @@ public class RewardListeners implements Listener {
 						: Reward.getReward(isCursor);
 				plugin.getMessages().learn(player, plugin.getMessages().getString("mobhunting.learn.rewards.no-clone",
 						"rewardname", reward.getDisplayname()));
+				plugin.getMessages().debug("RewardListerner: cancel 2");
 				event.setCancelled(true);
 				return;
 			}

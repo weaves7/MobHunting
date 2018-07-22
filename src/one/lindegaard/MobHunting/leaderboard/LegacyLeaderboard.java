@@ -105,8 +105,8 @@ public class LegacyLeaderboard implements IDataCallback<List<StatStore>> {
 				for (int z = mMinCorner.getBlockZ(); z <= mMaxCorner
 						.getBlockZ(); ++z) {
 					Block block = mWorld.getBlockAt(x, y, z);
-					if (block.getType() == Material.WALL_SIGN
-							|| block.getType() == Material.SIGN_POST)
+					//TODO: signs????
+					if (block.getType() == Material.WALL_SIGN||block.getType() == Material.LEGACY_WALL_SIGN)
 						++count;
 				}
 			}

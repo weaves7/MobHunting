@@ -25,21 +25,21 @@ import one.lindegaard.MobHunting.MobHunting;
 
 public class Misc {
 	public static boolean isAxe(ItemStack item) {
-		return item != null && (item.getType() == Material.DIAMOND_AXE || item.getType() == Material.GOLD_AXE
+		return item != null && (item.getType() == Material.DIAMOND_AXE || item.getType() == Material.GOLDEN_AXE
 				|| item.getType() == Material.IRON_AXE || item.getType() == Material.STONE_AXE
-				|| item.getType() == Material.WOOD_AXE);
+				|| item.getType() == Material.WOODEN_AXE);
 	}
 
 	public static boolean isSword(ItemStack item) {
-		return item != null && (item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLD_SWORD
+		return item != null && (item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLDEN_SWORD
 				|| item.getType() == Material.IRON_SWORD || item.getType() == Material.STONE_SWORD
-				|| item.getType() == Material.WOOD_SWORD);
+				|| item.getType() == Material.WOODEN_SWORD);
 	}
 
 	public static boolean isPick(ItemStack item) {
-		return item != null && (item.getType() == Material.DIAMOND_PICKAXE || item.getType() == Material.GOLD_PICKAXE
+		return item != null && (item.getType() == Material.DIAMOND_PICKAXE || item.getType() == Material.GOLDEN_PICKAXE
 				|| item.getType() == Material.IRON_PICKAXE || item.getType() == Material.STONE_PICKAXE
-				|| item.getType() == Material.WOOD_PICKAXE);
+				|| item.getType() == Material.WOODEN_PICKAXE);
 	}
 
 	public static boolean isBow(ItemStack item) {
@@ -51,17 +51,22 @@ public class Misc {
 	}
 
 	public static boolean isSign(Block block) {
-		if (block.getType().equals(Material.SIGN_POST) || block.getType().equals(Material.WALL_SIGN))
-			return true;
-		else
-			return false;
+		return block.getType().equals(Material.SIGN) || block.getType().equals(Material.WALL_SIGN)
+				|| block.getType().equals(Material.LEGACY_SIGN) || block.getType().equals(Material.LEGACY_SIGN_POST);
 	}
 
 	public static boolean isSign(Material material) {
-		if (material.equals(Material.SIGN_POST) || material.equals(Material.WALL_SIGN))
-			return true;
-		else
-			return false;
+		return material.equals(Material.SIGN) || material.equals(Material.WALL_SIGN)
+				|| material.equals(Material.LEGACY_SIGN) || material.equals(Material.LEGACY_SIGN_POST);
+	}
+
+	public static boolean isSkull(Material material) {
+		return material == Material.PLAYER_HEAD || material == Material.PLAYER_WALL_HEAD
+				|| material == Material.SKELETON_SKULL || material == Material.SKELETON_WALL_SKULL
+				|| material == Material.LEGACY_SKULL || material == Material.LEGACY_SKULL_ITEM
+				|| material == Material.WITHER_SKELETON_SKULL || material == Material.WITHER_SKELETON_WALL_SKULL
+				|| material == Material.CREEPER_HEAD || material == Material.CREEPER_WALL_HEAD
+				|| material == Material.DRAGON_HEAD || material == Material.DRAGON_WALL_HEAD;
 	}
 
 	public static Map<String, Object> toMap(Location loc) {
@@ -98,6 +103,13 @@ public class Misc {
 			return new Location(null, x, y, z, yaw, pitch);
 	}
 
+	// *******************************************************************
+	// Version detection
+	// *******************************************************************
+	public static boolean isMC113() {
+		return Bukkit.getBukkitVersion().contains("1.13");
+	}
+
 	public static boolean isMC112() {
 		return Bukkit.getBukkitVersion().contains("1.12");
 	}
@@ -120,6 +132,14 @@ public class Misc {
 
 	public static boolean isMC17() {
 		return Bukkit.getBukkitVersion().contains("1.7");
+	}
+
+	public static boolean isMC113OrNewer() {
+		if (isMC113())
+			return true;
+		else if (isMC111() || isMC110() || isMC19() || isMC18() || isMC17())
+			return false;
+		return true;
 	}
 
 	public static boolean isMC112OrNewer() {
@@ -270,14 +290,14 @@ public class Misc {
 		decimalFormat.applyPattern(pattern);
 		return decimalFormat.format(money);
 	}
-	
+
 	public static boolean isUUID(String string) {
-	    try {
-	        UUID.fromString(string);
-	        return true;
-	    } catch (Exception ex) {
-	        return false;
-	    }
+		try {
+			UUID.fromString(string);
+			return true;
+		} catch (Exception ex) {
+			return false;
+		}
 	}
 
 }

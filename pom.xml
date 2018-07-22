@@ -7,7 +7,7 @@
 	<artifactId>MobHunting</artifactId>
 	<packaging>jar</packaging>
 	<!-- <version>5.7.3</version> -->
-	<version>5.7.3-SNAPSHOT-B${build.number}</version>
+	<version>6.0.0-SNAPSHOT-B${build.number}</version>
 	<name>MobHunting</name>
 	<url>https://www.spigotmc.org/resources/mobhunting.3582/</url>
 	<description>MobHunting adds a new level of fun to hunting monsters. Now you can get money from kills, get bonuses for skilled and creative kills, and get special achievements!</description>
@@ -31,7 +31,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<mainClass>${project.groupId}.${project.artifactId}</mainClass>
-		<spigotmc112.version>1.12.2-R0.1-SNAPSHOT</spigotmc112.version>
+		<spigotmc113.version>1.13-R1</spigotmc113.version>
+		<craftbukkit113R1.version>1.13-R1</craftbukkit113R1.version>
 		<craftbukkit112R1.version>1.12-R1</craftbukkit112R1.version>
 		<craftbukkit111R1.version>1.11-R1</craftbukkit111R1.version>
 		<craftbukkit110R1.version>1.10-R1</craftbukkit110R1.version>
@@ -41,20 +42,20 @@
 		<craftbukkit18R2.version>1.8-R2</craftbukkit18R2.version>
 		<craftbukkit18R1.version>1.8-R1</craftbukkit18R1.version>
 		<spongeapi.version>5.1.0-SNAPSHOT</spongeapi.version>
-		
+
 		<javacompiler.version>1.8</javacompiler.version>
 		<mavenCompilerPlugin.version>3.7.0</mavenCompilerPlugin.version>
 		<mavenJarPlugin.version>3.1.0</mavenJarPlugin.version>
 		<mavenShadePlugin.version>3.1.1</mavenShadePlugin.version>
 
 		<bagofgold.version>1.1.4</bagofgold.version>
-		
+
 		<vault.version>1.6.6</vault.version>
 		<bstats.version>1.2</bstats.version>
 		<protocollib.version>4.4.0-SNAPSHOT</protocollib.version>
 		<EssentialsX.version>2.0.1</EssentialsX.version>
 		<spigetupdate.version>1.4.0</spigetupdate.version>
-		
+
 		<bossbarapi.version>2.4.1</bossbarapi.version>
 		<barapi.version>3.4</barapi.version>
 		<titlemanager.version>2.0.0</titlemanager.version>
@@ -62,11 +63,11 @@
 		<ActionAnnouncer.version>1.10.0</ActionAnnouncer.version>
 		<placeholderapi.version>2.0.8</placeholderapi.version>
 		<TitleAPI.version>1.7.5</TitleAPI.version>
-		
+
 		<citizensapi.version>2.0.22-SNAPSHOT</citizensapi.version>
 		<holograms.version>2.5.0-SNAPSHOT</holograms.version>
 		<hologramdisplays.version>2.2.6</hologramdisplays.version>
-		
+
 		<minigames.version>1.9.0-SNAPSHOT</minigames.version>
 		<minigameslib.version>1.14.14</minigameslib.version>
 		<mypet.version>2.3.4</mypet.version>
@@ -106,7 +107,7 @@
 		<StackMob.version>2.1.1</StackMob.version>
 		<InfernalMobs.version>5.3</InfernalMobs.version>
 		<minigameslib.version>1.14.15.jar</minigameslib.version>
-		
+
 		<gringotts.version>2.10-20170805.084200-1</gringotts.version>
 		<gringotts.jar.version>Gringotts-2.10-SNAPSHOT.jar</gringotts.jar.version>
 		<extrahardmode.version>3.12.1</extrahardmode.version>
@@ -329,13 +330,25 @@
 	<!-- ********************************************************************** -->
 	<dependencies>
 		<!-- SpigotMC -->
-		<dependency>
+		
+		<dependency> 
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
-			<version>${spigotmc112.version}</version>
-			<scope>provided</scope>
+			<version>${spigotmc113.version}</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/spigot-1.13.jar</systemPath>
 		</dependency>
 
+		<!-- CraftBukkit -->
+		<dependency>
+			<groupId>org.craftbukkit</groupId>
+			<artifactId>craftbukkit113R1</artifactId>
+			<version>${craftbukkit113R1.version}</version>
+			<!-- <scope>provided</scope> -->
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/craftbukkit-1.13.jar</systemPath>
+		</dependency>
+		
 		<!-- CraftBukkit -->
 		<dependency>
 			<groupId>org.craftbukkit</groupId>

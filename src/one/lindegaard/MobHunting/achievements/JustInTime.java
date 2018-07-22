@@ -63,6 +63,7 @@ public class JustInTime implements Achievement, Listener {
 
 	@Override
 	public ItemStack getSymbol() {
-		return new ItemStack(Material.WATCH);
+		//TODO: right Material?
+		return new ItemStack(Material.LEGACY_WATCH);
 	}
 }

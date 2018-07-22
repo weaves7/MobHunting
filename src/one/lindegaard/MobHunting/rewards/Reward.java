@@ -282,8 +282,9 @@ public class Reward {
 		return new Reward(itemStack.getItemMeta().getLore());
 	}
 
+	//TODO: Which skull is working???
 	public static boolean hasReward(Block block) {
-		return block.getType() == Material.SKULL && block.hasMetadata(MH_REWARD_DATA);
+		return block.getType() == Material.PLAYER_HEAD && block.hasMetadata(MH_REWARD_DATA);
 	}
 
 	public static Reward getReward(Block block) {

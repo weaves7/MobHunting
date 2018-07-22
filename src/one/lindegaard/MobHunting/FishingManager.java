@@ -100,13 +100,17 @@ public class FishingManager implements Listener {
 			}
 
 			if (fish == null || !(fish instanceof Item)
-					|| ((Item) fish).getItemStack().getType() != Material.RAW_FISH) {
+					//TODO: Fish head????
+					//|| ((Item) fish).getItemStack().getType() != Material.RAW_FISH) {
+					|| ((Item) fish).getItemStack().getType() != Material.LEGACY_RAW_FISH) {
 				plugin.getMessages().debug("FishingBlocked: %s only get rewards for fish", player.getName());
 				return;
 			}
 
 			Material material_under_hook = fish.getLocation().getBlock().getType();
-			if (!(material_under_hook == Material.WATER || material_under_hook == Material.STATIONARY_WATER)) {
+			//TODO: Stationary water??
+			//if (!(material_under_hook == Material.WATER || material_under_hook == Material.STATIONARY_WATER)) {
+			if (!(material_under_hook == Material.WATER || material_under_hook == Material.LEGACY_STATIONARY_WATER || material_under_hook == Material.LEGACY_WATER)) {
 				plugin.getMessages().debug("FishingBlocked: %s was fishing on %s", player.getName(),
 						material_under_hook);
 				return;
