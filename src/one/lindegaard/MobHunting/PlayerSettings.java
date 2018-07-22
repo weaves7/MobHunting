@@ -1,8 +1,6 @@
-package one.lindegaard.MobHunting.storage;
+package one.lindegaard.MobHunting;
 
 import org.bukkit.OfflinePlayer;
-
-import one.lindegaard.MobHunting.MobHunting;
 
 public class PlayerSettings {
 	private OfflinePlayer player;

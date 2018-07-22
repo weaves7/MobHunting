@@ -8,8 +8,8 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import one.lindegaard.MobHunting.MobHunting;
+import one.lindegaard.MobHunting.PlayerSettings;
 import one.lindegaard.MobHunting.storage.DataStoreManager;
-import one.lindegaard.MobHunting.storage.PlayerSettings;
 
 public class LearnCommand implements ICommand {
 

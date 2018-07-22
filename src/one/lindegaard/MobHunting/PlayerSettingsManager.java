@@ -17,7 +17,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import one.lindegaard.MobHunting.rewards.CustomItems;
 import one.lindegaard.MobHunting.storage.DataStoreException;
 import one.lindegaard.MobHunting.storage.IDataCallback;
-import one.lindegaard.MobHunting.storage.PlayerSettings;
 
 public class PlayerSettingsManager implements Listener {
 

@@ -6,9 +6,9 @@ import java.util.HashSet;
 import org.bukkit.OfflinePlayer;
 
 import one.lindegaard.MobHunting.MobHunting;
+import one.lindegaard.MobHunting.PlayerSettings;
 import one.lindegaard.MobHunting.storage.DataStoreException;
 import one.lindegaard.MobHunting.storage.IDataStore;
-import one.lindegaard.MobHunting.storage.PlayerSettings;
 import one.lindegaard.MobHunting.storage.UserNotFoundException;
 
 public class PlayerSettingsRetrieverTask implements IDataStoreTask<PlayerSettings> {

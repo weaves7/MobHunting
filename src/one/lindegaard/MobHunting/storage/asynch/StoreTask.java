@@ -3,11 +3,11 @@ package one.lindegaard.MobHunting.storage.asynch;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import one.lindegaard.MobHunting.PlayerSettings;
 import one.lindegaard.MobHunting.bounty.Bounty;
 import one.lindegaard.MobHunting.storage.AchievementStore;
 import one.lindegaard.MobHunting.storage.DataStoreException;
 import one.lindegaard.MobHunting.storage.IDataStore;
-import one.lindegaard.MobHunting.storage.PlayerSettings;
 import one.lindegaard.MobHunting.storage.StatStore;
 
 public class StoreTask implements IDataStoreTask<Void> {

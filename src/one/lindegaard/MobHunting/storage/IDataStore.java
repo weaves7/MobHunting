@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.bukkit.OfflinePlayer;
 
+import one.lindegaard.MobHunting.PlayerSettings;
 import one.lindegaard.MobHunting.StatType;
 import one.lindegaard.MobHunting.bounty.Bounty;
 import one.lindegaard.MobHunting.mobs.ExtendedMob;

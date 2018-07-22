@@ -24,6 +24,7 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 
 import one.lindegaard.MobHunting.MobHunting;
+import one.lindegaard.MobHunting.PlayerSettings;
 import one.lindegaard.MobHunting.mobs.MinecraftMob;
 import one.lindegaard.MobHunting.rewards.skins.Skins;
 import one.lindegaard.MobHunting.rewards.skins.Skins_1_10_R1;
@@ -34,7 +35,6 @@ import one.lindegaard.MobHunting.rewards.skins.Skins_1_8_R2;
 import one.lindegaard.MobHunting.rewards.skins.Skins_1_8_R3;
 import one.lindegaard.MobHunting.rewards.skins.Skins_1_9_R1;
 import one.lindegaard.MobHunting.rewards.skins.Skins_1_9_R2;
-import one.lindegaard.MobHunting.storage.PlayerSettings;
 import one.lindegaard.MobHunting.util.Misc;
 
 public class CustomItems {
