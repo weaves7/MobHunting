@@ -370,32 +370,6 @@ public class RewardListeners implements Listener {
 				}
 			}
 		}
-
-		// if (BagOfGoldCompat.isSupported()) {
-		// PlayerSettings ps =
-		// BagOfGold.getAPI().getPlayerSettingsManager().getPlayerSettings(player);
-		// double amountInInventory =
-		// plugin.getRewardManager().getAmountInInventory(player);
-		// if (Misc.round(amountInInventory) != Misc.round(ps.getBalance() +
-		// ps.getBalanceChanges())) {
-		// if (Misc.round(ps.getBalanceChanges())!=0){
-		// if (ps.getBalanceChanges()>0)
-		// plugin.getRewardManager().addBagOfGoldPlayer(player,
-		// ps.getBalanceChanges());
-		// else
-		// plugin.getRewardManager().removeBagOfGoldPlayer(player,
-		// ps.getBalanceChanges());
-		// }
-		// ps.setBalance(amountInInventory+ps.getBalanceChanges());
-		// ps.setBalanceChanges(0);
-		// BagOfGold.getAPI().getPlayerSettingsManager().setPlayerSettings(player,
-		// ps);
-		// }
-		// plugin.getMessages().debug("%s closed inventory: new balance is %s",
-		// player.getName(),
-		// plugin.getRewardManager().getEconomy().getBalance(player));
-		// }
-
 	}
 
 	@EventHandler
@@ -429,7 +403,13 @@ public class RewardListeners implements Listener {
 										? plugin.getRewardManager().format(reward.getMoney())
 										: reward.getDisplayname() + " ("
 												+ plugin.getRewardManager().format(reward.getMoney()) + ")"));
-		} else if (block.getType() == Material.PLAYER_HEAD) {
+		} else if (Misc.isMC113OrNewer() && block.getType() == Material.PLAYER_HEAD){
+			Skull skullState = (Skull) block.getState();
+			OfflinePlayer owner = skullState.getOwningPlayer();
+			plugin.getMessages().playerActionBarMessageQueue(player,
+					ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
+							+ owner.getName());
+		} else if (block.getType()==Material.LEGACY_SKULL) {
 			Skull skullState = (Skull) block.getState();
 			switch (skullState.getSkullType()) {
 			case PLAYER:

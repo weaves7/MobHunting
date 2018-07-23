@@ -51,22 +51,28 @@ public class Misc {
 	}
 
 	public static boolean isSign(Block block) {
-		return block.getType().equals(Material.SIGN) || block.getType().equals(Material.WALL_SIGN)
-				|| block.getType().equals(Material.LEGACY_SIGN) || block.getType().equals(Material.LEGACY_SIGN_POST);
+		if (isMC113OrNewer())
+			return block.getType()==Material.SIGN || block.getType()==Material.WALL_SIGN;
+		else
+			return block.getType()==Material.LEGACY_SIGN || block.getType()==Material.LEGACY_SIGN_POST;
 	}
 
 	public static boolean isSign(Material material) {
-		return material.equals(Material.SIGN) || material.equals(Material.WALL_SIGN)
-				|| material.equals(Material.LEGACY_SIGN) || material.equals(Material.LEGACY_SIGN_POST);
+		if (isMC113OrNewer())
+			return material==Material.SIGN || material==Material.WALL_SIGN;
+		else
+			return material==Material.LEGACY_SIGN || material==Material.LEGACY_SIGN_POST;
 	}
 
 	public static boolean isSkull(Material material) {
-		return material == Material.PLAYER_HEAD || material == Material.PLAYER_WALL_HEAD
-				|| material == Material.SKELETON_SKULL || material == Material.SKELETON_WALL_SKULL
-				|| material == Material.LEGACY_SKULL || material == Material.LEGACY_SKULL_ITEM
-				|| material == Material.WITHER_SKELETON_SKULL || material == Material.WITHER_SKELETON_WALL_SKULL
-				|| material == Material.CREEPER_HEAD || material == Material.CREEPER_WALL_HEAD
-				|| material == Material.DRAGON_HEAD || material == Material.DRAGON_WALL_HEAD;
+		if (isMC113OrNewer())
+			return material == Material.PLAYER_HEAD || material == Material.PLAYER_WALL_HEAD
+					|| material == Material.SKELETON_SKULL || material == Material.SKELETON_WALL_SKULL
+					|| material == Material.WITHER_SKELETON_SKULL || material == Material.WITHER_SKELETON_WALL_SKULL
+					|| material == Material.CREEPER_HEAD || material == Material.CREEPER_WALL_HEAD
+					|| material == Material.DRAGON_HEAD || material == Material.DRAGON_WALL_HEAD;
+		else
+			return material == Material.LEGACY_SKULL || material == Material.LEGACY_SKULL_ITEM;
 	}
 
 	public static Map<String, Object> toMap(Location loc) {
@@ -137,7 +143,7 @@ public class Misc {
 	public static boolean isMC113OrNewer() {
 		if (isMC113())
 			return true;
-		else if (isMC111() || isMC110() || isMC19() || isMC18() || isMC17())
+		else if (isMC112() || isMC111() || isMC110() || isMC19() || isMC18() || isMC17())
 			return false;
 		return true;
 	}
