@@ -83,7 +83,6 @@ public class MobHuntingManager implements Listener {
 				}
 			}.runTaskLater(plugin, 20L);
 		}
-		// plugin.getAdvancementManager().showAdvancement(player, "Testing");
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = false)
@@ -337,8 +336,10 @@ public class MobHuntingManager implements Listener {
 
 				if (playerKilledByMobPenalty != 0) {
 					if (BagOfGoldCompat.isSupported()) {
+						//TODO: cleanup here
 						event.getDrops().add(new ItemStack(Material.DIRT));
 						BagOfGold.getAPI().getPlayerBalanceManager().getPlayerBalances(killed).setBalanceChanges(-playerKilledByMobPenalty);
+						plugin.getMessages().debug("penalty=%s", playerKilledByMobPenalty);
 						// BagOfGold.getAPI().getEconomyManager().withdrawPlayer(killed,
 						// playerKilledByMobPenalty);
 					} else if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
@@ -362,6 +363,7 @@ public class MobHuntingManager implements Listener {
 					plugin.getMessages().debug("There is NO penalty for being killed by a %s", mob.getName());
 				}
 
+				/**
 				double toberemoved = playerKilledByMobPenalty;
 				if (!event.getKeepInventory()) {
 					Iterator<ItemStack> items = event.getDrops().iterator();
@@ -391,7 +393,7 @@ public class MobHuntingManager implements Listener {
 						}
 					}
 				}
-
+				**/
 			} else if (killer != null && BagOfGoldCompat.isSupported()) {
 				PlayerBalance ps = BagOfGold.getAPI().getPlayerBalanceManager().getPlayerBalances(killed);
 				double balance = ps.getBalance() + ps.getBalanceChanges();
@@ -1610,7 +1612,7 @@ public class MobHuntingManager implements Listener {
 							plugin.getRewardManager().format(cash));
 				}
 			} else {
-				cash = cash / 2;
+				cash = Misc.round(cash / 2);
 				if (cash >= plugin.getConfigManager().minimumReward) {
 					if (plugin.getConfigManager().dropMoneyOnGroup) {
 						if (MyPetCompat.isKilledByMyPet(killed))

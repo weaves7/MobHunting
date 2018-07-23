@@ -498,23 +498,23 @@ public class RewardManager {
 			return Misc.round(penalty);
 		} else if (plugin.getConfigManager().mobKillsPlayerPenalty.trim().endsWith("%")) {
 			double penalty = 0;
+			double balance = 0;
 			if (BagOfGoldCompat.isSupported()) {
-				double amountInInventory = 0;
-				for (ItemStack itemstack : droplist) {
-					if (Reward.isReward(itemstack)) {
-						amountInInventory = +Reward.getReward(itemstack).getMoney();
+				for (ItemStack is : droplist) {
+					if (Reward.isReward(is)) {
+						Reward reward = Reward.getReward(is);
+						if (reward.isBagOfGoldReward() || reward.isItemReward())
+							balance = balance + reward.getMoney();
 					}
 				}
-				penalty = Math.round(Double
-						.valueOf(plugin.getConfigManager().mobKillsPlayerPenalty.trim().substring(0,
-								plugin.getConfigManager().mobKillsPlayerPenalty.trim().length() - 1))
-						* amountInInventory / 100);
 			} else {
-				penalty = Math.floor(Double
-						.valueOf(plugin.getConfigManager().mobKillsPlayerPenalty.trim().substring(0,
-								plugin.getConfigManager().mobKillsPlayerPenalty.trim().length() - 1))
-						* getBalance(playerToBeRobbed) / 100);
+				balance = getBalance(playerToBeRobbed);
 			}
+			penalty = Math
+					.round(Double
+							.valueOf(plugin.getConfigManager().mobKillsPlayerPenalty.trim().substring(0,
+									plugin.getConfigManager().mobKillsPlayerPenalty.trim().length() - 1))
+							* balance / 100);
 			return Misc.round(penalty);
 		} else
 			return Double.valueOf(plugin.getConfigManager().mobKillsPlayerPenalty.trim());
@@ -684,18 +684,21 @@ public class RewardManager {
 			if (mob instanceof Player) {
 				if (plugin.getConfigManager().pvpKillMoney.trim().endsWith("%")) {
 					double prize = 0;
-					if (BagOfGoldCompat.isSupported()) {
-						PlayerBalance ps = BagOfGold.getAPI().getPlayerBalanceManager().getPlayerBalances((Player) mob);
-						prize = Math.round(Double
-								.valueOf(plugin.getConfigManager().pvpKillMoney.trim().substring(0,
-										plugin.getConfigManager().pvpKillMoney.trim().length() - 1))
-								* (ps.getBalance() + ps.getBalanceChanges()) / 100);
-					} else {
-						prize = Math.round(Double
-								.valueOf(plugin.getConfigManager().pvpKillMoney.trim().substring(0,
-										plugin.getConfigManager().pvpKillMoney.trim().length() - 1))
-								* getBalance((Player) mob) / 100);
-					}
+					// if (BagOfGoldCompat.isSupported()) {
+					// PlayerBalance ps =
+					// BagOfGold.getAPI().getPlayerBalanceManager().getPlayerBalances((Player)
+					// mob);
+					// prize = Math.round(Double
+					// .valueOf(plugin.getConfigManager().pvpKillMoney.trim().substring(0,
+					// plugin.getConfigManager().pvpKillMoney.trim().length() -
+					// 1))
+					// * (ps.getBalance() + ps.getBalanceChanges()) / 100);
+					// } else {
+					prize = Math.round(Double
+							.valueOf(plugin.getConfigManager().pvpKillMoney.trim().substring(0,
+									plugin.getConfigManager().pvpKillMoney.trim().length() - 1))
+							* getBalance((Player) mob) / 100);
+					// }
 					return Misc.round(prize);
 				} else if (plugin.getConfigManager().pvpKillMoney.contains(":")) {
 					String[] str1 = plugin.getConfigManager().pvpKillMoney.split(":");
