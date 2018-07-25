@@ -338,10 +338,9 @@ public class MobHuntingManager implements Listener {
 					if (BagOfGoldCompat.isSupported()) {
 						//TODO: cleanup here
 						event.getDrops().add(new ItemStack(Material.DIRT));
-						BagOfGold.getAPI().getPlayerBalanceManager().getPlayerBalances(killed).setBalanceChanges(-playerKilledByMobPenalty);
 						plugin.getMessages().debug("penalty=%s", playerKilledByMobPenalty);
-						// BagOfGold.getAPI().getEconomyManager().withdrawPlayer(killed,
-						// playerKilledByMobPenalty);
+						BagOfGold.getAPI().getEconomyManager().removeMoneyFromBalance(killed, playerKilledByMobPenalty);
+						//BagOfGold.getAPI().getEconomyManager().withdrawPlayer(killed, playerKilledByMobPenalty);
 					} else if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
 						plugin.getRewardManager().withdrawPlayer(killed, playerKilledByMobPenalty);
 					} else {
@@ -363,37 +362,6 @@ public class MobHuntingManager implements Listener {
 					plugin.getMessages().debug("There is NO penalty for being killed by a %s", mob.getName());
 				}
 
-				/**
-				double toberemoved = playerKilledByMobPenalty;
-				if (!event.getKeepInventory()) {
-					Iterator<ItemStack> items = event.getDrops().iterator();
-					while (items.hasNext()) {
-						ItemStack is = items.next();
-						if (Reward.isReward(is)) {
-							Reward reward = Reward.getReward(is);
-							plugin.getMessages().debug("Reward to be dropped=%s", reward.getMoney());
-							if (reward.isBagOfGoldReward() || reward.isItemReward()) {
-								items.remove();
-								if (reward.getMoney() > toberemoved) {
-									if (BagOfGoldCompat.isSupported()) {
-										BagOfGold.getAPI().getEconomyManager().removeMoneyFromBalance(killed,
-												reward.getMoney() - toberemoved);
-									}
-									plugin.getRewardManager().dropMoneyOnGround_RewardManager(killed, null,
-											killed.getLocation(), reward.getMoney() - toberemoved);
-									toberemoved = 0;
-								} else {
-									if (BagOfGoldCompat.isSupported()) {
-										BagOfGold.getAPI().getEconomyManager().removeMoneyFromBalance(killed,
-												reward.getMoney() - toberemoved);
-									}
-									toberemoved = toberemoved - reward.getMoney();
-								}
-							}
-						}
-					}
-				}
-				**/
 			} else if (killer != null && BagOfGoldCompat.isSupported()) {
 				PlayerBalance ps = BagOfGold.getAPI().getPlayerBalanceManager().getPlayerBalances(killed);
 				double balance = ps.getBalance() + ps.getBalanceChanges();
