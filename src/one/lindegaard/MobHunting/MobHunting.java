@@ -2,6 +2,7 @@ package one.lindegaard.MobHunting;
 
 import java.io.File;
 import java.util.Random;
+import java.util.UUID;
 
 import one.lindegaard.MobHunting.achievements.*;
 import one.lindegaard.MobHunting.bounty.BountyManager;
@@ -348,9 +349,12 @@ public class MobHunting extends JavaPlugin {
 			}, 20 * 15);
 
 		}
+		
+		if (!Misc.isMC113OrNewer())
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD+"[MobHunting]"+ChatColor.RED+" version +6.0.0 is only for Minecraft 1.13! You should downgrade to 5.x");
 
-		// for (int i = 0; i < 2; i++)
-		// getMessages().debug("Random uuid = %s", UUID.randomUUID());
+		//for (int i = 0; i < 5; i++)
+		//getMessages().debug("Random uuid = %s", UUID.randomUUID());
 
 		mInitialized = true;
 

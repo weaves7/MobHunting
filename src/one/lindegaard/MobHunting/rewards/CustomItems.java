@@ -278,7 +278,6 @@ public class CustomItems {
 	 */
 	public ItemStack getCustomtexture(UUID mPlayerUUID, String mDisplayName, String mTextureValue,
 			String mTextureSignature, double money, UUID uniqueRewardUuid, UUID skinUuid) {
-		// TODO: which head ????
 		ItemStack skull;
 		if (Misc.isMC113OrNewer())
 			skull = new ItemStack(Material.PLAYER_HEAD);
@@ -292,6 +291,7 @@ public class CustomItems {
 
 		GameProfile profile = new GameProfile(mPlayerUUID, mDisplayName);
 		profile.getProperties().put("textures", new Property("textures", mTextureValue, mTextureSignature));
+		//plugin.getMessages().debug("CustomItems-texture:%s", profile.getProperties().get("textures").toString());
 		Field profileField = null;
 
 		try {
@@ -384,7 +384,6 @@ public class CustomItems {
 			ItemStack is = new ItemStack(
 					getCustomtexture(UUID.fromString(Reward.MH_REWARD_KILLED_UUID), minecraftMob.getFriendlyName(),
 							minecraftMob.getTextureValue(), minecraftMob.getTextureSignature(), money,
-							// UUID.randomUUID()
 							UUID.fromString(Reward.MH_REWARD_KILLED_UUID), skinUUID));
 			is.setAmount(amount);
 			return is;

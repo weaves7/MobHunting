@@ -17,7 +17,6 @@ import one.lindegaard.MobHunting.mobs.MinecraftMob;
 import one.lindegaard.MobHunting.modifier.*;
 import one.lindegaard.MobHunting.placeholder.PlaceHolderData;
 import one.lindegaard.MobHunting.rewards.CustomItems;
-import one.lindegaard.MobHunting.rewards.Reward;
 import one.lindegaard.MobHunting.update.SpigetUpdater;
 import one.lindegaard.MobHunting.util.Misc;
 
@@ -1120,7 +1119,7 @@ public class MobHuntingManager implements Listener {
 					mob.getMobName(), getPlayer(killer, killed), mul);
 			cash = cash * mul;
 		}
-
+		
 		// Update DamageInformation
 		if (killed instanceof LivingEntity && mDamageHistory.containsKey((LivingEntity) killed)) {
 			info = mDamageHistory.get(killed);
@@ -1454,6 +1453,9 @@ public class MobHuntingManager implements Listener {
 			}
 		}
 
+		cash = Misc.round(cash);
+		plugin.getMessages().debug("Reward rounded to %s", cash);
+		
 		// Check if there is a reward for this kill
 		if (cash >= plugin.getConfigManager().minimumReward || cash <= -plugin.getConfigManager().minimumReward
 				|| !plugin.getRewardManager().getKillCommands(killed).isEmpty()
@@ -1528,6 +1530,7 @@ public class MobHuntingManager implements Listener {
 			plugin.getMessages().debug("Description to be send:" + message);
 			getPlayer(killer, killed).sendMessage(message);
 		}
+		
 		// Pay the money reward to killer/player and assister
 		if ((cash >= plugin.getConfigManager().minimumReward) || (cash <= -plugin.getConfigManager().minimumReward)) {
 

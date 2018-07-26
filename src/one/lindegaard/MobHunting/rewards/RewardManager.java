@@ -24,12 +24,15 @@ import org.bukkit.entity.CaveSpider;
 import org.bukkit.entity.Chicken;
 import org.bukkit.entity.Cow;
 import org.bukkit.entity.Creeper;
+import org.bukkit.entity.Dolphin;
 import org.bukkit.entity.Donkey;
+import org.bukkit.entity.Drowned;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Enderman;
 import org.bukkit.entity.Endermite;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Evoker;
+import org.bukkit.entity.Fish;
 import org.bukkit.entity.Ghast;
 import org.bukkit.entity.Giant;
 import org.bukkit.entity.Guardian;
@@ -44,6 +47,7 @@ import org.bukkit.entity.Mule;
 import org.bukkit.entity.MushroomCow;
 import org.bukkit.entity.Ocelot;
 import org.bukkit.entity.Parrot;
+import org.bukkit.entity.Phantom;
 import org.bukkit.entity.Pig;
 import org.bukkit.entity.PigZombie;
 import org.bukkit.entity.Player;
@@ -59,6 +63,7 @@ import org.bukkit.entity.Snowman;
 import org.bukkit.entity.Spider;
 import org.bukkit.entity.Squid;
 import org.bukkit.entity.Stray;
+import org.bukkit.entity.Turtle;
 import org.bukkit.entity.Vex;
 import org.bukkit.entity.Villager;
 import org.bukkit.entity.Vindicator;
@@ -83,8 +88,6 @@ import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.npc.NPCRegistry;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
-import one.lindegaard.BagOfGold.BagOfGold;
-import one.lindegaard.BagOfGold.PlayerBalance;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
 import one.lindegaard.MobHunting.compatibility.CitizensCompat;
@@ -606,11 +609,25 @@ public class RewardManager {
 			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob)))
 				return getPrice(mob,
 						EliteMobsCompat.getMobRewardData().get(EliteMobsCompat.getEliteMobsType(mob)).getRewardPrize());
-			// plugin.getMessages().debug("EliteMob %s has no reward data",
-			// EliteMobsCompat.getEliteMobsType(mob));
+			plugin.getMessages().debug("EliteMob %s has no reward data", EliteMobsCompat.getEliteMobsType(mob));
 			return 0;
 
 		} else {
+			if (Misc.isMC113OrNewer())
+				if (mob instanceof Dolphin)
+					return getPrice(mob, plugin.getConfigManager().dolphinMoney);
+				else if (mob instanceof Drowned)
+					return getPrice(mob, plugin.getConfigManager().drownedMoney);
+
+				else if (mob instanceof Fish)
+					return getPrice(mob, plugin.getConfigManager().fishMoney);
+
+				else if (mob instanceof Phantom)
+					return getPrice(mob, plugin.getConfigManager().phantomMoney);
+
+				else if (mob instanceof Turtle)
+					return getPrice(mob, plugin.getConfigManager().turtleMoney);
+
 			if (Misc.isMC112OrNewer())
 				if (mob instanceof Parrot)
 					return getPrice(mob, plugin.getConfigManager().parrotMoney);
@@ -896,6 +913,18 @@ public class RewardManager {
 			return plugin.getConfigManager().wolfCommands;
 
 		} else {
+			if (Misc.isMC113OrNewer())
+				if (mob instanceof Dolphin)
+					return plugin.getConfigManager().dolphinCommands;
+				else if (mob instanceof Drowned)
+					return plugin.getConfigManager().drownedCommands;
+				else if (mob instanceof Fish)
+					return plugin.getConfigManager().fishCommands;
+				else if (mob instanceof Phantom)
+					return plugin.getConfigManager().phantomCommands;
+				else if (mob instanceof Turtle)
+					return plugin.getConfigManager().turtleCommands;
+
 			if (Misc.isMC112OrNewer())
 				if (mob instanceof Parrot)
 					return plugin.getConfigManager().parrotCommands;
@@ -1118,6 +1147,18 @@ public class RewardManager {
 			return plugin.getConfigManager().wolfMessage;
 
 		} else {
+			if (Misc.isMC113OrNewer())
+				if (mob instanceof Dolphin)
+					return plugin.getConfigManager().dolphinMessage;
+				else if (mob instanceof Drowned)
+					return plugin.getConfigManager().drownedMessage;
+				else if (mob instanceof Fish)
+					return plugin.getConfigManager().fishMessage;
+				else if (mob instanceof Phantom)
+					return plugin.getConfigManager().phantomMessage;
+				else if (mob instanceof Turtle)
+					return plugin.getConfigManager().turtleMessage;
+
 			if (Misc.isMC112OrNewer())
 				if (mob instanceof Parrot)
 					return plugin.getConfigManager().parrotMessage;
@@ -1329,37 +1370,50 @@ public class RewardManager {
 			return plugin.getConfigManager().wolfCmdRunChance;
 
 		} else {
+			if (Misc.isMC113OrNewer())
+				if (mob instanceof Dolphin)
+					return plugin.getConfigManager().dolphinMoneyChance;
+				else if (mob instanceof Drowned)
+					return plugin.getConfigManager().drownedMoneyChance;
+				else if (mob instanceof Fish)
+					return plugin.getConfigManager().fishMoneyChance;
+				else if (mob instanceof Phantom)
+					return plugin.getConfigManager().phantomMoneyChance;
+				else if (mob instanceof Turtle)
+					return plugin.getConfigManager().turtleMoneyChance;
+
+			
 			if (Misc.isMC112OrNewer())
 				if (mob instanceof Parrot)
-					return plugin.getConfigManager().parrotCmdRunChance;
+					return plugin.getConfigManager().parrotMoneyChance;
 				else if (mob instanceof Illusioner)
-					return plugin.getConfigManager().illusionerCmdRunChance;
+					return plugin.getConfigManager().illusionerMoneyChance;
 
 			if (Misc.isMC111OrNewer())
 				if (mob instanceof Llama)
-					return plugin.getConfigManager().llamaCmdRunChance;
+					return plugin.getConfigManager().llamaMoneyChance;
 				else if (mob instanceof Vex)
 					return plugin.getConfigManager().vexMoneyChance;
 				else if (mob instanceof Vindicator)
-					return plugin.getConfigManager().vindicatorCmdRunChance;
+					return plugin.getConfigManager().vindicatorMoneyChance;
 				else if (mob instanceof Evoker)
-					return plugin.getConfigManager().evokerCmdRunChance;
+					return plugin.getConfigManager().evokerMoneyChance;
 				else if (mob instanceof Donkey)
-					return plugin.getConfigManager().donkeyCmdRunChance;
+					return plugin.getConfigManager().donkeyMoneyChance;
 				else if (mob instanceof Mule)
-					return plugin.getConfigManager().muleCmdRunChance;
+					return plugin.getConfigManager().muleMoneyChance;
 				else if (mob instanceof SkeletonHorse)
-					return plugin.getConfigManager().skeletonHorseCmdRunChance;
+					return plugin.getConfigManager().skeletonHorseMoneyChance;
 				else if (mob instanceof ZombieHorse)
-					return plugin.getConfigManager().zombieHorseCmdRunChance;
+					return plugin.getConfigManager().zombieHorseMoneyChance;
 				else if (mob instanceof Stray)
 					return plugin.getConfigManager().strayMoneyChance;
 				else if (mob instanceof Husk)
 					return plugin.getConfigManager().huskMoneyChance;
 				else if (mob instanceof ZombieVillager)
-					return plugin.getConfigManager().zombieVillagerCmdRunChance;
+					return plugin.getConfigManager().zombieVillagerMoneyChance;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.NITWIT)
-					return plugin.getConfigManager().nitwitCmdRunChance;
+					return plugin.getConfigManager().nitwitMoneyChance;
 
 			if (Misc.isMC110OrNewer())
 				if (mob instanceof PolarBear)
@@ -1370,17 +1424,17 @@ public class RewardManager {
 					return plugin.getConfigManager().huskMoneyChance;
 
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.NORMAL)
-					return plugin.getConfigManager().villagerCmdRunChance;
+					return plugin.getConfigManager().villagerMoneyChance;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.PRIEST)
-					return plugin.getConfigManager().priestCmdRunChance;
+					return plugin.getConfigManager().priestMoneyChance;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.BUTCHER)
 					return plugin.getConfigManager().butcherMoneyChance;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.BLACKSMITH)
 					return plugin.getConfigManager().blacksmithMoneyChance;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.LIBRARIAN)
-					return plugin.getConfigManager().librarianCmdRunChance;
+					return plugin.getConfigManager().librarianMoneyChance;
 				else if (mob instanceof Villager && ((Villager) mob).getProfession() == Profession.FARMER)
-					return plugin.getConfigManager().farmerCmdRunChance;
+					return plugin.getConfigManager().farmerMoneyChance;
 
 			if (Misc.isMC19OrNewer())
 				if (mob instanceof Shulker)
@@ -1466,7 +1520,7 @@ public class RewardManager {
 			else if (mob instanceof Squid)
 				return plugin.getConfigManager().squidCmdRunChance;
 			else if (mob instanceof Villager)
-				return plugin.getConfigManager().villagerCmdRunChance;
+				return plugin.getConfigManager().villagerMoneyChance;
 			else if (mob instanceof Wolf)
 				return plugin.getConfigManager().wolfCmdRunChance;
 			// TODO: Heads????
@@ -1546,6 +1600,19 @@ public class RewardManager {
 			return plugin.getConfigManager().wolfMcMMOSkillRewardChance;
 
 		} else {
+			if (Misc.isMC113OrNewer())
+				if (mob instanceof Dolphin)
+					return plugin.getConfigManager().dolphinMcMMOSkillRewardChance;
+				else if (mob instanceof Drowned)
+					return plugin.getConfigManager().drownedMcMMOSkillRewardChance;
+				else if (mob instanceof Fish)
+					return plugin.getConfigManager().fishMcMMOSkillRewardChance;
+				else if (mob instanceof Phantom)
+					return plugin.getConfigManager().phantomMcMMOSkillRewardChance;
+				else if (mob instanceof Turtle)
+					return plugin.getConfigManager().turtleMcMMOSkillRewardChance;
+
+			
 			if (Misc.isMC112OrNewer())
 				if (mob instanceof Parrot)
 					return plugin.getConfigManager().parrotMcMMOSkillRewardChance;
@@ -1787,6 +1854,18 @@ public class RewardManager {
 			return getMcMMOXP(mob, plugin.getConfigManager().wolfMcMMOSkillRewardAmount);
 
 		} else {
+			if (Misc.isMC113OrNewer())
+				if (mob instanceof Dolphin)
+					return getMcMMOXP(mob, plugin.getConfigManager().dolphinMcMMOSkillRewardAmount);
+				else if (mob instanceof Drowned)
+					return getMcMMOXP(mob, plugin.getConfigManager().drownedMcMMOSkillRewardAmount);
+				else if (mob instanceof Fish)
+					return getMcMMOXP(mob, plugin.getConfigManager().fishMcMMOSkillRewardAmount);
+				else if (mob instanceof Phantom)
+					return getMcMMOXP(mob, plugin.getConfigManager().phantomMcMMOSkillRewardAmount);
+				else if (mob instanceof Turtle)
+					return getMcMMOXP(mob, plugin.getConfigManager().turtleMcMMOSkillRewardAmount);
+			
 			if (Misc.isMC112OrNewer())
 				if (mob instanceof Parrot)
 					return getMcMMOXP(mob, plugin.getConfigManager().parrotMcMMOSkillRewardAmount);
@@ -1998,6 +2077,18 @@ public class RewardManager {
 			return plugin.getConfigManager().wolfEnabled;
 
 		} else {
+			if (Misc.isMC113OrNewer())
+				if (mob instanceof Dolphin)
+					return plugin.getConfigManager().dolphinEnabled;
+				else if (mob instanceof Drowned)
+					return plugin.getConfigManager().drownedEnabled;
+				else if (mob instanceof Fish)
+					return plugin.getConfigManager().fishEnabled;
+				else if (mob instanceof Phantom)
+					return plugin.getConfigManager().phantomEnabled;
+				else if (mob instanceof Turtle)
+					return plugin.getConfigManager().turtleEnabled;
+			
 			if (Misc.isMC112OrNewer())
 				if (mob instanceof Parrot)
 					return plugin.getConfigManager().parrotEnabled;
@@ -2221,6 +2312,18 @@ public class RewardManager {
 			return plugin.getConfigManager().wolfHeadDropHead;
 
 		} else {
+			if (Misc.isMC113OrNewer())
+				if (mob instanceof Dolphin)
+					return plugin.getConfigManager().dolphinHeadDropHead;
+				else if (mob instanceof Drowned)
+					return plugin.getConfigManager().drownedHeadDropHead;
+				else if (mob instanceof Fish)
+					return plugin.getConfigManager().fishHeadDropHead;
+				else if (mob instanceof Phantom)
+					return plugin.getConfigManager().phantomHeadDropHead;
+				else if (mob instanceof Turtle)
+					return plugin.getConfigManager().turtleHeadDropHead;
+			
 			if (Misc.isMC112OrNewer())
 				if (mob instanceof Parrot)
 					return plugin.getConfigManager().parrotHeadDropHead;
@@ -2446,6 +2549,18 @@ public class RewardManager {
 			return plugin.getConfigManager().wolfHeadDropChance;
 
 		} else {
+			if (Misc.isMC113OrNewer())
+				if (mob instanceof Dolphin)
+					return plugin.getConfigManager().dolphinHeadDropChance;
+				else if (mob instanceof Drowned)
+					return plugin.getConfigManager().drownedHeadDropChance;
+				else if (mob instanceof Fish)
+					return plugin.getConfigManager().fishHeadDropChance;
+				else if (mob instanceof Phantom)
+					return plugin.getConfigManager().phantomHeadDropChance;
+				else if (mob instanceof Turtle)
+					return plugin.getConfigManager().turtleHeadDropChance;
+			
 			if (Misc.isMC112OrNewer())
 				if (mob instanceof Parrot)
 					return plugin.getConfigManager().parrotHeadDropChance;
@@ -2671,6 +2786,18 @@ public class RewardManager {
 			return plugin.getConfigManager().wolfHeadMessage;
 
 		} else {
+			if (Misc.isMC113OrNewer())
+				if (mob instanceof Dolphin)
+					return plugin.getConfigManager().dolphinHeadMessage;
+				else if (mob instanceof Drowned)
+					return plugin.getConfigManager().drownedHeadMessage;
+				else if (mob instanceof Fish)
+					return plugin.getConfigManager().fishHeadMessage;
+				else if (mob instanceof Phantom)
+					return plugin.getConfigManager().phantomHeadMessage;
+				else if (mob instanceof Turtle)
+					return plugin.getConfigManager().turtleHeadMessage;
+			
 			if (Misc.isMC112OrNewer())
 				if (mob instanceof Parrot)
 					return plugin.getConfigManager().parrotHeadMessage;
@@ -2896,6 +3023,18 @@ public class RewardManager {
 			return getPrice(mob, plugin.getConfigManager().wolfHeadPrize);
 
 		} else {
+			if (Misc.isMC113OrNewer())
+				if (mob instanceof Dolphin)
+					return getPrice(mob, plugin.getConfigManager().dolphinHeadPrize);
+				else if (mob instanceof Drowned)
+					return getPrice(mob, plugin.getConfigManager().drownedHeadPrize);
+				else if (mob instanceof Fish)
+					return getPrice(mob, plugin.getConfigManager().fishHeadPrize);
+				else if (mob instanceof Phantom)
+					return getPrice(mob, plugin.getConfigManager().phantomHeadPrize);
+				else if (mob instanceof Turtle)
+					return getPrice(mob, plugin.getConfigManager().turtleHeadPrize);
+			
 			if (Misc.isMC112OrNewer())
 				if (mob instanceof Parrot)
 					return getPrice(mob, plugin.getConfigManager().parrotHeadPrize);

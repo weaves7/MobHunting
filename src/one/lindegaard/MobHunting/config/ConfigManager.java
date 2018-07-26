@@ -61,6 +61,7 @@ public class ConfigManager extends AutoConfig {
 		setCategoryComment("mobs.blaze", "### Blaze settings ###");
 		setCategoryComment("mobs.cave_spider", "### Cave Spider settings ###");
 		setCategoryComment("mobs.creeper", "### Creeper settings ###");
+		setCategoryComment("mobs.drowned", "### Drowned settings ###");
 		setCategoryComment("mobs.elder_guardian", "### Elder Guardian settings ###");
 		setCategoryComment("mobs.enderman", "### Enderman settings ###");
 		setCategoryComment("mobs.endermite", "### Endermite settings ###");
@@ -71,6 +72,7 @@ public class ConfigManager extends AutoConfig {
 		setCategoryComment("mobs.husk", "### Husk settings ###");
 		setCategoryComment("mobs.killer_rabbit", "### Killer Rabbit settings ###");
 		setCategoryComment("mobs.magma_cube", "### Magma Cube settings ###");
+		setCategoryComment("mobs.phantom", "### Phantom settings ###");
 		setCategoryComment("mobs.polar_bear", "### Polar Bear settings ###");
 		setCategoryComment("mobs.slime", "### Slime settings ###");
 		setCategoryComment("mobs.shulker", "### Shulker settings ###");
@@ -124,7 +126,9 @@ public class ConfigManager extends AutoConfig {
 		setCategoryComment("passive.bat", "### Bat settings ###");
 		setCategoryComment("passive.chicken", "### Chicken settings ###");
 		setCategoryComment("passive.cow", "### Cow settings ###");
+		setCategoryComment("passive.dolphin", "### Dolphin settings ###");
 		setCategoryComment("passive.donkey", "### Donkey settings ###");
+		setCategoryComment("passive.fish", "### Fish settings ###");
 		setCategoryComment("passive.horse", "### Horse settings ###");
 		setCategoryComment("passive.llama", "### Llama settings ###");
 		setCategoryComment("passive.mule", "### Mule settings ###");
@@ -137,6 +141,7 @@ public class ConfigManager extends AutoConfig {
 		setCategoryComment("passive.skeleton_horse", "### Skeleton Horse settings ###");
 		setCategoryComment("passive.snowman", "### Snowman settings ###");
 		setCategoryComment("passive.squid", "### Squid settings ###");
+		setCategoryComment("passive.turtle", "### Turtle settings ###");
 		setCategoryComment("passive.wolf", "### Wolf settings ###");
 		setCategoryComment("passive.zombie_horse", "### Zombie Horse settings ###");
 
@@ -655,6 +660,58 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "creeper.head.message", category = "mobs")
 	public String creeperHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
+	// =====Dolphin============================================
+	@ConfigField(name = "dolphin.enabled", category = "mobs")
+	public boolean dolphinEnabled = true;
+	@ConfigField(name = "dolphin.message", category = "mobs")
+	public String dolphinMessage = "You killed a §1{killed}";
+	@ConfigField(name = "dolphin.money.amount", category = "mobs")
+	public String dolphinMoney = "3:10";
+	@ConfigField(name = "dolphin.money.chance", category = "mobs")
+	public double dolphinMoneyChance = 1;
+	@ConfigField(name = "dolphin.commands", category = "mobs")
+	public List<HashMap<String, String>> dolphinCommands = new ArrayList<HashMap<String, String>>();
+	{
+		HashMap<String, String> values1 = new HashMap<String, String>();
+		values1.put("cmd", "give {player} Iron_ingot 1");
+		values1.put("chance", "0.33");
+		dolphinCommands.add(values1);
+	}
+	@ConfigField(name = "dolphin.head.drophead", category = "mobs")
+	public boolean dolphinHeadDropHead = true;
+	@ConfigField(name = "dolphin.head.value", category = "mobs")
+	public String dolphinHeadPrize = "0";
+	@ConfigField(name = "dolphin.head.chance", category = "mobs")
+	public double dolphinHeadDropChance = 0.33;
+	@ConfigField(name = "dolphin.head.message", category = "mobs")
+	public String dolphinHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
+
+	// =====Drowned============================================
+	@ConfigField(name = "drowned.enabled", category = "mobs")
+	public boolean drownedEnabled = true;
+	@ConfigField(name = "drowned.message", category = "mobs")
+	public String drownedMessage = "You killed a §1{killed}";
+	@ConfigField(name = "drowned.money.amount", category = "mobs")
+	public String drownedMoney = "5:15";
+	@ConfigField(name = "drowned.money.chance", category = "mobs")
+	public double drownedMoneyChance = 1;
+	@ConfigField(name = "drowned.commands", category = "mobs")
+	public List<HashMap<String, String>> drownedCommands = new ArrayList<HashMap<String, String>>();
+	{
+		HashMap<String, String> values1 = new HashMap<String, String>();
+		values1.put("cmd", "give {player} Iron_ingot 1");
+		values1.put("chance", "0.33");
+		drownedCommands.add(values1);
+	}
+	@ConfigField(name = "drowned.head.drophead", category = "mobs")
+	public boolean drownedHeadDropHead = true;
+	@ConfigField(name = "drowned.head.value", category = "mobs")
+	public String drownedHeadPrize = "0";
+	@ConfigField(name = "drowned.head.chance", category = "mobs")
+	public double drownedHeadDropChance = 0.33;
+	@ConfigField(name = "drowned.head.message", category = "mobs")
+	public String drownedHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
+
 	// =====Elder Guardian============================================
 	@ConfigField(name = "elder_guardian.enabled", category = "mobs")
 	public boolean elderGuardianEnabled = true;
@@ -732,6 +789,32 @@ public class ConfigManager extends AutoConfig {
 	public double endermiteHeadDropChance = 0.10;
 	@ConfigField(name = "endermite.head.message", category = "mobs")
 	public String endermiteHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
+
+	// =====Fish============================================
+	@ConfigField(name = "fish.enabled", category = "mobs")
+	public boolean fishEnabled = true;
+	@ConfigField(name = "fish.message", category = "mobs")
+	public String fishMessage = "You killed a §1{killed}";
+	@ConfigField(name = "fish.money.amount", category = "mobs")
+	public String fishMoney = "1:2";
+	@ConfigField(name = "fish.money.chance", category = "mobs")
+	public double fishMoneyChance = 1;
+	@ConfigField(name = "fish.commands", category = "mobs")
+	public List<HashMap<String, String>> fishCommands = new ArrayList<HashMap<String, String>>();
+	{
+		HashMap<String, String> values1 = new HashMap<String, String>();
+		values1.put("cmd", "give {player} Iron_ingot 1");
+		values1.put("chance", "0.33");
+		fishCommands.add(values1);
+	}
+	@ConfigField(name = "fish.head.drophead", category = "mobs")
+	public boolean fishHeadDropHead = true;
+	@ConfigField(name = "fish.head.value", category = "mobs")
+	public String fishHeadPrize = "0";
+	@ConfigField(name = "fish.head.chance", category = "mobs")
+	public double fishHeadDropChance = 0.33;
+	@ConfigField(name = "fish.head.message", category = "mobs")
+	public String fishHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Ghast============================================
 	@ConfigField(name = "ghast.enabled", category = "mobs")
@@ -916,6 +999,32 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "magma_cube.head.message", category = "mobs")
 	public String magmaCubeHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
+	// =====Phantom============================================
+	@ConfigField(name = "phantom.enabled", category = "mobs")
+	public boolean phantomEnabled = true;
+	@ConfigField(name = "phantom.message", category = "mobs")
+	public String phantomMessage = "You killed a §1{killed}";
+	@ConfigField(name = "phantom.money.amount", category = "mobs")
+	public String phantomMoney = "20:40";
+	@ConfigField(name = "phantom.money.chance", category = "mobs")
+	public double phantomMoneyChance = 1;
+	@ConfigField(name = "phantom.commands", category = "mobs")
+	public List<HashMap<String, String>> phantomCommands = new ArrayList<HashMap<String, String>>();
+	{
+		HashMap<String, String> values1 = new HashMap<String, String>();
+		values1.put("cmd", "give {player} Iron_ingot 1");
+		values1.put("chance", "0.33");
+		phantomCommands.add(values1);
+	}
+	@ConfigField(name = "phantom.head.drophead", category = "mobs")
+	public boolean phantomHeadDropHead = true;
+	@ConfigField(name = "phantom.head.value", category = "mobs")
+	public String phantomHeadPrize = "0";
+	@ConfigField(name = "phantom.head.chance", category = "mobs")
+	public double phantomHeadDropChance = 0.33;
+	@ConfigField(name = "phantom.head.message", category = "mobs")
+	public String phantomHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
+
 	// =====Polar Bear============================================
 	@ConfigField(name = "polar_bear.enabled", category = "mobs")
 	public boolean polarBearEnabled = true;
@@ -1099,6 +1208,32 @@ public class ConfigManager extends AutoConfig {
 	public double strayHeadDropChance = 0.20;
 	@ConfigField(name = "stray.head.message", category = "mobs")
 	public String strayHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
+
+	// =====Turtle============================================
+	@ConfigField(name = "turtle.enabled", category = "mobs")
+	public boolean turtleEnabled = true;
+	@ConfigField(name = "turtle.message", category = "mobs")
+	public String turtleMessage = "You killed a §1{killed}";
+	@ConfigField(name = "turtle.money.amount", category = "mobs")
+	public String turtleMoney = "1:3";
+	@ConfigField(name = "turtle.money.chance", category = "mobs")
+	public double turtleMoneyChance = 1;
+	@ConfigField(name = "turtle.commands", category = "mobs")
+	public List<HashMap<String, String>> turtleCommands = new ArrayList<HashMap<String, String>>();
+	{
+		HashMap<String, String> values1 = new HashMap<String, String>();
+		values1.put("cmd", "give {player} Iron_ingot 1");
+		values1.put("chance", "0.33");
+		turtleCommands.add(values1);
+	}
+	@ConfigField(name = "turtle.head.drophead", category = "mobs")
+	public boolean turtleHeadDropHead = true;
+	@ConfigField(name = "turtle.head.value", category = "mobs")
+	public String turtleHeadPrize = "0";
+	@ConfigField(name = "turtle.head.chance", category = "mobs")
+	public double turtleHeadDropChance = 0.33;
+	@ConfigField(name = "turtle.head.message", category = "mobs")
+	public String turtleHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
 	// =====Zombie============================================
 	@ConfigField(name = "zombie.enabled", category = "mobs")
@@ -1370,7 +1505,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "evoker.money.amount", category = "villager")
 	public String evokerMoney = "10";
 	@ConfigField(name = "evoker.money.chance", category = "villager")
-	public double evokerCmdRunChance = 0.50;
+	public double evokerMoneyChance = 0.50;
 	@ConfigField(name = "evoker.commands", category = "villager")
 	public List<HashMap<String, String>> evokerCommands = new ArrayList<HashMap<String, String>>();
 	{
@@ -1396,7 +1531,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "farmer.money.amount", category = "villager")
 	public String farmerMoney = "1:2";
 	@ConfigField(name = "farmer.money.chance", category = "villager")
-	public double farmerCmdRunChance = 1;
+	public double farmerMoneyChance = 1;
 	@ConfigField(name = "farmer.commands", category = "villager")
 	public List<HashMap<String, String>> farmerCommnds = new ArrayList<HashMap<String, String>>();
 	{
@@ -1422,7 +1557,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "illusioner.money.amount", category = "villager")
 	public String illusionerMoney = "30:50";
 	@ConfigField(name = "illusioner.money.chance", category = "villager")
-	public double illusionerCmdRunChance = 0.10;
+	public double illusionerMoneyChance = 0.10;
 	@ConfigField(name = "illusioner.commands", category = "villager")
 	public List<HashMap<String, String>> illusionerCommands = new ArrayList<HashMap<String, String>>();
 	{
@@ -1448,7 +1583,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "librarian.money.amount", category = "villager")
 	public String librarianMoney = "1:2";
 	@ConfigField(name = "librarian.money.chance", category = "villager")
-	public double librarianCmdRunChance = 1;
+	public double librarianMoneyChance = 1;
 	@ConfigField(name = "librarian.commands", category = "villager")
 	public List<HashMap<String, String>> librarianCommands = new ArrayList<HashMap<String, String>>();
 	{
@@ -1474,7 +1609,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "nitwit.money.amount", category = "villager")
 	public String nitwitMoney = "1:2";
 	@ConfigField(name = "nitwit.money.chance", category = "villager")
-	public double nitwitCmdRunChance = 1;
+	public double nitwitMoneyChance = 1;
 	@ConfigField(name = "nitwit.commands", category = "villager")
 	public List<HashMap<String, String>> nitwitCommands = new ArrayList<HashMap<String, String>>();
 	{
@@ -1500,7 +1635,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "priest.money.amount", category = "villager")
 	public String priestMoney = "1:2";
 	@ConfigField(name = "priest.money.chance", category = "villager")
-	public double priestCmdRunChance = 1;
+	public double priestMoneyChance = 1;
 	@ConfigField(name = "priest.commands", category = "villager")
 	public List<HashMap<String, String>> priestCommands = new ArrayList<HashMap<String, String>>();
 	{
@@ -1526,7 +1661,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "villager.money.amount", category = "villager")
 	public String villagerMoney = "1";
 	@ConfigField(name = "villager.money.chance", category = "villager")
-	public double villagerCmdRunChance = 1;
+	public double villagerMoneyChance = 1;
 	@ConfigField(name = "villager.commands", category = "villager")
 	public List<HashMap<String, String>> villagerCommands = new ArrayList<HashMap<String, String>>();
 	{
@@ -1552,7 +1687,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "vindicator.money.amount", category = "villager")
 	public String vindicatorMoney = "10:15";
 	@ConfigField(name = "vindicator.money.chance", category = "villager")
-	public double vindicatorCmdRunChance = 1;
+	public double vindicatorMoneyChance = 1;
 	@ConfigField(name = "vindicator.commands", category = "villager")
 	public List<HashMap<String, String>> vindicatorCommands = new ArrayList<HashMap<String, String>>();
 	{
@@ -1578,7 +1713,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "zombie_villager.money.amount", category = "villager")
 	public String zombieVillagerMoney = "1:2";
 	@ConfigField(name = "zombie_villager.money.chance", category = "villager")
-	public double zombieVillagerCmdRunChance = 1;
+	public double zombieVillagerMoneyChance = 1;
 	@ConfigField(name = "zombie_villager.commands", category = "villager")
 	public List<HashMap<String, String>> zombieVillagerCommands = new ArrayList<HashMap<String, String>>();
 	{
@@ -1686,7 +1821,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "donkey.money.amount", category = "passive")
 	public String donkeyMoney = "5";
 	@ConfigField(name = "donkey.money.chance", category = "passive")
-	public double donkeyCmdRunChance = 1;
+	public double donkeyMoneyChance = 1;
 	@ConfigField(name = "donkey.commands", category = "passive")
 	public List<HashMap<String, String>> donkeyCommands = new ArrayList<HashMap<String, String>>();
 	{
@@ -1738,7 +1873,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "llama.money.amount", category = "passive")
 	public String llamaMoney = "0";
 	@ConfigField(name = "llama.money.chance", category = "passive")
-	public double llamaCmdRunChance = 1;
+	public double llamaMoneyChance = 1;
 	@ConfigField(name = "llama.commands", category = "passive")
 	public List<HashMap<String, String>> llamaCommands = new ArrayList<HashMap<String, String>>();
 	{
@@ -1764,7 +1899,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "mule.money.amount", category = "passive")
 	public String muleMoney = "0";
 	@ConfigField(name = "mule.money.chance", category = "passive")
-	public double muleCmdRunChance = 1;
+	public double muleMoneyChance = 1;
 	@ConfigField(name = "mule.commands", category = "passive")
 	public List<HashMap<String, String>> muleCommands = new ArrayList<HashMap<String, String>>();
 	{
@@ -1842,7 +1977,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "parrot.money.amount", category = "passive")
 	public String parrotMoney = "2";
 	@ConfigField(name = "parrot.money.chance", category = "passive")
-	public double parrotCmdRunChance = 1;
+	public double parrotMoneyChance = 1;
 	@ConfigField(name = "parrot.commands", category = "passive")
 	public List<HashMap<String, String>> parrotCommands = new ArrayList<HashMap<String, String>>();
 	{
@@ -1946,7 +2081,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "skeleton_horse.money.amount", category = "passive")
 	public String skeletonHorseMoney = "10";
 	@ConfigField(name = "skeleton_horse.money.chance", category = "passive")
-	public double skeletonHorseCmdRunChance = 1;
+	public double skeletonHorseMoneyChance = 1;
 	@ConfigField(name = "skeleton_horse.commands", category = "passive")
 	public List<HashMap<String, String>> skeletonHorseCommands = new ArrayList<HashMap<String, String>>();
 	{
@@ -2050,7 +2185,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "zombie_horse.money.amount", category = "passive")
 	public String zombieHorseMoney = "-10";
 	@ConfigField(name = "zombie_horse.money.chance", category = "passive")
-	public double zombieHorseCmdRunChance = 1;
+	public double zombieHorseMoneyChance = 1;
 	@ConfigField(name = "zombie_horse.commands", category = "passive")
 	public List<HashMap<String, String>> zombieHorseCommands = new ArrayList<HashMap<String, String>>();
 	{
@@ -2414,6 +2549,12 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "donkey_level1", category = "achievements.hunter.mob_level")
 	public int donkeyLevel1 = 100;
 
+	@ConfigField(name = "dolphin_level1", category = "achievements.hunter.mob_level")
+	public int dolphinLevel1 = 100;
+
+	@ConfigField(name = "drowned_level1", category = "achievements.hunter.mob_level")
+	public int drownedLevel1 = 100;
+
 	@ConfigField(name = "elder_guardian_level1", category = "achievements.hunter.mob_level")
 	public int elderGuardianLevel1 = 50;
 
@@ -2431,6 +2572,9 @@ public class ConfigManager extends AutoConfig {
 
 	@ConfigField(name = "farmer_level1", category = "achievements.hunter.mob_level")
 	public int farmerLevel1 = 100;
+
+	@ConfigField(name = "fish_level1", category = "achievements.hunter.mob_level")
+	public int fishLevel1 = 100;
 
 	@ConfigField(name = "ghast_level1", category = "achievements.hunter.mob_level")
 	public int ghastLevel1 = 80;
@@ -2479,6 +2623,9 @@ public class ConfigManager extends AutoConfig {
 
 	@ConfigField(name = "parrot_level1", category = "achievements.hunter.mob_level")
 	public int parrotLevel1 = 100;
+
+	@ConfigField(name = "phantom_level1", category = "achievements.hunter.mob_level")
+	public int phantomLevel1 = 100;
 
 	@ConfigField(name = "pig_level1", category = "achievements.hunter.mob_level")
 	public int pigLevel1 = 100;
@@ -2533,6 +2680,9 @@ public class ConfigManager extends AutoConfig {
 
 	@ConfigField(name = "stray_level1", category = "achievements.hunter.mob_level")
 	public int strayLevel1 = 100;
+
+	@ConfigField(name = "turtle_level1", category = "achievements.hunter.mob_level")
+	public int turtleLevel1 = 100;
 
 	@ConfigField(name = "vex_level1", category = "achievements.hunter.mob_level")
 	public int vexLevel1 = 100;
@@ -2977,6 +3127,18 @@ public class ConfigManager extends AutoConfig {
 	public double creeperMcMMOSkillRewardChance = 0.04;
 	// Hostile mob, easy
 
+	@ConfigField(name = "skillreward_amount", category = "plugins.mcmmo.mobs.dolphin")
+	public String dolphinMcMMOSkillRewardAmount = "1";
+	@ConfigField(name = "skillreward_chance", category = "plugins.mcmmo.mobs.dolphin")
+	public double dolphinMcMMOSkillRewardChance = 0.025;
+	// Passive mob, ???
+
+	@ConfigField(name = "skillreward_amount", category = "plugins.mcmmo.mobs.drowned")
+	public String drownedMcMMOSkillRewardAmount = "1";
+	@ConfigField(name = "skillreward_chance", category = "plugins.mcmmo.mobs.drowned")
+	public double drownedMcMMOSkillRewardChance = 0.025;
+	// Passive mob, ???
+
 	@ConfigField(name = "skillreward_amount", category = "plugins.mcmmo.mobs.donkey")
 	public String donkeyMcMMOSkillRewardAmount = "1";
 	@ConfigField(name = "skillreward_chance", category = "plugins.mcmmo.mobs.donkey")
@@ -3017,6 +3179,12 @@ public class ConfigManager extends AutoConfig {
 	public String farmerMcMMOSkillRewardAmount = "1";
 	@ConfigField(name = "skillreward_chance", category = "plugins.mcmmo.mobs.farmer")
 	public double farmerMcMMOSkillRewardChance = 0.025;
+	// Passive mob, risk free
+
+	@ConfigField(name = "skillreward_amount", category = "plugins.mcmmo.mobs.fish")
+	public String fishMcMMOSkillRewardAmount = "1";
+	@ConfigField(name = "skillreward_chance", category = "plugins.mcmmo.mobs.fish")
+	public double fishMcMMOSkillRewardChance = 0.025;
 	// Passive mob, risk free
 
 	@ConfigField(name = "skillreward_amount", category = "plugins.mcmmo.mobs.ghast")
@@ -3114,6 +3282,12 @@ public class ConfigManager extends AutoConfig {
 	public String parrotMcMMOSkillRewardAmount = "1";
 	@ConfigField(name = "skillreward_chance", category = "plugins.mcmmo.mobs.parrot")
 	public double parrotMcMMOSkillRewardChance = 0.025;
+	// Passive mob, risk free
+
+	@ConfigField(name = "skillreward_amount", category = "plugins.mcmmo.mobs.phantom")
+	public String phantomMcMMOSkillRewardAmount = "1";
+	@ConfigField(name = "skillreward_chance", category = "plugins.mcmmo.mobs.phantom")
+	public double phantomMcMMOSkillRewardChance = 0.025;
 	// Passive mob, risk free
 
 	@ConfigField(name = "skillreward_amount", category = "plugins.mcmmo.mobs.pig")
@@ -3223,6 +3397,12 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "skillreward_chance", category = "plugins.mcmmo.mobs.stray")
 	public double strayMcMMOSkillRewardChance = 0.04;
 	// Hostile mob, easy
+
+	@ConfigField(name = "skillreward_amount", category = "plugins.mcmmo.mobs.turtle")
+	public String turtleMcMMOSkillRewardAmount = "1";
+	@ConfigField(name = "skillreward_chance", category = "plugins.mcmmo.mobs.turtle")
+	public double turtleMcMMOSkillRewardChance = 0.04;
+	// Passive mob, easy
 
 	@ConfigField(name = "skillreward_amount", category = "plugins.mcmmo.mobs.vex")
 	public String vexMcMMOSkillRewardAmount = "1";

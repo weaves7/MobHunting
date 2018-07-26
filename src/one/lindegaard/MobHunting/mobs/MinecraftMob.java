@@ -28,6 +28,32 @@ public enum MinecraftMob {
 	// http://heads.freshcoal.com/index.php
 
 	// ******************************************************************
+	// Minecraft 1.13
+	// ******************************************************************
+	// Dolphin
+	Dolphin("Dolphin", "MH_Dolphin", "f037f4f0-fcd3-49be-b147-e924b7caa9ce", "Dolphin",
+			"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGU5Njg4Yjk1MGQ4ODBiNTViN2FhMmNmY2Q3NmU1YTBmYTk0YWFjNmQxNmY3OGU4MzNmNzQ0M2VhMjlmZWQzIn19fQ==",
+			""),
+
+	// Drowned
+	Drowned("Drowned", "MH_Drowned", "e0683e89-b315-4c7a-99b8-360bc8faeedc", "Drowned",
+			"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzg0ZGY3OWM0OTEwNGIxOThjZGFkNmQ5OWZkMGQwYmNmMTUzMWM5MmQ0YWI2MjY5ZTQwYjdkM2NiYmI4ZTk4YyJ9fX0=",
+			""),
+
+	// Fish
+	Fish("Fish", "MH_Fish", "52c6a46b-1b14-48f3-9fb1-5c9addce5064", "Fish", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWYxMmUwZGZlNjhhZWY3Y2I1YzA2Yzc3Y2YyNzIyMzBhNWNkNjgyYmM0NTJjYjY5OWIyMTc3ZGY1ZTZhZjY0In19fQ==", ""),
+
+	// Phantom
+	Phantom("Phantom", "MH_Phantom", "f37bde72-6858-4b3f-9d29-b797d4c7ecba", "Phantom",
+			"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2U5NTE1M2VjMjMyODRiMjgzZjAwZDE5ZDI5NzU2ZjI0NDMxM2EwNjFiNzBhYzAzYjk3ZDIzNmVlNTdiZDk4MiJ9fX0=",
+			""),
+
+	// Turtle
+	Turtle("Turtle", "MH_Turtle", "c14dbb0b-757f-4229-9222-fe30cb8a5516", "Turtle",
+			"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMGE0MDUwZTdhYWNjNDUzOTIwMjY1OGZkYzMzOWRkMTgyZDdlMzIyZjlmYmNjNGQ1Zjk5YjU3MThhIn19fQ==",
+			""),
+
+	// ******************************************************************
 	// Minecraft 1.12
 	// ******************************************************************
 	// Parrot
@@ -507,6 +533,16 @@ public enum MinecraftMob {
 			return MobHunting.getInstance().getConfigManager().zombiePigmanLevel1;
 		case ZombieVillager:
 			return MobHunting.getInstance().getConfigManager().zombieVillagerLevel1;
+		case Dolphin:
+			return MobHunting.getInstance().getConfigManager().dolphinLevel1;
+		case Drowned:
+			return MobHunting.getInstance().getConfigManager().drownedLevel1;
+		case Fish:
+			return MobHunting.getInstance().getConfigManager().fishLevel1;
+		case Phantom:
+			return MobHunting.getInstance().getConfigManager().phantomLevel1;
+		case Turtle:
+			return MobHunting.getInstance().getConfigManager().turtleLevel1;
 		}
 		return 100;
 	}
@@ -529,7 +565,8 @@ public enum MinecraftMob {
 		case Butcher:
 			return getPrice(MobHunting.getInstance().getConfigManager().butcherHeadPrize);
 		// case Cartographer:
-		// return getPrice(MobHunting.getInstance().getConfigManager().cartographerHeadPrize);
+		// return
+		// getPrice(MobHunting.getInstance().getConfigManager().cartographerHeadPrize);
 		case CaveSpider:
 			return getPrice(MobHunting.getInstance().getConfigManager().caveSpiderHeadPrize);
 		case Chicken:
@@ -644,6 +681,16 @@ public enum MinecraftMob {
 			return getPrice(MobHunting.getInstance().getConfigManager().zombiePigmanHeadPrize);
 		case ZombieVillager:
 			return getPrice(MobHunting.getInstance().getConfigManager().zombieVillagerHeadPrize);
+		case Dolphin:
+			return getPrice(MobHunting.getInstance().getConfigManager().dolphinHeadPrize);
+		case Drowned:
+			return getPrice(MobHunting.getInstance().getConfigManager().drownedHeadPrize);
+		case Fish:
+			return getPrice(MobHunting.getInstance().getConfigManager().fishHeadPrize);
+		case Phantom:
+			return getPrice(MobHunting.getInstance().getConfigManager().phantomHeadPrize);
+		case Turtle:
+			return getPrice(MobHunting.getInstance().getConfigManager().turtleHeadPrize);
 		}
 		return 0;
 	}
@@ -674,6 +721,18 @@ public enum MinecraftMob {
 	}
 
 	public boolean matches(Entity entity) {
+		if (Misc.isMC113OrNewer())
+			if (this == Dolphin)
+				return entity instanceof org.bukkit.entity.Dolphin;
+			else if (this == Drowned)
+				return entity instanceof org.bukkit.entity.Drowned;
+			else if (this == Fish)
+				return entity instanceof org.bukkit.entity.Fish;
+			else if (this == Phantom)
+				return entity instanceof org.bukkit.entity.Phantom;
+			else if (this == Turtle)
+				return entity instanceof org.bukkit.entity.Turtle;
+
 		if (Misc.isMC112OrNewer())
 			if (this == Parrot)
 				return entity instanceof org.bukkit.entity.Parrot;
@@ -757,7 +816,7 @@ public enum MinecraftMob {
 		else if (this == BonusMob)
 			return entity.hasMetadata("MH:hasBonus");
 		// else
-		//TODO: fish heads????
+		// TODO: fish heads????
 		if (this == RawFish)
 			return entity instanceof Item && ((Item) entity).getItemStack().getType() == Material.LEGACY_RAW_FISH
 					&& ((Item) entity).getItemStack().getData().getData() == 0;
@@ -840,7 +899,7 @@ public enum MinecraftMob {
 
 	}
 
-	//TODO: HEADS ??? and is this in CustomItems??? 
+	// TODO: HEADS ??? and is this in CustomItems???
 	public ItemStack getCustomHead(MobHunting plugin, String name, int amount, double money) {
 		ItemStack skull;
 		switch (this) {
@@ -883,8 +942,8 @@ public enum MinecraftMob {
 
 		default:
 			ItemStack is = new ItemStack(new CustomItems(plugin).getCustomtexture(
-					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), getFriendlyName(), mTextureValue,
-					mTextureSignature, money, UUID.randomUUID(), getPlayerUUID()));
+					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), getFriendlyName(), mTextureValue, mTextureSignature,
+					money, UUID.randomUUID(), getPlayerUUID()));
 			is.setAmount(amount);
 			return is;
 		}
