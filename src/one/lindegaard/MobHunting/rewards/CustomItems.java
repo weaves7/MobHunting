@@ -47,6 +47,7 @@ public class CustomItems {
 
 	// How to get Playerskin
 	// https://www.spigotmc.org/threads/how-to-get-a-players-texture.244966/
+	// https://minecraft-heads.com/
 
 	private Skins getSkinsClass() {
 		String version;
@@ -284,14 +285,19 @@ public class CustomItems {
 		else
 			skull = new ItemStack(Material.LEGACY_SKULL, (short) 3);
 
-		if (mTextureSignature.isEmpty() || mTextureValue.isEmpty())
+		if (//mTextureSignature.isEmpty() || 
+				mTextureValue.isEmpty())
 			return skull;
 
 		SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
 
 		GameProfile profile = new GameProfile(mPlayerUUID, mDisplayName);
-		profile.getProperties().put("textures", new Property("textures", mTextureValue, mTextureSignature));
-		//plugin.getMessages().debug("CustomItems-texture:%s", profile.getProperties().get("textures").toString());
+		if (mTextureSignature.isEmpty())
+			profile.getProperties().put("textures", new Property("textures", mTextureValue));
+		else
+			profile.getProperties().put("textures", new Property("textures", mTextureValue, mTextureSignature));
+		// plugin.getMessages().debug("CustomItems-texture:%s",
+		// profile.getProperties().get("textures").toString());
 		Field profileField = null;
 
 		try {
@@ -381,10 +387,9 @@ public class CustomItems {
 			break;
 
 		default:
-			ItemStack is = new ItemStack(
-					getCustomtexture(UUID.fromString(Reward.MH_REWARD_KILLED_UUID), minecraftMob.getFriendlyName(),
-							minecraftMob.getTextureValue(), minecraftMob.getTextureSignature(), money,
-							UUID.fromString(Reward.MH_REWARD_KILLED_UUID), skinUUID));
+			ItemStack is = new ItemStack(getCustomtexture(UUID.fromString(Reward.MH_REWARD_KILLED_UUID),
+					minecraftMob.getFriendlyName(), minecraftMob.getTextureValue(), minecraftMob.getTextureSignature(),
+					money, UUID.fromString(Reward.MH_REWARD_KILLED_UUID), skinUUID));
 			is.setAmount(amount);
 			return is;
 		}

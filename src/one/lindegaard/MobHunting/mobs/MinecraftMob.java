@@ -31,25 +31,25 @@ public enum MinecraftMob {
 	// Minecraft 1.13
 	// ******************************************************************
 	// Dolphin
-	Dolphin("Dolphin", "MH_Dolphin", "f037f4f0-fcd3-49be-b147-e924b7caa9ce", "Dolphin",
+	Dolphin("Dolphin", "Dolphin", "8b7ccd6d-36de-47e0-8d5a-6f6799c6feb8", "Dolphin",
 			"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGU5Njg4Yjk1MGQ4ODBiNTViN2FhMmNmY2Q3NmU1YTBmYTk0YWFjNmQxNmY3OGU4MzNmNzQ0M2VhMjlmZWQzIn19fQ==",
 			""),
 
 	// Drowned
-	Drowned("Drowned", "MH_Drowned", "e0683e89-b315-4c7a-99b8-360bc8faeedc", "Drowned",
+	Drowned("Drowned", "Drowned", "2f169660-61be-46bd-acb5-1abef9fe5731", "Drowned",
 			"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzg0ZGY3OWM0OTEwNGIxOThjZGFkNmQ5OWZkMGQwYmNmMTUzMWM5MmQ0YWI2MjY5ZTQwYjdkM2NiYmI4ZTk4YyJ9fX0=",
 			""),
 
 	// Fish
-	Fish("Fish", "MH_Fish", "52c6a46b-1b14-48f3-9fb1-5c9addce5064", "Fish", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWYxMmUwZGZlNjhhZWY3Y2I1YzA2Yzc3Y2YyNzIyMzBhNWNkNjgyYmM0NTJjYjY5OWIyMTc3ZGY1ZTZhZjY0In19fQ==", ""),
+	Fish("Fish", "Fish", "87fbd6b4-7960-4481-b7e0-615c79cb02e1", "Fish", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWYxMmUwZGZlNjhhZWY3Y2I1YzA2Yzc3Y2YyNzIyMzBhNWNkNjgyYmM0NTJjYjY5OWIyMTc3ZGY1ZTZhZjY0In19fQ==", ""),
 
 	// Phantom
-	Phantom("Phantom", "MH_Phantom", "f37bde72-6858-4b3f-9d29-b797d4c7ecba", "Phantom",
+	Phantom("Phantom", "Phantom", "9290add8-c291-4a5a-8f8a-594f165406a3", "Phantom",
 			"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2U5NTE1M2VjMjMyODRiMjgzZjAwZDE5ZDI5NzU2ZjI0NDMxM2EwNjFiNzBhYzAzYjk3ZDIzNmVlNTdiZDk4MiJ9fX0=",
 			""),
-
+	
 	// Turtle
-	Turtle("Turtle", "MH_Turtle", "c14dbb0b-757f-4229-9222-fe30cb8a5516", "Turtle",
+	Turtle("Turtle", "Turtle", "245f22b4-2c7c-4a9c-86fa-9ec64c54e4fa", "Turtle",
 			"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMGE0MDUwZTdhYWNjNDUzOTIwMjY1OGZkYzMzOWRkMTgyZDdlMzIyZjlmYmNjNGQ1Zjk5YjU3MThhIn19fQ==",
 			""),
 

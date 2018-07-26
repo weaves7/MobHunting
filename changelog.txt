@@ -1,6 +1,6 @@
 V6.0.0 Minecraft 1.13 release
 * This version is only for MC 1.13
-* Dolphin, Drowned, Phantom, Turtle and Fish (as a Mob) added with rewards. (Drop heads still not work)
+* Dolphin, Drowned, Phantom, Turtle and Fish (as a Mob) added with rewards and Mob heads to be dropped
 * BagOfGold uses MUST upgrade to V2.0.0 (https://fractal.lindegaard.one:8181/job/BagOfGold/)
 V5.7.3
 *
