@@ -684,7 +684,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "dolphin.head.chance", category = "mobs")
 	public double dolphinHeadDropChance = 0.33;
 	@ConfigField(name = "dolphin.head.message", category = "mobs")
-	public String dolphinHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
+	public String dolphinHeadMessage = "§aThe §1{killed} §adropped a head in the water";
 
 	// =====Drowned============================================
 	@ConfigField(name = "drowned.enabled", category = "mobs")
@@ -710,7 +710,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "drowned.head.chance", category = "mobs")
 	public double drownedHeadDropChance = 0.33;
 	@ConfigField(name = "drowned.head.message", category = "mobs")
-	public String drownedHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
+	public String drownedHeadMessage = "§aThe §1{killed} §adropped a skull in the water";
 
 	// =====Elder Guardian============================================
 	@ConfigField(name = "elder_guardian.enabled", category = "mobs")
@@ -814,7 +814,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "fish.head.chance", category = "mobs")
 	public double fishHeadDropChance = 0.33;
 	@ConfigField(name = "fish.head.message", category = "mobs")
-	public String fishHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
+	public String fishHeadMessage = "§aThe §1{killed} §adropped an Aquarium in the water";
 
 	// =====Ghast============================================
 	@ConfigField(name = "ghast.enabled", category = "mobs")
