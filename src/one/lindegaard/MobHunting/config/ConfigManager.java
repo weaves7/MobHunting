@@ -3431,9 +3431,9 @@ public class ConfigManager extends AutoConfig {
 	public double zombieHorseMcMMOSkillRewardChance = 0.025;
 	// Passive mob, risk free
 
-	@ConfigField(name = "skillreward_amount", category = "plugins.mcmmo.zombie_pigman")
+	@ConfigField(name = "skillreward_amount", category = "plugins.mcmmo.mobs.zombie_pigman")
 	public String zombiePigManMcMMOSkillRewardAmount = "1";
-	@ConfigField(name = "skillreward_chance", category = "plugins.mcmmo.zombie_pigman")
+	@ConfigField(name = "skillreward_chance", category = "plugins.mcmmo.mobs.zombie_pigman")
 	public double zombiePigManMcMMOSkillRewardChance = 0.05;
 	// Hostile mob, normal
 
