@@ -423,9 +423,9 @@ mobs.Vex.name=§9Vex
 mobs.Evoker.name=§9Evoker
 mobs.SkeletonHorse.name=§9SkeletonHorse
 mobs.Mule.name=§9Mule
-mobs.RawFish.name=§9Raw fish
-mobs.RawSalmon.name=§9Raw salmon
-mobs.Clownfish.name=§9Clownfish
+mobs.Cod.name=§9Cod
+mobs.Salmon.name=§9Salmon
+mobs.TropicalFish.name=§9Tropical Fish
 mobs.Pufferfish.name=§9Pufferfish
 mobs.Slime.name=§9Slime
 

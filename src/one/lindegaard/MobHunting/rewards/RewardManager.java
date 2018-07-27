@@ -22,6 +22,7 @@ import org.bukkit.entity.Bat;
 import org.bukkit.entity.Blaze;
 import org.bukkit.entity.CaveSpider;
 import org.bukkit.entity.Chicken;
+import org.bukkit.entity.Cod;
 import org.bukkit.entity.Cow;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Dolphin;
@@ -32,7 +33,6 @@ import org.bukkit.entity.Enderman;
 import org.bukkit.entity.Endermite;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Evoker;
-import org.bukkit.entity.Fish;
 import org.bukkit.entity.Ghast;
 import org.bukkit.entity.Giant;
 import org.bukkit.entity.Guardian;
@@ -52,7 +52,9 @@ import org.bukkit.entity.Pig;
 import org.bukkit.entity.PigZombie;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.PolarBear;
+import org.bukkit.entity.PufferFish;
 import org.bukkit.entity.Rabbit;
+import org.bukkit.entity.Salmon;
 import org.bukkit.entity.Sheep;
 import org.bukkit.entity.Shulker;
 import org.bukkit.entity.Silverfish;
@@ -63,6 +65,7 @@ import org.bukkit.entity.Snowman;
 import org.bukkit.entity.Spider;
 import org.bukkit.entity.Squid;
 import org.bukkit.entity.Stray;
+import org.bukkit.entity.TropicalFish;
 import org.bukkit.entity.Turtle;
 import org.bukkit.entity.Vex;
 import org.bukkit.entity.Villager;
@@ -618,10 +621,14 @@ public class RewardManager {
 					return getPrice(mob, plugin.getConfigManager().dolphinMoney);
 				else if (mob instanceof Drowned)
 					return getPrice(mob, plugin.getConfigManager().drownedMoney);
-
-				else if (mob instanceof Fish)
-					return getPrice(mob, plugin.getConfigManager().fishMoney);
-
+				else if (mob instanceof Cod)
+					return getPrice(mob, plugin.getConfigManager().codMoney);
+				else if (mob instanceof Salmon)
+					return getPrice(mob, plugin.getConfigManager().salmonMoney);
+				else if (mob instanceof TropicalFish)
+					return getPrice(mob, plugin.getConfigManager().tropicalFishMoney);
+				else if (mob instanceof PufferFish)
+					return getPrice(mob, plugin.getConfigManager().pufferfishMoney);
 				else if (mob instanceof Phantom)
 					return getPrice(mob, plugin.getConfigManager().phantomMoney);
 
@@ -796,21 +803,16 @@ public class RewardManager {
 				return getPrice(mob, plugin.getConfigManager().squidMoney);
 			else if (mob instanceof Villager)
 				return getPrice(mob, plugin.getConfigManager().villagerMoney);
-			else if (mob instanceof Wolf) {
+			else if (mob instanceof Wolf)
 				return getPrice(mob, plugin.getConfigManager().wolfMoney);
-				// TODO: is this the heads???
-			} else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.LEGACY_RAW_FISH) {
-				ItemStack is = ((Item) mob).getItemStack();
-				if (is.getData().getData() == (byte) 0) {
-					return getPrice(mob, plugin.getConfigManager().rawFishMoney);
-				} else if (is.getData().getData() == (byte) 1) {
-					return getPrice(mob, plugin.getConfigManager().rawSalmonMoney);
-				} else if (is.getData().getData() == (byte) 2) {
-					return getPrice(mob, plugin.getConfigManager().clownfishMoney);
-				} else if (is.getData().getData() == (byte) 3) {
-					return getPrice(mob, plugin.getConfigManager().pufferfishMoney);
-				}
-			}
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.COD)
+				return getPrice(mob, plugin.getConfigManager().codMoney);
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.SALMON)
+				return getPrice(mob, plugin.getConfigManager().salmonMoney);
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.TROPICAL_FISH)
+				return getPrice(mob, plugin.getConfigManager().tropicalFishMoney);
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.PUFFERFISH)
+				return getPrice(mob, plugin.getConfigManager().pufferfishMoney);
 		}
 		// plugin.getMessages().debug("Mobhunting could not find the prize for
 		// killing this
@@ -918,8 +920,14 @@ public class RewardManager {
 					return plugin.getConfigManager().dolphinCommands;
 				else if (mob instanceof Drowned)
 					return plugin.getConfigManager().drownedCommands;
-				else if (mob instanceof Fish)
-					return plugin.getConfigManager().fishCommands;
+				else if (mob instanceof Cod)
+					return plugin.getConfigManager().codCommands;
+				else if (mob instanceof Salmon)
+					return plugin.getConfigManager().salmonCommands;
+				else if (mob instanceof TropicalFish)
+					return plugin.getConfigManager().tropicalFishCommands;
+				else if (mob instanceof PufferFish)
+					return plugin.getConfigManager().pufferfishCommands;
 				else if (mob instanceof Phantom)
 					return plugin.getConfigManager().phantomCommands;
 				else if (mob instanceof Turtle)
@@ -997,7 +1005,6 @@ public class RewardManager {
 			if (mob instanceof Player)
 				return plugin.getConfigManager().pvpCmdNew;
 			else if (mob instanceof Blaze)
-				// TODO: Change this
 				return plugin.getConfigManager().blazeCommands;
 			else if (mob instanceof Creeper)
 				return plugin.getConfigManager().creeperCommands;
@@ -1066,20 +1073,14 @@ public class RewardManager {
 				return plugin.getConfigManager().villagerCommands;
 			else if (mob instanceof Wolf)
 				return plugin.getConfigManager().wolfCommands;
-			// TODO: HEADS????
-			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.LEGACY_RAW_FISH) {
-				ItemStack is = ((Item) mob).getItemStack();
-				if (is.getData().getData() == (byte) 0) {
-					return plugin.getConfigManager().rawFishCommands;
-				} else if (is.getData().getData() == (byte) 1) {
-					return plugin.getConfigManager().rawSalmonCommands;
-				} else if (is.getData().getData() == (byte) 2) {
-					return plugin.getConfigManager().clownfishCommands;
-				} else if (is.getData().getData() == (byte) 3) {
-					return plugin.getConfigManager().pufferfishCommands;
-				}
-			}
-
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.COD)
+				return plugin.getConfigManager().codCommands;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.SALMON)
+				return plugin.getConfigManager().salmonCommands;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.TROPICAL_FISH)
+				return plugin.getConfigManager().tropicalFishCommands;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.PUFFERFISH)
+				return plugin.getConfigManager().pufferfishCommands;
 		}
 		return new ArrayList<>();
 	}
@@ -1152,8 +1153,14 @@ public class RewardManager {
 					return plugin.getConfigManager().dolphinMessage;
 				else if (mob instanceof Drowned)
 					return plugin.getConfigManager().drownedMessage;
-				else if (mob instanceof Fish)
-					return plugin.getConfigManager().fishMessage;
+				else if (mob instanceof Cod)
+					return plugin.getConfigManager().codMessage;
+				else if (mob instanceof Salmon)
+					return plugin.getConfigManager().salmonMessage;
+				else if (mob instanceof TropicalFish)
+					return plugin.getConfigManager().tropicalFishMessage;
+				else if (mob instanceof PufferFish)
+					return plugin.getConfigManager().pufferfishMessage;
 				else if (mob instanceof Phantom)
 					return plugin.getConfigManager().phantomMessage;
 				else if (mob instanceof Turtle)
@@ -1298,19 +1305,14 @@ public class RewardManager {
 				return plugin.getConfigManager().villagerMessage;
 			else if (mob instanceof Wolf)
 				return plugin.getConfigManager().wolfMessage;
-			// TODO: HEADS????
-			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.LEGACY_RAW_FISH) {
-				ItemStack is = ((Item) mob).getItemStack();
-				if (is.getData().getData() == (byte) 0) {
-					return plugin.getConfigManager().rawFishMessage;
-				} else if (is.getData().getData() == (byte) 1) {
-					return plugin.getConfigManager().rawSalmonMessage;
-				} else if (is.getData().getData() == (byte) 2) {
-					return plugin.getConfigManager().clownfishMessage;
-				} else if (is.getData().getData() == (byte) 3) {
-					return plugin.getConfigManager().pufferfishMessage;
-				}
-			}
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.COD)
+				return plugin.getConfigManager().codMessage;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.SALMON)
+				return plugin.getConfigManager().salmonMessage;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.TROPICAL_FISH)
+				return plugin.getConfigManager().tropicalFishMessage;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.PUFFERFISH)
+				return plugin.getConfigManager().pufferfishMessage;
 
 		}
 		return "";
@@ -1375,14 +1377,19 @@ public class RewardManager {
 					return plugin.getConfigManager().dolphinMoneyChance;
 				else if (mob instanceof Drowned)
 					return plugin.getConfigManager().drownedMoneyChance;
-				else if (mob instanceof Fish)
-					return plugin.getConfigManager().fishMoneyChance;
+				else if (mob instanceof Cod)
+					return plugin.getConfigManager().codCmdRunChance;
+				else if (mob instanceof Salmon)
+					return plugin.getConfigManager().salmonCmdRunChance;
+				else if (mob instanceof TropicalFish)
+					return plugin.getConfigManager().tropicalFishCmdRunChance;
+				else if (mob instanceof PufferFish)
+					return plugin.getConfigManager().pufferfishCmdRunChance;
 				else if (mob instanceof Phantom)
 					return plugin.getConfigManager().phantomMoneyChance;
 				else if (mob instanceof Turtle)
 					return plugin.getConfigManager().turtleMoneyChance;
 
-			
 			if (Misc.isMC112OrNewer())
 				if (mob instanceof Parrot)
 					return plugin.getConfigManager().parrotMoneyChance;
@@ -1523,19 +1530,14 @@ public class RewardManager {
 				return plugin.getConfigManager().villagerMoneyChance;
 			else if (mob instanceof Wolf)
 				return plugin.getConfigManager().wolfCmdRunChance;
-			// TODO: Heads????
-			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.LEGACY_RAW_FISH) {
-				ItemStack is = ((Item) mob).getItemStack();
-				if (is.getData().getData() == (byte) 0) {
-					return plugin.getConfigManager().rawFishCmdRunChance;
-				} else if (is.getData().getData() == (byte) 1) {
-					return plugin.getConfigManager().rawSalmonCmdRunChance;
-				} else if (is.getData().getData() == (byte) 2) {
-					return plugin.getConfigManager().clownfishCmdRunChance;
-				} else if (is.getData().getData() == (byte) 3) {
-					return plugin.getConfigManager().pufferfishCmdRunChance;
-				}
-			}
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.COD)
+				return plugin.getConfigManager().codCmdRunChance;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.SALMON)
+				return plugin.getConfigManager().salmonCmdRunChance;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.TROPICAL_FISH)
+				return plugin.getConfigManager().tropicalFishCmdRunChance;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.PUFFERFISH)
+				return plugin.getConfigManager().pufferfishCmdRunChance;
 		}
 		return 0;
 	}
@@ -1605,14 +1607,19 @@ public class RewardManager {
 					return plugin.getConfigManager().dolphinMcMMOSkillRewardChance;
 				else if (mob instanceof Drowned)
 					return plugin.getConfigManager().drownedMcMMOSkillRewardChance;
-				else if (mob instanceof Fish)
-					return plugin.getConfigManager().fishMcMMOSkillRewardChance;
+				else if (mob instanceof Cod)
+					return plugin.getConfigManager().rawfishMcMMOSkillRewardChance;
+				else if (mob instanceof Salmon)
+					return plugin.getConfigManager().rawsalmonMcMMOSkillRewardChance;
+				else if (mob instanceof TropicalFish)
+					return plugin.getConfigManager().clownfishMcMMOSkillRewardChance;
+				else if (mob instanceof PufferFish)
+					return plugin.getConfigManager().pufferfishMcMMOSkillRewardChance;
 				else if (mob instanceof Phantom)
 					return plugin.getConfigManager().phantomMcMMOSkillRewardChance;
 				else if (mob instanceof Turtle)
 					return plugin.getConfigManager().turtleMcMMOSkillRewardChance;
 
-			
 			if (Misc.isMC112OrNewer())
 				if (mob instanceof Parrot)
 					return plugin.getConfigManager().parrotMcMMOSkillRewardChance;
@@ -1753,19 +1760,14 @@ public class RewardManager {
 				return plugin.getConfigManager().villagerMcMMOSkillRewardChance;
 			else if (mob instanceof Wolf)
 				return plugin.getConfigManager().wolfMcMMOSkillRewardChance;
-			// TODO: heads????
-			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.LEGACY_RAW_FISH) {
-				ItemStack is = ((Item) mob).getItemStack();
-				if (is.getData().getData() == (byte) 0) {
-					return plugin.getConfigManager().rawfishMcMMOSkillRewardChance;
-				} else if (is.getData().getData() == (byte) 1) {
-					return plugin.getConfigManager().rawsalmonMcMMOSkillRewardChance;
-				} else if (is.getData().getData() == (byte) 2) {
-					return plugin.getConfigManager().clownfishMcMMOSkillRewardChance;
-				} else if (is.getData().getData() == (byte) 3) {
-					return plugin.getConfigManager().pufferfishMcMMOSkillRewardChance;
-				}
-			}
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.COD)
+				return plugin.getConfigManager().rawfishMcMMOSkillRewardChance;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.SALMON)
+				return plugin.getConfigManager().rawsalmonMcMMOSkillRewardChance;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.TROPICAL_FISH)
+				return plugin.getConfigManager().clownfishMcMMOSkillRewardChance;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.PUFFERFISH)
+				return plugin.getConfigManager().pufferfishMcMMOSkillRewardChance;
 		}
 		return 0;
 	}
@@ -1859,13 +1861,19 @@ public class RewardManager {
 					return getMcMMOXP(mob, plugin.getConfigManager().dolphinMcMMOSkillRewardAmount);
 				else if (mob instanceof Drowned)
 					return getMcMMOXP(mob, plugin.getConfigManager().drownedMcMMOSkillRewardAmount);
-				else if (mob instanceof Fish)
-					return getMcMMOXP(mob, plugin.getConfigManager().fishMcMMOSkillRewardAmount);
+				else if (mob instanceof Cod)
+					return getMcMMOXP(mob, plugin.getConfigManager().rawfishMcMMOSkillRewardAmount);
+				else if (mob instanceof Salmon)
+					return getMcMMOXP(mob, plugin.getConfigManager().rawsalmonMcMMOSkillRewardAmount);
+				else if (mob instanceof TropicalFish)
+					return getMcMMOXP(mob, plugin.getConfigManager().clownfishMcMMOSkillRewardAmount);
+				else if (mob instanceof PufferFish)
+					return getMcMMOXP(mob, plugin.getConfigManager().pufferfishMcMMOSkillRewardAmount);
 				else if (mob instanceof Phantom)
 					return getMcMMOXP(mob, plugin.getConfigManager().phantomMcMMOSkillRewardAmount);
 				else if (mob instanceof Turtle)
 					return getMcMMOXP(mob, plugin.getConfigManager().turtleMcMMOSkillRewardAmount);
-			
+
 			if (Misc.isMC112OrNewer())
 				if (mob instanceof Parrot)
 					return getMcMMOXP(mob, plugin.getConfigManager().parrotMcMMOSkillRewardAmount);
@@ -2006,19 +2014,14 @@ public class RewardManager {
 				return getMcMMOXP(mob, plugin.getConfigManager().villagerMcMMOSkillRewardAmount);
 			else if (mob instanceof Wolf)
 				return getMcMMOXP(mob, plugin.getConfigManager().wolfMcMMOSkillRewardAmount);
-			// TODO: heads???
-			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.LEGACY_RAW_FISH) {
-				ItemStack is = ((Item) mob).getItemStack();
-				if (is.getData().getData() == (byte) 0) {
-					return getMcMMOXP(mob, plugin.getConfigManager().rawfishMcMMOSkillRewardAmount);
-				} else if (is.getData().getData() == (byte) 1) {
-					return getMcMMOXP(mob, plugin.getConfigManager().rawsalmonMcMMOSkillRewardAmount);
-				} else if (is.getData().getData() == (byte) 2) {
-					return getMcMMOXP(mob, plugin.getConfigManager().clownfishMcMMOSkillRewardAmount);
-				} else if (is.getData().getData() == (byte) 3) {
-					return getMcMMOXP(mob, plugin.getConfigManager().pufferfishMcMMOSkillRewardAmount);
-				}
-			}
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.COD)
+				return getMcMMOXP(mob, plugin.getConfigManager().rawfishMcMMOSkillRewardAmount);
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.SALMON)
+				return getMcMMOXP(mob, plugin.getConfigManager().rawsalmonMcMMOSkillRewardAmount);
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.TROPICAL_FISH)
+				return getMcMMOXP(mob, plugin.getConfigManager().clownfishMcMMOSkillRewardAmount);
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.PUFFERFISH)
+				return getMcMMOXP(mob, plugin.getConfigManager().pufferfishMcMMOSkillRewardAmount);
 		}
 		return 0;
 	}
@@ -2082,13 +2085,19 @@ public class RewardManager {
 					return plugin.getConfigManager().dolphinEnabled;
 				else if (mob instanceof Drowned)
 					return plugin.getConfigManager().drownedEnabled;
-				else if (mob instanceof Fish)
-					return plugin.getConfigManager().fishEnabled;
+				else if (mob instanceof Cod)
+					return plugin.getConfigManager().codEnabled;
+				else if (mob instanceof Salmon)
+					return plugin.getConfigManager().salmonEnabled;
+				else if (mob instanceof TropicalFish)
+					return plugin.getConfigManager().tropicalFishEnabled;
+				else if (mob instanceof PufferFish)
+					return plugin.getConfigManager().pufferfishEnabled;
 				else if (mob instanceof Phantom)
 					return plugin.getConfigManager().phantomEnabled;
 				else if (mob instanceof Turtle)
 					return plugin.getConfigManager().turtleEnabled;
-			
+
 			if (Misc.isMC112OrNewer())
 				if (mob instanceof Parrot)
 					return plugin.getConfigManager().parrotEnabled;
@@ -2229,19 +2238,14 @@ public class RewardManager {
 				return plugin.getConfigManager().villagerEnabled;
 			else if (mob instanceof Wolf)
 				return plugin.getConfigManager().wolfEnabled;
-			// TODO: HEADS ????
-			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.LEGACY_RAW_FISH) {
-				ItemStack is = ((Item) mob).getItemStack();
-				if (is.getData().getData() == (byte) 0) {
-					return plugin.getConfigManager().rawFishEnabled;
-				} else if (is.getData().getData() == (byte) 1) {
-					return plugin.getConfigManager().rawSalmonEnabled;
-				} else if (is.getData().getData() == (byte) 2) {
-					return plugin.getConfigManager().clownfishEnabled;
-				} else if (is.getData().getData() == (byte) 3) {
-					return plugin.getConfigManager().pufferfishEnabled;
-				}
-			}
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.COD)
+				return plugin.getConfigManager().codEnabled;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.SALMON)
+				return plugin.getConfigManager().salmonEnabled;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.TROPICAL_FISH)
+				return plugin.getConfigManager().tropicalFishEnabled;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.PUFFERFISH)
+				return plugin.getConfigManager().pufferfishEnabled;
 		}
 		return false;
 	}
@@ -2317,13 +2321,19 @@ public class RewardManager {
 					return plugin.getConfigManager().dolphinHeadDropHead;
 				else if (mob instanceof Drowned)
 					return plugin.getConfigManager().drownedHeadDropHead;
-				else if (mob instanceof Fish)
-					return plugin.getConfigManager().fishHeadDropHead;
+				else if (mob instanceof Cod)
+					return plugin.getConfigManager().codHeadDropHead;
+				else if (mob instanceof Salmon)
+					return plugin.getConfigManager().salmonHeadDropHead;
+				else if (mob instanceof TropicalFish)
+					return plugin.getConfigManager().tropicalFishHeadDropHead;
+				else if (mob instanceof PufferFish)
+					return plugin.getConfigManager().pufferfishHeadDropHead;
 				else if (mob instanceof Phantom)
 					return plugin.getConfigManager().phantomHeadDropHead;
 				else if (mob instanceof Turtle)
 					return plugin.getConfigManager().turtleHeadDropHead;
-			
+
 			if (Misc.isMC112OrNewer())
 				if (mob instanceof Parrot)
 					return plugin.getConfigManager().parrotHeadDropHead;
@@ -2464,19 +2474,14 @@ public class RewardManager {
 				return plugin.getConfigManager().villagerHeadDropHead;
 			else if (mob instanceof Wolf)
 				return plugin.getConfigManager().wolfHeadDropHead;
-			// TODO: HEADS ????
-			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.LEGACY_RAW_FISH) {
-				ItemStack is = ((Item) mob).getItemStack();
-				if (is.getData().getData() == (byte) 0) {
-					return plugin.getConfigManager().rawFishHeadDropHead;
-				} else if (is.getData().getData() == (byte) 1) {
-					return plugin.getConfigManager().rawSalmonHeadDropHead;
-				} else if (is.getData().getData() == (byte) 2) {
-					return plugin.getConfigManager().clownfishHeadDropHead;
-				} else if (is.getData().getData() == (byte) 3) {
-					return plugin.getConfigManager().pufferfishHeadDropHead;
-				}
-			}
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.COD)
+				return plugin.getConfigManager().codHeadDropHead;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.SALMON)
+				return plugin.getConfigManager().salmonHeadDropHead;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.TROPICAL_FISH)
+				return plugin.getConfigManager().tropicalFishHeadDropHead;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.PUFFERFISH)
+				return plugin.getConfigManager().pufferfishHeadDropHead;
 		}
 		return false;
 	}
@@ -2554,13 +2559,19 @@ public class RewardManager {
 					return plugin.getConfigManager().dolphinHeadDropChance;
 				else if (mob instanceof Drowned)
 					return plugin.getConfigManager().drownedHeadDropChance;
-				else if (mob instanceof Fish)
-					return plugin.getConfigManager().fishHeadDropChance;
+				else if (mob instanceof Cod)
+					return plugin.getConfigManager().codHeadDropChance;
+				else if (mob instanceof Salmon)
+					return plugin.getConfigManager().salmonHeadDropChance;
+				else if (mob instanceof TropicalFish)
+					return plugin.getConfigManager().tropicalFishHeadDropChance;
+				else if (mob instanceof PufferFish)
+					return plugin.getConfigManager().pufferfishHeadDropChance;
 				else if (mob instanceof Phantom)
 					return plugin.getConfigManager().phantomHeadDropChance;
 				else if (mob instanceof Turtle)
 					return plugin.getConfigManager().turtleHeadDropChance;
-			
+
 			if (Misc.isMC112OrNewer())
 				if (mob instanceof Parrot)
 					return plugin.getConfigManager().parrotHeadDropChance;
@@ -2701,19 +2712,14 @@ public class RewardManager {
 				return plugin.getConfigManager().villagerHeadDropChance;
 			else if (mob instanceof Wolf)
 				return plugin.getConfigManager().wolfHeadDropChance;
-			// TODO: HEADS ????
-			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.LEGACY_RAW_FISH) {
-				ItemStack is = ((Item) mob).getItemStack();
-				if (is.getData().getData() == (byte) 0) {
-					return plugin.getConfigManager().rawFishHeadDropChance;
-				} else if (is.getData().getData() == (byte) 1) {
-					return plugin.getConfigManager().rawSalmonHeadDropChance;
-				} else if (is.getData().getData() == (byte) 2) {
-					return plugin.getConfigManager().clownfishHeadDropChance;
-				} else if (is.getData().getData() == (byte) 3) {
-					return plugin.getConfigManager().pufferfishHeadDropChance;
-				}
-			}
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.COD)
+				return plugin.getConfigManager().codHeadDropChance;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.SALMON)
+				return plugin.getConfigManager().salmonHeadDropChance;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.TROPICAL_FISH)
+				return plugin.getConfigManager().tropicalFishHeadDropChance;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.PUFFERFISH)
+				return plugin.getConfigManager().pufferfishHeadDropChance;
 		}
 		return 0;
 	}
@@ -2791,13 +2797,19 @@ public class RewardManager {
 					return plugin.getConfigManager().dolphinHeadMessage;
 				else if (mob instanceof Drowned)
 					return plugin.getConfigManager().drownedHeadMessage;
-				else if (mob instanceof Fish)
-					return plugin.getConfigManager().fishHeadMessage;
+				else if (mob instanceof Cod)
+					return plugin.getConfigManager().codHeadMessage;
+				else if (mob instanceof Salmon)
+					return plugin.getConfigManager().salmonHeadMessage;
+				else if (mob instanceof TropicalFish)
+					return plugin.getConfigManager().tropicalFishHeadMessage;
+				else if (mob instanceof PufferFish)
+					return plugin.getConfigManager().pufferfishHeadMessage;
 				else if (mob instanceof Phantom)
 					return plugin.getConfigManager().phantomHeadMessage;
 				else if (mob instanceof Turtle)
 					return plugin.getConfigManager().turtleHeadMessage;
-			
+
 			if (Misc.isMC112OrNewer())
 				if (mob instanceof Parrot)
 					return plugin.getConfigManager().parrotHeadMessage;
@@ -2938,19 +2950,14 @@ public class RewardManager {
 				return plugin.getConfigManager().villagerHeadMessage;
 			else if (mob instanceof Wolf)
 				return plugin.getConfigManager().wolfHeadMessage;
-			// TODO: heads ?????
-			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.LEGACY_RAW_FISH) {
-				ItemStack is = ((Item) mob).getItemStack();
-				if (is.getData().getData() == (byte) 0) {
-					return plugin.getConfigManager().rawFishHeadMessage;
-				} else if (is.getData().getData() == (byte) 1) {
-					return plugin.getConfigManager().rawSalmonHeadMessage;
-				} else if (is.getData().getData() == (byte) 2) {
-					return plugin.getConfigManager().clownfishHeadMessage;
-				} else if (is.getData().getData() == (byte) 3) {
-					return plugin.getConfigManager().pufferfishHeadMessage;
-				}
-			}
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.COD)
+				return plugin.getConfigManager().codHeadMessage;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.SALMON)
+				return plugin.getConfigManager().salmonHeadMessage;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.TROPICAL_FISH)
+				return plugin.getConfigManager().tropicalFishHeadMessage;
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.PUFFERFISH)
+				return plugin.getConfigManager().pufferfishHeadMessage;
 		}
 		return "";
 	}
@@ -3028,13 +3035,19 @@ public class RewardManager {
 					return getPrice(mob, plugin.getConfigManager().dolphinHeadPrize);
 				else if (mob instanceof Drowned)
 					return getPrice(mob, plugin.getConfigManager().drownedHeadPrize);
-				else if (mob instanceof Fish)
-					return getPrice(mob, plugin.getConfigManager().fishHeadPrize);
+				else if (mob instanceof Cod)
+					return getPrice(mob, plugin.getConfigManager().codHeadPrize);
+				else if (mob instanceof Salmon)
+					return getPrice(mob, plugin.getConfigManager().salmonHeadPrize);
+				else if (mob instanceof TropicalFish)
+					return getPrice(mob, plugin.getConfigManager().tropicalFishHeadPrize);
+				else if (mob instanceof PufferFish)
+					return getPrice(mob, plugin.getConfigManager().pufferfishHeadPrize);
 				else if (mob instanceof Phantom)
 					return getPrice(mob, plugin.getConfigManager().phantomHeadPrize);
 				else if (mob instanceof Turtle)
 					return getPrice(mob, plugin.getConfigManager().turtleHeadPrize);
-			
+
 			if (Misc.isMC112OrNewer())
 				if (mob instanceof Parrot)
 					return getPrice(mob, plugin.getConfigManager().parrotHeadPrize);
@@ -3175,19 +3188,14 @@ public class RewardManager {
 				return getPrice(mob, plugin.getConfigManager().villagerHeadPrize);
 			else if (mob instanceof Wolf)
 				return getPrice(mob, plugin.getConfigManager().wolfHeadPrize);
-			// TODO: heads ?????
-			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.LEGACY_RAW_FISH) {
-				ItemStack is = ((Item) mob).getItemStack();
-				if (is.getData().getData() == (byte) 0) {
-					return getPrice(mob, plugin.getConfigManager().rawFishHeadPrize);
-				} else if (is.getData().getData() == (byte) 1) {
-					return getPrice(mob, plugin.getConfigManager().rawSalmonHeadPrize);
-				} else if (is.getData().getData() == (byte) 2) {
-					return getPrice(mob, plugin.getConfigManager().clownfishHeadPrize);
-				} else if (is.getData().getData() == (byte) 3) {
-					return getPrice(mob, plugin.getConfigManager().pufferfishHeadPrize);
-				}
-			}
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.COD)
+				return getPrice(mob, plugin.getConfigManager().codHeadPrize);
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.SALMON)
+				return getPrice(mob, plugin.getConfigManager().salmonHeadPrize);
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.TROPICAL_FISH)
+				return getPrice(mob, plugin.getConfigManager().tropicalFishHeadPrize);
+			else if (mob instanceof Item && ((Item) mob).getItemStack().getType() == Material.PUFFERFISH)
+				return getPrice(mob, plugin.getConfigManager().pufferfishHeadPrize);
 		}
 		return 0;
 	}

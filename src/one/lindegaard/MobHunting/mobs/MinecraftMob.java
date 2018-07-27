@@ -41,11 +41,6 @@ public enum MinecraftMob {
 			"eyJ0aW1lc3RhbXAiOjE1MzI2MTU4MjAyNjcsInByb2ZpbGVJZCI6IjNjOWE4MjkyMGZhNzRlN2M4NDEzMmJjYjE1OTY4MjA0IiwicHJvZmlsZU5hbWUiOiJSb2NvbG9nbyIsInNpZ25hdHVyZVJlcXVpcmVkIjp0cnVlLCJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmU2NjM0ZDFhNTg1ZjViM2IxMTNlNzY3Mjc3Y2QwM2Y4ODllMWQwODJlNDRmNmEyYjMzNWQ5N2QzMjFhNTYyNCJ9fX0=",
 			"sP3ogiqr8Z4fYws82Z+Wj0sDvkOu7KOmYCGyIOIV+5QeojbFSss+bvWcj5VFbmRt/hiIpQXtI+Yz+Pq3dEz2C7/QJMFhF0ta3eDUouPrihlmCwCsoJUjN4sLM/N7MiX+KButZZRJ++9rRC8wUDBb4vyt7Gx5brAv8h+s3zssjTj5XzbARuvUtyJBmwe5ZR9fbdyHWPbcQQwwK+TUUjxPwK6LhcFLdY0oGbZHAjaIQtU+9GxNZQKhnwl3fuKgyVckMYcG/GHAnsLkiy+nkvPrDSAVRTCIWyO/gV0KvXJw8aGuHb6SiVWAtkIpNysvEM2Qna5s56GpyZoNR30mWIQV7EUL3P0dcSh7a4V8nuqO5cfr0gHrT4eJbYoI53eIdFEaI9cQ+dgfRchnzqrlmlxSB4qO1J+4Ll2AVdD3zJ/+u8nOE510eFUNNObnBX6j2mJ/ePAW4E+vWh3acDAzBHew5ACeaJQxaqYIlUBehV/B5bAckST5LEVVQ/fm1eyesTrdtKX+Y1qK8J9iHYqbsyG2tArj5YQjaAnLaNIu5yq1FAKfYaqi9tKyJ2jbuTJkGfDAzWeoXPQ6DBOS4HH/JhbKJ5wt4d+LLnScWFIlAMkfq9pucRUxDU8GJvyXCXasIH0BecUtjs3tChXMAr9o4REn0rYwdxucxzjkDJeoAlE5QlA="),
 
-	// Fish
-	Fish("Fish", "Fish", "eedd00d5-aa98-4b8e-a1b9-2a4755d57472", "Fish",
-			"eyJ0aW1lc3RhbXAiOjE1MzI2MTY2ODI0NDUsInByb2ZpbGVJZCI6IjkxOGEwMjk1NTlkZDRjZTZiMTZmN2E1ZDUzZWZiNDEyIiwicHJvZmlsZU5hbWUiOiJCZWV2ZWxvcGVyIiwic2lnbmF0dXJlUmVxdWlyZWQiOnRydWUsInRleHR1cmVzIjp7IlNLSU4iOnsidXJsIjoiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9kMDBjZWY0Yjc2ODMxNTM1MzJiYzQ4MjdhMTdjMjdhYjFhMTA1NTk4NTk3YTE1YTQ0YzRlNGYyNDY3MWMzZmZlIn19fQ==",
-			"CnEZXbOcsxpQQi9o+EgZXVP+ch69qzZCaQyWKQRKdBFh2L56vZn9uIB44mpsOepm4GWXh+llBP+Uxbi2ANTSMffQJHRJ1qfw+855bR9H1FX5fsbRxxgsioiPI9qvPMl29VE+exkbwR1MYPJmS6GFEDvZMa+6dX1zkGm1/JQWb0GEK166zBgSIfyk3din+Z/Bz/6P3KTuewZqTLgFUfXxWAx6VglMWh9f8FS4kkguVq6JhfCnxubwzF/XAJTd7eNXzQcwXBT2lEmKVPF5olBjO3JGeKSA0EaeZboMA5IoF4X634ZQepeGd2IYzjxiovuxbxA8WGEKXF3dlEvWYAQ/A1Z0fP1zLZ8w9aZg3fZ6uSgZ5mlH5rmHgLhScrO1ezCoGsth1mb9/Z2+YUXcYJDSmt1304zdoQPMnpTFUpEe3k/+MKsWITCLQwZ35/wj/xi7VaEVdFh55em6NtLw+KgAKB40LiVEDa7+hWTuAEYEoFR84oCAXqWDhnOieufFtG/tPHwqaXG39MZxmUBSPy3GFqv783+JVVEDfw35OdXSefXC2RTAQJ+7doSnm/+45IKB0np5Hu1vDs5YHpPZKhwzk53XbbeI/0ra1yJmkJqCcaqSnCm/XhnApl2uVBO4kQu+DY/ddCEujuyycNcmbDePSSuzmPjixVFsVq2g6TBcZqs="),
-
 	// Phantom
 	Phantom("Phantom", "Phantom", "0527a8d0-2829-4d83-9b2a-24b5c6d3de09", "Phantom",
 			"eyJ0aW1lc3RhbXAiOjE1MzI2MTY0OTgwNzMsInByb2ZpbGVJZCI6IjNjOWE4MjkyMGZhNzRlN2M4NDEzMmJjYjE1OTY4MjA0IiwicHJvZmlsZU5hbWUiOiJSb2NvbG9nbyIsInNpZ25hdHVyZVJlcXVpcmVkIjp0cnVlLCJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2U5NTE1M2VjMjMyODRiMjgzZjAwZDE5ZDI5NzU2ZjI0NDMxM2EwNjFiNzBhYzAzYjk3ZDIzNmVlNTdiZDk4MiJ9fX0=",
@@ -342,17 +337,17 @@ public enum MinecraftMob {
 			"AF8zxQOXgt4VBMQlFb/crbAqgcoOGMDgNHDo4m6F3wLNKNy/Gp7f5gmqc3FJLc7VEWSU2d7LOPx/R6Rn/qIeYZbspei5RVgFsEgW1GcwRf+L4pf2x+BUEy06qvVl0uuDIxMiYBLUXTpPArAI792LeRXyuI/I12jYVnT6t5Evpv7WLs6Z3kynLdX4evgCvbkFArh8cdCw8cTobEHOF3UQFH2Z6KTMF0dVG6JX9eqGNjESHpnbBtvIjyxKdd+azSZsI5GwJm729wWBb1HopC5vnVbKt0pxEp0oXFbh8xQssXZe8HXJcGu7cakSYXBIg+xYsaqlnOq1BsUub4zrCgSm38h4Tr18wJjmsYuiamPTf4jJZXT4OwUYhEX4rd9wMCOwLRYwsL1q9apZ92ZYKvD9cc8Y44EGsLbsVY1Pjjl0rBqebPW0FD6M82/obxbXEfoLemmJH+We6PPVYyNAIMIFdP+BtSsOTBGKYe41TSr7bCYWAm7fOj1+6gl9ftd9JuuRhK/8CEY2gNKoMZDE2tWYLglaL8Ztbi0FsPhdLynIP1JojpvaDOc2aD4xSQCn8xQu73AQyNSOp4AeqjXAQnp3911T5lPYHCu1HgB5bTwUQP7vG8iTg7TiRL/mYLgEnqSbuhyPOn0w9MzOu0n40E1EBji8OW/OApH0zup84h0jOPw="),
 
 	// Raw Fish
-	RawFish("RAW_FISH", "MH_RawFish", "62af1f31-f125-4178-aa3a-a07bc1ac7847", "Raw fish",
+	Cod("RAW_FISH", "MH_RawFish", "62af1f31-f125-4178-aa3a-a07bc1ac7847", "Raw Cod",
 			"eyJ0aW1lc3RhbXAiOjE0ODYwMjIyMjA2NjAsInByb2ZpbGVJZCI6IjNjOWE4MjkyMGZhNzRlN2M4NDEzMmJjYjE1OTY4MjA0IiwicHJvZmlsZU5hbWUiOiJSb2NvbG9nbyIsInNpZ25hdHVyZVJlcXVpcmVkIjp0cnVlLCJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzE3MTI1MWQyNDkwZmVkYmYyMmNjZGNmZGFhZDIzN2M3YmIyMzFhNjM2ZDUxY2M0ZWMwOTA1NTRkMTRlYTg3In19fQ==",
 			"WHFevVtoxJqilEbp6qWlZm1glH1Q7+4NJ8YYaJhZXEgdAvkloHPHw0bVypONB7PMRp8NeZUv9j8aj5RAwfcQlJW25sFEXqsWYKTeBxsUB7XAX5ctNK6v7Aync3I+WyMysoPmpFBjJrTOjDB+0MgqZ2KXS4BEjFlS/kRML31LiwvVjxtv1yT1FzLcMHRmPaBSBRND+4B287lKxKTwpvfvL+tpdifp3vKFeEO3ArIt4SDZaAxDBDAJ5CCmWK+iBOecRHMdxMVioooi9MHSk/ulmHd0LbM6bQL+20xa9M+wAu69gj5jKOF8NctJ+XM0KNM4khYc3tTP5sqg8iO1LGpcWuTvawdfV0yS9OKdY1nsll9e8pf5sACje3YaPB0g/Ze9IQ2bgq9stETSJVCyOp9hGZCi4uBC0iT8bFvYrL+Caau+VxiHZKCPzKEsbN0IbYNWi9VCVclwHrQA26WQ031RMOrNkb0JChoocv2mAOKojJ0KyZ3JyMS9WL9pjt9Wt0/PAMD0lOnbFQ8yY7QzrmQQc0/KwJNHsdndI7W7NW89wMJGwalppUvdtJd8YOJbg4KUoIy8IY2RHuscC/Efjda2Clai7wg2gPSDUp9ymACSsblp6KQDYxErmKnH2TNDzH4hpmoZ1/knnmntE8Zs7pAEfY6C0sFq/weCpMBbIz12Kc0="),
 	// Raw Salmon
-	RawSalmon("RAW_SALMON", "MH_RawSalmon", "d59ba3f3-8081-407b-b17f-d3f80e0f60bc", "Raw Salmon",
+	Salmon("RAW_SALMON", "MH_RawSalmon", "d59ba3f3-8081-407b-b17f-d3f80e0f60bc", "Raw Salmon",
 			"eyJ0aW1lc3RhbXAiOjE0ODYwMjM0NzU1NDksInByb2ZpbGVJZCI6IjNjOWE4MjkyMGZhNzRlN2M4NDEzMmJjYjE1OTY4MjA0IiwicHJvZmlsZU5hbWUiOiJSb2NvbG9nbyIsInNpZ25hdHVyZVJlcXVpcmVkIjp0cnVlLCJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjAxMmNjZThkNTZlNDRmNzZkOTJiNDg4NThlNTgyYjk1YTQ1ZWU2NjRmYTYyNjBiYWIwOGMzMmU5ZTgxNCJ9fX0=",
 			"uvCGssPndOLDxULU5Lh1XPCKXkjA8w+fmrJZsfCfrFThx9pJElnsRB5k8X95zRN2l0gD/FApZS7QlyfuTb1hF3mK3gVqUTwIoZlH+sJKzqVxdGzGX8uzz+3kPXbo9snNCKszPIaTWwIfianTRTEeDKDc+8JieRmCg1y38YFicOBNXL+ysEIzlI+QMPYJ9H9ENnoM7WJy3iTsL1Doe8yXVO+IeFEPbSIUKK/E6KF6fdE+AwthWeZq2ubvePYYSz8qMPbYxvLViPWf9bekNM2+/eNIRjqyNAIeaVfD/ElRRfAhW1NduW0G1CjkgtfkWngQpHsfX9gHqnF89txjTUNsAHi3rp58GpC5ZHM3iOlXzW5UowQH/8VoUGObXaNe9Z2InfYJXY35fQJ+ZCZfeOxY7NauGDIj2yFSz+AiG1txhOAgyjMMtRKul2XDfuSVFvQ3OOmQOCS3mdvwo4f7PCn5zbtUDuBEgjbVhyXUYPAGTOWdHSKtIv9FaKwpGM0GB2ewIOre6gIuUrTMupznsrK4QcHQqf7cuZHYemz/yLGshamRMj9VHIW2udgsUlvZoBr4jMlQxpt8iXVCVExeHOTSCvkHRgtMNaJMpnlBa5P2iiHfHLvuf1teBj1ojsqsKGIoDA6HZgUFmSSd+Bcl47BZkEDnr6QwXGrhLQNwfFnmyIE="),
 	// Clownfish
-	Clownfish("CLOWNFISH", "MH_Clownfish", "7123b504-ddbe-43d0-bfad-14b64e54f08e", "Clownfish",
-			"eyJ0aW1lc3RhbXAiOjE0ODYwMjE4MTg3NTcsInByb2ZpbGVJZCI6IjNjOWE4MjkyMGZhNzRlN2M4NDEzMmJjYjE1OTY4MjA0IiwicHJvZmlsZU5hbWUiOiJSb2NvbG9nbyIsInNpZ25hdHVyZVJlcXVpcmVkIjp0cnVlLCJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2ZmYTQ2ZTQ1ODFlN2FkM2E3OTdmMzhkOTAyNTFiMzhmMDU0YWI4NTVmNjVlMTYwNDlkOWUxZDhlZDM0In19fQ==",
-			"gaZktAlhiaRiT8+V4GJm0EwX4iBiKwn6N7MiOglt1OhAy/dWrWjPlRz9qchNLxnrjLTW2J2OHZ+z/mgWJJ7R3Og3IKDG/q/zZbnZshgP6UaKa3530QNluX6S1SOh68+MbuhqSphJpBJUrRKHvtBvELiZEAS9FvoxS7d8dSqjpQwANn7MoYhG6lRCHSxfh/9ccUvb0SltCp8wHifYqCYaanYgTLfNGVQFdl5ew+0MVcTQjrFbkWCF8Ajooyim9oK54bEQEVDB1CQccOZf41mHHt0NFIByEDw/s2g9+9IugB6FmRLsBH+DbDHNF6QFbaxtYTmc0ABTnF7Ejb/JfmrQFjfjF2scICq3/JO/PWxGCeiQbQ+ZLk4bmO2r6BRlmOM85RNmbER/z0cv07417qVFy/iUM1XTj9rawTxpL233QAqHTlrZIUk8O4p3dFMRgOobX3oJ7Ip+3HAe55B3NJwCrjBItHQW3w/oTJpcOeJs+3ojacYMN5lgBfNJiK7+xxsSrQUjS+OTtrlnOEmvhicE3ByHN54FIDue5Db1JyfULmPiSR198Bae2CVn10x/W5yio/mjG5aFImBqOFHcOabupaz8402BGs8120B2NGtiCTRBnxT5vkHfg7/J15X/jLxbp4s020o5K08Fn37kw1Y9MVZVxsx5PAQr1c/9aS21q2A="),
+	TropicalFish("TROPICALFISH", "MH_TropicalFish", "eedd00d5-aa98-4b8e-a1b9-2a4755d57472", "Tropical fish",
+			"eyJ0aW1lc3RhbXAiOjE1MzI2MTY2ODI0NDUsInByb2ZpbGVJZCI6IjkxOGEwMjk1NTlkZDRjZTZiMTZmN2E1ZDUzZWZiNDEyIiwicHJvZmlsZU5hbWUiOiJCZWV2ZWxvcGVyIiwic2lnbmF0dXJlUmVxdWlyZWQiOnRydWUsInRleHR1cmVzIjp7IlNLSU4iOnsidXJsIjoiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9kMDBjZWY0Yjc2ODMxNTM1MzJiYzQ4MjdhMTdjMjdhYjFhMTA1NTk4NTk3YTE1YTQ0YzRlNGYyNDY3MWMzZmZlIn19fQ==",
+			"CnEZXbOcsxpQQi9o+EgZXVP+ch69qzZCaQyWKQRKdBFh2L56vZn9uIB44mpsOepm4GWXh+llBP+Uxbi2ANTSMffQJHRJ1qfw+855bR9H1FX5fsbRxxgsioiPI9qvPMl29VE+exkbwR1MYPJmS6GFEDvZMa+6dX1zkGm1/JQWb0GEK166zBgSIfyk3din+Z/Bz/6P3KTuewZqTLgFUfXxWAx6VglMWh9f8FS4kkguVq6JhfCnxubwzF/XAJTd7eNXzQcwXBT2lEmKVPF5olBjO3JGeKSA0EaeZboMA5IoF4X634ZQepeGd2IYzjxiovuxbxA8WGEKXF3dlEvWYAQ/A1Z0fP1zLZ8w9aZg3fZ6uSgZ5mlH5rmHgLhScrO1ezCoGsth1mb9/Z2+YUXcYJDSmt1304zdoQPMnpTFUpEe3k/+MKsWITCLQwZ35/wj/xi7VaEVdFh55em6NtLw+KgAKB40LiVEDa7+hWTuAEYEoFR84oCAXqWDhnOieufFtG/tPHwqaXG39MZxmUBSPy3GFqv783+JVVEDfw35OdXSefXC2RTAQJ+7doSnm/+45IKB0np5Hu1vDs5YHpPZKhwzk53XbbeI/0ra1yJmkJqCcaqSnCm/XhnApl2uVBO4kQu+DY/ddCEujuyycNcmbDePSSuzmPjixVFsVq2g6TBcZqs="),
 	// Pufferfish
 	Pufferfish("PUFFERFISH", "MH_Pufferfish", "9c11309c-de71-4705-95b8-38dc68633f0e", "Pufferfish",
 			"eyJ0aW1lc3RhbXAiOjE0ODYwMjE1ODI1NzQsInByb2ZpbGVJZCI6IjNjOWE4MjkyMGZhNzRlN2M4NDEzMmJjYjE1OTY4MjA0IiwicHJvZmlsZU5hbWUiOiJSb2NvbG9nbyIsInNpZ25hdHVyZVJlcXVpcmVkIjp0cnVlLCJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGZlMzg0NzBjMjc1OTU2MmU0NTU5NTQ5NmFhYjcyZWVhMjI4OTEyNGZhZTVjMmFiYWE3NjlhNmVkMjg1MDQifX19",
@@ -422,7 +417,7 @@ public enum MinecraftMob {
 			return MobHunting.getInstance().getConfigManager().blazeLevel1;
 		case Butcher:
 			return MobHunting.getInstance().getConfigManager().butcherLevel1;
-		case Clownfish:
+		case TropicalFish:
 			return MobHunting.getInstance().getConfigManager().clownfishLevel1;
 		case CaveSpider:
 			return MobHunting.getInstance().getConfigManager().caveSpiderLevel1;
@@ -490,9 +485,9 @@ public enum MinecraftMob {
 			return MobHunting.getInstance().getConfigManager().pufferfishLevel1;
 		case PvpPlayer:
 			return MobHunting.getInstance().getConfigManager().pvpPlayerLevel1;
-		case RawFish:
+		case Cod:
 			return MobHunting.getInstance().getConfigManager().rawfishLevel1;
-		case RawSalmon:
+		case Salmon:
 			return MobHunting.getInstance().getConfigManager().rawsalmonLevel1;
 		case Sheep:
 			return MobHunting.getInstance().getConfigManager().sheepLevel1;
@@ -540,8 +535,6 @@ public enum MinecraftMob {
 			return MobHunting.getInstance().getConfigManager().dolphinLevel1;
 		case Drowned:
 			return MobHunting.getInstance().getConfigManager().drownedLevel1;
-		case Fish:
-			return MobHunting.getInstance().getConfigManager().fishLevel1;
 		case Phantom:
 			return MobHunting.getInstance().getConfigManager().phantomLevel1;
 		case Turtle:
@@ -574,8 +567,8 @@ public enum MinecraftMob {
 			return getPrice(MobHunting.getInstance().getConfigManager().caveSpiderHeadPrize);
 		case Chicken:
 			return getPrice(MobHunting.getInstance().getConfigManager().chickenHeadPrize);
-		case Clownfish:
-			return getPrice(MobHunting.getInstance().getConfigManager().clownfishHeadPrize);
+		case TropicalFish:
+			return getPrice(MobHunting.getInstance().getConfigManager().tropicalFishHeadPrize);
 		case Cow:
 			return getPrice(MobHunting.getInstance().getConfigManager().cowHeadPrize);
 		case Creeper:
@@ -638,10 +631,10 @@ public enum MinecraftMob {
 			return getPrice(MobHunting.getInstance().getConfigManager().pufferfishHeadPrize);
 		case PvpPlayer:
 			return getPrice(MobHunting.getInstance().getConfigManager().pvpHeadPrize);
-		case RawFish:
-			return getPrice(MobHunting.getInstance().getConfigManager().rawFishHeadPrize);
-		case RawSalmon:
-			return getPrice(MobHunting.getInstance().getConfigManager().rawSalmonHeadPrize);
+		case Cod:
+			return getPrice(MobHunting.getInstance().getConfigManager().codHeadPrize);
+		case Salmon:
+			return getPrice(MobHunting.getInstance().getConfigManager().salmonHeadPrize);
 		case Sheep:
 			return getPrice(MobHunting.getInstance().getConfigManager().sheepHeadPrize);
 		case Shulker:
@@ -688,8 +681,6 @@ public enum MinecraftMob {
 			return getPrice(MobHunting.getInstance().getConfigManager().dolphinHeadPrize);
 		case Drowned:
 			return getPrice(MobHunting.getInstance().getConfigManager().drownedHeadPrize);
-		case Fish:
-			return getPrice(MobHunting.getInstance().getConfigManager().fishHeadPrize);
 		case Phantom:
 			return getPrice(MobHunting.getInstance().getConfigManager().phantomHeadPrize);
 		case Turtle:
@@ -729,12 +720,22 @@ public enum MinecraftMob {
 				return entity instanceof org.bukkit.entity.Dolphin;
 			else if (this == Drowned)
 				return entity instanceof org.bukkit.entity.Drowned;
-			else if (this == Fish)
-				return entity instanceof org.bukkit.entity.Fish;
 			else if (this == Phantom)
 				return entity instanceof org.bukkit.entity.Phantom;
 			else if (this == Turtle)
 				return entity instanceof org.bukkit.entity.Turtle;
+			else if (this == Cod)
+				return entity instanceof org.bukkit.entity.Cod
+						|| (entity instanceof Item && ((Item) entity).getItemStack().getType() == Material.COD);
+			else if (this == Salmon)
+				return entity instanceof org.bukkit.entity.Salmon
+						|| (entity instanceof Item && ((Item) entity).getItemStack().getType() == Material.SALMON);
+			else if (this == TropicalFish)
+				return entity instanceof org.bukkit.entity.TropicalFish || (entity instanceof Item
+						&& ((Item) entity).getItemStack().getType() == Material.TROPICAL_FISH);
+			else if (this == Pufferfish)
+				return entity instanceof org.bukkit.entity.PufferFish
+						|| (entity instanceof Item && ((Item) entity).getItemStack().getType() == Material.PUFFERFISH);
 
 		if (Misc.isMC112OrNewer())
 			if (this == Parrot)
@@ -819,19 +820,6 @@ public enum MinecraftMob {
 		else if (this == BonusMob)
 			return entity.hasMetadata("MH:hasBonus");
 		// else
-		// TODO: fish heads????
-		if (this == RawFish)
-			return entity instanceof Item && ((Item) entity).getItemStack().getType() == Material.LEGACY_RAW_FISH
-					&& ((Item) entity).getItemStack().getData().getData() == 0;
-		else if (this == RawSalmon)
-			return entity instanceof Item && ((Item) entity).getItemStack().getType() == Material.LEGACY_RAW_FISH
-					&& ((Item) entity).getItemStack().getData().getData() == 1;
-		else if (this == Clownfish)
-			return entity instanceof Item && ((Item) entity).getItemStack().getType() == Material.LEGACY_RAW_FISH
-					&& ((Item) entity).getItemStack().getData().getData() == 2;
-		else if (this == Pufferfish)
-			return entity instanceof Item && ((Item) entity).getItemStack().getType() == Material.LEGACY_RAW_FISH
-					&& ((Item) entity).getItemStack().getData().getData() == 3;
 		else
 			return entity.getType().toString().equals(mMinecraftMobType);
 	}

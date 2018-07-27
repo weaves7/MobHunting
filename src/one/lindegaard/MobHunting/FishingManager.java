@@ -84,7 +84,7 @@ public class FishingManager implements Listener {
 			plugin.getMessages().debug("FishingEvent: State=%s", state);
 		else
 			plugin.getMessages().debug("FishingEvent: State=%s, %s caught a %s", state, player.getName(),
-					((Item) fish).getItemStack().getData());
+					((Item) fish).getItemStack().getType());
 
 		switch (state) {
 		case CAUGHT_FISH:
@@ -102,8 +102,12 @@ public class FishingManager implements Listener {
 			if (fish == null || !(fish instanceof Item)
 					//TODO: Fish head????
 					//|| ((Item) fish).getItemStack().getType() != Material.RAW_FISH) {
-					|| ((Item) fish).getItemStack().getType() != Material.LEGACY_RAW_FISH) {
+					|| ( ((Item) fish).getItemStack().getType() != Material.SALMON &&
+							((Item) fish).getItemStack().getType() != Material.PUFFERFISH &&
+							((Item) fish).getItemStack().getType() != Material.COD && 
+							((Item) fish).getItemStack().getType() != Material.TROPICAL_FISH )) {
 				plugin.getMessages().debug("FishingBlocked: %s only get rewards for fish", player.getName());
+				
 				return;
 			}
 
@@ -380,7 +384,7 @@ public class FishingManager implements Listener {
 			break;
 		case IN_GROUND:
 			// When a bobber is stuck in the ground
-			plugin.getMessages().debug("State is IN_GROUND");
+			//plugin.getMessages().debug("State is IN_GROUND");
 			break;
 		// default:
 		// break;

@@ -524,7 +524,41 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 		mLocation = pos.toLocation(world);
 		mType = new StatType[stats.size()];
 		for (int i = 0; i < stats.size(); ++i) {
-			mType[i] = StatType.fromColumnName(stats.get(i));
+			
+			String type = stats.get(i);
+			switch (type) {
+			case "RawFish_kill":
+				type="Cod_kill";
+				break;
+			case "RawFish_assist":
+				type="Cod_assist";
+				break;
+			case "RawFish_cash":
+				type="Cod_cash";
+				break;
+			
+			case "RawSalmon_kill":
+				type="Salmon_kill";
+				break;
+			case "RawSalmon_assist":
+				type="Salmon_assist";
+				break;
+			case "RawSalmon_cash":
+				type="Salmon_cash";
+				break;
+			
+			case "Clownfish_kill":
+				type="TropicalFish_kill";
+				break;
+			case "Clownfish_assist":
+				type="TropicalFish_assist";
+				break;
+			case "Clownfish_cash":
+				type="TropicalFish_cash";
+				break;
+			}
+			
+			mType[i] = StatType.fromColumnName(type);
 			if (mType[i] == null)
 				throw new InvalidConfigurationException(
 						"[MobHunting] Error on Leaderboard " + section.getName() + ":Invalid stat type " + stats.get(i));

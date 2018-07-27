@@ -128,7 +128,6 @@ public class ConfigManager extends AutoConfig {
 		setCategoryComment("passive.cow", "### Cow settings ###");
 		setCategoryComment("passive.dolphin", "### Dolphin settings ###");
 		setCategoryComment("passive.donkey", "### Donkey settings ###");
-		setCategoryComment("passive.fish", "### Fish settings ###");
 		setCategoryComment("passive.horse", "### Horse settings ###");
 		setCategoryComment("passive.llama", "### Llama settings ###");
 		setCategoryComment("passive.mule", "### Mule settings ###");
@@ -150,9 +149,9 @@ public class ConfigManager extends AutoConfig {
 						+ "\n########################################################################"
 						+ "\nHere is where you set the base prize in $ for catching a fish");
 
-		setCategoryComment("fishing.raw_fish", "### Raw Fish settings ###");
-		setCategoryComment("fishing.raw_salmon", "### Raw Salmon settings ###");
-		setCategoryComment("fishing.clownfish", "### Clownfish settings ###");
+		setCategoryComment("fishing.cod", "### Raw Cod settings ###");
+		setCategoryComment("fishing.salmon", "### Raw Salmon settings ###");
+		setCategoryComment("fishing.tropical_fish", "### Tropical Fish settings ###");
 		setCategoryComment("fishing.pufferfish", "### Pufferfish settings ###");
 
 		setCategoryComment("pvp", "########################################################################"
@@ -789,32 +788,6 @@ public class ConfigManager extends AutoConfig {
 	public double endermiteHeadDropChance = 0.10;
 	@ConfigField(name = "endermite.head.message", category = "mobs")
 	public String endermiteHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
-
-	// =====Fish============================================
-	@ConfigField(name = "fish.enabled", category = "mobs")
-	public boolean fishEnabled = true;
-	@ConfigField(name = "fish.message", category = "mobs")
-	public String fishMessage = "You killed a §1{killed}";
-	@ConfigField(name = "fish.money.amount", category = "mobs")
-	public String fishMoney = "1:2";
-	@ConfigField(name = "fish.money.chance", category = "mobs")
-	public double fishMoneyChance = 1;
-	@ConfigField(name = "fish.commands", category = "mobs")
-	public List<HashMap<String, String>> fishCommands = new ArrayList<HashMap<String, String>>();
-	{
-		HashMap<String, String> values1 = new HashMap<String, String>();
-		values1.put("cmd", "give {player} Iron_ingot 1");
-		values1.put("chance", "0.33");
-		fishCommands.add(values1);
-	}
-	@ConfigField(name = "fish.head.drophead", category = "mobs")
-	public boolean fishHeadDropHead = true;
-	@ConfigField(name = "fish.head.value", category = "mobs")
-	public String fishHeadPrize = "0";
-	@ConfigField(name = "fish.head.chance", category = "mobs")
-	public double fishHeadDropChance = 0.33;
-	@ConfigField(name = "fish.head.message", category = "mobs")
-	public String fishHeadMessage = "§aThe §1{killed} §adropped an Aquarium in the water";
 
 	// =====Ghast============================================
 	@ConfigField(name = "ghast.enabled", category = "mobs")
@@ -2211,82 +2184,82 @@ public class ConfigManager extends AutoConfig {
 	public boolean enableFishingRewards = true;
 
 	// =====Raw Fish============================================
-	@ConfigField(name = "raw_fish.enabled", category = "fishing")
-	public boolean rawFishEnabled = true;
-	@ConfigField(name = "raw_fish.message", category = "fishing")
-	public String rawFishMessage = "You caught a §1{killed}";
-	@ConfigField(name = "raw_fish.money.amount", category = "fishing")
-	public String rawFishMoney = "1:3";
-	@ConfigField(name = "raw_fish.money.chance", category = "fishing")
-	public double rawFishCmdRunChance = 1;
-	@ConfigField(name = "raw_fish.commands", category = "fishing")
-	public List<HashMap<String, String>> rawFishCommands = new ArrayList<HashMap<String, String>>();
+	@ConfigField(name = "cod.enabled", category = "fishing")
+	public boolean codEnabled = true;
+	@ConfigField(name = "cod.message", category = "fishing")
+	public String codMessage = "You caught a §1{killed}";
+	@ConfigField(name = "cod.money.amount", category = "fishing")
+	public String codMoney = "1:3";
+	@ConfigField(name = "cod.money.chance", category = "fishing")
+	public double codCmdRunChance = 1;
+	@ConfigField(name = "cod.commands", category = "fishing")
+	public List<HashMap<String, String>> codCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.05");
-		rawFishCommands.add(values1);
+		codCommands.add(values1);
 	}
-	@ConfigField(name = "raw_fish.head.drophead", category = "fishing")
-	public boolean rawFishHeadDropHead = true;
-	@ConfigField(name = "raw_fish.head.value", category = "fishing")
-	public String rawFishHeadPrize = "0";
-	@ConfigField(name = "raw_fish.head.chance", category = "fishing")
-	public double rawFishHeadDropChance = 0.05;
-	@ConfigField(name = "raw_fish.head.message", category = "fishing")
-	public String rawFishHeadMessage = "§aThe §1{killed} §adropped a fish head in the water";
+	@ConfigField(name = "cod.head.drophead", category = "fishing")
+	public boolean codHeadDropHead = true;
+	@ConfigField(name = "cod.head.value", category = "fishing")
+	public String codHeadPrize = "0";
+	@ConfigField(name = "cod.head.chance", category = "fishing")
+	public double codHeadDropChance = 0.05;
+	@ConfigField(name = "cod.head.message", category = "fishing")
+	public String codHeadMessage = "§aThe §1{killed} §adropped a Cod head in the water";
 
 	// =====Raw Salmon============================================
-	@ConfigField(name = "raw_salmon.enabled", category = "fishing")
-	public boolean rawSalmonEnabled = true;
-	@ConfigField(name = "raw_salmon.message", category = "fishing")
-	public String rawSalmonMessage = "You caught a §1{killed}";
-	@ConfigField(name = "raw_salmon.money.amount", category = "fishing")
-	public String rawSalmonMoney = "2:8";
-	@ConfigField(name = "raw_salmon.money.chance", category = "fishing")
-	public double rawSalmonCmdRunChance = 1;
-	@ConfigField(name = "raw_salmon.commands", category = "fishing")
-	public List<HashMap<String, String>> rawSalmonCommands = new ArrayList<HashMap<String, String>>();
+	@ConfigField(name = "salmon.enabled", category = "fishing")
+	public boolean salmonEnabled = true;
+	@ConfigField(name = "salmon.message", category = "fishing")
+	public String salmonMessage = "You caught a §1{killed}";
+	@ConfigField(name = "salmon.money.amount", category = "fishing")
+	public String salmonMoney = "2:8";
+	@ConfigField(name = "salmon.money.chance", category = "fishing")
+	public double salmonCmdRunChance = 1;
+	@ConfigField(name = "salmon.commands", category = "fishing")
+	public List<HashMap<String, String>> salmonCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.1");
-		rawSalmonCommands.add(values1);
+		salmonCommands.add(values1);
 	}
-	@ConfigField(name = "raw_salmon.head.drophead", category = "fishing")
-	public boolean rawSalmonHeadDropHead = true;
-	@ConfigField(name = "raw_salmon.head.value", category = "fishing")
-	public String rawSalmonHeadPrize = "0";
-	@ConfigField(name = "raw_salmon.head.chance", category = "fishing")
-	public double rawSalmonHeadDropChance = 0.10;
-	@ConfigField(name = "raw_salmon.head.message", category = "fishing")
-	public String rawSalmonHeadMessage = "§aThe §1{killed} §adropped a fish head in the water";
+	@ConfigField(name = "salmons.head.drophead", category = "fishing")
+	public boolean salmonHeadDropHead = true;
+	@ConfigField(name = "salmon.head.value", category = "fishing")
+	public String salmonHeadPrize = "0";
+	@ConfigField(name = "salmon.head.chance", category = "fishing")
+	public double salmonHeadDropChance = 0.10;
+	@ConfigField(name = "salmon.head.message", category = "fishing")
+	public String salmonHeadMessage = "§aThe §1{killed} §adropped a Salmon head in the water";
 
-	// =====Clownfish============================================
-	@ConfigField(name = "clownfish.enabled", category = "fishing")
-	public boolean clownfishEnabled = true;
-	@ConfigField(name = "clownfish.message", category = "fishing")
-	public String clownfishMessage = "You caught a §1{killed}";
-	@ConfigField(name = "clownfish.money.amount", category = "fishing")
-	public String clownfishMoney = "20:40";
-	@ConfigField(name = "clownfish.money.chance", category = "fishing")
-	public double clownfishCmdRunChance = 1;
-	@ConfigField(name = "clownfish.commands", category = "fishing")
-	public List<HashMap<String, String>> clownfishCommands = new ArrayList<HashMap<String, String>>();
+	// =====Tropical Fish============================================
+	@ConfigField(name = "tropical_fish.enabled", category = "fishing")
+	public boolean tropicalFishEnabled = true;
+	@ConfigField(name = "tropical_fish.message", category = "fishing")
+	public String tropicalFishMessage = "You caught a §1{killed}";
+	@ConfigField(name = "tropical_fish.money.amount", category = "fishing")
+	public String tropicalFishMoney = "20:40";
+	@ConfigField(name = "tropical_fish.money.chance", category = "fishing")
+	public double tropicalFishCmdRunChance = 1;
+	@ConfigField(name = "tropical_fish.commands", category = "fishing")
+	public List<HashMap<String, String>> tropicalFishCommands = new ArrayList<HashMap<String, String>>();
 	{
 		HashMap<String, String> values1 = new HashMap<String, String>();
 		values1.put("cmd", "give {player} Iron_ingot 1");
 		values1.put("chance", "0.5");
-		clownfishCommands.add(values1);
+		tropicalFishCommands.add(values1);
 	}
-	@ConfigField(name = "clownfish.head.drophead", category = "fishing")
-	public boolean clownfishHeadDropHead = true;
-	@ConfigField(name = "clownfish.head.value", category = "fishing")
-	public String clownfishHeadPrize = "0";
-	@ConfigField(name = "clownfish.head.chance", category = "fishing")
-	public double clownfishHeadDropChance = 0.5;
-	@ConfigField(name = "clownfish.head.message", category = "fishing")
-	public String clownfishHeadMessage = "§aThe §1{killed} §adropped a fish head in the water";
+	@ConfigField(name = "tropical_fish.head.drophead", category = "fishing")
+	public boolean tropicalFishHeadDropHead = true;
+	@ConfigField(name = "tropical_fish.head.value", category = "fishing")
+	public String tropicalFishHeadPrize = "0";
+	@ConfigField(name = "tropical_fish.head.chance", category = "fishing")
+	public double tropicalFishHeadDropChance = 0.5;
+	@ConfigField(name = "tropical_fish.head.message", category = "fishing")
+	public String tropicalFishHeadMessage = "§aThe §1{killed} §adropped a Aquarium in the water";
 
 	// =====Pufferfish============================================
 	@ConfigField(name = "pufferfish.enabled", category = "fishing")
@@ -4211,26 +4184,26 @@ public class ConfigManager extends AutoConfig {
 		this.zombieHorseHeadDropChance = mConfig0.zombiehorseCmdRunChance;
 		this.zombieHorseHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
 
-		this.rawFishMoney = mConfig0.rawFishPrize;
-		this.rawFishCommands = convertCommands(mConfig0.rawFishCmd, mConfig0.rawFishCmdRunChance);
-		this.rawFishHeadDropHead = convertDropHeadEnabled(mConfig0.rawFishCmd);
-		this.rawFishHeadPrize = mConfig0.rawFishHeadPrize;
-		this.rawFishHeadDropChance = mConfig0.rawFishCmdRunChance;
-		this.rawFishHeadMessage = "§aThe §1{killed} §adropped a fish head in the water";
+		this.codMoney = mConfig0.rawFishPrize;
+		this.codCommands = convertCommands(mConfig0.rawFishCmd, mConfig0.rawFishCmdRunChance);
+		this.codHeadDropHead = convertDropHeadEnabled(mConfig0.rawFishCmd);
+		this.codHeadPrize = mConfig0.rawFishHeadPrize;
+		this.codHeadDropChance = mConfig0.rawFishCmdRunChance;
+		this.codHeadMessage = "§aThe §1{killed} §adropped a fish head in the water";
 
-		this.rawSalmonMoney = mConfig0.rawSalmonPrize;
-		this.rawSalmonCommands = convertCommands(mConfig0.rawSalmonCmd, mConfig0.rawSalmonCmdRunChance);
-		this.rawSalmonHeadDropHead = convertDropHeadEnabled(mConfig0.rawSalmonCmd);
-		this.rawSalmonHeadPrize = mConfig0.rawSalmonHeadPrize;
-		this.rawSalmonHeadDropChance = mConfig0.rawSalmonCmdRunChance;
-		this.rawSalmonHeadMessage = "§aThe §1{killed} §adropped a fish head in the water";
+		this.salmonMoney = mConfig0.rawSalmonPrize;
+		this.salmonCommands = convertCommands(mConfig0.rawSalmonCmd, mConfig0.rawSalmonCmdRunChance);
+		this.salmonHeadDropHead = convertDropHeadEnabled(mConfig0.rawSalmonCmd);
+		this.salmonHeadPrize = mConfig0.rawSalmonHeadPrize;
+		this.salmonHeadDropChance = mConfig0.rawSalmonCmdRunChance;
+		this.salmonHeadMessage = "§aThe §1{killed} §adropped a fish head in the water";
 
-		this.clownfishMoney = mConfig0.clownfishPrize;
-		this.clownfishCommands = convertCommands(mConfig0.clownfishCmd, mConfig0.clownfishCmdRunChance);
-		this.clownfishHeadDropHead = convertDropHeadEnabled(mConfig0.clownfishCmd);
-		this.clownfishHeadPrize = mConfig0.clownfishHeadPrize;
-		this.clownfishHeadDropChance = mConfig0.clownfishCmdRunChance;
-		this.clownfishHeadMessage = "§aThe §1{killed} §adropped a fish head in the water";
+		this.tropicalFishMoney = mConfig0.clownfishPrize;
+		this.tropicalFishCommands = convertCommands(mConfig0.clownfishCmd, mConfig0.clownfishCmdRunChance);
+		this.tropicalFishHeadDropHead = convertDropHeadEnabled(mConfig0.clownfishCmd);
+		this.tropicalFishHeadPrize = mConfig0.clownfishHeadPrize;
+		this.tropicalFishHeadDropChance = mConfig0.clownfishCmdRunChance;
+		this.tropicalFishHeadMessage = "§aThe §1{killed} §adropped a fish head in the water";
 
 		this.pufferfishMoney = mConfig0.pufferfishPrize;
 		this.pufferfishCommands = convertCommands(mConfig0.pufferfishCmd, mConfig0.pufferfishCmdRunChance);

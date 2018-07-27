@@ -423,10 +423,12 @@ mobs.Vex.name=§9Bosszants
 mobs.Evoker.name=§9Evoker
 mobs.SkeletonHorse.name=§9Csontváz ló
 mobs.Mule.name=§9Öszvér
-mobs.RawFish.name=§9Nyers hal
-mobs.RawSalmon.name=§9Nyers lazac
-mobs.Clownfish.name=§9Bohóchal
+
+mobs.Cod.name=§9Nyers hal
+mobs.Salmon.name=§9Nyers lazac
+mobs.TropicalFish.name=§9Tropical Fish
 mobs.Pufferfish.name=§9Gömbhal
+
 mobs.Slime.name=§9Nyálka
 
 mobs.Villager.name=§9Falusi
