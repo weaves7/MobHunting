@@ -17,7 +17,7 @@ public class WorldGuardCompat {
 		} else {
 			mPlugin = (WorldGuardPlugin) Bukkit.getPluginManager().getPlugin(CompatPlugin.WorldGuard.getName());
 
-			if (mPlugin.getDescription().getVersion().compareTo("6.2") >= 0) {
+			if (mPlugin.getDescription().getVersion().compareTo("6.2.2") >= 0) {
 				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
 						+ "Enabling compatibility with WorldGuard (" + mPlugin.getDescription().getVersion() + ")");
 				supported = true;
@@ -25,7 +25,7 @@ public class WorldGuardCompat {
 				Bukkit.getConsoleSender()
 						.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RED
 								+ "Your current version of WorldGuard (" + mPlugin.getDescription().getVersion()
-								+ ") is not supported by MobHunting. Mobhunting does only support 6.2 and newer.");
+								+ ") is not supported by MobHunting. Mobhunting does only support 6.2.2 and newer.");
 			}
 		}
 	}

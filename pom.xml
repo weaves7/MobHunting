@@ -72,7 +72,7 @@
 		<minigameslib.version>1.14.14</minigameslib.version>
 		<mypet.version>2.3.4</mypet.version>
 		<worldedit.version>6.1.5</worldedit.version>
-		<worldguard.version>6.2</worldguard.version>
+		<worldguard.version>6.2.1</worldguard.version>
 		<PreciousStones.version>10.7.2</PreciousStones.version>
 		<libsdisguises.version>9.5.1-SNAPSHOT</libsdisguises.version>
 		<battleArena.version>3.9.10.6.2</battleArena.version>
@@ -465,13 +465,21 @@
 		</dependency>
 
 		<!-- Worldguard -->
-		<dependency>
+		<dependency> 
 			<groupId>com.sk89q.worldguard</groupId>
 			<artifactId>worldguard-legacy</artifactId>
 			<version>${worldguard.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- <dependency> 
+			<groupId>com.sk89q.worldguard</groupId>
+			<artifactId>worldguard-legacy</artifactId>
+			<version>7.0.0-SNAPSHOT;1721-27810d8</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/worldguard-legacy-7.0.0-SNAPSHOT-dist-B1721.jar</systemPath>
+		</dependency> -->
 
+		
 		<dependency>
 			<groupId>net.sacredlabyrinth.Phaed</groupId>
 			<artifactId>PreciousStones</artifactId>

@@ -70,10 +70,10 @@ public class Reward {
 		else
 			this.uniqueId = (lore.get(3).startsWith("Hidden:")) ? UUID.fromString(lore.get(3).substring(7))
 					: UUID.fromString(lore.get(3));
-			
-			
-			//something is wrong skin can be null when the bag is give to the player and the placed
-			
+
+		// something is wrong skin can be null when the bag is give to the
+		// player and the placed
+
 		if (lore.size() >= 5 && !lore.get(4).equalsIgnoreCase("Hidden:")
 				&& !lore.get(4).equalsIgnoreCase("Hidden:null"))
 			this.skinUUID = (lore.get(4).startsWith("Hidden:")) ? UUID.fromString(lore.get(4).substring(7))
@@ -81,8 +81,7 @@ public class Reward {
 		else {
 			if (uuid.equals(UUID.fromString(MH_REWARD_BAG_OF_GOLD_UUID)))
 				this.skinUUID = UUID.fromString(MH_REWARD_BAG_OF_GOLD_UUID);
-			
-			
+
 		}
 	}
 
@@ -106,12 +105,12 @@ public class Reward {
 	}
 
 	public ArrayList<String> getHiddenLore() {
-		return new ArrayList<String>(
-				Arrays.asList("Hidden:" + displayname, //displayname
-						"Hidden:" + String.format(Locale.ENGLISH, "%.5f", money), //value
-						"Hidden:" + uuid.toString(), //type
-						money == 0 ? "Hidden:" : "Hidden:" + uniqueId.toString(), //unique id
-						"Hidden:" + (skinUUID == null ? "" : skinUUID.toString()))); //skin
+		return new ArrayList<String>(Arrays.asList("Hidden:" + displayname, // displayname
+				"Hidden:" + String.format(Locale.ENGLISH, "%.5f", money), // value
+				"Hidden:" + uuid.toString(), // type
+				money == 0 ? "Hidden:" : "Hidden:" + uniqueId.toString(), // unique
+																			// id
+				"Hidden:" + (skinUUID == null ? "" : skinUUID.toString()))); // skin
 	}
 
 	/**
@@ -263,14 +262,10 @@ public class Reward {
 	public static boolean isReward(ItemStack itemStack) {
 		if (itemStack != null && itemStack.hasItemMeta() && itemStack.getItemMeta().hasLore()) {
 			for (int i = 0; i < itemStack.getItemMeta().getLore().size(); i++) {
-				if (itemStack.getItemMeta().getLore().get(i)
-						.equals("Hidden:" + MH_REWARD_BAG_OF_GOLD_UUID)
-						|| itemStack.getItemMeta().getLore().get(i)
-								.equals("Hidden:" + MH_REWARD_KILLED_UUID)
-						|| itemStack.getItemMeta().getLore().get(i)
-								.equals("Hidden:" + MH_REWARD_KILLER_UUID)
-						|| itemStack.getItemMeta().getLore().get(i)
-								.equals("Hidden:" + MH_REWARD_ITEM_UUID)) {
+				if (itemStack.getItemMeta().getLore().get(i).equals("Hidden:" + MH_REWARD_BAG_OF_GOLD_UUID)
+						|| itemStack.getItemMeta().getLore().get(i).equals("Hidden:" + MH_REWARD_KILLED_UUID)
+						|| itemStack.getItemMeta().getLore().get(i).equals("Hidden:" + MH_REWARD_KILLER_UUID)
+						|| itemStack.getItemMeta().getLore().get(i).equals("Hidden:" + MH_REWARD_ITEM_UUID)) {
 					return true;
 				}
 			}
@@ -282,9 +277,10 @@ public class Reward {
 		return new Reward(itemStack.getItemMeta().getLore());
 	}
 
-	//TODO: Which skull is working???
+	// TODO: Which skull is working???
 	public static boolean hasReward(Block block) {
-		return block.getType() == Material.PLAYER_HEAD && block.hasMetadata(MH_REWARD_DATA);
+		return (block.getType() == Material.PLAYER_HEAD || block.getType() == Material.PLAYER_WALL_HEAD)
+				&& block.hasMetadata(MH_REWARD_DATA);
 	}
 
 	public static Reward getReward(Block block) {

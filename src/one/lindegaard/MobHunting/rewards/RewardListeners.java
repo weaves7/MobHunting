@@ -403,13 +403,13 @@ public class RewardListeners implements Listener {
 										? plugin.getRewardManager().format(reward.getMoney())
 										: reward.getDisplayname() + " ("
 												+ plugin.getRewardManager().format(reward.getMoney()) + ")"));
-		} else if (Misc.isMC113OrNewer() && block.getType() == Material.PLAYER_HEAD){
+		} else if (Misc.isMC113OrNewer()
+				&& (block.getType() == Material.PLAYER_HEAD || block.getType() == Material.PLAYER_WALL_HEAD)) {
 			Skull skullState = (Skull) block.getState();
 			OfflinePlayer owner = skullState.getOwningPlayer();
 			plugin.getMessages().playerActionBarMessageQueue(player,
-					ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
-							+ owner.getName());
-		} else if (block.getType()==Material.LEGACY_SKULL) {
+					ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + owner.getName());
+		} else if (block.getType() == Material.LEGACY_SKULL) {
 			Skull skullState = (Skull) block.getState();
 			switch (skullState.getSkullType()) {
 			case PLAYER:
@@ -472,9 +472,10 @@ public class RewardListeners implements Listener {
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onInventoryClickReward(InventoryClickEvent event) {
-		if (event.isCancelled() || event.getInventory() == null){
+		if (event.isCancelled() || event.getInventory() == null) {
 			plugin.getMessages().debug("RewardListeners: Something cancelled the event");
-			return;}
+			return;
+		}
 
 		if (CitizensCompat.isNPC(event.getWhoClicked()))
 			return;
@@ -500,8 +501,8 @@ public class RewardListeners implements Listener {
 		if (action == InventoryAction.NOTHING)
 			return;
 
-		if (!(slotType == SlotType.CONTAINER || slotType == SlotType.QUICKBAR || slotType == SlotType.OUTSIDE || slotType == SlotType.RESULT
-				|| (slotType == SlotType.ARMOR && event.getSlot() == 39))) {
+		if (!(slotType == SlotType.CONTAINER || slotType == SlotType.QUICKBAR || slotType == SlotType.OUTSIDE
+				|| slotType == SlotType.RESULT || (slotType == SlotType.ARMOR && event.getSlot() == 39))) {
 			if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
 				Reward reward = Reward.isReward(isCurrentSlot) ? Reward.getReward(isCurrentSlot)
 						: Reward.getReward(isCursor);
