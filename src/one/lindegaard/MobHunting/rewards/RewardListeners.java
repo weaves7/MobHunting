@@ -171,7 +171,7 @@ public class RewardListeners implements Listener {
 							if (BagOfGoldCompat.isSupported()) {
 								done = plugin.getRewardManager().addBagOfGoldPlayer(player, reward.getMoney());
 								PlayerBalance ps = BagOfGold.getAPI().getPlayerBalanceManager()
-										.getPlayerBalances(player);
+										.getPlayerBalance(player);
 								ps.setBalance(Misc.round(ps.getBalance() + reward.getMoney()));
 								BagOfGold.getAPI().getPlayerBalanceManager().setPlayerBalance(player, ps);
 								done = true;

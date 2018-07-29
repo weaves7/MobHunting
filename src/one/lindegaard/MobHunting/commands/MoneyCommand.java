@@ -564,7 +564,7 @@ public class MoneyCommand implements ICommand {
 				}
 				Player player = (Player) sender;
 				if (BagOfGoldCompat.isSupported()) {
-					PlayerBalance ps = BagOfGold.getAPI().getPlayerBalanceManager().getPlayerBalances(player);
+					PlayerBalance ps = BagOfGold.getAPI().getPlayerBalanceManager().getPlayerBalance(player);
 					for (Iterator<NPC> npcList = CitizensAPI.getNPCRegistry().iterator(); npcList.hasNext();) {
 						NPC npc = npcList.next();
 						if (BagOfGold.getAPI().getBankManager().isBagOfGoldBanker(npc.getEntity())) {
@@ -621,7 +621,7 @@ public class MoneyCommand implements ICommand {
 				if (args.length == 2 && (args[1].matches("\\d+(\\.\\d+)?") || args[1].equalsIgnoreCase("all"))) {
 					Player player = (Player) sender;
 					if (BagOfGoldCompat.isSupported()) {
-						PlayerBalance ps = BagOfGold.getAPI().getPlayerBalanceManager().getPlayerBalances(player);
+						PlayerBalance ps = BagOfGold.getAPI().getPlayerBalanceManager().getPlayerBalance(player);
 						double amount = args[1].equalsIgnoreCase("all")
 								? ps.getBankBalance() + ps.getBankBalanceChanges()
 								: Double.valueOf(args[1]);
