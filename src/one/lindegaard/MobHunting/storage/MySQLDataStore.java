@@ -172,11 +172,11 @@ public class MySQLDataStore extends DatabaseDataStore {
 		String mobType = type.getDBColumn().substring(0, type.getDBColumn().lastIndexOf("_"));
 		ArrayList<String> plugins_kill = new ArrayList<String>();
 		ArrayList<String> plugins_assist = new ArrayList<String>();
-		// ArrayList<String> plugins_cash = new ArrayList<String>();
+		ArrayList<String> plugins_cash = new ArrayList<String>();
 		for (MobPlugin p : MobPlugin.values()) {
 			plugins_kill.add(p.name() + "_kill");
 			plugins_assist.add(p.name() + "_assist");
-			// plugins_cash.add(p.name() + "_cash");
+			plugins_cash.add(p.name() + "_cash");
 			if (p.name().equalsIgnoreCase(type.getDBColumn().substring(0, type.getDBColumn().indexOf("_")))) {
 				mobPlugin = p;
 				if (type.getDBColumn().indexOf("_") != type.getDBColumn().lastIndexOf("_"))
@@ -212,6 +212,10 @@ public class MySQLDataStore extends DatabaseDataStore {
 				|| type.getDBColumn().equalsIgnoreCase("achievement_count")
 				|| type.getDBColumn().equalsIgnoreCase("total_cash")) {
 			wherepart = (id != null ? " AND ID=" + id : "");
+		} else if (plugins_kill.contains(type.getDBColumn()) || plugins_assist.contains(type.getDBColumn())
+				|| plugins_cash.contains(type.getDBColumn())) {
+			wherepart = (id != null ? " AND ID=" + id + " AND mh_Mobs.PLUGIN_ID=" + mobPlugin.getId()
+					: " AND mh_Mobs.PLUGIN_ID=" + mobPlugin.getId());
 		} else {
 			wherepart = (id != null
 					? " AND ID=" + id + " and mh_Mobs.MOB_ID="
@@ -227,7 +231,9 @@ public class MySQLDataStore extends DatabaseDataStore {
 					+ period.getTable() + " inner join mh_Players using (PLAYER_ID)"
 					+ " inner join mh_Mobs using (MOB_ID) WHERE PLAYER_ID!=0 AND NAME IS NOT NULL " + wherepart
 					+ " GROUP BY PLAYER_ID ORDER BY "
-					+ (type.getDBColumn().equalsIgnoreCase("total_cash") ? "sum(total_cash)" : "AMOUNT")
+					+ ((type.getDBColumn().equalsIgnoreCase("total_cash") || plugins_cash.contains(type.getDBColumn()))
+							? "CASH"
+							: "AMOUNT")
 					+ " DESC LIMIT " + count;
 			ResultSet results = statement.executeQuery(str);
 			while (results.next()) {
