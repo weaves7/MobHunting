@@ -1,3 +1,5 @@
+V6.0.1
+* fixed SQL bug (https://github.com/Rocologo/MobHunting/issues/412)
 V6.0.0 Minecraft 1.13 release
 * This version is only for MC 1.13
 * Dolphin, Drowned, Phantom, Turtle and Fish (as a Mob) added with rewards and Mob heads to be dropped
