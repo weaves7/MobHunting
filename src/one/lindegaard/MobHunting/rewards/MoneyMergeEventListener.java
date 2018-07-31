@@ -39,12 +39,12 @@ public class MoneyMergeEventListener implements Listener {
 					reward2.setMoney(reward1.getMoney() + reward2.getMoney());
 					ItemMeta im = is2.getItemMeta();
 					is2.setItemMeta(im);
-					is2.setAmount(0);
+					is2.setAmount(1);
 					item2.setItemStack(is2);
-					String displayName = plugin.getConfigManager().dropMoneyOnGroundItemtype
-							.equalsIgnoreCase("ITEM") ? plugin.getRewardManager().format(reward2.getMoney())
-									: reward2.getDisplayname() + " ("
-											+ plugin.getRewardManager().format(reward2.getMoney()) + ")";
+					String displayName = plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
+							? plugin.getRewardManager().format(reward2.getMoney())
+							: reward2.getDisplayname() + " (" + plugin.getRewardManager().format(reward2.getMoney())
+									+ ")";
 					item2.setCustomName(
 							ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + displayName);
 					item2.setCustomNameVisible(true);
@@ -52,7 +52,7 @@ public class MoneyMergeEventListener implements Listener {
 							new FixedMetadataValue(MobHunting.getInstance(), new Reward(reward2)));
 					plugin.getMessages().debug("Rewards merged - new value=%s",
 							plugin.getRewardManager().format(reward2.getMoney()));
-				}
+				} 
 				if (plugin.getRewardManager().getDroppedMoney().containsKey(item1.getEntityId()))
 					plugin.getRewardManager().getDroppedMoney().remove(item1.getEntityId());
 			}

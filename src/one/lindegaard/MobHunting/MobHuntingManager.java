@@ -335,11 +335,12 @@ public class MobHuntingManager implements Listener {
 
 				if (playerKilledByMobPenalty != 0) {
 					if (BagOfGoldCompat.isSupported()) {
-						//TODO: cleanup here
+						// TODO: cleanup here
 						event.getDrops().add(new ItemStack(Material.DIRT));
 						plugin.getMessages().debug("penalty=%s", playerKilledByMobPenalty);
 						BagOfGold.getAPI().getEconomyManager().removeMoneyFromBalance(killed, playerKilledByMobPenalty);
-						//BagOfGold.getAPI().getEconomyManager().withdrawPlayer(killed, playerKilledByMobPenalty);
+						// BagOfGold.getAPI().getEconomyManager().withdrawPlayer(killed,
+						// playerKilledByMobPenalty);
 					} else if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
 						plugin.getRewardManager().withdrawPlayer(killed, playerKilledByMobPenalty);
 					} else {
@@ -1119,7 +1120,7 @@ public class MobHuntingManager implements Listener {
 					mob.getMobName(), getPlayer(killer, killed), mul);
 			cash = cash * mul;
 		}
-		
+
 		// Update DamageInformation
 		if (killed instanceof LivingEntity && mDamageHistory.containsKey((LivingEntity) killed)) {
 			info = mDamageHistory.get(killed);
@@ -1455,7 +1456,7 @@ public class MobHuntingManager implements Listener {
 
 		cash = Misc.round(cash);
 		plugin.getMessages().debug("Reward rounded to %s", cash);
-		
+
 		// Check if there is a reward for this kill
 		if (cash >= plugin.getConfigManager().minimumReward || cash <= -plugin.getConfigManager().minimumReward
 				|| !plugin.getRewardManager().getKillCommands(killed).isEmpty()
@@ -1530,7 +1531,7 @@ public class MobHuntingManager implements Listener {
 			plugin.getMessages().debug("Description to be send:" + message);
 			getPlayer(killer, killed).sendMessage(message);
 		}
-		
+
 		// Pay the money reward to killer/player and assister
 		if ((cash >= plugin.getConfigManager().minimumReward) || (cash <= -plugin.getConfigManager().minimumReward)) {
 
@@ -1800,13 +1801,17 @@ public class MobHuntingManager implements Listener {
 				if (info.getAssister() == null) {
 					PlaceHolderData p = PlaceholderAPICompat.getPlaceHolders()
 							.get(getPlayer(killer, killed).getUniqueId());
-					p.setTotal_kills(p.getTotal_kills() + 1);
-					PlaceholderAPICompat.getPlaceHolders().put(getPlayer(killer, killed).getUniqueId(), p);
+					if (p != null) {
+						p.setTotal_kills(p.getTotal_kills() + 1);
+						PlaceholderAPICompat.getPlaceHolders().put(getPlayer(killer, killed).getUniqueId(), p);
+					}
 				} else {
 					PlaceHolderData p = PlaceholderAPICompat.getPlaceHolders()
 							.get(getPlayer(killer, killed).getUniqueId());
-					p.setTotal_assists(p.getTotal_assists() + 1);
-					PlaceholderAPICompat.getPlaceHolders().put(getPlayer(killer, killed).getUniqueId(), p);
+					if (p != null) {
+						p.setTotal_assists(p.getTotal_assists() + 1);
+						PlaceholderAPICompat.getPlaceHolders().put(getPlayer(killer, killed).getUniqueId(), p);
+					}
 				}
 			}
 
