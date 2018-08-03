@@ -1,7 +1,6 @@
 package one.lindegaard.MobHunting.commands;
 
 import one.lindegaard.BagOfGold.BagOfGold;
-import one.lindegaard.BagOfGold.PlayerBalance;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
 import one.lindegaard.MobHunting.compatibility.BossShopCompat;
@@ -19,11 +18,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import net.citizensnpcs.api.CitizensAPI;
-import net.citizensnpcs.api.npc.NPC;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -550,6 +545,7 @@ public class MoneyCommand implements ICommand {
 			return true;
 		}
 
+		/**
 		else if (args.length == 1 && args[0].equalsIgnoreCase("deposit")
 				|| (args.length == 2 && args[0].equalsIgnoreCase("deposit")
 						&& (args[1].matches("\\d+(\\.\\d+)?") || args[1].equalsIgnoreCase("all")))) {
@@ -670,7 +666,7 @@ public class MoneyCommand implements ICommand {
 		} else {
 			plugin.getMessages().debug("no command hit...");
 		}
-
+		 **/
 		return false;
 
 	}

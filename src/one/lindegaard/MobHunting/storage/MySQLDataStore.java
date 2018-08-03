@@ -108,8 +108,8 @@ public class MySQLDataStore extends DatabaseDataStore {
 		case INSERT_BOUNTY:
 			mInsertBounty = connection.prepareStatement("INSERT INTO mh_Bounties "
 					+ "(MOBTYPE, BOUNTYOWNER_ID, WANTEDPLAYER_ID, NPC_ID, MOB_ID, WORLDGROUP, "
-					+ "CREATED_DATE, END_DATE, PRIZE, MESSAGE, STATUS) " + " VALUES (?,?,?,?,?,?,?,?,?,?,?);"
-					+ " ON DUPLICATE KEY UPDATE CREATED_DATE=?, END_DATE=?, PRIZE=?, MESSAGE=?, STATUS=?");
+					+ "CREATED_DATE, END_DATE, PRIZE, MESSAGE, STATUS) " + " VALUES (?,?,?,?,?,?,?,?,?,?,?)"
+					+ " ON DUPLICATE KEY UPDATE CREATED_DATE=?, END_DATE=?, PRIZE=?, MESSAGE=?, STATUS=?");		
 					//+ " ON DUPLICATE KEY UPDATE SET CREATED_DATE=?, END_DATE=?, PRIZE=?, MESSAGE=?, STATUS=?");
 			break;
 		case UPDATE_BOUNTY:
