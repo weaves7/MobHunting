@@ -407,8 +407,9 @@ public class RewardListeners implements Listener {
 				&& (block.getType() == Material.PLAYER_HEAD || block.getType() == Material.PLAYER_WALL_HEAD)) {
 			Skull skullState = (Skull) block.getState();
 			OfflinePlayer owner = skullState.getOwningPlayer();
-			plugin.getMessages().playerActionBarMessageQueue(player,
-					ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + owner.getName());
+			if (owner != null && owner.getName() != null)
+				plugin.getMessages().playerActionBarMessageQueue(player,
+						ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + owner.getName());
 		} else if (block.getType() == Material.LEGACY_SKULL) {
 			Skull skullState = (Skull) block.getState();
 			switch (skullState.getSkullType()) {
