@@ -62,7 +62,11 @@ public class Reward {
 
 	public Reward(List<String> lore) {
 		this.displayname = lore.get(0).startsWith("Hidden:") ? lore.get(0).substring(7) : lore.get(0);
-		this.money = Double.valueOf(lore.get(1).startsWith("Hidden:") ? lore.get(1).substring(7) : lore.get(1));
+		try {
+			this.money = Double.valueOf(lore.get(1).startsWith("Hidden:") ? lore.get(1).substring(7) : lore.get(1));
+		} catch (Exception e) {
+			this.money = 0;
+		}
 		this.uuid = (lore.get(2).startsWith("Hidden:")) ? UUID.fromString(lore.get(2).substring(7))
 				: UUID.fromString(lore.get(2));
 		if (this.money == 0)

@@ -1,5 +1,5 @@
 V6.0.1
-* fixed SQL bug (https://github.com/Rocologo/MobHunting/issues/412)
+* For Bounty users - fixed SQL bug (https://github.com/Rocologo/MobHunting/issues/412)
 * Removed a "null" message when clicking a non MobHunting head on a MC 1.13 server 
 V6.0.0 Minecraft 1.13 release
 * This version is only for MC 1.13
