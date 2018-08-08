@@ -21,7 +21,6 @@ import one.lindegaard.MobHunting.npc.MasterMobHunterManager;
 import one.lindegaard.MobHunting.npc.MasterMobHunterSign;
 import one.lindegaard.MobHunting.npc.MasterMobHunterTrait;
 import one.lindegaard.MobHunting.rewards.RewardData;
-import one.lindegaard.MobHunting.util.Misc;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -144,8 +143,7 @@ public class CitizensCompat implements Listener {
 	public static void shutdown() {
 		if (supported) {
 			TraitInfo trait = TraitInfo.create(MasterMobHunterTrait.class).withName("MasterMobHunter");
-			if (Misc.isMC18OrNewer())
-				citizensAPI.getTraitFactory().deregisterTrait(trait);
+			citizensAPI.getTraitFactory().deregisterTrait(trait);
 		}
 	}
 

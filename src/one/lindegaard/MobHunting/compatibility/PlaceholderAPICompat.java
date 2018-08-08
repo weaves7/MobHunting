@@ -13,7 +13,6 @@ import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.placeholder.MobHuntingPlaceholderHook;
 import one.lindegaard.MobHunting.placeholder.PlaceHolderData;
 import one.lindegaard.MobHunting.placeholder.PlaceHolderManager;
-import one.lindegaard.MobHunting.util.Misc;
 
 public class PlaceholderAPICompat {
 
@@ -30,7 +29,7 @@ public class PlaceholderAPICompat {
 					+ "Compatibility with PlaceholderAPI is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.PlaceholderAPI.getName());
-			if (mPlugin.getDescription().getVersion().compareTo("2.0.6") >= 0 && Misc.isMC18OrNewer()) {
+			if (mPlugin.getDescription().getVersion().compareTo("2.0.6") >= 0) {
 				Bukkit.getConsoleSender()
 						.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
 								+ "Enabling compatibility with PlaceholderAPI (" + mPlugin.getDescription().getVersion()

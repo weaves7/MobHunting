@@ -71,11 +71,9 @@ public class DisguiseCraftCompat implements Listener {
 			// Not supported by Disguisecraft
 			// aggresiveList[n++] = DisguiseType.SHULKER;
 		}
-		if (Misc.isMC18OrNewer()) {
-			aggresiveList[n++] = DisguiseType.Guardian;
-			aggresiveList[n++] = DisguiseType.Endermite;
-			// aggresiveList[n++] = DisguiseType.ELDER_GUARDIAN;
-		}
+		aggresiveList[n++] = DisguiseType.Guardian;
+		aggresiveList[n++] = DisguiseType.Endermite;
+		// aggresiveList[n++] = DisguiseType.ELDER_GUARDIAN;
 		aggresiveList[n++] = DisguiseType.Zombie;
 		aggresiveList[n++] = DisguiseType.Blaze;
 		aggresiveList[n++] = DisguiseType.CaveSpider;

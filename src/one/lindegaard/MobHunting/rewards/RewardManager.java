@@ -147,8 +147,7 @@ public class RewardManager {
 
 		Bukkit.getPluginManager().registerEvents(new RewardListeners(plugin), plugin);
 
-		if (Misc.isMC18OrNewer())
-			Bukkit.getPluginManager().registerEvents(new MoneyMergeEventListener(plugin), plugin);
+		Bukkit.getPluginManager().registerEvents(new MoneyMergeEventListener(plugin), plugin);
 
 		if (Misc.isMC112OrNewer() && eventDoesExists())
 			Bukkit.getPluginManager().registerEvents(new EntityPickupItemEventListener(pickupRewards), plugin);
@@ -371,12 +370,10 @@ public class RewardManager {
 									plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM") ? ""
 											: Reward.getReward(is).getDisplayname(),
 									money, uuid, UUID.randomUUID(), skinuuid)));
-			if (Misc.isMC18OrNewer()) {
-				item.setCustomName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
-						+ (plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM") ? format(money)
-								: Reward.getReward(is).getDisplayname() + " (" + format(money) + ")"));
-				item.setCustomNameVisible(true);
-			}
+			item.setCustomName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
+					+ (plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM") ? format(money)
+							: Reward.getReward(is).getDisplayname() + " (" + format(money) + ")"));
+			item.setCustomNameVisible(true);
 		}
 		if (item != null)
 			plugin.getMessages().debug("%s was dropped on the ground as item %s (# of rewards=%s)", format(money),
@@ -691,38 +688,25 @@ public class RewardManager {
 				if (mob instanceof Shulker)
 					return getPrice(mob, plugin.getConfigManager().shulkerMoney);
 
-			if (Misc.isMC18OrNewer())
-				if (mob instanceof Guardian && ((Guardian) mob).isElder())
-					return getPrice(mob, plugin.getConfigManager().elderGuardianMoney);
-				else if (mob instanceof Guardian)
-					return getPrice(mob, plugin.getConfigManager().guardianMoney);
-				else if (mob instanceof Endermite)
-					return getPrice(mob, plugin.getConfigManager().endermiteMoney);
-				else if (mob instanceof Rabbit)
-					if (((Rabbit) mob).getRabbitType() == Rabbit.Type.THE_KILLER_BUNNY)
-						return getPrice(mob, plugin.getConfigManager().killerRabbitMoney);
-					else
-						return getPrice(mob, plugin.getConfigManager().rabbitMoney);
-
-			// Minecraft 1.7.10 and older entities
-			if (mob instanceof Player) {
+			// Minecraft 1.8 and older entities
+			if (mob instanceof Guardian && ((Guardian) mob).isElder())
+				return getPrice(mob, plugin.getConfigManager().elderGuardianMoney);
+			else if (mob instanceof Guardian)
+				return getPrice(mob, plugin.getConfigManager().guardianMoney);
+			else if (mob instanceof Endermite)
+				return getPrice(mob, plugin.getConfigManager().endermiteMoney);
+			else if (mob instanceof Rabbit)
+				if (((Rabbit) mob).getRabbitType() == Rabbit.Type.THE_KILLER_BUNNY)
+					return getPrice(mob, plugin.getConfigManager().killerRabbitMoney);
+				else
+					return getPrice(mob, plugin.getConfigManager().rabbitMoney);
+			else if (mob instanceof Player) {
 				if (plugin.getConfigManager().pvpKillMoney.trim().endsWith("%")) {
 					double prize = 0;
-					// if (BagOfGoldCompat.isSupported()) {
-					// PlayerBalance ps =
-					// BagOfGold.getAPI().getPlayerBalanceManager().getPlayerBalances((Player)
-					// mob);
-					// prize = Math.round(Double
-					// .valueOf(plugin.getConfigManager().pvpKillMoney.trim().substring(0,
-					// plugin.getConfigManager().pvpKillMoney.trim().length() -
-					// 1))
-					// * (ps.getBalance() + ps.getBalanceChanges()) / 100);
-					// } else {
 					prize = Math.round(Double
 							.valueOf(plugin.getConfigManager().pvpKillMoney.trim().substring(0,
 									plugin.getConfigManager().pvpKillMoney.trim().length() - 1))
 							* getBalance((Player) mob) / 100);
-					// }
 					return Misc.round(prize);
 				} else if (plugin.getConfigManager().pvpKillMoney.contains(":")) {
 					String[] str1 = plugin.getConfigManager().pvpKillMoney.split(":");
@@ -825,13 +809,13 @@ public class RewardManager {
 		if (str == null || str.equals("") || str.isEmpty()) {
 			Bukkit.getServer().getConsoleSender()
 					.sendMessage(ChatColor.RED + "[MobHunting] [WARNING]" + ChatColor.RESET
-							+ " The prize for killing a " + ExtendedMobManager.getMobName(mob)
+							+ " The prize for killing a " + mob.getName()
 							+ " is not set in config.yml. Please set the prize to 0 or a positive or negative number.");
 			return 0;
 		} else if (str.startsWith(":")) {
 			Bukkit.getServer().getConsoleSender()
 					.sendMessage(ChatColor.RED + "[MobHunting] [WARNING]" + ChatColor.RESET
-							+ " The prize for killing a " + ExtendedMobManager.getMobName(mob)
+							+ " The prize for killing a " + mob.getName()
 							+ " in config.yml has a wrong format. The prize can't start with \":\"");
 			if (str.length() > 1)
 				return getPrice(mob, str.substring(1, str.length()));
@@ -989,20 +973,18 @@ public class RewardManager {
 				if (mob instanceof Shulker)
 					return plugin.getConfigManager().shulkerCommands;
 
-			if (Misc.isMC18OrNewer())
-				if (mob instanceof Guardian && ((Guardian) mob).isElder())
-					return plugin.getConfigManager().elderGuardianCommands;
-				else if (mob instanceof Guardian)
-					return plugin.getConfigManager().guardianCommands;
-				else if (mob instanceof Endermite)
-					return plugin.getConfigManager().endermiteCommands;
-				else if (mob instanceof Rabbit)
-					if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
-						return plugin.getConfigManager().killerRabbitCommands;
-					else
-						return plugin.getConfigManager().rabbitCommands;
-
-			if (mob instanceof Player)
+			if (mob instanceof Guardian && ((Guardian) mob).isElder())
+				return plugin.getConfigManager().elderGuardianCommands;
+			else if (mob instanceof Guardian)
+				return plugin.getConfigManager().guardianCommands;
+			else if (mob instanceof Endermite)
+				return plugin.getConfigManager().endermiteCommands;
+			else if (mob instanceof Rabbit)
+				if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
+					return plugin.getConfigManager().killerRabbitCommands;
+				else
+					return plugin.getConfigManager().rabbitCommands;
+			else if (mob instanceof Player)
 				return plugin.getConfigManager().pvpCmdNew;
 			else if (mob instanceof Blaze)
 				return plugin.getConfigManager().blazeCommands;
@@ -1222,21 +1204,19 @@ public class RewardManager {
 				if (mob instanceof Shulker)
 					return plugin.getConfigManager().shulkerMessage;
 
-			if (Misc.isMC18OrNewer())
-				if (mob instanceof Guardian && ((Guardian) mob).isElder())
-					return plugin.getConfigManager().elderGuardianMessage;
-				else if (mob instanceof Guardian)
-					return plugin.getConfigManager().guardianMessge;
-				else if (mob instanceof Endermite)
-					return plugin.getConfigManager().endermiteMessage;
-				else if (mob instanceof Rabbit)
-					if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
-						return plugin.getConfigManager().killerRabbitMessage;
-					else
-						return plugin.getConfigManager().rabbitMessage;
-
-			// MC1.7 or older
-			if (mob instanceof Player)
+			// MC1.8 or older
+			if (mob instanceof Guardian && ((Guardian) mob).isElder())
+				return plugin.getConfigManager().elderGuardianMessage;
+			else if (mob instanceof Guardian)
+				return plugin.getConfigManager().guardianMessge;
+			else if (mob instanceof Endermite)
+				return plugin.getConfigManager().endermiteMessage;
+			else if (mob instanceof Rabbit)
+				if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
+					return plugin.getConfigManager().killerRabbitMessage;
+				else
+					return plugin.getConfigManager().rabbitMessage;
+			else if (mob instanceof Player)
 				return plugin.getConfigManager().pvpKillMessage;
 			else if (mob instanceof Blaze)
 				return plugin.getConfigManager().blazeMessage;
@@ -1447,23 +1427,21 @@ public class RewardManager {
 				if (mob instanceof Shulker)
 					return plugin.getConfigManager().shulkerMoneyChance;
 
-			if (Misc.isMC18OrNewer())
-				if (mob instanceof Guardian && ((Guardian) mob).isElder())
-					return plugin.getConfigManager().elderGuardianMoneyChance;
-				else if (mob instanceof Guardian)
-					return plugin.getConfigManager().guardianMoneyChance;
-				else if (mob instanceof Endermite)
-					return plugin.getConfigManager().endermiteMoneyChance;
-				else if (mob instanceof Rabbit)
-					if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
-						return plugin.getConfigManager().killerRabbitMoneyChance;
-					else
-						return plugin.getConfigManager().rabbitCmdRunChance;
-
-			// MC1.7 or older
-			if (mob instanceof Player) {
+			// MC1.8 or older
+			if (mob instanceof Guardian && ((Guardian) mob).isElder())
+				return plugin.getConfigManager().elderGuardianMoneyChance;
+			else if (mob instanceof Guardian)
+				return plugin.getConfigManager().guardianMoneyChance;
+			else if (mob instanceof Endermite)
+				return plugin.getConfigManager().endermiteMoneyChance;
+			else if (mob instanceof Rabbit)
+				if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
+					return plugin.getConfigManager().killerRabbitMoneyChance;
+				else
+					return plugin.getConfigManager().rabbitCmdRunChance;
+			else if (mob instanceof Player)
 				return plugin.getConfigManager().pvpCmdRunChance;
-			} else if (mob instanceof Blaze)
+			else if (mob instanceof Blaze)
 				return plugin.getConfigManager().blazeMoneyChance;
 			else if (mob instanceof Creeper)
 				return plugin.getConfigManager().creeperMoneyChance;
@@ -1677,23 +1655,21 @@ public class RewardManager {
 				if (mob instanceof Shulker)
 					return plugin.getConfigManager().shulkerMcMMOSkillRewardChance;
 
-			if (Misc.isMC18OrNewer())
-				if (mob instanceof Guardian && ((Guardian) mob).isElder())
-					return plugin.getConfigManager().elderGuardianMcMMOSkillRewardChance;
-				else if (mob instanceof Guardian)
-					return plugin.getConfigManager().guardianMcMMOSkillRewardChance;
-				else if (mob instanceof Endermite)
-					return plugin.getConfigManager().endermiteMcMMOSkillRewardChance;
-				else if (mob instanceof Rabbit)
-					if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
-						return plugin.getConfigManager().killerRabbitMcMMOSkillRewardChance;
-					else
-						return plugin.getConfigManager().rabbitMcMMOSkillRewardChance;
-
-			// MC1.7 or older
-			if (mob instanceof Player) {
+			// MC1.8 or older
+			if (mob instanceof Guardian && ((Guardian) mob).isElder())
+				return plugin.getConfigManager().elderGuardianMcMMOSkillRewardChance;
+			else if (mob instanceof Guardian)
+				return plugin.getConfigManager().guardianMcMMOSkillRewardChance;
+			else if (mob instanceof Endermite)
+				return plugin.getConfigManager().endermiteMcMMOSkillRewardChance;
+			else if (mob instanceof Rabbit)
+				if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
+					return plugin.getConfigManager().killerRabbitMcMMOSkillRewardChance;
+				else
+					return plugin.getConfigManager().rabbitMcMMOSkillRewardChance;
+			else if (mob instanceof Player)
 				return plugin.getConfigManager().pvpPlayerMcMMOSkillRewardChance;
-			} else if (mob instanceof Blaze)
+			else if (mob instanceof Blaze)
 				return plugin.getConfigManager().blazeMcMMOSkillRewardChance;
 			else if (mob instanceof Creeper)
 				return plugin.getConfigManager().creeperMcMMOSkillRewardChance;
@@ -1776,13 +1752,13 @@ public class RewardManager {
 		if (str == null || str.equals("") || str.isEmpty()) {
 			Bukkit.getServer().getConsoleSender()
 					.sendMessage(ChatColor.RED + "[MobHunting] [WARNING]" + ChatColor.RESET
-							+ " The McMMO XP for killing a " + ExtendedMobManager.getMobName(mob)
+							+ " The McMMO XP for killing a " + mob.getName()
 							+ " is not set in config.yml. Please set the McMMO XP to 0 or a positive number.");
 			return 0;
 		} else if (str.startsWith(":")) {
 			Bukkit.getServer().getConsoleSender()
 					.sendMessage(ChatColor.RED + "[MobHunting] [WARNING]" + ChatColor.RESET
-							+ " The McMMO XP for killing a " + ExtendedMobManager.getMobName(mob)
+							+ " The McMMO XP for killing a " + mob.getName()
 							+ " in config.yml has a wrong format. The prize can't start with \":\"");
 			if (str.length() > 1)
 				return getMcMMOXP(mob, str.substring(1, str.length()));
@@ -1931,23 +1907,21 @@ public class RewardManager {
 				if (mob instanceof Shulker)
 					return getMcMMOXP(mob, plugin.getConfigManager().shulkerMcMMOSkillRewardAmount);
 
-			if (Misc.isMC18OrNewer())
-				if (mob instanceof Guardian && ((Guardian) mob).isElder())
-					return getMcMMOXP(mob, plugin.getConfigManager().elderGuardianMcMMOSkillRewardAmount);
-				else if (mob instanceof Guardian)
-					return getMcMMOXP(mob, plugin.getConfigManager().guardianMcMMOSkillRewardAmount);
-				else if (mob instanceof Endermite)
-					return getMcMMOXP(mob, plugin.getConfigManager().endermiteMcMMOSkillRewardAmount);
-				else if (mob instanceof Rabbit)
-					if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
-						return getMcMMOXP(mob, plugin.getConfigManager().killerRabbitMcMMOSkillRewardAmount);
-					else
-						return getMcMMOXP(mob, plugin.getConfigManager().rabbitMcMMOSkillRewardAmount);
-
-			// MC1.7 or older
-			if (mob instanceof Player) {
+			// MC1.8 or older
+			if (mob instanceof Guardian && ((Guardian) mob).isElder())
+				return getMcMMOXP(mob, plugin.getConfigManager().elderGuardianMcMMOSkillRewardAmount);
+			else if (mob instanceof Guardian)
+				return getMcMMOXP(mob, plugin.getConfigManager().guardianMcMMOSkillRewardAmount);
+			else if (mob instanceof Endermite)
+				return getMcMMOXP(mob, plugin.getConfigManager().endermiteMcMMOSkillRewardAmount);
+			else if (mob instanceof Rabbit)
+				if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
+					return getMcMMOXP(mob, plugin.getConfigManager().killerRabbitMcMMOSkillRewardAmount);
+				else
+					return getMcMMOXP(mob, plugin.getConfigManager().rabbitMcMMOSkillRewardAmount);
+			else if (mob instanceof Player)
 				return getMcMMOXP(mob, plugin.getConfigManager().pvpPlayerMcMMOSkillRewardAmount);
-			} else if (mob instanceof Blaze)
+			else if (mob instanceof Blaze)
 				return getMcMMOXP(mob, plugin.getConfigManager().blazeMcMMOSkillRewardAmount);
 			else if (mob instanceof Creeper)
 				return getMcMMOXP(mob, plugin.getConfigManager().creeperMcMMOSkillRewardAmount);
@@ -2155,23 +2129,21 @@ public class RewardManager {
 				if (mob instanceof Shulker)
 					return plugin.getConfigManager().shulkerEnabled;
 
-			if (Misc.isMC18OrNewer())
-				if (mob instanceof Guardian && ((Guardian) mob).isElder())
-					return plugin.getConfigManager().elderGuardianEnabled;
-				else if (mob instanceof Guardian)
-					return plugin.getConfigManager().guardianEnabled;
-				else if (mob instanceof Endermite)
-					return plugin.getConfigManager().endermiteEnabled;
-				else if (mob instanceof Rabbit)
-					if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
-						return plugin.getConfigManager().killerRabbitEnabled;
-					else
-						return plugin.getConfigManager().rabbitEnabled;
-
-			// MC1.7 or older
-			if (mob instanceof Player) {
+			// MC1.8 or older
+			if (mob instanceof Guardian && ((Guardian) mob).isElder())
+				return plugin.getConfigManager().elderGuardianEnabled;
+			else if (mob instanceof Guardian)
+				return plugin.getConfigManager().guardianEnabled;
+			else if (mob instanceof Endermite)
+				return plugin.getConfigManager().endermiteEnabled;
+			else if (mob instanceof Rabbit)
+				if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
+					return plugin.getConfigManager().killerRabbitEnabled;
+				else
+					return plugin.getConfigManager().rabbitEnabled;
+			else if (mob instanceof Player)
 				return plugin.getConfigManager().pvpAllowed;
-			} else if (mob instanceof Blaze)
+			else if (mob instanceof Blaze)
 				return plugin.getConfigManager().blazeEnabled;
 			else if (mob instanceof Creeper)
 				return plugin.getConfigManager().creeperEnabled;
@@ -2391,21 +2363,19 @@ public class RewardManager {
 				if (mob instanceof Shulker)
 					return plugin.getConfigManager().shulkerHeadDropHead;
 
-			if (Misc.isMC18OrNewer())
-				if (mob instanceof Guardian && ((Guardian) mob).isElder())
-					return plugin.getConfigManager().elderGuardianHeadDropHead;
-				else if (mob instanceof Guardian)
-					return plugin.getConfigManager().guardianHeadDropHead;
-				else if (mob instanceof Endermite)
-					return plugin.getConfigManager().endermiteHeadDropHead;
-				else if (mob instanceof Rabbit)
-					if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
-						return plugin.getConfigManager().killerRabbitHeadDropHead;
-					else
-						return plugin.getConfigManager().rabbitHeadDropHead;
-
-			// MC1.7 or older
-			if (mob instanceof Player) {
+			// MC1.8 or older
+			if (mob instanceof Guardian && ((Guardian) mob).isElder())
+				return plugin.getConfigManager().elderGuardianHeadDropHead;
+			else if (mob instanceof Guardian)
+				return plugin.getConfigManager().guardianHeadDropHead;
+			else if (mob instanceof Endermite)
+				return plugin.getConfigManager().endermiteHeadDropHead;
+			else if (mob instanceof Rabbit)
+				if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
+					return plugin.getConfigManager().killerRabbitHeadDropHead;
+				else
+					return plugin.getConfigManager().rabbitHeadDropHead;
+			else if (mob instanceof Player) {
 				return plugin.getConfigManager().pvpHeadDropHead;
 			} else if (mob instanceof Blaze)
 				return plugin.getConfigManager().blazeHeadDropHead;
@@ -2629,23 +2599,21 @@ public class RewardManager {
 				if (mob instanceof Shulker)
 					return plugin.getConfigManager().shulkerHeadDropChance;
 
-			if (Misc.isMC18OrNewer())
-				if (mob instanceof Guardian && ((Guardian) mob).isElder())
-					return plugin.getConfigManager().elderGuardianHeadDropChance;
-				else if (mob instanceof Guardian)
-					return plugin.getConfigManager().guardianHeadDropChance;
-				else if (mob instanceof Endermite)
-					return plugin.getConfigManager().endermiteHeadDropChance;
-				else if (mob instanceof Rabbit)
-					if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
-						return plugin.getConfigManager().killerRabbitHeadDropChance;
-					else
-						return plugin.getConfigManager().rabbitHeadDropChance;
-
-			// MC1.7 or older
-			if (mob instanceof Player) {
+			// MC1.8 or older
+			if (mob instanceof Guardian && ((Guardian) mob).isElder())
+				return plugin.getConfigManager().elderGuardianHeadDropChance;
+			else if (mob instanceof Guardian)
+				return plugin.getConfigManager().guardianHeadDropChance;
+			else if (mob instanceof Endermite)
+				return plugin.getConfigManager().endermiteHeadDropChance;
+			else if (mob instanceof Rabbit)
+				if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
+					return plugin.getConfigManager().killerRabbitHeadDropChance;
+				else
+					return plugin.getConfigManager().rabbitHeadDropChance;
+			else if (mob instanceof Player)
 				return plugin.getConfigManager().pvpHeadDropChance;
-			} else if (mob instanceof Blaze)
+			else if (mob instanceof Blaze)
 				return plugin.getConfigManager().blazeHeadDropChance;
 			else if (mob instanceof Creeper)
 				return plugin.getConfigManager().creeperHeadDropChance;
@@ -2867,23 +2835,21 @@ public class RewardManager {
 				if (mob instanceof Shulker)
 					return plugin.getConfigManager().shulkerHeadMessage;
 
-			if (Misc.isMC18OrNewer())
-				if (mob instanceof Guardian && ((Guardian) mob).isElder())
-					return plugin.getConfigManager().elderGuardianHeadMessage;
-				else if (mob instanceof Guardian)
-					return plugin.getConfigManager().guardianHeadMessage;
-				else if (mob instanceof Endermite)
-					return plugin.getConfigManager().endermiteHeadMessage;
-				else if (mob instanceof Rabbit)
-					if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
-						return plugin.getConfigManager().killerRabbitHeadMessage;
-					else
-						return plugin.getConfigManager().rabbitHeadMessage;
-
-			// MC1.7 or older
-			if (mob instanceof Player) {
+			// MC1.8 or older
+			if (mob instanceof Guardian && ((Guardian) mob).isElder())
+				return plugin.getConfigManager().elderGuardianHeadMessage;
+			else if (mob instanceof Guardian)
+				return plugin.getConfigManager().guardianHeadMessage;
+			else if (mob instanceof Endermite)
+				return plugin.getConfigManager().endermiteHeadMessage;
+			else if (mob instanceof Rabbit)
+				if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
+					return plugin.getConfigManager().killerRabbitHeadMessage;
+				else
+					return plugin.getConfigManager().rabbitHeadMessage;
+			else if (mob instanceof Player)
 				return plugin.getConfigManager().pvpHeadMessage;
-			} else if (mob instanceof Blaze)
+			else if (mob instanceof Blaze)
 				return plugin.getConfigManager().blazeHeadMessage;
 			else if (mob instanceof Creeper)
 				return plugin.getConfigManager().creeperHeadMessage;
@@ -3105,23 +3071,21 @@ public class RewardManager {
 				if (mob instanceof Shulker)
 					return getPrice(mob, plugin.getConfigManager().shulkerHeadPrize);
 
-			if (Misc.isMC18OrNewer())
-				if (mob instanceof Guardian && ((Guardian) mob).isElder())
-					return getPrice(mob, plugin.getConfigManager().elderGuardianHeadPrize);
-				else if (mob instanceof Guardian)
-					return getPrice(mob, plugin.getConfigManager().guardianHeadPrize);
-				else if (mob instanceof Endermite)
-					return getPrice(mob, plugin.getConfigManager().endermiteHeadPrize);
-				else if (mob instanceof Rabbit)
-					if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
-						return getPrice(mob, plugin.getConfigManager().killerRabbitHeadPrize);
-					else
-						return getPrice(mob, plugin.getConfigManager().rabbitHeadPrize);
-
-			// MC1.7 or older
-			if (mob instanceof Player) {
+			// MC1.8 or older
+			if (mob instanceof Guardian && ((Guardian) mob).isElder())
+				return getPrice(mob, plugin.getConfigManager().elderGuardianHeadPrize);
+			else if (mob instanceof Guardian)
+				return getPrice(mob, plugin.getConfigManager().guardianHeadPrize);
+			else if (mob instanceof Endermite)
+				return getPrice(mob, plugin.getConfigManager().endermiteHeadPrize);
+			else if (mob instanceof Rabbit)
+				if ((((Rabbit) mob).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY)
+					return getPrice(mob, plugin.getConfigManager().killerRabbitHeadPrize);
+				else
+					return getPrice(mob, plugin.getConfigManager().rabbitHeadPrize);
+			else if (mob instanceof Player)
 				return getPrice(mob, plugin.getConfigManager().pvpHeadPrize);
-			} else if (mob instanceof Blaze)
+			else if (mob instanceof Blaze)
 				return getPrice(mob, plugin.getConfigManager().blazeHeadPrize);
 			else if (mob instanceof Creeper)
 				return getPrice(mob, plugin.getConfigManager().creeperHeadPrize);

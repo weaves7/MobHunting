@@ -45,11 +45,9 @@ public class IDisguiseCompat implements Listener {
 		if (Misc.isMC19OrNewer()) {
 			aggresiveList[n++] = DisguiseType.SHULKER;
 		}
-		if (Misc.isMC18OrNewer()) {
-			aggresiveList[n++] = DisguiseType.GUARDIAN;
-			aggresiveList[n++] = DisguiseType.ENDERMITE;
-			aggresiveList[n++] = DisguiseType.ELDER_GUARDIAN;
-		}
+		aggresiveList[n++] = DisguiseType.GUARDIAN;
+		aggresiveList[n++] = DisguiseType.ENDERMITE;
+		aggresiveList[n++] = DisguiseType.ELDER_GUARDIAN;
 		aggresiveList[n++] = DisguiseType.BLAZE;
 		aggresiveList[n++] = DisguiseType.CAVE_SPIDER;
 		aggresiveList[n++] = DisguiseType.CREEPER;

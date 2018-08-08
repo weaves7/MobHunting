@@ -5,7 +5,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
 
 import one.lindegaard.MobHunting.MobHunting;
-import one.lindegaard.MobHunting.util.Misc;
 
 public class ProtocolLibCompat {
 
@@ -20,7 +19,7 @@ public class ProtocolLibCompat {
 					+ "Compatibility with ProtocolLib is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.ProtocolLib.getName());
-			if (mPlugin.getDescription().getVersion().compareTo("4.1.0") < 0 && Misc.isMC18OrNewer()) {
+			if (mPlugin.getDescription().getVersion().compareTo("4.1.0") < 0) {
 				Bukkit.getServer().getConsoleSender()
 						.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RED
 								+ "Your current version of ProtocolLib (" + mPlugin.getDescription().getVersion()

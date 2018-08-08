@@ -802,18 +802,14 @@ public enum MinecraftMob {
 			if (this == Shulker)
 				return entity instanceof org.bukkit.entity.Shulker;
 
-		if (Misc.isMC18OrNewer())
-			if (this == KillerRabbit)
-				return entity instanceof Rabbit && (((Rabbit) entity).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY;
-			else if (this == PassiveRabbit)
-				return entity instanceof Rabbit && (((Rabbit) entity).getRabbitType()) != Rabbit.Type.THE_KILLER_BUNNY;
-			else if (this == ElderGuardian) {
-				return (entity instanceof org.bukkit.entity.Guardian)
-						&& (((org.bukkit.entity.Guardian) entity).isElder());
-			}
-
-		// MC 1.7.10 and older entities
-		if (this == WitherSkeleton)
+		// MC 1.8 and older entities
+		if (this == KillerRabbit)
+			return entity instanceof Rabbit && (((Rabbit) entity).getRabbitType()) == Rabbit.Type.THE_KILLER_BUNNY;
+		else if (this == PassiveRabbit)
+			return entity instanceof Rabbit && (((Rabbit) entity).getRabbitType()) != Rabbit.Type.THE_KILLER_BUNNY;
+		else if (this == ElderGuardian) {
+			return (entity instanceof org.bukkit.entity.Guardian) && (((org.bukkit.entity.Guardian) entity).isElder());
+		} else if (this == WitherSkeleton)
 			return entity instanceof Skeleton && ((Skeleton) entity).getSkeletonType() == SkeletonType.WITHER;
 		else if (this == Skeleton)
 			return entity instanceof Skeleton && ((Skeleton) entity).getSkeletonType() == SkeletonType.NORMAL;

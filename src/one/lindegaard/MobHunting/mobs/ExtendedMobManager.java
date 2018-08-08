@@ -211,12 +211,9 @@ public class ExtendedMobManager {
 		return mobs.get(mob_id);
 	}
 
-	public static String getMobName(Entity mob) {
-		if (Misc.isMC18OrNewer())
-			return mob.getName();
-		else
-			return mob.getType().toString();
-	}
+	//public static String getMobName(Entity mob) {
+	//		return mob.getName();
+	//}
 
 	public String getTranslatedName() {
 		return "";
