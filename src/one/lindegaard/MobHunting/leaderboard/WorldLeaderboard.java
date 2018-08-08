@@ -123,14 +123,14 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 			if (!block.isEmpty()) {
 				switch (block.getType()) {
 				case SNOW:
-					// TODO ???
-				//case LONG_GRASS:
-				case LEGACY_LONG_GRASS:
 				case FIRE:
 				case VINE:
 				case DEAD_BUSH:
-				//case DOUBLE_PLANT:
+				case GRASS:
+				case CHORUS_PLANT:
+				case KELP_PLANT:
 				case LEGACY_DOUBLE_PLANT:
+				case LEGACY_LONG_GRASS:
 					continue;
 				default:
 					break;
@@ -177,9 +177,8 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 			}
 			plugin.getDataStoreManager().requestStats(getStatType(), getPeriod(), mWidth * mHeight * 2, this);
 		} else {
-			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD
-					+ "[MobHunting]"+ChatColor.RED+"[WARNING] The leaderboard at "
-					+ mLocation.toString() + " has no StatType");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting]" + ChatColor.RED
+					+ "[WARNING] The leaderboard at " + mLocation.toString() + " has no StatType");
 		}
 	}
 
@@ -266,13 +265,7 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 							name1 = name1.substring(0, 12).trim();
 					sign.setLine(0, ChatColor.GREEN + String.valueOf(place) + " " + ChatColor.BLACK + name1);
 					if (getStatType().getDBColumn().endsWith("_cash"))
-						sign.setLine(1, ChatColor.BLUE
-								+ plugin.
-								getRewardManager().
-								format(
-										Misc.round(
-												stat1.
-												getCash())));
+						sign.setLine(1, ChatColor.BLUE + plugin.getRewardManager().format(Misc.round(stat1.getCash())));
 					else
 						sign.setLine(1, ChatColor.BLUE + String.valueOf(stat1.getAmount()));
 				} else {
@@ -291,8 +284,7 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 							name2 = name2.substring(0, 12).trim();
 					sign.setLine(2, ChatColor.GREEN + String.valueOf(place + 1) + " " + ChatColor.BLACK + name2);
 					if (getStatType().getDBColumn().endsWith("_cash"))
-						sign.setLine(3, ChatColor.BLUE
-								+ plugin.getRewardManager().format(Misc.round(stat2.getCash())));
+						sign.setLine(3, ChatColor.BLUE + plugin.getRewardManager().format(Misc.round(stat2.getCash())));
 					else
 						sign.setLine(3, ChatColor.BLUE + String.valueOf(stat2.getAmount()));
 				} else {
@@ -504,19 +496,22 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 			throw new InvalidConfigurationException(
 					"[MobHunting] Error on Leaderboard " + section.getName() + ":Error in stat type list");
 		if (pos == null)
-			throw new InvalidConfigurationException("[MobHunting] Error on Leaderboard " + section.getName() + ":Error in position");
+			throw new InvalidConfigurationException(
+					"[MobHunting] Error on Leaderboard " + section.getName() + ":Error in position");
 
 		if (mWidth < 1)
-			throw new InvalidConfigurationException("[MobHunting] Error on Leaderboard " + section.getName() + ":Invalid width");
+			throw new InvalidConfigurationException(
+					"[MobHunting] Error on Leaderboard " + section.getName() + ":Invalid width");
 		if (mHeight < 1)
-			throw new InvalidConfigurationException("[MobHunting] Error on Leaderboard " + section.getName() + ":Invalid height");
+			throw new InvalidConfigurationException(
+					"[MobHunting] Error on Leaderboard " + section.getName() + ":Invalid height");
 
 		mPeriod = new TimePeriod[periods.size()];
 		for (int i = 0; i < periods.size(); ++i) {
 			mPeriod[i] = TimePeriod.valueOf(periods.get(i));
 			if (mPeriod[i] == null)
-				throw new InvalidConfigurationException(
-						"[MobHunting] Error on Leaderboard " + section.getName() + ":Invalid time period " + periods.get(i));
+				throw new InvalidConfigurationException("[MobHunting] Error on Leaderboard " + section.getName()
+						+ ":Invalid time period " + periods.get(i));
 		}
 
 		mPeriodIndex = 0;
@@ -524,44 +519,45 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 		mLocation = pos.toLocation(world);
 		mType = new StatType[stats.size()];
 		for (int i = 0; i < stats.size(); ++i) {
-			
+
+			// convert fish names to new fish names
 			String type = stats.get(i);
 			switch (type) {
 			case "RawFish_kill":
-				type="Cod_kill";
+				type = "Cod_kill";
 				break;
 			case "RawFish_assist":
-				type="Cod_assist";
+				type = "Cod_assist";
 				break;
 			case "RawFish_cash":
-				type="Cod_cash";
+				type = "Cod_cash";
 				break;
-			
+
 			case "RawSalmon_kill":
-				type="Salmon_kill";
+				type = "Salmon_kill";
 				break;
 			case "RawSalmon_assist":
-				type="Salmon_assist";
+				type = "Salmon_assist";
 				break;
 			case "RawSalmon_cash":
-				type="Salmon_cash";
+				type = "Salmon_cash";
 				break;
-			
+
 			case "Clownfish_kill":
-				type="TropicalFish_kill";
+				type = "TropicalFish_kill";
 				break;
 			case "Clownfish_assist":
-				type="TropicalFish_assist";
+				type = "TropicalFish_assist";
 				break;
 			case "Clownfish_cash":
-				type="TropicalFish_cash";
+				type = "TropicalFish_cash";
 				break;
 			}
-			
+
 			mType[i] = StatType.fromColumnName(type);
 			if (mType[i] == null)
-				throw new InvalidConfigurationException(
-						"[MobHunting] Error on Leaderboard " + section.getName() + ":Invalid stat type " + stats.get(i));
+				throw new InvalidConfigurationException("[MobHunting] Error on Leaderboard " + section.getName()
+						+ ":Invalid stat type " + stats.get(i));
 		}
 
 		if (!Misc.isSign(mLocation.getBlock())) {

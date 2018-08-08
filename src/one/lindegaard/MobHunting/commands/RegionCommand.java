@@ -9,7 +9,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.sk89q.worldguard.bukkit.RegionQuery;
+import com.sk89q.worldguard.LocalPlayer;
+import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
@@ -83,9 +84,10 @@ public class RegionCommand implements ICommand {
 			if (args.length == 1) {
 				if (sender instanceof Player) {
 
-					RegionManager regionManager = WorldGuardCompat.getWorldGuardPlugin()
-							.getRegionManager(((Player) sender).getWorld());
-					ApplicableRegionSet set = regionManager.getApplicableRegions(((Player) sender).getLocation());
+					LocalPlayer localPlayer = WorldGuardCompat.getWorldGuardPlugin().wrapPlayer((Player)sender);
+					RegionManager regionManager = WorldGuard.getInstance().getPlatform().getRegionContainer().get(localPlayer.getWorld());
+					//ApplicableRegionSet set = regionManager.getApplicableRegions(((Player) sender).getLocation());
+					ApplicableRegionSet set = regionManager.getApplicableRegions(localPlayer.getCardinalDirection().vector());
 					if (set.size() > 0) {
 						// player is in one or more regions, show regions on
 						// this loction
@@ -97,8 +99,8 @@ public class RegionCommand implements ICommand {
 					} else {
 						// Player is not in a region, show all regions in
 						// world.
-						RegionManager rm = WorldGuardCompat.getWorldGuardPlugin().getRegionContainer().get(((Player) sender).getWorld());
-						Iterator<Entry<String, ProtectedRegion>> i = rm.getRegions().entrySet().iterator();
+						//RegionManager rm = WorldGuardCompat.getWorldGuardPlugin().getRegionContainer().get(((Player) sender).getWorld());
+						Iterator<Entry<String, ProtectedRegion>> i = regionManager.getRegions().entrySet().iterator();
 						while (i.hasNext()) {
 							ProtectedRegion pr = i.next().getValue();
 							items.add(pr.getId());
@@ -131,8 +133,9 @@ public class RegionCommand implements ICommand {
 
 		if (plugin.getCompatibilityManager().isPluginLoaded(WorldGuardCompat.class)) {
 			if (sender instanceof Player) {
-				RegionQuery query = WorldGuardCompat.getWorldGuardPlugin().getRegionContainer().createQuery();
-				ApplicableRegionSet set = query.getApplicableRegions(((Player) sender).getLocation());
+				LocalPlayer localPlayer = WorldGuardCompat.getWorldGuardPlugin().wrapPlayer((Player)sender);
+				RegionManager regionManager = WorldGuard.getInstance().getPlatform().getRegionContainer().get(localPlayer.getWorld());
+				ApplicableRegionSet set = regionManager.getApplicableRegions(localPlayer.getCardinalDirection().vector());
 				if (set.size() == 1) {
 					// player is standing on a location with single region
 					ProtectedRegion region = set.getRegions().iterator().next();
@@ -200,8 +203,7 @@ public class RegionCommand implements ICommand {
 						}
 					} else if (args.length >= 3) {
 						if (args[1].equalsIgnoreCase("mobhunting")) {
-							RegionManager rm = WorldGuardCompat.getWorldGuardPlugin().getRegionContainer().get(((Player) sender).getWorld());
-							Iterator<Entry<String, ProtectedRegion>> i = rm.getRegions().entrySet().iterator();
+							Iterator<Entry<String, ProtectedRegion>> i = regionManager.getRegions().entrySet().iterator();
 							while (i.hasNext()) {
 								ProtectedRegion region = i.next().getValue();
 								if (region.getId().equalsIgnoreCase(args[0])) {

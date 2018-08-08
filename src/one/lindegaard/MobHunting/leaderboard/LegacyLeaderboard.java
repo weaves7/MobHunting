@@ -15,7 +15,6 @@ import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.util.BlockVector;
 
-import net.sf.antcontrib.logic.Switch.Case;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.StatType;
 import one.lindegaard.MobHunting.storage.IDataCallback;
@@ -106,8 +105,7 @@ public class LegacyLeaderboard implements IDataCallback<List<StatStore>> {
 				for (int z = mMinCorner.getBlockZ(); z <= mMaxCorner
 						.getBlockZ(); ++z) {
 					Block block = mWorld.getBlockAt(x, y, z);
-					//TODO: signs????
-					if (block.getType() == Material.WALL_SIGN||block.getType() == Material.LEGACY_WALL_SIGN)
+					if (block.getType() == Material.WALL_SIGN)
 						++count;
 				}
 			}

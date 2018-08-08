@@ -432,11 +432,18 @@
 		</dependency>
 
 		<!-- WorldEdit -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.sk89q.worldedit</groupId>
 			<artifactId>worldedit-bukkit</artifactId>
 			<version>${worldedit.version}</version>
 			<scope>provided</scope>
+		</dependency> -->
+		<dependency> 
+			<groupId>com.sk89q.worldedit</groupId>
+			<artifactId>worldedit-bukkit</artifactId>
+			<version>7.0.0-SNAPSHOT;3815-5f4cc3e</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/worldedit-bukkit-7.0.0-SNAPSHOT-dist-B3815.jar</systemPath>
 		</dependency>
 
 		<!-- ProtocolLib -->
@@ -465,19 +472,19 @@
 		</dependency>
 
 		<!-- Worldguard -->
-		<dependency> 
+		<!-- <dependency> 
 			<groupId>com.sk89q.worldguard</groupId>
 			<artifactId>worldguard-legacy</artifactId>
 			<version>${worldguard.version}</version>
 			<scope>provided</scope>
-		</dependency>
-		<!-- <dependency> 
+		</dependency> -->
+		<dependency> 
 			<groupId>com.sk89q.worldguard</groupId>
 			<artifactId>worldguard-legacy</artifactId>
-			<version>7.0.0-SNAPSHOT;1721-27810d8</version>
+			<version>7.0.0-SNAPSHOT;1733-8161fd0</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/worldguard-legacy-7.0.0-SNAPSHOT-dist-B1721.jar</systemPath>
-		</dependency> -->
+			<systemPath>${project.basedir}/lib/worldguard-legacy-7.0.0-SNAPSHOT-dist-B1733.jar</systemPath>
+		</dependency>
 
 		
 		<dependency>

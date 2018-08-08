@@ -13,8 +13,7 @@ import one.lindegaard.MobHunting.compatibility.WorldEditCompat;
 public class SelectionHelper {
 	private static WeakHashMap<Player, Entry<Location, Location>> mPoints = new WeakHashMap<Player, Entry<Location, Location>>();
 
-	public static Location getPointA(Player player)
-			throws IllegalArgumentException {
+	public static Location getPointA(Player player) throws IllegalArgumentException {
 		if (needsCommands()) {
 			Entry<Location, Location> existing = mPoints.get(player);
 			if (existing == null || existing.getKey() == null)
@@ -27,24 +26,25 @@ public class SelectionHelper {
 
 			return existing.getKey();
 		} else
-			return WorldEditCompat.getPointA(player);
+			return new Location(player.getWorld(), WorldEditCompat.getPointA(player).getX(),
+					WorldEditCompat.getPointA(player).getY(), WorldEditCompat.getPointA(player).getZ());
 	}
 
-	public static Location getPointB(Player player)
-			throws IllegalArgumentException {
+	public static Location getPointB(Player player) throws IllegalArgumentException {
 		if (needsCommands()) {
 			Entry<Location, Location> existing = mPoints.get(player);
 			if (existing == null || existing.getValue() == null)
 				throw new IllegalArgumentException(
-						MobHunting.getInstance().getMessages().getString("mobhunting.commands.select.point2-unset")); //$NON-NLS-1$
+						MobHunting.getInstance().getMessages().getString("mobhunting.commands.select.point2-unset"));
 
 			if (!existing.getValue().getWorld().equals(player.getWorld()))
 				throw new IllegalArgumentException(
-						MobHunting.getInstance().getMessages().getString("mobhunting.commands.select.point2-unset")); //$NON-NLS-1$
+						MobHunting.getInstance().getMessages().getString("mobhunting.commands.select.point2-unset"));
 
 			return existing.getValue();
 		} else
-			return WorldEditCompat.getPointB(player);
+			return new Location(player.getWorld(), WorldEditCompat.getPointB(player).getX(),
+					WorldEditCompat.getPointB(player).getY(), WorldEditCompat.getPointB(player).getZ());
 	}
 
 	public static boolean needsCommands() {
@@ -54,40 +54,24 @@ public class SelectionHelper {
 	public static void setPointA(Player player, Location location) {
 		Entry<Location, Location> existing = mPoints.get(player);
 		if (existing == null)
-			mPoints.put(player,
-					new AbstractMap.SimpleEntry<Location, Location>(location,
-							null));
+			mPoints.put(player, new AbstractMap.SimpleEntry<Location, Location>(location, null));
 		else {
-			if (existing.getValue() != null
-					&& !existing.getValue().getWorld()
-							.equals(location.getWorld()))
-				mPoints.put(player,
-						new AbstractMap.SimpleEntry<Location, Location>(
-								location, null));
+			if (existing.getValue() != null && !existing.getValue().getWorld().equals(location.getWorld()))
+				mPoints.put(player, new AbstractMap.SimpleEntry<Location, Location>(location, null));
 			else
-				mPoints.put(player,
-						new AbstractMap.SimpleEntry<Location, Location>(
-								location, existing.getValue()));
+				mPoints.put(player, new AbstractMap.SimpleEntry<Location, Location>(location, existing.getValue()));
 		}
 	}
 
 	public static void setPointB(Player player, Location location) {
 		Entry<Location, Location> existing = mPoints.get(player);
 		if (existing == null)
-			mPoints.put(player,
-					new AbstractMap.SimpleEntry<Location, Location>(null,
-							location));
+			mPoints.put(player, new AbstractMap.SimpleEntry<Location, Location>(null, location));
 		else {
-			if (existing.getKey() != null
-					&& !existing.getKey().getWorld()
-							.equals(location.getWorld()))
-				mPoints.put(player,
-						new AbstractMap.SimpleEntry<Location, Location>(null,
-								location));
+			if (existing.getKey() != null && !existing.getKey().getWorld().equals(location.getWorld()))
+				mPoints.put(player, new AbstractMap.SimpleEntry<Location, Location>(null, location));
 			else
-				mPoints.put(player,
-						new AbstractMap.SimpleEntry<Location, Location>(
-								existing.getKey(), location));
+				mPoints.put(player, new AbstractMap.SimpleEntry<Location, Location>(existing.getKey(), location));
 		}
 	}
 }

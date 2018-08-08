@@ -3486,7 +3486,7 @@ public class ConfigManager extends AutoConfig {
 			+ "\nhttps://www.spigotmc.org/resources/minigameslib.23844/")
 	public boolean enableIntegrationMinigamesLib = true;
 
-	@ConfigField(name = "worldguard.enable_integration_worldguard_temp_disabled", category = "plugins", comment = "Enable/Disable integration with WorldGuard")
+	@ConfigField(name = "worldguard.enable_integration_worldguard", category = "plugins", comment = "Enable/Disable integration with WorldGuard")
 	public boolean enableIntegrationWorldGuard = true;
 
 	@ConfigField(name = "essentials.enable_integration_essentials", category = "plugins", comment = "Enable/Disable integration with Essentials"

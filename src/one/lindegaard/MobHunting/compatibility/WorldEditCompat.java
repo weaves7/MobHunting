@@ -2,12 +2,13 @@ package one.lindegaard.MobHunting.compatibility;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import com.sk89q.worldedit.IncompleteRegionException;
+import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
-import com.sk89q.worldedit.bukkit.selections.Selection;
+import com.sk89q.worldedit.regions.Region;
 
 import one.lindegaard.MobHunting.MobHunting;
 
@@ -17,42 +18,66 @@ public class WorldEditCompat {
 
 	public WorldEditCompat() {
 		mPlugin = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin(CompatPlugin.WorldEdit.getName());
-
-		Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
-				+ "Enabling compatibility with WorldEdit (" + getWorldEdit().getDescription().getVersion() + ")");
-		supported = true;
+		if (mPlugin.getDescription().getVersion().compareTo("7.0.0") >= 0) {
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Enabling compatibility with WorldEdit (" + mPlugin.getDescription().getVersion() + ")");
+			supported = true;
+		} else {
+			Bukkit.getConsoleSender()
+					.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RED
+							+ "Your current version of WorldEdit (" + mPlugin.getDescription().getVersion()
+							+ ") is not supported by MobHunting. Mobhunting does only support 7.0.0 and newer.");
+		}
 	}
 
 	public static WorldEditPlugin getWorldEdit() {
 		return mPlugin;
 	}
 
-	public static Location getPointA(Player player) throws IllegalArgumentException {
-		if (mPlugin == null)
+	public static Vector getPointA(Player player) throws IllegalArgumentException {
+		if (supported)
 			throw new IllegalArgumentException("WorldEdit is not present");
 
-		Selection sel = mPlugin.getSelection(player);
+		com.sk89q.worldedit.world.World wor = mPlugin.getSession(player).getSelectionWorld();
+		Region sel = null;
+		try {
+			sel = mPlugin.getSession(player).getSelection(wor);
+		} catch (IncompleteRegionException e) {
+			// TODO Auto-generated catch block
+			// e.printStackTrace();
+		}
 
 		if (sel == null)
-			throw new IllegalArgumentException(MobHunting.getInstance().getMessages().getString("mobhunting.commands.select.no-select"));
+			throw new IllegalArgumentException(
+					MobHunting.getInstance().getMessages().getString("mobhunting.commands.select.no-select"));
 
 		if (!(sel instanceof CuboidSelection))
-			throw new IllegalArgumentException(MobHunting.getInstance().getMessages().getString("mobhunting.commands.select.select-type"));
+			throw new IllegalArgumentException(
+					MobHunting.getInstance().getMessages().getString("mobhunting.commands.select.select-type"));
 
 		return sel.getMinimumPoint();
 	}
 
-	public static Location getPointB(Player player) throws IllegalArgumentException {
-		if (mPlugin == null)
+	public static Vector getPointB(Player player) throws IllegalArgumentException {
+		if (supported)
 			throw new IllegalArgumentException("WorldEdit is not present");
 
-		Selection sel = mPlugin.getSelection(player);
+		com.sk89q.worldedit.world.World wor = mPlugin.getSession(player).getSelectionWorld();
+		Region sel = null;
+		try {
+			sel = mPlugin.getSession(player).getSelection(wor);
+		} catch (IncompleteRegionException e) {
+			// TODO Auto-generated catch block
+			// e.printStackTrace();
+		}
 
 		if (sel == null)
-			throw new IllegalArgumentException(MobHunting.getInstance().getMessages().getString("mobhunting.commands.select.no-select"));
+			throw new IllegalArgumentException(
+					MobHunting.getInstance().getMessages().getString("mobhunting.commands.select.no-select"));
 
 		if (!(sel instanceof CuboidSelection))
-			throw new IllegalArgumentException(MobHunting.getInstance().getMessages().getString("mobhunting.commands.select.select-type"));
+			throw new IllegalArgumentException(
+					MobHunting.getInstance().getMessages().getString("mobhunting.commands.select.select-type"));
 
 		return sel.getMaximumPoint();
 	}

@@ -4,17 +4,14 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.Plugin;
 
 import com.sk89q.worldguard.LocalPlayer;
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.flags.Flag;
 import com.sk89q.worldguard.protection.flags.StateFlag;
@@ -23,7 +20,9 @@ import com.sk89q.worldguard.protection.flags.registry.FlagConflictException;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
-public class WorldGuardHelper implements Listener {
+import one.lindegaard.MobHunting.MobHunting;
+
+public class WorldGuardHelper {
 
 	private static final StateFlag MOBHUNTINGFLAG = new StateFlag("MobHunting", true);
 
@@ -90,31 +89,37 @@ public class WorldGuardHelper implements Listener {
 		else if (damager instanceof Player)
 			checkedPlayer = (Player) damager;
 		if (checkedPlayer != null) {
-			RegionManager regionManager = WorldGuardCompat.getWorldGuardPlugin()
-					.getRegionManager(checkedPlayer.getWorld());
+			LocalPlayer localPlayer = WorldGuardCompat.getWorldGuardPlugin().wrapPlayer(checkedPlayer);
+			RegionManager regionManager = WorldGuard.getInstance().getPlatform().getRegionContainer().get(localPlayer.getWorld());
 			if (regionManager != null) {
-				ApplicableRegionSet set = regionManager.getApplicableRegions(checkedPlayer.getLocation());
+				com.sk89q.worldedit.util.Location loc= localPlayer.getLocation();
+				ApplicableRegionSet set = regionManager.getApplicableRegions(loc.toVector());
+				MobHunting.getAPI().getMessages().debug("WorldGuardHelper: set.size()=%s",set.size());
 				if (set.size() > 0) {
-					LocalPlayer localPlayer = WorldGuardCompat.getWorldGuardPlugin().wrapPlayer(checkedPlayer);
 					State flag = set.queryState(localPlayer, stateFlag);
-					if (flag == null)
-						return defaultValue;
-					else if (flag.equals(State.ALLOW))
-						return true;
+					if (flag != null)
+						MobHunting.getAPI().getMessages().debug("WorldGuardHelper: flag=%s",flag.toString());
 					else
-						return false;
-				} else
-					return defaultValue;
-			}
+						MobHunting.getAPI().getMessages().debug("WorldGuardHelper: flag=null - return %s",defaultValue);
+					if (flag != null)
+						return flag.equals(State.ALLOW);
+				} 
+				return defaultValue;
+			} 
 		}
 		return defaultValue;
 	}
 
 	public static void registerFlag() {
-		Plugin wg = Bukkit.getPluginManager().getPlugin("WorldGuard");
+		//Plugin wg = Bukkit.getPluginManager().getPlugin("WorldGuard");
 		try {
 			// register MobHuting flag with the WorlsGuard Flag registry
-			((WorldGuardPlugin) wg).getFlagRegistry().register(WorldGuardHelper.getMobHuntingFlag());
+			
+			//wg7.x
+			WorldGuard.getInstance().getFlagRegistry().register(WorldGuardHelper.getMobHuntingFlag());
+			
+			 //wg6.x
+			//((WorldGuardPlugin) wg).getFlagRegistry().register(WorldGuardHelper.getMobHuntingFlag());
 		 } catch (FlagConflictException e) {
 
 			// some other plugin registered a flag by the same name already.

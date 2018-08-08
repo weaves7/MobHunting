@@ -100,21 +100,17 @@ public class FishingManager implements Listener {
 			}
 
 			if (fish == null || !(fish instanceof Item)
-					//TODO: Fish head????
-					//|| ((Item) fish).getItemStack().getType() != Material.RAW_FISH) {
-					|| ( ((Item) fish).getItemStack().getType() != Material.SALMON &&
-							((Item) fish).getItemStack().getType() != Material.PUFFERFISH &&
-							((Item) fish).getItemStack().getType() != Material.COD && 
-							((Item) fish).getItemStack().getType() != Material.TROPICAL_FISH )) {
+					|| (((Item) fish).getItemStack().getType() != Material.SALMON
+							&& ((Item) fish).getItemStack().getType() != Material.PUFFERFISH
+							&& ((Item) fish).getItemStack().getType() != Material.COD
+							&& ((Item) fish).getItemStack().getType() != Material.TROPICAL_FISH)) {
 				plugin.getMessages().debug("FishingBlocked: %s only get rewards for fish", player.getName());
-				
+
 				return;
 			}
 
 			Material material_under_hook = fish.getLocation().getBlock().getType();
-			//TODO: Stationary water??
-			//if (!(material_under_hook == Material.WATER || material_under_hook == Material.STATIONARY_WATER)) {
-			if (!(material_under_hook == Material.WATER || material_under_hook == Material.LEGACY_STATIONARY_WATER || material_under_hook == Material.LEGACY_WATER)) {
+			if (!(material_under_hook == Material.WATER)) {
 				plugin.getMessages().debug("FishingBlocked: %s was fishing on %s", player.getName(),
 						material_under_hook);
 				return;
@@ -239,12 +235,14 @@ public class FishingManager implements Listener {
 									+ plugin.getMessages().getString("mobhunting.fishcaught.reward.bonuses", "prize",
 											plugin.getRewardManager().format(cash), "bonuses", extraString.trim(),
 											"multipliers", plugin.getRewardManager().format(multipliers)));
-							plugin.getMessages().playerActionBarMessageQueue(player, ChatColor.GREEN + "" + ChatColor.ITALIC
+							plugin.getMessages().playerActionBarMessageQueue(player, ChatColor.GREEN + ""
+									+ ChatColor.ITALIC
 									+ plugin.getMessages().getString("mobhunting.fishcaught.reward.bonuses", "prize",
 											plugin.getRewardManager().format(cash), "bonuses", extraString.trim(),
 											"multipliers", plugin.getRewardManager().format(multipliers)));
 						} else if (cash <= -plugin.getConfigManager().minimumReward) {
-							plugin.getMessages().playerActionBarMessageQueue(player, ChatColor.RED + "" + ChatColor.ITALIC
+							plugin.getMessages().playerActionBarMessageQueue(player, ChatColor.RED + ""
+									+ ChatColor.ITALIC
 									+ plugin.getMessages().getString("mobhunting.fishcaught.penalty.bonuses", "prize",
 											plugin.getRewardManager().format(cash), "bonuses", extraString.trim(),
 											"multipliers", plugin.getRewardManager().format(multipliers)));
@@ -300,9 +298,8 @@ public class FishingManager implements Listener {
 
 							// send the command message to the player
 							MessageType messageType = MessageType
-									.valueOf((cmd == null 
-									|| cmd.get("message_type") == null) 
-											? "Chat" : cmd.getOrDefault("message_type","Chat"));
+									.valueOf((cmd == null || cmd.get("message_type") == null) ? "Chat"
+											: cmd.getOrDefault("message_type", "Chat"));
 							String message = plugin.getRewardManager().getKillMessage(fish)
 									.replaceAll("\\{player\\}", player.getName())
 									.replaceAll("\\{killer\\}", player.getName())
@@ -384,7 +381,7 @@ public class FishingManager implements Listener {
 			break;
 		case IN_GROUND:
 			// When a bobber is stuck in the ground
-			//plugin.getMessages().debug("State is IN_GROUND");
+			// plugin.getMessages().debug("State is IN_GROUND");
 			break;
 		// default:
 		// break;

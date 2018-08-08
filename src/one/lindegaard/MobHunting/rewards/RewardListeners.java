@@ -474,7 +474,7 @@ public class RewardListeners implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onInventoryClickReward(InventoryClickEvent event) {
 		if (event.isCancelled() || event.getInventory() == null) {
-			plugin.getMessages().debug("RewardListeners: Something cancelled the event");
+			plugin.getMessages().debug("RewardListeners: Something cancelled the InventoryClickEvent");
 			return;
 		}
 

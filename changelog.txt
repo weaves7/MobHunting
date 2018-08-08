@@ -1,6 +1,8 @@
 V6.0.1
 * For Bounty users - fixed SQL bug (https://github.com/Rocologo/MobHunting/issues/412)
-* Removed a "null" message when clicking a non MobHunting head on a MC 1.13 server 
+* Removed a "null" message when clicking a non MobHunting head on a MC 1.13 server
+* Added support for WorldGuard 7.0.0
+* Added support for WorldEdit 7.0.0 
 V6.0.0 Minecraft 1.13 release
 * This version is only for MC 1.13
 * Dolphin, Drowned, Phantom, Turtle and Fish (as a Mob) added with rewards and Mob heads to be dropped
