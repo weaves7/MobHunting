@@ -103,7 +103,6 @@ import one.lindegaard.MobHunting.compatibility.MysteriousHalloweenCompat;
 import one.lindegaard.MobHunting.compatibility.MythicMobsCompat;
 import one.lindegaard.MobHunting.compatibility.SmartGiantsCompat;
 import one.lindegaard.MobHunting.compatibility.TARDISWeepingAngelsCompat;
-import one.lindegaard.MobHunting.mobs.ExtendedMobManager;
 import one.lindegaard.MobHunting.mobs.MinecraftMob;
 import one.lindegaard.MobHunting.util.Misc;
 
@@ -203,7 +202,7 @@ public class RewardManager {
 	}
 
 	public String format(double amount) {
-		if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency)
+		if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency && !BagOfGoldCompat.isSupported())
 			return Misc.format(amount);
 		else
 			return getEconomy().format(amount);

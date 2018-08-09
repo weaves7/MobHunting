@@ -20,11 +20,9 @@ import com.sk89q.worldguard.protection.flags.registry.FlagConflictException;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
-import one.lindegaard.MobHunting.MobHunting;
-
 public class WorldGuardHelper {
 
-	private static final StateFlag MOBHUNTINGFLAG = new StateFlag("MobHunting", true);
+	private static final StateFlag MOBHUNTINGFLAG = new StateFlag("MobHunting", false);
 
 	// *******************************************************************
 	// getters
@@ -90,37 +88,34 @@ public class WorldGuardHelper {
 			checkedPlayer = (Player) damager;
 		if (checkedPlayer != null) {
 			LocalPlayer localPlayer = WorldGuardCompat.getWorldGuardPlugin().wrapPlayer(checkedPlayer);
-			RegionManager regionManager = WorldGuard.getInstance().getPlatform().getRegionContainer().get(localPlayer.getWorld());
+			RegionManager regionManager = WorldGuard.getInstance().getPlatform().getRegionContainer()
+					.get(localPlayer.getWorld());
 			if (regionManager != null) {
-				com.sk89q.worldedit.util.Location loc= localPlayer.getLocation();
+				com.sk89q.worldedit.util.Location loc = localPlayer.getLocation();
 				ApplicableRegionSet set = regionManager.getApplicableRegions(loc.toVector());
-				MobHunting.getAPI().getMessages().debug("WorldGuardHelper: set.size()=%s",set.size());
 				if (set.size() > 0) {
 					State flag = set.queryState(localPlayer, stateFlag);
 					if (flag != null)
-						MobHunting.getAPI().getMessages().debug("WorldGuardHelper: flag=%s",flag.toString());
-					else
-						MobHunting.getAPI().getMessages().debug("WorldGuardHelper: flag=null - return %s",defaultValue);
-					if (flag != null)
 						return flag.equals(State.ALLOW);
-				} 
+				}
 				return defaultValue;
-			} 
+			}
 		}
 		return defaultValue;
 	}
 
 	public static void registerFlag() {
-		//Plugin wg = Bukkit.getPluginManager().getPlugin("WorldGuard");
+		// Plugin wg = Bukkit.getPluginManager().getPlugin("WorldGuard");
 		try {
 			// register MobHuting flag with the WorlsGuard Flag registry
-			
-			//wg7.x
+
+			// wg7.x
 			WorldGuard.getInstance().getFlagRegistry().register(WorldGuardHelper.getMobHuntingFlag());
-			
-			 //wg6.x
-			//((WorldGuardPlugin) wg).getFlagRegistry().register(WorldGuardHelper.getMobHuntingFlag());
-		 } catch (FlagConflictException e) {
+
+			// wg6.x
+			// ((WorldGuardPlugin)
+			// wg).getFlagRegistry().register(WorldGuardHelper.getMobHuntingFlag());
+		} catch (FlagConflictException e) {
 
 			// some other plugin registered a flag by the same name already.
 			// you may want to re-register with a different name, but this

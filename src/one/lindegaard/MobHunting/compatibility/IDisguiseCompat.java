@@ -31,6 +31,20 @@ public class IDisguiseCompat implements Listener {
 	private static DisguiseType[] passiveList = new DisguiseType[20];
 	private static DisguiseType[] otherList = new DisguiseType[10];
 
+	public IDisguiseCompat() {
+		if (MobHunting.getInstance().getConfigManager().enableIntegrationIDisguise) {
+			mPlugin = Bukkit.getServer().getPluginManager().getPlugin(CompatPlugin.iDisguise.getName());
+			api = Bukkit.getServicesManager().getRegistration(DisguiseAPI.class).getProvider();
+			Bukkit.getPluginManager().registerEvents(this, MobHunting.getInstance());
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Enabling compatibility with iDisguise (" + getiDisguise().getDescription().getVersion() + ")");
+			supported = true;
+		} else {
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Compatibility with iDisguise is disabled in config.yml");
+		}
+	}
+
 	static {
 		int n = 0;
 		if (Misc.isMC111OrNewer()) {
@@ -107,22 +121,6 @@ public class IDisguiseCompat implements Listener {
 		otherList[n3++] = DisguiseType.WOLF;
 	}
 	private static final Set<DisguiseType> otherDisguiseTypes = new HashSet<DisguiseType>(Arrays.asList(otherList));
-
-	public IDisguiseCompat() {
-		if (MobHunting.getInstance().getConfigManager().enableIntegrationIDisguise) {
-			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
-					+ "Compatibility with iDisguise is disabled in config.yml");
-		} else {
-			mPlugin = Bukkit.getServer().getPluginManager().getPlugin(CompatPlugin.iDisguise.getName());
-			api = Bukkit.getServicesManager().getRegistration(DisguiseAPI.class).getProvider();
-
-			Bukkit.getPluginManager().registerEvents(this, MobHunting.getInstance());
-
-			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
-					+ "Enabling compatibility with iDisguise (" + getiDisguise().getDescription().getVersion() + ")");
-			supported = true;
-		}
-	}
 
 	// **************************************************************************
 	// OTHER

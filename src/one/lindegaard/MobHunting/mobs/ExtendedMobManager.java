@@ -22,7 +22,6 @@ import one.lindegaard.MobHunting.compatibility.MythicMobsCompat;
 import one.lindegaard.MobHunting.compatibility.SmartGiantsCompat;
 import one.lindegaard.MobHunting.compatibility.TARDISWeepingAngelsCompat;
 import one.lindegaard.MobHunting.storage.DataStoreException;
-import one.lindegaard.MobHunting.util.Misc;
 
 public class ExtendedMobManager {
 
