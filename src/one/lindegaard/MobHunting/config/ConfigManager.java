@@ -58,6 +58,8 @@ public class ConfigManager extends AutoConfig {
 						+ "\n########################################################################"
 						+ "\nHere is where you set the rewards for killing agressive mobs.");
 
+		setCategoryComment("mobs.default", "### Default/Global settings ###"
+				+ "\nPossible message_type values: Chat, ActionBar, BossBar, Title, Subtitle, None");
 		setCategoryComment("mobs.blaze", "### Blaze settings ###");
 		setCategoryComment("mobs.cave_spider", "### Cave Spider settings ###");
 		setCategoryComment("mobs.creeper", "### Creeper settings ###");
@@ -539,7 +541,7 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "commands", category = "example.mobname", comment = "You can use any command you want, each command has some options."
 			+ "\n 'cmd:' and 'chance:' is mandatory fields, 'message:' 'message_type:' and 'permission:' is optional"
 			+ "\nIf you add a permission, the command will only be run if the player has this permission."
-			+ "\nmessage_type can be: Chat, ActionBar, BossBar, Title, Subtitle. Default/Fallback is Chat. The words"
+			+ "\nmessage_type can be: Chat, ActionBar, BossBar, Title, Subtitle or None. Default/Fallback is Chat. The words"
 			+ " \nare case sensitive and you you will need a supporting plugin. Ex. TitleManager,ActionBar,BossBar")
 	public List<HashMap<String, String>> exampleCommands = new ArrayList<HashMap<String, String>>();
 	{
@@ -580,6 +582,14 @@ public class ConfigManager extends AutoConfig {
 	public double exampleHeadChance = 0.5;
 	@ConfigField(name = "message", category = "example.mobname.head", comment = "The message you want when a head is dropped")
 	public String exampleHeadMessage = "§aThe §1{killed} §adropped a skull on the ground";
+
+	// =====Default============================================
+	@ConfigField(name = "default.message_type", category = "mobs")
+	public String defaultMessageType = "ActionBar";
+	@ConfigField(name = "default.money.message_type", category = "mobs")
+	public String defaultMoneyMessageType = "ActionBar";
+	@ConfigField(name = "default.head.message_type", category = "mobs")
+	public String defaultHeadMessageType = "ActionBar";
 
 	// =====Blaze============================================
 	@ConfigField(name = "blaze.enabled", category = "mobs")

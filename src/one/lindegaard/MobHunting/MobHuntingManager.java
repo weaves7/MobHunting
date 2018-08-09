@@ -1496,7 +1496,8 @@ public class MobHuntingManager implements Listener {
 				message = message.replaceAll("\\{killed_player\\}", mob.getMobName()).replaceAll("\\{killed\\}",
 						mob.getMobName());
 			plugin.getMessages().debug("Description to be send:" + message);
-			player.sendMessage(message);
+			plugin.getMessages().playerSendMessageAt(player, message,
+					MessageType.valueOf(plugin.getConfigManager().defaultMessageType));
 		}
 
 		// Pay the money reward to killer/player and assister
@@ -1591,59 +1592,62 @@ public class MobHuntingManager implements Listener {
 			}
 
 			// Tell the player that he got the reward/penalty, unless muted
-			if (!killer_muted)
-
+			if (!killer_muted) {
+				MessageType messageType = MessageType.valueOf(plugin.getConfigManager().defaultMoneyMessageType);
 				if (extraString.trim().isEmpty()) {
 					if (cash >= plugin.getConfigManager().minimumReward) {
 						if (!plugin.getConfigManager().dropMoneyOnGroup) {
-							plugin.getMessages().playerActionBarMessageQueue(player, ChatColor.GREEN + ""
-									+ ChatColor.ITALIC
+							plugin.getMessages().playerSendMessageAt(player, ChatColor.GREEN + "" + ChatColor.ITALIC
 									+ plugin.getMessages().getString("mobhunting.moneygain", "prize",
 											plugin.getRewardManager().format(cash), "money",
-											plugin.getRewardManager().format(cash), "killed", mob.getFriendlyName()));
+											plugin.getRewardManager().format(cash), "killed", mob.getFriendlyName()),
+									messageType);
 						} else
-							plugin.getMessages().playerActionBarMessageQueue(player, ChatColor.GREEN + ""
-									+ ChatColor.ITALIC
+							plugin.getMessages().playerSendMessageAt(player, ChatColor.GREEN + "" + ChatColor.ITALIC
 									+ plugin.getMessages().getString("mobhunting.moneygain.drop", "prize",
 											plugin.getRewardManager().format(cash), "money",
-											plugin.getRewardManager().format(cash), "killed", mob.getFriendlyName()));
+											plugin.getRewardManager().format(cash), "killed", mob.getFriendlyName()),
+									messageType);
 					} else if (cash <= -plugin.getConfigManager().minimumReward) {
-						plugin.getMessages().playerActionBarMessageQueue(player, ChatColor.RED + "" + ChatColor.ITALIC
+						plugin.getMessages().playerSendMessageAt(player, ChatColor.RED + "" + ChatColor.ITALIC
 								+ plugin.getMessages().getString("mobhunting.moneylost", "prize",
 										plugin.getRewardManager().format(cash), "money",
-										plugin.getRewardManager().format(cash), "killed", mob.getFriendlyName()));
+										plugin.getRewardManager().format(cash), "killed", mob.getFriendlyName()),
+								messageType);
 					}
 
 				} else {
 					if (cash >= plugin.getConfigManager().minimumReward) {
 						if (!plugin.getConfigManager().dropMoneyOnGroup) {
-							plugin.getMessages().playerActionBarMessageQueue(player, ChatColor.GREEN + ""
-									+ ChatColor.ITALIC
+							plugin.getMessages().playerSendMessageAt(player, ChatColor.GREEN + "" + ChatColor.ITALIC
 									+ plugin.getMessages().getString("mobhunting.moneygain.bonuses", "basic_prize",
 											plugin.getRewardManager().format(basic_prize), "prize",
 											plugin.getRewardManager().format(cash), "money",
 											plugin.getRewardManager().format(cash), "bonuses", extraString.trim(),
 											"multipliers", plugin.getRewardManager().format(multipliers), "killed",
-											mob.getFriendlyName()));
+											mob.getFriendlyName()),
+									messageType);
 						} else
-							plugin.getMessages().playerActionBarMessageQueue(player, ChatColor.GREEN + ""
-									+ ChatColor.ITALIC
+							plugin.getMessages().playerSendMessageAt(player, ChatColor.GREEN + "" + ChatColor.ITALIC
 									+ plugin.getMessages().getString("mobhunting.moneygain.bonuses.drop", "basic_prize",
 											plugin.getRewardManager().format(basic_prize), "prize",
 											plugin.getRewardManager().format(cash), "money",
 											plugin.getRewardManager().format(cash), "bonuses", extraString.trim(),
 											"multipliers", plugin.getRewardManager().format(multipliers), "killed",
-											mob.getFriendlyName()));
+											mob.getFriendlyName()),
+									messageType);
 					} else if (cash <= -plugin.getConfigManager().minimumReward) {
-						plugin.getMessages().playerActionBarMessageQueue(player,
+						plugin.getMessages().playerSendMessageAt(player,
 								ChatColor.RED + "" + ChatColor.ITALIC
 										+ plugin.getMessages().getString("mobhunting.moneylost.bonuses", "basic_prize",
 												plugin.getRewardManager().format(basic_prize), "prize",
 												plugin.getRewardManager().format(cash), "money",
 												plugin.getRewardManager().format(cash), "bonuses", extraString.trim(),
-												"multipliers", multipliers, "killed", mob.getFriendlyName()));
+												"multipliers", multipliers, "killed", mob.getFriendlyName()),
+								messageType);
 					}
 				}
+			}
 		} else
 			plugin.getMessages().debug("The money reward was 0 or less than %s  (Bonuses=%s)", player.getName(),
 					plugin.getConfigManager().minimumReward, extraString);
@@ -1794,8 +1798,9 @@ public class MobHuntingManager implements Listener {
 					player.getWorld().dropItem(killed.getLocation(), head);
 				}
 				plugin.getMessages().debug("%s killed a %s and a head was dropped", killer.getName(), killed.getName());
-				if (!plugin.getRewardManager().getHeadDropMessage(killed).isEmpty())
-					plugin.getMessages().playerSendMessage(killer,
+				if (!plugin.getRewardManager().getHeadDropMessage(killed).isEmpty()) {
+					MessageType message_type = MessageType.valueOf(plugin.getConfigManager().defaultHeadMessageType);
+					plugin.getMessages().playerSendMessageAt(killer,
 							ChatColor.GREEN + plugin.getRewardManager().getHeadDropMessage(killed)
 									.replaceAll("\\{player\\}", player.getName())
 									.replaceAll("\\{killer\\}", player.getName())
@@ -1803,7 +1808,9 @@ public class MobHuntingManager implements Listener {
 									.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash))
 									.replaceAll("\\{world\\}", worldname).replaceAll("\\{killerpos\\}", killerpos)
 									.replaceAll("\\{killedpos\\}", killedpos).replaceAll("\\{rewardname\\}",
-											plugin.getConfigManager().dropMoneyOnGroundSkullRewardName));
+											plugin.getConfigManager().dropMoneyOnGroundSkullRewardName),
+							message_type);
+				}
 			} else {
 				plugin.getMessages().debug("Did not drop a head: random(%s)>chance(%s)", random,
 						plugin.getRewardManager().getHeadDropChance(killed));
@@ -1841,8 +1848,9 @@ public class MobHuntingManager implements Listener {
 		if (damageInformation != null && damageInformation.isCrackShotWeaponUsed())
 			return damageInformation.getAttacker();
 
-		//plugin.getMessages().debug("MobHuntingManager: Name of killer was not found. Killer=%s, killed=%s", killer,
-		//			killed);
+		// plugin.getMessages().debug("MobHuntingManager: Name of killer was not
+		// found. Killer=%s, killed=%s", killer,
+		// killed);
 
 		return null;
 

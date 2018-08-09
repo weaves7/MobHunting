@@ -660,6 +660,8 @@ public class Messages {
 		case Subtitle:
 			playerSendTitlesMessage(player, "", message, 10, 50, 10);
 			break;
+		case None:
+			break;
 		}
 	}
 

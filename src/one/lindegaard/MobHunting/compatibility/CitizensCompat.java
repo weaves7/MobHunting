@@ -225,6 +225,10 @@ public class CitizensCompat implements Listener {
 	public static MasterMobHunterManager getMasterMobHunterManager() {
 		return mMasterMobHunterManager;
 	}
+	
+	public void setSkin(Integer id) {
+		//CitizensAPI.
+	}
 
 	// **************************************************************************
 	// EVENTS
