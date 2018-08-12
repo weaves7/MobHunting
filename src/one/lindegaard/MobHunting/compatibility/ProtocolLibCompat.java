@@ -19,11 +19,11 @@ public class ProtocolLibCompat {
 					+ "Compatibility with ProtocolLib is disabled in config.yml");
 		} else {
 			mPlugin = Bukkit.getPluginManager().getPlugin(CompatPlugin.ProtocolLib.getName());
-			if (mPlugin.getDescription().getVersion().compareTo("4.1.0") < 0) {
+			if (mPlugin.getDescription().getVersion().compareTo("4.4.0") < 0) {
 				Bukkit.getServer().getConsoleSender()
 						.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RED
 								+ "Your current version of ProtocolLib (" + mPlugin.getDescription().getVersion()
-								+ ") is not supported by MobHunting, please upgrade to 4.1.0 or newer.");
+								+ ") is not supported by MobHunting, please upgrade to 4.4.0 or newer.");
 			} else {
 				Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
 						+ "Enabling compatibility with ProtocolLib (" + mPlugin.getDescription().getVersion() + ").");
