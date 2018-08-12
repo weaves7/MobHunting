@@ -520,9 +520,6 @@ public class Messages {
 			messagesToBeDisplayed = messageQueue.get(player);
 		messagesToBeDisplayed.put(System.currentTimeMillis() + 5000L, new MessageQueue(player, message));
 		messageQueue.put(player, messagesToBeDisplayed);
-		// debug("message=%s", message);
-		// debug("messageQueue(player).size=%s",
-		// messageQueue.get(player).size());
 
 		Runnable messageTask = new Runnable() {
 			@Override
@@ -546,25 +543,20 @@ public class Messages {
 						if (messageQueue.get(player).size() > 0)
 							try {
 								Thread.sleep(1500L);
-								// Thread.sleep(10000L);
 							} catch (InterruptedException e) {
 								e.printStackTrace();
 							}
 					}
 				}
-				// debug("cancel task");
 				Bukkit.getScheduler().cancelTask(taskId.get(player).getTaskId());
 				taskId.remove(player);
 			};
 		};
 
-		// debug("taskId.containsKey(player)=%s", taskId.containsKey(player));
-
 		if (!taskId.containsKey(player))
 
 			if (taskId.get(player) == null || !Bukkit.getScheduler().isCurrentlyRunning(taskId.get(player).getTaskId())
 					|| !Bukkit.getScheduler().isQueued(taskId.get(player).getTaskId())) {
-				// debug("start task");
 				taskId.put(player, Bukkit.getScheduler().runTaskAsynchronously(plugin, messageTask));
 			}
 	}
@@ -575,7 +567,7 @@ public class Messages {
 	 * @param player
 	 * @param message
 	 */
-	public void playerActionBarMessageNow(Player player, String message) {
+	private void playerActionBarMessageNow(Player player, String message) {
 		if (isEmpty(message))
 			return;
 

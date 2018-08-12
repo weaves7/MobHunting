@@ -446,6 +446,26 @@ public class MobHuntingManager implements Listener {
 		}
 	}
 
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	private void onTriodentShoot(ProjectileLaunchEvent event) {
+		if (event.getEntity() instanceof Trident) {
+			if (event.getEntity().getShooter() instanceof Drowned) {
+				// TODO: test this
+				Drowned drowned = (Drowned) event.getEntity().getShooter();
+				if (drowned.getTarget() instanceof Player && isHuntEnabled((Player) drowned.getTarget())
+						&& ((Player) drowned.getTarget()).getGameMode() != GameMode.CREATIVE) {
+					DamageInformation info = mDamageHistory.get(drowned);
+					if (info == null)
+						info = new DamageInformation();
+					info.setTime(System.currentTimeMillis());
+					info.setAttacker((Player) drowned.getTarget());
+					info.setAttackerPosition(drowned.getTarget().getLocation().clone());
+					mDamageHistory.put(drowned, info);
+				}
+			}
+		}
+	}
+
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	private void onMobDamage(EntityDamageByEntityEvent event) {
@@ -493,8 +513,11 @@ public class MobHuntingManager implements Listener {
 
 			if (damager instanceof ThrownPotion)
 				weapon = ((ThrownPotion) damager).getItem();
+			// else if (damager instanceof Trident)
+			// weapon = ((Trident) damager);
 
 			info.setIsMeleWeaponUsed(false);
+
 			projectile = true;
 
 			if (CrackShotCompat.isCrackShotProjectile((Projectile) damager)) {
@@ -536,8 +559,9 @@ public class MobHuntingManager implements Listener {
 			info.setWeapon(weapon);
 
 		// Take note that a weapon has been used at all
-		if (info.getWeapon() != null && (Misc.isSword(info.getWeapon()) || Misc.isAxe(info.getWeapon())
-				|| Misc.isPick(info.getWeapon()) || info.isCrackShotWeaponUsed() || projectile))
+		if (info.getWeapon() != null
+				&& (Misc.isSword(info.getWeapon()) || Misc.isAxe(info.getWeapon()) || Misc.isPick(info.getWeapon())
+						|| Misc.isTrident(info.getWeapon()) || info.isCrackShotWeaponUsed() || projectile))
 			info.setHasUsedWeapon(true);
 
 		if (cause != null) {

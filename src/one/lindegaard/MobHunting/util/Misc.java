@@ -46,22 +46,26 @@ public class Misc {
 		return item != null && (item.getType() == Material.BOW);
 	}
 
+	public static boolean isTrident(ItemStack item) {
+		return item != null && (item.getType() == Material.TRIDENT);
+	}
+
 	public static boolean isUnarmed(ItemStack item) {
 		return (item == null || item.getType() == Material.AIR);
 	}
 
 	public static boolean isSign(Block block) {
 		if (isMC113OrNewer())
-			return block.getType()==Material.SIGN || block.getType()==Material.WALL_SIGN;
+			return block.getType() == Material.SIGN || block.getType() == Material.WALL_SIGN;
 		else
-			return block.getType()==Material.LEGACY_SIGN || block.getType()==Material.LEGACY_SIGN_POST;
+			return block.getType() == Material.LEGACY_SIGN || block.getType() == Material.LEGACY_SIGN_POST;
 	}
 
 	public static boolean isSign(Material material) {
 		if (isMC113OrNewer())
-			return material==Material.SIGN || material==Material.WALL_SIGN;
+			return material == Material.SIGN || material == Material.WALL_SIGN;
 		else
-			return material==Material.LEGACY_SIGN || material==Material.LEGACY_SIGN_POST;
+			return material == Material.LEGACY_SIGN || material == Material.LEGACY_SIGN_POST;
 	}
 
 	public static boolean isSkull(Material material) {
