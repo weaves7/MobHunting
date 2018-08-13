@@ -10,15 +10,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import one.lindegaard.MobHunting.MobHunting;
+import one.lindegaard.MobHunting.compatibility.ProtocolLibCompat;
 import one.lindegaard.MobHunting.compatibility.ProtocolLibHelper;
 import one.lindegaard.MobHunting.grinding.Area;
 
 public class BlacklistAreaCommand implements ICommand {
 
-private MobHunting plugin;
-	
+	private MobHunting plugin;
+
 	public BlacklistAreaCommand(MobHunting plugin) {
-		this.plugin=plugin;
+		this.plugin = plugin;
 	}
 
 	@Override
@@ -63,23 +64,26 @@ private MobHunting plugin;
 
 		if (args.length == 0) {
 			if (plugin.getGrindingManager().isGrindingArea(loc)) {
-				plugin.getMessages().senderSendMessage(sender,
-						ChatColor.GREEN + plugin.getMessages().getString("mobhunting.commands.blacklistarea.isblacklisted"));
+				plugin.getMessages().senderSendMessage(sender, ChatColor.GREEN
+						+ plugin.getMessages().getString("mobhunting.commands.blacklistarea.isblacklisted"));
 				Area area = plugin.getGrindingManager().getGrindingArea(loc);
-				ProtocolLibHelper.showGrindingArea((Player) sender, area, loc);
+				if (ProtocolLibCompat.isSupported())
+					ProtocolLibHelper.showGrindingArea((Player) sender, area, loc);
 			} else
-				plugin.getMessages().senderSendMessage(sender,
-						ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.blacklistarea.notblacklisted"));
+				plugin.getMessages().senderSendMessage(sender, ChatColor.RED
+						+ plugin.getMessages().getString("mobhunting.commands.blacklistarea.notblacklisted"));
 		} else if (args.length == 1) {
 			if (args[0].equalsIgnoreCase("remove")) {
 				plugin.getGrindingManager().unBlacklistArea(loc);
-				plugin.getMessages().senderSendMessage(sender,
-						ChatColor.GREEN + plugin.getMessages().getString("mobhunting.commands.blacklistarea.remove.done"));
+				plugin.getMessages().senderSendMessage(sender, ChatColor.GREEN
+						+ plugin.getMessages().getString("mobhunting.commands.blacklistarea.remove.done"));
 			} else if (args[0].equalsIgnoreCase("add")) {
 				Area area = new Area(loc, plugin.getConfigManager().grindingDetectionRange, 0);
 				plugin.getGrindingManager().blacklistArea(area);
-				plugin.getMessages().senderSendMessage(sender,ChatColor.GREEN + plugin.getMessages().getString("mobhunting.commands.blacklistarea.done"));
-				ProtocolLibHelper.showGrindingArea((Player) sender, area, loc);
+				plugin.getMessages().senderSendMessage(sender,
+						ChatColor.GREEN + plugin.getMessages().getString("mobhunting.commands.blacklistarea.done"));
+				if (ProtocolLibCompat.isSupported())
+					ProtocolLibHelper.showGrindingArea((Player) sender, area, loc);
 			} else
 				return false;
 		} else
@@ -97,8 +101,8 @@ private MobHunting plugin;
 				items.add("remove");
 				items.add("");
 			}
-		} 
-		
+		}
+
 		if (!args[args.length - 1].trim().isEmpty()) {
 			String match = args[args.length - 1].trim().toLowerCase();
 			Iterator<String> it = items.iterator();

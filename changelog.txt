@@ -1,6 +1,7 @@
 V6.0.2
 * Default message_type values added. You can now decide where the "kill message","Money message" and "Head message" will be displayed. Possible Values are: Chat, ActionBar, BassBar, Title, Subtitle or None. None if you dont want any message.
 * Fix bug: Trident detected as fists - Ticket 420 (https://github.com/Rocologo/MobHunting/issues/420) 
+* Fixed ticket 421 error when ProtocolLib is not installed. (https://github.com/Rocologo/MobHunting/issues/421)
 V6.0.1
 * For Bounty users - fixed SQL bug (https://github.com/Rocologo/MobHunting/issues/412)
 * Removed a "null" message when clicking a non MobHunting head on a MC 1.13 server

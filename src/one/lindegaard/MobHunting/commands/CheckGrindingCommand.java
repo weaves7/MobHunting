@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import one.lindegaard.MobHunting.HuntData;
 import one.lindegaard.MobHunting.MobHunting;
+import one.lindegaard.MobHunting.compatibility.ProtocolLibCompat;
 import one.lindegaard.MobHunting.compatibility.ProtocolLibHelper;
 import one.lindegaard.MobHunting.grinding.Area;
 
@@ -67,11 +68,11 @@ private MobHunting plugin;
 		if (plugin.getGrindingManager().isWhitelisted(loc)) {
 			plugin.getMessages().senderSendMessage(sender,ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.grinding.whitelisted"));
 			Area area = plugin.getGrindingManager().getWhitelistArea(loc);
-			ProtocolLibHelper.showGrindingArea((Player) sender, area, loc);
+			if (ProtocolLibCompat.isSupported())ProtocolLibHelper.showGrindingArea((Player) sender, area, loc);
 		} else if (plugin.getGrindingManager().isGrindingArea(loc)) {
 			plugin.getMessages().senderSendMessage(sender,ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.grinding.blacklisted"));
 			Area area = plugin.getGrindingManager().getGrindingArea(loc);
-			ProtocolLibHelper.showGrindingArea((Player) sender, area, loc);
+			if (ProtocolLibCompat.isSupported())ProtocolLibHelper.showGrindingArea((Player) sender, area, loc);
 		} else {
 			Area area = null;
 			ArrayList<Player> players = new ArrayList<Player>();
@@ -96,7 +97,7 @@ private MobHunting plugin;
 
 				plugin.getMessages().senderSendMessage(sender,ChatColor.RED
 						+ plugin.getMessages().getString("mobhunting.commands.grinding.player-grinding", "players", playerList));
-				ProtocolLibHelper.showGrindingArea((Player) sender, area, loc);
+				if (ProtocolLibCompat.isSupported())ProtocolLibHelper.showGrindingArea((Player) sender, area, loc);
 			}
 		}
 
