@@ -8,7 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import one.lindegaard.MobHunting.compatibility.WorldEditCompat;
+import one.lindegaard.MobHunting.compatibility.WorldEditHelper;
 
 public class SelectionHelper {
 	private static WeakHashMap<Player, Entry<Location, Location>> mPoints = new WeakHashMap<Player, Entry<Location, Location>>();
@@ -26,8 +26,8 @@ public class SelectionHelper {
 
 			return existing.getKey();
 		} else
-			return new Location(player.getWorld(), WorldEditCompat.getPointA(player).getX(),
-					WorldEditCompat.getPointA(player).getY(), WorldEditCompat.getPointA(player).getZ());
+			return new Location(player.getWorld(), WorldEditHelper.getPointA(player).getX(),
+					WorldEditHelper.getPointA(player).getY(), WorldEditHelper.getPointA(player).getZ());
 	}
 
 	public static Location getPointB(Player player) throws IllegalArgumentException {
@@ -43,8 +43,8 @@ public class SelectionHelper {
 
 			return existing.getValue();
 		} else
-			return new Location(player.getWorld(), WorldEditCompat.getPointB(player).getX(),
-					WorldEditCompat.getPointB(player).getY(), WorldEditCompat.getPointB(player).getZ());
+			return new Location(player.getWorld(), WorldEditHelper.getPointB(player).getX(),
+					WorldEditHelper.getPointB(player).getY(), WorldEditHelper.getPointB(player).getZ());
 	}
 
 	public static boolean needsCommands() {

@@ -1,3 +1,5 @@
+V6.0.3
+* Removed hard dependency for WorldEdit
 V6.0.2
 * Default message_type values added. You can now decide where the "kill message","Money message" and "Head message" will be displayed. Possible Values are: Chat, ActionBar, BassBar, Title, Subtitle or None. None if you dont want any message.
 * Fix bug: Trident detected as fists - Ticket 420 (https://github.com/Rocologo/MobHunting/issues/420) 
