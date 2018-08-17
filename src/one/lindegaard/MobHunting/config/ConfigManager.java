@@ -423,6 +423,10 @@ public class ConfigManager extends AutoConfig {
 				"########################################################################" + "\nWorldguard"
 						+ "\n########################################################################");
 
+		setCategoryComment("plugins.worldedit",
+				"########################################################################" + "\nWorldedit"
+						+ "\n########################################################################");
+
 		setCategoryComment("plugins.essentials",
 				"########################################################################" + "\nEssentials"
 						+ "\n########################################################################");
@@ -3498,6 +3502,9 @@ public class ConfigManager extends AutoConfig {
 
 	@ConfigField(name = "worldguard.enable_integration_worldguard", category = "plugins", comment = "Enable/Disable integration with WorldGuard")
 	public boolean enableIntegrationWorldGuard = true;
+
+	@ConfigField(name = "worldedit.enable_integration_worldedit", category = "plugins", comment = "Enable/Disable integration with WorldEdit")
+	public boolean enableIntegrationWorldEdit = true;
 
 	@ConfigField(name = "essentials.enable_integration_essentials", category = "plugins", comment = "Enable/Disable integration with Essentials"
 			+ "\nhttp://dev.bukkit.org/bukkit_plugins/essentialsx/")
