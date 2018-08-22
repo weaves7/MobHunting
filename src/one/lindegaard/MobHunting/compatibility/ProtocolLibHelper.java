@@ -3,6 +3,7 @@ package one.lindegaard.MobHunting.compatibility;
 import java.util.Iterator;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -100,27 +101,31 @@ public class ProtocolLibHelper {
 	}
 
 	public static void showGrindingArea(final Player player, final Area grindingArea, final Location killedLocation) {
+		/**
 		if (ProtocolLibCompat.isSupported()) {
-			final WrapperPlayServerWorldParticles wpwp = new WrapperPlayServerWorldParticles();
+			WrapperPlayServerWorldParticles wpwp = new WrapperPlayServerWorldParticles();
 			final long now = System.currentTimeMillis();
-			new BukkitRunnable() {
+			Bukkit.getScheduler().runTaskTimerAsynchronously(MobHunting.getAPI(), new Runnable() {
+				
 				@Override
 				public void run() {
-					// Killed mob location
 					if (killedLocation != null) {
 						wpwp.setParticleType(Particle.CLOUD);
 						wpwp.setNumberOfParticles(1);
 						wpwp.setOffsetX(0);
 						wpwp.setOffsetY(0);
 						wpwp.setOffsetZ(0);
+						wpwp.setLongDistance(false);
+						wpwp.setParticleData(0);
 						wpwp.setX((float) (killedLocation.getBlockX() + 0.5));
 						wpwp.setZ((float) (killedLocation.getBlockZ() + 0.5));
 						for (int n = 0; n < 10; n++) {
 							wpwp.setY((float) (killedLocation.getBlockY() + 0.2 + 0.2 * n));
+							//MobHunting.getAPI().getMessages().debug("ProtocolLib: SendPacket to %s",player.getName());
+							if (player!=null & player.isOnline())
 							wpwp.sendPacket(player);
 						}
 					}
-
 					// Grinding Area
 					if (grindingArea != null) {
 						// Show center of grinding area
@@ -148,11 +153,13 @@ public class ProtocolLibHelper {
 									+ Math.sin(n) * MobHunting.getInstance().getConfigManager().grindingDetectionRange));
 							wpwp.sendPacket(player);
 						}
-						if (System.currentTimeMillis() > now + (20000L))
-							this.cancel();
 					}
+					//if (System.currentTimeMillis() > now + (20000L))
+					// 	this.cancel();
+
+					
 				}
-			}.runTaskTimerAsynchronously(MobHunting.getInstance(), 0L, 20L);
-		}
+			}, 20L, 200L);
+		}**/
 	}
 }

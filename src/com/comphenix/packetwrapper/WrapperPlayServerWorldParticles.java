@@ -235,26 +235,4 @@ public class WrapperPlayServerWorldParticles extends AbstractPacket {
 	public void setLongDistance(boolean value) {
 		handle.getBooleans().write(0, value);
 	}
-
-	/**
-	 * Retrieve Data.
-	 * <p>
-	 * Notes: length depends on particle. IRON_CRACK has a length of 2,
-	 * BLOCK_CRACK and BLOCK_DUST have lengths of 1, the rest have 0.
-	 * 
-	 * @return The current Data
-	 * @see Particle#getDataLength()
-	 */
-	public int[] getData() {
-		return handle.getIntegerArrays().read(0);
-	}
-
-	/**
-	 * Set Data.
-	 * 
-	 * @param value - new value.
-	 */
-	public void setData(int[] value) {
-		handle.getIntegerArrays().write(0, value);
-	}
 }

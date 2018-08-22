@@ -73,11 +73,18 @@ public abstract class AbstractPacket {
 	}
 
 	/**
+	 * Send the current packet to all online players.
+	 */
+	public void broadcastPacket() {
+		ProtocolLibrary.getProtocolManager().broadcastServerPacket(getHandle());
+	}
+
+	/**
 	 * Simulate receiving the current packet from the given sender.
 	 * 
 	 * @param sender - the sender.
 	 * @throws RuntimeException If the packet cannot be received.
-	 * @deprecated Misspelled. recieve -> receive
+	 * @deprecated Misspelled. recieve to receive
 	 * @see #receivePacket(Player)
 	 */
 	@Deprecated
@@ -101,7 +108,7 @@ public abstract class AbstractPacket {
 			ProtocolLibrary.getProtocolManager().recieveClientPacket(sender,
 					getHandle());
 		} catch (Exception e) {
-			throw new RuntimeException("Cannot recieve packet.", e);
+			throw new RuntimeException("Cannot receive packet.", e);
 		}
 	}
 }
