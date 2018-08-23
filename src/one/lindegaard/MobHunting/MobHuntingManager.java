@@ -1511,9 +1511,8 @@ public class MobHuntingManager implements Listener {
 			String message = ChatColor.GREEN + plugin.getRewardManager().getKillMessage(killed).trim()
 					.replaceAll("\\{player\\}", player.getName()).replaceAll("\\{killer\\}", player.getName())
 					.replaceAll("\\{killed\\}", mob.getFriendlyName())
-					// .replaceAll("{prize}",
-					// plugin.getRewardManager().format(cash))
 					.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash))
+					.replaceAll("\\{money\\}", plugin.getRewardManager().format(cash))
 					.replaceAll("\\{world\\}", worldname).replaceAll("\\{killerpos\\}", killerpos)
 					.replaceAll("\\{killedpos\\}", killedpos)
 					.replaceAll("\\{rewardname\\}", plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
@@ -1726,6 +1725,7 @@ public class MobHuntingManager implements Listener {
 									.replaceAll("\\{killed\\}", mob.getFriendlyName())
 									.replaceAll("\\{world\\}", worldname)
 									.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash))
+									.replaceAll("\\{money\\}", plugin.getRewardManager().format(cash))
 									.replaceAll("\\{killerpos\\}", killerpos).replaceAll("\\{killedpos\\}", killedpos)
 									.replaceAll("\\{rewardname\\}",
 											plugin.getConfigManager().dropMoneyOnGroundSkullRewardName);
@@ -1777,6 +1777,7 @@ public class MobHuntingManager implements Listener {
 											.replaceAll("\\{killed\\}", mob.getFriendlyName())
 											.replaceAll("\\{world\\}", worldname)
 											.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash))
+											.replaceAll("\\{money\\}", plugin.getRewardManager().format(cash))
 											.replaceAll("\\{killerpos\\}", killerpos)
 											.replaceAll("\\{killedpos\\}", killedpos).replaceAll("\\{rewardname\\}",
 													plugin.getConfigManager().dropMoneyOnGroundSkullRewardName),
@@ -1834,6 +1835,7 @@ public class MobHuntingManager implements Listener {
 									.replaceAll("\\{killer\\}", player.getName())
 									.replaceAll("\\{killed\\}", mob.getFriendlyName())
 									.replaceAll("\\{prize\\}", plugin.getRewardManager().format(cash))
+									.replaceAll("\\{money\\}", plugin.getRewardManager().format(cash))
 									.replaceAll("\\{world\\}", worldname).replaceAll("\\{killerpos\\}", killerpos)
 									.replaceAll("\\{killedpos\\}", killedpos).replaceAll("\\{rewardname\\}",
 											plugin.getConfigManager().dropMoneyOnGroundSkullRewardName),
