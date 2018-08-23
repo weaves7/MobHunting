@@ -83,7 +83,7 @@ public class MySQLDataStore extends DatabaseDataStore {
 		case SAVE_ACHIEVEMENTS:
 			mSaveAchievement = connection.prepareStatement("REPLACE INTO mh_Achievements VALUES(?,?,?,?);");
 			break;
-		case GET_PLAYER_DATA:
+		case GET_PLAYER_SETTINGS:
 			mGetPlayerData = connection.prepareStatement("SELECT * FROM mh_Players WHERE UUID=?;");
 			break;
 		case GET_PLAYER_UUID:
@@ -110,11 +110,6 @@ public class MySQLDataStore extends DatabaseDataStore {
 					+ "(MOBTYPE, BOUNTYOWNER_ID, WANTEDPLAYER_ID, NPC_ID, MOB_ID, WORLDGROUP, "
 					+ "CREATED_DATE, END_DATE, PRIZE, MESSAGE, STATUS) " + " VALUES (?,?,?,?,?,?,?,?,?,?,?)"
 					+ " ON DUPLICATE KEY UPDATE CREATED_DATE=?, END_DATE=?, PRIZE=?, MESSAGE=?, STATUS=?");		
-					//+ " ON DUPLICATE KEY UPDATE SET CREATED_DATE=?, END_DATE=?, PRIZE=?, MESSAGE=?, STATUS=?");
-			break;
-		case UPDATE_BOUNTY:
-			mUpdateBounty = connection.prepareStatement("UPDATE mh_Bounties SET PRIZE=?,MESSAGE=?,END_DATE=?,STATUS=?"
-					+ " WHERE WANTEDPLAYER_ID=? AND BOUNTYOWNER_ID=? AND WORLDGROUP=?;");
 			break;
 		case GET_PLAYER_BY_PLAYER_ID:
 			mGetPlayerByPlayerId = connection.prepareStatement("SELECT UUID FROM mh_Players WHERE PLAYER_ID=?;");
@@ -449,7 +444,8 @@ public class MySQLDataStore extends DatabaseDataStore {
 				+ "END_DATE BIGINT NOT NULL, "//
 				+ "PRIZE FLOAT NOT NULL, "//
 				+ "MESSAGE CHAR(64), "//
-				+ "STATUS INTEGER NOT NULL DEFAULT 0, " + "PRIMARY KEY(WORLDGROUP, WANTEDPLAYER_ID, BOUNTYOWNER_ID), "
+				+ "STATUS INTEGER NOT NULL DEFAULT 0, " 
+				+ "PRIMARY KEY (WORLDGROUP,BOUNTYOWNER_ID,WANTEDPLAYER_ID), "
 				+ "FOREIGN KEY(BOUNTYOWNER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE, "
 				+ "FOREIGN KEY(WANTEDPLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE" + ")");
 
@@ -1642,6 +1638,11 @@ public class MySQLDataStore extends DatabaseDataStore {
 				+ " PRIMARY KEY(PLAYER_ID, ACHIEVEMENT),"
 				+ " CONSTRAINT mh_Achievements_Player_Id FOREIGN KEY(PLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE)");
 
+		try {
+			create.executeUpdate("ALTER TABLE mh_Bounties DROP PRIMARY KEY");
+			plugin.getMessages().debug("MySQLDatastore: Primary key on mh_Bounties deleted");
+		} catch (Exception e) {
+		}
 		create.executeUpdate("CREATE TABLE IF NOT EXISTS mh_Bounties ("//
 				+ "BOUNTYOWNER_ID INTEGER NOT NULL, "//
 				+ "MOBTYPE CHAR(6), "//
@@ -1653,12 +1654,18 @@ public class MySQLDataStore extends DatabaseDataStore {
 				+ "PRIZE FLOAT NOT NULL, "//
 				+ "MESSAGE VARCHAR(64), "//
 				+ "STATUS INTEGER NOT NULL DEFAULT 0, "//
-				+ "PRIMARY KEY(WORLDGROUP, WANTEDPLAYER_ID, BOUNTYOWNER_ID), "
-				+ "KEY `mh_Bounties_Player_Id_1` (`BOUNTYOWNER_ID`),"
-				+ "KEY `mh_Bounties_Player_Id_2` (`WANTEDPLAYER_ID`),"
+				+ "PRIMARY KEY(WORLDGROUP, WANTEDPLAYER_ID, BOUNTYOWNER_ID), "//
+				//+ "KEY `mh_Bounties_Player_Id_1` (`BOUNTYOWNER_ID`),"
+				//+ "KEY `mh_Bounties_Player_Id_2` (`WANTEDPLAYER_ID`),"
 				+ "CONSTRAINT mh_Bounties_Player_Id_1 FOREIGN KEY(BOUNTYOWNER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE, "
 				+ "CONSTRAINT mh_Bounties_Player_Id_2 FOREIGN KEY(WANTEDPLAYER_ID) REFERENCES mh_Players(PLAYER_ID) ON DELETE CASCADE"
 				+ ")");
+		try {
+			create.executeUpdate("ALTER TABLE mh_Bounties ADD CONTRAINT mh_Bounties_Unique UNIQUE (WORLDGROUP, WANTEDPLAYER_ID, BOUNTYOWNER_ID)");
+			plugin.getMessages().debug("MySQLDatastore: UNIQUE key on mh_Bounties added");
+		} catch (Exception e) {
+		}
+
 
 		// Setup Database triggers
 		create.executeUpdate("DROP TRIGGER IF EXISTS `mh_DailyInsert`");

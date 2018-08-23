@@ -1,3 +1,5 @@
+V6.0.4
+*
 V6.0.3
 * Removed hard dependency for WorldEdit
 * Added possibility to disable integration to WorldEdit in config.yml

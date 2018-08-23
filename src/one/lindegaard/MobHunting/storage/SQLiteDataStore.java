@@ -57,7 +57,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 	protected void openPreparedStatements(Connection connection, PreparedConnectionType preparedConnectionType)
 			throws SQLException {
 		switch (preparedConnectionType) {
-		case GET_PLAYER_DATA:
+		case GET_PLAYER_SETTINGS:
 			mGetPlayerData = connection.prepareStatement("SELECT * FROM mh_Players WHERE UUID=?;");
 			break;
 		case SAVE_ACHIEVEMENTS:
@@ -91,13 +91,9 @@ public class SQLiteDataStore extends DatabaseDataStore {
 					"SELECT * FROM mh_Bounties where STATUS=0 AND (BOUNTYOWNER_ID=? OR WANTEDPLAYER_ID=? OR NOT NPC_ID=0);");
 			break;
 		case INSERT_BOUNTY:
-			mInsertBounty = connection.prepareStatement("REPLACE INTO mh_Bounties "
+			mInsertBounty = connection.prepareStatement("INSERT OR REPLACE INTO mh_Bounties "
 					+ "(MOBTYPE, BOUNTYOWNER_ID, WANTEDPLAYER_ID, NPC_ID, MOB_ID, WORLDGROUP, "
 					+ "CREATED_DATE, END_DATE, PRIZE, MESSAGE, STATUS) " + " VALUES (?,?,?,?,?,?,?,?,?,?,?);");
-			break;
-		case UPDATE_BOUNTY:
-			mUpdateBounty = connection.prepareStatement("UPDATE mh_Bounties SET PRIZE=?,MESSAGE=?,END_DATE=?,STATUS=?"
-					+ " WHERE WANTEDPLAYER_ID=? AND BOUNTYOWNER_ID=? AND WORLDGROUP=?;");
 			break;
 		case GET_PLAYER_BY_PLAYER_ID:
 			mGetPlayerByPlayerId = connection.prepareStatement("SELECT UUID FROM mh_Players WHERE PLAYER_ID=?;");

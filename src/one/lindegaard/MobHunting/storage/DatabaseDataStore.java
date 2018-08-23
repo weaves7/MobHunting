@@ -84,11 +84,6 @@ public abstract class DatabaseDataStore implements IDataStore {
 	protected PreparedStatement mInsertBounty;
 
 	/**
-	 * Args: Bounty
-	 */
-	protected PreparedStatement mUpdateBounty;
-
-	/**
 	 * Args: Bounty ID
 	 */
 	protected PreparedStatement mDeleteBounty;
@@ -165,7 +160,7 @@ public abstract class DatabaseDataStore implements IDataStore {
 			throws SQLException;
 
 	public enum PreparedConnectionType {
-		LOAD_ARCHIEVEMENTS, SAVE_ACHIEVEMENTS, UPDATE_PLAYER_NAME, GET_PLAYER_DATA, GET_PLAYER_UUID, INSERT_PLAYER_DATA, UPDATE_PLAYER_SETTINGS, GET_BOUNTIES, INSERT_BOUNTY, UPDATE_BOUNTY, DELETE_BOUNTY, GET_PLAYER_BY_PLAYER_ID, LOAD_MOBS, INSERT_MOBS, UPDATE_MOBS, SAVE_PLAYER_STATS
+		LOAD_ARCHIEVEMENTS, SAVE_ACHIEVEMENTS, UPDATE_PLAYER_NAME, GET_PLAYER_SETTINGS, GET_PLAYER_UUID, INSERT_PLAYER_DATA, UPDATE_PLAYER_SETTINGS, GET_BOUNTIES, INSERT_BOUNTY, DELETE_BOUNTY, GET_PLAYER_BY_PLAYER_ID, LOAD_MOBS, INSERT_MOBS, UPDATE_MOBS, SAVE_PLAYER_STATS
 	};
 
 	/**
@@ -1199,7 +1194,7 @@ public abstract class DatabaseDataStore implements IDataStore {
 	@Override
 	public PlayerSettings loadPlayerSettings(OfflinePlayer offlinePlayer) throws DataStoreException, SQLException {
 		Connection mConnection = setupConnection();
-		openPreparedStatements(mConnection, PreparedConnectionType.GET_PLAYER_DATA);
+		openPreparedStatements(mConnection, PreparedConnectionType.GET_PLAYER_SETTINGS);
 		mGetPlayerData.setString(1, offlinePlayer.getUniqueId().toString());
 		ResultSet result = mGetPlayerData.executeQuery();
 		if (result.next()) {
@@ -1310,7 +1305,7 @@ public abstract class DatabaseDataStore implements IDataStore {
 				ArrayList<OfflinePlayer> changedNames = new ArrayList<OfflinePlayer>();
 
 				mConnection = setupConnection();
-				openPreparedStatements(mConnection, PreparedConnectionType.GET_PLAYER_DATA);
+				openPreparedStatements(mConnection, PreparedConnectionType.GET_PLAYER_SETTINGS);
 				mGetPlayerData.setString(1, offlinePlayer.getUniqueId().toString());
 				ResultSet result = mGetPlayerData.executeQuery();
 				if (result.next()) {
