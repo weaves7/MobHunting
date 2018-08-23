@@ -442,7 +442,8 @@ public class Messages {
 		Iterator<Player> players = Misc.getOnlinePlayers().iterator();
 		while (players.hasNext()) {
 			Player player = players.next();
-			if (player.equals(except) || plugin.getPlayerSettingsManager().getPlayerSettings(player).isMuted())
+			if (player.equals(except)
+					|| plugin.getPlayerSettingsManager().getPlayerSettings(player).isMuted())
 				continue;
 
 			if (plugin.getConfigManager().useActionBarforBroadcasts)
