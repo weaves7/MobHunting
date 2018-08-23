@@ -3553,6 +3553,10 @@ public class ConfigManager extends AutoConfig {
 			+ "\nhttps://www.spigotmc.org/resources/protocollib.1997/")
 	public boolean enableIntegrationProtocolLib = true;
 
+	@ConfigField(name = "protocollib.show_grinding_area_using_protocollib_temp", category = "plugins", comment = "Enable/Disable. When a Grinding is detected and the reward is denied, the Grinding Area can be shown while a circle of flames."
+			+ "\nhttps://www.spigotmc.org/wiki/mobhunting-grinding-detection/")
+	public boolean showGrindingAreaUsingProtocolLib = false;
+
 	@ConfigField(name = "mysterious_halloween.enable_integration_mysterious_halloween", category = "plugins", comment = "Enable/Disable integration with MysteriousHalloween."
 			+ "\nhttps://www.spigotmc.org/resources/mysterioushalloween.13059/")
 	public boolean enableIntegrationMysteriousHalloween = true;
