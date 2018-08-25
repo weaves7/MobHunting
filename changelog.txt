@@ -1,6 +1,7 @@
 V6.0.4
 * Fixed SQL error in MySQL/ mh_Bounties
 * Fixed Ticket 409 (https://github.com/Rocologo/MobHunting/issues/409)
+* new bounties is broadcasted to all online players
 V6.0.3
 * Removed hard dependency for WorldEdit
 * Added possibility to disable integration to WorldEdit in config.yml

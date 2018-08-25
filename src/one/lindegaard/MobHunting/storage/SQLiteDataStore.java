@@ -77,7 +77,7 @@ public class SQLiteDataStore extends DatabaseDataStore {
 		case UPDATE_PLAYER_NAME:
 			mUpdatePlayerName = connection.prepareStatement("UPDATE mh_Players SET NAME=? WHERE UUID=?;");
 			break;
-		case INSERT_PLAYER_DATA:
+		case INSERT_PLAYER_SETTINGS:
 			mInsertPlayerData = connection.prepareStatement(
 					"INSERT INTO mh_Players (UUID,NAME,PLAYER_ID,LEARNING_MODE,MUTE_MODE,TEXTURE,SIGNATURE) "
 							+ "VALUES(?,?,(SELECT IFNULL(MAX(PLAYER_ID),0)+1 FROM mh_Players),?,?,?,?);");

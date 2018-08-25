@@ -160,7 +160,7 @@ public abstract class DatabaseDataStore implements IDataStore {
 			throws SQLException;
 
 	public enum PreparedConnectionType {
-		LOAD_ARCHIEVEMENTS, SAVE_ACHIEVEMENTS, UPDATE_PLAYER_NAME, GET_PLAYER_SETTINGS, GET_PLAYER_UUID, INSERT_PLAYER_DATA, UPDATE_PLAYER_SETTINGS, GET_BOUNTIES, INSERT_BOUNTY, DELETE_BOUNTY, GET_PLAYER_BY_PLAYER_ID, LOAD_MOBS, INSERT_MOBS, UPDATE_MOBS, SAVE_PLAYER_STATS
+		LOAD_ARCHIEVEMENTS, SAVE_ACHIEVEMENTS, UPDATE_PLAYER_NAME, GET_PLAYER_SETTINGS, GET_PLAYER_UUID, INSERT_PLAYER_SETTINGS, UPDATE_PLAYER_SETTINGS, GET_BOUNTIES, INSERT_BOUNTY, DELETE_BOUNTY, GET_PLAYER_BY_PLAYER_ID, LOAD_MOBS, INSERT_MOBS, UPDATE_MOBS, SAVE_PLAYER_STATS
 	};
 
 	/**
@@ -1223,7 +1223,7 @@ public abstract class DatabaseDataStore implements IDataStore {
 		try {
 			mConnection = setupConnection();
 			try {
-				openPreparedStatements(mConnection, PreparedConnectionType.INSERT_PLAYER_DATA);
+				openPreparedStatements(mConnection, PreparedConnectionType.INSERT_PLAYER_SETTINGS);
 				mInsertPlayerData.setString(1, playerSettings.getPlayer().getUniqueId().toString());
 				mInsertPlayerData.setString(2, playerSettings.getPlayer().getName());
 				mInsertPlayerData.setInt(3, playerSettings.isLearningMode() ? 1 : 0);

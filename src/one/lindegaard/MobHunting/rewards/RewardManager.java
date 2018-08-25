@@ -456,8 +456,14 @@ public class RewardManager {
 	public ItemStack setDisplayNameAndHiddenLores(ItemStack skull, String mDisplayName, double money, UUID rewardUUID,
 			UUID skinUUID) {
 		ItemMeta skullMeta = skull.getItemMeta();
-		skullMeta.setLore(new ArrayList<String>(Arrays.asList("Hidden:" + mDisplayName, "Hidden:" + money,
-				"Hidden:" + rewardUUID, money == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(), "Hidden:" + skinUUID)));
+		if (rewardUUID == UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID))
+			skullMeta.setLore(new ArrayList<String>(
+					Arrays.asList("Hidden:" + mDisplayName, "Hidden:" + money, "Hidden:" + rewardUUID,
+							money == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(), "Hidden:" + skinUUID)));
+		else
+			skullMeta.setLore(new ArrayList<String>(Arrays.asList("Hidden:" + mDisplayName, "Hidden:" + money,
+					"Hidden:" + rewardUUID, money == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(),
+					"Hidden:" + skinUUID, plugin.getMessages().getString("mobhunting.reward.name"))));
 		if (money == 0)
 			skullMeta.setDisplayName(
 					ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + mDisplayName);
@@ -471,9 +477,17 @@ public class RewardManager {
 
 	public ItemStack setReward(ItemStack skull, Reward reward) {
 		ItemMeta skullMeta = skull.getItemMeta();
-		skullMeta.setLore(new ArrayList<String>(Arrays.asList("Hidden:" + reward.getDisplayname(),
-				"Hidden:" + reward.getMoney(), "Hidden:" + reward.getRewardType(),
-				reward.getMoney() == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(), "Hidden:" + reward.getSkinUUID())));
+		if (reward.getRewardType() == UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID))
+			skullMeta.setLore(new ArrayList<String>(Arrays.asList("Hidden:" + reward.getDisplayname(),
+					"Hidden:" + reward.getMoney(), "Hidden:" + reward.getRewardType(),
+					reward.getMoney() == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(),
+					"Hidden:" + reward.getSkinUUID())));
+		else
+			skullMeta.setLore(new ArrayList<String>(Arrays.asList("Hidden:" + reward.getDisplayname(),
+					"Hidden:" + reward.getMoney(), "Hidden:" + reward.getRewardType(),
+					reward.getMoney() == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(),
+					"Hidden:" + reward.getSkinUUID(), plugin.getMessages().getString("mobhunting.reward.name"))));
+
 		if (reward.getMoney() == 0)
 			skullMeta.setDisplayName(
 					ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + reward.getDisplayname());

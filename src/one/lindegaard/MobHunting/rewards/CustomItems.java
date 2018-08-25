@@ -210,7 +210,7 @@ public class CustomItems {
 
 		skullMeta.setLore(new ArrayList<String>(Arrays.asList("Hidden:" + offlinePlayer.getName(),
 				"Hidden:" + String.format(Locale.ENGLISH, "%.5f", money), "Hidden:" + Reward.MH_REWARD_KILLER_UUID,
-				money == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(), "Hidden:" + uuid)));
+				money == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(), "Hidden:" + uuid,plugin.getMessages().getString("mobhunting.reward.name"))));
 		ChatColor color = ChatColor.GOLD;
 		try {
 			color = ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor.toUpperCase());
@@ -243,7 +243,8 @@ public class CustomItems {
 		String name = Bukkit.getOfflinePlayer(uuid).getName();
 		skullMeta.setLore(new ArrayList<String>(Arrays.asList("Hidden:" + name,
 				"Hidden:" + String.format(Locale.ENGLISH, "%.5f", money), "Hidden:" + Reward.MH_REWARD_KILLER_UUID,
-				money == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(), "Hidden:" + uuid)));
+				money == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(), "Hidden:" + uuid,
+				plugin.getMessages().getString("mobhunting.reward.name"))));
 		skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer(uuid));
 		if (money == 0) {
 			skullMeta.setDisplayName(name);
@@ -298,21 +299,27 @@ public class CustomItems {
 			e.printStackTrace();
 		}
 
-		skullMeta.setLore(new ArrayList<String>(Arrays.asList("Hidden:" + mDisplayName,
-				"Hidden:" + String.format(Locale.ENGLISH, "%.5f", money), "Hidden:" + mPlayerUUID,
-				money == 0 ? "Hidden:" : "Hidden:" + uniqueRewardUuid, "Hidden:" + skinUuid)));
+		if (mPlayerUUID == UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID))
+			skullMeta.setLore(new ArrayList<String>(Arrays.asList("Hidden:" + mDisplayName,
+					"Hidden:" + String.format(Locale.ENGLISH, "%.5f", money), "Hidden:" + mPlayerUUID,
+					money == 0 ? "Hidden:" : "Hidden:" + uniqueRewardUuid, "Hidden:" + skinUuid)));
+		else
+			skullMeta.setLore(new ArrayList<String>(
+					Arrays.asList("Hidden:" + mDisplayName, "Hidden:" + String.format(Locale.ENGLISH, "%.5f", money),
+							"Hidden:" + mPlayerUUID, money == 0 ? "Hidden:" : "Hidden:" + uniqueRewardUuid,
+							"Hidden:" + skinUuid, plugin.getMessages().getString("mobhunting.reward.name"))));
+
 		ChatColor color = ChatColor.GOLD;
 		try {
 			color = ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor.toUpperCase());
 		} catch (Exception e) {
-			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD+"[BagOfGold] "+ChatColor.RED+"drop-money-on-ground-text-color in your config.yml cant be read.");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[BagOfGold] " + ChatColor.RED
+					+ "drop-money-on-ground-text-color in your config.yml cant be read.");
 		}
 		if (money == 0)
-			skullMeta.setDisplayName(
-					color + mDisplayName);
+			skullMeta.setDisplayName(color + mDisplayName);
 		else
-			skullMeta.setDisplayName(color
-					+ mDisplayName + " (" + plugin.getRewardManager().format(money) + ")");
+			skullMeta.setDisplayName(color + mDisplayName + " (" + plugin.getRewardManager().format(money) + ")");
 
 		skull.setItemMeta(skullMeta);
 		return skull;
