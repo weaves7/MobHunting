@@ -31,6 +31,7 @@ import one.lindegaard.MobHunting.rewards.skins.Skins_1_10_R1;
 import one.lindegaard.MobHunting.rewards.skins.Skins_1_11_R1;
 import one.lindegaard.MobHunting.rewards.skins.Skins_1_12_R1;
 import one.lindegaard.MobHunting.rewards.skins.Skins_1_13_R1;
+import one.lindegaard.MobHunting.rewards.skins.Skins_1_13_R2;
 import one.lindegaard.MobHunting.rewards.skins.Skins_1_8_R1;
 import one.lindegaard.MobHunting.rewards.skins.Skins_1_8_R2;
 import one.lindegaard.MobHunting.rewards.skins.Skins_1_8_R3;
@@ -59,7 +60,9 @@ public class CustomItems {
 			whatVersionAreYouUsingException.printStackTrace();
 			return null;
 		}
-		if (version.equals("v1_13_R1")) {
+		if (version.equals("v1_13_R2")) {
+			sk = new Skins_1_13_R2();
+		} if (version.equals("v1_13_R1")) {
 			sk = new Skins_1_13_R1();
 		} else if (version.equals("v1_12_R1")) {
 			sk = new Skins_1_12_R1();
@@ -299,7 +302,7 @@ public class CustomItems {
 			e.printStackTrace();
 		}
 
-		if (mPlayerUUID == UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID))
+		if (mPlayerUUID.equals(UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID)))
 			skullMeta.setLore(new ArrayList<String>(Arrays.asList("Hidden:" + mDisplayName,
 					"Hidden:" + String.format(Locale.ENGLISH, "%.5f", money), "Hidden:" + mPlayerUUID,
 					money == 0 ? "Hidden:" : "Hidden:" + uniqueRewardUuid, "Hidden:" + skinUuid)));

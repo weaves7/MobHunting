@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-	<modelVersion>4.0.0</modelVersion> 
+	<modelVersion>4.0.0</modelVersion>
 	<groupId>one.lindegaard</groupId>
 	<artifactId>MobHunting</artifactId>
 	<packaging>jar</packaging>
-	<!-- <version>6.0.4</version>  -->
-	<version>6.0.4-SNAPSHOT-B${build.number}</version>
+	<version>6.0.4</version>
+	<!-- <version>6.0.4-SNAPSHOT-B${build.number}</version> -->
 	<name>MobHunting</name>
 	<url>https://www.spigotmc.org/resources/mobhunting.3582/</url>
 	<description>MobHunting adds a new level of fun to hunting monsters. Now you can get money from kills, get bonuses for skilled and creative kills, and get special achievements!</description>
@@ -31,7 +31,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<mainClass>${project.groupId}.${project.artifactId}</mainClass>
-		<spigotmc113.version>1.13-R1</spigotmc113.version>
+		<spigotmc113.version>1.13.1-R1</spigotmc113.version>
+		<craftbukkit113R2.version>1.13-R2</craftbukkit113R2.version>
 		<craftbukkit113R1.version>1.13-R1</craftbukkit113R1.version>
 		<craftbukkit112R1.version>1.12-R1</craftbukkit112R1.version>
 		<craftbukkit111R1.version>1.11-R1</craftbukkit111R1.version>
@@ -106,6 +107,8 @@
 		<mythiclib.version>0.0.1-20170628.172950-1</mythiclib.version>
 		<StackMob.version>2.1.1</StackMob.version>
 		<InfernalMobs.version>5.3</InfernalMobs.version>
+		<PVPControl.version>1.4.1-SNAPSHOT</PVPControl.version>
+
 		<minigameslib.version>1.14.15.jar</minigameslib.version>
 
 		<gringotts.version>2.10-20170805.084200-1</gringotts.version>
@@ -330,13 +333,23 @@
 	<!-- ********************************************************************** -->
 	<dependencies>
 		<!-- SpigotMC -->
-		
-		<dependency> 
+
+		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
 			<version>${spigotmc113.version}</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/spigot-1.13.jar</systemPath>
+			<systemPath>${project.basedir}/lib/spigot-1.13.1.jar</systemPath>
+		</dependency>
+
+		<!-- CraftBukkit -->
+		<dependency>
+			<groupId>org.craftbukkit</groupId>
+			<artifactId>craftbukkit113R2</artifactId>
+			<version>${craftbukkit113R2.version}</version>
+			<!-- <scope>provided</scope> -->
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/craftbukkit-1.13.1.jar</systemPath>
 		</dependency>
 
 		<!-- CraftBukkit -->
@@ -348,7 +361,7 @@
 			<scope>system</scope>
 			<systemPath>${project.basedir}/lib/craftbukkit-1.13.jar</systemPath>
 		</dependency>
-		
+
 		<!-- CraftBukkit -->
 		<dependency>
 			<groupId>org.craftbukkit</groupId>
@@ -432,13 +445,9 @@
 		</dependency>
 
 		<!-- WorldEdit -->
-		<!-- <dependency>
-			<groupId>com.sk89q.worldedit</groupId>
-			<artifactId>worldedit-bukkit</artifactId>
-			<version>${worldedit.version}</version>
-			<scope>provided</scope>
-		</dependency> -->
-		<dependency> 
+		<!-- <dependency> <groupId>com.sk89q.worldedit</groupId> <artifactId>worldedit-bukkit</artifactId> 
+			<version>${worldedit.version}</version> <scope>provided</scope> </dependency> -->
+		<dependency>
 			<groupId>com.sk89q.worldedit</groupId>
 			<artifactId>worldedit-bukkit</artifactId>
 			<version>7.0.0-SNAPSHOT;3815-5f4cc3e</version>
@@ -472,13 +481,9 @@
 		</dependency>
 
 		<!-- Worldguard -->
-		<!-- <dependency> 
-			<groupId>com.sk89q.worldguard</groupId>
-			<artifactId>worldguard-legacy</artifactId>
-			<version>${worldguard.version}</version>
-			<scope>provided</scope>
-		</dependency> -->
-		<dependency> 
+		<!-- <dependency> <groupId>com.sk89q.worldguard</groupId> <artifactId>worldguard-legacy</artifactId> 
+			<version>${worldguard.version}</version> <scope>provided</scope> </dependency> -->
+		<dependency>
 			<groupId>com.sk89q.worldguard</groupId>
 			<artifactId>worldguard-legacy</artifactId>
 			<version>7.0.0-SNAPSHOT;1733-8161fd0</version>
@@ -486,7 +491,7 @@
 			<systemPath>${project.basedir}/lib/worldguard-legacy-7.0.0-SNAPSHOT-dist-B1733.jar</systemPath>
 		</dependency>
 
-		
+
 		<dependency>
 			<groupId>net.sacredlabyrinth.Phaed</groupId>
 			<artifactId>PreciousStones</artifactId>
@@ -845,6 +850,16 @@
 			<version>${spigetupdate.version}</version>
 			<scope>compile</scope>
 		</dependency>
+
+		<!-- PVPControl
+		<dependency>
+			<groupId>com.gmail.nowyarek.pvpcontrol</groupId>
+			<artifactId>PVPControl</artifactId>
+			<version>1.4.1-20180825.084515-1</version>
+		</dependency> -->
+		<!-- <dependency> <groupId>com.gmail.nowyarek.pvpcontrol.PVPControl</groupId> 
+			<artifactId>PVPControl</artifactId> <version>${PVPControl.version}</version> 
+			</dependency> -->
 
 	</dependencies>
 

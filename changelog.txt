@@ -1,5 +1,7 @@
 V6.0.4
-* Fixed SQL error in MySQL/ mh_Bounties
+* Support for SpigotMC 1.13.1 added
+* "MobHunting Reward" Lore added to MobHunting Rewards
+* Fixed SQL error in MySQL/ mh_Bounties (Removed CONTRAINT's)
 * Fixed Ticket 409 (https://github.com/Rocologo/MobHunting/issues/409)
 * new bounties is broadcasted to all online players
 V6.0.3

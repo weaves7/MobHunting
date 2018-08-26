@@ -110,7 +110,7 @@ public class Reward {
 	}
 
 	public ArrayList<String> getHiddenLore() {
-		if (uuid == UUID.fromString(MH_REWARD_BAG_OF_GOLD_UUID))
+		if (uuid.equals(UUID.fromString(MH_REWARD_BAG_OF_GOLD_UUID)))
 			return new ArrayList<String>(Arrays.asList("Hidden:" + displayname, // displayname
 					"Hidden:" + String.format(Locale.ENGLISH, "%.5f", money), // value
 					"Hidden:" + uuid.toString(), // type

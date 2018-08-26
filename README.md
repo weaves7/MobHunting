@@ -1,3 +1,5 @@
+![alt text](https://www.spigotmc.org/attachments/mobhunting-header-png.194617/)
+
 MobHunting
 =====================
 *MobHunting adds a new level of fun to hunting monsters, animals or opponents. Now you can get money or even dead players skull from kills, get bonuses for skilled and creative kills, and get special achievements!*

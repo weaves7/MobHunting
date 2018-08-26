@@ -268,7 +268,7 @@ public class ConfigManager extends AutoConfig {
 						+ "\nKillstreak will be disabled if you set the multiplier: 1.0");
 
 		setCategoryComment("multiplier.rank", "########################################################################"
-				+ "\nRank multipliers" + "########################################################################"
+				+ "\nRank multipliers" + "\n########################################################################"
 				+ "\nYou can add multipliers for players with different ranks/groups. To do this\"\n"
 				+ "\nyou must set give the user/group permissions with a format like this:"
 				+ "\nmobhunting.multiplier.guest" + "\nmobhunting.multiplier.guardian" + "\nmobhunting.multiplier.staff"
@@ -357,7 +357,7 @@ public class ConfigManager extends AutoConfig {
 		setCategoryComment("plugins.levelmobs.lorinthsrpgmobs",
 				"########################################################################" + "\nLorinthsRPGMobs"
 						+ "\n########################################################################"
-						+ "Disable integration with LorinthsRpgMobs"
+						+ "\nDisable integration with LorinthsRpgMobs"
 						+ "\nhttps://dev.bukkit.org/projects/lorinthsrpgmobs");
 
 		setCategoryComment("plugins.factions",
