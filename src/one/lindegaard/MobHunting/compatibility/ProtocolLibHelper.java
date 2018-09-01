@@ -101,7 +101,7 @@ public class ProtocolLibHelper {
 
 	public static void showGrindingArea(final Player player, final Area grindingArea, final Location killedLocation) {
 
-		if (ProtocolLibCompat.isSupported() & MobHunting.getAPI().getConfigManager().showGrindingAreaUsingProtocolLib){
+		if (ProtocolLibCompat.isSupported() & MobHunting.getAPI().getConfigManager().showGrindingAreaUsingProtocolLib) {
 			ProtocolLibShowGrindingAreaThread thread = new ProtocolLibShowGrindingAreaThread(player, grindingArea,
 					killedLocation);
 			thread.run();

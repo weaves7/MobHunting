@@ -204,13 +204,17 @@ public class BountyCommand implements ICommand {
 				if (bountyOwner.isOnline())
 					plugin.getMessages()
 							.broadcast(plugin.getMessages().getString("mobhunting.commands.bounty.bounties",
-									"wantedplayer", wantedPlayer.getName(), "bountyowner", bountyOwner.getName(),
+									"wantedplayer", wantedPlayer.getName(), "bountyowner", bountyOwner.getName(),"prize",
+									plugin.getRewardManager().format(prize),"money",
+									plugin.getRewardManager().format(prize),
 									"daysleft", (bounty.getEndDate() - System.currentTimeMillis()) / (86400000L)),
 									(Player) bountyOwner);
 				else
 					plugin.getMessages()
 					.broadcast(plugin.getMessages().getString("mobhunting.commands.bounty.bounties",
-							"wantedplayer", wantedPlayer.getName(), "bountyowner", bountyOwner.getName(),
+							"wantedplayer", wantedPlayer.getName(), "bountyowner", bountyOwner.getName(),"prize",
+							plugin.getRewardManager().format(prize),"money",
+							plugin.getRewardManager().format(prize),
 							"daysleft", (bounty.getEndDate() - System.currentTimeMillis()) / (86400000L)), null);
 				
 				plugin.getMessages().debug("%s has put %s on %s with the message %s", bountyOwner.getName(),

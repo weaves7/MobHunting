@@ -328,11 +328,11 @@ public class LeaderboardCommand implements ICommand, Listener {
 
 		if (state.create) {
 			BlockFace face = ((Sign) event.getClickedBlock().getState().getData()).getFacing();
+			plugin.getMessages().debug("Create face=%s", face);
 
 			try {
-				// MobHunting.debug("leaderBoardCommand:
-				// parm=%s,%s,%s,%s,%s,%s", face,state.type[0],
-				// state.period[0],state.horizontal,state.width,state.height);
+				plugin.getMessages().debug("leaderBoardCommand: parm=%s,%s,%s,%s,%s,%s", face,state.type[0].getDBColumn(),
+								state.period[0].getDBColumn(),state.horizontal,state.width,state.height);
 				plugin.getLeaderboardManager().createLeaderboard(event.getClickedBlock().getLocation(), face,
 						state.type, state.period, state.horizontal, state.width, state.height);
 				// TODO: Create new strings in Message

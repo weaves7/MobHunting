@@ -347,6 +347,7 @@ public class BountyManager implements Listener {
 										new String[] { ChatColor.WHITE + "", plugin.getMessages().getString(
 												"mobhunting.commands.bounty.bounties", "bountyowner",
 												bounty.getBountyOwner().getName(), "prize",
+												plugin.getRewardManager().format(bounty.getPrize()), "money",
 												plugin.getRewardManager().format(bounty.getPrize()), "wantedplayer",
 												bounty.getWantedPlayer().getName(), "daysleft",
 												(bounty.getEndDate() - System.currentTimeMillis()) / (86400000L)) });
@@ -356,8 +357,9 @@ public class BountyManager implements Listener {
 										inventory, n, ChatColor.GREEN + wantedPlayer.getName(),
 										new String[] { ChatColor.WHITE + "", plugin.getMessages().getString(
 												"mobhunting.commands.bounty.bounties", "bountyowner", "Random Bounty",
-												"prize", plugin.getRewardManager().format(bounty.getPrize()),
-												"wantedplayer", bounty.getWantedPlayer().getName(), "daysleft",
+												"prize", plugin.getRewardManager().format(bounty.getPrize()), "money",
+												plugin.getRewardManager().format(bounty.getPrize()), "wantedplayer",
+												bounty.getWantedPlayer().getName(), "daysleft",
 												(bounty.getEndDate() - System.currentTimeMillis()) / (86400000L)) });
 							if (n < 53)
 								n++;
@@ -374,12 +376,14 @@ public class BountyManager implements Listener {
 							if (bounty.getBountyOwner() != null)
 								sender.sendMessage(plugin.getMessages().getString("mobhunting.commands.bounty.bounties",
 										"bountyowner", bounty.getBountyOwner().getName(), "prize",
+										plugin.getRewardManager().format(bounty.getPrize()), "money",
 										plugin.getRewardManager().format(bounty.getPrize()), "wantedplayer",
 										bounty.getWantedPlayer().getName(), "daysleft",
 										(bounty.getEndDate() - System.currentTimeMillis()) / (86400000L)));
 							else
 								sender.sendMessage(plugin.getMessages().getString("mobhunting.commands.bounty.bounties",
 										"bountyowner", "Random Bounty", "prize",
+										plugin.getRewardManager().format(bounty.getPrize()), "money",
 										plugin.getRewardManager().format(bounty.getPrize()), "wantedplayer",
 										bounty.getWantedPlayer().getName(), "daysleft",
 										(bounty.getEndDate() - System.currentTimeMillis()) / (86400000L)));
@@ -411,6 +415,7 @@ public class BountyManager implements Listener {
 									new String[] { ChatColor.WHITE + "", plugin.getMessages().getString(
 											"mobhunting.commands.bounty.bounties", "bountyowner",
 											bounty.getBountyOwner().getName(), "prize",
+											plugin.getRewardManager().format(bounty.getPrize()), "money",
 											plugin.getRewardManager().format(bounty.getPrize()), "wantedplayer",
 											bounty.getWantedPlayer().getName(), "daysleft",
 											(bounty.getEndDate() - System.currentTimeMillis()) / (86400000L)) });
@@ -421,8 +426,9 @@ public class BountyManager implements Listener {
 									inventory, n, ChatColor.GREEN + bounty.getWantedPlayer().getName(),
 									new String[] { ChatColor.WHITE + "", plugin.getMessages().getString(
 											"mobhunting.commands.bounty.bounties", "bountyowner", "Random Bounty",
-											"prize", plugin.getRewardManager().format(bounty.getPrize()),
-											"wantedplayer", bounty.getWantedPlayer().getName(), "daysleft",
+											"prize", plugin.getRewardManager().format(bounty.getPrize()), "money",
+											plugin.getRewardManager().format(bounty.getPrize()), "wantedplayer",
+											bounty.getWantedPlayer().getName(), "daysleft",
 											(bounty.getEndDate() - System.currentTimeMillis()) / (86400000L)) });
 						if (n < 53)
 							n++;
@@ -436,12 +442,14 @@ public class BountyManager implements Listener {
 						if (bounty.getBountyOwner() != null)
 							sender.sendMessage(plugin.getMessages().getString("mobhunting.commands.bounty.bounties",
 									"bountyowner", bounty.getBountyOwner().getName(), "prize",
+									plugin.getRewardManager().format(bounty.getPrize()), "money",
 									plugin.getRewardManager().format(bounty.getPrize()), "wantedplayer",
 									bounty.getWantedPlayer().getName(), "daysleft",
 									(bounty.getEndDate() - System.currentTimeMillis()) / (86400000L)));
 						else
 							sender.sendMessage(plugin.getMessages().getString("mobhunting.commands.bounty.bounties",
 									"bountyowner", "Random Bounty", "prize",
+									plugin.getRewardManager().format(bounty.getPrize()), "money",
 									plugin.getRewardManager().format(bounty.getPrize()), "wantedplayer",
 									bounty.getWantedPlayer().getName(), "daysleft",
 									(bounty.getEndDate() - System.currentTimeMillis()) / (86400000L)));

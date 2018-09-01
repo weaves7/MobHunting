@@ -189,6 +189,8 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 		else
 			it = mData.iterator();
 
+		plugin.getMessages().debug("Block mFacing=", mFacing);
+		
 		// Update the label sign
 		Block signBlock = mLocation.getBlock();
 		if (isLoaded(signBlock)) {
@@ -244,6 +246,7 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 						block.getRelative(mFacing.getOppositeFace()).setType(Material.STONE);
 
 					Sign sign = new Sign(Material.WALL_SIGN);
+					plugin.getMessages().debug("mFacing=", mFacing);
 					sign.setFacingDirection(mFacing);
 
 					BlockState state = block.getState();
@@ -477,7 +480,9 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 
 		Vector pos = section.getVector("position");
 
-		mFacing = BlockFace.valueOf(section.getString("facing"));
+		String fac = section.getString("facing");
+		plugin.getMessages().debug("fac=%s",fac);
+		mFacing = BlockFace.valueOf(fac);
 
 		mHorizontal = section.getBoolean("horizontal");
 		List<String> periods = section.getStringList("periods");
