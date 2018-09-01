@@ -1,5 +1,6 @@
 V6.0.5
 * Fixed Ticked 432. ${prize} not working when creating a bount on a player.
+* Fixed ticket 437. Stacked heads sold with BagOfGOld sign was counted as one head.
 V6.0.4
 * Support for SpigotMC 1.13.1 added
 * "MobHunting Reward" Lore added to MobHunting Rewards

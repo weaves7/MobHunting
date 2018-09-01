@@ -55,6 +55,7 @@ public class BagOfGoldSign implements Listener {
 				double money = 0;
 				double moneyInHand = 0;
 				double moneyOnSign = 0;
+				int numberOfHeads=1;
 				// SELL BagOfGold Sign
 				if (signType.equalsIgnoreCase(plugin.getMessages().getString("mobhunting.bagofgoldsign.line2.sell"))) {
 					if (Reward.isReward(player.getItemInHand())) {
@@ -67,7 +68,8 @@ public class BagOfGoldSign implements Listener {
 							return;
 						}
 
-						moneyInHand = reward.getMoney();
+						numberOfHeads=player.getItemInHand().getAmount();
+						moneyInHand = reward.getMoney()*numberOfHeads;
 						if (moneyInHand == 0) {
 							plugin.getMessages().playerSendMessage(player, plugin.getMessages().getString(
 									"mobhunting.bagofgoldsign.item_has_no_value", "itemname", reward.getDisplayname()));
@@ -76,7 +78,7 @@ public class BagOfGoldSign implements Listener {
 
 						if (sign.getLine(2).isEmpty() || sign.getLine(2)
 								.equalsIgnoreCase(plugin.getMessages().getString("mobhunting.bagofgoldsign.line3.everything"))) {
-							money = moneyInHand;
+							money = moneyInHand*numberOfHeads;
 							moneyOnSign = moneyInHand;
 						} else {
 							try {
