@@ -28,12 +28,8 @@ public class HappyHourCommand implements ICommand {
 	private BukkitTask happyhourevent = null;
 	private BukkitTask happyhoureventStop = null;
 
-	public HappyHourCommand(int minutesToRun) {// , int minutesLeft, double
-												// multiplier) {
-
+	public HappyHourCommand(int minutesToRun) {
 		this.minutesToRun = minutesToRun;
-		// this.minutesLeft = minutesLeft;
-		// this.multiplier = multiplier;
 	}
 
 	// Used case
@@ -133,7 +129,6 @@ public class HappyHourCommand implements ICommand {
 		} else if (args[0].matches("\\d+(\\d+)?") && args[1].matches("\\d+(\\.\\d+)?")) {
 
 			// /mh happyhour <minutes> <multiplier>
-
 			minutesToRun = Integer.valueOf(args[0]);
 			minutesLeft = minutesToRun;
 			multiplier = Double.valueOf(args[1]);
@@ -151,7 +146,6 @@ public class HappyHourCommand implements ICommand {
 				plugin.getMessages().debug("Happy hour started, minutes left:%s", minutesLeft);
 			}
 
-			plugin.getMessages().debug("getMessages=%s", plugin.getMessages());
 			for (Player player : Misc.getOnlinePlayers()) {
 				plugin.getMessages().playerSendTitlesMessage(player,
 						plugin.getMessages().getString("mobhunting.commands.happyhour.started_title"),
@@ -195,7 +189,6 @@ public class HappyHourCommand implements ICommand {
 			items.add("cancel");
 		} else if (args.length == 2) {
 			if (items.isEmpty()) {
-				plugin.getMessages().debug("arg[1]=(%s)", args[1]);
 				items.add("1");
 				items.add("2");
 				items.add("3");

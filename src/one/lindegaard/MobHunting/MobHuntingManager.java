@@ -1826,7 +1826,9 @@ public class MobHuntingManager implements Listener {
 							plugin.getRewardManager().getHeadValue(killed), minecraftMob.getPlayerUUID());
 					player.getWorld().dropItem(killed.getLocation(), head);
 				}
-				plugin.getMessages().debug("%s killed a %s and a head was dropped", killer.getName(), killed.getName());
+				plugin.getMessages().debug("%s killed a %s and a head was dropped (random: %s<%s config)",
+						killer.getName(), killed.getName(), random,
+						plugin.getRewardManager().getHeadDropChance(killed));
 				if (!plugin.getRewardManager().getHeadDropMessage(killed).isEmpty()) {
 					MessageType message_type = MessageType.valueOf(plugin.getConfigManager().defaultHeadMessageType);
 					plugin.getMessages().playerSendMessageAt(killer,
