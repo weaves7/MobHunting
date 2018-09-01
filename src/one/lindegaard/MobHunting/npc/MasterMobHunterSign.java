@@ -559,6 +559,9 @@ public class MasterMobHunterSign implements Listener {
 		// event
 		Material c = e.getChangedType();
 
+		if (b == null || b.getType()==null)
+			return;
+		
 		if (b.getType().equals(Material.LEGACY_REDSTONE_LAMP_ON)) {
 			if (isMHIndirectPoweredBySign(b)) {
 				e.setCancelled(true);

@@ -55,6 +55,7 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 
 		mLocation = location;
 		mFacing = facing;
+		plugin.getMessages().debug("Contructor: Face=%s", facing);
 		mWidth = width;
 		mHeight = height;
 
