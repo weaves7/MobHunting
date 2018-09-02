@@ -78,7 +78,7 @@ public class BagOfGoldSign implements Listener {
 
 						if (sign.getLine(2).isEmpty() || sign.getLine(2)
 								.equalsIgnoreCase(plugin.getMessages().getString("mobhunting.bagofgoldsign.line3.everything"))) {
-							money = moneyInHand*numberOfHeads;
+							money = moneyInHand;
 							moneyOnSign = moneyInHand;
 						} else {
 							try {
