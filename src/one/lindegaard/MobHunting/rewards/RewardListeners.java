@@ -56,6 +56,23 @@ public class RewardListeners implements Listener {
 		this.plugin = plugin;
 	}
 
+	private boolean isFakeReward(Item item) {
+		ItemStack itemStack = item.getItemStack();
+		return isFakeReward(itemStack);
+	}
+
+	private boolean isFakeReward(ItemStack itemStack) {
+
+		if (itemStack != null && itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName()
+				&& itemStack.getItemMeta().getDisplayName()
+						.contains(MobHunting.getAPI().getConfigManager().dropMoneyOnGroundSkullRewardName)) {
+			if (!itemStack.getItemMeta().hasLore()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerDropReward(PlayerDropItemEvent event) {
 		if (event.isCancelled())
@@ -63,6 +80,11 @@ public class RewardListeners implements Listener {
 
 		Item item = event.getItemDrop();
 		Player player = event.getPlayer();
+
+		if (isFakeReward(item)) {
+			player.sendMessage(ChatColor.RED + "[MobHunting] WARNING, this was a FAKE reward with no value");
+			return;
+		}
 
 		if (Reward.isReward(item)) {
 			Reward reward = Reward.getReward(item);
@@ -163,6 +185,11 @@ public class RewardListeners implements Listener {
 
 				Item item = (Item) entity;
 
+				if (isFakeReward(item)) {
+					player.sendMessage(ChatColor.RED + "[MobHunting] WARNING, this was a FAKE reward with no value");
+					return;
+				}
+
 				if (Reward.isReward(item)) {
 					if (plugin.getRewardManager().getDroppedMoney().containsKey(entity.getEntityId())) {
 						Reward reward = Reward.getReward(item);
@@ -256,6 +283,7 @@ public class RewardListeners implements Listener {
 		Iterator<Entity> nearby = projectile.getNearbyEntities(1, 1, 1).iterator();
 		while (nearby.hasNext()) {
 			targetEntity = nearby.next();
+
 			if (Reward.isReward(targetEntity)) {
 				if (plugin.getRewardManager().getDroppedMoney().containsKey(targetEntity.getEntityId()))
 					plugin.getRewardManager().getDroppedMoney().remove(targetEntity.getEntityId());
@@ -274,6 +302,12 @@ public class RewardListeners implements Listener {
 		Player player = event.getPlayer();
 		ItemStack is = event.getItemInHand();
 		Block block = event.getBlockPlaced();
+
+		if (isFakeReward(is)) {
+			player.sendMessage(ChatColor.RED + "[MobHunting] WARNING, this was a FAKE reward with no value");
+			return;
+		}
+
 		if (Reward.isReward(is)) {
 			Reward reward = Reward.getReward(is);
 			if (event.getPlayer().getGameMode() != GameMode.SURVIVAL) {
@@ -358,6 +392,14 @@ public class RewardListeners implements Listener {
 		Inventory inventory = event.getInventory();
 		if (inventory.getType() == InventoryType.CRAFTING) {
 			ItemStack helmet = player.getEquipment().getHelmet();
+
+			if (isFakeReward(helmet)) {
+				player.sendMessage(
+						ChatColor.RED + "[MobHunting] WARNING, you have a reward on your head. It was removed.");
+				event.getPlayer().getEquipment().setHelmet(new ItemStack(Material.AIR));
+				return;
+			}
+
 			if (Reward.isReward(helmet)) {
 				Reward reward = Reward.getReward(helmet);
 				if (reward.isBagOfGoldReward()) {
@@ -483,21 +525,36 @@ public class RewardListeners implements Listener {
 
 		ItemStack isCurrentSlot = event.getCurrentItem();
 		ItemStack isCursor = event.getCursor();
-		if (!(Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)))
+		
+		Player player = (Player) event.getWhoClicked();
+		
+		if (!(Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor))) {
+			if (isFakeReward(isCurrentSlot)){
+				player.sendMessage(ChatColor.RED+"[MobHunting] WARNING, this is a FAKE reward. It was removed.");
+				isCurrentSlot.setType(Material.AIR);
+				return;
+			}
+			if (isFakeReward(isCursor)){
+				player.sendMessage(ChatColor.RED+"[MobHunting] WARNING, this is a FAKE reward. It was removed.");
+				isCursor.setType(Material.AIR);
+				return;
+			}
 			return;
+		}
 
 		InventoryAction action = event.getAction();
-		Player player = (Player) event.getWhoClicked();
 		SlotType slotType = event.getSlotType();
 
-		//Inventory inventory = event.getInventory();
-		//if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
-		//	plugin.getMessages().debug(
-		//			"action=%s, InventoryType=%s, slottype=%s, slotno=%s, current=%s, cursor=%s, view=%s", action,
-		//			inventory.getType(), slotType, event.getSlot(),
-		//			isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
-		//			isCursor == null ? "null" : isCursor.getType(), event.getView().getType());
-		//}
+		// Inventory inventory = event.getInventory();
+		// if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
+		// plugin.getMessages().debug(
+		// "action=%s, InventoryType=%s, slottype=%s, slotno=%s, current=%s,
+		// cursor=%s, view=%s", action,
+		// inventory.getType(), slotType, event.getSlot(),
+		// isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
+		// isCursor == null ? "null" : isCursor.getType(),
+		// event.getView().getType());
+		// }
 
 		if (action == InventoryAction.NOTHING)
 			return;

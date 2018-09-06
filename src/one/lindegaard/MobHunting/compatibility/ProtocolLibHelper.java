@@ -3,7 +3,6 @@ package one.lindegaard.MobHunting.compatibility;
 import java.util.Iterator;
 import java.util.List;
 
-import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -18,7 +17,6 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.reflect.StructureModifier;
 import one.lindegaard.MobHunting.MobHunting;
-import one.lindegaard.MobHunting.grinding.Area;
 
 public class ProtocolLibHelper {
 
@@ -92,20 +90,6 @@ public class ProtocolLibHelper {
 		wpsc.setCollectedEntityId(ent.getEntityId());
 		wpsc.setCollectorEntityId(player.getEntityId());
 		wpsc.sendPacket(player);
-	}
-
-	public static void showGrindingAreaDISABLED(final Player player, final Area grindingArea,
-			final Location killedLocation) {
-
-	}
-
-	public static void showGrindingArea(final Player player, final Area grindingArea, final Location killedLocation) {
-
-		if (ProtocolLibCompat.isSupported() & MobHunting.getAPI().getConfigManager().showGrindingAreaUsingProtocolLib) {
-			ProtocolLibShowGrindingAreaThread thread = new ProtocolLibShowGrindingAreaThread(player, grindingArea,
-					killedLocation);
-			thread.run();
-		}
 	}
 
 }

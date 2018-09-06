@@ -1,4 +1,6 @@
 V6.0.5
+* Use org.Bukkit.SendTitle instead of using TitleManager and TitleAPI. 
+* Use player.spawnParticle instead of using ProtocolLib 
 * Fixed Ticked 432. ${prize} not working when creating a bount on a player.
 * Fixed ticket 437. Stacked heads sold with BagOfGOld sign was counted as one head.
 V6.0.4

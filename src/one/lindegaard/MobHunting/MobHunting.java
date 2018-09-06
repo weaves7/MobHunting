@@ -67,7 +67,7 @@ public class MobHunting extends JavaPlugin {
 	private RewardManager mRewardManager;
 	private MobHuntingManager mMobHuntingManager;
 	private FishingManager mFishingManager;
-	private GrindingManager mAreaManager;
+	private GrindingManager mGrindingManager;
 	private LeaderboardManager mLeaderboardManager;
 	private AchievementManager mAchievementManager;
 	private BountyManager mBountyManager;
@@ -168,7 +168,7 @@ public class MobHunting extends JavaPlugin {
 		if (mRewardManager.getEconomy() == null)
 			return;
 
-		mAreaManager = new GrindingManager(this);
+		mGrindingManager = new GrindingManager(this);
 
 		if (mConfig.databaseType.equalsIgnoreCase("mysql"))
 			mStore = new MySQLDataStore(this);
@@ -369,7 +369,7 @@ public class MobHunting extends JavaPlugin {
 		getMessages().debug("Shutdown LeaderBoardManager");
 		mLeaderboardManager.shutdown();
 		getMessages().debug("Shutdown AreaManager");
-		mAreaManager.saveData();
+		mGrindingManager.saveData();
 		if (PlaceholderAPICompat.isSupported()) {
 			getMessages().debug("Shutdown PlaceHolderManager");
 			PlaceholderAPICompat.shutdown();
@@ -494,7 +494,7 @@ public class MobHunting extends JavaPlugin {
 	 * @return
 	 */
 	public GrindingManager getGrindingManager() {
-		return mAreaManager;
+		return mGrindingManager;
 	}
 
 	/**

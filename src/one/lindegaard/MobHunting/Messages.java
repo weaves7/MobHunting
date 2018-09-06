@@ -35,7 +35,6 @@ import one.lindegaard.MobHunting.compatibility.BarAPICompat;
 import one.lindegaard.MobHunting.compatibility.BossBarAPICompat;
 import one.lindegaard.MobHunting.compatibility.CitizensCompat;
 import one.lindegaard.MobHunting.compatibility.PlaceholderAPICompat;
-import one.lindegaard.MobHunting.compatibility.TitleAPICompat;
 import one.lindegaard.MobHunting.compatibility.TitleManagerCompat;
 import one.lindegaard.MobHunting.mobs.ExtendedMob;
 import one.lindegaard.MobHunting.mobs.MobPlugin;
@@ -608,18 +607,9 @@ public class Messages {
 
 	public void playerSendTitlesMessage(Player player, String title, String subtitle, int fadein, int stay,
 			int fadeout) {
-
 		title = PlaceholderAPICompat.setPlaceholders(player, title);
 		subtitle = PlaceholderAPICompat.setPlaceholders(player, subtitle);
-
-		if (TitleManagerCompat.isSupported()) {
-			TitleManagerCompat.sendTitles(player, title, subtitle, fadein, stay, fadeout);
-		} else if (TitleAPICompat.isSupported()) {
-			TitleAPICompat.sendTitles(player, title, subtitle, fadein, stay, fadeout);
-		} else {
-			if (!(isEmpty(title) && isEmpty(subtitle)))
-				player.sendMessage(new String[] { title, subtitle });
-		}
+		player.sendTitle(title, subtitle, fadein, stay, fadeout);
 	}
 
 	private static Map<String, String> sortByKeys(Map<String, String> map) {

@@ -66,7 +66,8 @@ public class TitleManagerCompat {
 		}
 	}
 
-	public static void sendTitles(Player player, String title, String subtitle, int fadein, int stay, int fadeout) {
+	@SuppressWarnings("unused")
+	private static void sendTitles(Player player, String title, String subtitle, int fadein, int stay, int fadeout) {
 		if (supported) {
 
 			if (api != null) {

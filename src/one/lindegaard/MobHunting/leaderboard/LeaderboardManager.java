@@ -114,9 +114,10 @@ public class LeaderboardManager implements Listener {
 			boolean horizontal, int width, int height) throws IllegalArgumentException {
 		WorldLeaderboard board = new WorldLeaderboard(plugin, location, facing, width, height, horizontal, type,
 				period);
+		
 		if (!board.isSpaceAvailable())
 			throw new IllegalArgumentException("There is not enough room for the signs.");
-
+		board.placeSigns(facing);
 		mLeaderboards.put(location.getWorld(), board);
 		board.update();
 		saveWorld(location.getWorld());

@@ -42,7 +42,8 @@ public class TitleAPICompat {
 		return MobHunting.getInstance().getConfigManager().enableIntegrationTitleAPI;
 	}
 
-	public static void sendTitles(Player player, String title, String subtitle, int fadeIn, int stay, int fadeOut) {
+	@SuppressWarnings("unused")
+	private static void sendTitle(Player player, String title, String subtitle, int fadeIn, int stay, int fadeOut) {
 		if (supported)
 			TitleAPI.sendTitle(player, fadeIn, stay, fadeOut, title, subtitle);
 	}

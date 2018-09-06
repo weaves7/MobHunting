@@ -659,12 +659,12 @@ public class MobHuntingManager implements Listener {
 										&& plugin.getPlayerSettingsManager().getPlayerSettings(player).isLearningMode())
 										|| player.hasPermission("mobhunting.blacklist")
 										|| player.hasPermission("mobhunting.blacklist.show"))
-									if (ProtocolLibCompat.isSupported())
-										ProtocolLibHelper.showGrindingArea(player,
-												new Area(killed.getLocation(),
-														plugin.getConfigManager().rangeToSearchForGrinding,
-														plugin.getConfigManager().numberOfDeathsWhenSearchingForGringding),
-												killed.getLocation());
+									// if (ProtocolLibCompat.isSupported())
+									plugin.getGrindingManager().showGrindingArea(player,
+											new Area(killed.getLocation(),
+													plugin.getConfigManager().rangeToSearchForGrinding,
+													plugin.getConfigManager().numberOfDeathsWhenSearchingForGringding),
+											killed.getLocation());
 								plugin.getMessages().learn(player,
 										plugin.getMessages().getString("mobhunting.learn.grindingfarm"));
 							}
@@ -680,12 +680,11 @@ public class MobHuntingManager implements Listener {
 										&& plugin.getPlayerSettingsManager().getPlayerSettings(player).isLearningMode())
 										|| player.hasPermission("mobhunting.blacklist.show")
 										|| player.hasPermission("mobhunting.blacklist"))
-									if (ProtocolLibCompat.isSupported())
-										ProtocolLibHelper.showGrindingArea(player,
-												new Area(killed.getLocation(),
-														plugin.getConfigManager().rangeToSearchForGrinding,
-														plugin.getConfigManager().numberOfDeathsWhenSearchingForGringding),
-												killed.getLocation());
+									plugin.getGrindingManager().showGrindingArea(player,
+											new Area(killed.getLocation(),
+													plugin.getConfigManager().rangeToSearchForGrinding,
+													plugin.getConfigManager().numberOfDeathsWhenSearchingForGringding),
+											killed.getLocation());
 								plugin.getMessages().learn(player,
 										plugin.getMessages().getString("mobhunting.learn.grindingfarm"));
 							}
@@ -805,7 +804,6 @@ public class MobHuntingManager implements Listener {
 		if (WorldGuardCompat.isSupported()) {
 			if ((killer != null || MyPetCompat.isMyPet(killer)) && !CitizensCompat.isNPC(killer)) {
 				if (!WorldGuardHelper.isAllowedByWorldGuard(killer, killed, Flags.MOB_DAMAGE, true)) {
-					// TODO : test this
 					if (WorldGuardHelper.isAllowedByWorldGuard(killer, killed, WorldGuardHelper.getMobHuntingFlag(),
 							false)) {
 						plugin.getMessages().debug(
@@ -1240,11 +1238,6 @@ public class MobHuntingManager implements Listener {
 			// player.getName());
 			data.resetKillStreak(player);
 		}
-		// } else {
-		// plugin.getMessages().debug("======================= kill ended
-		// (31)=====================");
-		// return;
-		// }
 
 		// Record kills that are still within a small area
 		Location loc = killed.getLocation();
@@ -1262,11 +1255,9 @@ public class MobHuntingManager implements Listener {
 			else {
 				if (!plugin.getGrindingManager().isWhitelisted(detectedGrindingArea.getCenter())) {
 					if (plugin.getGrindingManager().isGrindingArea(detectedGrindingArea.getCenter()))
-						if (plugin.getPlayerSettingsManager().getPlayerSettings(killer).isLearningMode()
-								|| player.hasPermission("mobhunting.blacklist")
-								|| player.hasPermission("mobhunting.blacklist.show"))
-							if (ProtocolLibCompat.isSupported())
-								ProtocolLibHelper.showGrindingArea(killer, detectedGrindingArea, killed.getLocation());
+						plugin.getGrindingManager().showGrindingArea(killer, detectedGrindingArea,
+								killed.getLocation());
+					data.resetKillStreak(player);
 					plugin.getMessages().debug("Grinding detected : %s", player);
 					plugin.getMessages().learn(player,
 							plugin.getMessages().getString("mobhunting.learn.grindingnotallowed"));
@@ -1292,11 +1283,7 @@ public class MobHuntingManager implements Listener {
 								"DampenedKills reached the limit %s, no rewards paid. Grinding Spot registered.",
 								(isSlimeOrMagmaCube(killed) ? 2 : 1)
 										* plugin.getConfigManager().grindingDetectionNumberOfDeath);
-						if (plugin.getPlayerSettingsManager().getPlayerSettings(player).isLearningMode()
-								|| player.hasPermission("mobhunting.blacklist")
-								|| player.hasPermission("mobhunting.blacklist.show"))
-							if (ProtocolLibCompat.isSupported())
-								ProtocolLibHelper.showGrindingArea(player, detectedGrindingArea, loc);
+						plugin.getGrindingManager().showGrindingArea(player, detectedGrindingArea, loc);
 						plugin.getMessages().learn(player,
 								plugin.getMessages().getString("mobhunting.learn.grindingnotallowed"));
 						plugin.getMessages().debug("1)Dampenedkilles=%s", data.getDampenedKills());

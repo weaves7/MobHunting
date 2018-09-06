@@ -2194,7 +2194,8 @@ public class ConfigManager extends AutoConfig {
 	// Fish / Fishing
 	// #####################################################################################
 
-	@ConfigField(name = "enable_fishing_rewards", category = "fishing", comment = "Set this to true if you want to disable all fishing rewards / features.")
+	@ConfigField(name = "enable_fishing_rewards", category = "fishing", 
+			comment = "Set this to false if you want to disable all fishing rewards / features.")
 	public boolean enableFishingRewards = true;
 
 	// =====Raw Fish============================================

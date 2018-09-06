@@ -16,6 +16,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.material.Sign;
@@ -47,6 +48,10 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 
 	private List<StatStore> mData;
 
+	public WorldLeaderboard(MobHunting plugin){
+		this.plugin=plugin;
+	}
+	
 	public WorldLeaderboard(MobHunting plugin, Location location, BlockFace facing, int width, int height,
 			boolean horizontal, StatType[] stat, TimePeriod[] period) {
 		this.plugin = plugin;
@@ -55,7 +60,7 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 
 		mLocation = location;
 		mFacing = facing;
-		plugin.getMessages().debug("Contructor: Face=%s", facing);
+		plugin.getMessages().debug("Contructor: Face=%s, mFacing=%s", facing,mFacing);
 		mWidth = width;
 		mHeight = height;
 
@@ -64,10 +69,6 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 		mPeriod = period;
 		mPeriodIndex = 0;
 		mTypeIndex = 0;
-	}
-
-	WorldLeaderboard(MobHunting plugin) {
-		this.plugin = plugin;
 	}
 
 	public List<StatStore> getCurrentStats() {
@@ -149,16 +150,21 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 		return true;
 	}
 
-	public void placeSigns() {
+	public void placeSigns(BlockFace face) {
 		for (Block block : getSignBlocks()) {
 			Sign sign = new Sign(Material.WALL_SIGN);
-			sign.setFacingDirection(mFacing);
-
+			sign.setFacingDirection(face);
+			
+			block.setType(Material.WALL_SIGN);
 			BlockState state = block.getState();
-			state.setType(Material.WALL_SIGN);
 			state.setData(sign);
-
-			state.update(true, false);
+			state.update(true);
+			org.bukkit.block.Sign s = (org.bukkit.block.Sign) state;
+			block = s.getBlock();
+			//block.setType(Material.WALL_SIGN);
+			//block.getState().setType(Material.WALL_SIGN);
+			//block.getState().setData(sign);
+			//block.getState().update();
 		}
 	}
 
@@ -191,7 +197,7 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 			it = mData.iterator();
 
 		plugin.getMessages().debug("Block mFacing=", mFacing);
-		
+
 		// Update the label sign
 		Block signBlock = mLocation.getBlock();
 		if (isLoaded(signBlock)) {
@@ -482,8 +488,16 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 		Vector pos = section.getVector("position");
 
 		String fac = section.getString("facing");
-		plugin.getMessages().debug("fac=%s",fac);
-		mFacing = BlockFace.valueOf(fac);
+		plugin.getMessages().debug("fac=%s", fac);
+		// mFacing = BlockFace.valueOf(fac);
+		if (fac.equalsIgnoreCase("NORTH"))
+			mFacing = BlockFace.NORTH;
+		else if (fac.equalsIgnoreCase("SOUTH"))
+			mFacing = BlockFace.SOUTH;
+		else if (fac.equalsIgnoreCase("WEST"))
+			mFacing = BlockFace.WEST;
+		else
+			mFacing = BlockFace.EAST;
 
 		mHorizontal = section.getBoolean("horizontal");
 		List<String> periods = section.getStringList("periods");

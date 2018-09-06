@@ -10,8 +10,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import one.lindegaard.MobHunting.MobHunting;
-import one.lindegaard.MobHunting.compatibility.ProtocolLibCompat;
-import one.lindegaard.MobHunting.compatibility.ProtocolLibHelper;
 import one.lindegaard.MobHunting.grinding.Area;
 
 public class WhitelistAreaCommand implements ICommand {
@@ -67,8 +65,8 @@ public class WhitelistAreaCommand implements ICommand {
 				plugin.getMessages().senderSendMessage(sender, ChatColor.GREEN
 						+ plugin.getMessages().getString("mobhunting.commands.whitelistarea.iswhitelisted"));
 				Area area = plugin.getGrindingManager().getWhitelistArea(loc);
-				if (ProtocolLibCompat.isSupported())
-					ProtocolLibHelper.showGrindingArea((Player) sender, area, loc);
+				//if (ProtocolLibCompat.isSupported())
+					plugin.getGrindingManager().showGrindingArea((Player) sender, area, loc);
 			} else
 				plugin.getMessages().senderSendMessage(sender, ChatColor.RED
 						+ plugin.getMessages().getString("mobhunting.commands.whitelistarea.notwhitelisted"));
@@ -82,8 +80,8 @@ public class WhitelistAreaCommand implements ICommand {
 				plugin.getGrindingManager().whitelistArea(area);
 				plugin.getMessages().senderSendMessage(sender,
 						ChatColor.GREEN + plugin.getMessages().getString("mobhunting.commands.whitelistarea.done"));
-				if (ProtocolLibCompat.isSupported())
-					ProtocolLibHelper.showGrindingArea((Player) sender, area, loc);
+				//if (ProtocolLibCompat.isSupported())
+					plugin.getGrindingManager().showGrindingArea((Player) sender, area, loc);
 			} else
 				return false;
 		} else

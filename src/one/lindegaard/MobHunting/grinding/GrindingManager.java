@@ -13,11 +13,13 @@ import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -71,8 +73,6 @@ public class GrindingManager implements Listener {
 	 *         area is detected as a Grinding Area
 	 */
 	public boolean isNetherGoldXPFarm(LivingEntity killed) {
-		// ExtendedMob mob =
-		// MobHunting.getInstance().getExtendedMobManager().getExtendedMobFromEntity(killed);
 		int n = 0;
 		long now = System.currentTimeMillis();
 		final long seconds = plugin.getConfigManager().secondsToSearchForGrinding;
@@ -91,13 +91,15 @@ public class GrindingManager implements Listener {
 								if (now < gi.getTimeOfDeath() + seconds * 1000L) {
 									if (killed.getLocation().distance(gi.getKilled().getLocation()) < killRadius) {
 										n++;
-										// plugin.getMessages().debug("This was not a Nether
+										// plugin.getMessages().debug("This was
+										// not a Nether
 										// Gold XP Farm (%s sec.)",
 										// new Date(now -
 										// gi.getTimeOfDeath()).getSeconds());
 									}
 								} else {
-									// plugin.getMessages().debug("Removing old kill.
+									// plugin.getMessages().debug("Removing old
+									// kill.
 									// (Killed %s seconds ago).",
 									// Math.round((now - gi.getTimeOfDeath()) /
 									// 1000L));
@@ -122,14 +124,13 @@ public class GrindingManager implements Listener {
 				}
 			}
 		}
-		plugin.getMessages().debug("Farm detection: This was not a Nether Gold XP Farm (%s of %s mobs with last %s sec.)", n,
+		plugin.getMessages().debug(
+				"Farm detection: This was not a Nether Gold XP Farm (%s of %s mobs with last %s sec.)", n,
 				numberOfDeaths, seconds);
 		return false;
 	}
 
 	public boolean isOtherFarm(LivingEntity killed) {
-		// ExtendedMob mob =
-		// MobHunting.getInstance().getExtendedMobManager().getExtendedMobFromEntity(killed);
 		int n = 0;
 		long now = System.currentTimeMillis();
 		final long seconds = plugin.getConfigManager().secondsToSearchForGrinding;
@@ -148,13 +149,15 @@ public class GrindingManager implements Listener {
 									if (killed.getWorld().equals(gi.getKilled().getWorld()) && killed.getLocation()
 											.distance(gi.getKilled().getLocation()) < killRadius) {
 										n++;
-										// plugin.getMessages().debug("This was not a Nether
+										// plugin.getMessages().debug("This was
+										// not a Nether
 										// Gold XP Farm (%s sec.)",
 										// new Date(now -
 										// gi.getTimeOfDeath()).getSeconds());
 									}
 								} else {
-									// plugin.getMessages().debug("Removing old kill.
+									// plugin.getMessages().debug("Removing old
+									// kill.
 									// (Killed %s seconds ago).",
 									// Math.round((now - gi.getTimeOfDeath()) /
 									// 1000L));
@@ -179,8 +182,8 @@ public class GrindingManager implements Listener {
 				}
 			}
 		}
-		plugin.getMessages().debug("Farm detection: This was not a Farm (%s of %s mobs with last %s sec.)", n, numberOfDeaths,
-				seconds);
+		plugin.getMessages().debug("Farm detection: This was not a Farm (%s of %s mobs with last %s sec.)", n,
+				numberOfDeaths, seconds);
 		return false;
 	}
 
@@ -490,7 +493,8 @@ public class GrindingManager implements Listener {
 		for (Area area : areas) {
 			if (area.getCenter().getWorld().equals(location.getWorld())) {
 				if (area.getCenter().distance(location) < area.getRange()) {
-					plugin.getMessages().debug("Found a whitelisted area = %s, range=%s", area.getCenter(), area.getRange());
+					plugin.getMessages().debug("Found a whitelisted area = %s, range=%s", area.getCenter(),
+							area.getRange());
 					return area;
 				}
 			}
@@ -563,5 +567,39 @@ public class GrindingManager implements Listener {
 					return true;
 			}
 		return false;
+	}
+
+	public void showGrindingArea(Player player, Area grindingArea, Location killedLocation) {
+
+		if (killedLocation != null) {
+			for (int n = 0; n < 10; n++) {
+				if (player != null & player.isOnline()) {
+					player.spawnParticle(Particle.CLOUD, killedLocation.getBlockX() + 0.5,
+							killedLocation.getBlockY() + 0.2 + 0.2 * n, killedLocation.getBlockZ() + 0.5, 1, 0, 0, 0,
+							0.01);
+				}
+			}
+		}
+
+		// Grinding Area
+		if (grindingArea != null) {
+			// Show center of grinding area
+			for (int n = 0; n < 10; n++) {
+				player.spawnParticle(Particle.FLAME, grindingArea.getCenter().getBlockX() + 0.5,
+						grindingArea.getCenter().getBlockY() + 0.2 + 0.1 * n,
+						grindingArea.getCenter().getBlockZ() + 0.5, 1, 0, 0, 0, 0.01);
+			}
+
+			// Circle around the grinding area
+			for (int n = 0; n < 360; n = n + (int) (45 / plugin.getConfigManager().grindingDetectionRange)) {
+				player.spawnParticle(Particle.FLAME,
+						grindingArea.getCenter().getBlockX() + 0.5
+								+ Math.cos(n) * plugin.getConfigManager().grindingDetectionRange,
+						grindingArea.getCenter().getBlockY() + 0.2, grindingArea.getCenter().getBlockZ() + 0.5
+								+ Math.sin(n) * plugin.getConfigManager().grindingDetectionRange,
+						1, 0, 0, 0, 0.01);
+			}
+		}
+
 	}
 }

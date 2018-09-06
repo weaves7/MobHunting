@@ -10,8 +10,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import one.lindegaard.MobHunting.MobHunting;
-import one.lindegaard.MobHunting.compatibility.ProtocolLibCompat;
-import one.lindegaard.MobHunting.compatibility.ProtocolLibHelper;
 import one.lindegaard.MobHunting.grinding.Area;
 
 public class BlacklistAreaCommand implements ICommand {
@@ -67,8 +65,7 @@ public class BlacklistAreaCommand implements ICommand {
 				plugin.getMessages().senderSendMessage(sender, ChatColor.GREEN
 						+ plugin.getMessages().getString("mobhunting.commands.blacklistarea.isblacklisted"));
 				Area area = plugin.getGrindingManager().getGrindingArea(loc);
-				if (ProtocolLibCompat.isSupported())
-					ProtocolLibHelper.showGrindingArea((Player) sender, area, loc);
+				plugin.getGrindingManager().showGrindingArea((Player) sender, area, loc);
 			} else
 				plugin.getMessages().senderSendMessage(sender, ChatColor.RED
 						+ plugin.getMessages().getString("mobhunting.commands.blacklistarea.notblacklisted"));
@@ -82,8 +79,8 @@ public class BlacklistAreaCommand implements ICommand {
 				plugin.getGrindingManager().blacklistArea(area);
 				plugin.getMessages().senderSendMessage(sender,
 						ChatColor.GREEN + plugin.getMessages().getString("mobhunting.commands.blacklistarea.done"));
-				if (ProtocolLibCompat.isSupported())
-					ProtocolLibHelper.showGrindingArea((Player) sender, area, loc);
+				// if (ProtocolLibCompat.isSupported())
+				plugin.getGrindingManager().showGrindingArea((Player) sender, area, loc);
 			} else
 				return false;
 		} else
