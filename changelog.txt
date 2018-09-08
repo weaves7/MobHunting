@@ -3,6 +3,7 @@ V6.0.5
 * Use player.spawnParticle instead of using ProtocolLib 
 * Fixed Ticked 432. ${prize} not working when creating a bount on a player.
 * Fixed ticket 437. Stacked heads sold with BagOfGOld sign was counted as one head.
+* Fixed Ticket 433. Creating new leaderboard, sign had a wrong direction (https://github.com/Rocologo/MobHunting/issues/433)
 V6.0.4
 * Support for SpigotMC 1.13.1 added
 * "MobHunting Reward" Lore added to MobHunting Rewards
