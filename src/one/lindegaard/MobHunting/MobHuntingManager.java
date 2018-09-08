@@ -1522,6 +1522,11 @@ public class MobHuntingManager implements Listener {
 					&& plugin.getConfigManager().pvpAllowed && plugin.getConfigManager().robFromVictim;
 			if (robbing) {
 				plugin.getMessages().debug("PVP kill reward is '%s'", plugin.getConfigManager().pvpKillMoney);
+				if (cash > plugin.getRewardManager().getBalance((Player) killed)) {
+					plugin.getMessages().debug("The killed player has only %s in his pockets to steel",
+							plugin.getRewardManager().getBalance((Player) killed));
+					cash = plugin.getRewardManager().getBalance((Player) killed);
+				}
 				plugin.getRewardManager().withdrawPlayer((Player) killed, cash);
 				// plugin.getMessages().debug("RecordCash: %s killed a %s (%s)
 				// Cash=%s",

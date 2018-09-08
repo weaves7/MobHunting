@@ -1,3 +1,5 @@
+V6.0.6
+* Reward for PVP kills can max be the players balance, if rob_from_victim is enabled. If the killed player has 0 money, the reward will be zero to. 
 V6.0.5
 * Use org.Bukkit.SendTitle instead of using TitleManager and TitleAPI. 
 * Use player.spawnParticle instead of using ProtocolLib 
