@@ -287,7 +287,6 @@ public class LeaderboardCommand implements ICommand, Listener {
 					for (StatType type : StatType.values())
 						if (type != null)
 							items.add(ChatColor.stripColor(type.translateName().replaceAll(" ", "_")));
-					// items.add(type.getDBColumn());
 				} else if (args.length == 3)
 					for (TimePeriod period : TimePeriod.values())
 						items.add(period.translateName().replaceAll(" ", "_"));
@@ -341,12 +340,8 @@ public class LeaderboardCommand implements ICommand, Listener {
 
 		if (state.create) {
 			BlockFace face = ((Sign) event.getClickedBlock().getState().getData()).getFacing();
-			plugin.getMessages().debug("Create face=%s", face);
-
+			
 			try {
-				plugin.getMessages().debug("leaderBoardCommand: parm=%s,%s,%s,%s,%s,%s", face,
-						state.type[0].getDBColumn(), state.period[0].getDBColumn(), state.horizontal, state.width,
-						state.height);
 				plugin.getLeaderboardManager().createLeaderboard(event.getClickedBlock().getLocation(), face,
 						state.type, state.period, state.horizontal, state.width, state.height);
 				// TODO: Create new strings in Message

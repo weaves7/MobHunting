@@ -190,16 +190,15 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 		// Update the label sign
 		Block signBlock = mLocation.getBlock();
 		if (isLoaded(signBlock)) {
-			if (signBlock.getType() != Material.WALL_SIGN) {
-				Sign sign = new Sign(Material.WALL_SIGN);
-				sign.setFacingDirection(mFacing);
-
-				BlockState state = signBlock.getState();
-				state.setType(Material.WALL_SIGN);
-				state.setData(sign);
-				state.update(true, false);
-			}
-
+			
+			signBlock.setType(Material.WALL_SIGN);
+			BlockState state = signBlock.getState();
+			Sign wallSign = (Sign) state.getData();
+			wallSign.setFacingDirection(mFacing);
+			state.setData(wallSign);
+			state.update(true,false);
+			
+			placeSigns(mFacing);
 			org.bukkit.block.Sign sign = (org.bukkit.block.Sign) signBlock.getState();
 			sign.setLine(0, ChatColor.BLUE + ChatColor.BOLD.toString() + "MobHunting");
 			String statName = getStatType().translateName();
@@ -238,17 +237,12 @@ public class WorldLeaderboard implements IDataCallback<List<StatStore>> {
 
 			if (isLoaded(block)) {
 				if (block.getType() != Material.WALL_SIGN) {
-					if (!block.getRelative(mFacing.getOppositeFace()).getType().isSolid())
-						block.getRelative(mFacing.getOppositeFace()).setType(Material.STONE);
-
-					Sign sign = new Sign(Material.WALL_SIGN);
-					plugin.getMessages().debug("mFacing=", mFacing);
-					sign.setFacingDirection(mFacing);
-
+					block.setType(Material.WALL_SIGN);
 					BlockState state = block.getState();
-					state.setType(Material.WALL_SIGN);
-					state.setData(sign);
-					state.update(true, false);
+					Sign materialSign = (Sign) state.getData();
+					materialSign.setFacingDirection(mFacing);
+					state.setData(materialSign);
+					state.update(true,false);
 				}
 
 				org.bukkit.block.Sign sign = (org.bukkit.block.Sign) block.getState();
