@@ -233,50 +233,70 @@ public class RewardManager {
 
 	public boolean addBagOfGoldPlayer(Player player, double amount) {
 		boolean found = false;
+		double moneyLeftToGive = amount;
 		for (int slot = 0; slot < player.getInventory().getSize(); slot++) {
 			ItemStack is = player.getInventory().getItem(slot);
 			if (Reward.isReward(is)) {
 				Reward rewardInSlot = Reward.getReward(is);
 				if ((rewardInSlot.isBagOfGoldReward() || rewardInSlot.isItemReward())) {
-					rewardInSlot.setMoney(rewardInSlot.getMoney() + amount);
-					ItemMeta im = is.getItemMeta();
-					im.setLore(rewardInSlot.getHiddenLore());
-					String displayName = plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
-							? format(rewardInSlot.getMoney())
-							: rewardInSlot.getDisplayname() + " (" + format(rewardInSlot.getMoney()) + ")";
-					im.setDisplayName(
-							ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + displayName);
-					is.setItemMeta(im);
-					is.setAmount(1);
-					plugin.getMessages().debug(
-							"Added %s to item in slot %s, new value is %s (addBagOfGoldPlayer_RewardManager)",
-							format(amount), slot, format(rewardInSlot.getMoney()));
-					found = true;
-					break;
+					if (rewardInSlot.getMoney() < plugin.getConfigManager().limitPerBag) {
+						double space = plugin.getConfigManager().limitPerBag - rewardInSlot.getMoney();
+						if (space > moneyLeftToGive) {
+							rewardInSlot.setMoney(rewardInSlot.getMoney() + moneyLeftToGive);
+							moneyLeftToGive = 0;
+						} else {
+							rewardInSlot.setMoney(plugin.getConfigManager().limitPerBag);
+							moneyLeftToGive = moneyLeftToGive - space;
+						}
+						if (rewardInSlot.getMoney() == 0)
+							player.getInventory().clear(slot);
+						else     
+							is = setDisplayNameAndHiddenLores(is, rewardInSlot);
+						plugin.getMessages().debug(
+								"Added %s to %s's item in slot %s, new value is %s (addBagOfGoldPlayer_EconomyManager)",
+								format(amount), player.getName(), slot, format(rewardInSlot.getMoney()));
+						if (moneyLeftToGive <= 0) {
+							found = true;
+							break;
+						}
+					}
 				}
 			}
 		}
 		if (!found) {
-			if (player.getInventory().firstEmpty() != -1) {
-				ItemStack is;
-				if (plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")) {
-					is = setDisplayNameAndHiddenLores(
-							new ItemStack(Material.valueOf(plugin.getConfigManager().dropMoneyOnGroundItem)),
-							plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(), amount,
-							UUID.fromString(Reward.MH_REWARD_ITEM_UUID), null);
+
+			while (Misc.round(moneyLeftToGive) > 0) {
+				double nextBag = 0;
+				if (moneyLeftToGive > plugin.getConfigManager().limitPerBag) {
+					nextBag = plugin.getConfigManager().limitPerBag;
+					moneyLeftToGive = moneyLeftToGive - nextBag;
 				} else {
-					is = new CustomItems(plugin).getCustomtexture(UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID),
-							plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
-							plugin.getConfigManager().dropMoneyOnGroundSkullTextureValue,
-							plugin.getConfigManager().dropMoneyOnGroundSkullTextureSignature, Misc.floor(amount),
-							UUID.randomUUID(), UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID));
+					nextBag = moneyLeftToGive;
+					moneyLeftToGive = 0;
 				}
-				player.getInventory().addItem(is);
-				return true;
+				if (player.getInventory().firstEmpty() == -1)
+					dropMoneyOnGround_RewardManager(player, null, player.getLocation(), Misc.round(nextBag));
+				else {
+					ItemStack is;
+					if (plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("SKULL"))
+						is = new CustomItems(plugin).getCustomtexture(
+								UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID),
+								plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
+								plugin.getConfigManager().dropMoneyOnGroundSkullTextureValue,
+								plugin.getConfigManager().dropMoneyOnGroundSkullTextureSignature, Misc.round(nextBag),
+								UUID.randomUUID(), UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID));
+					else {
+						is = new ItemStack(Material.valueOf(plugin.getConfigManager().dropMoneyOnGroundItem), 1);
+						setDisplayNameAndHiddenLores(is,
+								new Reward(plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
+										Misc.round(nextBag), UUID.fromString(Reward.MH_REWARD_ITEM_UUID),
+										UUID.randomUUID(), null));
+					}
+					player.getInventory().addItem(is);
+				}
 			}
-		} else
-			return true;
-		return false;
+		}
+		return true;
 	}
 
 	public double removeBagOfGoldPlayer(Player player, double amount) {
@@ -453,24 +473,24 @@ public class RewardManager {
 		}
 	}
 
-	public ItemStack setDisplayNameAndHiddenLores(ItemStack skull, String mDisplayName, double money, UUID rewardUUID,
-			UUID skinUUID) {
+	public ItemStack setDisplayNameAndHiddenLores(ItemStack skull, Reward reward){ 
+			//String mDisplayName, double money, UUID rewardUUID,UUID skinUUID) {
 		ItemMeta skullMeta = skull.getItemMeta();
-		if (rewardUUID.equals(UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID)))
+		if (reward.getRewardType().equals(UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID)))
 			skullMeta.setLore(new ArrayList<String>(
-					Arrays.asList("Hidden:" + mDisplayName, "Hidden:" + money, "Hidden:" + rewardUUID,
-							money == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(), "Hidden:" + skinUUID)));
+					Arrays.asList("Hidden:" + reward.getDisplayname(), "Hidden:" + reward.getMoney(), "Hidden:" + reward.getRewardType(),
+							reward.getMoney() == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(), "Hidden:" + reward.getSkinUUID())));
 		else
-			skullMeta.setLore(new ArrayList<String>(Arrays.asList("Hidden:" + mDisplayName, "Hidden:" + money,
-					"Hidden:" + rewardUUID, money == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(),
-					"Hidden:" + skinUUID, plugin.getMessages().getString("mobhunting.reward.name"))));
-		if (money == 0)
+			skullMeta.setLore(new ArrayList<String>(Arrays.asList("Hidden:" + reward.getDisplayname(), "Hidden:" + reward.getMoney(),
+					"Hidden:" + reward.getRewardType(), reward.getMoney() == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(),
+					"Hidden:" + reward.getSkinUUID(), plugin.getMessages().getString("mobhunting.reward.name"))));
+		if (reward.getMoney() == 0)
 			skullMeta.setDisplayName(
-					ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + mDisplayName);
+					ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + reward.getDisplayname());
 		else
 			skullMeta.setDisplayName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
-					+ (plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM") ? format(money)
-							: mDisplayName + " (" + format(money) + ")"));
+					+ (plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM") ? format(reward.getMoney())
+							: reward.getDisplayname() + " (" + format(reward.getMoney()) + ")"));
 		skull.setItemMeta(skullMeta);
 		return skull;
 	}

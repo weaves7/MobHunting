@@ -333,20 +333,20 @@ public class CustomItems {
 		switch (minecraftMob) {
 		case Skeleton:
 			skull = new ItemStack(Material.SKELETON_SKULL, amount);
-			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, minecraftMob.getFriendlyName(), money,
-					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), skinUUID);
+			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, new Reward(minecraftMob.getFriendlyName(), money,
+					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), UUID.randomUUID(), skinUUID));
 			break;
 
 		case WitherSkeleton:
 			skull = new ItemStack(Material.WITHER_SKELETON_SKULL, amount);
-			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, minecraftMob.getFriendlyName(), money,
-					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), skinUUID);
+			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, new Reward(minecraftMob.getFriendlyName(), money,
+					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), UUID.randomUUID(), skinUUID));
 			break;
 
 		case Zombie:
 			skull = new ItemStack(Material.ZOMBIE_HEAD, amount);
-			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, minecraftMob.getFriendlyName(), money,
-					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), skinUUID);
+			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, new Reward(minecraftMob.getFriendlyName(), money,
+					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), UUID.randomUUID(), skinUUID));
 			break;
 
 		case PvpPlayer:
@@ -355,14 +355,14 @@ public class CustomItems {
 
 		case Creeper:
 			skull = new ItemStack(Material.CREEPER_HEAD, amount);
-			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, minecraftMob.getFriendlyName(), money,
-					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), skinUUID);
+			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, new Reward(minecraftMob.getFriendlyName(), money,
+					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), UUID.randomUUID(), skinUUID));
 			break;
 
 		case EnderDragon:
 			skull = new ItemStack(Material.DRAGON_HEAD, amount);
-			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, minecraftMob.getFriendlyName(), money,
-					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), skinUUID);
+			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, new Reward(minecraftMob.getFriendlyName(), money,
+					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), UUID.randomUUID(), skinUUID));
 			break;
 
 		default:

@@ -3665,6 +3665,10 @@ public class ConfigManager extends AutoConfig {
 			+ "\nIf you want to deny HOPPERS to collect MobHunting Money rewards "
 			+ "\nset \"deny_hoppers_to_pickup_money_on_ground\"=false")
 	public boolean denyHoppersToPickUpMoney = true;
+	
+	@ConfigField(name = "limit_per_bag", category = "dropmoneyonground", comment = "If you only want the bags to be able to contain a "
+	+"\ncertain amount of gold you can set the limit here. Default 10000.")
+	public double limitPerBag = 10000;
 
 	// #####################################################################################
 	// Database
@@ -4742,6 +4746,9 @@ public class ConfigManager extends AutoConfig {
 			return -1;
 
 		YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
-		return config.getInt("general.config_version", config.contains("general.kill-debug") == true ? 0 : -1);
+		int res= config.getInt("general.config_version", config.contains("general.kill-debug") == true ? 0 : -2);
+		if (res==-2)
+			file.delete();
+		return res;
 	}
 }

@@ -85,7 +85,7 @@ public abstract class AutoConfig {
 					StandardCharsets.UTF_8);
 
 			// Parse the config
-			// yml.load(inputStreamReader);
+			//yml.load(inputStreamReader);
 			yml = YamlConfiguration.loadConfiguration(inputStreamReader);
 			for (Field field : getClass().getDeclaredFields()) {
 				ConfigField configField = field.getAnnotation(ConfigField.class);
@@ -197,7 +197,7 @@ public abstract class AutoConfig {
 			}
 
 			onPostLoad();
-
+			
 			return true;
 		} catch (IOException | InvalidConfigurationException | IllegalArgumentException | IllegalAccessException e) {
 			e.printStackTrace();
@@ -208,6 +208,7 @@ public abstract class AutoConfig {
 	@SuppressWarnings("unchecked")
 	public boolean saveConfig() {
 		try {
+			
 			onPreSave();
 
 			YamlConfiguration config = new YamlConfiguration();
@@ -347,7 +348,7 @@ public abstract class AutoConfig {
 			}
 
 			String output = config.saveToString();
-
+			
 			// Apply comments
 			String category = "";
 			String path = "";
@@ -393,14 +394,14 @@ public abstract class AutoConfig {
 					}
 				}
 			}
+			
 			output = "";
 			for (String line : lines)
 				output += line + "\n";
-
 			OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(mFile), StandardCharsets.UTF_8);
 			writer.write(output);
 			writer.close();
-
+			
 			return true;
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();

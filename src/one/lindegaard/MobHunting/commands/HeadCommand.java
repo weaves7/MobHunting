@@ -2,6 +2,7 @@ package one.lindegaard.MobHunting.commands;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -258,8 +259,8 @@ public class HeadCommand implements ICommand, Listener {
 					mob = MinecraftMob.PvpPlayer;
 
 				if (mob != null) {
-					// double money = mob.getHeadPrize();
-					double money = 0;
+					double money = mob.getHeadPrize();
+					//double money = 0;
 					if (args.length == 2) {
 						Player player = (Player) sender;
 						Location location = Misc.getTargetBlock(player, 20).getLocation();
@@ -303,14 +304,15 @@ public class HeadCommand implements ICommand, Listener {
 						if (mob == MinecraftMob.PvpPlayer) {
 							Player player = ((Player) Bukkit.getServer().getOfflinePlayer(args[1]));
 							ItemStack head = customItems.getCustomHead(mob, args[1], 1, money, player.getUniqueId());
-							plugin.getRewardManager().setDisplayNameAndHiddenLores(head, args[1], money,
-									player.getUniqueId(), player.getUniqueId());
+							plugin.getRewardManager().setDisplayNameAndHiddenLores(head, new Reward(args[1], money,
+									player.getUniqueId(), player.getUniqueId(), player.getUniqueId()));
 							world.dropItem(location, head);
 						} else {
 							ItemStack head = customItems.getCustomHead(mob, mob.getFriendlyName(), 1, money,
 									mob.getPlayerUUID());
-							plugin.getRewardManager().setDisplayNameAndHiddenLores(head, mob.getFriendlyName(), money,
-									mob.getPlayerUUID(), mob.getPlayerUUID());
+							plugin.getRewardManager().setDisplayNameAndHiddenLores(head,
+									new Reward(mob.getFriendlyName(), money, mob.getPlayerUUID(), UUID.randomUUID(),
+											mob.getPlayerUUID()));
 							world.dropItem(location, head);
 						}
 					}

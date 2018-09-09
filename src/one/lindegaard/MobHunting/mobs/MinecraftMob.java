@@ -891,40 +891,40 @@ public enum MinecraftMob {
 		ItemStack skull;
 		switch (this) {
 		case Skeleton:
-			skull = new ItemStack(Material.LEGACY_SKULL_ITEM, amount, (short) 0);
-			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, getFriendlyName(), money,
-					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), getPlayerUUID());
+			skull = new ItemStack(Material.PLAYER_HEAD, amount, (short) 0);
+			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, new Reward(getFriendlyName(), money,
+					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), UUID.randomUUID(),getPlayerUUID()));
 			break;
 
 		case WitherSkeleton:
-			skull = new ItemStack(Material.LEGACY_SKULL_ITEM, amount, (short) 1);
-			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, getFriendlyName(), money,
-					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), getPlayerUUID());
+			skull = new ItemStack(Material.PLAYER_HEAD, amount, (short) 1);
+			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, new Reward(getFriendlyName(), money,
+					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), UUID.randomUUID(),getPlayerUUID()));
 			break;
 
 		case Zombie:
-			skull = new ItemStack(Material.LEGACY_SKULL_ITEM, amount, (short) 2);
-			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, getFriendlyName(), money,
-					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), getPlayerUUID());
+			skull = new ItemStack(Material.PLAYER_HEAD, amount, (short) 2);
+			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, new Reward(getFriendlyName(), money,
+					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), UUID.randomUUID(),getPlayerUUID()));
 			break;
 
 		case PvpPlayer:
-			skull = new ItemStack(Material.LEGACY_SKULL_ITEM, 1, (short) 3);
+			skull = new ItemStack(Material.PLAYER_HEAD, 1, (short) 3);
 			SkullMeta sm = (SkullMeta) skull.getItemMeta();
 			sm.setOwner(name);
 			skull.setItemMeta(sm);
 			break;
 
 		case Creeper:
-			skull = new ItemStack(Material.LEGACY_SKULL_ITEM, amount, (short) 4);
-			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, getFriendlyName(), money,
-					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), getPlayerUUID());
+			skull = new ItemStack(Material.PLAYER_HEAD, amount, (short) 4);
+			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, new Reward(getFriendlyName(), money,
+					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), UUID.randomUUID(),getPlayerUUID()));
 			break;
 
 		case EnderDragon:
-			skull = new ItemStack(Material.LEGACY_SKULL_ITEM, amount, (short) 5);
-			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, getFriendlyName(), money,
-					UUID.fromString(Reward.MH_REWARD_KILLED_UUID), getPlayerUUID());
+			skull = new ItemStack(Material.PLAYER_HEAD, amount, (short) 5);
+			skull = plugin.getRewardManager().setDisplayNameAndHiddenLores(skull, new Reward(getFriendlyName(), money,
+					UUID.fromString(Reward.MH_REWARD_KILLED_UUID),UUID.randomUUID(), getPlayerUUID()));
 			break;
 
 		default:

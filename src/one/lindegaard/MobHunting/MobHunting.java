@@ -89,12 +89,13 @@ public class MobHunting extends JavaPlugin {
 	public void onLoad() {
 
 		instance = this;
-		
+
 		mMessages = new Messages(this);
 
-		// Check what happen if WorldGuard is installed and register MobHuting Flag 
+		// Check what happen if WorldGuard is installed and register MobHuting
+		// Flag
 		Plugin wg = Bukkit.getPluginManager().getPlugin("WorldGuard");
-		if (wg != null) 
+		if (wg != null)
 			WorldGuardHelper.registerFlag();
 	}
 
@@ -107,33 +108,38 @@ public class MobHunting extends JavaPlugin {
 		switch (config_version) {
 		case 0:
 			mConfig0 = new ConfigManagerOld(this, mFile);
-			mConfig = new ConfigManager(this, mFile);
 			if (mConfig0.loadConfig()) {
 				if (mConfig.convertConfig(mConfig0)) {
 					Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
 							+ "Converting config.yml to new version 1 format");
-					mConfig.configVersion = 1;
 					if (mConfig.backup)
 						mConfig.backupConfig(mFile);
-					mConfig.saveConfig();
 				}
 			}
 			break;
+		case -2:
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Defect config.yml file. Deleted.");
+		case -1:
+			mConfig = new ConfigManager(this, mFile);
+			if (!mConfig.loadConfig())
+				Bukkit.getConsoleSender().sendMessage(
+						ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET + "Error could not load config.yml");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET
+					+ "Creating new config.yml, version=" + mConfig.configVersion);
+			break;
 		default:
 			mConfig = new ConfigManager(this, mFile);
-			if (config_version == -1) {
-				Bukkit.getConsoleSender()
-						.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET + "Creating new config.yml");
-				mConfig.backupConfig(mFile);
-			}
 			if (mConfig.loadConfig()) {
-				mConfig.saveConfig();
+				Bukkit.getConsoleSender().sendMessage(
+						ChatColor.GOLD + "[MobHunting] " + ChatColor.RESET + "Existing config.yml loaded.");
 				if (mConfig.backup)
 					mConfig.backupConfig(mFile);
 			} else
 				throw new RuntimeException(getMessages().getString(pluginName + ".config.fail"));
 			break;
 		}
+		mConfig.saveConfig();
 
 		if (isbStatsEnabled())
 			getMessages().debug("bStat is enabled");
@@ -348,12 +354,13 @@ public class MobHunting extends JavaPlugin {
 			}, 20 * 15);
 
 		}
-		
-		if (!Misc.isMC113OrNewer())
-			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD+"[MobHunting]"+ChatColor.RED+" version +6.0.0 is only for Minecraft 1.13! You should downgrade to 5.x");
 
-		//for (int i = 0; i < 5; i++)
-		//getMessages().debug("Random uuid = %s", UUID.randomUUID());
+		if (!Misc.isMC113OrNewer())
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[MobHunting]" + ChatColor.RED
+					+ " version +6.0.0 is only for Minecraft 1.13! You should downgrade to 5.x");
+
+		// for (int i = 0; i < 5; i++)
+		// getMessages().debug("Random uuid = %s", UUID.randomUUID());
 
 		mInitialized = true;
 

@@ -34,6 +34,7 @@ import one.lindegaard.MobHunting.modifier.HappyHourBonus;
 import one.lindegaard.MobHunting.modifier.IModifier;
 import one.lindegaard.MobHunting.modifier.RankBonus;
 import one.lindegaard.MobHunting.rewards.CustomItems;
+import one.lindegaard.MobHunting.rewards.Reward;
 import one.lindegaard.MobHunting.util.Misc;
 
 public class FishingManager implements Listener {
@@ -344,9 +345,9 @@ public class FishingManager implements Listener {
 						ItemStack head = new CustomItems(plugin).getCustomHead(minecraftMob,
 								minecraftMob.getFriendlyName(), 1, plugin.getRewardManager().getHeadValue(fish),
 								minecraftMob.getPlayerUUID());
-						plugin.getRewardManager().setDisplayNameAndHiddenLores(head, minecraftMob.getFriendlyName(),
-								plugin.getRewardManager().getHeadValue(fish), minecraftMob.getPlayerUUID(),
-								minecraftMob.getPlayerUUID());
+						plugin.getRewardManager().setDisplayNameAndHiddenLores(head, new Reward(minecraftMob.getFriendlyName(),
+								plugin.getRewardManager().getHeadValue(fish),minecraftMob.getPlayerUUID(), minecraftMob.getPlayerUUID(),
+								minecraftMob.getPlayerUUID()));
 						fish.getWorld().dropItem(fish.getLocation(), head);
 						plugin.getMessages().debug("%s caught a %s and a head was dropped in the water",
 								player.getName(), fish.getName());
