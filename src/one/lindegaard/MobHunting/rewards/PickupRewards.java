@@ -21,21 +21,21 @@ public class PickupRewards {
 
 	public void rewardPlayer(Player player, Item item, CallBack callBack) {
 		if (Reward.isReward(item)) {
-			boolean done = false;
+			double done = 0;
 			Reward reward = Reward.getReward(item);
 			if (reward.isBagOfGoldReward() || reward.isItemReward()) {
 				callBack.setCancelled(true);
 				if (BagOfGoldCompat.isSupported()) {
 					done = BagOfGold.getAPI().getEconomyManager().depositPlayer(player, reward.getMoney())
-							.transactionSuccess();
+							.amount;
 				} else if (reward.getMoney() != 0 && !plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
 					// If not Gringotts
-					done = plugin.getRewardManager().depositPlayer(player, reward.getMoney()).transactionSuccess();
+					done = plugin.getRewardManager().depositPlayer(player, reward.getMoney()).amount;
 				} else {
 					done = plugin.getRewardManager().addBagOfGoldPlayer(player, reward.getMoney());
 				}
 			}
-			if (done) {
+			if (done>0) {
 				item.remove();
 				if (plugin.getRewardManager().getDroppedMoney().containsKey(item.getEntityId()))
 					plugin.getRewardManager().getDroppedMoney().remove(item.getEntityId());

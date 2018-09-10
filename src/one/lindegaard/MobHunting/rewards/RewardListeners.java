@@ -176,9 +176,10 @@ public class RewardListeners implements Listener {
 
 		Player player = event.getPlayer();
 
-		if (player.getInventory().firstEmpty() == -1) {
+		if (plugin.getRewardManager().canPickupMoney(player)) {
+			plugin.getMessages().debug("CanPickupMoney=%s", plugin.getRewardManager().canPickupMoney(player));
 			Iterator<Entity> entityList = ((Entity) player).getNearbyEntities(1, 1, 1).iterator();
-			while (entityList.hasNext()) {
+			while (entityList.hasNext() && plugin.getRewardManager().canPickupMoney(player)) {
 				Entity entity = entityList.next();
 				if (!(entity instanceof Item))
 					continue;
@@ -194,19 +195,23 @@ public class RewardListeners implements Listener {
 					if (plugin.getRewardManager().getDroppedMoney().containsKey(entity.getEntityId())) {
 						Reward reward = Reward.getReward(item);
 						if (reward.isBagOfGoldReward() || reward.isItemReward()) {
-							boolean done = false;
+							double addedMoney = 0;
 							if (BagOfGoldCompat.isSupported()) {
-								done = plugin.getRewardManager().addBagOfGoldPlayer(player, reward.getMoney());
-								PlayerBalance ps = BagOfGold.getAPI().getPlayerBalanceManager()
-										.getPlayerBalance(player);
-								ps.setBalance(Misc.round(ps.getBalance() + reward.getMoney()));
-								BagOfGold.getAPI().getPlayerBalanceManager().setPlayerBalance(player, ps);
-								done = true;
+								plugin.getMessages().debug("AddMoney if possible: %s", reward.getMoney());
+								addedMoney = plugin.getRewardManager().addBagOfGoldPlayer(player, reward.getMoney());
+								plugin.getMessages().debug("AddedMoney=%s", addedMoney);
+								
+								if (addedMoney > 0) {
+									PlayerBalance ps = BagOfGold.getAPI().getPlayerBalanceManager()
+											.getPlayerBalance(player);
+									ps.setBalance(Misc.round(ps.getBalance() + addedMoney));
+									BagOfGold.getAPI().getPlayerBalanceManager().setPlayerBalance(player, ps);
+									// done = reward.getMoney();
+								}
 							} else if (reward.getMoney() != 0
 									&& !plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
 								// If not Gringotts
-								done = plugin.getRewardManager().depositPlayer(player, reward.getMoney())
-										.transactionSuccess();
+								addedMoney = plugin.getRewardManager().depositPlayer(player, reward.getMoney()).amount;
 							} else {
 								// Inventory is full , check if item is
 								// inventory
@@ -234,13 +239,14 @@ public class RewardListeners implements Listener {
 													plugin.getRewardManager().format(reward.getMoney()),
 													player.getName(), slot,
 													plugin.getRewardManager().format(rewardInSlot.getMoney()));
-											done = true;
+											addedMoney = reward.getMoney();
 											break;
 										}
 									}
 								}
 							}
-							if (done) {
+							if (Misc.round(addedMoney) == Misc.round(reward.getMoney())) {
+								plugin.getMessages().debug("Was able to pickup all the money");
 								item.remove();
 								if (plugin.getRewardManager().getDroppedMoney().containsKey(entity.getEntityId()))
 									plugin.getRewardManager().getDroppedMoney().remove(entity.getEntityId());
@@ -268,6 +274,21 @@ public class RewardListeners implements Listener {
 																					.trim()
 																			: reward.getDisplayname())));
 								}
+							} else if (Misc.round(addedMoney)<Misc.round(reward.getMoney())){
+								double rest = reward.getMoney()-addedMoney;
+								plugin.getMessages().debug("Was not able to pick up %s money (remove Item)",rest);
+								item.remove();
+								
+								if (plugin.getRewardManager().getDroppedMoney().containsKey(entity.getEntityId()))
+									plugin.getRewardManager().getDroppedMoney().remove(entity.getEntityId());
+								if (ProtocolLibCompat.isSupported())
+									ProtocolLibHelper.pickupMoney(player, item);
+
+								plugin.getRewardManager().dropMoneyOnGround_RewardManager(player, null, player.getLocation(),
+										rest);
+								
+							} else{
+								plugin.getMessages().debug("someting else?????");
 							}
 						}
 					}
@@ -406,7 +427,8 @@ public class RewardListeners implements Listener {
 					plugin.getMessages().learn(player,
 							plugin.getMessages().getString("mobhunting.learn.rewards.no-helmet"));
 					event.getPlayer().getEquipment().setHelmet(new ItemStack(Material.AIR));
-					if (!plugin.getRewardManager().addBagOfGoldPlayer(player, reward.getMoney()))
+					if (Misc.round(reward.getMoney()) != Misc
+							.round(plugin.getRewardManager().addBagOfGoldPlayer(player, reward.getMoney())))
 						plugin.getRewardManager().dropMoneyOnGround_RewardManager(player, null, player.getLocation(),
 								reward.getMoney());
 				}
@@ -545,14 +567,16 @@ public class RewardListeners implements Listener {
 		InventoryAction action = event.getAction();
 		SlotType slotType = event.getSlotType();
 
-		//Inventory inventory = event.getInventory();
-		//if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
-		//	plugin.getMessages().debug(
-		//			"action=%s, InventoryType=%s, slottype=%s, slotno=%s, current=%s, cursor=%s, view=%s", action,
-		//			inventory.getType(), slotType, event.getSlot(),
-		//			isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
-		//			isCursor == null ? "null" : isCursor.getType(), event.getView().getType());
-		//}
+		// Inventory inventory = event.getInventory();
+		// if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
+		// plugin.getMessages().debug(
+		// "action=%s, InventoryType=%s, slottype=%s, slotno=%s, current=%s,
+		// cursor=%s, view=%s", action,
+		// inventory.getType(), slotType, event.getSlot(),
+		// isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
+		// isCursor == null ? "null" : isCursor.getType(),
+		// event.getView().getType());
+		// }
 
 		if (action == InventoryAction.NOTHING)
 			return;
@@ -652,8 +676,8 @@ public class RewardListeners implements Listener {
 								plugin.getRewardManager().format(currentSlotMoney),
 								plugin.getRewardManager().format(cursorMoney));
 					}
-				} else if (reward.isKilledHeadReward() || reward.isKilledHeadReward()){
-					
+				} else if (reward.isKilledHeadReward() || reward.isKilledHeadReward()) {
+
 				}
 			}
 		} else if (action == InventoryAction.COLLECT_TO_CURSOR) {
@@ -673,7 +697,7 @@ public class RewardListeners implements Listener {
 									reward.setMoney(plugin.getConfigManager().limitPerBag);
 									is = plugin.getRewardManager().setDisplayNameAndHiddenLores(is.clone(), reward);
 									is.setAmount(1);
-									//event.setCurrentItem(is);
+									// event.setCurrentItem(is);
 									player.getInventory().clear(slot);
 									player.getInventory().addItem(is);
 									saldo = saldo - plugin.getConfigManager().limitPerBag;

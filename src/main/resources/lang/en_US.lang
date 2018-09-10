@@ -218,6 +218,7 @@ mobhunting.commands.money.deposit=§aYou deposit ${money} ${rewardname} §ainto 
 mobhunting.commands.money.withdraw=§aYou withdraw ${money} ${rewardname} §afrom the bank
 mobhunting.commands.money.bankerdistance=§4You are too far from the Banker. 
 mobhunting.commands.money.not-enough-money-in-bank=§4You don't have ${money} ${rewardname} §4in the bank.
+mobhunting.commands.money.to_big_number=&aThe number ${number} is too big. Reduced to ${maximum}.
 mobhunting.commands.mute.description=Turns reward notifications on/off
 mobhunting.commands.mute.muted=MobHunting rewards is now §bmuted§f for player §b${player}
 mobhunting.commands.mute.unmuted=MobHunting rewards is now §bunmuted§f for player §b${player}

@@ -218,6 +218,7 @@ mobhunting.commands.money.deposit=§aLetétbe helyezted ${money} ${rewardname} �
 mobhunting.commands.money.withdraw=§aVisszavontad ${money} ${rewardname} §aa bankot
 mobhunting.commands.money.bankerdistance=§4Túl messze vagy a Banker-től. 
 mobhunting.commands.money.not-enough-money-in-bank=§4Nem rendelkezel ${money} ${rewardname} §4a bankban.
+mobhunting.commands.money.to_big_number=&aThe number ${number} is too big. Reduced to ${maximum}.
 mobhunting.commands.mute.description=A jutalmazási értesítések be- és kikapcsolása
 mobhunting.commands.mute.muted=MobHunting jutalmak most §bnémítva§f a játékos számára §b${player}
 mobhunting.commands.mute.unmuted=MobHunting jutalmak most §bnem némított§f a játékos számára §b${player}

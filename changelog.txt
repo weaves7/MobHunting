@@ -1,6 +1,7 @@
 V6.0.6
 * Reward for PVP kills can max be the players balance, if rob_from_victim is enabled. If the killed player has 0 money, the reward will be zero to.
-* Added a limit of gold per BagOfGold, default 10000 (Notice that you need to set the limit in both BagOfGold and MobHunting at the moment). 
+* Added a limit of gold per BagOfGold, default 10000 (Notice that you need to set the limit in both BagOfGold and MobHunting at the moment).
+* Added a limit on how much gold the player can drop, give and take using /mh money .... the limit is 100 bags
 V6.0.5
 * Use org.Bukkit.SendTitle instead of using TitleManager and TitleAPI. 
 * Use player.spawnParticle instead of using ProtocolLib 

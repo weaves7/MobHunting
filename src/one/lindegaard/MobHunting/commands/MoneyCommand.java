@@ -187,7 +187,7 @@ public class MoneyCommand implements ICommand {
 			// "Bag of gold"
 
 			// MobHunting.registerPlugin(BossShopCompat.class, "BossShop");
-			
+
 			String shopName = args[1];
 
 			if (sender instanceof Player) {
@@ -228,28 +228,40 @@ public class MoneyCommand implements ICommand {
 					if (args[1].matches("\\d+(\\.\\d+)?")) {
 						Player player = (Player) sender;
 						Location location = Misc.getTargetBlock(player, 20).getLocation();
+						double money = Misc.floor(Double.valueOf(args[1]));
+						if (money > plugin.getConfigManager().limitPerBag * 100) {
+							money = plugin.getConfigManager().limitPerBag * 100;
+							plugin.getMessages().senderSendMessage(sender,
+									ChatColor.RED
+											+ plugin.getMessages().getString("mobhunting.commands.money.to_big_number",
+													"number", args[1], "maximum", money));
+						}
 						plugin.getMessages().debug("The BagOfGold was dropped at %s", location);
-						plugin.getRewardManager().dropMoneyOnGround_RewardManager(player, null, location,
-								Misc.floor(Double.valueOf(args[1])));
+						plugin.getRewardManager().dropMoneyOnGround_RewardManager(player, null, location, money);
 						plugin.getMessages().playerActionBarMessageQueue(player,
 								plugin.getMessages().getString("mobhunting.moneydrop", "rewardname",
 										ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 												+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName,
-										"money",
-										plugin.getRewardManager().format(Misc.floor(Double.valueOf(args[1])))));
+										"money", plugin.getRewardManager().format(money)));
 					} else if (Bukkit.getServer().getOfflinePlayer(args[1]).isOnline()) {
 						if (args[2].matches("\\d+(\\.\\d+)?")) {
 							Player player = ((Player) Bukkit.getServer().getOfflinePlayer(args[1]));
 							Location location = Misc.getTargetBlock(player, 3).getLocation();
+							double money = Misc.floor(Double.valueOf(args[2]));
+							if (money > plugin.getConfigManager().limitPerBag * 100) {
+								money = plugin.getConfigManager().limitPerBag * 100;
+								plugin.getMessages().senderSendMessage(sender,
+										ChatColor.RED + plugin.getMessages().getString(
+												"mobhunting.commands.money.to_big_number", "number", args[2], "maximum",
+												money));
+							}
 							plugin.getMessages().debug("The BagOfGold was dropped at %s", location);
-							plugin.getRewardManager().dropMoneyOnGround_RewardManager(player, null, location,
-									Misc.floor(Double.valueOf(args[2])));
+							plugin.getRewardManager().dropMoneyOnGround_RewardManager(player, null, location, money);
 							plugin.getMessages().playerActionBarMessageQueue(player,
 									plugin.getMessages().getString("mobhunting.moneydrop", "rewardname",
 											ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 													+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
-											"money", plugin.getRewardManager().getEconomy()
-													.format(Misc.floor(Double.valueOf(args[2])))));
+											"money", plugin.getRewardManager().getEconomy().format(money)));
 						} else {
 							plugin.getMessages().senderSendMessage(sender, ChatColor.RED + plugin.getMessages()
 									.getString("mobhunting.commands.base.not_a_number", "number", args[2]));
@@ -284,27 +296,33 @@ public class MoneyCommand implements ICommand {
 
 				if (args[2].matches("\\d+(\\.\\d+)?")) {
 					double amount = Misc.round(Double.valueOf(args[2]));
-
+					if (amount > plugin.getConfigManager().limitPerBag * 100) {
+						amount = plugin.getConfigManager().limitPerBag * 100;
+						plugin.getMessages().senderSendMessage(sender,
+								ChatColor.RED + plugin.getMessages().getString(
+										"mobhunting.commands.money.to_big_number", "number", args[2], "maximum",
+										amount));
+					}
+					
 					if (BagOfGoldCompat.isSupported()) {
 						plugin.getMessages().debug("BagOfGold supported, using depositPlayer");
-							BagOfGold.getAPI().getEconomyManager().depositPlayer(offlinePlayer, amount);
+						BagOfGold.getAPI().getEconomyManager().depositPlayer(offlinePlayer, amount);
 					} else {
 						if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
 							if (offlinePlayer.isOnline()) {
 								Player player = (Player) offlinePlayer;
-								boolean result = plugin.getRewardManager().addBagOfGoldPlayer(player,
-										amount);
-								if (!result) {
+								double result = plugin.getRewardManager().addBagOfGoldPlayer(player, amount);
+								if (Misc.round(result)!=Misc.round(amount)) {
 									MobHunting.getInstance().getRewardManager().dropMoneyOnGround_RewardManager(player,
-											null, player.getLocation(), Misc.floor(amount));
-									result = true;
+											null, player.getLocation(), Misc.floor(amount-result));
+									//result =;
 								}
-								if (result) {
-									plugin.getMessages().playerActionBarMessageQueue(player, plugin.getMessages().getString(
-											"mobhunting.commands.money.give", "rewardname",
-											ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
+								if (Misc.round(result)==Misc.round(amount)) {
+									plugin.getMessages().playerActionBarMessageQueue(player, plugin.getMessages()
+											.getString("mobhunting.commands.money.give", "rewardname", ChatColor
+													.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 													+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim(),
-											"money", plugin.getRewardManager().format(amount)));
+													"money", plugin.getRewardManager().format(amount)));
 									plugin.getMessages().senderSendMessage(sender, plugin.getMessages().getString(
 											"mobhunting.commands.money.give-sender", "rewardname",
 											ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
@@ -352,10 +370,18 @@ public class MoneyCommand implements ICommand {
 				}
 				if (args[2].matches("\\d+(\\.\\d+)?")) {
 					double rest = Misc.round(Double.valueOf(args[2]));
+					if (rest > plugin.getConfigManager().limitPerBag * 100) {
+						rest = plugin.getConfigManager().limitPerBag * 100;
+						plugin.getMessages().senderSendMessage(sender,
+								ChatColor.RED + plugin.getMessages().getString(
+										"mobhunting.commands.money.to_big_number", "number", args[2], "maximum",
+										rest));
+					}
+					
 					double taken = 0;
 					if (BagOfGoldCompat.isSupported()) {
 						plugin.getMessages().debug("BagOfGold supported, using withdrawPlayer");
-							BagOfGold.getAPI().getEconomyManager().withdrawPlayer(offlinePlayer, rest);
+						BagOfGold.getAPI().getEconomyManager().withdrawPlayer(offlinePlayer, rest);
 
 					} else if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
 						if (Bukkit.getServer().getOfflinePlayer(args[1]).isOnline()) {
@@ -546,126 +572,97 @@ public class MoneyCommand implements ICommand {
 		}
 
 		/**
-		else if (args.length == 1 && args[0].equalsIgnoreCase("deposit")
-				|| (args.length == 2 && args[0].equalsIgnoreCase("deposit")
-						&& (args[1].matches("\\d+(\\.\\d+)?") || args[1].equalsIgnoreCase("all")))) {
-			// /mh money deposit - deposit the bagofgold in the players hand to
-			// the bank
-			// /mh money deposit <amount>
-			if (sender.hasPermission("mobhunting.money.deposit") || sender.hasPermission("mobhunting.money.*")) {
-				if (!(sender instanceof Player)) {
-					plugin.getMessages().senderSendMessage(sender, ChatColor.RED + plugin.getMessages()
-							.getString("mobhunting.commands.base.noconsole", "command", "'money deposit'"));
-					return true;
-				}
-				Player player = (Player) sender;
-				if (BagOfGoldCompat.isSupported()) {
-					PlayerBalance ps = BagOfGold.getAPI().getPlayerBalanceManager().getPlayerBalance(player);
-					for (Iterator<NPC> npcList = CitizensAPI.getNPCRegistry().iterator(); npcList.hasNext();) {
-						NPC npc = npcList.next();
-						if (BagOfGold.getAPI().getBankManager().isBagOfGoldBanker(npc.getEntity())) {
-							if (npc.getEntity().getLocation().distance(player.getLocation()) < 3) {
-								if (args.length == 1) {
-									ItemStack is = player.getItemInHand();
-									if (Reward.isReward(is)) {
-										Reward reward = Reward.getReward(is);
-										if (reward.isBagOfGoldReward() && BagOfGoldCompat.isSupported()) {
-											plugin.getMessages().playerSendMessage(player,
-													plugin.getMessages().getString(
-															"mobhunting.money.you_cant_sell_and_buy_bagofgold",
-															"itemname", reward.getDisplayname()));
-											return true;
-										}
-										BagOfGold.getAPI().getEconomyManager()
-												.bankDeposit(player.getUniqueId().toString(), reward.getMoney());
-										BagOfGold.getAPI().getEconomyManager().withdrawPlayer(player,
-												reward.getMoney());
-										BagOfGold.getAPI().getBankManager().sendBankerMessage(player);
-									}
-								} else {
-									double to_be_removed = args[1].equalsIgnoreCase("all")
-											? ps.getBalance() + ps.getBalanceChanges()
-											: Double.valueOf(args[1]);
-									double sold = BagOfGold.getAPI().getEconomyManager().withdrawPlayer(player,
-											to_be_removed).amount;
-									BagOfGold.getAPI().getEconomyManager().bankDeposit(player.getUniqueId().toString(),
-											sold);
-									BagOfGold.getAPI().getBankManager().sendBankerMessage(player);
-								}
-								break;
-							} else {
-								plugin.getMessages().senderSendMessage(sender, ChatColor.RED
-										+ plugin.getMessages().getString("mobhunting.commands.money.bankerdistance"));
-							}
-
-						}
-					}
-				} else {
-					plugin.getMessages().debug("The BagOfGold plugin in not installed or disabled.");
-				}
-			} else {
-				plugin.getMessages().senderSendMessage(sender,
-						ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.base.nopermission", "perm",
-								"mobhunting.money.deposit", "command", "money deposit"));
-			}
-			return true;
-		}
-
-		else if (args.length == 2 && args[0].equalsIgnoreCase("withdraw")) {
-			// /mh money withdraw <amount>
-			if (sender.hasPermission("mobhunting.money.withdraw") || sender.hasPermission("mobhunting.money.*")) {
-				if (args.length == 2 && (args[1].matches("\\d+(\\.\\d+)?") || args[1].equalsIgnoreCase("all"))) {
-					Player player = (Player) sender;
-					if (BagOfGoldCompat.isSupported()) {
-						PlayerBalance ps = BagOfGold.getAPI().getPlayerBalanceManager().getPlayerBalance(player);
-						double amount = args[1].equalsIgnoreCase("all")
-								? ps.getBankBalance() + ps.getBankBalanceChanges()
-								: Double.valueOf(args[1]);
-						for (Iterator<NPC> npcList = CitizensAPI.getNPCRegistry().iterator(); npcList.hasNext();) {
-							NPC npc = npcList.next();
-							if (BagOfGold.getAPI().getBankManager().isBagOfGoldBanker(npc.getEntity())) {
-								if (npc.getEntity().getLocation().distance(player.getLocation()) < 3) {
-									if (ps.getBankBalance() + ps.getBankBalanceChanges() >= amount) {
-
-										BagOfGold.getAPI().getEconomyManager()
-												.bankWithdraw(player.getUniqueId().toString(), amount);
-										BagOfGold.getAPI().getEconomyManager().depositPlayer(player, amount);
-										BagOfGold.getAPI().getBankManager().sendBankerMessage(player);
-
-									} else {
-										plugin.getMessages().playerActionBarMessageQueue(player,
-												ChatColor.RED + plugin.getMessages().getString(
-														"mobhunting.commands.money.not-enough-money-in-bank", "money",
-														amount, "rewardname",
-														ChatColor.valueOf(
-																plugin.getConfigManager().dropMoneyOnGroundTextColor)
-																+ plugin.getConfigManager().dropMoneyOnGroundSkullRewardName));
-									}
-									break;
-								} else {
-									plugin.getMessages().senderSendMessage(sender, ChatColor.RED + plugin.getMessages()
-											.getString("mobhunting.commands.money.bankerdistance"));
-								}
-							} else {
-							}
-						}
-					} else {
-						plugin.getMessages().debug("The BagOfGold plugin in not installed or disabled.");
-					}
-
-				} else {
-					plugin.getMessages().senderSendMessage(sender, ChatColor.RED + plugin.getMessages()
-							.getString("mobhunting.commands.base.not_a_number", "number", args[1]));
-				}
-			} else {
-				plugin.getMessages().senderSendMessage(sender,
-						ChatColor.RED + plugin.getMessages().getString("mobhunting.commands.base.nopermission", "perm",
-								"mobhunting.money.withdraw", "command", "money withdraw"));
-			}
-			return true;
-		} else {
-			plugin.getMessages().debug("no command hit...");
-		}
+		 * else if (args.length == 1 && args[0].equalsIgnoreCase("deposit") ||
+		 * (args.length == 2 && args[0].equalsIgnoreCase("deposit") &&
+		 * (args[1].matches("\\d+(\\.\\d+)?") ||
+		 * args[1].equalsIgnoreCase("all")))) { // /mh money deposit - deposit
+		 * the bagofgold in the players hand to // the bank // /mh money deposit
+		 * <amount> if (sender.hasPermission("mobhunting.money.deposit") ||
+		 * sender.hasPermission("mobhunting.money.*")) { if (!(sender instanceof
+		 * Player)) { plugin.getMessages().senderSendMessage(sender,
+		 * ChatColor.RED + plugin.getMessages()
+		 * .getString("mobhunting.commands.base.noconsole", "command", "'money
+		 * deposit'")); return true; } Player player = (Player) sender; if
+		 * (BagOfGoldCompat.isSupported()) { PlayerBalance ps =
+		 * BagOfGold.getAPI().getPlayerBalanceManager().getPlayerBalance(player);
+		 * for (Iterator<NPC> npcList = CitizensAPI.getNPCRegistry().iterator();
+		 * npcList.hasNext();) { NPC npc = npcList.next(); if
+		 * (BagOfGold.getAPI().getBankManager().isBagOfGoldBanker(npc.getEntity()))
+		 * { if (npc.getEntity().getLocation().distance(player.getLocation()) <
+		 * 3) { if (args.length == 1) { ItemStack is = player.getItemInHand();
+		 * if (Reward.isReward(is)) { Reward reward = Reward.getReward(is); if
+		 * (reward.isBagOfGoldReward() && BagOfGoldCompat.isSupported()) {
+		 * plugin.getMessages().playerSendMessage(player,
+		 * plugin.getMessages().getString(
+		 * "mobhunting.money.you_cant_sell_and_buy_bagofgold", "itemname",
+		 * reward.getDisplayname())); return true; }
+		 * BagOfGold.getAPI().getEconomyManager()
+		 * .bankDeposit(player.getUniqueId().toString(), reward.getMoney());
+		 * BagOfGold.getAPI().getEconomyManager().withdrawPlayer(player,
+		 * reward.getMoney());
+		 * BagOfGold.getAPI().getBankManager().sendBankerMessage(player); } }
+		 * else { double to_be_removed = args[1].equalsIgnoreCase("all") ?
+		 * ps.getBalance() + ps.getBalanceChanges() : Double.valueOf(args[1]);
+		 * double sold =
+		 * BagOfGold.getAPI().getEconomyManager().withdrawPlayer(player,
+		 * to_be_removed).amount;
+		 * BagOfGold.getAPI().getEconomyManager().bankDeposit(player.getUniqueId().toString(),
+		 * sold); BagOfGold.getAPI().getBankManager().sendBankerMessage(player);
+		 * } break; } else { plugin.getMessages().senderSendMessage(sender,
+		 * ChatColor.RED +
+		 * plugin.getMessages().getString("mobhunting.commands.money.bankerdistance"));
+		 * }
+		 * 
+		 * } } } else { plugin.getMessages().debug("The BagOfGold plugin in not
+		 * installed or disabled."); } } else {
+		 * plugin.getMessages().senderSendMessage(sender, ChatColor.RED +
+		 * plugin.getMessages().getString("mobhunting.commands.base.nopermission",
+		 * "perm", "mobhunting.money.deposit", "command", "money deposit")); }
+		 * return true; }
+		 * 
+		 * else if (args.length == 2 && args[0].equalsIgnoreCase("withdraw")) {
+		 * // /mh money withdraw <amount> if
+		 * (sender.hasPermission("mobhunting.money.withdraw") ||
+		 * sender.hasPermission("mobhunting.money.*")) { if (args.length == 2 &&
+		 * (args[1].matches("\\d+(\\.\\d+)?") ||
+		 * args[1].equalsIgnoreCase("all"))) { Player player = (Player) sender;
+		 * if (BagOfGoldCompat.isSupported()) { PlayerBalance ps =
+		 * BagOfGold.getAPI().getPlayerBalanceManager().getPlayerBalance(player);
+		 * double amount = args[1].equalsIgnoreCase("all") ? ps.getBankBalance()
+		 * + ps.getBankBalanceChanges() : Double.valueOf(args[1]); for
+		 * (Iterator<NPC> npcList = CitizensAPI.getNPCRegistry().iterator();
+		 * npcList.hasNext();) { NPC npc = npcList.next(); if
+		 * (BagOfGold.getAPI().getBankManager().isBagOfGoldBanker(npc.getEntity()))
+		 * { if (npc.getEntity().getLocation().distance(player.getLocation()) <
+		 * 3) { if (ps.getBankBalance() + ps.getBankBalanceChanges() >= amount)
+		 * {
+		 * 
+		 * BagOfGold.getAPI().getEconomyManager()
+		 * .bankWithdraw(player.getUniqueId().toString(), amount);
+		 * BagOfGold.getAPI().getEconomyManager().depositPlayer(player, amount);
+		 * BagOfGold.getAPI().getBankManager().sendBankerMessage(player);
+		 * 
+		 * } else { plugin.getMessages().playerActionBarMessageQueue(player,
+		 * ChatColor.RED + plugin.getMessages().getString(
+		 * "mobhunting.commands.money.not-enough-money-in-bank", "money",
+		 * amount, "rewardname", ChatColor.valueOf(
+		 * plugin.getConfigManager().dropMoneyOnGroundTextColor) +
+		 * plugin.getConfigManager().dropMoneyOnGroundSkullRewardName)); }
+		 * break; } else { plugin.getMessages().senderSendMessage(sender,
+		 * ChatColor.RED + plugin.getMessages()
+		 * .getString("mobhunting.commands.money.bankerdistance")); } } else { }
+		 * } } else { plugin.getMessages().debug("The BagOfGold plugin in not
+		 * installed or disabled."); }
+		 * 
+		 * } else { plugin.getMessages().senderSendMessage(sender, ChatColor.RED
+		 * + plugin.getMessages()
+		 * .getString("mobhunting.commands.base.not_a_number", "number",
+		 * args[1])); } } else { plugin.getMessages().senderSendMessage(sender,
+		 * ChatColor.RED +
+		 * plugin.getMessages().getString("mobhunting.commands.base.nopermission",
+		 * "perm", "mobhunting.money.withdraw", "command", "money withdraw")); }
+		 * return true; } else { plugin.getMessages().debug("no command
+		 * hit..."); }
 		 **/
 		return false;
 

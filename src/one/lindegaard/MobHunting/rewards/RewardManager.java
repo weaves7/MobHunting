@@ -231,9 +231,10 @@ public class RewardManager {
 		return amountInInventory;
 	}
 
-	public boolean addBagOfGoldPlayer(Player player, double amount) {
+	public double addBagOfGoldPlayer(Player player, double amount) {
 		boolean found = false;
 		double moneyLeftToGive = amount;
+		double addedMoney = 0;
 		for (int slot = 0; slot < player.getInventory().getSize(); slot++) {
 			ItemStack is = player.getInventory().getItem(slot);
 			if (Reward.isReward(is)) {
@@ -243,14 +244,16 @@ public class RewardManager {
 						double space = plugin.getConfigManager().limitPerBag - rewardInSlot.getMoney();
 						if (space > moneyLeftToGive) {
 							rewardInSlot.setMoney(rewardInSlot.getMoney() + moneyLeftToGive);
+							addedMoney = addedMoney + moneyLeftToGive;
 							moneyLeftToGive = 0;
 						} else {
+							addedMoney = addedMoney + space;
 							rewardInSlot.setMoney(plugin.getConfigManager().limitPerBag);
 							moneyLeftToGive = moneyLeftToGive - space;
 						}
 						if (rewardInSlot.getMoney() == 0)
 							player.getInventory().clear(slot);
-						else     
+						else
 							is = setDisplayNameAndHiddenLores(is, rewardInSlot);
 						plugin.getMessages().debug(
 								"Added %s to %s's item in slot %s, new value is %s (addBagOfGoldPlayer_EconomyManager)",
@@ -264,8 +267,7 @@ public class RewardManager {
 			}
 		}
 		if (!found) {
-
-			while (Misc.round(moneyLeftToGive) > 0) {
+			while (Misc.round(moneyLeftToGive) > 0 && canPickupMoney(player)) {
 				double nextBag = 0;
 				if (moneyLeftToGive > plugin.getConfigManager().limitPerBag) {
 					nextBag = plugin.getConfigManager().limitPerBag;
@@ -277,6 +279,7 @@ public class RewardManager {
 				if (player.getInventory().firstEmpty() == -1)
 					dropMoneyOnGround_RewardManager(player, null, player.getLocation(), Misc.round(nextBag));
 				else {
+					addedMoney = addedMoney + nextBag;
 					ItemStack is;
 					if (plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("SKULL"))
 						is = new CustomItems(plugin).getCustomtexture(
@@ -296,7 +299,7 @@ public class RewardManager {
 				}
 			}
 		}
-		return true;
+		return addedMoney;
 	}
 
 	public double removeBagOfGoldPlayer(Player player, double amount) {
@@ -473,23 +476,26 @@ public class RewardManager {
 		}
 	}
 
-	public ItemStack setDisplayNameAndHiddenLores(ItemStack skull, Reward reward){ 
-			//String mDisplayName, double money, UUID rewardUUID,UUID skinUUID) {
+	public ItemStack setDisplayNameAndHiddenLores(ItemStack skull, Reward reward) {
+		// String mDisplayName, double money, UUID rewardUUID,UUID skinUUID) {
 		ItemMeta skullMeta = skull.getItemMeta();
 		if (reward.getRewardType().equals(UUID.fromString(Reward.MH_REWARD_BAG_OF_GOLD_UUID)))
-			skullMeta.setLore(new ArrayList<String>(
-					Arrays.asList("Hidden:" + reward.getDisplayname(), "Hidden:" + reward.getMoney(), "Hidden:" + reward.getRewardType(),
-							reward.getMoney() == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(), "Hidden:" + reward.getSkinUUID())));
+			skullMeta.setLore(new ArrayList<String>(Arrays.asList("Hidden:" + reward.getDisplayname(),
+					"Hidden:" + reward.getMoney(), "Hidden:" + reward.getRewardType(),
+					reward.getMoney() == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(),
+					"Hidden:" + reward.getSkinUUID())));
 		else
-			skullMeta.setLore(new ArrayList<String>(Arrays.asList("Hidden:" + reward.getDisplayname(), "Hidden:" + reward.getMoney(),
-					"Hidden:" + reward.getRewardType(), reward.getMoney() == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(),
+			skullMeta.setLore(new ArrayList<String>(Arrays.asList("Hidden:" + reward.getDisplayname(),
+					"Hidden:" + reward.getMoney(), "Hidden:" + reward.getRewardType(),
+					reward.getMoney() == 0 ? "Hidden:" : "Hidden:" + UUID.randomUUID(),
 					"Hidden:" + reward.getSkinUUID(), plugin.getMessages().getString("mobhunting.reward.name"))));
 		if (reward.getMoney() == 0)
 			skullMeta.setDisplayName(
 					ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor) + reward.getDisplayname());
 		else
 			skullMeta.setDisplayName(ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
-					+ (plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM") ? format(reward.getMoney())
+					+ (plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
+							? format(reward.getMoney())
 							: reward.getDisplayname() + " (" + format(reward.getMoney()) + ")"));
 		skull.setItemMeta(skullMeta);
 		return skull;
@@ -518,6 +524,22 @@ public class RewardManager {
 							: reward.getDisplayname() + " (" + format(reward.getMoney()) + ")"));
 		skull.setItemMeta(skullMeta);
 		return skull;
+	}
+
+	public boolean canPickupMoney(Player player) {
+		if (player.getInventory().firstEmpty() != -1)
+			return true;
+		for (int slot = 0; slot < player.getInventory().getSize(); slot++) {
+			ItemStack is = player.getInventory().getItem(slot);
+			if (Reward.isReward(is)) {
+				Reward rewardInSlot = Reward.getReward(is);
+				if ((rewardInSlot.isBagOfGoldReward() || rewardInSlot.isItemReward())) {
+					if (rewardInSlot.getMoney() < plugin.getConfigManager().limitPerBag)
+						return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	public double getPlayerKilledByMobPenalty(Player playerToBeRobbed, List<ItemStack> droplist) {
