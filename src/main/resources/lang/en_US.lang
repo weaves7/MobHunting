@@ -13,6 +13,7 @@ mobhunting.fishcaught.reward=You caught a fish and earned ${prize}
 mobhunting.fishcaught.penalty=Penalty for catching a fish is ${prize}
 mobhunting.fishcaught.reward.bonuses=You caught a fish and earned ${prize} with: ${bonuses}
 mobhunting.fishcaught.penalty.bonuses=Penalty for catching a fish is ${prize} with: ${bonuses}
+mobhunting.fishcaught.the_same_fish=You only get a reward first time you catch this fish.
 mobhunting.grinding.detected=Grinding detected. You are not allowed to grind mobs.
 mobhunting.holograms.no-holograms=No Holographic Leaderboards has been created.
 mobhunting.hook.econ=Unable to hook into an economy! Make sure you have one available that Vault accepts.

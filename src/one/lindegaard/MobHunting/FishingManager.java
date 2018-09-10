@@ -20,6 +20,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerFishEvent.State;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import com.gmail.nossr50.datatypes.skills.SkillType;
 
@@ -77,10 +78,10 @@ public class FishingManager implements Listener {
 					player.getName());
 			return;
 		}
-
+		
 		State state = event.getState();
 		Entity fish = event.getCaught();
-
+		
 		if (fish == null || (fish != null && !(fish instanceof Item)))
 			plugin.getMessages().debug("FishingEvent: State=%s", state);
 		else
@@ -88,12 +89,14 @@ public class FishingManager implements Listener {
 					((Item) fish).getItemStack().getType());
 
 		switch (state) {
+		case CAUGHT_ENTITY:
+			// When a player has successfully caught an entity
+			plugin.getMessages().debug("FishingBlocked: %s caught a flowting item in the water, no reward", player.getName());
+			break;
 		case CAUGHT_FISH:
 			// When a player has successfully caught a fish and is reeling it
 			// in.
 			// break;
-		case CAUGHT_ENTITY:
-			// When a player has successfully caught an entity
 			if (player.getGameMode() != GameMode.SURVIVAL) {
 				plugin.getMessages().debug("FishingBlocked: %s is not in survival mode", player.getName());
 				plugin.getMessages().learn(player, plugin.getMessages().getString("mobhunting.learn.survival"));
@@ -117,6 +120,15 @@ public class FishingManager implements Listener {
 				return;
 			}
 
+			plugin.getMessages().debug("fish id=%s",fish.getEntityId());
+			
+			if (fish.hasMetadata("MH:FishCaught")){
+				plugin.getMessages().learn(player, plugin.getMessages().getString("mobhunting.fishcaught.the_same_fish"));
+				plugin.getMessages().debug("FishingBlocked %s: Player caught the same fish again",
+						player.getName());
+				return;
+			}
+			
 			// Calculate basic the reward
 			ExtendedMob extendedMob = plugin.getExtendedMobManager().getExtendedMobFromEntity(fish);
 			if (extendedMob.getMob_id() == 0) {
@@ -181,6 +193,8 @@ public class FishingManager implements Listener {
 					return;
 				}
 
+				fish.setMetadata("MH:FishCaught", new FixedMetadataValue(plugin, true));
+				
 				if (cash >= plugin.getConfigManager().minimumReward) {
 					plugin.getRewardManager().depositPlayer(player, cash);
 					plugin.getMessages().debug("%s got a reward (%s)", player.getName(),

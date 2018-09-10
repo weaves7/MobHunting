@@ -272,6 +272,7 @@ mobhunting.fishcaught.penalty=被杀罚金是 ${prize}
 mobhunting.fishcaught.penalty.bonuses=抓到一条鱼的罚金是 ${prize} 和: ${bonuses}
 mobhunting.fishcaught.reward=你钓到了一条鱼 ${prize}
 mobhunting.fishcaught.reward.bonuses=你钓到了一条鱼${prize} 和: ${bonuses}
+mobhunting.fishcaught.the_same_fish=You only get a reward first time you catch this fish.
 mobhunting.grinding.detected=Grinding 检查. 你不被允许 grind mobs.
 mobhunting.holograms.no-holograms=没有已创建的全息排行榜.
 mobhunting.hook.econ=无法融入经济！确保你有一个可用的排行榜或金库。

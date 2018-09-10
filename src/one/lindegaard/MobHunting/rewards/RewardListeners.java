@@ -177,7 +177,6 @@ public class RewardListeners implements Listener {
 		Player player = event.getPlayer();
 
 		if (plugin.getRewardManager().canPickupMoney(player)) {
-			plugin.getMessages().debug("CanPickupMoney=%s", plugin.getRewardManager().canPickupMoney(player));
 			Iterator<Entity> entityList = ((Entity) player).getNearbyEntities(1, 1, 1).iterator();
 			while (entityList.hasNext() && plugin.getRewardManager().canPickupMoney(player)) {
 				Entity entity = entityList.next();

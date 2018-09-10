@@ -13,6 +13,7 @@ mobhunting.fishcaught.reward=Fogtál egy halat és szereztél ${prize}
 mobhunting.fishcaught.penalty=A hal fogására vonatkozó büntetés ${prize}
 mobhunting.fishcaught.reward.bonuses=Fogtál egy halat és szereztél ${prize} vele: ${bonuses}
 mobhunting.fishcaught.penalty.bonuses=A hal fogására vonatkozó büntetés ${prize} vele: ${bonuses}
+mobhunting.fishcaught.the_same_fish=You only get a reward first time you catch this fish.
 mobhunting.grinding.detected=Csiszolás észlelhető. Nem szabad csörgetni a szörnyeket.
 mobhunting.holograms.no-holograms=Nincsenek Holografikus ranglisták.
 mobhunting.hook.econ=Nem lehet beilleszkedni egy gazdaságba! Győződj meg róla, hogy van olyan elérhető, amelyet a Vault elfogad.
