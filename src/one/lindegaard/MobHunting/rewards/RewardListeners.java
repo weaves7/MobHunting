@@ -660,8 +660,8 @@ public class RewardListeners implements Listener {
 				Reward reward = Reward.getReward(isCurrentSlot);
 				if (reward.isBagOfGoldReward() || reward.isItemReward()) {
 					double currentSlotMoney = Misc.round(reward.getMoney() / 2);
-					double cursorMoney = reward.getMoney() - currentSlotMoney;
-					if (currentSlotMoney >= plugin.getConfigManager().minimumReward) {
+					double cursorMoney = Misc.round(reward.getMoney() - currentSlotMoney);
+					if (cursorMoney >= plugin.getConfigManager().minimumReward) {
 						event.setCancelled(true);
 						reward.setMoney(currentSlotMoney);
 						isCurrentSlot = plugin.getRewardManager().setDisplayNameAndHiddenLores(isCurrentSlot.clone(),
