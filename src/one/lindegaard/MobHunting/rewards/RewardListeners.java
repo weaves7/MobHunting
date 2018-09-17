@@ -199,7 +199,7 @@ public class RewardListeners implements Listener {
 								plugin.getMessages().debug("AddMoney if possible: %s", reward.getMoney());
 								addedMoney = plugin.getRewardManager().addBagOfGoldPlayer(player, reward.getMoney());
 								plugin.getMessages().debug("AddedMoney=%s", addedMoney);
-								
+
 								if (addedMoney > 0) {
 									PlayerBalance ps = BagOfGold.getAPI().getPlayerBalanceManager()
 											.getPlayerBalance(player);
@@ -273,20 +273,20 @@ public class RewardListeners implements Listener {
 																					.trim()
 																			: reward.getDisplayname())));
 								}
-							} else if (Misc.round(addedMoney)<Misc.round(reward.getMoney())){
-								double rest = reward.getMoney()-addedMoney;
-								plugin.getMessages().debug("Was not able to pick up %s money (remove Item)",rest);
+							} else if (Misc.round(addedMoney) < Misc.round(reward.getMoney())) {
+								double rest = reward.getMoney() - addedMoney;
+								plugin.getMessages().debug("Was not able to pick up %s money (remove Item)", rest);
 								item.remove();
-								
+
 								if (plugin.getRewardManager().getDroppedMoney().containsKey(entity.getEntityId()))
 									plugin.getRewardManager().getDroppedMoney().remove(entity.getEntityId());
 								if (ProtocolLibCompat.isSupported())
 									ProtocolLibHelper.pickupMoney(player, item);
 
-								plugin.getRewardManager().dropMoneyOnGround_RewardManager(player, null, player.getLocation(),
-										rest);
-								
-							} else{
+								plugin.getRewardManager().dropMoneyOnGround_RewardManager(player, null,
+										player.getLocation(), rest);
+
+							} else {
 								plugin.getMessages().debug("someting else?????");
 							}
 						}
@@ -542,7 +542,7 @@ public class RewardListeners implements Listener {
 		}
 
 		if (CitizensCompat.isNPC(event.getWhoClicked()))
-			return;
+			return; 	
 
 		ItemStack isCurrentSlot = event.getCurrentItem();
 		ItemStack isCursor = event.getCursor();
@@ -566,16 +566,14 @@ public class RewardListeners implements Listener {
 		InventoryAction action = event.getAction();
 		SlotType slotType = event.getSlotType();
 
-		// Inventory inventory = event.getInventory();
-		// if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
-		// plugin.getMessages().debug(
-		// "action=%s, InventoryType=%s, slottype=%s, slotno=%s, current=%s,
-		// cursor=%s, view=%s", action,
-		// inventory.getType(), slotType, event.getSlot(),
-		// isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
-		// isCursor == null ? "null" : isCursor.getType(),
-		// event.getView().getType());
-		// }
+		//Inventory inventory = event.getInventory();
+		//if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
+		//	plugin.getMessages().debug(
+		//			"action=%s, InventoryType=%s, slottype=%s, slotno=%s, current=%s, cursor=%s, view=%s", action,
+		//			inventory.getType(), slotType, event.getSlot(),
+		//			isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
+		//			isCursor == null ? "null" : isCursor.getType(), event.getView().getType());
+		//}
 
 		if (action == InventoryAction.NOTHING)
 			return;

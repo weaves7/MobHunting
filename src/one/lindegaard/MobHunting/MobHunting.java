@@ -346,12 +346,13 @@ public class MobHunting extends JavaPlugin {
 			mAdvancementManager = new AdvancementManager(this);
 			mAdvancementManager.getAdvancementsFromAchivements();
 
-			Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
-				public void run() {
-					getMessages().debug("Reloading advancements");
-					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "minecraft:reload");
-				}
-			}, 20 * 15);
+			// gives troubles for some plugins like EmeraldTools
+			//Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+			//	public void run() {
+			//		getMessages().debug("Reloading advancements");
+			//		Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "minecraft:reload");
+			//	}
+			//}, 20 * 15);
 
 		}
 
