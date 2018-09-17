@@ -160,6 +160,7 @@ public class MobHuntingManager implements Listener {
 		mHuntingModifiers.add(new CoverBlown());
 		mHuntingModifiers.add(new CriticalModifier());
 		mHuntingModifiers.add(new DifficultyBonus());
+		mHuntingModifiers.add(new WorldBonus());
 		if (FactionsHelperCompat.isSupported())
 			mHuntingModifiers.add(new FactionWarZoneBonus());
 		mHuntingModifiers.add(new FlyingPenalty());

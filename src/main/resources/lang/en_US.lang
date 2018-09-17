@@ -314,6 +314,7 @@ bonus.undercover.name=Under cover!
 bonus.undercover.message=${cause} disguise was blown!
 bonus.rank.name=Rank
 bonus.difficulty.name=Difficulty
+bonus.world.name=World
 bonus.mobstacker.name=Stacked Mob
 bonus.conquestiamobs.name=ConquestiaMob
 bonus.lorinthsrpgmobs.name=LorinthsRpgMob

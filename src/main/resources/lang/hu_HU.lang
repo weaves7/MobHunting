@@ -314,6 +314,7 @@ bonus.undercover.name=A fedél alatt!
 bonus.undercover.message=${cause} álcázott!
 bonus.rank.name=Rang
 bonus.difficulty.name=Nehézség
+bonus.world.name=World
 bonus.mobstacker.name=Stackelt szörny
 bonus.conquestiamobs.name=ConquestiaMob
 bonus.lorinthsrpgmobs.name=LorinthsRpgMob

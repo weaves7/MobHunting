@@ -1,5 +1,6 @@
 V6.0.7
-* Fixed compatibility issues with plugins adding new recepies. 
+* Fixed compatibility issues with plugins adding new recipes. (Ex EmeraldTools)
+* Added a per world bonus on request from a server owner. The default bonus is 1 (neutral/disabled) 
 V6.0.6
 * Fixed ticket 443 (https://github.com/Rocologo/MobHunting/issues/443)
 * Rounding fixed

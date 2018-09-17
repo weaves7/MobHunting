@@ -34,6 +34,7 @@ import one.lindegaard.MobHunting.modifier.FactionWarZoneBonus;
 import one.lindegaard.MobHunting.modifier.HappyHourBonus;
 import one.lindegaard.MobHunting.modifier.IModifier;
 import one.lindegaard.MobHunting.modifier.RankBonus;
+import one.lindegaard.MobHunting.modifier.WorldBonus;
 import one.lindegaard.MobHunting.rewards.CustomItems;
 import one.lindegaard.MobHunting.rewards.Reward;
 import one.lindegaard.MobHunting.util.Misc;
@@ -53,6 +54,7 @@ public class FishingManager implements Listener {
 
 	private void registerFishingModifiers() {
 		mFishingModifiers.add(new DifficultyBonus());
+		mFishingModifiers.add(new WorldBonus());
 		mFishingModifiers.add(new HappyHourBonus());
 		mFishingModifiers.add(new RankBonus());
 		if (FactionsHelperCompat.isSupported())

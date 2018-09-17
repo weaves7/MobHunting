@@ -288,6 +288,14 @@ public class ConfigManager extends AutoConfig {
 						+ "\nwith the mobs basic reward."
 						+ "\nREMEMBER: These are not money, but a multiplier. Setting to 1 will disable them.");
 
+		setCategoryComment("multiplier.world",
+				"########################################################################" + "\nPenalty multipliers"
+						+ "\n########################################################################"
+						+ "\nYou can change the multiplier for different worlds."
+						+ "\nIf the world does not exist in this list the multiplier"
+						+ "\nwill be set to 1, which is neutral/no bonus. Add you"
+						+ "\nown world names and a multiplier.");
+
 		setCategoryComment("multiplier.bonus",
 				"########################################################################" + "\n Bonus multipliers"
 						+ "\n########################################################################"
@@ -2194,8 +2202,7 @@ public class ConfigManager extends AutoConfig {
 	// Fish / Fishing
 	// #####################################################################################
 
-	@ConfigField(name = "enable_fishing_rewards", category = "fishing", 
-			comment = "Set this to false if you want to disable all fishing rewards / features.")
+	@ConfigField(name = "enable_fishing_rewards", category = "fishing", comment = "Set this to false if you want to disable all fishing rewards / features.")
 	public boolean enableFishingRewards = true;
 
 	// =====Raw Fish============================================
@@ -2856,6 +2863,18 @@ public class ConfigManager extends AutoConfig {
 		difficultyMultiplier.put("normal", "1");
 		difficultyMultiplier.put("hard", "2");
 		difficultyMultiplier.put("extrahard", "2.5");
+	}
+
+	// #####################################################################################
+	// Multiplier pr World 
+	// #####################################################################################
+	@ConfigField(name = "world_multiplier", category = "multiplier.world", comment = "This is the reward multiplier for the different Worlds")
+	public HashMap<String, String> worldMultiplier = new HashMap<String, String>();
+	{
+		worldMultiplier.put("world", "1.0");
+		worldMultiplier.put("world_nether", "1.0");
+		worldMultiplier.put("world_the_end", "1.0");
+		worldMultiplier.put("worldname", "1.5");
 	}
 
 	// #####################################################################################
@@ -3665,9 +3684,9 @@ public class ConfigManager extends AutoConfig {
 			+ "\nIf you want to deny HOPPERS to collect MobHunting Money rewards "
 			+ "\nset \"deny_hoppers_to_pickup_money_on_ground\"=false")
 	public boolean denyHoppersToPickUpMoney = true;
-	
+
 	@ConfigField(name = "limit_per_bag", category = "dropmoneyonground", comment = "If you only want the bags to be able to contain a "
-	+"\ncertain amount of gold you can set the limit here. Default 10000.")
+			+ "\ncertain amount of gold you can set the limit here. Default 10000.")
 	public double limitPerBag = 10000;
 
 	// #####################################################################################
@@ -4746,8 +4765,8 @@ public class ConfigManager extends AutoConfig {
 			return -1;
 
 		YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
-		int res= config.getInt("general.config_version", config.contains("general.kill-debug") == true ? 0 : -2);
-		if (res==-2)
+		int res = config.getInt("general.config_version", config.contains("general.kill-debug") == true ? 0 : -2);
+		if (res == -2)
 			file.delete();
 		return res;
 	}
