@@ -2785,6 +2785,15 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "disable_natural_xp_drops", category = "grinding.farms.otherfarms")
 	public boolean disableNaturalXPDropsOnOtherFarms = false;
 
+	@ConfigField(name = "disable_money_rewards_from_mobspawners_and_eggs", category = "grinding.spawners", comment = "Can the players earn money on mobs spawned from mobspawners, eggs and from eggs from Dispensers?"
+			+ "\nIf you disable this you are still able to get rewards from specific Spawners, if you white list the area "
+			+ "\nusing '/mh whitelistarea'.")
+	public boolean disableMoneyRewardsFromMobSpawnersEggsAndDispensers = true;
+	@ConfigField(name = "disable_naturally_dropped_items_from_mobspawners_and_eggs", category = "grinding.spawners", comment = "Let the players get the naturally dropped items from mobs spawned from mobspawners, eggs and from eggs from Dispensers ?")
+	public boolean disableNaturallyDroppedItemsFromMobSpawnersEggsAndDispensers = false;
+	@ConfigField(name = "disable_naturally_dropped_xp_from_mobspawners_and_eggs", category = "grinding.spawners", comment = "Let the players get the naturally dropped XP from mobs spawned from mobspawners, eggs and from eggs from Dispensers ?")
+	public boolean disableNaturallyDroppedXPFromMobSpawnersEggsAndDispensers = false;
+
 	// #####################################################################################
 	// Multipier Section
 	// #####################################################################################
@@ -3735,15 +3744,6 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "language", category = "general", comment = "The language (file) to use. You can put the name of the language file as the language code "
 			+ "\n(eg. en_US, de_DE, fr_FR, ect.) or you can specify the name of a custom file without the .lang\nPlease check the lang/ folder for a list of all available translations.")
 	public String language = "en_US";
-
-	@ConfigField(name = "disable_money_rewards_from_mobspawners_and_eggs", category = "general", comment = "Can the players earn money on mobs spawned from mobspawners, eggs and from eggs from Dispensers?"
-			+ "\nIf you disable this you are still able to get rewards from specific Spawners, if you white list the area "
-			+ "\nusing '/mh whitelistarea'.")
-	public boolean disableMoneyRewardsFromMobSpawnersEggsAndDispensers = true;
-	@ConfigField(name = "disable_naturally_dropped_items_from_mobspawners_and_eggs", category = "general", comment = "Let the players get the naturally dropped items from mobs spawned from mobspawners, eggs and from eggs from Dispensers ?")
-	public boolean disableNaturallyDroppedItemsFromMobSpawnersEggsAndDispensers = false;
-	@ConfigField(name = "disable_naturally_dropped_xp_from_mobspawners_and_eggs", category = "general", comment = "Let the players get the naturally dropped XP from mobs spawned from mobspawners, eggs and from eggs from Dispensers ?")
-	public boolean disableNaturallyDroppedXPFromMobSpawnersEggsAndDispensers = false;
 
 	@ConfigField(name = "disable_mobhunting_advancements", category = "general", comment = "As of V 5.0.0 MobHunting utilizises the Advancement system (L key) to to show which"
 			+ "\nAchievements the players has made. This is still BETA feature and it is only Supported"

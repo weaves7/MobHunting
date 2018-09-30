@@ -542,7 +542,7 @@ public class RewardListeners implements Listener {
 		}
 
 		if (CitizensCompat.isNPC(event.getWhoClicked()))
-			return; 	
+			return;
 
 		ItemStack isCurrentSlot = event.getCurrentItem();
 		ItemStack isCursor = event.getCursor();
@@ -566,14 +566,16 @@ public class RewardListeners implements Listener {
 		InventoryAction action = event.getAction();
 		SlotType slotType = event.getSlotType();
 
-		//Inventory inventory = event.getInventory();
-		//if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
-		//	plugin.getMessages().debug(
-		//			"action=%s, InventoryType=%s, slottype=%s, slotno=%s, current=%s, cursor=%s, view=%s", action,
-		//			inventory.getType(), slotType, event.getSlot(),
-		//			isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
-		//			isCursor == null ? "null" : isCursor.getType(), event.getView().getType());
-		//}
+		// Inventory inventory = event.getInventory();
+		// if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
+		// plugin.getMessages().debug(
+		// "action=%s, InventoryType=%s, slottype=%s, slotno=%s, current=%s,
+		// cursor=%s, view=%s", action,
+		// inventory.getType(), slotType, event.getSlot(),
+		// isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
+		// isCursor == null ? "null" : isCursor.getType(),
+		// event.getView().getType());
+		// }
 
 		if (action == InventoryAction.NOTHING)
 			return;
@@ -709,5 +711,58 @@ public class RewardListeners implements Listener {
 			}
 		}
 	}
+/**
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onInventoryCreativeEvent(InventoryCreativeEvent event) {
+
+		if (event.isCancelled() || event.getInventory() == null) {
+			plugin.getMessages().debug("RewardListeners: Something cancelled the InventoryCreativeEvent");
+			return;
+		}
+
+		if (CitizensCompat.isNPC(event.getWhoClicked()))
+			return;
+
+		ItemStack isCurrentSlot = event.getCurrentItem();
+		ItemStack isCursor = event.getCursor();
+
+		Player player = (Player) event.getWhoClicked();
+
+		if (!(Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor))) {
+			if (isFakeReward(isCurrentSlot)) {
+				player.sendMessage(ChatColor.RED + "[MobHunting] WARNING, this is a FAKE reward. It was removed.");
+				isCurrentSlot.setType(Material.AIR);
+				return;
+			}
+			if (isFakeReward(isCursor)) {
+				player.sendMessage(ChatColor.RED + "[MobHunting] WARNING, this is a FAKE reward. It was removed.");
+				isCursor.setType(Material.AIR);
+				return;
+			}
+			return;
+		}
+
+		InventoryAction action = event.getAction();
+		SlotType slotType = event.getSlotType();
+		Inventory inventory = event.getInventory();
+		if (Reward.isReward(isCurrentSlot) || Reward.isReward(isCursor)) {
+			plugin.getMessages().debug(
+					"action=%s, InventoryType=%s, slottype=%s, slotno=%s, current=%s, cursor=%s, view=%s", action,
+					inventory.getType(), slotType, event.getSlot(),
+					isCurrentSlot == null ? "null" : isCurrentSlot.getType(),
+					isCursor == null ? "null" : isCursor.getType(), event.getView().getType());
+			if (Reward.isReward(isCurrentSlot)) {
+				Reward reward = Reward.getReward(isCurrentSlot);
+				plugin.getMessages().debug("isCurrentSlot Amount=%s", reward.getMoney());
+				event.setCurrentItem(isCurrentSlot);
+				//event.setCancelled(true);
+			}
+			if (Reward.isReward(isCursor)) {
+				Reward reward = Reward.getReward(isCursor);
+				plugin.getMessages().debug("isCursor Amount=%s", reward.getMoney());
+				
+			}
+		}
+	}**/
 
 }

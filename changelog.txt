@@ -1,3 +1,5 @@
+V6.0.8
+*
 V6.0.7
 * Fixed compatibility issues with plugins adding new recipes. (Ex EmeraldTools)
 * Added a per world bonus on request from a server owner. The default bonus is 1 (neutral/disabled) 
