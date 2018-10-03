@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import com.sk89q.worldedit.util.Location;
 import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
@@ -91,12 +92,13 @@ public class WorldGuardHelper {
 			RegionManager regionManager = WorldGuard.getInstance().getPlatform().getRegionContainer()
 					.get(localPlayer.getWorld());
 			if (regionManager != null) {
-				com.sk89q.worldedit.util.Location loc = localPlayer.getLocation();
+				Location loc = localPlayer.getLocation();
 				ApplicableRegionSet set = regionManager.getApplicableRegions(loc.toVector());
 				if (set.size() > 0) {
 					State flag = set.queryState(localPlayer, stateFlag);
-					if (flag != null)
-						return flag.equals(State.ALLOW);
+					if (flag != null) {
+						return flag==State.ALLOW;
+					}
 				}
 				return defaultValue;
 			}

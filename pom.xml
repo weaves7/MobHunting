@@ -6,8 +6,8 @@
 	<groupId>one.lindegaard</groupId>
 	<artifactId>MobHunting</artifactId>
 	<packaging>jar</packaging>
-	<!-- <version>6.0.8</version> -->
-	<version>6.0.8-SNAPSHOT-B${build.number}</version>
+	<version>6.0.8</version>
+	<!-- <version>6.0.8-SNAPSHOT-B${build.number}</version> -->
 	<name>MobHunting</name>
 	<url>https://www.spigotmc.org/resources/mobhunting.3582/</url>
 	<description>MobHunting adds a new level of fun to hunting monsters. Now you can get money from kills, get bonuses for skilled and creative kills, and get special achievements!</description>
@@ -452,7 +452,7 @@
 			<artifactId>worldedit-bukkit</artifactId>
 			<version>7.0.0-SNAPSHOT;3815-5f4cc3e</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/worldedit-bukkit-7.0.0-SNAPSHOT-dist-B3815.jar</systemPath>
+			<systemPath>${project.basedir}/lib/worldedit-bukkit-7.0.0-SNAPSHOT-dist-B3874.jar</systemPath>
 		</dependency>
 
 		<!-- ProtocolLib -->
@@ -488,7 +488,7 @@
 			<artifactId>worldguard-legacy</artifactId>
 			<version>7.0.0-SNAPSHOT;1733-8161fd0</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/worldguard-legacy-7.0.0-SNAPSHOT-dist-B1733.jar</systemPath>
+			<systemPath>${project.basedir}/lib/worldguard-legacy-7.0.0-SNAPSHOT-dist-B1749.jar</systemPath>
 		</dependency>
 
 

@@ -1710,7 +1710,16 @@ public class MobHuntingManager implements Listener {
 				String perm = cmd.getOrDefault("permission", "");
 				if (perm.isEmpty() || player.hasPermission(perm)) {
 					double random = plugin.mRand.nextDouble();
-					if (random < Double.valueOf(cmd.get("chance"))) {
+					double d = 0;
+					try {
+						d = Double.valueOf(cmd.get("chance"));
+					} catch (Exception e) {
+						Bukkit.getConsoleSender()
+								.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RED
+										+ "The 'chance' to run a command when killing a " + killed.getName()
+										+ " is not a number.");
+					}
+					if (random < d) {
 						String commandCmd = cmd.getOrDefault("cmd", "");
 						if (commandCmd != null) {
 							commandCmd = commandCmd.replaceAll("\\{player\\}", player.getName())

@@ -24,7 +24,7 @@ public class WorldGuardCompat {
 				Bukkit.getConsoleSender()
 						.sendMessage(ChatColor.GOLD + "[MobHunting] " + ChatColor.RED
 								+ "Your current version of WorldGuard (" + mPlugin.getDescription().getVersion()
-								+ ") is not supported by MobHunting. Mobhunting does only support 7.0.0 and newer.");
+								+ ") is not supported by MobHunting. Mobhunting does only support 7.0.0 beta 1 and newer.");
 			}
 		}
 	}
