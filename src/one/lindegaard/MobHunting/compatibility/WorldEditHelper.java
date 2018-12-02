@@ -3,8 +3,8 @@ package one.lindegaard.MobHunting.compatibility;
 import org.bukkit.entity.Player;
 
 import com.sk89q.worldedit.IncompleteRegionException;
-import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
+import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.Region;
 
 import one.lindegaard.MobHunting.MobHunting;
@@ -15,7 +15,7 @@ public class WorldEditHelper {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static Vector getPointA(Player player) throws IllegalArgumentException {
+	public static BlockVector3 getPointA(Player player) throws IllegalArgumentException {
 		if (WorldEditCompat.isSupported())
 			throw new IllegalArgumentException("WorldEdit is not present");
 
@@ -39,7 +39,7 @@ public class WorldEditHelper {
 		return sel.getMinimumPoint();
 	}
 
-	public static Vector getPointB(Player player) throws IllegalArgumentException {
+	public static BlockVector3 getPointB(Player player) throws IllegalArgumentException {
 		if (WorldEditCompat.isSupported())
 			throw new IllegalArgumentException("WorldEdit is not present");
 

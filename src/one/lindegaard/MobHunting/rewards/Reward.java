@@ -53,6 +53,14 @@ public class Reward {
 		this.uniqueId = reward.getUniqueUUID();
 	}
 
+	public Reward(one.lindegaard.BagOfGold.rewards.Reward reward) {
+		this.displayname = reward.getDisplayname();
+		this.money = reward.getMoney();
+		this.uuid = reward.getRewardType();
+		this.skinUUID = reward.getSkinUUID();
+		this.uniqueId = reward.getUniqueUUID();
+	}
+
 	public Reward(String displayName, double money, UUID uuid, UUID uniqueId, UUID skinUUID) {
 		this.displayname = displayName.startsWith("Hidden:") ? displayName.substring(7) : displayName;
 		this.money = money;
@@ -298,7 +306,11 @@ public class Reward {
 	}
 
 	public static Reward getReward(Block block) {
-		return (Reward) block.getMetadata(MH_REWARD_DATA).get(0).value();
+		if (block.getMetadata(MH_REWARD_DATA).get(0).value() instanceof Reward) {
+			return (Reward) block.getMetadata(MH_REWARD_DATA).get(0).value();
+		} else {
+			return new Reward((one.lindegaard.BagOfGold.rewards.Reward) block.getMetadata(MH_REWARD_DATA).get(0).value());
+		}
 	}
 
 	public static boolean isReward(Entity entity) {

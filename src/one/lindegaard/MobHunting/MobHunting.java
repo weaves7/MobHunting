@@ -170,6 +170,13 @@ public class MobHunting extends JavaPlugin {
 		mWorldGroupManager = new WorldGroup(this);
 		mWorldGroupManager.load();
 
+		mCompatibilityManager = new CompatibilityManager(this);
+
+		// Handle compatibility stuff
+		mCompatibilityManager.registerPlugin(EssentialsCompat.class, CompatPlugin.Essentials);
+		mCompatibilityManager.registerPlugin(BagOfGoldCompat.class, CompatPlugin.BagOfGold);
+		mCompatibilityManager.registerPlugin(GringottsCompat.class, CompatPlugin.Gringotts);
+
 		mRewardManager = new RewardManager(this);
 		if (mRewardManager.getEconomy() == null)
 			return;
@@ -200,13 +207,6 @@ public class MobHunting extends JavaPlugin {
 		mStoreManager = new DataStoreManager(this, mStore);
 
 		mPlayerSettingsManager = new PlayerSettingsManager(this);
-
-		mCompatibilityManager = new CompatibilityManager(this);
-
-		// Handle compatibility stuff
-		mCompatibilityManager.registerPlugin(EssentialsCompat.class, CompatPlugin.Essentials);
-		mCompatibilityManager.registerPlugin(BagOfGoldCompat.class, CompatPlugin.BagOfGold);
-		mCompatibilityManager.registerPlugin(GringottsCompat.class, CompatPlugin.Gringotts);
 
 		// Protection plugins
 		mCompatibilityManager.registerPlugin(WorldEditCompat.class, CompatPlugin.WorldEdit);

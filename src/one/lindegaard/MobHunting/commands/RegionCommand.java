@@ -87,7 +87,7 @@ public class RegionCommand implements ICommand {
 					LocalPlayer localPlayer = WorldGuardCompat.getWorldGuardPlugin().wrapPlayer((Player)sender);
 					RegionManager regionManager = WorldGuard.getInstance().getPlatform().getRegionContainer().get(localPlayer.getWorld());
 					//ApplicableRegionSet set = regionManager.getApplicableRegions(((Player) sender).getLocation());
-					ApplicableRegionSet set = regionManager.getApplicableRegions(localPlayer.getCardinalDirection().vector());
+					ApplicableRegionSet set = regionManager.getApplicableRegions(localPlayer.getCardinalDirection().toBlockVector());
 					if (set.size() > 0) {
 						// player is in one or more regions, show regions on
 						// this loction
@@ -135,7 +135,7 @@ public class RegionCommand implements ICommand {
 			if (sender instanceof Player) {
 				LocalPlayer localPlayer = WorldGuardCompat.getWorldGuardPlugin().wrapPlayer((Player)sender);
 				RegionManager regionManager = WorldGuard.getInstance().getPlatform().getRegionContainer().get(localPlayer.getWorld());
-				ApplicableRegionSet set = regionManager.getApplicableRegions(localPlayer.getCardinalDirection().vector());
+				ApplicableRegionSet set = regionManager.getApplicableRegions(localPlayer.getCardinalDirection().toBlockVector());
 				if (set.size() == 1) {
 					// player is standing on a location with single region
 					ProtectedRegion region = set.getRegions().iterator().next();

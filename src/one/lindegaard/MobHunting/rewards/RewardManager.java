@@ -142,18 +142,23 @@ public class RewardManager {
 			}
 		}
 
-		pickupRewards = new PickupRewards(plugin);
+		if (!BagOfGoldCompat.isSupported()) {
+			
+			plugin.getMessages().debug("Register MobHunting Listeners");
+			
+			pickupRewards = new PickupRewards(plugin);
+			
+			Bukkit.getPluginManager().registerEvents(new RewardListeners(plugin), plugin);
+			Bukkit.getPluginManager().registerEvents(new MoneyMergeEventListener(plugin), plugin);
+			
+			if (Misc.isMC112OrNewer() && eventDoesExists())
+				Bukkit.getPluginManager().registerEvents(new EntityPickupItemEventListener(pickupRewards), plugin);
+			else
+				Bukkit.getPluginManager().registerEvents(new PlayerPickupItemEventListener(pickupRewards), plugin);
 
-		Bukkit.getPluginManager().registerEvents(new RewardListeners(plugin), plugin);
-
-		Bukkit.getPluginManager().registerEvents(new MoneyMergeEventListener(plugin), plugin);
-
-		if (Misc.isMC112OrNewer() && eventDoesExists())
-			Bukkit.getPluginManager().registerEvents(new EntityPickupItemEventListener(pickupRewards), plugin);
-		else
-			Bukkit.getPluginManager().registerEvents(new PlayerPickupItemEventListener(pickupRewards), plugin);
-
-		loadAllStoredRewards();
+			loadAllStoredRewardsFromBagOfGold();
+			loadAllStoredRewards();
+		}
 
 		if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency)
 			new BagOfGoldSign(plugin);
@@ -179,11 +184,11 @@ public class RewardManager {
 		return droppedMoney;
 	}
 
-	public HashMap<UUID, Reward> getLocations() {
+	public HashMap<UUID, Reward> getReward() {
 		return placedMoney_Reward;
 	}
 
-	public HashMap<UUID, Location> getReward() {
+	public HashMap<UUID, Location> getLocations() {
 		return placedMoney_Location;
 	}
 
@@ -463,6 +468,63 @@ public class RewardManager {
 			if (deleted > 0) {
 				plugin.getMessages().debug("Deleted %s rewards from the rewards.yml file", deleted);
 				File file_copy = new File(MobHunting.getInstance().getDataFolder(), "rewards.yml.old");
+				Files.copy(file.toPath(), file_copy.toPath(), StandardCopyOption.COPY_ATTRIBUTES,
+						StandardCopyOption.REPLACE_EXISTING);
+				config.save(file);
+			}
+			if (n > 0) {
+				plugin.getMessages().debug("Loaded %s rewards from the rewards.yml file", n);
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void loadAllStoredRewardsFromBagOfGold() {
+		int n = 0;
+		int deleted = 0;
+		File file = new File(plugin.getDataFolder().getParentFile(), "BagOfGold/rewards.yml");
+		try {
+
+			if (!file.exists())
+				return;
+
+			config.load(file);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InvalidConfigurationException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			for (String key : config.getKeys(false)) {
+				ConfigurationSection section = config.getConfigurationSection(key);
+				Reward reward = new Reward();
+				reward.read(section);
+				Location location = (Location) section.get("location");
+				if (location != null && Misc.isSkull(location.getBlock().getType())) {
+					location.getBlock().setMetadata(Reward.MH_REWARD_DATA,
+							new FixedMetadataValue(plugin, new Reward(reward)));
+					placedMoney_Reward.put(UUID.fromString(key), reward);
+					placedMoney_Location.put(UUID.fromString(key), location);
+					saveReward(UUID.fromString(key));
+					n++;
+				} else {
+					deleted++;
+					config.set(key, null);
+				}
+			}
+		} catch (InvalidConfigurationException e) {
+			e.printStackTrace();
+		}
+
+		try {
+
+			if (deleted > 0) {
+				plugin.getMessages().debug("Deleted %s rewards from the rewards.yml file", deleted);
+				File file_copy = new File(plugin.getDataFolder(), "rewards.yml.old");
 				Files.copy(file.toPath(), file_copy.toPath(), StandardCopyOption.COPY_ATTRIBUTES,
 						StandardCopyOption.REPLACE_EXISTING);
 				config.save(file);

@@ -93,7 +93,7 @@ public class WorldGuardHelper {
 					.get(localPlayer.getWorld());
 			if (regionManager != null) {
 				Location loc = localPlayer.getLocation();
-				ApplicableRegionSet set = regionManager.getApplicableRegions(loc.toVector());
+				ApplicableRegionSet set = regionManager.getApplicableRegions(localPlayer.getCardinalDirection().toBlockVector());
 				if (set.size() > 0) {
 					State flag = set.queryState(localPlayer, stateFlag);
 					if (flag != null) {

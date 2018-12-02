@@ -10,6 +10,8 @@ import one.lindegaard.MobHunting.MobHunting;
 
 public class EntityPickupItemEventListener implements Listener {
 
+	//TODO: must be moved to bagofgold
+	
 	private PickupRewards pickupRewards;
 
 	public EntityPickupItemEventListener(PickupRewards pickupRewards) {

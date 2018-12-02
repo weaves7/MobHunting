@@ -1,6 +1,11 @@
+V6.0.9
+* Updated to bStats 1.4
+* MobHunting and BagOfGold is not dependend on each other anymore.
+* Recompiled MobHunting against Worldguard 7.0.0 Beta 2. You MUST upgrade Worldguard to V7.0.0 Beta 2 if you use the MobHunting Flag. (https://dev.bukkit.org/projects/worldguard/files)
+* If you use my other plugin BagOfGold, you must upgrade that too. 
 V6.0.8
 * Moved Spawner settings from general section to grinding section in config.yml. Please review the Spawner settings after first run.
-* Recompiled MobHunting against Worldguard 7.0.0 Beta 1. You MUST upgrade Workdguard to V7.0.0 Beta 1 if you use the MobHunting Flag. (https://dev.bukkit.org/projects/worldguard/files) 
+* Recompiled MobHunting against Worldguard 7.0.0 Beta 1. You MUST upgrade Worldguard to V7.0.0 Beta 1 if you use the MobHunting Flag. (https://dev.bukkit.org/projects/worldguard/files) 
 V6.0.7
 * Fixed compatibility issues with plugins adding new recipes. (Ex EmeraldTools)
 * Added a per world bonus on request from a server owner. The default bonus is 1 (neutral/disabled) 

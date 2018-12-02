@@ -71,7 +71,7 @@ public class MetricsManager {
 			public void run() {
 				try {
 					// make a URL to MCStats.org
-					URL url = new URL("https://www.bstats.org/");
+					URL url = new URL("https://bstats.org/");
 					if (!started && HttpTools.isHomePageReachable(url)) {
 						startBStatsMetrics();
 						plugin.getMessages().debug("Metrics reporting to Https://bstats.org has started.");
