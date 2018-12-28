@@ -33,6 +33,7 @@ import one.lindegaard.MobHunting.compatibility.IDisguiseCompat;
 import one.lindegaard.MobHunting.compatibility.InfernalMobsCompat;
 import one.lindegaard.MobHunting.compatibility.LibsDisguisesCompat;
 import one.lindegaard.MobHunting.compatibility.LorinthsRpgMobsCompat;
+import one.lindegaard.MobHunting.compatibility.McMMOHorses;
 import one.lindegaard.MobHunting.compatibility.MinigamesCompat;
 import one.lindegaard.MobHunting.compatibility.MinigamesLibCompat;
 import one.lindegaard.MobHunting.compatibility.MobArenaCompat;
@@ -75,7 +76,7 @@ public class MetricsManager {
 					if (!started && HttpTools.isHomePageReachable(url)) {
 						startBStatsMetrics();
 						plugin.getMessages().debug("Metrics reporting to Https://bstats.org has started.");
-						started= true;
+						started = true;
 					} else {
 						plugin.getMessages().debug("https://bstats.org/ seems to be down");
 					}
@@ -168,6 +169,7 @@ public class MetricsManager {
 						valueMap.put("Citizens", CitizensCompat.isSupported() ? 1 : 0);
 						valueMap.put("Gringotts", GringottsCompat.isSupported() ? 1 : 0);
 						valueMap.put("MyPet", MyPetCompat.isSupported() ? 1 : 0);
+						valueMap.put("McMMOHorses", McMMOHorses.isSupported() ? 1 : 0);
 						valueMap.put("WorldEdit", WorldEditCompat.isSupported() ? 1 : 0);
 						valueMap.put("ProtocolLib", ProtocolLibCompat.isSupported() ? 1 : 0);
 						valueMap.put("ExtraHardMode", ExtraHardModeCompat.isSupported() ? 1 : 0);
@@ -226,8 +228,10 @@ public class MetricsManager {
 				valueMap.put("Holographic Leaderboards",
 						plugin.getLeaderboardManager().getHologramManager().getHolograms().size());
 				valueMap.put("MasterMobHunters", CitizensCompat.getMasterMobHunterManager().getAll().size());
-				valueMap.put("PlayerBounties", plugin.getConfigManager().enablePlayerBounties
-						? plugin.getBountyManager().getAllBounties().size() : 0);
+				valueMap.put("PlayerBounties",
+						plugin.getConfigManager().enablePlayerBounties
+								? plugin.getBountyManager().getAllBounties().size()
+								: 0);
 				return valueMap;
 			}
 

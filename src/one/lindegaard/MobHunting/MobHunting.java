@@ -223,6 +223,7 @@ public class MobHunting extends JavaPlugin {
 		mCompatibilityManager.registerPlugin(McMMOCompat.class, CompatPlugin.mcMMO);
 		mCompatibilityManager.registerPlugin(ProtocolLibCompat.class, CompatPlugin.ProtocolLib);
 		mCompatibilityManager.registerPlugin(MyPetCompat.class, CompatPlugin.MyPet);
+		mCompatibilityManager.registerPlugin(McMMOHorses.class, CompatPlugin.McMMOHorses);
 		mCompatibilityManager.registerPlugin(BossShopCompat.class, CompatPlugin.BossShop);
 
 		// Minigame plugins

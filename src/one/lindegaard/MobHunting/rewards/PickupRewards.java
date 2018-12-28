@@ -1,6 +1,5 @@
 package one.lindegaard.MobHunting.rewards;
 
-import one.lindegaard.BagOfGold.BagOfGold;
 import one.lindegaard.MobHunting.MobHunting;
 import one.lindegaard.MobHunting.compatibility.BagOfGoldCompat;
 import one.lindegaard.MobHunting.compatibility.ProtocolLibCompat;
@@ -26,16 +25,12 @@ public class PickupRewards {
 			if (reward.isBagOfGoldReward() || reward.isItemReward()) {
 				callBack.setCancelled(true);
 				if (BagOfGoldCompat.isSupported()) {
-					done = BagOfGold.getAPI().getEconomyManager().depositPlayer(player, reward.getMoney())
-							.amount;
-				} else if (reward.getMoney() != 0 && !plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
-					// If not Gringotts
-					done = plugin.getRewardManager().depositPlayer(player, reward.getMoney()).amount;
+					done = plugin.getRewardManager().getEconomy().depositPlayer(player, reward.getMoney()).amount;
 				} else {
 					done = plugin.getRewardManager().addBagOfGoldPlayer(player, reward.getMoney());
 				}
 			}
-			if (done>0) {
+			if (done > 0) {
 				item.remove();
 				if (plugin.getRewardManager().getDroppedMoney().containsKey(item.getEntityId()))
 					plugin.getRewardManager().getDroppedMoney().remove(item.getEntityId());
@@ -43,11 +38,10 @@ public class PickupRewards {
 					ProtocolLibHelper.pickupMoney(player, item);
 
 				if (reward.getMoney() == 0) {
-					plugin.getMessages()
-							.debug("%s picked up a %s (# of rewards left=%s)", player.getName(),
-									plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
-											? "ITEM" : reward.getDisplayname(),
-									plugin.getRewardManager().getDroppedMoney().size());
+					plugin.getMessages().debug("%s picked up a %s (# of rewards left=%s)", player.getName(),
+							plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM") ? "ITEM"
+									: reward.getDisplayname(),
+							plugin.getRewardManager().getDroppedMoney().size());
 				} else {
 					plugin.getMessages().debug(
 							"%s picked up a %s with a value:%s (# of rewards left=%s)(PickupRewards)", player.getName(),

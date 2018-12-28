@@ -104,16 +104,15 @@ public class RewardListeners implements Listener {
 							+ reward.getDisplayname() + " (" + plugin.getRewardManager().format(money) + ")");
 
 				plugin.getRewardManager().getDroppedMoney().put(item.getEntityId(), money);
-				if (!plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency
-						&& !plugin.getConfigManager().dropMoneyOnGroup)
+				if (!BagOfGoldCompat.isSupported() && !plugin.getConfigManager().dropMoneyOnGroup)
 					plugin.getRewardManager().getEconomy().withdrawPlayer(player, money);
 
 				plugin.getMessages().debug("%s dropped %s money. (# of rewards left=%s)", player.getName(),
 						plugin.getRewardManager().format(money), plugin.getRewardManager().getDroppedMoney().size());
 				plugin.getMessages().playerActionBarMessageQueue(player,
 						plugin.getMessages().getString("mobhunting.moneydrop", "money",
-								plugin.getRewardManager().format(money), "rewardname", ChatColor
-										.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
+								plugin.getRewardManager().format(money), "rewardname",
+								ChatColor.valueOf(plugin.getConfigManager().dropMoneyOnGroundTextColor)
 										+ (plugin.getConfigManager().dropMoneyOnGroundItemtype.equalsIgnoreCase("ITEM")
 												? plugin.getConfigManager().dropMoneyOnGroundSkullRewardName.trim()
 												: reward.getDisplayname())));
@@ -196,7 +195,7 @@ public class RewardListeners implements Listener {
 						Reward reward = Reward.getReward(item);
 						if (reward.isBagOfGoldReward() || reward.isItemReward()) {
 							double addedMoney = 0;
-							if (reward.getMoney() != 0 && !plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
+							if (reward.getMoney() != 0 && !BagOfGoldCompat.isSupported()) {
 								// If not Gringotts
 								addedMoney = plugin.getRewardManager().depositPlayer(player, reward.getMoney()).amount;
 							} else {

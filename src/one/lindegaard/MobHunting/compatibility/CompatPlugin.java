@@ -50,7 +50,8 @@ public enum CompatPlugin {
 	MobHunting("MobHunting", 48), //
 	LorinthsRpgMobs("LorinthsRpgMobs", 49), //
 	CMI("CMI",50), // CMI Holograms
-	EliteMobs("EliteMobs",51); // EliteMobs
+	EliteMobs("EliteMobs",51), // EliteMobs
+	McMMOHorses("mcMMOHorse",52); // McMMOHorses
 
 	private final String name;
 	private final Integer id;

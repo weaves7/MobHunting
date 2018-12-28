@@ -1,4 +1,7 @@
-V6.0.9
+V6.5.1
+* Support for McMMOHorses Added. You dont get a reward for killing MCHorses
+* Added New Achievement. Neptune - King of the seas. Kill a Mob using a Trident over 20 blocks
+V6.5.0
 * Updated to bStats 1.4
 * MobHunting and BagOfGold is not dependend on each other anymore.
 * Recompiled MobHunting against Worldguard 7.0.0 Beta 2. You MUST upgrade Worldguard to V7.0.0 Beta 2 if you use the MobHunting Flag. (https://dev.bukkit.org/projects/worldguard/files)

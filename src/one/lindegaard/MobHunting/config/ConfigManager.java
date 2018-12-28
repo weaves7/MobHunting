@@ -419,6 +419,9 @@ public class ConfigManager extends AutoConfig {
 		setCategoryComment("plugins.mypet", "########################################################################"
 				+ "\nMyPet" + "\n########################################################################");
 
+		setCategoryComment("plugins.mcmmohorses", "########################################################################"
+				+ "\nMcMMOHorses" + "\n########################################################################");
+
 		setCategoryComment("plugins.minigames",
 				"########################################################################" + "\nMinigames"
 						+ "\n########################################################################");
@@ -524,7 +527,7 @@ public class ConfigManager extends AutoConfig {
 
 		setCategoryComment("dropmoneyonground",
 				"########################################################################"
-						+ "\nDropMoneyOnGround Settings"
+						+ "\nDropMoneyOnGround for servers WITHOUT the BagOfGold plugin installed"
 						+ "\n########################################################################");
 
 		setCategoryComment("database",
@@ -2436,6 +2439,13 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "message", category = "achievements.specials.master_sniper")
 	public String specialMasterSniperCmdDesc = "Enjoy you Gold ingot";
 
+	@ConfigField(name = "money", category = "achievements.specials.neptune")
+	public double specialNeptune = 2000;
+	@ConfigField(name = "commands", category = "achievements.specials.neptune")
+	public String specialNeptuneCmd = "give {player} gold_ingot 1";
+	@ConfigField(name = "message", category = "achievements.specials.neptune")
+	public String specialNeptuneCmdDesc = "Enjoy you Gold ingot";
+
 	@ConfigField(name = "money", category = "achievements.specials.justintime")
 	public double specialJustInTime = 1000;
 	@ConfigField(name = "commands", category = "achievements.specials.justintime")
@@ -3522,6 +3532,10 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "mypet.enable_integration_mypet", category = "plugins", comment = "Enable/Disable integration with MyPet")
 	public boolean enableIntegrationMyPet = true;
 
+	@ConfigField(name = "mcmmohorses.enable_integration_mcmmohorses", category = "plugins", comment = "Enable/Disable integration with McMMOHorses."
+			+"\nhttps://www.spigotmc.org/resources/mcmmohorses.46301/")
+	public boolean enableIntegrationMcMMOHorses = true;
+
 	@ConfigField(name = "minigames.enable_integration_minigames", category = "plugins", comment = "Enable/Disable integration with MiniGames")
 	public boolean enableIntegrationMinigames = true;
 
@@ -3623,12 +3637,14 @@ public class ConfigManager extends AutoConfig {
 	public boolean enableIntegrationPreciousStones = true;
 
 	// #####################################################################################
-	// DropMoneyOnGround settings
+	// DropMoneyOnGround settings - for servers without the BagOfGold plugin 
 	// #####################################################################################
 	@ConfigField(name = "drop_money_on_ground", category = "dropmoneyonground", comment = "When a player get a money reward for a kill, the money will go directly"
 			+ "\ninto his pocket. If you set dropMoneyOnGround=true the reward will "
 			+ "\ndropped on ground to be picked up by the player."
-			+ "\nNegative rewards will always be taken from the player. ")
+			+ "\nNegative rewards will always be taken from the player. "
+			+ "\n\nOBS Notice if you have the BagOfGold plugin installed these settings will be "
+			+ "\noverruled by the settings in BagOfGold config.yml !!!")
 	public boolean dropMoneyOnGroup = true;
 
 	@ConfigField(name = "drop_money_on_ground_itemtype", category = "dropmoneyonground", comment = "Here you can set the type of the ITEM to be dropped."
@@ -3657,13 +3673,13 @@ public class ConfigManager extends AutoConfig {
 			+ "\n\nChoose between \"ITEM\",\"KILLED\",\"SKULL\",\"KILLER\"")
 	public String dropMoneyOnGroundItemtype = "SKULL";
 
-	@ConfigField(name = "drop_money_use_item_as_currency", category = "dropmoneyonground", comment = "Use the reward as a currency (bag of gold) which can be sold, bought, stored in a"
-			+ "\nprotected chest or a protected area (a Bank?). Check the command /mh money sell."
-			+ "\nIf false the bag of gold will be picked up as money, if true the bag of gold "
-			+ "\nwill be picked up as an item. OBS: If you want to use the bags as an Economy "
-			+ "\nreplacing Essentials/CraftConomy/... and more, then you have to install the"
-			+ "\nBagOfGold plugin as well. (https://dev.bukkit.org/projects/bagofgold)")
-	public boolean dropMoneyOnGroundUseAsCurrency = true;
+	//@ConfigField(name = "drop_money_use_item_as_currency", category = "dropmoneyonground", comment = "Use the reward as a currency (bag of gold) which can be sold, bought, stored in a"
+	//		+ "\nprotected chest or a protected area (a Bank?). Check the command /mh money sell."
+	//		+ "\nIf false the bag of gold will be picked up as money, if true the bag of gold "
+	//		+ "\nwill be picked up as an item. OBS: If you want to use the bags as an Economy "
+	//		+ "\nreplacing Essentials/CraftConomy/... and more, then you have to install the"
+	//		+ "\nBagOfGold plugin as well. (https://dev.bukkit.org/projects/bagofgold)")
+	//public boolean dropMoneyOnGroundUseAsCurrency = true;
 
 	@ConfigField(name = "drop_money_command_alias", category = "dropmoneyonground", comment = "Here you can chance the command /mh money ... to /mh <alias> ..."
 			+ "\nExample: gold,bag,silver,coin,???? ")
@@ -4658,7 +4674,7 @@ public class ConfigManager extends AutoConfig {
 
 		this.dropMoneyOnGroup = mConfig0.dropMoneyOnGroup;
 		this.dropMoneyOnGroundItemtype = mConfig0.dropMoneyOnGroundItemtype;
-		this.dropMoneyOnGroundUseAsCurrency = mConfig0.dropMoneyOnGroundUseAsCurrency;
+		//this.dropMoneyOnGroundUseAsCurrency = mConfig0.dropMoneyOnGroundUseAsCurrency;
 		this.dropMoneyOnGroundMoneyCommandAlias = mConfig0.dropMoneyOnGroundMoneyCommandAlias;
 		this.dropMoneyOnGroundItem = mConfig0.dropMoneyOnGroundItem;
 		this.dropMoneyOnGroundTextColor = mConfig0.dropMoneyOnGroundTextColor;

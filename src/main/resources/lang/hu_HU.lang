@@ -85,19 +85,19 @@ achievements.hunter.7.description=Vadászat ${count} ${mob}ok
 achievements.hunter.7.name=Elnök Mester ${mob}§r Vadász
 achievements.hunter.8.description=Vadászat ${count} ${mob}ok
 achievements.hunter.8.name=Szuper ember ${mob}§r Vadász
-
-
 achievements.infighting.description=Vegyél egy csontvázat, hogy megöljön egy másik csontvázat
 achievements.infighting.name=Közelharc
 achievements.itsmagic.description=Ölj meg egy szörnyt bájitallal
 achievements.itsmagic.name=Ez varázslat!
-achievements.master-sniper.description=Öld meg a szörnyet több, mint 40 háztömbnyire, mozgó járműben vagy mozgó lovon.
-achievements.master-sniper.name=Mester orvlövész
 achievements.justintime.description=Ölj meg a szörnyet, mielőtt reggel fényben meghal.
 achievements.justintime.name=Épp időben
+achievements.load-fail=§c[FIGYELEM] §fA küldetéseidet nem sikerült betölteni. Nem lesz szükséged, amíg ez meg nem javul.
+achievements.master-sniper.description=Öld meg a szörnyet több, mint 40 háztömbnyire, mozgó járműben vagy mozgó lovon.
+achievements.master-sniper.name=Mester orvlövész
+achievements.neptune.description=Neptune - King of the seas. Kill a Mob with a Trident over a distance of 20 blocks
+achievements.neptune.name=Neptune - King of the seas
 achievements.recordhungry.description=Vegyél egy csontvázat, hogy megölj egy creepert
 achievements.recordhungry.name=Rekord éhség
-achievements.load-fail=§c[FIGYELEM] §fA küldetéseidet nem sikerült betölteni. Nem lesz szükséged, amíg ez meg nem javul.
 
 mobhunting.achievement.awarded=Különleges Gyilkosság! MobHunting 
 mobhunting.achievement.awarded.broadcast=${player} befejezte a különleges gyilkosságot! MobHunting 
@@ -383,6 +383,8 @@ mobhunting.learn.towny-no-rewards-in-home-town=§bNincs jutalom, ha az otthonodb
 mobhunting.learn.assisted-kill-is-disabled=§bA segített megölést az adminisztrátor letiltja.
 mobhunting.learn.residence-no-rewards-in-protected-area=§bNincs jutalom: Tartózkodási hellyel van lobogó damage=false
 mobhunting.learn.no-duplication=§bNem engedélyezett a tárgy megismétlése, az érték 0-ra lett állítva.
+mobhunting.learn.mcmmohorses-not-permanent-death=§bThere is no reward for killing RPGHorses.
+mobhunting.learn.mcmmohorses-not-own-horses=§bThere is no reward for killing your own RPGHorses.
 
 mobs.BonusMob.name=§9Bónusz szörny
 mobs.Blaze.name=§9Őrláng

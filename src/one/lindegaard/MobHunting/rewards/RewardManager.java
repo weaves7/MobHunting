@@ -143,14 +143,14 @@ public class RewardManager {
 		}
 
 		if (!BagOfGoldCompat.isSupported()) {
-			
+
 			plugin.getMessages().debug("Register MobHunting Listeners");
-			
+
 			pickupRewards = new PickupRewards(plugin);
-			
+
 			Bukkit.getPluginManager().registerEvents(new RewardListeners(plugin), plugin);
 			Bukkit.getPluginManager().registerEvents(new MoneyMergeEventListener(plugin), plugin);
-			
+
 			if (Misc.isMC112OrNewer() && eventDoesExists())
 				Bukkit.getPluginManager().registerEvents(new EntityPickupItemEventListener(pickupRewards), plugin);
 			else
@@ -160,7 +160,7 @@ public class RewardManager {
 			loadAllStoredRewards();
 		}
 
-		if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency)
+		if (BagOfGoldCompat.isSupported())
 			new BagOfGoldSign(plugin);
 
 	}
@@ -207,14 +207,11 @@ public class RewardManager {
 	}
 
 	public String format(double amount) {
-		if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency && !BagOfGoldCompat.isSupported())
-			return Misc.format(amount);
-		else
-			return getEconomy().format(amount);
+		return getEconomy().format(amount);
 	}
 
 	public double getBalance(OfflinePlayer offlinePlayer) {
-		if (BagOfGoldCompat.isSupported() || !plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency)
+		if (BagOfGoldCompat.isSupported())
 			return mEconomy.getBalance(offlinePlayer);
 		else if (offlinePlayer.isOnline()) {
 			return getAmountInInventory((Player) offlinePlayer);
@@ -951,8 +948,8 @@ public class RewardManager {
 	 * Get the command to be run when the player kills a Mob.
 	 * 
 	 * @param mob
-	 * @return a number of commands to be run in the console. Each command must
-	 *         be separeted by a "|"
+	 * @return a number of commands to be run in the console. Each command must be
+	 *         separeted by a "|"
 	 */
 	public List<HashMap<String, String>> getKillCommands(Entity mob) {
 		if (TARDISWeepingAngelsCompat.isWeepingAngelMonster(mob)) {

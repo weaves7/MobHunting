@@ -121,6 +121,7 @@ public class AchievementManager implements Listener {
 		registerAchievement(new MasterSniper(plugin));
 		registerAchievement(new JustInTime(plugin));
 		registerAchievement(new WolfKillAchievement(plugin));
+		registerAchievement(new Neptune(plugin));
 		if (SmartGiantsCompat.isSupported())
 			registerAchievement(new DavidAndGoliath(plugin));
 

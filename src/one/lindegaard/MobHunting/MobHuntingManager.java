@@ -335,13 +335,7 @@ public class MobHuntingManager implements Listener {
 						event.getDrops());
 
 				if (playerKilledByMobPenalty != 0) {
-					if (BagOfGoldCompat.isSupported()) {
-						BagOfGold.getAPI().getEconomyManager().removeMoneyFromBalance(killed, playerKilledByMobPenalty);
-					} else if (plugin.getConfigManager().dropMoneyOnGroundUseAsCurrency) {
-						plugin.getRewardManager().withdrawPlayer(killed, playerKilledByMobPenalty);
-					} else {
-						plugin.getRewardManager().getEconomy().withdrawPlayer(killed, playerKilledByMobPenalty);
-					}
+					plugin.getRewardManager().getEconomy().withdrawPlayer(killed, playerKilledByMobPenalty);
 					boolean killed_muted = false;
 					if (plugin.getPlayerSettingsManager().containsKey(killed))
 						killed_muted = plugin.getPlayerSettingsManager().getPlayerSettings(killed).isMuted();
@@ -365,7 +359,6 @@ public class MobHuntingManager implements Listener {
 					plugin.getMessages().debug("%s dropped %s because of his death, killed by %s", killed.getName(),
 							plugin.getRewardManager().format(balance), killer.getName());
 					BagOfGold.getAPI().getEconomyManager().removeMoneyFromBalance(killed, balance);
-
 				}
 			}
 		}
@@ -490,6 +483,10 @@ public class MobHuntingManager implements Listener {
 			return;
 
 		if (CrackShotCompat.isSupported() && CrackShotCompat.isCrackShotUsed(damaged)) {
+			return;
+		}
+		
+		if (McMMOHorses.isSupported() && McMMOHorses.isMcMMOHorse(damaged)) {
 			return;
 		}
 
@@ -799,6 +796,24 @@ public class MobHuntingManager implements Listener {
 		if (player != null && CitizensCompat.isNPC(killed) && CitizensCompat.isSentryOrSentinelOrSentries(killed)) {
 			plugin.getMessages().debug("%s killed a Sentinel, Sentries or a Sentry npc-%s (name=%s)", player.getName(),
 					CitizensCompat.getNPCId(killed), mob.getMobName());
+		} else
+			
+		//player killed a McMMOHorse
+		if (McMMOHorses.isMcMMOHorse(killed)) {
+			plugin.getMessages().debug("%s killed a McMMOHorse %s owned by %s", player.getName(), 
+					McMMOHorses.getHorse(killed).name, McMMOHorses.getHorse(killed).owner);
+			if (!McMMOHorses.isPermanentDeath()) {
+				plugin.getMessages().debug("Killblocked: %s there is no rewards for killing RPGHorses", player.getName());
+				plugin.getMessages().learn(killer, plugin.getMessages().getString("mobhunting.learn.mcmmohorses-not-permanent-death"));
+				plugin.getMessages().debug("======================= kill ended (3.1)======================");
+				return;
+			}
+			if (McMMOHorses.isMcMMOHorseOwner(killed, player)) {
+				plugin.getMessages().debug("Killblocked: %s there is no rewards for killing your own RPGHorses", player.getName());
+				plugin.getMessages().learn(killer, plugin.getMessages().getString("mobhunting.learn.mcmmohorses-not-own-horses"));
+				plugin.getMessages().debug("======================= kill ended (3.2)======================");
+				return;
+			}
 		}
 
 		// WorldGuard Compatibility
