@@ -3673,13 +3673,14 @@ public class ConfigManager extends AutoConfig {
 			+ "\n\nChoose between \"ITEM\",\"KILLED\",\"SKULL\",\"KILLER\"")
 	public String dropMoneyOnGroundItemtype = "SKULL";
 
-	//@ConfigField(name = "drop_money_use_item_as_currency", category = "dropmoneyonground", comment = "Use the reward as a currency (bag of gold) which can be sold, bought, stored in a"
-	//		+ "\nprotected chest or a protected area (a Bank?). Check the command /mh money sell."
-	//		+ "\nIf false the bag of gold will be picked up as money, if true the bag of gold "
-	//		+ "\nwill be picked up as an item. OBS: If you want to use the bags as an Economy "
-	//		+ "\nreplacing Essentials/CraftConomy/... and more, then you have to install the"
-	//		+ "\nBagOfGold plugin as well. (https://dev.bukkit.org/projects/bagofgold)")
-	//public boolean dropMoneyOnGroundUseAsCurrency = true;
+	@ConfigField(name = "drop_money_use_item_as_currency", category = "dropmoneyonground", 
+			comment = "Use the reward as a currency (bag of gold) which can be sold, bought, stored in a"
+			+ "\nprotected chest or a protected area (a Bank?). Check the command /mh money sell."
+			+ "\nSet this to FALSE if you want the BafOfGold to be picked up as money, if true the BagOfGold"
+			+ "\nwill be picked up as an item. OBS: If you want to use the bags as an Economy "
+			+ "\nreplacing Essentials/CraftConomy/... and more, then you have to install the"
+			+ "\nBagOfGold plugin as well. (https://dev.bukkit.org/projects/bagofgold)")
+	public boolean dropMoneyOnGroundUseItemAsCurrency = true;
 
 	@ConfigField(name = "drop_money_command_alias", category = "dropmoneyonground", comment = "Here you can chance the command /mh money ... to /mh <alias> ..."
 			+ "\nExample: gold,bag,silver,coin,???? ")

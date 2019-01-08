@@ -100,8 +100,7 @@ public class MobHuntingManager implements Listener {
 	 * Set if MobHunting is allowed for the player
 	 *
 	 * @param player
-	 * @param enabled
-	 *            = true : means the MobHunting is allowed
+	 * @param enabled = true : means the MobHunting is allowed
 	 */
 	public void setHuntEnabled(Player player, boolean enabled) {
 		player.setMetadata("MH:enabled", new FixedMetadataValue(plugin, enabled));
@@ -335,7 +334,7 @@ public class MobHuntingManager implements Listener {
 						event.getDrops());
 
 				if (playerKilledByMobPenalty != 0) {
-					plugin.getRewardManager().getEconomy().withdrawPlayer(killed, playerKilledByMobPenalty);
+					plugin.getRewardManager().withdrawPlayer(killed, playerKilledByMobPenalty);
 					boolean killed_muted = false;
 					if (plugin.getPlayerSettingsManager().containsKey(killed))
 						killed_muted = plugin.getPlayerSettingsManager().getPlayerSettings(killed).isMuted();
@@ -485,7 +484,7 @@ public class MobHuntingManager implements Listener {
 		if (CrackShotCompat.isSupported() && CrackShotCompat.isCrackShotUsed(damaged)) {
 			return;
 		}
-		
+
 		if (McMMOHorses.isSupported() && McMMOHorses.isMcMMOHorse(damaged)) {
 			return;
 		}
@@ -797,20 +796,24 @@ public class MobHuntingManager implements Listener {
 			plugin.getMessages().debug("%s killed a Sentinel, Sentries or a Sentry npc-%s (name=%s)", player.getName(),
 					CitizensCompat.getNPCId(killed), mob.getMobName());
 		} else
-			
-		//player killed a McMMOHorse
+
+		// player killed a McMMOHorse
 		if (McMMOHorses.isMcMMOHorse(killed)) {
-			plugin.getMessages().debug("%s killed a McMMOHorse %s owned by %s", player.getName(), 
+			plugin.getMessages().debug("%s killed a McMMOHorse %s owned by %s", player.getName(),
 					McMMOHorses.getHorse(killed).name, McMMOHorses.getHorse(killed).owner);
 			if (!McMMOHorses.isPermanentDeath()) {
-				plugin.getMessages().debug("Killblocked: %s there is no rewards for killing RPGHorses", player.getName());
-				plugin.getMessages().learn(killer, plugin.getMessages().getString("mobhunting.learn.mcmmohorses-not-permanent-death"));
+				plugin.getMessages().debug("Killblocked: %s there is no rewards for killing RPGHorses",
+						player.getName());
+				plugin.getMessages().learn(killer,
+						plugin.getMessages().getString("mobhunting.learn.mcmmohorses-not-permanent-death"));
 				plugin.getMessages().debug("======================= kill ended (3.1)======================");
 				return;
 			}
 			if (McMMOHorses.isMcMMOHorseOwner(killed, player)) {
-				plugin.getMessages().debug("Killblocked: %s there is no rewards for killing your own RPGHorses", player.getName());
-				plugin.getMessages().learn(killer, plugin.getMessages().getString("mobhunting.learn.mcmmohorses-not-own-horses"));
+				plugin.getMessages().debug("Killblocked: %s there is no rewards for killing your own RPGHorses",
+						player.getName());
+				plugin.getMessages().learn(killer,
+						plugin.getMessages().getString("mobhunting.learn.mcmmohorses-not-own-horses"));
 				plugin.getMessages().debug("======================= kill ended (3.2)======================");
 				return;
 			}
@@ -1784,8 +1787,9 @@ public class MobHuntingManager implements Listener {
 								}
 							}
 						}
-						MessageType messageType = MessageType.valueOf((cmd == null || cmd.get("message_type") == null)
-								? "Chat" : cmd.getOrDefault("message_type", "Chat"));
+						MessageType messageType = MessageType
+								.valueOf((cmd == null || cmd.get("message_type") == null) ? "Chat"
+										: cmd.getOrDefault("message_type", "Chat"));
 						String message = cmd.getOrDefault("message", "");
 						if (message != null && !killer_muted) {
 							plugin.getMessages().playerSendMessageAt(player,
@@ -1876,12 +1880,10 @@ public class MobHuntingManager implements Listener {
 	/**
 	 * Get the Player or the MyPet owner (Player)
 	 *
-	 * @param killer
-	 *            - the player who killed the mob
-	 * @param killed
-	 *            - the mob which died
-	 * @return the Player or return null when killer is not a player and killed
-	 *         not killed by a MyPet.
+	 * @param killer - the player who killed the mob
+	 * @param killed - the mob which died
+	 * @return the Player or return null when killer is not a player and killed not
+	 *         killed by a MyPet.
 	 */
 	private Player getPlayer(Player killer, Entity killed) {
 		if (killer != null)

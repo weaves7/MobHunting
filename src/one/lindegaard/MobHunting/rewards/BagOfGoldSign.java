@@ -231,7 +231,7 @@ public class BagOfGoldSign implements Listener {
 					}
 				} else if (signType
 						.equalsIgnoreCase(plugin.getMessages().getString("mobhunting.bagofgoldsign.line2.balance"))) {
-					if (BagOfGoldCompat.isSupported())
+					if (BagOfGoldCompat.isSupported() || !plugin.getConfigManager().dropMoneyOnGroundUseItemAsCurrency)
 						if (plugin.getRewardManager().getEconomy().isBankOwner(player.getUniqueId().toString(), player)
 								.transactionSuccess()) {
 							plugin.getMessages().playerActionBarMessageQueue(player,

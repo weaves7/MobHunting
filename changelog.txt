@@ -1,6 +1,7 @@
 V6.5.1
 * Support for McMMOHorses Added. You dont get a reward for killing MCHorses
 * Added New Achievement. Neptune - King of the seas. Kill a Mob using a Trident over 20 blocks
+* Re-added Setting "drop_money_use_item_as_currency" to the config.yml. This was deleted in V6.5.0. 
 V6.5.0
 * Updated to bStats 1.4
 * MobHunting and BagOfGold is not dependend on each other anymore.

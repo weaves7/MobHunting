@@ -26,7 +26,10 @@ public class PickupRewards {
 				callBack.setCancelled(true);
 				if (BagOfGoldCompat.isSupported()) {
 					done = plugin.getRewardManager().getEconomy().depositPlayer(player, reward.getMoney()).amount;
-				} else {
+				} else if (reward.getMoney() != 0 && !plugin.getConfigManager().dropMoneyOnGroundUseItemAsCurrency) {
+							// If not Gringotts
+									done = plugin.getRewardManager().depositPlayer(player, reward.getMoney()).amount;
+									} else {
 					done = plugin.getRewardManager().addBagOfGoldPlayer(player, reward.getMoney());
 				}
 			}
