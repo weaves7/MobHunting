@@ -18,8 +18,9 @@ import com.sk89q.worldguard.protection.flags.Flag;
 import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.flags.StateFlag.State;
 import com.sk89q.worldguard.protection.flags.registry.FlagConflictException;
-import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import com.sk89q.worldguard.protection.regions.RegionContainer;
+import com.sk89q.worldguard.protection.regions.RegionQuery;
 
 public class WorldGuardHelper {
 
@@ -83,21 +84,24 @@ public class WorldGuardHelper {
 	public static boolean isAllowedByWorldGuard(Entity damager, Entity damaged, StateFlag stateFlag,
 			boolean defaultValue) {
 		Player checkedPlayer = null;
+
 		if (MyPetCompat.isMyPet(damager))
 			checkedPlayer = MyPetCompat.getMyPetOwner(damager);
 		else if (damager instanceof Player)
 			checkedPlayer = (Player) damager;
+
 		if (checkedPlayer != null) {
 			LocalPlayer localPlayer = WorldGuardCompat.getWorldGuardPlugin().wrapPlayer(checkedPlayer);
-			RegionManager regionManager = WorldGuard.getInstance().getPlatform().getRegionContainer()
-					.get(localPlayer.getWorld());
-			if (regionManager != null) {
-				Location loc = localPlayer.getLocation();
-				ApplicableRegionSet set = regionManager.getApplicableRegions(localPlayer.getCardinalDirection().toBlockVector());
+			Location loc = localPlayer.getLocation();
+			RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+			if (container != null) {
+				// https://worldguard.enginehub.org/en/latest/developer/regions/spatial-queries/
+				RegionQuery query = container.createQuery();
+				ApplicableRegionSet set = query.getApplicableRegions(loc);
 				if (set.size() > 0) {
 					State flag = set.queryState(localPlayer, stateFlag);
 					if (flag != null) {
-						return flag==State.ALLOW;
+						return flag == State.ALLOW;
 					}
 				}
 				return defaultValue;

@@ -117,7 +117,7 @@ public class MobHuntingManager implements Listener {
 			return false;
 
 		if (!player.hasMetadata("MH:enabled")) {
-			plugin.getMessages().debug("KillBlocked %s: Player doesnt have MH:enabled", player.getName());
+			plugin.getMessages().debug("KillBlocked %s: Player doesn't have MH:enabled", player.getName());
 			return false;
 		}
 
@@ -357,7 +357,7 @@ public class MobHuntingManager implements Listener {
 				if (balance != 0) {
 					plugin.getMessages().debug("%s dropped %s because of his death, killed by %s", killed.getName(),
 							plugin.getRewardManager().format(balance), killer.getName());
-					BagOfGold.getAPI().getEconomyManager().removeMoneyFromBalance(killed, balance);
+					BagOfGold.getAPI().getEconomyManager().removeMoneyFromPlayerBalance(killed, balance);
 				}
 			}
 		}
@@ -848,6 +848,9 @@ public class MobHuntingManager implements Listener {
 							plugin.getConfigManager().disableNatualXPDrops);
 					plugin.getMessages().debug("======================= kill ended (5)======================");
 					return;
+				} else {
+					plugin.getMessages().debug("KillAllowed: Mob killed by %s was allowed by WorldGuard",
+							killer.getName());
 				}
 			}
 		}
