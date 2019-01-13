@@ -15,7 +15,7 @@ import one.lindegaard.MobHunting.MobHunting;
 
 public class TownyHelper {
 
-	public static boolean isInHomeTome(Player player) {
+	public static boolean isInHomeTown(Player player) {
 		if (TownyCompat.isSupported()) {
 			Resident resident;
 			Town homeTown = null;
@@ -64,6 +64,20 @@ public class TownyHelper {
 					return false;
 				}
 			} catch (NotRegisteredException e) {
+				return false;
+			}
+		}
+		return false;
+	}
+
+	public static boolean isInAnyTomn(Player player) {
+		if (TownyCompat.isSupported()) {
+			TownBlock tb = TownyUniverse.getTownBlock(player.getLocation());
+			if (tb != null) {
+				// Location is within a town
+				return true;
+			} else {
+				// MobHunting.getInstance().getMessages().debug("The player is not in a town");
 				return false;
 			}
 		}

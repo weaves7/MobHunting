@@ -1,3 +1,5 @@
+V6.5.2
+* Added new option for Towny servers. disable_rewards_in_any_town - used to deny player MobHunting rewards in any town. Hometown or not.
 V6.5.1
 * Support for McMMOHorses Added. You dont get a reward for killing MCHorses
 * Added New Achievement. Neptune - King of the seas. Kill a Mob using a Trident over 20 blocks

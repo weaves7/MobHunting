@@ -885,15 +885,23 @@ public class MobHuntingManager implements Listener {
 		if (TownyCompat.isSupported()) {
 			if ((killer != null || MyPetCompat.isMyPet(killer)) && !CitizensCompat.isNPC(killer)
 					&& !(killed instanceof Player)) {
-				if (plugin.getConfigManager().disableRewardsInHomeTown && TownyCompat.isInHomeTome(player)) {
+				if (plugin.getConfigManager().disableRewardsInHomeTown && TownyCompat.isInHomeTown(player)) {
 					plugin.getMessages().debug("KillBlocked: %s is hiding in his home town", player.getName());
 					plugin.getMessages().learn(player,
 							plugin.getMessages().getString("mobhunting.learn.towny-no-rewards-in-home-town"));
 					cancelDrops(event, plugin.getConfigManager().disableNaturallyRewardsInHomeTown,
 							plugin.getConfigManager().disableNaturallyRewardsInHomeTown);
-					plugin.getMessages().debug("======================= kill ended (8)======================");
+					plugin.getMessages().debug("======================= kill ended (8a)======================");
 					return;
-				}
+				} else if (plugin.getConfigManager().disableRewardsInAnyTown && TownyCompat.isInAnyTown(player)) {
+					plugin.getMessages().debug("KillBlocked: %s is hiding in a town", player.getName());
+					plugin.getMessages().learn(player,
+							plugin.getMessages().getString("mobhunting.learn.towny-no-rewards-in-any-town"));
+					cancelDrops(event, plugin.getConfigManager().disableNaturallyRewardsInHomeTown,
+							plugin.getConfigManager().disableNaturallyRewardsInHomeTown);
+					plugin.getMessages().debug("======================= kill ended (8b)======================");
+					return;
+				} 
 			}
 		}
 

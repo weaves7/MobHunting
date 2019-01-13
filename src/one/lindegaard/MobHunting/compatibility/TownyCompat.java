@@ -52,9 +52,16 @@ public class TownyCompat {
 		return MobHunting.getInstance().getConfigManager().enableIntegrationTowny;
 	}
 
-	public static boolean isInHomeTome(Player player) {
+	public static boolean isInHomeTown(Player player) {
 		if (supported) {
-			return TownyHelper.isInHomeTome(player);
+			return TownyHelper.isInHomeTown(player);
+		}
+		return false;
+	}
+	
+	public static boolean isInAnyTown(Player player) {
+		if (supported) {
+			return TownyHelper.isInAnyTomn(player);
 		}
 		return false;
 	}

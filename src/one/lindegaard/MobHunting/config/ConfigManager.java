@@ -383,7 +383,7 @@ public class ConfigManager extends AutoConfig {
 						+ "\nintegration completely." + "\nhttp://towny.palmergames.com/");
 
 		setCategoryComment("plugins.residence",
-				"########################################################################" + "\nTowny settings"
+				"########################################################################" + "\nResidence settings"
 						+ "\n########################################################################"
 						+ "\nHere you can chance the behavior of the Residence integration, or you can disable"
 						+ "\nintegration completely."
@@ -3060,6 +3060,10 @@ public class ConfigManager extends AutoConfig {
 	@ConfigField(name = "disable_rewards_in_home_town", category = "plugins.towny", comment = "Disable rewards when the player is in his hometown."
 			+ "\nhttp://towny.palmergames.com/")
 	public boolean disableRewardsInHomeTown = true;
+
+	@ConfigField(name = "disable_rewards_in_any_town", category = "plugins.towny", comment = "Disable rewards when the player is in any town."
+			+ "\nhttp://towny.palmergames.com/")
+	public boolean disableRewardsInAnyTown = false;
 
 	@ConfigField(name = "disable_naturally_drops_and_xp_in_home_town", category = "plugins.towny", comment = "Disable naturally drops and xp drops when the player kill mobs in his home town.")
 	public boolean disableNaturallyRewardsInHomeTown = false;
