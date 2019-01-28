@@ -69,7 +69,7 @@
 		<holograms.version>2.5.0-SNAPSHOT</holograms.version>
 		<hologramdisplays.version>2.2.6</hologramdisplays.version>
 
-		<minigames.version>1.9.0-SNAPSHOT</minigames.version>
+		<minigames.version>1.9.0.4</minigames.version>
 		<minigameslib.version>1.14.14</minigameslib.version>
 		<mypet.version>2.3.4</mypet.version>
 		<mcmmohorses.version>4.3.45c</mcmmohorses.version>
@@ -320,11 +320,11 @@
 			<url>https://ci.ender.zone/plugin/repository/everything/com/massivecraft/Factions/</url>
 		</repository>
 
-		<repository>
+		<!--<repository>
 			<id>MinigamesAPI-Repo</id>
 			<name>MinigamesAPI Repository</name>
 			<url>http://nexus.xworlds.eu/nexus/content/repositories/mce/</url>
-		</repository>
+		</repository>-->
 
 	</repositories>
 
@@ -596,12 +596,20 @@
 			<version>${MysteriousHalloween.version}</version>
 		</dependency>
 
-		<!-- EliteMobs -->
+		<!-- EliteMobs
 		<dependency>
 			<groupId>com.magmaguy</groupId>
 			<artifactId>EliteMobs</artifactId>
 			<version>${EliteMobs.version}</version>
+		</dependency> -->
+
+		<dependency>
+			<groupId>com.github.MagmaGuy</groupId>
+			<artifactId>EliteMobs</artifactId>
+			<version>7a35598c6d</version>
 		</dependency>
+
+
 
 		<!-- SmartGiants -->
 		<dependency>
@@ -757,7 +765,7 @@
 			<version>7.6.2.0</version>
 		</dependency>
 
-		<!-- Minigames -->
+		<!-- Minigames-->
 		<dependency>
 			<groupId>au.com.mineauz</groupId>
 			<artifactId>Minigames</artifactId>

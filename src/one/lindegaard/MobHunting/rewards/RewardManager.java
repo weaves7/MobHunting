@@ -723,9 +723,9 @@ public class RewardManager {
 			return 0;
 
 		} else if (EliteMobsCompat.isEliteMobs(mob)) {
-			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob).getName()))
+			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob).name()))
 				return getPrice(mob, EliteMobsCompat.getMobRewardData()
-						.get(EliteMobsCompat.getEliteMobsType(mob).getName()).getRewardPrize());
+						.get(EliteMobsCompat.getEliteMobsType(mob).name()).getRewardPrize());
 			plugin.getMessages().debug("EliteMob %s has no reward data", EliteMobsCompat.getEliteMobsType(mob));
 			return 0;
 
@@ -1007,8 +1007,8 @@ public class RewardManager {
 			return new ArrayList<>();
 
 		} else if (EliteMobsCompat.isEliteMobs(mob)) {
-			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob).getName()))
-				return EliteMobsCompat.getMobRewardData().get(EliteMobsCompat.getEliteMobsType(mob).getName())
+			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob).name()))
+				return EliteMobsCompat.getMobRewardData().get(EliteMobsCompat.getEliteMobsType(mob).name())
 						.getConsoleRunCommand();
 			return new ArrayList<>();
 
@@ -1238,8 +1238,8 @@ public class RewardManager {
 			return "";
 
 		} else if (EliteMobsCompat.isEliteMobs(mob)) {
-			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob).getName()))
-				return EliteMobsCompat.getMobRewardData().get(EliteMobsCompat.getEliteMobsType(mob).getName())
+			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob).name()))
+				return EliteMobsCompat.getMobRewardData().get(EliteMobsCompat.getEliteMobsType(mob).name())
 						.getRewardDescription();
 			return "";
 
@@ -1461,8 +1461,8 @@ public class RewardManager {
 			return 0;
 
 		} else if (EliteMobsCompat.isEliteMobs(mob)) {
-			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob).getName()))
-				return EliteMobsCompat.getMobRewardData().get(EliteMobsCompat.getEliteMobsType(mob).getName())
+			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob).name()))
+				return EliteMobsCompat.getMobRewardData().get(EliteMobsCompat.getEliteMobsType(mob).name())
 						.getChance();
 			return 0;
 
@@ -1689,8 +1689,8 @@ public class RewardManager {
 			return 0;
 
 		} else if (EliteMobsCompat.isEliteMobs(mob)) {
-			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob).getName()))
-				return EliteMobsCompat.getMobRewardData().get(EliteMobsCompat.getEliteMobsType(mob).getName())
+			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob).name()))
+				return EliteMobsCompat.getMobRewardData().get(EliteMobsCompat.getEliteMobsType(mob).name())
 						.getMcMMOSkillRewardChance();
 			return 0;
 
@@ -1941,8 +1941,8 @@ public class RewardManager {
 			return 0;
 
 		} else if (EliteMobsCompat.isEliteMobs(mob)) {
-			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob).getName()))
-				return EliteMobsCompat.getMobRewardData().get(EliteMobsCompat.getEliteMobsType(mob).getName())
+			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob).name()))
+				return EliteMobsCompat.getMobRewardData().get(EliteMobsCompat.getEliteMobsType(mob).name())
 						.getMcMMOSkillRewardAmount();
 			return 0;
 
@@ -2163,9 +2163,9 @@ public class RewardManager {
 				return HerobrineCompat.getMobRewardData().get(HerobrineCompat.getHerobrineMobType(mob)).isMobEnabled();
 			return false;
 
-		} else if (EliteMobsCompat.isEliteMobs(mob)) {
-			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob).getName()))
-				return EliteMobsCompat.getMobRewardData().get(EliteMobsCompat.getEliteMobsType(mob).getName())
+		} else if (EliteMobsCompat.isEliteMobs(mob)) {                                    //name() was getName()
+			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob).name()))
+				return EliteMobsCompat.getMobRewardData().get(EliteMobsCompat.getEliteMobsType(mob).name())
 						.isMobEnabled();
 			return false;
 
@@ -2399,7 +2399,7 @@ public class RewardManager {
 			return false;
 
 		} else if (EliteMobsCompat.isEliteMobs(mob)) {
-			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob).getName()))
+			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob).name()))
 				return false;
 			return false;
 
@@ -2633,7 +2633,7 @@ public class RewardManager {
 			return 0;
 
 		} else if (EliteMobsCompat.isEliteMobs(mob)) {
-			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob).getName()))
+			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob).name()))
 				return 0;
 			// return
 			// HerobrineCompat.getMobRewardData().get(HerobrineCompat.getHerobrineMobType(killed)).isMobEnabled();
@@ -2869,7 +2869,7 @@ public class RewardManager {
 			return "";
 
 		} else if (EliteMobsCompat.isEliteMobs(mob)) {
-			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob).getName()))
+			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob).name()))
 				return "";
 			// return
 			// HerobrineCompat.getMobRewardData().get(HerobrineCompat.getHerobrineMobType(killed)).isMobEnabled();
@@ -3105,7 +3105,7 @@ public class RewardManager {
 			return 0;
 
 		} else if (EliteMobsCompat.isEliteMobs(mob)) {
-			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob).getName()))
+			if (EliteMobsCompat.getMobRewardData().containsKey(EliteMobsCompat.getEliteMobsType(mob).name()))
 				return 0;
 			// return
 			// HerobrineCompat.getMobRewardData().get(HerobrineCompat.getHerobrineMobType(killed)).isMobEnabled();
